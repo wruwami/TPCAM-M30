@@ -8,6 +8,7 @@
 #include "DateFormatManager.h"
 #include "StringLoader.h"
 #include "CustomCheckBox.h"
+#include "SerialGPSManager.h"
 
 DateTimeWidget::DateTimeWidget(QWidget *parent) :
     QWidget(parent),
@@ -156,29 +157,42 @@ void DateTimeWidget::on_savePushButton_clicked()
     m_config.SaveFile();
 
 #ifdef  Q_OS_LINUX
-    QString string = m_dateTime.toString("\"yyyy-MM-dd hh:mm:ss\"");
+    QString string = m_dateTime.toString("yyyy-MM-dd hh:mm:ss");
     QString dateTimeString ("date -s ");
-    dateTimeString.append(string);    
+    string.remove(0, 1);
+    string.remove(string.size() - 1, 1);
 //    dateTimeString.append("TZ : " + ui->timeZoneComboBox->currentText());
 
+    if (isChecked)
+    {
+        dateTimeString.append(SerialGPSManager::GetInstance()->GetDateTimeString());
+    }
+    else
+    {
+        dateTimeString.append(string);
+    }
+
     int systemDateTimeStatus= system(dateTimeString.toStdString().c_str());
+
+
     if (systemDateTimeStatus == -1)
     {
         qDebug() << "Failed to change date time";
     }
 
-    if (isChecked)
-    {
-        QString TimeZoneString ("timedatectl set-timezone \"");
-        dateTimeString.append(ui->timeZoneComboBox->currentText());
-        dateTimeString.append("\"");
-    }
-
-    systemDateTimeStatus= system(dateTimeString.toStdString().c_str());
+    QString TimeZoneString ("timedatectl set-timezone ");
+    TimeZoneString.append(ui->timeZoneComboBox->currentText());
+//    TimeZoneString.append("\"");
+    TimeZoneString.remove('\"');
+    systemDateTimeStatus= system(TimeZoneString.toStdString().c_str());
     if (systemDateTimeStatus == -1)
     {
         qDebug() << "Failed to change time zone";
     }
+
+
+
+
 #endif
 }
 

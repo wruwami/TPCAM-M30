@@ -111,7 +111,7 @@ private:
     QString m_userName;
     int m_nFailTimerId;
     bool m_bLoginFail = false;
-    QWidget* m_redAlertWidget;
+    QWidget* m_redAlertWidget = nullptr;
     QTimer* m_p100msTimer;
     QTimer* m_p500msTimer;
     bool m_bFlick = false;

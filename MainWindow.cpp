@@ -574,8 +574,11 @@ void MainWindow::SelfTestFail(bool show)
     }
     else
     {
-        delete m_redAlertWidget;
-        m_redAlertWidget = nullptr;
+        if (m_redAlertWidget != nullptr)
+        {
+            delete m_redAlertWidget;
+            m_redAlertWidget = nullptr;
+        }
     }
 
 }

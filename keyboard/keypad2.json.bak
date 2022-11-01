@@ -1,0 +1,28 @@
+{
+  "locale":"en",
+  "layouts": [
+    { "name":"numerical",
+        "keys":[["1", "2", "3"],
+                ["7", "8", "9"],
+				["c", "0", "back"]]
+    }
+  ],
+  "modifiers": [{ "keyspan":"back", "span":"2" },
+                     { "keyspan":"Caps", "span":"2" },
+                     { "keyspan":"Lowr", "span":"2" },
+                     { "keyspan":"#+=", "span":"2" },
+                     { "keyspan":"ABC", "span":"2" },
+                     { "keyspan":"return", "span":"2" },
+                     { "keyspan":"123", "span":"2" },
+                     { "keyspan":"space", "span":"5" },
+                     { "icon":"back", "path":":/icon/icon/backspace.png" },
+                     { "icon":"Caps", "path":":/icon/icon/caps.png" },
+                     { "icon":"return", "path":":/icon/icon/enter.png" },
+                     { "icon":"Lowr", "path":":/icon/icon/lows.png" },
+                     { "switchkey":"Caps", "layout":"uppercase" },
+                     { "switchkey":"123", "layout":"numerical" },
+                     { "switchkey":"Lowr", "layout":"lowercase" },
+                     { "switchkey":"ABC", "layout":"lowercase" },
+                     { "switchkey":"#+=", "layout":"symbols" }
+                     ]
+ }

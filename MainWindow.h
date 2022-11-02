@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 
+class LoginWidget;
 namespace Ui {
 class MainWindow;
 }
@@ -22,6 +23,7 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
+    LoginWidget* m_pLoginWidget;
 };
 
 #endif // MAINWINDOW_H

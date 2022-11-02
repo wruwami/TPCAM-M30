@@ -2,19 +2,33 @@
 #include "ui_MainWindow.h"
 
 #include "LoginWidget.h"
+#include "IndicatorWidget.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    m_pLoginWidget = new LoginWidget();
+    m_pLoginWidget = new LoginWidget(this);
     ui->verticalLayout_2->addWidget(m_pLoginWidget, 835);
+
+//    connect(this, LoginWidget::closeEvent, [=]() {
+//        ui->verticalLayout_2->removeWidget(m_pLoginWidget);
+//        IndicatorWidget indicatorWidget;
+//        ui->verticalLayout_2->addWidget(&indicatorWidget, 835);
+//    });
+
+//    m_pLoginWidget->closeEvent();
+
+    //    connect(m_pLoginWidget->ui->, &LoginWidget::)
+
+    QObject::connect((QWidget*)m_pLoginWidget->m_loginPushButton, SIGNAL(clicked()), this, SLOT(on_loginWidgetClose()));
 }
 
 MainWindow::~MainWindow()
 {
-    delete m_pLoginWidget;
+    if (m_pLoginWidget != nullptr)
+        delete m_pLoginWidget;
     delete ui;
 }
 
@@ -26,4 +40,11 @@ void MainWindow::on_cameraPushButton_clicked()
 void MainWindow::on_daynNightPushButton_clicked()
 {
 
+}
+
+void MainWindow::on_loginWidgetClose()
+{
+    ui->verticalLayout_2->removeWidget(m_pLoginWidget);
+    m_pIndicatorWidget = new IndicatorWidget();
+    ui->verticalLayout_2->addWidget(m_pIndicatorWidget, 835);
 }

@@ -4,6 +4,7 @@
 #include <QMainWindow>
 
 class LoginWidget;
+class IndicatorWidget;
 namespace Ui {
 class MainWindow;
 }
@@ -20,10 +21,11 @@ private slots:
     void on_cameraPushButton_clicked();
 
     void on_daynNightPushButton_clicked();
-
+    void on_loginWidgetClose();
 private:
     Ui::MainWindow *ui;
     LoginWidget* m_pLoginWidget;
+    IndicatorWidget* m_pIndicatorWidget;
 };
 
 #endif // MAINWINDOW_H

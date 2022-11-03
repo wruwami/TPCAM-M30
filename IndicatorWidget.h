@@ -43,7 +43,7 @@ private:
     CustomPushButton* m_pVideoPushButton;
     CustomPushButton* m_pSTPushButton;
     CustomPushButton* m_pLTPushButton;
-    CustomPushButton* m_pWIFIPushButton;
+    CustomPushButton* m_pWifiPushButton;
     CustomPushButton* m_pBTPushButton;
     CustomPushButton* m_pEthernetPushButton;
 };

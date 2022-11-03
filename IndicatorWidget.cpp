@@ -49,16 +49,42 @@ void IndicatorWidget::on_gpsPushButton_clicked()
 void IndicatorWidget::on_comPushButton_clicked()
 {
     clearSecondForuthRow();
+    m_pWifiPushButton = new CustomPushButton();
+    m_pBTPushButton = new CustomPushButton();
+    m_pEthernetPushButton = new CustomPushButton();
+
+//    ui->gridLayout->setColumnStretch(0, 3);
+    ui->gridLayout->addWidget(m_pWifiPushButton, 1, 1);
+    ui->gridLayout->addWidget(m_pBTPushButton , 1, 2);
+    ui->gridLayout->addWidget(m_pEthernetPushButton , 1, 2);
+
 }
 
 void IndicatorWidget::on_speedPushButton_clicked()
 {
     clearSecondForuthRow();
+    m_pSTPushButton = new CustomPushButton();
+    m_pLTPushButton = new CustomPushButton();
+
+    ui->gridLayout->setColumnStretch(0, 3);
+    ui->gridLayout->addWidget(m_pSTPushButton, 1, 1);
+    ui->gridLayout->addWidget(m_pLTPushButton , 1, 2);
+
 }
 
 void IndicatorWidget::on_enforcementPushButton_clicked()
 {
     clearSecondForuthRow();
+    m_pImagePushButton = new CustomPushButton();
+    m_pVideoPushButton = new CustomPushButton();
+    m_pImageVideoPushButton = new CustomPushButton();
+
+//    ui->gridLayout->setColumnStretch(0, 3);
+    ui->gridLayout->addWidget(m_pImagePushButton, 1, 1);
+    ui->gridLayout->addWidget(m_pImageVideoPushButton , 1, 2);
+    ui->gridLayout->addWidget(m_pVideoPushButton , 1, 2);
+
+
 }
 
 void IndicatorWidget::on_weatherPushButton_clicked()
@@ -67,7 +93,7 @@ void IndicatorWidget::on_weatherPushButton_clicked()
     m_pSunnyPushButton = new CustomPushButton();
     m_pRainyPushButton = new CustomPushButton();
 
-//    ui->blankWidget->setAcceptDrops();
+    ui->gridLayout->setColumnStretch(0, 3);
     ui->gridLayout->addWidget(m_pSunnyPushButton, 1, 1);
     ui->gridLayout->addWidget(m_pRainyPushButton , 1, 2);
 }
@@ -80,5 +106,4 @@ void IndicatorWidget::clearSecondForuthRow()
         if (item != nullptr)
             delete item;
     }
-
 }

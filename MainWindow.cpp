@@ -12,16 +12,6 @@ MainWindow::MainWindow(QWidget *parent) :
     m_pLoginWidget = new LoginWidget(this);
     ui->verticalLayout_2->addWidget(m_pLoginWidget, 835);
 
-//    connect(this, LoginWidget::closeEvent, [=]() {
-//        ui->verticalLayout_2->removeWidget(m_pLoginWidget);
-//        IndicatorWidget indicatorWidget;
-//        ui->verticalLayout_2->addWidget(&indicatorWidget, 835);
-//    });
-
-//    m_pLoginWidget->closeEvent();
-
-    //    connect(m_pLoginWidget->ui->, &LoginWidget::)
-
     QObject::connect((QWidget*)m_pLoginWidget->m_loginPushButton, SIGNAL(clicked()), this, SLOT(on_loginWidgetClose()));
 }
 

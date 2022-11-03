@@ -54,9 +54,9 @@ void IndicatorWidget::on_comPushButton_clicked()
     m_pEthernetPushButton = new CustomPushButton();
 
 //    ui->gridLayout->setColumnStretch(0, 3);
-    ui->gridLayout->addWidget(m_pWifiPushButton, 1, 1);
-    ui->gridLayout->addWidget(m_pBTPushButton , 1, 2);
-    ui->gridLayout->addWidget(m_pEthernetPushButton , 1, 2);
+    ui->gridLayout->addWidget(m_pWifiPushButton, 1, 4);
+    ui->gridLayout->addWidget(m_pBTPushButton , 1, 5);
+    ui->gridLayout->addWidget(m_pEthernetPushButton , 1, 6);
 
 }
 
@@ -67,8 +67,8 @@ void IndicatorWidget::on_speedPushButton_clicked()
     m_pLTPushButton = new CustomPushButton();
 
     ui->gridLayout->setColumnStretch(0, 3);
-    ui->gridLayout->addWidget(m_pSTPushButton, 1, 1);
-    ui->gridLayout->addWidget(m_pLTPushButton , 1, 2);
+    ui->gridLayout->addWidget(m_pSTPushButton, 1, 3);
+    ui->gridLayout->addWidget(m_pLTPushButton , 1, 4);
 
 }
 
@@ -80,30 +80,37 @@ void IndicatorWidget::on_enforcementPushButton_clicked()
     m_pImageVideoPushButton = new CustomPushButton();
 
 //    ui->gridLayout->setColumnStretch(0, 3);
-    ui->gridLayout->addWidget(m_pImagePushButton, 1, 1);
-    ui->gridLayout->addWidget(m_pImageVideoPushButton , 1, 2);
-    ui->gridLayout->addWidget(m_pVideoPushButton , 1, 2);
+    ui->horizontalLayout2->addWidget(m_pImagePushButton, 1, 3);
+    ui->horizontalLayout2->addWidget(m_pImageVideoPushButton , 1, 4);
+    ui->gridLayout->addWidget(m_pVideoPushButton , 1, 5);
 
 
 }
 
 void IndicatorWidget::on_weatherPushButton_clicked()
 {
-    clearSecondForuthRow();
+//    clearSecondForuthRow();
     m_pSunnyPushButton = new CustomPushButton();
     m_pRainyPushButton = new CustomPushButton();
 
-    ui->gridLayout->setColumnStretch(0, 3);
-    ui->gridLayout->addWidget(m_pSunnyPushButton, 1, 1);
-    ui->gridLayout->addWidget(m_pRainyPushButton , 1, 2);
+    ui->horizontalLayout2->setStretch(0, 3);
+    ui->horizontalLayout2->removeItem(ui->horizontalLayout2->takeAt(1));
+    ui->horizontalLayout2->removeItem(ui->horizontalLayout2->takeAt(2));
+    ui->horizontalLayout2->insertWidget(1, m_pSunnyPushButton, 2);
+    ui->horizontalLayout2->insertWidget(2, m_pRainyPushButton ,2);
+
+    ui->horizontalLayout2->setStretch(6, 1);
 }
 
 void IndicatorWidget::clearSecondForuthRow()
 {
-    for (int i = 7 ; i < 14 ; i++)
+    for (int i = 0 ; i < 7 ; i++)
     {
-        QLayoutItem* item = ui->gridLayout->takeAt(0);
+        QLayoutItem* item = ui->horizontalLayout2->takeAt(i);
         if (item != nullptr)
+        {
+            delete item->widget();
             delete item;
+        }
     }
 }

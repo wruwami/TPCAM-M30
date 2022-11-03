@@ -16,28 +16,8 @@
   <layout class="QGridLayout" name="gridLayout_2">
    <item row="0" column="0">
     <layout class="QGridLayout" name="gridLayout" rowstretch="1,1,1,1" columnstretch="1,1,1,1,1,1,1">
-     <item row="1" column="0">
-      <spacer name="horizontalSpacer_2">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>40</width>
-         <height>20</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
      <item row="0" column="1">
       <widget class="CustomPushButton" name="daynNightPushButton">
-       <property name="text">
-        <string>PushButton</string>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="2">
-      <widget class="CustomPushButton" name="weatherPushButton">
        <property name="text">
         <string>PushButton</string>
        </property>
@@ -50,15 +30,15 @@
        </property>
       </widget>
      </item>
-     <item row="0" column="4">
-      <widget class="CustomPushButton" name="speedPushButton">
+     <item row="0" column="5">
+      <widget class="CustomPushButton" name="comPushButton">
        <property name="text">
         <string>PushButton</string>
        </property>
       </widget>
      </item>
-     <item row="0" column="5">
-      <widget class="CustomPushButton" name="comPushButton">
+     <item row="0" column="2">
+      <widget class="CustomPushButton" name="weatherPushButton">
        <property name="text">
         <string>PushButton</string>
        </property>
@@ -78,8 +58,22 @@
        </property>
       </widget>
      </item>
+     <item row="0" column="4">
+      <widget class="CustomPushButton" name="speedPushButton">
+       <property name="text">
+        <string>PushButton</string>
+       </property>
+      </widget>
+     </item>
      <item row="3" column="0">
       <widget class="CustomPushButton" name="onPushButton">
+       <property name="text">
+        <string>PushButton</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="6">
+      <widget class="CustomPushButton" name="gpsPushButton">
        <property name="text">
         <string>PushButton</string>
        </property>
@@ -92,10 +86,13 @@
        </property>
       </widget>
      </item>
-     <item row="0" column="6">
-      <widget class="CustomPushButton" name="gpsPushButton">
-       <property name="text">
-        <string>PushButton</string>
+     <item row="1" column="0">
+      <widget class="QWidget" name="blankWidget" native="true">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
        </property>
       </widget>
      </item>

@@ -47,14 +47,14 @@
         </widget>
        </item>
        <item>
-        <widget class="CustomPushButton" name="comPushButton">
+        <widget class="CustomPushButton" name="speedPushButton">
          <property name="text">
           <string>PushButton</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="CustomPushButton" name="speedPushButton">
+        <widget class="CustomPushButton" name="comPushButton">
          <property name="text">
           <string>PushButton</string>
          </property>
@@ -70,7 +70,7 @@
       </layout>
      </item>
      <item>
-      <layout class="QHBoxLayout" name="horizontalLayout2" stretch="2,2,2,2,2,2,2">
+      <layout class="QHBoxLayout" name="horizontalLayout2" stretch="0,0,0,0,0,0,0">
        <item>
         <spacer name="verticalSpacer_2">
          <property name="orientation">

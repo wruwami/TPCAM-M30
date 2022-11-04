@@ -26,7 +26,7 @@ IndicatorWidget::~IndicatorWidget()
 
 void IndicatorWidget::on_cameraPushButton_clicked()
 {
-    clearSecondForuthRow();
+    clearSecondRow();
 }
 
 void IndicatorWidget::on_screenRecordingPushButton_clicked()
@@ -37,59 +37,67 @@ void IndicatorWidget::on_screenRecordingPushButton_clicked()
 
 void IndicatorWidget::on_daynNightPushButton_clicked()
 {
-    clearSecondForuthRow();
+    clearSecondRow();
 
 }
 
 void IndicatorWidget::on_gpsPushButton_clicked()
 {
-    clearSecondForuthRow();
+    clearSecondRow();
 }
 
 void IndicatorWidget::on_comPushButton_clicked()
 {
-    clearSecondForuthRow();
+    clearSecondRow();
     m_pWifiPushButton = new CustomPushButton();
     m_pBTPushButton = new CustomPushButton();
     m_pEthernetPushButton = new CustomPushButton();
 
-//    ui->gridLayout->setColumnStretch(0, 3);
-    ui->gridLayout->addWidget(m_pWifiPushButton, 1, 4);
-    ui->gridLayout->addWidget(m_pBTPushButton , 1, 5);
-    ui->gridLayout->addWidget(m_pEthernetPushButton , 1, 6);
-
+    ui->horizontalLayout2->removeItem(ui->horizontalLayout2->takeAt(6));
+    ui->horizontalLayout2->removeItem(ui->horizontalLayout2->takeAt(5));
+    ui->horizontalLayout2->removeItem(ui->horizontalLayout2->takeAt(4));
+    ui->horizontalLayout2->addWidget(m_pWifiPushButton, 2);
+    ui->horizontalLayout2->addWidget(m_pBTPushButton, 2);
+    ui->horizontalLayout2->addWidget(m_pEthernetPushButton, 2);
 }
 
 void IndicatorWidget::on_speedPushButton_clicked()
 {
-    clearSecondForuthRow();
+    clearSecondRow();
     m_pSTPushButton = new CustomPushButton();
     m_pLTPushButton = new CustomPushButton();
 
-    ui->gridLayout->setColumnStretch(0, 3);
-    ui->gridLayout->addWidget(m_pSTPushButton, 1, 3);
-    ui->gridLayout->addWidget(m_pLTPushButton , 1, 4);
+    ui->horizontalLayout2->setStretch(0, 3);
+    ui->horizontalLayout2->removeItem(ui->horizontalLayout2->takeAt(3));
+    ui->horizontalLayout2->removeItem(ui->horizontalLayout2->takeAt(4));
+    ui->horizontalLayout2->insertWidget(3, m_pSTPushButton, 2);
+    ui->horizontalLayout2->insertWidget(4, m_pLTPushButton , 2);
+    ui->horizontalLayout2->setStretch(6, 1);
 
 }
 
 void IndicatorWidget::on_enforcementPushButton_clicked()
 {
-    clearSecondForuthRow();
+    clearSecondRow();
     m_pImagePushButton = new CustomPushButton();
     m_pVideoPushButton = new CustomPushButton();
     m_pImageVideoPushButton = new CustomPushButton();
 
 //    ui->gridLayout->setColumnStretch(0, 3);
-    ui->horizontalLayout2->addWidget(m_pImagePushButton, 1, 3);
-    ui->horizontalLayout2->addWidget(m_pImageVideoPushButton , 1, 4);
-    ui->gridLayout->addWidget(m_pVideoPushButton , 1, 5);
+    ui->horizontalLayout2->removeItem(ui->horizontalLayout2->takeAt(2));
+    ui->horizontalLayout2->removeItem(ui->horizontalLayout2->takeAt(3));
+    ui->horizontalLayout2->removeItem(ui->horizontalLayout2->takeAt(4));
+
+    ui->horizontalLayout2->insertWidget(2, m_pImagePushButton, 2);
+    ui->horizontalLayout2->insertWidget(3, m_pImageVideoPushButton , 2);
+    ui->horizontalLayout2->insertWidget(4, m_pVideoPushButton , 2);
 
 
 }
 
 void IndicatorWidget::on_weatherPushButton_clicked()
 {
-//    clearSecondForuthRow();
+    clearSecondRow();
     m_pSunnyPushButton = new CustomPushButton();
     m_pRainyPushButton = new CustomPushButton();
 
@@ -102,15 +110,29 @@ void IndicatorWidget::on_weatherPushButton_clicked()
     ui->horizontalLayout2->setStretch(6, 1);
 }
 
-void IndicatorWidget::clearSecondForuthRow()
+void IndicatorWidget::clearSecondRow()
 {
+//    for (int i = 0 ; i < 7 ; i++)
+//    {
+//        QLayoutItem* item = ui->horizontalLayout2->takeAt(i);
+//        if (item != nullptr)
+//        {
+//            delete item->widget();
+//            delete item;
+//        }
+//    }
+    QLayoutItem* item;
+    while ( ( item = ui->horizontalLayout2->takeAt( 0 ) ) != nullptr )
+    {
+        delete item->widget();
+        delete item;
+    }
+
     for (int i = 0 ; i < 7 ; i++)
     {
-        QLayoutItem* item = ui->horizontalLayout2->takeAt(i);
-        if (item != nullptr)
-        {
-            delete item->widget();
-            delete item;
-        }
+        QSpacerItem *item2 = new QSpacerItem(20, 40, QSizePolicy::Expanding, QSizePolicy::Expanding);
+        ui->horizontalLayout2->addItem(item2);
+        ui->horizontalLayout2->setStretch(i, 2);
     }
+
 }

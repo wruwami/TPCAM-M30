@@ -16,7 +16,7 @@ public:
     explicit IndicatorWidget(QWidget *parent = 0);
     ~IndicatorWidget();
 private:
-    void clearSecondForuthRow();
+    void clearSecondRow();
 private slots:
     void on_cameraPushButton_clicked();
 

@@ -4,7 +4,8 @@
 #include <QMainWindow>
 
 class LoginWidget;
-class IndicatorWidget;
+//class IndicatorWidget;
+class MainMenuContentWidget;
 namespace Ui {
 class MainWindow;
 }
@@ -25,7 +26,8 @@ private slots:
 private:
     Ui::MainWindow *ui;
     LoginWidget* m_pLoginWidget;
-    IndicatorWidget* m_pIndicatorWidget;
+//    IndicatorWidget* m_pIndicatorWidget;
+    MainMenuContentWidget* m_pMainMenuContentWidget;
 };
 
 #endif // MAINWINDOW_H

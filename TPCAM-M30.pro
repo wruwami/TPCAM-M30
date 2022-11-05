@@ -27,7 +27,16 @@ SOURCES += main.cpp\
     CustomLabel.cpp \
     CustomLineEdit.cpp \
     CustomPushButton.cpp \
-    BaseDialog.cpp
+    BaseDialog.cpp \
+    Setting1Widget.cpp \
+    Setting2Widget.cpp \
+    Setting3Widget.cpp \
+    Setting4Widget.cpp \
+    Setting5Widget.cpp \
+    Setting6Widget.cpp \
+    Setting7Widget.cpp \
+    EnforcementWidget.cpp \
+    FileManagementWidget.cpp
 
 HEADERS  += MainWindow.h \
     LoginWidget.h \
@@ -44,7 +53,16 @@ HEADERS  += MainWindow.h \
     CustomLabel.h \
     CustomLineEdit.h \
     CustomPushButton.h \
-    BaseDialog.h
+    BaseDialog.h \
+    Setting1Widget.h \
+    Setting2Widget.h \
+    Setting3Widget.h \
+    Setting4Widget.h \
+    Setting5Widget.h \
+    Setting6Widget.h \
+    Setting7Widget.h \
+    EnforcementWidget.h \
+    FileManagementWidget.h
 
 FORMS    += MainWindow.ui \
     LoginWidget.ui \
@@ -54,7 +72,16 @@ FORMS    += MainWindow.ui \
     IndicatorWidget.ui \
     SettingWidget.ui \
     SelfTestWidget.ui \
-    BaseDialog.ui
+    BaseDialog.ui \
+    Setting1Widget.ui \
+    Setting2Widget.ui \
+    Setting3Widget.ui \
+    Setting4Widget.ui \
+    Setting5Widget.ui \
+    Setting6Widget.ui \
+    Setting7Widget.ui \
+    EnforcementWidget.ui \
+    FileManagementWidget.ui
 
 RESOURCES += \
     style.qrc

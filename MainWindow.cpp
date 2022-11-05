@@ -2,7 +2,7 @@
 #include "ui_MainWindow.h"
 
 #include "LoginWidget.h"
-#include "IndicatorWidget.h"
+#include "MainMenuContentWidget.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -35,6 +35,6 @@ void MainWindow::on_daynNightPushButton_clicked()
 void MainWindow::on_loginWidgetClose()
 {
     ui->verticalLayout_2->removeWidget(m_pLoginWidget);
-    m_pIndicatorWidget = new IndicatorWidget();
-    ui->verticalLayout_2->addWidget(m_pIndicatorWidget, 835);
+    m_pMainMenuContentWidget = new MainMenuContentWidget();
+    ui->verticalLayout_2->addWidget(m_pMainMenuContentWidget, 835);
 }

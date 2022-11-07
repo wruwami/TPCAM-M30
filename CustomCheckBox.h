@@ -12,6 +12,10 @@ public:
 signals:
 
 public slots:
+
+    // QWidget interface
+protected:
+    void resizeEvent(QResizeEvent *event);
 };
 
 #endif // CUSTOMCHECKBOX_H

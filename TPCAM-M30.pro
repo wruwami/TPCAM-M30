@@ -39,6 +39,7 @@ SOURCES += main.cpp\
     FileManagementWidget.cpp
 
 HEADERS  += MainWindow.h \
+    FontSize.h \
     LoginWidget.h \
     MainMenuWidget.h \
     StringLoader.h \

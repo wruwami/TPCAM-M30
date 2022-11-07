@@ -27,8 +27,8 @@ int main(int argc, char *argv[])
     StringLoader::GetInstance()->Initialize(dir.toStdString(), "English");
 
     MainWindow w;
-    w.show();
-//    w.showFullScreen();
+//    w.show();
+    w.showFullScreen();
 
     return a.exec();
 }

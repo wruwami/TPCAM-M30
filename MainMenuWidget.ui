@@ -22,28 +22,28 @@
      <item row="1" column="10">
       <widget class="QLabel" name="batteryStatusLabel">
        <property name="text">
-        <string>TextLabel</string>
+        <string/>
        </property>
       </widget>
      </item>
      <item row="1" column="9">
       <widget class="QLabel" name="batteryPercentLabel">
        <property name="text">
-        <string>TextLabel</string>
+        <string/>
        </property>
       </widget>
      </item>
      <item row="1" column="2">
       <widget class="CustomPushButton" name="cameraPushButton">
        <property name="text">
-        <string>PushButton</string>
+        <string/>
        </property>
       </widget>
      </item>
      <item row="1" column="3">
       <widget class="CustomPushButton" name="daynNightPushButton">
        <property name="text">
-        <string>PushButton</string>
+        <string/>
        </property>
       </widget>
      </item>
@@ -70,42 +70,42 @@
      <item row="1" column="7">
       <widget class="CustomPushButton" name="wifiPushButton">
        <property name="text">
-        <string>PushButton</string>
+        <string/>
        </property>
       </widget>
      </item>
      <item row="1" column="5">
       <widget class="CustomPushButton" name="enforcementPushButton">
        <property name="text">
-        <string>PushButton</string>
+        <string/>
        </property>
       </widget>
      </item>
      <item row="1" column="4">
       <widget class="CustomPushButton" name="weatherPushButton">
        <property name="text">
-        <string>PushButton</string>
+        <string/>
        </property>
       </widget>
      </item>
      <item row="1" column="6">
       <widget class="CustomPushButton" name="speedPushButton">
        <property name="text">
-        <string>PushButton</string>
+        <string/>
        </property>
       </widget>
      </item>
      <item row="1" column="8">
       <widget class="CustomPushButton" name="gpsPushButton">
        <property name="text">
-        <string>PushButton</string>
+        <string/>
        </property>
       </widget>
      </item>
      <item row="1" column="11">
       <widget class="QLabel" name="timeLabel">
        <property name="text">
-        <string>TextLabel</string>
+        <string/>
        </property>
       </widget>
      </item>

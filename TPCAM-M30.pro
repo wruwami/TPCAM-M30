@@ -36,7 +36,9 @@ SOURCES += main.cpp\
     Setting6Widget.cpp \
     Setting7Widget.cpp \
     EnforcementWidget.cpp \
-    FileManagementWidget.cpp
+    FileManagementWidget.cpp \
+    EnforcementSpeedReady.cpp \
+    EnforcementCamera.cpp
 
 HEADERS  += MainWindow.h \
     FontSize.h \
@@ -63,7 +65,9 @@ HEADERS  += MainWindow.h \
     Setting6Widget.h \
     Setting7Widget.h \
     EnforcementWidget.h \
-    FileManagementWidget.h
+    FileManagementWidget.h \
+    EnforcementSpeedReady.h \
+    EnforcementCamera.h
 
 FORMS    += MainWindow.ui \
     LoginWidget.ui \
@@ -82,7 +86,9 @@ FORMS    += MainWindow.ui \
     Setting6Widget.ui \
     Setting7Widget.ui \
     EnforcementWidget.ui \
-    FileManagementWidget.ui
+    FileManagementWidget.ui \
+    EnforcementSpeedReady.ui \
+    EnforcementCamera.ui
 
 RESOURCES += \
     style.qrc

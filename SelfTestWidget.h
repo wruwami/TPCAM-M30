@@ -1,13 +1,13 @@
 #ifndef SELFTESTWIDGET_H
 #define SELFTESTWIDGET_H
 
-#include <QWidget>
+#include <QDialog>
 
 namespace Ui {
 class SelfTestWidget;
 }
 
-class SelfTestWidget : public QWidget
+class SelfTestWidget : public QDialog
 {
     Q_OBJECT
 

@@ -5,6 +5,7 @@
 #include <Qdir>
 
 #include "StringLoader.h"
+#include "SelfTestWidget.h"
 
 int main(int argc, char *argv[])
 {
@@ -25,6 +26,9 @@ int main(int argc, char *argv[])
     dir += "/resource/stringTable.csv";
 #endif
     StringLoader::GetInstance()->Initialize(dir.toStdString(), "English");
+
+    SelfTestWidget selfTestWidget;
+    selfTestWidget.exec();
 
     MainWindow w;
 //    w.show();

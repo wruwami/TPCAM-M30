@@ -1,4 +1,4 @@
-#include "EnforcementCamera.h"
+#include "EnforcementCameraWidget.h"
 #include "ui_EnforcementCamera.h"
 
 EnforcementCamera::EnforcementCamera(QWidget *parent) :

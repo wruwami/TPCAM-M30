@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Setting6Widget</class>
+ <class>Setting5Widget</class>
  <widget class="QWidget" name="Setting6Widget">
   <property name="geometry">
    <rect>

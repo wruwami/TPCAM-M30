@@ -37,7 +37,11 @@ SOURCES += main.cpp\
     Setting7Widget.cpp \
     EnforcementWidget.cpp \
     FileManagementWidget.cpp \
-    EnforcementComponentWidget.cpp
+    EnforcementComponentWidget.cpp \
+    EnforcementComponent2Widget.cpp \
+    FileManagerWidget.cpp \
+    StillImageViewerWidget.cpp \
+    MovieViewerWidget.cpp
 
 HEADERS  += MainWindow.h \
     FontSize.h \
@@ -65,7 +69,11 @@ HEADERS  += MainWindow.h \
     Setting7Widget.h \
     EnforcementWidget.h \
     FileManagementWidget.h \
-    EnforcementComponentWidget.h
+    EnforcementComponentWidget.h \
+    EnforcementComponent2Widget.h \
+    FileManagerWidget.h \
+    StillImageViewerWidget.h \
+    MovieViewerWidget.h
 
 FORMS    += MainWindow.ui \
     LoginWidget.ui \
@@ -85,7 +93,11 @@ FORMS    += MainWindow.ui \
     Setting7Widget.ui \
     EnforcementWidget.ui \
     FileManagementWidget.ui \
-    EnforcementComponentWidget.ui
+    EnforcementComponentWidget.ui \
+    EnforcementComponent2Widget.ui \
+    FileManagerWidget.ui \
+    StillImageViewerWidget.ui \
+    MovieViewerWidget.ui
 
 RESOURCES += \
     style.qrc

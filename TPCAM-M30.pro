@@ -37,8 +37,6 @@ SOURCES += main.cpp\
     Setting7Widget.cpp \
     EnforcementWidget.cpp \
     FileManagementWidget.cpp \
-    EnforcementSpeedReadyWidget.cpp \
-    EnforcementCameraWidget.cpp \
     EnforcementComponentWidget.cpp
 
 HEADERS  += MainWindow.h \
@@ -67,8 +65,6 @@ HEADERS  += MainWindow.h \
     Setting7Widget.h \
     EnforcementWidget.h \
     FileManagementWidget.h \
-    EnforcementSpeedReadyWidget.h \
-    EnforcementCameraWidget.h \
     EnforcementComponentWidget.h
 
 FORMS    += MainWindow.ui \
@@ -89,8 +85,6 @@ FORMS    += MainWindow.ui \
     Setting7Widget.ui \
     EnforcementWidget.ui \
     FileManagementWidget.ui \
-    EnforcementSpeedReadyWidget.ui \
-    EnforcementCameraWidget.ui \
     EnforcementComponentWidget.ui
 
 RESOURCES += \

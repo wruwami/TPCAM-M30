@@ -41,7 +41,11 @@ SOURCES += main.cpp\
     EnforcementComponent2Widget.cpp \
     FileManagerWidget.cpp \
     StillImageViewerWidget.cpp \
-    MovieViewerWidget.cpp
+    MovieViewerWidget.cpp \
+    MainMenuAdminAlignWidget.cpp \
+    DeviceIDWidget.cpp \
+    CameraAlignWidget.cpp \
+    CameraZoomFocusWidget.cpp
 
 HEADERS  += MainWindow.h \
     FontSize.h \
@@ -73,7 +77,11 @@ HEADERS  += MainWindow.h \
     EnforcementComponent2Widget.h \
     FileManagerWidget.h \
     StillImageViewerWidget.h \
-    MovieViewerWidget.h
+    MovieViewerWidget.h \
+    MainMenuAdminAlignWidget.h \
+    DeviceIDWidget.h \
+    CameraAlignWidget.h \
+    CameraZoomFocusWidget.h
 
 FORMS    += MainWindow.ui \
     LoginWidget.ui \
@@ -97,7 +105,11 @@ FORMS    += MainWindow.ui \
     EnforcementComponent2Widget.ui \
     FileManagerWidget.ui \
     StillImageViewerWidget.ui \
-    MovieViewerWidget.ui
+    MovieViewerWidget.ui \
+    MainMenuAdminAlignWidget.ui \
+    DeviceIDWidget.ui \
+    CameraAlignWidget.ui \
+    CameraZoomFocusWidget.ui
 
 RESOURCES += \
     style.qrc

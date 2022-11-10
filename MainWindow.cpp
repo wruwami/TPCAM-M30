@@ -14,19 +14,16 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->verticalLayout_2->removeItem(ui->verticalLayout_2->itemAt(1));
     ui->verticalLayout_2->addWidget(m_pLoginWidget, 835);
 
-//    m_dateTimeWidget = new DateTimeWidget;
-
     QObject::connect((QWidget*)m_pLoginWidget->m_loginPushButton, SIGNAL(clicked()), this, SLOT(on_loginWidgetClose()));
     QObject::connect((QWidget*)m_pLoginWidget->m_dateTimePushButton, SIGNAL(clicked()), this, SLOT(on_dateTimeWidgetClicked()));
-//    QObject::connect((QWidget*)m_dateTimeWidget->m_cancelButton, SIGNAL(clicked()), this, SLOT(on_dateTimeWidgetClicked()));
 }
 
 MainWindow::~MainWindow()
 {
     if (m_pLoginWidget != nullptr)
         delete m_pLoginWidget;
-    if (m_dateTimeWidget != nullptr)
-        delete m_dateTimeWidget;
+    if (m_pMainMenuContentWidget != nullptr)
+        delete m_pMainMenuContentWidget;
     delete ui;
 }
 
@@ -49,20 +46,7 @@ void MainWindow::on_loginWidgetClose()
 
 void MainWindow::on_dateTimeWidgetClicked()
 {
-//    ui->verticalLayout_2->removeItem(ui->verticalLayout_2->takeAt(1));
-
-//    ui->verticalLayout_2->addWidget(m_dateTimeWidget, 835);
     DateTimeWidget dateTimeWidget;
     dateTimeWidget.setGeometry(ui->verticalLayout_2->itemAt(1)->geometry());
-    dateTimeWidget.exec();
-}
-
-void MainWindow::on_dateTimeWidgetCanceled()
-{
-//    ui->verticalLayout_2->removeItem(ui->verticalLayout_2->takeAt(1));
-
-//    ui->verticalLayout_2->addWidget(m_pLoginWidget, 835);
-    DateTimeWidget dateTimeWidget;
-//    dateTimeWidget.setGeometry(ui->verticalLayout_2->takeAt(1)->geometry());
     dateTimeWidget.exec();
 }

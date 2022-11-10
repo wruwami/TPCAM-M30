@@ -27,7 +27,7 @@
       </widget>
      </item>
      <item row="0" column="3">
-      <widget class="CustomLabel" name="label">
+      <widget class="CustomLabel" name="versionLabel">
        <property name="text">
         <string>TextLabel</string>
        </property>
@@ -81,7 +81,7 @@
       </widget>
      </item>
      <item row="4" column="0" colspan="4">
-      <widget class="CustomLabel" name="label_2">
+      <widget class="CustomLabel" name="logoLabel">
        <property name="text">
         <string>TextLabel</string>
        </property>
@@ -100,14 +100,14 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>CustomPushButton</class>
-   <extends>QPushButton</extends>
-   <header>CustomPushButton.h</header>
-  </customwidget>
-  <customwidget>
    <class>CustomLabel</class>
    <extends>QLabel</extends>
    <header>CustomLabel.h</header>
+  </customwidget>
+  <customwidget>
+   <class>CustomPushButton</class>
+   <extends>QPushButton</extends>
+   <header>CustomPushButton.h</header>
   </customwidget>
   <customwidget>
    <class>CustomComboBox</class>

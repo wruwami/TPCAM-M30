@@ -18,11 +18,13 @@ public:
 
 private slots:
     void on_loginPushButton_clicked();
+    void on_dateTimePushButton_clicked();
+
 public:
     CustomPushButton* m_loginPushButton;
+    CustomPushButton* m_dateTimePushButton;
 private:
     Ui::LoginWidget *ui;
-    QWidget* m_parent;
 };
 
 #endif // LOGINWIDGET_H

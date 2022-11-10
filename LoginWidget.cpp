@@ -2,8 +2,10 @@
 #include "ui_LoginWidget.h"
 
 #include "Color.h"
+#include "StringLoader.h"
 #include "IndicatorWidget.h"
 #include "MainWindow.h"
+#include "StringLoader.h"
 
 LoginWidget::LoginWidget(QWidget *parent) :
     QWidget(parent),
@@ -11,8 +13,19 @@ LoginWidget::LoginWidget(QWidget *parent) :
 {
     ui->setupUi(this);
     setBackGroundColor(this, 0xf2f2f2);
-    m_parent = parent;
     m_loginPushButton = ui->loginPushButton;
+    m_dateTimePushButton = ui->dateTimePushButton;
+
+    ui->dateTimePushButton->setText(LoadString("IDS_DATE_TIME"));
+    ui->lightPushButton->setText(LoadString("IDS_LIGHT"));
+
+    // 추후 cfg와 연동하여 수정 필요
+    ui->versionLabel->setText("v.1.0.0");
+
+    ui->deviceIDLabel->setText(LoadString("IDS_DEVICE_ID"));
+    ui->userNameLabel->setText(LoadString("IDS_USER_NAME"));
+
+    ui->loginPushButton->setText(LoadString("IDS_LOGIN"));
 }
 
 LoginWidget::~LoginWidget()
@@ -29,4 +42,9 @@ void LoginWidget::on_loginPushButton_clicked()
     close();
 //    (MainWindow*)m_parent->
 //    ~LoginWidget();
+}
+
+void LoginWidget::on_dateTimePushButton_clicked()
+{
+//    close();
 }

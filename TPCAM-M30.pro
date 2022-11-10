@@ -13,6 +13,7 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
+    CustomTogglePushButton.cpp \
         MainWindow.cpp \
     LoginWidget.cpp \
     MainMenuWidget.cpp \
@@ -48,6 +49,7 @@ SOURCES += main.cpp\
     CameraZoomFocusWidget.cpp
 
 HEADERS  += MainWindow.h \
+    CustomTogglePushButton.h \
     FontSize.h \
     LoginWidget.h \
     MainMenuWidget.h \

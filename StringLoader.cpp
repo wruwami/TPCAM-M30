@@ -1,21 +1,57 @@
 #include "StringLoader.h"
 
-#include <QString>
-#include <QList>
 #include <fstream>
 #include <iostream>
-
 #include <list>
+
+#include <QString>
+#include <QList>
+#include <Qdir>
+
 
 StringLoader* StringLoader::instance = nullptr;
 
-void StringLoader::Initialize(std::string file_name, std::string language)
-{
-    m_file_name = file_name;
+void StringLoader::Initialize(std::string path_name, std::string file_name, std::string language)
+{    
+    QDir qdir;
+    QString dir = qdir.absolutePath();
+
     std::ifstream inFile(m_file_name.c_str());
     if (!inFile.is_open()) {
         std::cout << "no file has been opened" << std::endl;
+        inFile.close();
+        QString dir_qstr;
+#ifdef Q_OS_WIN
+dir_qstr = dir + "\\" + QString::fromStdString(path_name);
+m_file_name = dir_qstr.toStdString() + "\\" + file_name;
+#else   /*Q_OS_LINUX*/
+    dir_qstr = dir + "/" + QString::fromStdString(path_name);
+    m_file_name = dir_qstr.toStdString() + "/" + file_name;
+#endif
+        qdir.mkdir(dir_qstr);
 
+#ifdef Q_OS_WIN
+std::ofstream outFile((dir_qstr.toStdString() + "\\" +file_name).c_str());
+#else   /*Q_OS_LINUX*/
+std::ofstream outFile((dir_qstr.toStdString() + "/" + file_name).c_str());
+#endif
+
+
+        std::cout << "new file has been created" << std::endl;
+        outFile << "Index,English" << std::endl;
+//        outFile
+        outFile.close();
+    }
+
+#ifdef Q_OS_WIN
+inFile.open((dir.toStdString() + "\\" + path_name + "\\" + file_name).c_str());
+#else   /*Q_OS_LINUX*/
+inFile.open((dir.toStdString() + "/" + path_name + "/" + file_name).c_str());
+#endif
+
+    if (!inFile.is_open()) {
+        std::cout << "no file has been opened" << std::endl;
+        inFile.close();
         return;
     }
 
@@ -70,6 +106,6 @@ void StringLoader::AddInvalidString(std::string str)
         str.insert(0, "\"");
         str.append("\"");
     }
-    inFile << str + ",," + str + "\n";
+    inFile << str + "," + str + "\n";
     inFile.close();
 }

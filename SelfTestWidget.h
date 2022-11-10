@@ -17,6 +17,11 @@ public:
 
 private:
     Ui::SelfTestWidget *ui;
+
+
+    // QObject interface
+protected:
+    void timerEvent(QTimerEvent *event);
 };
 
 #endif // SELFTESTWIDGET_H

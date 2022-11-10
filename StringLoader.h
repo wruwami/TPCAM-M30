@@ -20,7 +20,7 @@ public:
         return instance;
     }
 
-    void Initialize(std::string file_name, std::string language);
+    void Initialize(std::string path_name, std::string file_name, std::string language);
 
     std::map<std::string, QString> LoadString();
     QString LoadString(std::string index);

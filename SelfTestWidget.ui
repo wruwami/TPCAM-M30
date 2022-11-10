@@ -16,92 +16,92 @@
   <layout class="QVBoxLayout" name="verticalLayout_2">
    <item>
     <layout class="QGridLayout" name="gridLayout">
-     <item row="3" column="0">
-      <widget class="CustomLabel" name="label_4">
-       <property name="text">
-        <string>TextLabel</string>
-       </property>
-      </widget>
-     </item>
-     <item row="4" column="0">
-      <widget class="CustomLabel" name="label_5">
-       <property name="text">
-        <string>TextLabel</string>
-       </property>
-      </widget>
-     </item>
-     <item row="5" column="0">
-      <widget class="CustomLabel" name="label_6">
-       <property name="text">
-        <string>TextLabel</string>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="0">
-      <widget class="CustomLabel" name="label">
-       <property name="text">
-        <string>TextLabel</string>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="0">
-      <widget class="CustomLabel" name="label_3">
-       <property name="text">
-        <string>TextLabel</string>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="1">
-      <widget class="CustomLabel" name="label_9">
+     <item row="7" column="0" colspan="2" alignment="Qt::AlignHCenter">
+      <widget class="CustomLabel" name="versionLabel">
        <property name="text">
         <string>TextLabel</string>
        </property>
       </widget>
      </item>
      <item row="2" column="1">
-      <widget class="CustomLabel" name="label_10">
+      <widget class="CustomLabel" name="laserValueLabel">
        <property name="text">
         <string>TextLabel</string>
        </property>
       </widget>
      </item>
-     <item row="3" column="1">
-      <widget class="CustomLabel" name="label_11">
+     <item row="4" column="0">
+      <widget class="CustomLabel" name="storageTitleLabel">
        <property name="text">
         <string>TextLabel</string>
        </property>
       </widget>
      </item>
      <item row="4" column="1">
-      <widget class="CustomLabel" name="label_12">
+      <widget class="CustomLabel" name="storageValueLabel">
        <property name="text">
         <string>TextLabel</string>
        </property>
       </widget>
      </item>
-     <item row="5" column="1">
-      <widget class="CustomLabel" name="label_13">
+     <item row="5" column="0" colspan="2" alignment="Qt::AlignHCenter">
+      <widget class="CustomLabel" name="expiredDateLabel">
        <property name="text">
         <string>TextLabel</string>
        </property>
       </widget>
      </item>
-     <item row="6" column="0" colspan="2">
-      <widget class="CustomLabel" name="label_7">
-       <property name="text">
-        <string>TextLabel</string>
-       </property>
-      </widget>
-     </item>
-     <item row="7" column="0" colspan="2">
-      <widget class="CustomLabel" name="label_8">
+     <item row="2" column="0">
+      <widget class="CustomLabel" name="laserTitleLabel">
        <property name="text">
         <string>TextLabel</string>
        </property>
       </widget>
      </item>
      <item row="0" column="0" colspan="2" alignment="Qt::AlignHCenter">
-      <widget class="CustomLabel" name="label_2">
+      <widget class="CustomLabel" name="titleLabel">
+       <property name="text">
+        <string>TextLabel</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="0">
+      <widget class="CustomLabel" name="batteryTitleLabel">
+       <property name="text">
+        <string>TextLabel</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <widget class="CustomLabel" name="cameraTitleLabel">
+       <property name="text">
+        <string>TextLabel</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="1">
+      <widget class="CustomLabel" name="batteryValueLabel">
+       <property name="text">
+        <string>TextLabel</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <widget class="CustomLabel" name="cameraValueLabel">
+       <property name="text">
+        <string>TextLabel</string>
+       </property>
+      </widget>
+     </item>
+     <item row="6" column="0" alignment="Qt::AlignRight">
+      <widget class="CustomLabel" name="dateLabel">
+       <property name="text">
+        <string>TextLabel</string>
+       </property>
+      </widget>
+     </item>
+     <item row="6" column="1">
+      <widget class="QLabel" name="timeLabel">
        <property name="text">
         <string>TextLabel</string>
        </property>

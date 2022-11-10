@@ -12,7 +12,7 @@ class BaseDialog : public QDialog
     Q_OBJECT
 
 public:
-    explicit BaseDialog(QWidget *parent = 0);
+    explicit BaseDialog(QWidget *parent = 0, bool isCloseButton = false);
     ~BaseDialog();
 
 private:

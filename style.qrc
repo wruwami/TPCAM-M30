@@ -2,5 +2,6 @@
     <qresource prefix="/">
         <file>style/default.qss</file>
         <file>style/indicatorWidget.qss</file>
+        <file>style/selftestWidget.qss</file>
     </qresource>
 </RCC>

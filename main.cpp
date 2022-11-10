@@ -18,14 +18,7 @@ int main(int argc, char *argv[])
 
     a.setStyleSheet(styleSheet);
 
-    QDir qdir;
-    QString dir = qdir.absolutePath();
-#ifdef Q_OS_WIN
-    dir += "\\resource\\stringTable.csv";
-#else   /*Q_OS_LINUX*/
-    dir += "/resource/stringTable.csv";
-#endif
-    StringLoader::GetInstance()->Initialize(dir.toStdString(), "English");
+    StringLoader::GetInstance()->Initialize("strings", "stringTable.csv", "English");
 
     SelfTestWidget selfTestWidget;
     selfTestWidget.exec();

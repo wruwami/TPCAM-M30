@@ -14,9 +14,15 @@ class MainMenuWidget : public QWidget
 public:
     explicit MainMenuWidget(QWidget *parent = 0);
     ~MainMenuWidget();
-
+    void SetMainMenuTitle(QString title);
 private:
     Ui::MainMenuWidget *ui;
+
+
+
+    // QObject interface
+protected:
+    void timerEvent(QTimerEvent *event);
 };
 
 #endif // MAINMENUWIDGET_H

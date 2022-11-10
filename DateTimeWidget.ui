@@ -126,14 +126,14 @@
         </widget>
        </item>
        <item row="1" column="0">
-        <widget class="QLabel" name="yearLabel">
+        <widget class="CustomLabel" name="yearLabel">
          <property name="text">
           <string>TextLabel</string>
          </property>
         </widget>
        </item>
        <item row="1" column="1">
-        <widget class="QLabel" name="monthLabel">
+        <widget class="CustomLabel" name="monthLabel">
          <property name="text">
           <string>TextLabel</string>
          </property>
@@ -189,21 +189,21 @@
         </widget>
        </item>
        <item row="1" column="3">
-        <widget class="QLabel" name="hourLabel">
+        <widget class="CustomLabel" name="hourLabel">
          <property name="text">
           <string>TextLabel</string>
          </property>
         </widget>
        </item>
        <item row="1" column="4">
-        <widget class="QLabel" name="minuteLabel">
+        <widget class="CustomLabel" name="minuteLabel">
          <property name="text">
           <string>TextLabel</string>
          </property>
         </widget>
        </item>
        <item row="1" column="5">
-        <widget class="QLabel" name="secondLabel">
+        <widget class="CustomLabel" name="secondLabel">
          <property name="text">
           <string>TextLabel</string>
          </property>
@@ -216,6 +216,11 @@
   </layout>
  </widget>
  <customwidgets>
+  <customwidget>
+   <class>CustomLabel</class>
+   <extends>QLabel</extends>
+   <header>CustomLabel.h</header>
+  </customwidget>
   <customwidget>
    <class>CustomPushButton</class>
    <extends>QPushButton</extends>

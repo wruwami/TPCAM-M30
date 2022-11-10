@@ -16,7 +16,8 @@ class DateTimeWidget : public QDialog
 public:
     explicit DateTimeWidget(QWidget *parent = 0);
     ~DateTimeWidget();
-
+private:
+    void setDateTimeValue();
 private slots:
     void on_yearPlusPushButton_clicked();
     void on_yearMinusPushButton_clicked();
@@ -30,8 +31,9 @@ private slots:
     void on_minuteMinusPushButton_clicked();
     void on_secondPlusPushButton_clicked();
     void on_secondMinusPushButton_clicked();
-public:
-    CustomPushButton* m_cancelButton;
+ void on_savePushButton_clicked();
+
+ void on_cancelPushButton_clicked();
 
 private:
     QDateTime m_dateTime;

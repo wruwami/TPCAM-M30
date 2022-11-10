@@ -15,7 +15,7 @@ SelfTestWidget::SelfTestWidget(QWidget *parent) :
 
     setBackGroundColor(this, 0x000000);
 
-    QFile file(":/style/selftest.qss");
+    QFile file(":/style/selftestWidget.qss");
     file.open(QFile::ReadOnly);
     this->setStyleSheet(QString::fromLatin1(file.readAll()));
 
@@ -32,6 +32,7 @@ SelfTestWidget::SelfTestWidget(QWidget *parent) :
     ui->batteryValueLabel->setText(LoadString("IDS_SELFTEST_CHECK"));
     ui->storageTitleLabel->setText(LoadString("IDS_STORAGE_TITLE"));
     ui->storageValueLabel->setText(LoadString("IDS_SELFTEST_CHECK"));
+    ui->expiredDateLabel->setText(LoadString("IDS_EXPIRED_DATE"));
     ui->versionLabel->setText(LoadString("IDS_VERSION"));
 
     startTimer(1000);

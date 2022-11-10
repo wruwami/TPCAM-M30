@@ -6,6 +6,11 @@ QPushButton {
     border-style: solid;
 }
 
+QPushButton:pressed {
+    border-color: red;
+}
+
+
 QLabel {
     background-color: transparent;
     border: none;

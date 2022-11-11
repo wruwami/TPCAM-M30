@@ -17,57 +17,57 @@
    <item row="0" column="0">
     <layout class="QGridLayout" name="gridLayout">
      <item row="2" column="0">
-      <widget class="QLabel" name="label_3">
+      <widget class="CustomLabel" name="IpLabel">
        <property name="text">
         <string>TextLabel</string>
        </property>
       </widget>
      </item>
      <item row="1" column="0">
-      <widget class="QLabel" name="label_2">
+      <widget class="CustomLabel" name="wifiSSIDnFTPIDlabel">
        <property name="text">
         <string>TextLabel</string>
        </property>
       </widget>
      </item>
      <item row="4" column="0">
-      <widget class="QLabel" name="label_5">
+      <widget class="CustomLabel" name="printerLabel">
        <property name="text">
         <string>TextLabel</string>
        </property>
       </widget>
      </item>
      <item row="3" column="0">
-      <widget class="QLabel" name="label_4">
+      <widget class="CustomLabel" name="subnetMaskLabel">
        <property name="text">
         <string>TextLabel</string>
        </property>
       </widget>
      </item>
      <item row="0" column="1">
-      <widget class="QLineEdit" name="lineEdit"/>
+      <widget class="CustomLineEdit" name="lineEdit"/>
      </item>
      <item row="4" column="1">
-      <widget class="QComboBox" name="comboBox"/>
+      <widget class="CustomComboBox" name="comboBox"/>
      </item>
      <item row="3" column="1">
-      <widget class="QLineEdit" name="lineEdit_4"/>
+      <widget class="CustomLineEdit" name="lineEdit_4"/>
      </item>
      <item row="2" column="1">
-      <widget class="QLineEdit" name="lineEdit_3"/>
+      <widget class="CustomLineEdit" name="lineEdit_3"/>
      </item>
      <item row="1" column="1">
-      <widget class="QLineEdit" name="lineEdit_2"/>
+      <widget class="CustomLineEdit" name="lineEdit_2"/>
      </item>
      <item row="0" column="0">
-      <widget class="QLabel" name="label">
+      <widget class="CustomLabel" name="macAddressLabel">
        <property name="text">
         <string>TextLabel</string>
        </property>
       </widget>
      </item>
      <item row="1" column="2">
-      <widget class="QPushButton" name="pushButton">
+      <widget class="CustomPushButton" name="pushButton">
        <property name="text">
         <string>PushButton</string>
        </property>
@@ -77,6 +77,28 @@
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>CustomPushButton</class>
+   <extends>QPushButton</extends>
+   <header>CustomPushButton.h</header>
+  </customwidget>
+  <customwidget>
+   <class>CustomLabel</class>
+   <extends>QLabel</extends>
+   <header>CustomLabel.h</header>
+  </customwidget>
+  <customwidget>
+   <class>CustomComboBox</class>
+   <extends>QComboBox</extends>
+   <header>CustomComboBox.h</header>
+  </customwidget>
+  <customwidget>
+   <class>CustomLineEdit</class>
+   <extends>QLineEdit</extends>
+   <header>CustomLineEdit.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

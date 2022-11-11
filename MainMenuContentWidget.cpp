@@ -19,12 +19,16 @@ MainMenuContentWidget::~MainMenuContentWidget()
 
 void MainMenuContentWidget::on_settingPushButton_clicked()
 {
-
+    SettingWidget settingWidget;
+    settingWidget.setGeometry(this->geometry());
+    settingWidget.exec();
 }
 
 void MainMenuContentWidget::on_fileManagementPushButton_clicked()
 {
-
+    FileManagementWidget fileManagementWidget;
+    fileManagementWidget.setGeometry(this->geometry());
+    fileManagementWidget.exec();
 }
 
 void MainMenuContentWidget::on_enforcementPushButton_clicked()

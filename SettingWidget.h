@@ -1,13 +1,13 @@
 #ifndef SETTINGWIDGET_H
 #define SETTINGWIDGET_H
 
-#include <QWidget>
+#include <QDialog>
 
 namespace Ui {
 class SettingWidget;
 }
 
-class SettingWidget : public QWidget
+class SettingWidget : public QDialog
 {
     Q_OBJECT
 

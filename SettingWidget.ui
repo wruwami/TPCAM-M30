@@ -110,7 +110,8 @@
       </layout>
      </item>
      <item>
-      <widget class="QWidget" name="widget" native="true"/>
+      <widget class="QStackedWidget" name="stackedWidget">
+      </widget>
      </item>
     </layout>
    </item>

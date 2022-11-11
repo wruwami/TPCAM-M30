@@ -1,13 +1,13 @@
 #ifndef FILEMANAGEMENTWIDGET_H
 #define FILEMANAGEMENTWIDGET_H
 
-#include <QWidget>
+#include <QDialog>
 
 namespace Ui {
 class FileManagementWidget;
 }
 
-class FileManagementWidget : public QWidget
+class FileManagementWidget : public QDialog
 {
     Q_OBJECT
 

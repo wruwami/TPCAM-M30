@@ -9,7 +9,11 @@ Setting1Widget::Setting1Widget(QWidget *parent) :
 {
     ui->setupUi(this);
 
-
+    ui->locationLabel->setText(LoadString("IDS_LOCATION"));
+    ui->speedLimitLabel->setText(LoadString("IDS_SPEED_LIMIT"));
+    ui->captureSpeedLimitLabel->setText(LoadString("IDS_CAPTURE_LIMIT"));
+    ui->enforcementModeLabel->setText(LoadString("IDS_ENFORCEMENT_MODE"));
+    ui->speedModeLabel->setText(LoadString("IDS_SPEED_MODE"));
 }
 
 Setting1Widget::~Setting1Widget()

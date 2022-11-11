@@ -40,14 +40,14 @@
       <widget class="CustomLineEdit" name="lineEdit_3"/>
      </item>
      <item row="1" column="0">
-      <widget class="CustomLabel" name="sppedLimitLabel">
+      <widget class="CustomLabel" name="speedLimitLabel">
        <property name="text">
         <string>TextLabel</string>
        </property>
       </widget>
      </item>
      <item row="3" column="0">
-      <widget class="CustomLabel" name="enforcementLabel">
+      <widget class="CustomLabel" name="enforcementModeLabel">
        <property name="text">
         <string>TextLabel</string>
        </property>

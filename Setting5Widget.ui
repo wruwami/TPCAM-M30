@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Setting6Widget</class>
- <widget class="QWidget" name="Setting6Widget">
+ <class>Setting5Widget</class>
+ <widget class="QWidget" name="Setting5Widget">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -17,35 +17,35 @@
    <item row="0" column="0">
     <layout class="QGridLayout" name="gridLayout">
      <item row="4" column="0">
-      <widget class="CustomLabel" name="label_5">
+      <widget class="CustomLabel" name="dnsServerLabel">
        <property name="text">
         <string>TextLabel</string>
        </property>
       </widget>
      </item>
      <item row="3" column="0">
-      <widget class="CustomLabel" name="label_4">
+      <widget class="CustomLabel" name="gatewayLabel">
        <property name="text">
         <string>TextLabel</string>
        </property>
       </widget>
      </item>
      <item row="2" column="0">
-      <widget class="CustomLabel" name="label_3">
+      <widget class="CustomLabel" name="subnetMaskLabel">
        <property name="text">
         <string>TextLabel</string>
        </property>
       </widget>
      </item>
      <item row="1" column="0">
-      <widget class="CustomLabel" name="label_2">
+      <widget class="CustomLabel" name="IpLabel">
        <property name="text">
         <string>TextLabel</string>
        </property>
       </widget>
      </item>
      <item row="0" column="0">
-      <widget class="CustomLabel" name="label">
+      <widget class="CustomLabel" name="ipAddressLabel">
        <property name="text">
         <string>TextLabel</string>
        </property>

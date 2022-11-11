@@ -17,13 +17,16 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
-
+private:
+    void initialize();
+    void finalize();
 private slots:
     void on_cameraPushButton_clicked();
 
     void on_daynNightPushButton_clicked();
     void on_loginWidgetClose();
     void on_dateTimeWidgetClicked();
+    void on_enforcementClicked();
 
 private:
     Ui::MainWindow *ui;

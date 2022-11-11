@@ -10,6 +10,8 @@ MainMenuContentWidget::MainMenuContentWidget(QWidget *parent) :
     ui(new Ui::MainMenuContentWidget)
 {
     ui->setupUi(this);
+
+    m_pEnforcementButton = ui->enforcementPushButton;
 }
 
 MainMenuContentWidget::~MainMenuContentWidget()
@@ -29,9 +31,4 @@ void MainMenuContentWidget::on_fileManagementPushButton_clicked()
     FileManagementWidget fileManagementWidget;
     fileManagementWidget.setGeometry(this->geometry());
     fileManagementWidget.exec();
-}
-
-void MainMenuContentWidget::on_enforcementPushButton_clicked()
-{
-
 }

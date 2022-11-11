@@ -3,6 +3,7 @@
 
 #include <QWidget>
 
+class QPushButton;
 namespace Ui {
 class MainMenuContentWidget;
 }
@@ -19,11 +20,11 @@ private slots:
     void on_settingPushButton_clicked();
 
     void on_fileManagementPushButton_clicked();
-
-    void on_enforcementPushButton_clicked();
-
+public:
+    QPushButton* m_pEnforcementButton;
 private:
     Ui::MainMenuContentWidget *ui;
+
 };
 
 #endif // MAINMENUCONTENTWIDGET_H

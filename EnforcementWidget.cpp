@@ -3,6 +3,7 @@
 
 //#include "StringLoader.h"
 #include <QOpenGLWidget>
+#include <QVBoxLayout>
 
 #include "MainMenuWidget.h"
 #include "EnforcementComponentWidget.h"
@@ -15,7 +16,9 @@ EnforcementWidget::EnforcementWidget(QWidget *parent) :
     ui->setupUi(this);
 
 //    ui->verticalLayout->addWidget(new MainMenuWidget, 125);
-    ui->verticalLayout->addWidget(new EnforcementComponentWidget);
+    QVBoxLayout* layout = new QVBoxLayout;
+    layout->addWidget(new EnforcementComponentWidget);
+    setLayout(layout);
 
     QOpenGLWidget* pOpenGLWidget = new QOpenGLWidget(this);
 //    pOpenGLWidget->setGeometry(parent->geometry());
@@ -24,9 +27,14 @@ EnforcementWidget::EnforcementWidget(QWidget *parent) :
 
 EnforcementWidget::~EnforcementWidget()
 {
+//    QLayoutItem* item;
+//    while((item = ui->verticalLayout->takeAt(0)) == nullptr)
+//    {
+//        delete item;
+//    }
     QLayoutItem* item;
-    while((item = ui->verticalLayout->takeAt(0)) == nullptr)
-    {
+    while ((item = layout()->takeAt(1)) = nullptr ){
+        delete item->widget();
         delete item;
     }
 

@@ -26,10 +26,10 @@ MainWindow::MainWindow(QWidget *parent) :
 
 MainWindow::~MainWindow()
 {
-    if (m_pLoginWidget != nullptr)
-        delete m_pLoginWidget;
-    if (m_pMainMenuContentWidget != nullptr)
-        delete m_pMainMenuContentWidget;
+//    if (m_pLoginWidget != nullptr)
+//        delete m_pLoginWidget;
+//    if (m_pMainMenuContentWidget != nullptr)
+//        delete m_pMainMenuContentWidget;
 
     finalize();
 
@@ -38,26 +38,27 @@ MainWindow::~MainWindow()
 
 void MainWindow::initialize()
 {
-//    QVBoxLayout* layout = new layout;
+    QVBoxLayout* layout = new QVBoxLayout;
     ui->verticalLayout->addWidget(new MainMenuWidget, 125);
     ui->verticalLayout->addWidget(new MainMenuContentWidget, 835);
-//    ui->centralWidget->setLayout(layout);
+    ui->centralWidget->setLayout(layout);
 }
 
 void MainWindow::finalize()
 {
-//    QLayout* layout = ui->centralWidget->layout();
+    QLayout* layout = ui->centralWidget->layout();
 //    for (int i = 0 ; ui->verticalLayout->count() ; i++)
 //    {
 //        QLayoutItem* item = ui->verticalLayout->itemAt(i);
 //        delete item;
 //    }
     QLayoutItem* item;
-    while((item = ui->verticalLayout->takeAt(0)) == nullptr)
+    while((item = ui->verticalLayout->takeAt(0)) != nullptr)
     {
+        delete item->widget();
         delete item;
     }
-//    delete layout;
+    delete layout;
 }
 
 void MainWindow::on_cameraPushButton_clicked()
@@ -87,6 +88,13 @@ void MainWindow::on_dateTimeWidgetClicked()
 
 void MainWindow::on_enforcementClicked()
 {
-    finalize();
-    ui->verticalLayout->addWidget(new EnforcementWidget);
+//    finalize();
+
+    delete m_pMainMenuContentWidget;
+    ui->verticalLayout->removeItem(ui->verticalLayout->itemAt(1));
+    ui->verticalLayout->addWidget(new EnforcementWidget, 835);
+//    m_pMainMenuContentWidget = new MainMenuContentWidget;
+//    QVBoxLayout* layout = new QVBoxLayout;
+//    layout->addWidget(new EnforcementWidget);
+//    ui->centralWidget->setLayout(layout);
 }

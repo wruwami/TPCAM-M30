@@ -36,6 +36,16 @@ private slots:
 
 private:
     Ui::IndicatorWidget *ui;
+    CustomPushButton* m_pCameraFocusPushButton;
+    CustomPushButton* m_pCameraExposePushButton;
+
+    CustomPushButton* m_pDay1PushButton;
+    CustomPushButton* m_pDay2PushButton;
+    CustomPushButton* m_pDay3PushButton;
+    CustomPushButton* m_pNight1PushButton;
+    CustomPushButton* m_pNight2PushButton;
+    CustomPushButton* m_pNight3PushButton;
+
     CustomPushButton* m_pSunnyPushButton;
     CustomPushButton* m_pRainyPushButton;
     CustomPushButton* m_pImagePushButton;

@@ -38,12 +38,38 @@ void IndicatorWidget::on_screenRecordingPushButton_clicked()
 void IndicatorWidget::on_daynNightPushButton_clicked()
 {
     clearSecondRow();
+    m_pCameraExposePushButton = new CustomPushButton;
+    m_pCameraFocusPushButton = new CustomPushButton;
+
+    ui->horizontalLayout2->removeItem(ui->horizontalLayout2->takeAt(0));
+    ui->horizontalLayout2->removeItem(ui->horizontalLayout2->takeAt(1));
+    ui->horizontalLayout2->addWidget(m_pWifiPushButton, 2);
+    ui->horizontalLayout2->addWidget(m_pBTPushButton, 2);
 
 }
 
 void IndicatorWidget::on_gpsPushButton_clicked()
 {
     clearSecondRow();
+    m_pDay1PushButton = new CustomPushButton;
+    m_pDay2PushButton = new CustomPushButton;
+    m_pDay3PushButton = new CustomPushButton;
+    m_pNight1PushButton = new CustomPushButton;
+    m_pNight2PushButton = new CustomPushButton;
+    m_pNight3PushButton = new CustomPushButton;
+
+    ui->horizontalLayout2->removeItem(ui->horizontalLayout2->takeAt(0));
+    ui->horizontalLayout2->removeItem(ui->horizontalLayout2->takeAt(1));
+    ui->horizontalLayout2->removeItem(ui->horizontalLayout2->takeAt(2));
+    ui->horizontalLayout2->removeItem(ui->horizontalLayout2->takeAt(3));
+    ui->horizontalLayout2->removeItem(ui->horizontalLayout2->takeAt(4));
+    ui->horizontalLayout2->removeItem(ui->horizontalLayout2->takeAt(5));
+    ui->horizontalLayout2->addWidget(m_pDay1PushButton, 2);
+    ui->horizontalLayout2->addWidget(m_pDay2PushButton, 2);
+    ui->horizontalLayout2->addWidget(m_pDay3PushButton, 2);
+    ui->horizontalLayout2->addWidget(m_pNight1PushButton, 2);
+    ui->horizontalLayout2->addWidget(m_pNight2PushButton, 2);
+    ui->horizontalLayout2->addWidget(m_pNight3PushButton, 2);
 }
 
 void IndicatorWidget::on_comPushButton_clicked()

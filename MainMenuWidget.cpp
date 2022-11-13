@@ -4,6 +4,7 @@
 #include <QTime>
 
 #include "Color.h"
+#include "IndicatorWidget.h"
 
 MainMenuWidget::MainMenuWidget(QWidget *parent) :
     QWidget(parent),
@@ -23,8 +24,54 @@ void MainMenuWidget::SetMainMenuTitle(QString title)
     ui->mainMenuTitleLabel->setText(title);
 }
 
+void MainMenuWidget::enableButtons(bool enable)
+{
+    ui->cameraPushButton->setEnabled(enable);
+    ui->daynNightPushButton->setEnabled(enable);
+    ui->weatherPushButton->setEnabled(enable);
+    ui->enforcementPushButton->setEnabled(enable);
+    ui->speedPushButton->setEnabled(enable);
+    ui->wifiPushButton->setEnabled(enable);
+    ui->gpsPushButton->setEnabled(enable);
+}
+
 void MainMenuWidget::timerEvent(QTimerEvent *event)
 {
     ui->timeLabel->setText(QTime::currentTime().toString("hh:mm:ss"));
 }
 
+
+void MainMenuWidget::on_cameraPushButton_clicked()
+{
+
+}
+
+void MainMenuWidget::on_daynNightPushButton_clicked()
+{
+
+}
+
+void MainMenuWidget::on_weatherPushButton_clicked()
+{
+
+}
+
+void MainMenuWidget::on_enforcementPushButton_clicked()
+{
+
+}
+
+void MainMenuWidget::on_speedPushButton_clicked()
+{
+
+}
+
+void MainMenuWidget::on_wifiPushButton_clicked()
+{
+
+}
+
+void MainMenuWidget::on_gpsPushButton_clicked()
+{
+
+}

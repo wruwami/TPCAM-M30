@@ -7,7 +7,6 @@
 
 #include "MainMenuWidget.h"
 #include "EnforcementComponentWidget.h"
-#include "IndicatorCameraWidget.h"
 
 EnforcementWidget::EnforcementWidget(QWidget *parent) :
     QWidget(parent),

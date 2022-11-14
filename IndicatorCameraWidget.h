@@ -4,19 +4,19 @@
 #include <QWidget>
 
 namespace Ui {
-class EnforcementComponent2Widget;
+class IndicatorCameraWidget;
 }
 
-class EnforcementComponent2Widget : public QWidget
+class IndicatorCameraWidget : public QWidget
 {
     Q_OBJECT
 
 public:
-    explicit EnforcementComponent2Widget(QWidget *parent = 0);
-    ~EnforcementComponent2Widget();
+    explicit IndicatorCameraWidget(QWidget *parent = nullptr);
+    ~IndicatorCameraWidget();
 
 private:
-    Ui::EnforcementComponent2Widget *ui;
+    Ui::IndicatorCameraWidget *ui;
 };
 
 #endif // INDICATORCAMERAWIDGET_H

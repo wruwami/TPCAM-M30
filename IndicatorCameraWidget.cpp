@@ -1,14 +1,14 @@
-#include "EnforcementComponent2Widget.h"
-#include "ui_EnforcementComponent2Widget.h"
+#include "IndicatorCameraWidget.h"
+#include "ui_IndicatorCameraWidget.h"
 
-EnforcementComponent2Widget::EnforcementComponent2Widget(QWidget *parent) :
+IndicatorCameraWidget::IndicatorCameraWidget(QWidget *parent) :
     QWidget(parent),
-    ui(new Ui::EnforcementComponent2Widget)
+    ui(new Ui::IndicatorCameraWidget)
 {
     ui->setupUi(this);
 }
 
-EnforcementComponent2Widget::~EnforcementComponent2Widget()
+IndicatorCameraWidget::~IndicatorCameraWidget()
 {
     delete ui;
 }

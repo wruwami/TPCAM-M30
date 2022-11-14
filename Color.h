@@ -4,10 +4,20 @@
 #include <QPalette>
 #include <QWidget>
 #include <QPushButton>
+#include <QColor>
 
 enum Color
 {
 };
+
+static void setBackGroundColor(QWidget* widget, QColor color)
+{
+    QPalette pal = QPalette();
+    pal.setColor(QPalette::Window, color);
+    widget->setAutoFillBackground(true);
+    widget->setPalette(pal);
+    widget->update();
+}
 
 static void setBackGroundColor(QWidget* widget, Color color)
 {

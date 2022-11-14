@@ -13,6 +13,7 @@ IndicatorWidget::IndicatorWidget(QWidget *parent) :
     QString styleSheet = QString::fromLatin1(file.readAll());
 
     setStyleSheet(styleSheet);
+
     setWindowFlags(Qt::FramelessWindowHint);
     ui->setupUi(this);
     ui->onPushButton->setVisible(false);

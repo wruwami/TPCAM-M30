@@ -46,7 +46,8 @@ SOURCES += main.cpp\
     MainMenuAdminAlignWidget.cpp \
     DeviceIDWidget.cpp \
     CameraAlignWidget.cpp \
-    CameraZoomFocusWidget.cpp
+    CameraZoomFocusWidget.cpp \
+    ImageLoader.cpp
 
 HEADERS  += MainWindow.h \
     CustomTogglePushButton.h \
@@ -83,7 +84,8 @@ HEADERS  += MainWindow.h \
     MainMenuAdminAlignWidget.h \
     DeviceIDWidget.h \
     CameraAlignWidget.h \
-    CameraZoomFocusWidget.h
+    CameraZoomFocusWidget.h \
+    ImageLoader.h
 
 FORMS    += MainWindow.ui \
     IndicatorCameraWidget.ui \

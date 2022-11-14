@@ -4,6 +4,7 @@
 #include <QTime>
 
 #include "Color.h"
+#include "ImageLoader.h"
 #include "IndicatorWidget.h"
 
 MainMenuWidget::MainMenuWidget(QWidget *parent) :

@@ -1,36 +1,25 @@
 #ifndef IMAGELOADER_H
 #define IMAGELOADER_H
 
+#include <QDir>
 #include <QPixmap>
 
-class ImageLoader
-{
-private:
-    ImageLoader() {}
-    ImageLoader(const ImageLoader& other);
-    ~ImageLoader() {}
-    static ImageLoader* instance;
-public:
-    static ImageLoader* GetInstance()
-    {
-        if(instance == nullptr) instance = new ImageLoader();
-        return instance;
-    }
-
-//    void Initialize(std::string path_name, std::string file_name, std::string language);
-
-//    std::map<std::string, QString> LoadString();
-    QPixmap LoadImage(std::string path_name, std::string file_name);
-//private:
-//    void AddInvalidString(std::string str);
-//private:
-//    std::string m_file_name;
-//    std::map <std::string, QString> m_StringResource;
-};
+#ifdef Q_OS_WIN
+    #define DEFAULT_PATH    "images"
+#else   /*Q_OS_LINUX*/
+    #define DEFAULT_PATH    "images"
+#endif
 
 static QPixmap LoadImage(std::string path_name, std::string file_name)
 {
-    return ImageLoader::GetInstance()->LoadImage(path_name, file_name);
+    QDir qdir;
+    QString file_full_path;
+#ifdef Q_OS_WIN
+    file_full_path = qdir.absolutePath() + "\\" + DEFAULT_PATH + "\\" + QString::fromStdString(path_name) + "\\" + QString::fromStdString(file_name);
+#else   /*Q_OS_LINUX*/
+    file_full_path = qdir.absolutePath() + "/" + DEFAULT_PATH + "/" + QString::fromStdString(path_name) + "/" + QString::fromStdString(file_name);
+#endif
+    return QPixmap(file_full_path);
 }
 
 #endif // IMAGELOADER_H

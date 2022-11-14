@@ -12,6 +12,14 @@ MainMenuWidget::MainMenuWidget(QWidget *parent) :
 {
     ui->setupUi(this);
     setBackGroundColor(this, 0x000000);
+
+    m_pCameraPushbutton = ui->cameraPushButton;
+    m_pDaynNightPushbutton = ui->daynNightPushButton;
+    m_pWeatherPushbutton = ui->weatherPushButton;
+    m_pEnforcementPushbutton = ui->enforcementPushButton;
+    m_pSpeedPushbutton = ui->speedPushButton;
+    m_pWifiPushbutton = ui->wifiPushButton;
+    m_pGpsPushbutton = ui->gpsPushButton;
 }
 
 MainMenuWidget::~MainMenuWidget()
@@ -41,37 +49,37 @@ void MainMenuWidget::timerEvent(QTimerEvent *event)
 }
 
 
-void MainMenuWidget::on_cameraPushButton_clicked()
-{
+//void MainMenuWidget::on_cameraPushButton_clicked()
+//{
 
-}
+//}
 
-void MainMenuWidget::on_daynNightPushButton_clicked()
-{
+//void MainMenuWidget::on_daynNightPushButton_clicked()
+//{
 
-}
+//}
 
-void MainMenuWidget::on_weatherPushButton_clicked()
-{
+//void MainMenuWidget::on_weatherPushButton_clicked()
+//{
 
-}
+//}
 
-void MainMenuWidget::on_enforcementPushButton_clicked()
-{
+//void MainMenuWidget::on_enforcementPushButton_clicked()
+//{
 
-}
+//}
 
-void MainMenuWidget::on_speedPushButton_clicked()
-{
+//void MainMenuWidget::on_speedPushButton_clicked()
+//{
 
-}
+//}
 
-void MainMenuWidget::on_wifiPushButton_clicked()
-{
+//void MainMenuWidget::on_wifiPushButton_clicked()
+//{
 
-}
+//}
 
-void MainMenuWidget::on_gpsPushButton_clicked()
-{
+//void MainMenuWidget::on_gpsPushButton_clicked()
+//{
 
-}
+//}

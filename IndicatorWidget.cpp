@@ -5,7 +5,7 @@
 #include <QFile>
 
 IndicatorWidget::IndicatorWidget(QWidget *parent) :
-    QWidget(parent),
+    QDialog(parent),
     ui(new Ui::IndicatorWidget)
 {
     QFile file(":/style/indicatorWidget.qss");

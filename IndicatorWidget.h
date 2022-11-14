@@ -1,14 +1,14 @@
 #ifndef INDICATORCAMERAWIDGET_H
 #define INDICATORCAMERAWIDGET_H
 
-#include <QWidget>
+#include <QDialog>
 
 class CustomPushButton;
 namespace Ui {
 class IndicatorWidget;
 }
 
-class IndicatorWidget : public QWidget
+class IndicatorWidget : public QDialog
 {
     Q_OBJECT
 

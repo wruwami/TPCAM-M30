@@ -3,11 +3,12 @@
 
 #include <QVBoxLayout>
 
-#include "LoginWidget.h"
-#include "MainMenuContentWidget.h"
 #include "DateTimeWidget.h"
-#include "MainMenuWidget.h"
 #include "EnforcementWidget.h"
+#include "IndicatorWidget.h"
+#include "MainMenuWidget.h"
+#include "MainMenuContentWidget.h"
+#include "LoginWidget.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -39,9 +40,19 @@ MainWindow::~MainWindow()
 void MainWindow::initialize()
 {
     QVBoxLayout* layout = new QVBoxLayout;
-    ui->verticalLayout->addWidget(new MainMenuWidget, 125);
+    MainMenuWidget* mainMenuWidget = new MainMenuWidget;
+    mainMenuWidget->setEnabled(true);
+    ui->verticalLayout->addWidget(mainMenuWidget, 125);
     ui->verticalLayout->addWidget(new MainMenuContentWidget, 835);
     ui->centralWidget->setLayout(layout);
+
+    QObject::connect((QWidget*)mainMenuWidget->m_pCameraPushbutton, SIGNAL(clicked()), this, SLOT(on_cameraPushButton_clicked()));
+    QObject::connect((QWidget*)mainMenuWidget->m_pDaynNightPushbutton, SIGNAL(clicked()), this, SLOT(on_daynNightPushButton_clicked()));
+    QObject::connect((QWidget*)mainMenuWidget->m_pWeatherPushbutton, SIGNAL(clicked()), this, SLOT(on_weatherPushButton_clicked()));
+    QObject::connect((QWidget*)mainMenuWidget->m_pEnforcementPushbutton, SIGNAL(clicked()), this, SLOT(on_enforcementPushButton_clicked()));
+    QObject::connect((QWidget*)mainMenuWidget->m_pSpeedPushbutton, SIGNAL(clicked()), this, SLOT(on_speedPushButton_clicked()));
+    QObject::connect((QWidget*)mainMenuWidget->m_pWifiPushbutton, SIGNAL(clicked()), this, SLOT(on_wifiPushButton_clicked()));
+    QObject::connect((QWidget*)mainMenuWidget->m_pGpsPushbutton, SIGNAL(clicked()), this, SLOT(on_gpsPushButton_clicked()));
 }
 
 void MainWindow::finalize()
@@ -61,12 +72,42 @@ void MainWindow::finalize()
     delete layout;
 }
 
+void MainWindow::open_indicator_widget()
+{
+
+}
+
 void MainWindow::on_cameraPushButton_clicked()
 {
 
 }
 
 void MainWindow::on_daynNightPushButton_clicked()
+{
+
+}
+
+void MainWindow::on_weatherPushButton_clicked()
+{
+
+}
+
+void MainWindow::on_enforcementPushButton_clicked()
+{
+
+}
+
+void MainWindow::on_speedPushButton_clicked()
+{
+
+}
+
+void MainWindow::on_wifiPushButton_clicked()
+{
+
+}
+
+void MainWindow::on_gpsPushButton_clicked()
 {
 
 }

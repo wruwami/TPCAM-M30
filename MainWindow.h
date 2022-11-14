@@ -20,10 +20,15 @@ public:
 private:
     void initialize();
     void finalize();
+    void open_indicator_widget();
 private slots:
     void on_cameraPushButton_clicked();
-
     void on_daynNightPushButton_clicked();
+    void on_weatherPushButton_clicked();
+    void on_enforcementPushButton_clicked();
+    void on_speedPushButton_clicked();
+    void on_wifiPushButton_clicked();
+    void on_gpsPushButton_clicked();
     void on_loginWidgetClose();
     void on_dateTimeWidgetClicked();
     void on_enforcementClicked();

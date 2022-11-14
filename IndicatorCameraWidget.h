@@ -1,5 +1,5 @@
-#ifndef ENFORCEMENTCOMPONENT2WIDGET_H
-#define ENFORCEMENTCOMPONENT2WIDGET_H
+#ifndef INDICATORCAMERAWIDGET_H
+#define INDICATORCAMERAWIDGET_H
 
 #include <QWidget>
 
@@ -19,4 +19,4 @@ private:
     Ui::EnforcementComponent2Widget *ui;
 };
 
-#endif // ENFORCEMENTCOMPONENT2WIDGET_H
+#endif // INDICATORCAMERAWIDGET_H

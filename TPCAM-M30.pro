@@ -14,6 +14,7 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
     CustomTogglePushButton.cpp \
+    IndicatorCameraWidget.cpp \
         MainWindow.cpp \
     LoginWidget.cpp \
     MainMenuWidget.cpp \
@@ -39,7 +40,6 @@ SOURCES += main.cpp\
     EnforcementWidget.cpp \
     FileManagementWidget.cpp \
     EnforcementComponentWidget.cpp \
-    EnforcementComponent2Widget.cpp \
     FileManagerWidget.cpp \
     StillImageViewerWidget.cpp \
     MovieViewerWidget.cpp \
@@ -51,6 +51,7 @@ SOURCES += main.cpp\
 HEADERS  += MainWindow.h \
     CustomTogglePushButton.h \
     FontSize.h \
+    IndicatorCameraWidget.h \
     LoginWidget.h \
     MainMenuWidget.h \
     StringLoader.h \
@@ -76,7 +77,6 @@ HEADERS  += MainWindow.h \
     EnforcementWidget.h \
     FileManagementWidget.h \
     EnforcementComponentWidget.h \
-    EnforcementComponent2Widget.h \
     FileManagerWidget.h \
     StillImageViewerWidget.h \
     MovieViewerWidget.h \
@@ -86,6 +86,7 @@ HEADERS  += MainWindow.h \
     CameraZoomFocusWidget.h
 
 FORMS    += MainWindow.ui \
+    IndicatorCameraWidget.ui \
     LoginWidget.ui \
     MainMenuWidget.ui \
     DateTimeWidget.ui \
@@ -104,7 +105,6 @@ FORMS    += MainWindow.ui \
     EnforcementWidget.ui \
     FileManagementWidget.ui \
     EnforcementComponentWidget.ui \
-    EnforcementComponent2Widget.ui \
     FileManagerWidget.ui \
     StillImageViewerWidget.ui \
     MovieViewerWidget.ui \

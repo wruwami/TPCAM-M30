@@ -74,42 +74,44 @@ void MainWindow::finalize()
 
 void MainWindow::open_indicator_widget()
 {
-
+    IndicatorWidget indicatorWidget;
+    indicatorWidget.setGeometry(ui->verticalLayout->itemAt(1)->geometry());
+    indicatorWidget.exec();
 }
 
 void MainWindow::on_cameraPushButton_clicked()
 {
-
+    open_indicator_widget();
 }
 
 void MainWindow::on_daynNightPushButton_clicked()
 {
-
+    open_indicator_widget();
 }
 
 void MainWindow::on_weatherPushButton_clicked()
 {
-
+    open_indicator_widget();
 }
 
 void MainWindow::on_enforcementPushButton_clicked()
 {
-
+    open_indicator_widget();
 }
 
 void MainWindow::on_speedPushButton_clicked()
 {
-
+    open_indicator_widget();
 }
 
 void MainWindow::on_wifiPushButton_clicked()
 {
-
+    open_indicator_widget();
 }
 
 void MainWindow::on_gpsPushButton_clicked()
 {
-
+    open_indicator_widget();
 }
 
 void MainWindow::on_loginWidgetClose()

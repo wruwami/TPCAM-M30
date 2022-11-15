@@ -8,7 +8,7 @@ class CustomPushButton : public QPushButton
     Q_OBJECT
 public:
     explicit CustomPushButton(QWidget *parent = 0);
-
+    void setImage(QString path_name, QString file_name);
 signals:
 
 public slots:

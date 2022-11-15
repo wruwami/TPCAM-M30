@@ -1,10 +1,27 @@
 #include "CustomPushButton.h"
 
 #include "FontSize.h"
+#include <QDir>
+
+#define DEFAULT_PATH    "images"
 
 CustomPushButton::CustomPushButton(QWidget *parent) : QPushButton(parent)
 {
     this->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+}
+
+void CustomPushButton::setImage(QString path_name, QString file_name)
+{
+    // icon 방식
+    // 추후 icon방식이 적절하지 않으면 background-image 방식으로 변경하여야 함.
+    QDir qdir;
+    QString file_full_path;
+#ifdef Q_OS_WIN
+    file_full_path = qdir.absolutePath() + "\\" + DEFAULT_PATH + "\\" + path_name + "\\" + file_name;
+#else   /*Q_OS_LINUX*/
+    file_full_path = qdir.absolutePath() + "/" + DEFAULT_PATH + "/" + path_name + "/" + file_name;
+#endif
+    this->setIcon(QIcon(file_full_path));
 }
 
 void CustomPushButton::resizeEvent(QResizeEvent *event)

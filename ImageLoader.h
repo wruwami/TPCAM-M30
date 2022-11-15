@@ -4,11 +4,7 @@
 #include <QDir>
 #include <QPixmap>
 
-#ifdef Q_OS_WIN
-    #define DEFAULT_PATH    "images"
-#else   /*Q_OS_LINUX*/
-    #define DEFAULT_PATH    "images"
-#endif
+#define DEFAULT_PATH    "images"
 
 static QPixmap LoadImage(std::string path_name, std::string file_name)
 {

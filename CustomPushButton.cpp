@@ -10,18 +10,62 @@ CustomPushButton::CustomPushButton(QWidget *parent) : QPushButton(parent)
     this->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 }
 
-void CustomPushButton::setImage(QString path_name, QString file_name)
+void CustomPushButton::setImage(QString path_name, QString file_name, QSize size)
 {
     // icon 방식
     // 추후 icon방식이 적절하지 않으면 background-image 방식으로 변경하여야 함.
     QDir qdir;
     QString file_full_path;
-#ifdef Q_OS_WIN
-    file_full_path = qdir.absolutePath() + "\\" + DEFAULT_PATH + "\\" + path_name + "\\" + file_name;
-#else   /*Q_OS_LINUX*/
+//#ifdef Q_OS_WIN
+//    file_full_path = qdir.absolutePath() + "\\" + DEFAULT_PATH + "\\" + path_name + "\\" + file_name;
+//#else   /*Q_OS_LINUX*/
     file_full_path = qdir.absolutePath() + "/" + DEFAULT_PATH + "/" + path_name + "/" + file_name;
+//#endif
+
+#if 1
+    m_pixmap.load(file_full_path);
+    setAutoFillBackground(true);
+
+    QPixmap fitpixmap = m_pixmap.scaled(size.width(), size.height(), Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
+    this->setIcon(QIcon(fitpixmap));
+    this->setIconSize(QSize(size.width(), size.height()));
+#else
+    // background-image 방식
+//    QUrl url(file_full_path);
+//    url.set
+//
+    this->setStyleSheet(QString("QPushButton { \
+                                color: black; \
+                                background-color: white; \
+                                border-width: 1px; \
+                                border-color: blue; \
+                                border-style: solid; \
+                                background-image: url(%0);\
+                            }\
+                            QPushButton:pressed { \
+                                border-color: red; \
+                            }").arg(file_full_path));
+
+
+//    m_pixmap.load(file_full_path);
+//    update();
+//    QPalette pal = QPalette();
+//    pal.setBrush(QPalette::Background, QBrush(pixmap));
+    this->setAutoFillBackground(true);
+//    this->setPalette(pal);
+//    this->update();
+
+
+
+//    this->setStyleSheet(QString("QPushButton::BorderImage { \
+//                                width: 180; height: 180 \
+//                        border { left: 30; top: 30; right: 30; bottom: 30 }\
+//                        horizontalTileMode: BorderImage.Stretch\
+//                        verticalTileMode: BorderImage.Stretch\
+//                        source: %0}));\
+//                        }").arg(file_full_path));
+
 #endif
-    this->setIcon(QIcon(file_full_path));
 }
 
 void CustomPushButton::resizeEvent(QResizeEvent *event)
@@ -31,4 +75,12 @@ void CustomPushButton::resizeEvent(QResizeEvent *event)
     if(font.pointSizeF()<=FontSize::Minimum) //최소폰트 설정
         font.setPointSizeF(FontSize::Minimum);
     this->setFont(font); //설정된 폰트를 위젯에 적용
+//    this->setIconSize(QSize(this->size().width(), this->size().height()));
 }
+
+//void CustomPushButton::paintEvent(QPaintEvent *event)
+//{
+//    QPainter painter(this);
+//    painter.drawPixmap(0, 0, pixmap.scaled(size()));
+//    QPushButton::paintEvent(event);
+//}

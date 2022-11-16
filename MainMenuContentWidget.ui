@@ -19,25 +19,13 @@
      <item>
       <layout class="QHBoxLayout" name="horizontalLayout">
        <item>
-        <widget class="CustomPushButton" name="settingPushButton">
-         <property name="text">
-          <string>PushButton</string>
-         </property>
-        </widget>
+        <widget class="CustomImageWidget" name="settingWidget" native="true"/>
        </item>
        <item>
-        <widget class="CustomPushButton" name="fileManagementPushButton">
-         <property name="text">
-          <string>PushButton</string>
-         </property>
-        </widget>
+        <widget class="CustomImageWidget" name="fileManagementWidget" native="true"/>
        </item>
        <item>
-        <widget class="CustomPushButton" name="enforcementPushButton">
-         <property name="text">
-          <string>PushButton</string>
-         </property>
-        </widget>
+        <widget class="CustomImageWidget" name="enforcementWidget" native="true"/>
        </item>
       </layout>
      </item>
@@ -84,14 +72,15 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>CustomPushButton</class>
-   <extends>QPushButton</extends>
-   <header>CustomPushButton.h</header>
-  </customwidget>
-  <customwidget>
    <class>CustomLabel</class>
    <extends>QLabel</extends>
    <header>CustomLabel.h</header>
+  </customwidget>
+  <customwidget>
+   <class>CustomImageWidget</class>
+   <extends>QWidget</extends>
+   <header>CustomImageWidget.h</header>
+   <container>1</container>
   </customwidget>
  </customwidgets>
  <resources/>

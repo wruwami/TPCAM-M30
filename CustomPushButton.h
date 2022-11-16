@@ -2,15 +2,18 @@
 #define CUSTOMPUSHBUTTON_H
 
 #include <QPushButton>
+#include <QPainter>
 
 class CustomPushButton : public QPushButton
 {
     Q_OBJECT
 public:
     explicit CustomPushButton(QWidget *parent = 0);
-    void setImage(QString path_name, QString file_name);
+    void setImage(QString path_name, QString file_name, QSize size);
 signals:
 
+private:
+    QPixmap m_pixmap;
 public slots:
 
 

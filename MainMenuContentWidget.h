@@ -24,7 +24,7 @@ private slots:
     void on_enforcementPushButton_clicked();
 
 public:
-    CustomImageWidget* m_pEnforcementButton;
+    QPushButton* m_pEnforcementButton;
 private:
     Ui::MainMenuContentWidget *ui;
 

@@ -8,9 +8,10 @@
 CustomPushButton::CustomPushButton(QWidget *parent) : QPushButton(parent)
 {
     this->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+
 }
 
-void CustomPushButton::setImage(QString path_name, QString file_name, QSize size)
+void CustomPushButton::setImage(QString path_name, QString file_name)
 {
     // icon 방식
     // 추후 icon방식이 적절하지 않으면 background-image 방식으로 변경하여야 함.
@@ -25,10 +26,13 @@ void CustomPushButton::setImage(QString path_name, QString file_name, QSize size
 #if 1
     m_pixmap.load(file_full_path);
     setAutoFillBackground(true);
+    QSize ssize = size();
+    this->sizeHint();
+    m_icon = QIcon(m_pixmap);
 
-    QPixmap fitpixmap = m_pixmap.scaled(size.width(), size.height(), Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
-    this->setIcon(QIcon(fitpixmap));
-    this->setIconSize(QSize(size.width(), size.height()));
+    m_pixmap = m_pixmap.scaled(size().width(), size().height(), Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
+    this->setIcon(m_icon);
+    this->setIconSize(QSize(size().width(), size().height()));
 #else
     // background-image 방식
 //    QUrl url(file_full_path);
@@ -41,6 +45,7 @@ void CustomPushButton::setImage(QString path_name, QString file_name, QSize size
                                 border-color: blue; \
                                 border-style: solid; \
                                 background-image: url(%0);\
+                                background-repeat = no-repeat;\
                             }\
                             QPushButton:pressed { \
                                 border-color: red; \
@@ -51,7 +56,7 @@ void CustomPushButton::setImage(QString path_name, QString file_name, QSize size
 //    update();
 //    QPalette pal = QPalette();
 //    pal.setBrush(QPalette::Background, QBrush(pixmap));
-    this->setAutoFillBackground(true);
+//    this->setAutoFillBackground(true);
 //    this->setPalette(pal);
 //    this->update();
 
@@ -75,12 +80,28 @@ void CustomPushButton::resizeEvent(QResizeEvent *event)
     if(font.pointSizeF()<=FontSize::Minimum) //최소폰트 설정
         font.setPointSizeF(FontSize::Minimum);
     this->setFont(font); //설정된 폰트를 위젯에 적용
+
 //    this->setIconSize(QSize(this->size().width(), this->size().height()));
 }
 
-//void CustomPushButton::paintEvent(QPaintEvent *event)
-//{
-//    QPainter painter(this);
-//    painter.drawPixmap(0, 0, pixmap.scaled(size()));
-//    QPushButton::paintEvent(event);
-//}
+void CustomPushButton::paintEvent(QPaintEvent *event)
+{
+    QPushButton::paintEvent(event);
+
+    QPainter painter(this);
+    QRect rec=contentsRect();
+    rec.adjust(0,8,-0,-10);     // margins specific to MacOs
+
+    int w=rec.size().width();
+    int h=rec.size().height();
+    QSize _size(w,h);
+    QPoint top=rec.topLeft();
+//    top.setX((rec.width()-h)/2);
+
+    // draw the outline rec of the button to visualise the real size of the widget !
+    painter.drawRect(rect().adjusted(0,0,-1,-1));
+
+    painter.drawPixmap(QRect(top,_size), m_icon.pixmap(_size));
+
+//    qDebug()<<QRect(top,size)<<contentsRect();
+}

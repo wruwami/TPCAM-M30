@@ -12,14 +12,14 @@ MainMenuContentWidget::MainMenuContentWidget(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    m_pEnforcementButton = ui->enforcementWidget;
+    m_pEnforcementButton = ui->enforcementPushButton;
 
 //    ui->settingPushButton->setStyleSheet(QString("QPushbutton {background-color: rgba(255,255,255,0); background-image: url(\"Main_menu\mainmenu_setting.bmp\");}"));
 
 //    QSize size = QSize(ui->horizontalLayout->itemAt(0)->geometry().width(), ui->horizontalLayout->itemAt(0)->geometry().height());
-    ui->settingWidget->setImage("Main_menu", "mainmenu_setting.bmp");
-    ui->fileManagementWidget->setImage("Main_menu", "mainmenu_file_management.bmp");
-    ui->enforcementWidget->setImage("Main_menu", "mainmenu_enforcement.bmp");
+    ui->settingPushButton->setImage("Main_menu", "mainmenu_setting.bmp");
+    ui->fileManagementPushButton->setImage("Main_menu", "mainmenu_file_management.bmp");
+    ui->enforcementPushButton->setImage("Main_menu", "mainmenu_enforcement.bmp");
 }
 
 MainMenuContentWidget::~MainMenuContentWidget()

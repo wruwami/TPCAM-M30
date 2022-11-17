@@ -14,8 +14,18 @@ IndicatorWidget::IndicatorWidget(QWidget *parent) :
 
     setStyleSheet(styleSheet);
 
+
+
     setWindowFlags(Qt::FramelessWindowHint);
     ui->setupUi(this);
+
+    ui->daynNightPushButton->setImage("indicator", "indicator_enable_night_mode_off.bmp", ui->daynNightPushButton->size());
+    ui->weatherPushButton->setImage("indicator", "indicator_enable_weather_mode_on.bmp", ui->weatherPushButton->size());
+    ui->enforcementPushButton->setText("IDS_ENFORCEMENT_VIDEO");
+    ui->speedPushButton->setImage("indicator", "indicator_enable_user_mode_on.bmp", ui->speedPushButton->size());
+    ui->comPushButton->setImage("indicator", "indicator_wifi_disconnected.bmp", ui->comPushButton->size());
+    ui->gpsPushButton->setImage("indicator", "indicator_gps_off.bmp", ui->gpsPushButton->size());
+
     ui->onPushButton->setVisible(false);
     ui->offPushButton->setVisible(false);
 }
@@ -33,8 +43,8 @@ void IndicatorWidget::on_cameraPushButton_clicked()
 
     ui->horizontalLayout2->removeItem(ui->horizontalLayout2->takeAt(0));
     ui->horizontalLayout2->removeItem(ui->horizontalLayout2->takeAt(1));
-    ui->horizontalLayout2->addWidget(m_pCameraExposePushButton, 2);
-    ui->horizontalLayout2->addWidget(m_pCameraFocusPushButton, 2);
+    ui->horizontalLayout2->insertWidget(0, m_pCameraExposePushButton, 2);
+    ui->horizontalLayout2->insertWidget(1, m_pCameraFocusPushButton, 2);
 
 }
 
@@ -60,12 +70,12 @@ void IndicatorWidget::on_daynNightPushButton_clicked()
     ui->horizontalLayout2->removeItem(ui->horizontalLayout2->takeAt(3));
     ui->horizontalLayout2->removeItem(ui->horizontalLayout2->takeAt(4));
     ui->horizontalLayout2->removeItem(ui->horizontalLayout2->takeAt(5));
-    ui->horizontalLayout2->addWidget(m_pDay1PushButton, 2);
-    ui->horizontalLayout2->addWidget(m_pDay2PushButton, 2);
-    ui->horizontalLayout2->addWidget(m_pDay3PushButton, 2);
-    ui->horizontalLayout2->addWidget(m_pNight1PushButton, 2);
-    ui->horizontalLayout2->addWidget(m_pNight2PushButton, 2);
-    ui->horizontalLayout2->addWidget(m_pNight3PushButton, 2);
+    ui->horizontalLayout2->insertWidget(0, m_pDay1PushButton, 2);
+    ui->horizontalLayout2->insertWidget(1, m_pDay2PushButton, 2);
+    ui->horizontalLayout2->insertWidget(2, m_pDay3PushButton, 2);
+    ui->horizontalLayout2->insertWidget(3, m_pNight1PushButton, 2);
+    ui->horizontalLayout2->insertWidget(4, m_pNight2PushButton, 2);
+    ui->horizontalLayout2->insertWidget(5, m_pNight3PushButton, 2);
 
 }
 

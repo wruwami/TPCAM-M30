@@ -17,6 +17,7 @@ public:
     ~MainMenuWidget();
     void SetMainMenuTitle(QString title);
     void enableButtons(bool enable);
+    void updateStretch();
 private:
     Ui::MainMenuWidget *ui;
 

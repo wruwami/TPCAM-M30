@@ -18,92 +18,82 @@
   </property>
   <layout class="QHBoxLayout" name="horizontalLayout">
    <item>
-    <layout class="QGridLayout" name="gridLayout_3">
-     <item row="1" column="10">
-      <widget class="QLabel" name="batteryStatusLabel">
-       <property name="text">
-        <string/>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="9">
-      <widget class="QLabel" name="batteryPercentLabel">
-       <property name="text">
-        <string/>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="2">
-      <widget class="CustomPushButton" name="cameraPushButton">
-       <property name="text">
-        <string/>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="3">
-      <widget class="CustomPushButton" name="daynNightPushButton">
-       <property name="text">
-        <string/>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="1">
-      <spacer name="horizontalSpacer">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>40</width>
-         <height>20</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-     <item row="1" column="0">
+    <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="442,87,87,87,87,87,87,87,148,27,374">
+     <property name="sizeConstraint">
+      <enum>QLayout::SetFixedSize</enum>
+     </property>
+     <item>
       <widget class="CustomLabel" name="mainMenuTitleLabel">
        <property name="text">
         <string>TextLabel</string>
        </property>
       </widget>
      </item>
-     <item row="1" column="7">
-      <widget class="CustomPushButton" name="wifiPushButton">
+     <item>
+      <widget class="CustomPushButton" name="cameraPushButton">
        <property name="text">
         <string/>
        </property>
       </widget>
      </item>
-     <item row="1" column="5">
-      <widget class="CustomPushButton" name="enforcementPushButton">
+     <item>
+      <widget class="CustomPushButton" name="daynNightPushButton">
        <property name="text">
         <string/>
        </property>
       </widget>
      </item>
-     <item row="1" column="4">
+     <item>
       <widget class="CustomPushButton" name="weatherPushButton">
        <property name="text">
         <string/>
        </property>
       </widget>
      </item>
-     <item row="1" column="6">
+     <item>
+      <widget class="CustomPushButton" name="enforcementPushButton">
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </item>
+     <item>
       <widget class="CustomPushButton" name="speedPushButton">
        <property name="text">
         <string/>
        </property>
       </widget>
      </item>
-     <item row="1" column="8">
+     <item>
+      <widget class="CustomPushButton" name="wifiPushButton">
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </item>
+     <item>
       <widget class="CustomPushButton" name="gpsPushButton">
        <property name="text">
         <string/>
        </property>
       </widget>
      </item>
-     <item row="1" column="11">
-      <widget class="QLabel" name="timeLabel">
+     <item>
+      <widget class="CustomLabel" name="batteryPercentLabel">
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="CustomLabel" name="batteryStatusLabel">
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="CustomLabel" name="timeLabel">
        <property name="text">
         <string/>
        </property>

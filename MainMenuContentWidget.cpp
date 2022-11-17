@@ -1,7 +1,6 @@
 #include "MainMenuContentWidget.h"
 #include "ui_MainMenuContentWidget.h"
 
-#include "ImageLoader.h"
 #include "SettingWidget.h"
 #include "FileManagementWidget.h"
 #include "EnforcementWidget.h"

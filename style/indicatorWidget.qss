@@ -10,3 +10,7 @@ QPushButton {
     border-style: solid;
 }
 
+QLabel {
+    color: white;
+}
+

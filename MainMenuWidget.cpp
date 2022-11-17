@@ -2,10 +2,11 @@
 #include "ui_MainMenuWidget.h"
 
 #include <QTime>
+#include <QFile>
 
 #include "Color.h"
-#include "ImageLoader.h"
 #include "IndicatorWidget.h"
+#include "StringLoader.h"
 
 MainMenuWidget::MainMenuWidget(QWidget *parent) :
     QWidget(parent),
@@ -14,6 +15,13 @@ MainMenuWidget::MainMenuWidget(QWidget *parent) :
     ui->setupUi(this);
     setBackGroundColor(this, 0x000000);
 
+    QFile file(":/style/mainmenuWidget.qss");
+    file.open(QFile::ReadOnly);
+    QString styleSheet = QString::fromLatin1(file.readAll());
+
+    setStyleSheet(styleSheet);
+
+
     m_pCameraPushbutton = ui->cameraPushButton;
     m_pDaynNightPushbutton = ui->daynNightPushButton;
     m_pWeatherPushbutton = ui->weatherPushButton;
@@ -21,12 +29,31 @@ MainMenuWidget::MainMenuWidget(QWidget *parent) :
     m_pSpeedPushbutton = ui->speedPushButton;
     m_pWifiPushbutton = ui->wifiPushButton;
     m_pGpsPushbutton = ui->gpsPushButton;
+
+    ui->mainMenuTitleLabel->setText("Main Menu");
+
+
+    ui->daynNightPushButton->setImage("indicator", "indicator_enable_night_mode_off.bmp", ui->daynNightPushButton->size());
+    ui->weatherPushButton->setImage("indicator", "indicator_enable_weather_mode_on.bmp", ui->weatherPushButton->size());
+    ui->enforcementPushButton->setText("IDS_ENFORCEMENT_VIDEO");
+    ui->speedPushButton->setImage("indicator", "indicator_enable_user_mode_on.bmp", ui->speedPushButton->size());
+    ui->wifiPushButton->setImage("indicator", "indicator_wifi_disconnected.bmp", ui->wifiPushButton->size());
+    ui->gpsPushButton->setImage("indicator", "indicator_gps_off.bmp", ui->gpsPushButton->size());
+
+    ui->batteryPercentLabel->setImage("indicator", "indicator_battery4.bmp", ui->batteryPercentLabel->size());
+    ui->batteryStatusLabel->setImage("indicator", "charging.png", ui->batteryStatusLabel->size());
+
+
+
+    startTimer(1000);
 }
 
 MainMenuWidget::~MainMenuWidget()
 {
     delete ui;
 }
+
+
 
 void MainMenuWidget::SetMainMenuTitle(QString title)
 {
@@ -42,6 +69,21 @@ void MainMenuWidget::enableButtons(bool enable)
     ui->speedPushButton->setEnabled(enable);
     ui->wifiPushButton->setEnabled(enable);
     ui->gpsPushButton->setEnabled(enable);
+}
+
+void MainMenuWidget::updateStretch()
+{
+    ui->horizontalLayout_2->setStretch(0, 442);
+    ui->horizontalLayout_2->setStretch(1, 87);
+    ui->horizontalLayout_2->setStretch(2, 87);
+    ui->horizontalLayout_2->setStretch(3, 87);
+    ui->horizontalLayout_2->setStretch(4, 87);
+    ui->horizontalLayout_2->setStretch(5, 87);
+    ui->horizontalLayout_2->setStretch(6, 87);
+    ui->horizontalLayout_2->setStretch(7, 87);
+    ui->horizontalLayout_2->setStretch(8, 148);
+    ui->horizontalLayout_2->setStretch(9, 27);
+    ui->horizontalLayout_2->setStretch(10, 374);
 }
 
 void MainMenuWidget::timerEvent(QTimerEvent *event)

@@ -5,5 +5,6 @@
         <file>style/selftestWidget.qss</file>
         <file>style/customPushButton.qss</file>
         <file>style/customImageButton.qss</file>
+        <file>style/mainmenuWidget.qss</file>
     </qresource>
 </RCC>

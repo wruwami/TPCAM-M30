@@ -1,11 +1,40 @@
 #include "CustomLabel.h"
 
+#include <QDir>
+
+#define DEFAULT_PATH    "images"
+
 #include "FontSize.h"
 
 CustomLabel::CustomLabel(QWidget *parent) : QLabel(parent)
 {
     this->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 }
+
+void CustomLabel::setImage(QString path_name, QString file_name)
+{
+    QDir qdir;
+    QString file_full_path;
+    file_full_path = qdir.absolutePath() + "/" + DEFAULT_PATH + "/" + path_name + "/" + file_name;
+
+    QPixmap pixmap;
+    pixmap.load(file_full_path);
+    QPixmap fitpixmap=pixmap.scaled(width(), height(), Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
+    this->setPixmap(fitpixmap);
+}
+
+void CustomLabel::setImage(QString path_name, QString file_name, QSize size)
+{
+    QDir qdir;
+    QString file_full_path;
+    file_full_path = qdir.absolutePath() + "/" + DEFAULT_PATH + "/" + path_name + "/" + file_name;
+
+    QPixmap pixmap;
+    pixmap.load(file_full_path);
+    QPixmap fitpixmap=pixmap.scaled(size.width(), size.height(), Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
+    this->setPixmap(fitpixmap);
+}
+
 
 void CustomLabel::resizeEvent(QResizeEvent *event)
 {

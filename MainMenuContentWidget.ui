@@ -19,7 +19,7 @@
      <item>
       <layout class="QHBoxLayout" name="horizontalLayout">
        <item>
-        <widget class="CustomPushButton" name="enforcementPushButton">
+        <widget class="CustomPushButton" name="settingPushButton">
          <property name="text">
           <string/>
          </property>
@@ -33,7 +33,7 @@
         </widget>
        </item>
        <item>
-        <widget class="CustomPushButton" name="settingPushButton">
+        <widget class="CustomPushButton" name="enforcementPushButton">
          <property name="text">
           <string/>
          </property>

@@ -24,8 +24,8 @@ SOURCES += main.cpp\
     IndicatorWidget.cpp \
     SettingWidget.cpp \
     SelfTestWidget.cpp \
-    CustomCheckBox.cpp \
     CustomComboBox.cpp \
+    CustomCheckBox.cpp \
     CustomLabel.cpp \
     CustomLineEdit.cpp \
     CustomPushButton.cpp \
@@ -85,8 +85,8 @@ HEADERS  += MainWindow.h \
     DeviceIDWidget.h \
     CameraAlignWidget.h \
     CameraZoomFocusWidget.h \
-    ImageLoader.h \
-    CustomImageWidget.h
+    CustomImageWidget.h \
+    ImageSize.h
 
 FORMS    += MainWindow.ui \
     IndicatorCameraWidget.ui \

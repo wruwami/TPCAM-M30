@@ -15,7 +15,7 @@ TEMPLATE = app
 SOURCES += main.cpp\
     CustomTogglePushButton.cpp \
     IndicatorCameraWidget.cpp \
-        MainWindow.cpp \
+    MainWindow.cpp \
     LoginWidget.cpp \
     MainMenuWidget.cpp \
     StringLoader.cpp \
@@ -47,7 +47,24 @@ SOURCES += main.cpp\
     DeviceIDWidget.cpp \
     CameraAlignWidget.cpp \
     CameraZoomFocusWidget.cpp \
-    CustomImageWidget.cpp
+    CustomImageWidget.cpp \
+    SelfTestWarningMessageDialog.cpp \
+    LoginExpiredDateDialog.cpp \
+    IndicatorGpsDialog.cpp \
+    Setting1LocationDialog.cpp \
+    Setting3SystemInfomationDialog.cpp \
+    Setting3FactorDefaultDialog.cpp \
+    Setting3AdminPWDialog.cpp \
+    Setting3PasswordChangingDialog.cpp \
+    Setting4AdminPWDialog.cpp \
+    Setting4WifiSearchDialog.cpp \
+    Setting6BluetoothSearchFilterDialog.cpp \
+    EnforcementWarningMessageDialog.cpp \
+    FileManagerSnapShotDialog.cpp \
+    FileManagerErrorMessageDialog.cpp \
+    FileManagerQuestionMessageDialog.cpp \
+    AdminPWDialog.cpp \
+    FileManagerFTPFileTransferDialog.cpp
 
 HEADERS  += MainWindow.h \
     CustomTogglePushButton.h \
@@ -86,7 +103,24 @@ HEADERS  += MainWindow.h \
     CameraAlignWidget.h \
     CameraZoomFocusWidget.h \
     CustomImageWidget.h \
-    ImageSize.h
+    ImageSize.h \
+    SelfTestWarningMessageDialog.h \
+    LoginExpiredDateDialog.h \
+    IndicatorGPSDialog.h \
+    Setting1LocationDialog.h \
+    Setting3SystemInfomationDialog.h \
+    Setting3FactorDefaultDialog.h \
+    Setting3AdminPWDialog.h \
+    Setting3PasswordChangingDialog.h \
+    Setting4AdminPWDialog.h \
+    Setting4WifiSearchDialog.h \
+    Setting6BluetoothSearchFilterDialog.h \
+    EnforcementWarningMessageDialog.h \
+    FileManagerSnapShotDialog.h \
+    FileManagerErrorMessageDialog.h \
+    FileManagerQuestionMessageDialog.h \
+    AdminPWDialog.h \
+    FileManagerFTPFileTransferDialog.h
 
 FORMS    += MainWindow.ui \
     IndicatorCameraWidget.ui \
@@ -114,7 +148,24 @@ FORMS    += MainWindow.ui \
     MainMenuAdminAlignWidget.ui \
     DeviceIDWidget.ui \
     CameraAlignWidget.ui \
-    CameraZoomFocusWidget.ui
+    CameraZoomFocusWidget.ui \
+    SelfTestWarningMessageDialog.ui \
+    LoginExpiredDateDialog.ui \
+    IndicatorGpsDialog.ui \
+    Setting1LocationDialog.ui \
+    Setting3SystemInfomationDialog.ui \
+    Setting3FactorDefaultDialog.ui \
+    Setting3AdminPWDialog.ui \
+    Setting3PasswordChangingDialog.ui \
+    Setting4AdminPWDialog.ui \
+    Setting4WifiSearchDialog.ui \
+    Setting6BluetoothSearchFilterDialog.ui \
+    EnforcementWarningMessageDialog.ui \
+    FileManagerSnapShotDialog.ui \
+    FileManagerErrorMessageDialog.ui \
+    FileManagerQuestionMessageDialog.ui \
+    AdminPWDialog.ui \
+    FileManagerFTPFileTransferDialog.ui
 
 RESOURCES += \
     style.qrc

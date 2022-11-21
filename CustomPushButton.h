@@ -16,7 +16,7 @@ private:
     QPixmap m_pixmap;
     QSize m_size;
     QIcon m_icon;
-    float m_ratio;
+    float m_ratio = 0;
 public slots:
 
 

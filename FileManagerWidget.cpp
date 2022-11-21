@@ -6,6 +6,9 @@ FileManagerWidget::FileManagerWidget(QWidget *parent) :
     ui(new Ui::FileManagerWidget)
 {
     ui->setupUi(this);
+
+//    QTableWidgetItem qTableWidgetItem = new QTableWidgetItem;
+//    ui->tableWidget->setHorizontalHeaderItem(0, qTableWidgetItem);
 }
 
 FileManagerWidget::~FileManagerWidget()

@@ -2,7 +2,7 @@
 #include "ui_MainMenuContentWidget.h"
 
 #include "SettingWidget.h"
-#include "FileManagementWidget.h"
+#include "FileManagerWidget.h"
 #include "EnforcementWidget.h"
 
 MainMenuContentWidget::MainMenuContentWidget(QWidget *parent) :
@@ -12,14 +12,14 @@ MainMenuContentWidget::MainMenuContentWidget(QWidget *parent) :
     ui->setupUi(this);
 
     m_pEnforcementButton = ui->enforcementPushButton;
-    m_pFileManagementButton = ui->fileManagementPushButton;
+    m_pFileManagertButton = ui->fileManagerPushButton;
     m_pSettingButton = ui->settingPushButton;
 
 //    ui->settingPushButton->setStyleSheet(QString("QPushbutton {background-color: rgba(255,255,255,0); background-image: url(\"Main_menu\mainmenu_setting.bmp\");}"));
 
 //    QSize size = QSize(ui->horizontalLayout->itemAt(0)->geometry().width(), ui->horizontalLayout->itemAt(0)->geometry().height());
     ui->settingPushButton->setImage("Main_menu", "mainmenu_setting.bmp");
-    ui->fileManagementPushButton->setImage("Main_menu", "mainmenu_file_management.bmp");
+    ui->fileManagerPushButton->setImage("Main_menu", "mainmenu_file_management.bmp");
     ui->enforcementPushButton->setImage("Main_menu", "mainmenu_enforcement.bmp");
 }
 

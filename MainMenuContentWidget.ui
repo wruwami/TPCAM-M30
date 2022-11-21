@@ -26,7 +26,7 @@
         </widget>
        </item>
        <item>
-        <widget class="CustomPushButton" name="fileManagementPushButton">
+        <widget class="CustomPushButton" name="fileManagerPushButton">
          <property name="text">
           <string/>
          </property>

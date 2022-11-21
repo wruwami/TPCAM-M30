@@ -38,7 +38,6 @@ SOURCES += main.cpp\
     Setting6Widget.cpp \
     Setting7Widget.cpp \
     EnforcementWidget.cpp \
-    FileManagementWidget.cpp \
     EnforcementComponentWidget.cpp \
     FileManagerWidget.cpp \
     StillImageViewerWidget.cpp \
@@ -93,7 +92,6 @@ HEADERS  += MainWindow.h \
     Setting6Widget.h \
     Setting7Widget.h \
     EnforcementWidget.h \
-    FileManagementWidget.h \
     EnforcementComponentWidget.h \
     FileManagerWidget.h \
     StillImageViewerWidget.h \
@@ -140,7 +138,6 @@ FORMS    += MainWindow.ui \
     Setting6Widget.ui \
     Setting7Widget.ui \
     EnforcementWidget.ui \
-    FileManagementWidget.ui \
     EnforcementComponentWidget.ui \
     FileManagerWidget.ui \
     StillImageViewerWidget.ui \

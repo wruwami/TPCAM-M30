@@ -25,7 +25,7 @@ private slots:
 
 public:
     QPushButton* m_pEnforcementButton;
-    QPushButton* m_pFileManagementButton;
+    QPushButton* m_pFileManagertButton;
     QPushButton* m_pSettingButton;
 private:
     Ui::MainMenuContentWidget *ui;

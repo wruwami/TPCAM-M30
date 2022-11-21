@@ -32,18 +32,27 @@ MainMenuWidget::MainMenuWidget(QWidget *parent) :
 
     ui->mainMenuTitleLabel->setText("Main Menu");
 
-
+#if 0
     ui->daynNightPushButton->setImage("indicator", "indicator_enable_night_mode_off.bmp", ui->daynNightPushButton->size());
     ui->weatherPushButton->setImage("indicator", "indicator_enable_weather_mode_on.bmp", ui->weatherPushButton->size());
-    ui->enforcementPushButton->setText("IDS_ENFORCEMENT_VIDEO");
+    ui->enforcementPushButton->setImage("indicator", "indicator_mode_v.bmp");
     ui->speedPushButton->setImage("indicator", "indicator_enable_user_mode_on.bmp", ui->speedPushButton->size());
     ui->wifiPushButton->setImage("indicator", "indicator_wifi_disconnected.bmp", ui->wifiPushButton->size());
     ui->gpsPushButton->setImage("indicator", "indicator_gps_off.bmp", ui->gpsPushButton->size());
 
     ui->batteryPercentLabel->setImage("indicator", "indicator_battery4.bmp", ui->batteryPercentLabel->size());
     ui->batteryStatusLabel->setImage("indicator", "charging.png", ui->batteryStatusLabel->size());
+#else
+    ui->daynNightPushButton->setImage("indicator", "indicator_enable_night_mode_off.bmp");
+    ui->weatherPushButton->setImage("indicator", "indicator_enable_weather_mode_on.bmp");
+    ui->enforcementPushButton->setImage("indicator", "indicator_mode_v.bmp");
+    ui->speedPushButton->setImage("indicator", "indicator_enable_user_mode_on.bmp");
+    ui->wifiPushButton->setImage("indicator", "indicator_wifi_disconnected.bmp");
+    ui->gpsPushButton->setImage("indicator", "indicator_gps_off.bmp");
 
-
+    ui->batteryPercentLabel->setImage("indicator", "indicator_battery4.bmp");
+    ui->batteryStatusLabel->setImage("indicator", "charging.png");
+#endif
 
     startTimer(1000);
 }

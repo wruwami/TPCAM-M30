@@ -32,6 +32,9 @@ private slots:
     void on_loginWidgetClose();
     void on_dateTimeWidgetClicked();
     void on_enforcementClicked();
+    void on_filemanagementClicked();
+    void on_settingClicked();
+
 
 private:
     Ui::MainWindow *ui;

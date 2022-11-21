@@ -20,12 +20,12 @@ int main(int argc, char *argv[])
 
     StringLoader::GetInstance()->Initialize("strings", "stringTable.csv", "English");
 
-    SelfTestWidget selfTestWidget;
-    selfTestWidget.exec();
+//    SelfTestWidget selfTestWidget;
+//    selfTestWidget.exec();
 
     MainWindow w;
-//    w.show();
-    w.showFullScreen();
+    w.show();
+//    w.showFullScreen();
 
     return a.exec();
 }

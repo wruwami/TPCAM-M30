@@ -21,7 +21,7 @@ IndicatorWidget::IndicatorWidget(QWidget *parent) :
 
     ui->daynNightPushButton->setImage("indicator", "indicator_enable_night_mode_off.bmp", ui->daynNightPushButton->size());
     ui->weatherPushButton->setImage("indicator", "indicator_enable_weather_mode_on.bmp", ui->weatherPushButton->size());
-    ui->enforcementPushButton->setText("IDS_ENFORCEMENT_VIDEO");
+    ui->enforcementPushButton->setImage("indicator", "indicator_mode_v.bmp");
     ui->speedPushButton->setImage("indicator", "indicator_enable_user_mode_on.bmp", ui->speedPushButton->size());
     ui->comPushButton->setImage("indicator", "indicator_wifi_disconnected.bmp", ui->comPushButton->size());
     ui->gpsPushButton->setImage("indicator", "indicator_gps_off.bmp", ui->gpsPushButton->size());

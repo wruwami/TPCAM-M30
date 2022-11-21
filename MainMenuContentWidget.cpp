@@ -12,6 +12,8 @@ MainMenuContentWidget::MainMenuContentWidget(QWidget *parent) :
     ui->setupUi(this);
 
     m_pEnforcementButton = ui->enforcementPushButton;
+    m_pFileManagementButton = ui->fileManagementPushButton;
+    m_pSettingButton = ui->settingPushButton;
 
 //    ui->settingPushButton->setStyleSheet(QString("QPushbutton {background-color: rgba(255,255,255,0); background-image: url(\"Main_menu\mainmenu_setting.bmp\");}"));
 
@@ -26,21 +28,21 @@ MainMenuContentWidget::~MainMenuContentWidget()
     delete ui;
 }
 
-void MainMenuContentWidget::on_settingPushButton_clicked()
-{
-    SettingWidget settingWidget;
-    settingWidget.setGeometry(this->geometry());
-    settingWidget.exec();
-}
+//void MainMenuContentWidget::on_settingPushButton_clicked()
+//{
+//    SettingWidget settingWidget;
+//    settingWidget.setGeometry(this->geometry());
+//    settingWidget.exec();
+//}
 
-void MainMenuContentWidget::on_fileManagementPushButton_clicked()
-{
-    FileManagementWidget fileManagementWidget;
-    fileManagementWidget.setGeometry(this->geometry());
-    fileManagementWidget.exec();
-}
+//void MainMenuContentWidget::on_fileManagementPushButton_clicked()
+//{
+//    FileManagementWidget fileManagementWidget;
+//    fileManagementWidget.setGeometry(this->geometry());
+//    fileManagementWidget.exec();
+//}
 
-void MainMenuContentWidget::on_enforcementPushButton_clicked()
-{
+//void MainMenuContentWidget::on_enforcementPushButton_clicked()
+//{
 
-}
+//}

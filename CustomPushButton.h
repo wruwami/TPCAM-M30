@@ -2,7 +2,6 @@
 #define CUSTOMPUSHBUTTON_H
 
 #include <QPushButton>
-#include <QPainter>
 
 class CustomPushButton : public QPushButton
 {
@@ -15,7 +14,9 @@ signals:
 
 private:
     QPixmap m_pixmap;
+    QSize m_size;
     QIcon m_icon;
+    float m_ratio;
 public slots:
 
 

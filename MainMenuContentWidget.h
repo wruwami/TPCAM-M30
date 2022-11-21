@@ -18,13 +18,15 @@ public:
     ~MainMenuContentWidget();
 
 private slots:
-    void on_settingPushButton_clicked();
+//    void on_settingPushButton_clicked();
 
-    void on_fileManagementPushButton_clicked();
-    void on_enforcementPushButton_clicked();
+//    void on_fileManagementPushButton_clicked();
+//    void on_enforcementPushButton_clicked();
 
 public:
     QPushButton* m_pEnforcementButton;
+    QPushButton* m_pFileManagementButton;
+    QPushButton* m_pSettingButton;
 private:
     Ui::MainMenuContentWidget *ui;
 

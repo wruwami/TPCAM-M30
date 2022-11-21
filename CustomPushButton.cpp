@@ -1,13 +1,19 @@
 #include "CustomPushButton.h"
 
-#include "FontSize.h"
 #include <QDir>
+#include <QResizeEvent>
+#include <QPainter>
+#include <QDebug>
+
+#include "FontSize.h"
+#include "ImageSize.h"
 
 #define DEFAULT_PATH    "images"
 
 CustomPushButton::CustomPushButton(QWidget *parent) : QPushButton(parent)
 {
     this->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    m_size = size();
 }
 
 void CustomPushButton::setImage(QString path_name, QString file_name)
@@ -24,10 +30,18 @@ void CustomPushButton::setImage(QString path_name, QString file_name)
 
 #if 1
     m_pixmap.load(file_full_path);
+    m_ratio = (float)m_pixmap.width() / (float)width();
+//    m_pixmap = m_pixmap.scaled(size().width(), size().height(), Qt::KeepAspectRatioByExpanding);
     m_icon = QIcon(m_pixmap);
-
-//    m_pixmap = m_pixmap.scaled(size().width(), size().height(), Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
     this->setIcon(m_icon);
+//    QSize _size = QSize(size().width()*2, size().height()*2);
+//    this->setIconSize(_size);
+//    qDebug() << m_pixmap.size();
+//    qDebug() << size();
+
+
+    qDebug() << m_ratio;
+//    this->setIconSize(m_pixmap.size());
 //    this->setIconSize(QSize(size().width(), size().height()));
 #else
     // background-image 방식
@@ -83,11 +97,14 @@ void CustomPushButton::setImage(QString path_name, QString file_name, QSize size
 
 #if 1
     m_pixmap.load(file_full_path);
-    m_icon = QIcon(m_pixmap);
 
-//    m_pixmap = m_pixmap.scaled(size().width(), size().height(), Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
-    this->setIcon(m_icon);
-    this->setIconSize(size);
+
+    m_icon = QIcon(m_pixmap);
+//    QSize _size = size();
+//    m_pixmap = m_pixmap.scaled(_size.width, _size.height(), Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
+//    this->setIcon(m_icon);
+    this->setIconSize(m_pixmap.size());
+
 #else
     // background-image 방식
 //    QUrl url(file_full_path);
@@ -136,8 +153,18 @@ void CustomPushButton::resizeEvent(QResizeEvent *event)
         font.setPointSizeF(FontSize::Minimum);
     this->setFont(font); //설정된 폰트를 위젯에 적용
 
+    ;
+//    event->
 //    if (size)
-//    this->setIconSize(QSize(this->size().width(), this->size().height()));
+//    this->setIconSize(QSize(event->size().width(), event->size().height()));
+//    m_pixmap = m_pixmap.scaled(event->size());
+    m_size = event->size();
+
+//    m_pixmap.size();
+
+
+//    this->setIconSize(m_size);
+//    qDebug() << m_size;
 }
 
 void CustomPushButton::paintEvent(QPaintEvent *event)
@@ -147,11 +174,19 @@ void CustomPushButton::paintEvent(QPaintEvent *event)
     QPainter painter(this);
 
     // draw the outline rec of the button to visualise the real size of the widget !
-//    QRect adjusted = rect().adjusted(1,1,-2,-2);
+    QRect adjusted = QRect(rect().topLeft(), m_size);
+//    QRect adjusted = m_size;
+    qDebug() << "adjusted.size()" <<adjusted.size();
+    qDebug() << "adjusted.rect()" << adjusted;
+//    QRect adjusted = contentsRect().adjusted(1,1,-2,-2);
 //    painter.drawRect(adjusted);
 //    painter.drawPixmap(adjusted, m_icon.pixmap(adjusted.size()));
+    painter.drawPixmap(adjusted, m_pixmap.scaled(m_size));
 
-    QRect adjusted = contentsRect().adjusted(1,1,-2,-2);
-    painter.drawRect(adjusted);
-    painter.drawPixmap(adjusted, m_icon.pixmap(adjusted.size()));
+
+//    QRect adjusted = contentsRect().adjusted(1,1,-2,-2);
+//    painter.drawRect(adjusted);
+//    painter.drawPixmap(adjusted, m_icon.pixmap(adjusted.size()));
+//    qDebug() << m_size;
+//    qDebug() << m_icon.size();
 }

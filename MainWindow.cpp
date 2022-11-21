@@ -9,6 +9,8 @@
 #include "MainMenuWidget.h"
 #include "MainMenuContentWidget.h"
 #include "LoginWidget.h"
+#include "FileManagementWidget.h"
+#include "SettingWidget.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -120,6 +122,8 @@ void MainWindow::on_loginWidgetClose()
     m_pMainMenuContentWidget = new MainMenuContentWidget;
     ui->verticalLayout->addWidget(m_pMainMenuContentWidget, 835);
     QObject::connect((QWidget*)m_pMainMenuContentWidget->m_pEnforcementButton, SIGNAL(clicked()), this, SLOT(on_enforcementClicked()));
+    QObject::connect((QWidget*)m_pMainMenuContentWidget->m_pFileManagementButton, SIGNAL(clicked()), this, SLOT(on_filemanagementClicked()));
+    QObject::connect((QWidget*)m_pMainMenuContentWidget->m_pSettingButton, SIGNAL(clicked()), this, SLOT(on_settingClicked()));
 }
 
 void MainWindow::on_dateTimeWidgetClicked()
@@ -139,5 +143,19 @@ void MainWindow::on_enforcementClicked()
 //    m_pMainMenuContentWidget = new MainMenuContentWidget;
 //    QVBoxLayout* layout = new QVBoxLayout;
 //    layout->addWidget(new EnforcementWidget);
-//    ui->centralWidget->setLayout(layout);
+    //    ui->centralWidget->setLayout(layout);
+}
+
+void MainWindow::on_filemanagementClicked()
+{
+    delete m_pMainMenuContentWidget;
+    ui->verticalLayout->removeItem(ui->verticalLayout->itemAt(1));
+    ui->verticalLayout->addWidget(new FileManagementWidget, 835);
+}
+
+void MainWindow::on_settingClicked()
+{
+    delete m_pMainMenuContentWidget;
+    ui->verticalLayout->removeItem(ui->verticalLayout->itemAt(1));
+    ui->verticalLayout->addWidget(new SettingWidget, 835);
 }

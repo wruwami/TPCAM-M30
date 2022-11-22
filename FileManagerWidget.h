@@ -22,6 +22,7 @@ private:
 protected:
     void resizeEvent(QResizeEvent *event);
     void paintEvent(QPaintEvent *event);
+private slots:
 };
 
 #endif // FILEMANAGERWIDGET_H

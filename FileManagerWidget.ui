@@ -21,7 +21,7 @@
        <item>
         <layout class="QGridLayout" name="gridLayout_2">
          <item row="0" column="2">
-          <widget class="QLabel" name="label">
+          <widget class="CustomLabel" name="dateLabel">
            <property name="text">
             <string>TextLabel</string>
            </property>
@@ -29,6 +29,9 @@
          </item>
          <item row="1" column="1" colspan="2">
           <widget class="QTableWidget" name="tableWidget">
+           <property name="autoFillBackground">
+            <bool>false</bool>
+           </property>
            <property name="rowCount">
             <number>4</number>
            </property>
@@ -50,35 +53,35 @@
           </widget>
          </item>
          <item row="0" column="1">
-          <widget class="QComboBox" name="comboBox"/>
+          <widget class="QComboBox" name="ImageVideoComboBox"/>
          </item>
         </layout>
        </item>
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_7">
          <item>
-          <widget class="QPushButton" name="pushButton_10">
+          <widget class="CustomPushButton" name="firstPushButton">
            <property name="text">
             <string>PushButton</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="pushButton_9">
+          <widget class="CustomPushButton" name="previousPushButton">
            <property name="text">
             <string>PushButton</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="pushButton_8">
+          <widget class="CustomPushButton" name="nextPushButton">
            <property name="text">
             <string>PushButton</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="pushButton_7">
+          <widget class="CustomPushButton" name="lastPushButton">
            <property name="text">
             <string>PushButton</string>
            </property>
@@ -89,21 +92,21 @@
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_5">
          <item>
-          <widget class="QPushButton" name="pushButton_13">
+          <widget class="CustomPushButton" name="percentPushButton">
            <property name="text">
             <string>PushButton</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="pushButton_12">
+          <widget class="CustomPushButton" name="connectPushButton">
            <property name="text">
             <string>PushButton</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="pushButton_11">
+          <widget class="CustomPushButton" name="printPushButton">
            <property name="text">
             <string>PushButton</string>
            </property>
@@ -116,47 +119,54 @@
      <item>
       <layout class="QVBoxLayout" name="verticalLayout">
        <item>
-        <widget class="QOpenGLWidget" name="openGLWidget"/>
+        <widget class="QFrame" name="frame">
+         <property name="frameShape">
+          <enum>QFrame::Box</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Raised</enum>
+         </property>
+        </widget>
        </item>
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_9">
          <item>
-          <widget class="QPushButton" name="pushButton_3">
+          <widget class="CustomPushButton" name="mainMenuPushButton">
            <property name="text">
             <string>PushButton</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="pushButton_5">
+          <widget class="CustomPushButton" name="searchPushButton">
            <property name="text">
             <string>PushButton</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="pushButton_6">
+          <widget class="CustomPushButton" name="zoomPushButton">
            <property name="text">
             <string>PushButton</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="pushButton_4">
+          <widget class="CustomPushButton" name="deletePushButton">
            <property name="text">
             <string>PushButton</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="pushButton_2">
+          <widget class="CustomPushButton" name="sharePushButton">
            <property name="text">
             <string>PushButton</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="pushButton">
+          <widget class="CustomPushButton" name="movePushButton">
            <property name="text">
             <string>PushButton</string>
            </property>
@@ -170,6 +180,18 @@
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>CustomLabel</class>
+   <extends>QLabel</extends>
+   <header>CustomLabel.h</header>
+  </customwidget>
+  <customwidget>
+   <class>CustomPushButton</class>
+   <extends>QPushButton</extends>
+   <header>CustomPushButton.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

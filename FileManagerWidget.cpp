@@ -4,58 +4,26 @@
 #include <QDebug>
 #include <QPainter>
 
+#include "CustomPushButton.h"
+#include "StringLoader.h"
+
 FileManagerWidget::FileManagerWidget(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::FileManagerWidget)
 {
     ui->setupUi(this);
 
-//    ui->gridLayout_4->setMargin(0);
-//    ui->gridLayout_4->setSpacing(0);
+    ui->ImageVideoComboBox->addItem(LoadString("IDS_I"));
+    ui->ImageVideoComboBox->addItem(LoadString("IDS_A"));
+    ui->ImageVideoComboBox->addItem(LoadString("IDS_V"));
 
-//    QFrame* boxFrame = new QFrame;
-//    boxFrame->setFrameShape(QFrame::Box);
-//    boxFrame->setFrameShadow(QFrame::Plain);
-//    boxFrame->setGeometry(ui->gridLayout_3->contentsRect());
+    ui->dateLabel->setImage("file_manager", "file_management_folder_icon_small.bmp");
+    ui->dateLabel->setText(LoadString("IDS_DATE"));
 
-//    qDebug() << ui->gridLayout_3->geometry();
-//    ui->gridLayout->addWidget(leftFrame, 0, 0, 1, 4);
-//    ui->leftFrame->setsi
-
-//    ui->rightFrame->setFrameShape(QFrame::VLine);
-//    ui->rightFrame->setFrameShadow(QFrame::Plain);
-
-//    QFrame* upper1Frame = new QFrame(this);
-//    upper1Frame->setFrameShape(QFrame::HLine);
-//    upper1Frame->setFrameShadow(QFrame::Plain);
-//    ui->gridLayout->addWidget(leftFrame, 0, 0, 4, 1);
-
-//    ui->upper2Frame->setFrameShape(QFrame::HLine);
-//    ui->upper2Frame->setFrameShadow(QFrame::Plain);
-
-//    ui->upper3Frame->setFrameShape(QFrame::HLine);
-//    ui->upper3Frame->setFrameShadow(QFrame::Plain);
-
-//    ui->upper4Frame->setFrameShape(QFrame::HLine);
-//    ui->upper4Frame->setFrameShadow(QFrame::Plain);
-
-
-//    ui->verticalLayout_2->layout()->
-//    QFrame *line = new QFrame;
-//    line->setGeometry(QRect(ui->verticalLayout_2->contentsRect()));
-//    line->setFrameShape(QFrame::Box); // Replace by VLine for vertical line
-//    line->setFrameShadow(QFrame::Plain);
-
-
-    //    line->setLineWidth(2);
-//    line->setMidLineWidth(1);
-//    line->setFrameShape(QFrame::HLine);
-//    line->setFrameShadow(QFrame::Raised);
-
-//    ui->verticalLayout_2->addWidget(line);
-
-//    QTableWidgetItem qTableWidgetItem = new QTableWidgetItem;
-//    ui->tableWidget->setHorizontalHeaderItem(0, qTableWidgetItem);
+    ui->firstPushButton->setImage("file_manager", "file_management_prev_big_seek_button.bmp");
+    ui->previousPushButton->setImage("file_manager", "file_management_prev_seek_button.bmp");
+    ui->nextPushButton->setImage("file_manager", "file_management_next_seek_button.bmp");
+    ui->lastPushButton->setImage("file_manager", "file_management_next_big_seek_button.bmp");
 }
 
 FileManagerWidget::~FileManagerWidget()

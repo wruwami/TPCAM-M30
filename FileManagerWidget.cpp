@@ -7,6 +7,17 @@ FileManagerWidget::FileManagerWidget(QWidget *parent) :
 {
     ui->setupUi(this);
 
+//    QFrame *line = new QFrame;
+//    line->setGeometry(QRect(ui->verticalLayout_2->contentsRect()));
+//    line->setFrameShape(QFrame::HLine); // Replace by VLine for vertical line
+//    line->setFrameShadow(QFrame::Sunken);
+//    line->setLineWidth(2);
+//    line->setMidLineWidth(1);
+//    line->setFrameShape(QFrame::HLine);
+//    line->setFrameShadow(QFrame::Raised);
+
+//    ui->verticalLayout_2->addWidget(line);
+
 //    QTableWidgetItem qTableWidgetItem = new QTableWidgetItem;
 //    ui->tableWidget->setHorizontalHeaderItem(0, qTableWidgetItem);
 }

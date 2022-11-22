@@ -20,9 +20,6 @@
       <layout class="QVBoxLayout" name="verticalLayout_2">
        <item>
         <layout class="QGridLayout" name="gridLayout_2">
-         <item row="0" column="1">
-          <widget class="QComboBox" name="comboBox"/>
-         </item>
          <item row="0" column="2">
           <widget class="QLabel" name="label">
            <property name="text">
@@ -52,9 +49,10 @@
            <column/>
           </widget>
          </item>
+         <item row="0" column="1">
+          <widget class="QComboBox" name="comboBox"/>
+         </item>
         </layout>
-       </item>
-       <item>
        </item>
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_7">

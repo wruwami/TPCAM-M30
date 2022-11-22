@@ -63,7 +63,12 @@ SOURCES += main.cpp\
     FileManagerErrorMessageDialog.cpp \
     FileManagerQuestionMessageDialog.cpp \
     AdminPWDialog.cpp \
-    FileManagerFTPFileTransferDialog.cpp
+    FileManagerFTPFileTransferDialog.cpp \
+    keyboard/key.cpp \
+    keyboard/keyboard.cpp \
+    keyboard/keylayout.cpp \
+    keyboardwidget.cpp \
+    keypadwidget.cpp
 
 HEADERS  += MainWindow.h \
     CustomTogglePushButton.h \
@@ -118,7 +123,12 @@ HEADERS  += MainWindow.h \
     FileManagerErrorMessageDialog.h \
     FileManagerQuestionMessageDialog.h \
     AdminPWDialog.h \
-    FileManagerFTPFileTransferDialog.h
+    FileManagerFTPFileTransferDialog.h \
+    keyboard/key.h \
+    keyboard/keyboard.h \
+    keyboard/keylayout.h \
+    keypadwidget.h \
+    keyboardwidget.h
 
 FORMS    += MainWindow.ui \
     IndicatorCameraWidget.ui \

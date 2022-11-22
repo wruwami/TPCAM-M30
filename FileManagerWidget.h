@@ -17,6 +17,11 @@ public:
 
 private:
     Ui::FileManagerWidget *ui;
+
+    // QWidget interface
+protected:
+    void resizeEvent(QResizeEvent *event);
+    void paintEvent(QPaintEvent *event);
 };
 
 #endif // FILEMANAGERWIDGET_H

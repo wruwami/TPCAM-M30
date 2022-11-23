@@ -11,6 +11,19 @@ CustomLabel::CustomLabel(QWidget *parent) : QLabel(parent)
     this->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 }
 
+//void CustomLabel::setIconImage(QString path_name, QString file_name)
+//{
+//    QDir qdir;
+//    QString file_full_path;
+//    file_full_path = qdir.absolutePath() + "/" + DEFAULT_PATH + "/" + path_name + "/" + file_name;
+
+//    QPixmap pixmap;
+//    pixmap.load(file_full_path);
+////    QPixmap fitpixmap=pixmap.scaled(width(), height(), Qt::KeepAspectRatio, Qt::SmoothTransformation);
+//    this->seti
+////    this->setScaledContents(true);
+//}
+
 void CustomLabel::setImage(QString path_name, QString file_name)
 {
     QDir qdir;

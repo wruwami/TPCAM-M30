@@ -2,8 +2,11 @@
 #include "ui_BaseDialog.h"
 
 #include "Color.h"
+#include "StringLoader.h"
 
-BaseDialog::BaseDialog(QWidget *parent, bool isCloseButton) :
+#include "LoginExpiredDateWidget.h"
+
+BaseDialog::BaseDialog(Dialog dialog, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::BaseDialog)
 {
@@ -12,6 +15,16 @@ BaseDialog::BaseDialog(QWidget *parent, bool isCloseButton) :
     this->setWindowFlags(Qt::FramelessWindowHint);
     setBackGroundColor(this, 0xd9d9d9);
 
+    switch (dialog)
+    {
+    case Dialog::LoginExpiredDateWidgetType:
+    {
+        ui->verticalLayout->addWidget(new LoginExpiredDateWidget);
+        ui->titleLabel->setText(LoadString("IDS_LOGIN_EXPIRED_DATE"));
+    }
+    break;
+    }
+
 //    if (isClosebutton)
 
 
@@ -19,5 +32,6 @@ BaseDialog::BaseDialog(QWidget *parent, bool isCloseButton) :
 
 BaseDialog::~BaseDialog()
 {
+    delete ui->verticalLayout->widget();
     delete ui;
 }

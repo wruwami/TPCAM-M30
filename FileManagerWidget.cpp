@@ -17,13 +17,24 @@ FileManagerWidget::FileManagerWidget(QWidget *parent) :
     ui->ImageVideoComboBox->addItem(LoadString("IDS_A"));
     ui->ImageVideoComboBox->addItem(LoadString("IDS_V"));
 
-    ui->dateLabel->setImage("file_manager", "file_management_folder_icon_small.bmp");
+    ui->dateImageLabel->setImage("file_manager", "file_management_folder_icon_small.bmp");
     ui->dateLabel->setText(LoadString("IDS_DATE"));
 
     ui->firstPushButton->setImage("file_manager", "file_management_prev_big_seek_button.bmp");
     ui->previousPushButton->setImage("file_manager", "file_management_prev_seek_button.bmp");
     ui->nextPushButton->setImage("file_manager", "file_management_next_seek_button.bmp");
     ui->lastPushButton->setImage("file_manager", "file_management_next_big_seek_button.bmp");
+
+//    ui->percentPushButton->setText(LoadString("IDS_"))
+    ui->connectPushButton->setText(LoadString("IDS_CONNECT"));
+    ui->printPushButton->setText(LoadString("IDS_PRINT"));
+
+    ui->movePushButton->setText(LoadString("IDS_MOVE"));
+    ui->searchPushButton->setText(LoadString("IDS_SEARCH"));
+    ui->zoomPushButton->setText(LoadString("IDS_ZOOM"));
+    ui->deletePushButton->setText(LoadString("IDS_DELETE"));
+    ui->sharePushButton->setText(LoadString("IDS_SHARE"));
+    ui->movePushButton->setText(LoadString("IDS_MOVE"));
 }
 
 FileManagerWidget::~FileManagerWidget()

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>BaseDialog</class>
- <widget class="QDialog" name="BaseDialog">
+ <class>LoginExpiredDateWidget</class>
+ <widget class="QWidget" name="LoginExpiredDateWidget">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -11,22 +11,22 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>Form</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_2">
    <item>
     <layout class="QVBoxLayout" name="verticalLayout">
      <item>
-      <widget class="QLabel" name="titleLabel">
+      <widget class="QLabel" name="label">
        <property name="text">
         <string>TextLabel</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="Line" name="line">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
+      <widget class="QPushButton" name="pushButton">
+       <property name="text">
+        <string>PushButton</string>
        </property>
       </widget>
      </item>

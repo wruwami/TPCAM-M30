@@ -6,6 +6,7 @@
 #include "IndicatorWidget.h"
 #include "MainWindow.h"
 #include "StringLoader.h"
+#include "BaseDialog.h"
 
 LoginWidget::LoginWidget(QWidget *parent) :
     QWidget(parent),
@@ -47,4 +48,11 @@ void LoginWidget::on_loginPushButton_clicked()
 void LoginWidget::on_dateTimePushButton_clicked()
 {
 //    close();
+}
+
+void LoginWidget::on_lightPushButton_clicked()
+{
+//    QRect rect(100, 100, 400, 400);
+    BaseDialog baseDialog(Dialog::LoginExpiredDateWidgetType);
+    baseDialog.exec();
 }

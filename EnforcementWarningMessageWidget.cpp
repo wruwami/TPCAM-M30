@@ -1,4 +1,4 @@
-#include "EnforcementWarningMessageDialog.h"
+#include "EnforcementWarningMessageWidget.h"
 #include "ui_EnforcementWarningMessageDialog.h"
 
 EnforcementWarningMessageDialog::EnforcementWarningMessageDialog(QWidget *parent) :

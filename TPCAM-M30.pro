@@ -56,7 +56,20 @@ SOURCES += main.cpp\
     keyboardwidget.cpp \
     keypadwidget.cpp \
     LoginExpiredDateWidget.cpp \
-    FileManagerFileTransferWidget.cpp
+    FileManagerFileTransferWidget.cpp \
+    SelfTestWarningMessageWidget.cpp \
+    IndicatorGPSWidget.cpp \
+    LocationWidget.cpp \
+    SystemInfoWidget.cpp \
+    FactoryDefaultWidget.cpp \
+    AdminPWWidget.cpp \
+    PasswordChangingWidget.cpp \
+    NetworkPWWidget.cpp \
+    WifiSearchWidget.cpp \
+    BluetoothSearchFilterWidget.cpp \
+    EnforcementWarningMessageWidget.cpp \
+    FileManagerErrorMessageWidget.cpp \
+    FileManagerQuestionMessageWidget.cpp
 
 HEADERS  += MainWindow.h \
     CustomTogglePushButton.h \
@@ -104,7 +117,20 @@ HEADERS  += MainWindow.h \
     keypadwidget.h \
     keyboardwidget.h \
     LoginExpiredDateWidget.h \
-    FileManagerFileTransferWidget.h
+    FileManagerFileTransferWidget.h \
+    SelfTestWarningMessageWidget.h \
+    IndicatorGPSWidget.h \
+    LocationWidget.h \
+    SystemInfoWidget.h \
+    FactoryDefaultWidget.h \
+    AdminPWWidget.h \
+    PasswordChangingWidget.h \
+    NetworkPWWidget.h \
+    WifiSearchWidget.h \
+    BluetoothSearchFilterWidget.h \
+    EnforcementWarningMessageWidget.h \
+    FileManagerErrorMessageWidget.h \
+    FileManagerQuestionMessageWidget.h
 
 FORMS    += MainWindow.ui \
     IndicatorCameraWidget.ui \
@@ -136,7 +162,20 @@ FORMS    += MainWindow.ui \
     FileManagerSnapShotDialog.ui \
     AdminPWDialog.ui \
     LoginExpiredDateWidget.ui \
-    FileManagerFileTransferWidget.ui
+    FileManagerFileTransferWidget.ui \
+    SelfTestWarningMessageWidget.ui \
+    IndicatorGPSWidget.ui \
+    LocationWidget.ui \
+    SystemInfoWidget.ui \
+    FactoryDefaultWidget.ui \
+    AdminPWWidget.ui \
+    PasswordChangingWidget.ui \
+    NetworkPWWidget.ui \
+    WifiSearchWidget.ui \
+    BluetoothSearchFilterWidget.ui \
+    EnforcementWarningMessageWidget.ui \
+    FileManagerErrorMessageWidget.ui \
+    FileManagerQuestionMessageWidget.ui
 
 RESOURCES += \
     style.qrc

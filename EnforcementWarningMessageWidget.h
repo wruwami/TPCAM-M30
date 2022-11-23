@@ -1,22 +1,22 @@
 #ifndef ENFORCEMENTWARNINGMESSAGEWIDGET_H
 #define ENFORCEMENTWARNINGMESSAGEWIDGET_H
 
-#include <QDialog>
+#include <QWidget>
 
 namespace Ui {
-class EnforcementWarningMessageDialog;
+class EnforcementWarningMessageWidget;
 }
 
-class EnforcementWarningMessageDialog : public QDialog
+class EnforcementWarningMessageWidget : public QWidget
 {
     Q_OBJECT
 
 public:
-    explicit EnforcementWarningMessageDialog(QWidget *parent = 0);
-    ~EnforcementWarningMessageDialog();
+    explicit EnforcementWarningMessageWidget(QWidget *parent = 0);
+    ~EnforcementWarningMessageWidget();
 
 private:
-    Ui::EnforcementWarningMessageDialog *ui;
+    Ui::EnforcementWarningMessageWidget *ui;
 };
 
 #endif // ENFORCEMENTWARNINGMESSAGEWIDGET_H

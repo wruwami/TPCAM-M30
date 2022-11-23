@@ -6,6 +6,7 @@
 
 enum Dialog
 {
+    SelfTestWarningMessageWidgetType,
     LoginExpiredDateWidgetType,
     IndicatorGPSWidgetType,
     Setting1LocationWidgetType,

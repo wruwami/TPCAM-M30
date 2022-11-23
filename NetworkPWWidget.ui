@@ -1,6 +1,9 @@
 <ui version="4.0">
- <class>Setting3FactorDefaultDialog</class>
- <widget class="QDialog" name="Setting3FactorDefaultDialog">
+ <author/>
+ <comment/>
+ <exportmacro/>
+ <class>NetworkPWWidget</class>
+ <widget name="NetworkPWWidget" class="QWidget">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -10,9 +13,9 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>Form</string>
   </property>
  </widget>
- <resources/>
+ <pixmapfunction/>
  <connections/>
 </ui>

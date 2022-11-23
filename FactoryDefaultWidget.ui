@@ -1,6 +1,9 @@
 <ui version="4.0">
- <class>Setting3AdminPWDialog</class>
- <widget class="QDialog" name="Setting3AdminPWDialog">
+ <author/>
+ <comment/>
+ <exportmacro/>
+ <class>FactoryDefaultWidget</class>
+ <widget name="FactoryDefaultWidget" class="QWidget">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -10,9 +13,9 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>Form</string>
   </property>
  </widget>
- <resources/>
+ <pixmapfunction/>
  <connections/>
 </ui>

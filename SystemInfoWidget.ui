@@ -1,6 +1,9 @@
 <ui version="4.0">
- <class>Setting3SystemInfomationDialog</class>
- <widget class="QDialog" name="Setting3SystemInfomationDialog">
+ <author/>
+ <comment/>
+ <exportmacro/>
+ <class>SystemInfoWidget</class>
+ <widget name="SystemInfoWidget" class="QWidget">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -10,9 +13,9 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>Form</string>
   </property>
  </widget>
- <resources/>
+ <pixmapfunction/>
  <connections/>
 </ui>

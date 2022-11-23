@@ -2,8 +2,8 @@
  <author/>
  <comment/>
  <exportmacro/>
- <class>FileManagerErrorMessageWidget</class>
- <widget name="FileManagerErrorMessageWidget" class="QWidget">
+ <class>IndicatorGPSWidget</class>
+ <widget name="IndicatorGPSWidget" class="QWidget">
   <property name="geometry">
    <rect>
     <x>0</x>

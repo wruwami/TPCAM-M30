@@ -1,14 +1,14 @@
 #include "EnforcementWarningMessageWidget.h"
-#include "ui_EnforcementWarningMessageDialog.h"
+#include "ui_EnforcementWarningMessageWidget.h"
 
-EnforcementWarningMessageDialog::EnforcementWarningMessageDialog(QWidget *parent) :
-    QDialog(parent),
-    ui(new Ui::EnforcementWarningMessageDialog)
+EnforcementWarningMessageWidget::EnforcementWarningMessageWidget(QWidget *parent) :
+    QWidget(parent),
+    ui(new Ui::EnforcementWarningMessageWidget)
 {
     ui->setupUi(this);
 }
 
-EnforcementWarningMessageDialog::~EnforcementWarningMessageDialog()
+EnforcementWarningMessageWidget::~EnforcementWarningMessageWidget()
 {
     delete ui;
 }

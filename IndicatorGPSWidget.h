@@ -1,0 +1,22 @@
+#ifndef INDICATORGPSWIDGET_H
+#define INDICATORGPSWIDGET_H
+
+#include <QWidget>
+
+namespace Ui {
+class IndicatorGPSWidget;
+}
+
+class IndicatorGPSWidget : public QWidget
+{
+    Q_OBJECT
+
+public:
+    explicit IndicatorGPSWidget(QWidget *parent = 0);
+    ~IndicatorGPSWidget();
+
+private:
+    Ui::IndicatorGPSWidget *ui;
+};
+
+#endif // INDICATORGPSWIDGET_H

@@ -28,12 +28,12 @@ KeyboardWidget::KeyboardWidget(QWidget *parent)
     m_tEdit = new QLineEdit(this);
 //    m_tEdit->setGeometry(WidgetSize::GetInstance()->GetWidgetSizePos(QRect(96, 344, 642, 54), rect.topLeft()));
     m_pSaveButton = new QPushButton(this);
-    m_pSaveButton->setText(LoadString("IDC_SAVE"));
+    m_pSaveButton->setText(LoadString("IDS_SAVE"));
 //    m_pSaveButton->setGeometry(WidgetSize::GetInstance()->GetWidgetSizePos(QRect(758, 344, 92, 54), rect.topLeft()));
     m_pSaveButton->setStyleSheet("QPushButton {color:white;background-color : #7a7a7a;border-radius:10px;}");
     m_pCancelButton = new QPushButton(this);
 //    m_pCancelButton->setGeometry(WidgetSize::GetInstance()->GetWidgetSizePos(QRect(868, 344, 92, 54), rect.topLeft()));
-    m_pCancelButton->setText(LoadString("IDC_CANCEL"));
+    m_pCancelButton->setText(LoadString("IDS_CANCEL"));
     m_pCancelButton->setStyleSheet("QPushButton {color:white;background-color : #7a7a7a;border-radius:10px;}");
 
     m_pCloseButton = new QPushButton(this);

@@ -48,7 +48,6 @@ SOURCES += main.cpp\
     CameraZoomFocusWidget.cpp \
     CustomImageWidget.cpp \
     FileManagerSnapShotDialog.cpp \
-    AdminPWDialog.cpp \
     keyboard/key.cpp \
     keyboard/keyboard.cpp \
     keyboard/keylayout.cpp \
@@ -109,7 +108,6 @@ HEADERS  += MainWindow.h \
     CustomImageWidget.h \
     ImageSize.h \
     FileManagerSnapShotDialog.h \
-    AdminPWDialog.h \
     keyboard/key.h \
     keyboard/keyboard.h \
     keyboard/keylayout.h \
@@ -159,7 +157,6 @@ FORMS    += MainWindow.ui \
     CameraAlignWidget.ui \
     CameraZoomFocusWidget.ui \
     FileManagerSnapShotDialog.ui \
-    AdminPWDialog.ui \
     LoginExpiredDateWidget.ui \
     FileManagerFileTransferWidget.ui \
     SelfTestWarningMessageWidget.ui \

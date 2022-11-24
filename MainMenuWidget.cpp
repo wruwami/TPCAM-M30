@@ -54,20 +54,6 @@ MainMenuWidget::MainMenuWidget(QWidget *parent) :
     ui->batteryPercentLabel->setImage("indicator", "indicator_battery4.bmp");
     ui->batteryStatusLabel->setImage("indicator", "charging.png");
 #endif
-    ui->horizontalLayout_2->setStretch(0, 442);
-    ui->horizontalLayout_2->setStretch(1,87);
-    ui->horizontalLayout_2->setStretch(2,87);
-    ui->horizontalLayout_2->setStretch(3,87);
-    ui->horizontalLayout_2->setStretch(4,87);
-    ui->horizontalLayout_2->setStretch(5,87);
-    ui->horizontalLayout_2->setStretch(6,87);
-    ui->horizontalLayout_2->setStretch(7,87);
-    ui->horizontalLayout_2->setStretch(8,148);
-    ui->horizontalLayout_2->setStretch(9, 27);
-    ui->horizontalLayout_2->setStretch(10, 374);
-
-//    442,87,87,87,87,87,87,87,148,27,374
-
     startTimer(1000);
 }
 

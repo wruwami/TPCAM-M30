@@ -2,6 +2,7 @@
 #define CUSTOMPUSHBUTTON_H
 
 #include <QPushButton>
+#include <QToolButton>
 
 class CustomPushButton : public QPushButton
 {

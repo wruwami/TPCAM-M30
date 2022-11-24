@@ -47,7 +47,6 @@ SOURCES += main.cpp\
     CameraAlignWidget.cpp \
     CameraZoomFocusWidget.cpp \
     CustomImageWidget.cpp \
-    IndicatorGpsDialog.cpp \
     FileManagerSnapShotDialog.cpp \
     AdminPWDialog.cpp \
     keyboard/key.cpp \
@@ -69,7 +68,8 @@ SOURCES += main.cpp\
     BluetoothSearchFilterWidget.cpp \
     EnforcementWarningMessageWidget.cpp \
     FileManagerErrorMessageWidget.cpp \
-    FileManagerQuestionMessageWidget.cpp
+    FileManagerQuestionMessageWidget.cpp \
+    WidgetSize.cpp
 
 HEADERS  += MainWindow.h \
     CustomTogglePushButton.h \
@@ -108,7 +108,6 @@ HEADERS  += MainWindow.h \
     CameraZoomFocusWidget.h \
     CustomImageWidget.h \
     ImageSize.h \
-    IndicatorGPSDialog.h \
     FileManagerSnapShotDialog.h \
     AdminPWDialog.h \
     keyboard/key.h \
@@ -130,7 +129,8 @@ HEADERS  += MainWindow.h \
     BluetoothSearchFilterWidget.h \
     EnforcementWarningMessageWidget.h \
     FileManagerErrorMessageWidget.h \
-    FileManagerQuestionMessageWidget.h
+    FileManagerQuestionMessageWidget.h \
+    WidgetSize.h
 
 FORMS    += MainWindow.ui \
     IndicatorCameraWidget.ui \
@@ -158,7 +158,6 @@ FORMS    += MainWindow.ui \
     DeviceIDWidget.ui \
     CameraAlignWidget.ui \
     CameraZoomFocusWidget.ui \
-    IndicatorGpsDialog.ui \
     FileManagerSnapShotDialog.ui \
     AdminPWDialog.ui \
     LoginExpiredDateWidget.ui \

@@ -37,6 +37,11 @@ public:
 private:
     Ui::BaseDialog *ui;
 //    QMap<QString, QString>
+
+
+    // QWidget interface
+protected:
+    void paintEvent(QPaintEvent *event);
 };
 
 #endif // BASEDIALOG_H

@@ -19,12 +19,12 @@ IndicatorWidget::IndicatorWidget(QWidget *parent) :
     setWindowFlags(Qt::FramelessWindowHint);
     ui->setupUi(this);
 
-    ui->daynNightPushButton->setImage("indicator", "indicator_enable_night_mode_off.bmp", ui->daynNightPushButton->size());
-    ui->weatherPushButton->setImage("indicator", "indicator_enable_weather_mode_on.bmp", ui->weatherPushButton->size());
-    ui->enforcementPushButton->setImage("indicator", "indicator_mode_v.bmp");
-    ui->speedPushButton->setImage("indicator", "indicator_enable_user_mode_on.bmp", ui->speedPushButton->size());
-    ui->comPushButton->setImage("indicator", "indicator_wifi_disconnected.bmp", ui->comPushButton->size());
-    ui->gpsPushButton->setImage("indicator", "indicator_gps_off.bmp", ui->gpsPushButton->size());
+    ui->daynNightPushButton->setImage("indicator", "indicator_enable_night_mode_off.jpg", ui->daynNightPushButton->size());
+    ui->weatherPushButton->setImage("indicator", "indicator_enable_weather_mode_on.jpg", ui->weatherPushButton->size());
+    ui->enforcementPushButton->setImage("indicator", "indicator_mode_v.jpg");
+    ui->speedPushButton->setImage("indicator", "indicator_enable_user_mode_on.jpg", ui->speedPushButton->size());
+    ui->comPushButton->setImage("indicator", "indicator_wifi_disconnected.jpg", ui->comPushButton->size());
+    ui->gpsPushButton->setImage("indicator", "indicator_gps_off.jpg", ui->gpsPushButton->size());
 
     ui->onPushButton->setVisible(false);
     ui->offPushButton->setVisible(false);

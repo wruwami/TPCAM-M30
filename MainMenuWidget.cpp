@@ -44,12 +44,12 @@ MainMenuWidget::MainMenuWidget(QWidget *parent) :
     ui->batteryPercentLabel->setImage("indicator", "indicator_battery4.bmp", ui->batteryPercentLabel->size());
     ui->batteryStatusLabel->setImage("indicator", "charging.png", ui->batteryStatusLabel->size());
 #else
-    ui->daynNightPushButton->setImage("indicator", "indicator_enable_night_mode_off.bmp");
-    ui->weatherPushButton->setImage("indicator", "indicator_enable_weather_mode_on.bmp");
-    ui->enforcementPushButton->setImage("indicator", "indicator_mode_v.bmp");
-    ui->speedPushButton->setImage("indicator", "indicator_enable_user_mode_on.bmp");
-    ui->wifiPushButton->setImage("indicator", "indicator_wifi_disconnected.bmp");
-    ui->gpsPushButton->setImage("indicator", "indicator_gps_off.bmp");
+    ui->daynNightPushButton->setImage("indicator", "indicator_enable_night_mode_off.jpg");
+    ui->weatherPushButton->setImage("indicator", "indicator_enable_weather_mode_on.jpg");
+    ui->enforcementPushButton->setImage("indicator", "indicator_mode_v.jpg");
+    ui->speedPushButton->setImage("indicator", "indicator_enable_user_mode_on.jpg");
+    ui->wifiPushButton->setImage("indicator", "indicator_wifi_disconnected.jpg");
+    ui->gpsPushButton->setImage("indicator", "indicator_gps_off.jpg");
 
     ui->batteryPercentLabel->setImage("indicator", "indicator_battery4.bmp");
     ui->batteryStatusLabel->setImage("indicator", "charging.png");

@@ -35,6 +35,9 @@ public:
     explicit BaseDialog(Dialog, QWidget *parent = 0);
     ~BaseDialog();
 private:
+    void setSize(QSize size);
+    void setSize(int w, int h);
+private:
     Ui::BaseDialog *ui;
 //    QMap<QString, QString>
 

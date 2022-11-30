@@ -15,6 +15,9 @@ public:
     explicit Setting6Widget(QWidget *parent = 0);
     ~Setting6Widget();
 
+private slots:
+    void on_searchPushButton_clicked();
+
 private:
     Ui::Setting6Widget *ui;
 };

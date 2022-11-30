@@ -23,6 +23,7 @@ protected:
     void resizeEvent(QResizeEvent *event);
     void paintEvent(QPaintEvent *event);
 private slots:
+    void on_deletePushButton_clicked();
 };
 
 #endif // FILEMANAGERWIDGET_H

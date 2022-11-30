@@ -27,3 +27,8 @@ void Setting4STAWidget::on_searchPushButton_clicked()
     BaseDialog baseDialog(Dialog::WifiSearchWidgetType);
     baseDialog.exec();
 }
+
+void Setting4STAWidget::on_pwPushButton_clicked()
+{
+
+}

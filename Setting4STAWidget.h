@@ -15,6 +15,11 @@ public:
     explicit Setting4STAWidget(QWidget *parent = 0);
     ~Setting4STAWidget();
 
+private slots:
+    void on_searchPushButton_clicked();
+
+    void on_pwPushButton_clicked();
+
 private:
     Ui::Setting4STAWidget *ui;
 };

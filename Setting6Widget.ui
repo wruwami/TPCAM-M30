@@ -47,7 +47,7 @@
       <widget class="CustomLineEdit" name="lineEdit_4"/>
      </item>
      <item row="1" column="3">
-      <widget class="CustomPushButton" name="pushButton">
+      <widget class="CustomPushButton" name="searchPushButton">
        <property name="text">
         <string>PushButton</string>
        </property>

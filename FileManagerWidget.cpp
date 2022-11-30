@@ -6,6 +6,7 @@
 
 #include "CustomPushButton.h"
 #include "StringLoader.h"
+#include "BaseDialog.h"
 
 FileManagerWidget::FileManagerWidget(QWidget *parent) :
     QWidget(parent),
@@ -73,4 +74,10 @@ void FileManagerWidget::paintEvent(QPaintEvent *event)
     style()->drawPrimitive(QStyle::PE_Frame,  &option3,  &painter,  this);
 
 
+}
+
+void FileManagerWidget::on_deletePushButton_clicked()
+{
+    BaseDialog baseDialog(Dialog::FileManagerQuestionMessageWidgetType);
+    baseDialog.exec();
 }

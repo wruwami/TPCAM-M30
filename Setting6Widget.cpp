@@ -2,6 +2,7 @@
 #include "ui_Setting6Widget.h"
 
 #include "StringLoader.h"
+#include "BaseDialog.h"
 
 Setting6Widget::Setting6Widget(QWidget *parent) :
     QWidget(parent),
@@ -17,4 +18,10 @@ Setting6Widget::Setting6Widget(QWidget *parent) :
 Setting6Widget::~Setting6Widget()
 {
     delete ui;
+}
+
+void Setting6Widget::on_searchPushButton_clicked()
+{
+    BaseDialog baseDialog(Dialog::BluetoothSearchFilterWidgetType);
+    baseDialog.exec();
 }

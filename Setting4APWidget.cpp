@@ -1,11 +1,13 @@
-#include "Setting4Widget.h"
-#include "ui_Setting4Widget.h"
+#include "Setting4APWidget.h"
+#include "ui_Setting4APWidget.h"
 
 #include "StringLoader.h"
 
-Setting4Widget::Setting4Widget(QWidget *parent) :
+#include "BaseDialog.h"
+
+Setting4APWidget::Setting4APWidget(QWidget *parent) :
     QWidget(parent),
-    ui(new Ui::Setting4Widget)
+    ui(new Ui::Setting4APWidget)
 {
     ui->setupUi(this);
 
@@ -17,7 +19,13 @@ Setting4Widget::Setting4Widget(QWidget *parent) :
 
 }
 
-Setting4Widget::~Setting4Widget()
+Setting4APWidget::~Setting4APWidget()
 {
     delete ui;
+}
+
+void Setting4APWidget::on_pwPushButton_clicked()
+{
+    BaseDialog baseDialog(Dialog::NetworkPWWidgetType);
+    baseDialog.exec();
 }

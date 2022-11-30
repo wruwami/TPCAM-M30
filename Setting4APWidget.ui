@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Setting4Widget</class>
- <widget class="QWidget" name="Setting4Widget">
+ <class>Setting4APWidget</class>
+ <widget class="QWidget" name="Setting4APWidget">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -67,7 +67,7 @@
       </widget>
      </item>
      <item row="1" column="2">
-      <widget class="CustomPushButton" name="pushButton">
+      <widget class="CustomPushButton" name="pwPushButton">
        <property name="text">
         <string>PushButton</string>
        </property>

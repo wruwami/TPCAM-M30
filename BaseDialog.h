@@ -14,7 +14,7 @@ enum Dialog
     Setting3FactoryDefaultWidgetType,
     AdminPWWidgetType,
     PasswordChangingWidgetType,
-    NEtworkPWWidgetType,
+    NetworkPWWidgetType,
     WifiSearchWidgetType,
     BluetoothSearchFilterWidgetType,
     EnforcementWarningMessageWidgetType,

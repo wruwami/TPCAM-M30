@@ -8,8 +8,21 @@
 #include "Color.h"
 #include "StringLoader.h"
 
+#include "SelfTestWarningMessageWidget.h"
 #include "LoginExpiredDateWidget.h"
 #include "IndicatorGPSWidget.h"
+#include "LocationWidget.h"
+#include "SystemInfoWidget.h"
+#include "FactoryDefaultWidget.h"
+#include "AdminPWWidget.h"
+#include "PasswordChangingWidget.h"
+#include "NetworkPWWidget.h"
+#include "WifiSearchWidget.h"
+#include "BluetoothSearchFilterWidget.h"
+#include "EnforcementWarningMessageWidget.h"
+#include "FileManagerErrorMessageWidget.h"
+#include "FileManagerQuestionMessageWidget.h"
+#include "FileManagerFileTransferWidget.h"
 
 #include "WidgetSize.h"
 
@@ -41,74 +54,100 @@ BaseDialog::BaseDialog(Dialog dialog, QWidget *parent) :
     case Dialog::IndicatorGPSWidgetType:
     {
         ui->verticalLayout->addWidget(new IndicatorGPSWidget);
-        ui->titleLabel->setText(LoadString("IDS_LOGIN_EXPIRED_DATE"));
-        setSize(1146,604);
+        ui->titleLabel->setText(LoadString("IDS_INDICATOR_GPS"));
+        setSize(745, 635);
 
     }
         break;
     case Dialog::Setting1LocationWidgetType:
     {
+        ui->verticalLayout->addWidget(new LocationWidget);
+        ui->titleLabel->setText(LoadString("IDS_LOCATION"));
+        setSize(734, 635);
 
     }
         break;
     case Dialog::Setting3SystemInfoWidgetType:
     {
-
+        ui->verticalLayout->addWidget(new SystemInfoWidget);
+        ui->titleLabel->setText(LoadString("IDS_SYSTEM_INFO"));
+        setSize(745, 635);
     }
         break;
     case Dialog::Setting3FactoryDefaultWidgetType:
     {
-
+        ui->verticalLayout->addWidget(new FactoryDefaultWidget);
+        ui->titleLabel->setText(LoadString("IDS_FACTORY_DEFAULT"));
+        setSize(1139, 600);
     }
         break;
     case Dialog::AdminPWWidgetType:
     {
-
+        ui->verticalLayout->addWidget(new AdminPWWidget);
+        ui->titleLabel->setText(LoadString("IDS_ADMIN_PW"));
+        setSize(1139, 600);
     }
         break;
     case Dialog::PasswordChangingWidgetType:
     {
-
+        ui->verticalLayout->addWidget(new PasswordChangingWidget);
+        ui->titleLabel->setText(LoadString("IDS_PASSWORD_CHANGING"));
+        setSize(1208, 655);
     }
         break;
-    case Dialog::NEtworkPWWidgetType:
+    case Dialog::NetworkPWWidgetType:
     {
-
+        ui->verticalLayout->addWidget(new NetworkPWWidget);
+        ui->titleLabel->setText(LoadString("IDS_NETWORK_PW"));
+        setSize(1139, 600);
     }
         break;
     case Dialog::WifiSearchWidgetType:
     {
-
+        ui->verticalLayout->addWidget(new WifiSearchWidget);
+        ui->titleLabel->setText(LoadString("IDS_WIFI_SEARCH"));
+        setSize(1208, 635);
     }
         break;
     case Dialog::BluetoothSearchFilterWidgetType:
     {
-
+        ui->verticalLayout->addWidget(new BluetoothSearchFilterWidget);
+        ui->titleLabel->setText(LoadString("IDS_BLUETOOTH_SEARCH_FILTER"));
+        setSize(1208, 631);
     }
         break;
     case Dialog::EnforcementWarningMessageWidgetType:
     {
-
+        ui->verticalLayout->addWidget(new EnforcementWarningMessageWidget);
+        ui->titleLabel->setText(LoadString("IDS_ENFORCEMENT_WARNING_MESSAGE"));
+        setSize(1216, 694);
     }
         break;
     case Dialog::FileManagerErrorMessageWidgetType:
     {
-
+        ui->verticalLayout->addWidget(new FileManagerErrorMessageWidget);
+        ui->titleLabel->setText(LoadString("IDS_FILEMANAGER_ERROR_MESSAGE"));
+        setSize(1208, 514);
     }
         break;
     case Dialog::FileManagerQuestionMessageWidgetType:
     {
-
+        ui->verticalLayout->addWidget(new FileManagerQuestionMessageWidget);
+        ui->titleLabel->setText(LoadString("IDS_FILEMANAGER_QUESTION_MESSAGE"));
+        setSize(1208, 689);
     }
         break;
     case Dialog::FileManagerFileTransferWidgetType:
     {
-
+        ui->verticalLayout->addWidget(new FileManagerFileTransferWidget);
+        ui->titleLabel->setText(LoadString("IDS_FILEMANAGER_FILE_TRANSFER"));
+        setSize(1208, 702);
     }
         break;
 
     default:
     {
+//        throw std::not_implement
     }
         break;
     }

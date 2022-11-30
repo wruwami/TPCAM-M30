@@ -15,6 +15,13 @@ public:
     explicit Setting3Widget(QWidget *parent = 0);
     ~Setting3Widget();
 
+private slots:
+    void on_showInfoPushButton_clicked();
+
+    void on_factoryDefaultPushButton_clicked();
+
+    void on_adminPWPushButton_clicked();
+
 private:
     Ui::Setting3Widget *ui;
 };

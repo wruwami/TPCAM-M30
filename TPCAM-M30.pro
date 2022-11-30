@@ -18,6 +18,7 @@ SOURCES += main.cpp\
     MainWindow.cpp \
     LoginWidget.cpp \
     MainMenuWidget.cpp \
+    Setting4APWidget.cpp \
     StringLoader.cpp \
     DateTimeWidget.cpp \
     MainMenuContentWidget.cpp \
@@ -33,7 +34,6 @@ SOURCES += main.cpp\
     Setting1Widget.cpp \
     Setting2Widget.cpp \
     Setting3Widget.cpp \
-    Setting4Widget.cpp \
     Setting5Widget.cpp \
     Setting6Widget.cpp \
     Setting7Widget.cpp \
@@ -68,7 +68,8 @@ SOURCES += main.cpp\
     EnforcementWarningMessageWidget.cpp \
     FileManagerErrorMessageWidget.cpp \
     FileManagerQuestionMessageWidget.cpp \
-    WidgetSize.cpp
+    WidgetSize.cpp \
+    Setting4STAWidget.cpp
 
 HEADERS  += MainWindow.h \
     CustomTogglePushButton.h \
@@ -76,6 +77,7 @@ HEADERS  += MainWindow.h \
     IndicatorCameraWidget.h \
     LoginWidget.h \
     MainMenuWidget.h \
+    Setting4APWidget.h \
     StringLoader.h \
     Color.h \
     DateTimeWidget.h \
@@ -92,7 +94,6 @@ HEADERS  += MainWindow.h \
     Setting1Widget.h \
     Setting2Widget.h \
     Setting3Widget.h \
-    Setting4Widget.h \
     Setting5Widget.h \
     Setting6Widget.h \
     Setting7Widget.h \
@@ -128,7 +129,8 @@ HEADERS  += MainWindow.h \
     EnforcementWarningMessageWidget.h \
     FileManagerErrorMessageWidget.h \
     FileManagerQuestionMessageWidget.h \
-    WidgetSize.h
+    WidgetSize.h \
+    Setting4STAWidget.h
 
 FORMS    += MainWindow.ui \
     IndicatorCameraWidget.ui \
@@ -137,13 +139,13 @@ FORMS    += MainWindow.ui \
     DateTimeWidget.ui \
     MainMenuContentWidget.ui \
     IndicatorWidget.ui \
+    Setting4APWidget.ui \
     SettingWidget.ui \
     SelfTestWidget.ui \
     BaseDialog.ui \
     Setting1Widget.ui \
     Setting2Widget.ui \
     Setting3Widget.ui \
-    Setting4Widget.ui \
     Setting5Widget.ui \
     Setting6Widget.ui \
     Setting7Widget.ui \
@@ -171,7 +173,8 @@ FORMS    += MainWindow.ui \
     BluetoothSearchFilterWidget.ui \
     EnforcementWarningMessageWidget.ui \
     FileManagerErrorMessageWidget.ui \
-    FileManagerQuestionMessageWidget.ui
+    FileManagerQuestionMessageWidget.ui \
+    Setting4STAWidget.ui
 
 RESOURCES += \
     style.qrc

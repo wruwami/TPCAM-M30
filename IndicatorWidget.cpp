@@ -4,6 +4,8 @@
 
 #include <QFile>
 
+#include "BaseDialog.h"
+
 IndicatorWidget::IndicatorWidget(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::IndicatorWidget)
@@ -81,7 +83,10 @@ void IndicatorWidget::on_daynNightPushButton_clicked()
 
 void IndicatorWidget::on_gpsPushButton_clicked()
 {
-    clearSecondRow();
+//    clearSecondRow();
+    BaseDialog baseDialog(Dialog::IndicatorGPSWidgetType);
+    baseDialog.exec();
+
 }
 
 void IndicatorWidget::on_comPushButton_clicked()

@@ -4,7 +4,7 @@
 #include "Setting1Widget.h"
 #include "Setting2Widget.h"
 #include "Setting3Widget.h"
-#include "Setting4Widget.h"
+#include "Setting4APWidget.h"
 #include "Setting5Widget.h"
 #include "Setting6Widget.h"
 #include "Setting7Widget.h"
@@ -25,7 +25,7 @@ SettingWidget::SettingWidget(QWidget *parent) :
     ui->stackedWidget->addWidget(new Setting1Widget);
     ui->stackedWidget->addWidget(new Setting2Widget);
     ui->stackedWidget->addWidget(new Setting3Widget);
-    ui->stackedWidget->addWidget(new Setting4Widget);
+    ui->stackedWidget->addWidget(new Setting4APWidget);
     ui->stackedWidget->addWidget(new Setting5Widget);
     ui->stackedWidget->addWidget(new Setting6Widget);
     ui->stackedWidget->addWidget(new Setting7Widget);

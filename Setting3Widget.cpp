@@ -3,6 +3,8 @@
 
 #include "StringLoader.h"
 
+#include "BaseDialog.h"
+
 Setting3Widget::Setting3Widget(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::Setting3Widget)
@@ -20,4 +22,22 @@ Setting3Widget::Setting3Widget(QWidget *parent) :
 Setting3Widget::~Setting3Widget()
 {
     delete ui;
+}
+
+void Setting3Widget::on_showInfoPushButton_clicked()
+{
+    BaseDialog baseDialog(Dialog::Setting3SystemInfoWidgetType);
+    baseDialog.exec();
+}
+
+void Setting3Widget::on_factoryDefaultPushButton_clicked()
+{
+    BaseDialog baseDialog(Dialog::Setting3FactoryDefaultWidgetType);
+    baseDialog.exec();
+}
+
+void Setting3Widget::on_adminPWPushButton_clicked()
+{
+    BaseDialog baseDialog(Dialog::AdminPWWidgetType);
+    baseDialog.exec();
 }

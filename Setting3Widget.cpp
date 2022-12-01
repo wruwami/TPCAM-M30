@@ -17,6 +17,10 @@ Setting3Widget::Setting3Widget(QWidget *parent) :
     ui->showInfoPushButton->setText(LoadString("IDS_SHOW_INFO"));
     ui->factoryDefaultPushButton->setText(LoadString("IDS_FACTORY_DEFAULT"));
     ui->adminPWPushButton->setText(LoadString("IDS_ADMIN_PW"));
+
+    ui->lcdBrightnessComboBox->addItem(LoadString("IDS_LEVEL1"));
+    ui->lcdBrightnessComboBox->addItem(LoadString("IDS_LEVEL2"));
+    ui->lcdBrightnessComboBox->addItem(LoadString("IDS_LEVEL3"));
 }
 
 Setting3Widget::~Setting3Widget()

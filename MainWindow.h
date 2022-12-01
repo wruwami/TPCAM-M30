@@ -4,7 +4,8 @@
 #include <QMainWindow>
 
 class LoginWidget;
-//class IndicatorWidget;
+class MainMenuWidget;
+class IndicatorWidget;
 class MainMenuContentWidget;
 namespace Ui {
 class MainWindow;
@@ -39,7 +40,8 @@ private slots:
 private:
     Ui::MainWindow *ui;
     LoginWidget* m_pLoginWidget = nullptr;
-//    IndicatorWidget* m_pIndicatorWidget;
+    MainMenuWidget* m_pMainMenuWidget = nullptr;
+    IndicatorWidget* m_pIndicatorWidget = nullptr;
     MainMenuContentWidget* m_pMainMenuContentWidget = nullptr;
 
 };

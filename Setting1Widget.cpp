@@ -14,9 +14,19 @@ Setting1Widget::Setting1Widget(QWidget *parent) :
     ui->captureSpeedLimitLabel->setText(LoadString("IDS_CAPTURE_LIMIT"));
     ui->enforcementModeLabel->setText(LoadString("IDS_ENFORCEMENT_MODE"));
     ui->speedModeLabel->setText(LoadString("IDS_SPEED_MODE"));
+
+    ui->locationPushButton->setImage("setting_1", "keyboard.bmp");
+
+    ui->enforcementModeComboBox->addItem(LoadString("IDS_ALL_IMAGE_VIDEO"));
+    ui->enforcementModeComboBox->addItem(LoadString("IDS_AUTO_IMAGE"));
+    ui->enforcementModeComboBox->addItem(LoadString("IDS_VIDEO"));
+
+    ui->speedModeComboBox->addItem(LoadString("IDS_LT"));
+    ui->speedModeComboBox->addItem(LoadString("IDS_ST"));
 }
 
 Setting1Widget::~Setting1Widget()
 {
     delete ui;
 }
+

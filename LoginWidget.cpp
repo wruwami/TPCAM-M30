@@ -27,6 +27,9 @@ LoginWidget::LoginWidget(QWidget *parent) :
     ui->userNameLabel->setText(LoadString("IDS_USER_NAME"));
 
     ui->loginPushButton->setText(LoadString("IDS_LOGIN"));
+
+    ui->userNamePushButton->setImage("Login", "keyboard.bmp");
+    ui->logoLabel->setImage("Login", "comlaser_logo.bmp");
 }
 
 LoginWidget::~LoginWidget()

@@ -17,15 +17,18 @@
    <item row="0" column="0">
     <layout class="QGridLayout" name="gridLayout">
      <item row="1" column="1">
-      <widget class="CustomLineEdit" name="lineEdit"/>
+      <widget class="CustomLineEdit" name="speedLimit1LineEdit"/>
      </item>
      <item row="1" column="3">
-      <widget class="CustomLineEdit" name="lineEdit_2"/>
+      <widget class="CustomLineEdit" name="speedLimit2LineEdit"/>
      </item>
      <item row="1" column="2">
       <widget class="CustomLabel" name="label_6">
        <property name="text">
         <string>T</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
        </property>
       </widget>
      </item>
@@ -34,10 +37,13 @@
        <property name="text">
         <string>M</string>
        </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
       </widget>
      </item>
      <item row="1" column="5">
-      <widget class="CustomLineEdit" name="lineEdit_3"/>
+      <widget class="CustomLineEdit" name="speedLimit3LineEdit"/>
      </item>
      <item row="1" column="0">
       <widget class="CustomLabel" name="speedLimitLabel">
@@ -75,28 +81,31 @@
       </widget>
      </item>
      <item row="0" column="1" colspan="5">
-      <widget class="CustomComboBox" name="comboBox"/>
+      <widget class="CustomComboBox" name="locationComboBox"/>
      </item>
      <item row="0" column="6">
-      <widget class="CustomPushButton" name="pushButton">
+      <widget class="CustomPushButton" name="locationPushButton">
        <property name="text">
         <string>PushButton</string>
        </property>
       </widget>
      </item>
      <item row="2" column="1">
-      <widget class="CustomLineEdit" name="lineEdit_4"/>
+      <widget class="CustomLineEdit" name="captureSpeedLimit1LineEdit"/>
      </item>
      <item row="2" column="3">
-      <widget class="CustomLineEdit" name="lineEdit_5"/>
+      <widget class="CustomLineEdit" name="captureSpeedLimit2LineEdit"/>
      </item>
      <item row="2" column="5">
-      <widget class="CustomLineEdit" name="lineEdit_6"/>
+      <widget class="CustomLineEdit" name="captureSpeedLimit3LineEdit"/>
      </item>
      <item row="2" column="4">
       <widget class="CustomLabel" name="label_8">
        <property name="text">
         <string>M</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
        </property>
       </widget>
      </item>
@@ -105,13 +114,16 @@
        <property name="text">
         <string>T</string>
        </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
       </widget>
      </item>
      <item row="4" column="1" colspan="2">
-      <widget class="CustomComboBox" name="comboBox_3"/>
+      <widget class="CustomComboBox" name="speedModeComboBox"/>
      </item>
      <item row="3" column="1" colspan="5">
-      <widget class="CustomComboBox" name="comboBox_2"/>
+      <widget class="CustomComboBox" name="enforcementModeComboBox"/>
      </item>
     </layout>
    </item>
@@ -119,14 +131,14 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>CustomPushButton</class>
-   <extends>QPushButton</extends>
-   <header>CustomPushButton.h</header>
-  </customwidget>
-  <customwidget>
    <class>CustomLabel</class>
    <extends>QLabel</extends>
    <header>CustomLabel.h</header>
+  </customwidget>
+  <customwidget>
+   <class>CustomPushButton</class>
+   <extends>QPushButton</extends>
+   <header>CustomPushButton.h</header>
   </customwidget>
   <customwidget>
    <class>CustomComboBox</class>

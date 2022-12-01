@@ -15,7 +15,7 @@ class MainMenuWidget : public QWidget
 public:
     explicit MainMenuWidget(QWidget *parent = 0);
     ~MainMenuWidget();
-    void SetMainMenuTitle(QString title);
+    void setMainMenuTitle(QString title);
     void enableButtons(bool enable);
     void updateStretch();
 private:

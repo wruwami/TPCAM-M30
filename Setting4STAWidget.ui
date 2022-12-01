@@ -45,19 +45,19 @@
       </widget>
      </item>
      <item row="0" column="1">
-      <widget class="CustomLineEdit" name="lineEdit"/>
+      <widget class="CustomLineEdit" name="wifiSSIDLineEdit"/>
      </item>
      <item row="4" column="1">
-      <widget class="CustomComboBox" name="comboBox"/>
+      <widget class="CustomComboBox" name="printComboBox"/>
      </item>
      <item row="3" column="1">
-      <widget class="CustomLineEdit" name="lineEdit_4"/>
+      <widget class="CustomLineEdit" name="subnetMaskLineEdit"/>
      </item>
      <item row="2" column="1">
-      <widget class="CustomLineEdit" name="lineEdit_3"/>
+      <widget class="CustomLineEdit" name="ipLineEdit"/>
      </item>
      <item row="1" column="1">
-      <widget class="CustomLineEdit" name="lineEdit_2"/>
+      <widget class="CustomLineEdit" name="FTPIDPWLineEdit"/>
      </item>
      <item row="0" column="0">
       <widget class="CustomLabel" name="wifiSSIDLabel">
@@ -86,14 +86,14 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>CustomPushButton</class>
-   <extends>QPushButton</extends>
-   <header>CustomPushButton.h</header>
-  </customwidget>
-  <customwidget>
    <class>CustomLabel</class>
    <extends>QLabel</extends>
    <header>CustomLabel.h</header>
+  </customwidget>
+  <customwidget>
+   <class>CustomPushButton</class>
+   <extends>QPushButton</extends>
+   <header>CustomPushButton.h</header>
   </customwidget>
   <customwidget>
    <class>CustomComboBox</class>

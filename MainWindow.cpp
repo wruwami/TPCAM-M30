@@ -12,15 +12,22 @@
 #include "FileManagerWidget.h"
 #include "SettingWidget.h"
 
+#include "StringLoader.h"
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
+    m_pMainMenuWidget = (MainMenuWidget*)ui->verticalLayout->itemAt(0)->widget();
+
     m_pLoginWidget = new LoginWidget;
 //    m_pMainMenuContentWidget = new MainMenuContentWidget;
     ui->verticalLayout->removeItem(ui->verticalLayout->itemAt(1));
     ui->verticalLayout->addWidget(m_pLoginWidget, 835);
+    m_pMainMenuWidget->setMainMenuTitle(LoadString("IDS_LOGIN"));
+
 
     QObject::connect((QWidget*)m_pLoginWidget->m_loginPushButton, SIGNAL(clicked()), this, SLOT(on_loginWidgetClose()));
     QObject::connect((QWidget*)m_pLoginWidget->m_dateTimePushButton, SIGNAL(clicked()), this, SLOT(on_dateTimeWidgetClicked()));
@@ -77,7 +84,7 @@ void MainWindow::finalize()
 void MainWindow::open_indicator_widget()
 {
     IndicatorWidget indicatorWidget;
-    indicatorWidget.setGeometry(ui->verticalLayout->itemAt(1)->geometry());
+    indicatorWidget.setGeometry(ui->verticalLayout->itemAt(1)->widget()->geometry());
     indicatorWidget.exec();
 }
 

@@ -64,7 +64,7 @@ MainMenuWidget::~MainMenuWidget()
 
 
 
-void MainMenuWidget::SetMainMenuTitle(QString title)
+void MainMenuWidget::setMainMenuTitle(QString title)
 {
     ui->mainMenuTitleLabel->setText(title);
 }

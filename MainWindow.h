@@ -35,7 +35,7 @@ private slots:
     void on_enforcementClicked();
     void on_filemanagementClicked();
     void on_settingClicked();
-
+    void on_mainMenuTitlePushButton_clicked();
 
 private:
     Ui::MainWindow *ui;

@@ -69,7 +69,9 @@ SOURCES += main.cpp\
     FileManagerErrorMessageWidget.cpp \
     FileManagerQuestionMessageWidget.cpp \
     WidgetSize.cpp \
-    Setting4STAWidget.cpp
+    Setting4STAWidget.cpp \
+    HomeTitleWidget.cpp \
+    HomeButtonWidget.cpp
 
 HEADERS  += MainWindow.h \
     CustomTogglePushButton.h \
@@ -130,7 +132,9 @@ HEADERS  += MainWindow.h \
     FileManagerErrorMessageWidget.h \
     FileManagerQuestionMessageWidget.h \
     WidgetSize.h \
-    Setting4STAWidget.h
+    Setting4STAWidget.h \
+    HomeTitleWidget.h \
+    HomeButtonWidget.h
 
 FORMS    += MainWindow.ui \
     IndicatorCameraWidget.ui \
@@ -174,7 +178,9 @@ FORMS    += MainWindow.ui \
     EnforcementWarningMessageWidget.ui \
     FileManagerErrorMessageWidget.ui \
     FileManagerQuestionMessageWidget.ui \
-    Setting4STAWidget.ui
+    Setting4STAWidget.ui \
+    HomeTitleWidget.ui \
+    HomeButtonWidget.ui
 
 RESOURCES += \
     style.qrc

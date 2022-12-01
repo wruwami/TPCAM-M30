@@ -50,7 +50,7 @@ void MainWindow::initialize()
 {
     QVBoxLayout* layout = new QVBoxLayout;
     MainMenuWidget* mainMenuWidget = new MainMenuWidget;
-    mainMenuWidget->setEnabled(true);
+//    mainMenuWidget->setEnabled(true);
     ui->verticalLayout->addWidget(mainMenuWidget, 125);
     ui->verticalLayout->addWidget(new MainMenuContentWidget, 835);
     ui->centralWidget->setLayout(layout);
@@ -62,6 +62,7 @@ void MainWindow::initialize()
     QObject::connect((QWidget*)mainMenuWidget->m_pSpeedPushbutton, SIGNAL(clicked()), this, SLOT(on_speedPushButton_clicked()));
     QObject::connect((QWidget*)mainMenuWidget->m_pWifiPushbutton, SIGNAL(clicked()), this, SLOT(on_wifiPushButton_clicked()));
     QObject::connect((QWidget*)mainMenuWidget->m_pGpsPushbutton, SIGNAL(clicked()), this, SLOT(on_gpsPushButton_clicked()));
+    QObject::connect((QWidget*)mainMenuWidget->m_pMainMenuTitlePushButton, SIGNAL(clicked()), this, SLOT(on_mainMenuTitlePushButton_clicked()));
 }
 
 void MainWindow::finalize()
@@ -142,15 +143,11 @@ void MainWindow::on_dateTimeWidgetClicked()
 
 void MainWindow::on_enforcementClicked()
 {
-//    finalize();
-
     delete m_pMainMenuContentWidget;
     ui->verticalLayout->removeItem(ui->verticalLayout->itemAt(1));
     ui->verticalLayout->addWidget(new EnforcementWidget, 835);
-//    m_pMainMenuContentWidget = new MainMenuContentWidget;
-//    QVBoxLayout* layout = new QVBoxLayout;
-//    layout->addWidget(new EnforcementWidget);
-    //    ui->centralWidget->setLayout(layout);
+
+    m_pMainMenuWidget->setMainMenuImage("Main_menu", "home_big_n.bmp");
 }
 
 void MainWindow::on_filemanagementClicked()
@@ -158,6 +155,8 @@ void MainWindow::on_filemanagementClicked()
     delete m_pMainMenuContentWidget;
     ui->verticalLayout->removeItem(ui->verticalLayout->itemAt(1));
     ui->verticalLayout->addWidget(new FileManagerWidget, 835);
+
+    m_pMainMenuWidget->setMainMenuImage("Main_menu", "home_big_n.bmp");
 }
 
 void MainWindow::on_settingClicked()
@@ -165,4 +164,11 @@ void MainWindow::on_settingClicked()
     delete m_pMainMenuContentWidget;
     ui->verticalLayout->removeItem(ui->verticalLayout->itemAt(1));
     ui->verticalLayout->addWidget(new SettingWidget, 835);
+
+    m_pMainMenuWidget->setMainMenuTitle(LoadString("IDS_SETTING"));
+}
+
+void MainWindow::on_mainMenuTitlePushButton_clicked()
+{
+    initialize();
 }

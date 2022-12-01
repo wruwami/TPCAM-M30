@@ -6,5 +6,6 @@
         <file>style/customPushButton.qss</file>
         <file>style/customImageButton.qss</file>
         <file>style/mainmenuWidget.qss</file>
+        <file>style/homeButton.qss</file>
     </qresource>
 </RCC>

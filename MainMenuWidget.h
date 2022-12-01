@@ -3,7 +3,9 @@
 
 #include <QWidget>
 
+class CustomLabel;
 class CustomPushButton;
+class HomeButtonWidget;
 namespace Ui {
 class MainMenuWidget;
 }
@@ -16,11 +18,13 @@ public:
     explicit MainMenuWidget(QWidget *parent = 0);
     ~MainMenuWidget();
     void setMainMenuTitle(QString title);
+    void setMainMenuImage(QString path_name, QString file_name);
     void enableButtons(bool enable);
     void updateStretch();
 private:
     Ui::MainMenuWidget *ui;
-
+    CustomLabel* m_pHomeTitleLabel;
+    HomeButtonWidget* m_pHomeButtonWidget;
 public:
     CustomPushButton* m_pCameraPushbutton;
     CustomPushButton* m_pDaynNightPushbutton;
@@ -29,6 +33,8 @@ public:
     CustomPushButton* m_pSpeedPushbutton;
     CustomPushButton* m_pWifiPushbutton;
     CustomPushButton* m_pGpsPushbutton;
+    CustomPushButton* m_pMainMenuTitlePushButton;
+
 
     // QObject interface
 protected:

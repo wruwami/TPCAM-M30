@@ -21,6 +21,8 @@ MainMenuContentWidget::MainMenuContentWidget(QWidget *parent) :
     ui->settingPushButton->setImage("Main_menu", "mainmenu_setting.bmp");
     ui->fileManagerPushButton->setImage("Main_menu", "mainmenu_file_management.bmp");
     ui->enforcementPushButton->setImage("Main_menu", "mainmenu_enforcement.bmp");
+
+    ui->label->setImage("Main_menu", "comlaser_logo.bmp");
 }
 
 MainMenuContentWidget::~MainMenuContentWidget()

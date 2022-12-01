@@ -8,6 +8,8 @@
 #include "IndicatorWidget.h"
 #include "StringLoader.h"
 
+#include "HomeButtonWidget.h"
+
 MainMenuWidget::MainMenuWidget(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::MainMenuWidget)
@@ -30,7 +32,15 @@ MainMenuWidget::MainMenuWidget(QWidget *parent) :
     m_pWifiPushbutton = ui->wifiPushButton;
     m_pGpsPushbutton = ui->gpsPushButton;
 
-    ui->mainMenuTitleLabel->setText("Main Menu");
+
+    m_pHomeTitleLabel = new CustomLabel;
+    m_pHomeButtonWidget = new HomeButtonWidget;
+    ui->stackedWidget->addWidget(m_pHomeTitleLabel);
+    ui->stackedWidget->addWidget(m_pHomeButtonWidget);
+
+    m_pMainMenuTitlePushButton = m_pHomeButtonWidget->m_pHomePushButton;
+
+    m_pHomeTitleLabel->setText("Main Menu");
 
 
 #if 0
@@ -66,8 +76,25 @@ MainMenuWidget::~MainMenuWidget()
 
 void MainMenuWidget::setMainMenuTitle(QString title)
 {
-    ui->mainMenuTitleLabel->setText(title);
+    QFile file(":/style/mainmenuWidget.qss");
+    file.open(QFile::ReadOnly);
+
+    m_pHomeTitleLabel->setStyleSheet(QString::fromLatin1(file.readAll()));
+    m_pHomeTitleLabel->setText(title);
+    ui->stackedWidget->setCurrentIndex(0);
+
+//    m_pHomeTitleLabel->
+//    ui->mainMenuTitlePushButton->setDisabled(true);
 }
+
+void MainMenuWidget::setMainMenuImage(QString path_name, QString file_name)
+{
+//    m_pHomeButtonWidget->m_pHomePushButton->setImage(path_name, file_name);
+    ui->stackedWidget->setCurrentIndex(1);
+
+//    ui->mainMenuTitlePushButton->setDisabled(false);
+}
+
 
 void MainMenuWidget::enableButtons(bool enable)
 {

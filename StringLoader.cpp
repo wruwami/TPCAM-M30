@@ -59,8 +59,8 @@ inFile.open((dir.toStdString() + "/" + path_name + "/" + file_name).c_str());
     std::string strLanguage;
     getline( inFile, strLanguage);
     QString qstrLanguage = QString::fromStdString(strLanguage);
-    QStringList list = qstrLanguage.split(",");
-    int i = list.indexOf(input_language);
+    QStringList m_LanguageList = qstrLanguage.split(",");
+    int i = m_LanguageList.indexOf(input_language);
 
     while (!inFile.eof()) {
         std::string strLine;
@@ -108,4 +108,9 @@ void StringLoader::AddInvalidString(std::string str)
     }
     inFile << str + "," + str + "\n";
     inFile.close();
+}
+
+QStringList StringLoader::LoadLanuageList()
+{
+    return m_LanguageList;
 }

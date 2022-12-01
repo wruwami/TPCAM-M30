@@ -4,8 +4,7 @@
 #include "StringLoader.h"
 #include "BaseDialog.h"
 
-Setting6Widget::Setting6Widget(QWidget *parent) :
-    QWidget(parent),
+Setting6Widget::Setting6Widget(QWidget *parent) : QWidget(parent),
     ui(new Ui::Setting6Widget)
 {
     ui->setupUi(this);
@@ -13,6 +12,12 @@ Setting6Widget::Setting6Widget(QWidget *parent) :
     ui->languageLabel->setText(LoadString("IDS_LANUAGE"));
     ui->bludtoothLabel->setText(LoadString("IDS_BLUETOOTH"));
     ui->ftpLabel->setText(LoadString("IDS_FTP"));
+
+    ui->languageComboBox->addItems(LoadLangaugeList());
+
+    ui->ftpComboBox->addItem(LoadString("IDS_DISABLE"));
+    ui->ftpComboBox->addItem(LoadString("IDS_ENABLE_AUTO"));
+    ui->ftpComboBox->addItem(LoadString("IDS_ENABLE_MANUAL"));
 }
 
 Setting6Widget::~Setting6Widget()

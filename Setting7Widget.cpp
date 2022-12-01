@@ -14,6 +14,22 @@ Setting7Widget::Setting7Widget(QWidget *parent) :
     ui->nineAxisSensorLabel->setText(LoadString("IDS_NINE_AXIS_SENSOR"));
     ui->micnSpeackerLabel->setText(LoadString("IDS_MIC_N_SPEAKER"));
     ui->powerSavingTimeLabel->setText(LoadString("IDS_POWER_SAVING_TIME"));
+
+    ui->wifiComboBox->addItem(LoadString("IDS_ON"));
+    ui->wifiComboBox->addItem(LoadString("IDS_OFF"));
+
+    ui->bluetoothComboBox->addItem(LoadString("IDS_ON"));
+    ui->bluetoothComboBox->addItem(LoadString("IDS_OFF"));
+
+    ui->nineAxisSensorComboBox->addItem(LoadString("IDS_ON"));
+    ui->nineAxisSensorComboBox->addItem(LoadString("IDS_OFF"));
+
+    ui->micnSpeackerComboBox->addItem(LoadString("IDS_ON"));
+    ui->micnSpeackerComboBox->addItem(LoadString("IDS_OFF"));
+
+//    ui->powerSavingTimeComboBox->addItem(LoadString("IDS_ON"));
+//    ui->powerSavingTimeComboBox->addItem(LoadString("IDS_OFF"));
+
 }
 
 Setting7Widget::~Setting7Widget()

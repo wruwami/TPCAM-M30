@@ -17,6 +17,9 @@ Setting4APWidget::Setting4APWidget(QWidget *parent) :
     ui->subnetMaskLabel->setText(LoadString("IDS_SUBNET_MASK"));
     ui->printerLabel->setText(LoadString("IDS_PRINTER"));
 
+    ui->printerComboBox->addItem(LoadString("IDS_THERMAL_EAST"));
+    ui->printerComboBox->addItem(LoadString("IDS_THERMAL_WOOSIM"));
+    ui->printerComboBox->addItem(LoadString("IDS_BT_HP"));
 }
 
 Setting4APWidget::~Setting4APWidget()

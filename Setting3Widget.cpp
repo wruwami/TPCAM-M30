@@ -21,6 +21,15 @@ Setting3Widget::Setting3Widget(QWidget *parent) :
     ui->lcdBrightnessComboBox->addItem(LoadString("IDS_LEVEL1"));
     ui->lcdBrightnessComboBox->addItem(LoadString("IDS_LEVEL2"));
     ui->lcdBrightnessComboBox->addItem(LoadString("IDS_LEVEL3"));
+
+    ui->unitComboBox->addItem(LoadString("IDS_KM_PER_H"));
+    ui->unitComboBox->addItem(LoadString("IDS_MPH_FT"));
+    ui->unitComboBox->setCurrentIndex(0);
+
+    ui->unitComboBox->addItem(LoadString("IDS_YYYY_MM_DD"));
+    ui->unitComboBox->addItem(LoadString("IDS_MM_DD_YYYY"));
+    ui->unitComboBox->addItem(LoadString("IDS_DD_MM_YYYY"));
+    ui->unitComboBox->setCurrentIndex(0);
 }
 
 Setting3Widget::~Setting3Widget()

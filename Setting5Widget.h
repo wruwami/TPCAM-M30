@@ -14,6 +14,11 @@ class Setting5Widget : public QWidget
 public:
     explicit Setting5Widget(QWidget *parent = 0);
     ~Setting5Widget();
+private:
+    void setDHCPMode();
+    void setManualMode();
+private slots:
+    void on_ipAddressComboBox_currentIndexChanged(int index);
 
 private:
     Ui::Setting5Widget *ui;

@@ -4,6 +4,8 @@
 
 #include <map>
 #include <QString>
+#include <QStringList>
+#include <list>
 #include <string>
 
 class StringLoader
@@ -24,16 +26,24 @@ public:
 
     std::map<std::string, QString> LoadString();
     QString LoadString(std::string index);
+    QStringList LoadLanuageList();
 private:
     void AddInvalidString(std::string str);
+
 private:
     std::string m_file_name;
     std::map <std::string, QString> m_StringResource;
+    QStringList  m_LanguageList;
 };
 
 static QString LoadString(std::string index)
 {
     return StringLoader::GetInstance()->LoadString(index);
+}
+
+static QStringList LoadLangaugeList()
+{
+    return StringLoader::GetInstance()->LoadLanuageList();
 }
 
 #endif // STRINGLOADER_H

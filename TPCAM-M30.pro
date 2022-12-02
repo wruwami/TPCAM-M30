@@ -51,8 +51,6 @@ SOURCES += main.cpp\
     keyboard/key.cpp \
     keyboard/keyboard.cpp \
     keyboard/keylayout.cpp \
-    keyboardwidget.cpp \
-    keypadwidget.cpp \
     LoginExpiredDateWidget.cpp \
     FileManagerFileTransferWidget.cpp \
     SelfTestWarningMessageWidget.cpp \
@@ -71,7 +69,9 @@ SOURCES += main.cpp\
     WidgetSize.cpp \
     Setting4STAWidget.cpp \
     HomeTitleWidget.cpp \
-    HomeButtonWidget.cpp
+    HomeButtonWidget.cpp \
+    KeyboardDialog.cpp \
+    KeypadDialog.cpp
 
 HEADERS  += MainWindow.h \
     CustomTogglePushButton.h \
@@ -114,8 +114,6 @@ HEADERS  += MainWindow.h \
     keyboard/key.h \
     keyboard/keyboard.h \
     keyboard/keylayout.h \
-    keypadwidget.h \
-    keyboardwidget.h \
     LoginExpiredDateWidget.h \
     FileManagerFileTransferWidget.h \
     SelfTestWarningMessageWidget.h \
@@ -134,7 +132,9 @@ HEADERS  += MainWindow.h \
     WidgetSize.h \
     Setting4STAWidget.h \
     HomeTitleWidget.h \
-    HomeButtonWidget.h
+    HomeButtonWidget.h \
+    KeyboardDialog.h \
+    KeypadDialog.h
 
 FORMS    += MainWindow.ui \
     IndicatorCameraWidget.ui \
@@ -180,7 +180,11 @@ FORMS    += MainWindow.ui \
     FileManagerQuestionMessageWidget.ui \
     Setting4STAWidget.ui \
     HomeTitleWidget.ui \
-    HomeButtonWidget.ui
+    HomeButtonWidget.ui \
+    KeyboardDialog.ui \
+    KeypadDialog.ui
 
 RESOURCES += \
     style.qrc
+
+DISTFILES +=

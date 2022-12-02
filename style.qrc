@@ -7,5 +7,7 @@
         <file>style/customImageButton.qss</file>
         <file>style/mainmenuWidget.qss</file>
         <file>style/homeButton.qss</file>
+        <file>keyboard/en.json</file>
+        <file>keyboard/keypad.json</file>
     </qresource>
 </RCC>

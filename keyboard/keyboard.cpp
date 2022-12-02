@@ -4,8 +4,8 @@
 
 #include "keylayout.h"
 #include "keyboard.h"
-#include "../keyboardwidget.h"
-#include "../keypadwidget.h"
+#include "../KeyboardDialog.h"
+#include "../KeypadDialog.h"
 //#include "../datepickerwidget.h"
 
 Keyboard::Keyboard(QFile &iJsonFile, InputMode iInputMode, QWidget *iParent) : QStackedWidget(iParent)
@@ -71,11 +71,11 @@ void Keyboard::onKeyPressed(const QString &iKey, Key* mKey)
     {
         if (_inputMode == keyboard)
         {
-            ((KeyboardWidget*)m_parent)->onKeyPressed(iKey, mKey);
+            ((KeyboardDialog*)m_parent)->onKeyPressed(iKey, mKey);
         }
         else if (_inputMode == Keypad)
         {
-            ((KeypadWidget*)m_parent)->onKeyPressed(iKey, mKey);
+            ((KeypadDialog*)m_parent)->onKeyPressed(iKey, mKey);
         }
 
         //if (m_parent == (KeypadWidget*))

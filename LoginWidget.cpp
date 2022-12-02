@@ -7,6 +7,7 @@
 #include "MainWindow.h"
 #include "StringLoader.h"
 #include "BaseDialog.h"
+#include "KeyboardDialog.h"
 
 LoginWidget::LoginWidget(QWidget *parent) :
     QWidget(parent),
@@ -55,4 +56,10 @@ void LoginWidget::on_dateTimePushButton_clicked()
 
 void LoginWidget::on_lightPushButton_clicked()
 {
+}
+
+void LoginWidget::on_userNamePushButton_clicked()
+{
+    KeyboardDialog keyboardDialog;
+    keyboardDialog.exec();
 }

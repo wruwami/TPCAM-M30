@@ -22,6 +22,8 @@ private slots:
 
     void on_lightPushButton_clicked();
 
+    void on_userNamePushButton_clicked();
+
 public:
     CustomPushButton* m_loginPushButton;
     CustomPushButton* m_dateTimePushButton;

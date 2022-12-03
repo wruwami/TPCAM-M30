@@ -17,6 +17,7 @@ KeyboardDialog::KeyboardDialog(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    setWindowFlags(Qt::FramelessWindowHint);
     ui->okPushButton->setText(LoadString("IDS_OK"));
     ui->cancelPushButton->setText(LoadString("IDS_CANCEL"));
 

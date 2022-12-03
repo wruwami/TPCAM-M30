@@ -8,6 +8,7 @@
 #include "StringLoader.h"
 #include "BaseDialog.h"
 #include "KeyboardDialog.h"
+#include "KeypadDialog.h"
 
 LoginWidget::LoginWidget(QWidget *parent) :
     QWidget(parent),
@@ -31,6 +32,8 @@ LoginWidget::LoginWidget(QWidget *parent) :
 
     ui->userNamePushButton->setImage("Login", "keyboard.bmp");
     ui->logoLabel->setImage("Login", "comlaser_logo.bmp");
+
+//    m_userName = ui->userNameComboBox->it;
 }
 
 LoginWidget::~LoginWidget()

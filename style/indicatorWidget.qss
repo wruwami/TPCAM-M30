@@ -1,5 +1,5 @@
-.QWidget {
-   background-color: rgba(255, 255, 255, 0);
+.QDialog {
+   background-color: rgba(255, 255, 255, 128);
 }
 
 QPushButton {
@@ -8,6 +8,10 @@ QPushButton {
     border-width: 1px;
     border-color: blue;
     border-style: solid;
+}
+
+QPushButton:pressed {
+    color: red;
 }
 
 QLabel {

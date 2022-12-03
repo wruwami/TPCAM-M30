@@ -5,21 +5,23 @@
 #include <QFile>
 
 #include "BaseDialog.h"
+#include "Color.h"
 
 IndicatorWidget::IndicatorWidget(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::IndicatorWidget)
 {
-    QFile file(":/style/indicatorWidget.qss");
-    file.open(QFile::ReadOnly);
-    QString styleSheet = QString::fromLatin1(file.readAll());
-
-    setStyleSheet(styleSheet);
-
-
-
     setWindowFlags(Qt::FramelessWindowHint);
     ui->setupUi(this);
+
+//    QFile file(":/style/indicatorWidget.qss");
+//    file.open(QFile::ReadOnly);
+//    QString styleSheet = QString::fromLatin1(file.readAll());
+
+//    this->setStyleSheet(styleSheet);
+//    setBackGroundColor(this, QColor(255, 255, 255, 0));
+//    setWindowOpacity(0);
+//    setStyleSheet(styleSheet);
 
     ui->daynNightPushButton->setImage("indicator", "indicator_enable_night_mode_off.jpg", ui->daynNightPushButton->size());
     ui->weatherPushButton->setImage("indicator", "indicator_enable_weather_mode_on.jpg", ui->weatherPushButton->size());

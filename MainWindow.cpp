@@ -8,9 +8,13 @@
 #include "IndicatorWidget.h"
 #include "MainMenuWidget.h"
 #include "MainMenuContentWidget.h"
+#include "MainMenuAdminAlignWidget.h"
 #include "LoginWidget.h"
 #include "FileManagerWidget.h"
 #include "SettingWidget.h"
+#include "DeviceIDWidget.h"
+#include "CameraAlignWidget.h"
+#include "CameraZoomFocusWidget.h"
 
 #include "StringLoader.h"
 
@@ -126,12 +130,25 @@ void MainWindow::on_gpsPushButton_clicked()
 
 void MainWindow::on_loginWidgetClose()
 {
-    ui->verticalLayout->removeItem(ui->verticalLayout->itemAt(1));
-    m_pMainMenuContentWidget = new MainMenuContentWidget;
-    ui->verticalLayout->addWidget(m_pMainMenuContentWidget, 835);
-    QObject::connect((QWidget*)m_pMainMenuContentWidget->m_pEnforcementButton, SIGNAL(clicked()), this, SLOT(on_enforcementClicked()));
-    QObject::connect((QWidget*)m_pMainMenuContentWidget->m_pFileManagertButton, SIGNAL(clicked()), this, SLOT(on_filemanagementClicked()));
-    QObject::connect((QWidget*)m_pMainMenuContentWidget->m_pSettingButton, SIGNAL(clicked()), this, SLOT(on_settingClicked()));
+    if (m_pLoginWidget->m_userName == "admin-align")
+    {
+        ui->verticalLayout->removeItem(ui->verticalLayout->itemAt(1));
+        m_pMainMenuAdminAlignWidget = new MainMenuAdminAlignWidget;
+        ui->verticalLayout->addWidget(m_pMainMenuAdminAlignWidget, 835);
+        QObject::connect((QWidget*)m_pMainMenuAdminAlignWidget->m_pDeviceIdWidget, SIGNAL(clicked()), this, SLOT(on_device_id_clicked()));
+        QObject::connect((QWidget*)m_pMainMenuAdminAlignWidget->m_pCameraAlignWidget, SIGNAL(clicked()), this, SLOT(on_camera_align_clicked()));
+        QObject::connect((QWidget*)m_pMainMenuAdminAlignWidget->m_pCameraZoomFocusWidget, SIGNAL(clicked()), this, SLOT(on_camera_zoom_focus()));
+    }
+    else
+    {
+        ui->verticalLayout->removeItem(ui->verticalLayout->itemAt(1));
+        m_pMainMenuContentWidget = new MainMenuContentWidget;
+        ui->verticalLayout->addWidget(m_pMainMenuContentWidget, 835);
+        QObject::connect((QWidget*)m_pMainMenuContentWidget->m_pEnforcementButton, SIGNAL(clicked()), this, SLOT(on_enforcementClicked()));
+        QObject::connect((QWidget*)m_pMainMenuContentWidget->m_pFileManagertButton, SIGNAL(clicked()), this, SLOT(on_filemanagementClicked()));
+        QObject::connect((QWidget*)m_pMainMenuContentWidget->m_pSettingButton, SIGNAL(clicked()), this, SLOT(on_settingClicked()));
+
+    }
 }
 
 void MainWindow::on_dateTimeWidgetClicked()
@@ -171,4 +188,30 @@ void MainWindow::on_settingClicked()
 void MainWindow::on_mainMenuTitlePushButton_clicked()
 {
     initialize();
+}
+
+void MainWindow::on_device_id_clicked()
+{
+    delete m_pMainMenuAdminAlignWidget;
+    ui->verticalLayout->removeItem(ui->verticalLayout->itemAt(1));
+    ui->verticalLayout->addWidget(new DeviceIDWidget, 835);
+
+//    m_pMainMenuWidget->setMainMenuImage("Main_menu", "home_big_n.bmp");
+
+}
+
+void MainWindow::on_camera_align_clicked()
+{
+    delete m_pMainMenuAdminAlignWidget;
+    ui->verticalLayout->removeItem(ui->verticalLayout->itemAt(1));
+    ui->verticalLayout->addWidget(new CameraAlignWidget, 835);
+
+}
+
+void MainWindow::on_camera_zoom_focus()
+{
+    delete m_pMainMenuAdminAlignWidget;
+    ui->verticalLayout->removeItem(ui->verticalLayout->itemAt(1));
+    ui->verticalLayout->addWidget(new CameraZoomFocusWidget, 835);
+
 }

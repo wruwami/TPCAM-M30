@@ -22,21 +22,21 @@
      <item row="1" column="0">
       <layout class="QGridLayout" name="gridLayout_4">
        <item row="0" column="1">
-        <widget class="CustomLabel" name="label_2">
+        <widget class="CustomLabel" name="enforcementTimeLabel">
          <property name="text">
           <string>TextLabel</string>
          </property>
         </widget>
        </item>
        <item row="1" column="0" colspan="2">
-        <widget class="CustomLabel" name="label">
+        <widget class="CustomLabel" name="enforcementDistanceSpeedLabel">
          <property name="text">
           <string>TextLabel</string>
          </property>
         </widget>
        </item>
        <item row="0" column="0">
-        <widget class="CustomLabel" name="label_3">
+        <widget class="CustomLabel" name="enforcementCountLabel">
          <property name="text">
           <string>TextLabel</string>
          </property>
@@ -61,7 +61,7 @@
         </widget>
        </item>
        <item row="0" column="1">
-        <widget class="CustomPushButton" name="pushButton_2">
+        <widget class="CustomPushButton" name="readyPushButton">
          <property name="text">
           <string>PushButton</string>
          </property>
@@ -75,7 +75,7 @@
         </widget>
        </item>
        <item row="0" column="0">
-        <widget class="CustomPushButton" name="pushButton_5">
+        <widget class="CustomPushButton" name="hidePushButton">
          <property name="text">
           <string>PushButton</string>
          </property>
@@ -112,28 +112,28 @@
      <item row="2" column="2" rowspan="2">
       <layout class="QGridLayout" name="gridLayout_9">
        <item row="3" column="1">
-        <widget class="CustomPushButton" name="pushButton_7">
+        <widget class="CustomPushButton" name="bikePushButton">
          <property name="text">
           <string>PushButton</string>
          </property>
         </widget>
        </item>
        <item row="0" column="1">
-        <widget class="CustomPushButton" name="pushButton_8">
+        <widget class="CustomPushButton" name="saveImagePushButton">
          <property name="text">
           <string>PushButton</string>
          </property>
         </widget>
        </item>
        <item row="3" column="0">
-        <widget class="CustomPushButton" name="pushButton_6">
+        <widget class="CustomPushButton" name="truckPushButton">
          <property name="text">
           <string>PushButton</string>
          </property>
         </widget>
        </item>
        <item row="4" column="0" colspan="2">
-        <widget class="CustomLabel" name="label_4">
+        <widget class="CustomLabel" name="speedLabel">
          <property name="text">
           <string>TextLabel</string>
          </property>
@@ -154,7 +154,7 @@
   <customwidget>
    <class>CustomPushButton</class>
    <extends>QPushButton</extends>
-   <header location="global">CustomPushButton.h</header>
+   <header>CustomPushButton.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

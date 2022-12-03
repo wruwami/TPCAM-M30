@@ -17,7 +17,7 @@
    <item row="0" column="0">
     <layout class="QGridLayout" name="gridLayout">
      <item row="3" column="0">
-      <widget class="QPushButton" name="pushButton">
+      <widget class="QPushButton" name="speedPushButton">
        <property name="text">
         <string>PushButton</string>
        </property>
@@ -31,35 +31,28 @@
       </widget>
      </item>
      <item row="2" column="0">
-      <widget class="QPushButton" name="pushButton_2">
+      <widget class="QPushButton" name="showHidePushButton">
        <property name="text">
         <string>PushButton</string>
        </property>
       </widget>
      </item>
      <item row="4" column="1">
-      <widget class="QPushButton" name="pushButton_5">
+      <widget class="QPushButton" name="onePushTriggerPushButton">
        <property name="text">
         <string>PushButton</string>
        </property>
       </widget>
      </item>
      <item row="4" column="0">
-      <widget class="QPushButton" name="pushButton_4">
+      <widget class="QPushButton" name="autoTriggerPushButton">
        <property name="text">
         <string>PushButton</string>
        </property>
       </widget>
      </item>
      <item row="4" column="2">
-      <widget class="QPushButton" name="pushButton_6">
-       <property name="text">
-        <string>PushButton</string>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="0">
-      <widget class="QPushButton" name="pushButton_3">
+      <widget class="QPushButton" name="forcusDownPushButton">
        <property name="text">
         <string>PushButton</string>
        </property>
@@ -78,19 +71,6 @@
         <string>PushButton</string>
        </property>
       </widget>
-     </item>
-     <item row="0" column="0">
-      <spacer name="verticalSpacer">
-       <property name="orientation">
-        <enum>Qt::Vertical</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>20</width>
-         <height>40</height>
-        </size>
-       </property>
-      </spacer>
      </item>
      <item row="4" column="6">
       <widget class="QPushButton" name="pushButton_10">
@@ -140,6 +120,19 @@
         <string>PushButton</string>
        </property>
       </widget>
+     </item>
+     <item row="0" column="0" rowspan="2">
+      <spacer name="verticalSpacer">
+       <property name="orientation">
+        <enum>Qt::Vertical</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>20</width>
+         <height>40</height>
+        </size>
+       </property>
+      </spacer>
      </item>
     </layout>
    </item>

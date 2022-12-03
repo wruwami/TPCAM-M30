@@ -15,6 +15,9 @@ public:
     explicit DeviceIDWidget(QWidget *parent = 0);
     ~DeviceIDWidget();
 
+private slots:
+    void on_inputPushButton_clicked();
+
 private:
     Ui::DeviceIDWidget *ui;
 };

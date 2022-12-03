@@ -15,7 +15,8 @@ class LoginWidget : public QWidget
 public:
     explicit LoginWidget(QWidget *parent = 0);
     ~LoginWidget();
-
+public:
+    QString m_userName;
 private slots:
     void on_loginPushButton_clicked();
     void on_dateTimePushButton_clicked();

@@ -7,6 +7,7 @@ class LoginWidget;
 class MainMenuWidget;
 class IndicatorWidget;
 class MainMenuContentWidget;
+class MainMenuAdminAlignWidget;
 namespace Ui {
 class MainWindow;
 }
@@ -36,6 +37,9 @@ private slots:
     void on_filemanagementClicked();
     void on_settingClicked();
     void on_mainMenuTitlePushButton_clicked();
+    void on_device_id_clicked();
+    void on_camera_align_clicked();
+    void on_camera_zoom_focus();
 
 private:
     Ui::MainWindow *ui;
@@ -43,6 +47,7 @@ private:
     MainMenuWidget* m_pMainMenuWidget = nullptr;
     IndicatorWidget* m_pIndicatorWidget = nullptr;
     MainMenuContentWidget* m_pMainMenuContentWidget = nullptr;
+    MainMenuAdminAlignWidget* m_pMainMenuAdminAlignWidget = nullptr;
 
 };
 

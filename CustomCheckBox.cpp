@@ -6,11 +6,20 @@
 
 CustomCheckBox::CustomCheckBox(QWidget *parent) : QCheckBox(parent)
 {
-    QFile file(":/style/customCheckBox.qss");
-    file.open(QFile::ReadOnly);
-    QString styleSheet = QString::fromLatin1(file.readAll());
+    QDir dir;
 
-    setStyleSheet(styleSheet);
+    QString styleSheet(QString("QCheckBox::indicator:checked \
+    { \
+      image: url(%0/images/Date_time/checked.bmp); \
+    }\
+     \
+    QCheckBox::indicator:unchecked \
+    { \
+      image: url(%0/images/Date_time/unchecked.bmp); \
+    } \
+    ").arg(dir.absolutePath()));
+
+    this->setStyleSheet(styleSheet);
 
     this->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);    
 }

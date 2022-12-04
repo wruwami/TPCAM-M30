@@ -33,29 +33,30 @@ m_file_name = dir_qstr.toStdString() + "\\" + file_name;
         qdir.mkdir(dir_qstr);
 
 #ifdef Q_OS_WIN
-std::ofstream outFile((dir_qstr.toStdString() + "\\" +file_name).c_str());
+        std::ofstream outFile((dir_qstr.toStdString() + "\\" +file_name).c_str());
 #else   /*Q_OS_LINUX*/
-std::ofstream outFile((dir_qstr.toStdString() + "/" + file_name).c_str());
+        std::ofstream outFile((dir_qstr.toStdString() + "/" + file_name).c_str());
 #endif
 
 
         std::cout << "new file has been created" << std::endl;
         outFile << "Index,English" << std::endl;
-//        outFile
+        //        outFile
         outFile.close();
-    }
 
 #ifdef Q_OS_WIN
-inFile.open((dir.toStdString() + "\\" + path_name + "\\" + file_name).c_str());
+        inFile.open((dir.toStdString() + "\\" + path_name + "\\" + file_name).c_str());
 #else   /*Q_OS_LINUX*/
-inFile.open((dir.toStdString() + "/" + path_name + "/" + file_name).c_str());
+        inFile.open((dir.toStdString() + "/" + path_name + "/" + file_name).c_str());
 #endif
 
-    if (!inFile.is_open()) {
-        std::cout << "no file has been opened" << std::endl;
-        inFile.close();
-        return;
+        if (!inFile.is_open()) {
+            std::cout << "no file has been opened" << std::endl;
+            inFile.close();
+            return;
+        }
     }
+
 
     QString input_language = QString::fromStdString(language);
     std::string strLanguage;

@@ -1,6 +1,8 @@
 #include "DateTimeWidget.h"
 #include "ui_DateTimeWidget.h"
 
+#include <QTimeZone>
+
 #include "StringLoader.h"
 
 DateTimeWidget::DateTimeWidget(QWidget *parent) :
@@ -18,6 +20,10 @@ DateTimeWidget::DateTimeWidget(QWidget *parent) :
     m_pSavePushButton = ui->savePushButton;
     m_pCancelPushButton = ui->cancelPushButton;
 
+    QList<QByteArray> ids = QTimeZone::availableTimeZoneIds();
+    foreach (QByteArray id, ids) {
+        ui->timeZoneComboBox->addItem(id);
+    }
     m_dateTime = m_dateTime.currentDateTime();
     setDateTimeValue();
 }

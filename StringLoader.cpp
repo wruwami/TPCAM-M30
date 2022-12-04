@@ -16,11 +16,7 @@ void StringLoader::Initialize(std::string path_name, std::string file_name, std:
     QDir qdir;
     QString dir = qdir.absolutePath();
 
-    std::ifstream inFile(m_file_name.c_str());
-    if (!inFile.is_open()) {
-        std::cout << "no file has been opened" << std::endl;
-        inFile.close();
-        QString dir_qstr;
+    QString dir_qstr;
 #ifdef Q_OS_WIN
 dir_qstr = dir + "\\" + QString::fromStdString(path_name);
 m_file_name = dir_qstr.toStdString() + "\\" + file_name;
@@ -28,6 +24,12 @@ m_file_name = dir_qstr.toStdString() + "\\" + file_name;
     dir_qstr = dir + "/" + QString::fromStdString(path_name);
     m_file_name = dir_qstr.toStdString() + "/" + file_name;
 #endif
+
+    std::ifstream inFile(m_file_name.c_str());
+    if (!inFile.is_open()) {
+        std::cout << "no file has been opened" << std::endl;
+        inFile.close();
+
         qdir.mkdir(dir_qstr);
 
 #ifdef Q_OS_WIN

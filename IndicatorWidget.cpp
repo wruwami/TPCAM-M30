@@ -7,6 +7,9 @@
 #include "BaseDialog.h"
 #include "Color.h"
 
+#include "IndicatorCameraExposeWidget.h"
+#include "IndicatorCameraFocusWidget.h"
+
 IndicatorWidget::IndicatorWidget(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::IndicatorWidget)
@@ -50,6 +53,8 @@ void IndicatorWidget::on_cameraPushButton_clicked()
     ui->horizontalLayout2->insertWidget(0, m_pCameraExposePushButton, 2);
     ui->horizontalLayout2->insertWidget(1, m_pCameraFocusPushButton, 2);
 
+    QObject::connect((QWidget*)m_pCameraExposePushButton, SIGNAL(clicked()), this, SLOT(on_cameraExposeClicked()));
+    QObject::connect((QWidget*)m_pCameraFocusPushButton, SIGNAL(clicked()), this, SLOT(on_cameraForcusClicked()));
 }
 
 void IndicatorWidget::on_screenRecordingPushButton_clicked()
@@ -153,6 +158,16 @@ void IndicatorWidget::on_weatherPushButton_clicked()
     ui->horizontalLayout2->insertWidget(2, m_pRainyPushButton ,2);
 
     ui->horizontalLayout2->setStretch(6, 1);
+}
+
+void IndicatorWidget::on_cameraExposeClicked()
+{
+
+}
+
+void IndicatorWidget::on_cameraForcusClicked()
+{
+
 }
 
 void IndicatorWidget::clearSecondRow()

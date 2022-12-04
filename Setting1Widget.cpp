@@ -23,6 +23,8 @@ Setting1Widget::Setting1Widget(QWidget *parent) :
 
     ui->speedModeComboBox->addItem(LoadString("IDS_LT"));
     ui->speedModeComboBox->addItem(LoadString("IDS_ST"));
+
+    ui->locationPushButton->setImage("setting1_1", "keyboard.bmp");
 }
 
 Setting1Widget::~Setting1Widget()

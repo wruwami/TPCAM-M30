@@ -33,6 +33,8 @@ private slots:
     void on_enforcementPushButton_clicked();
 
     void on_weatherPushButton_clicked();
+    void on_cameraExposeClicked();
+    void on_cameraForcusClicked();
 
 private:
     Ui::IndicatorWidget *ui;

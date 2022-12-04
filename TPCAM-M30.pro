@@ -14,7 +14,7 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
     CustomTogglePushButton.cpp \
-    IndicatorCameraWidget.cpp \
+    IndicatorCameraFocusWidget.cpp \
     MainWindow.cpp \
     LoginWidget.cpp \
     MainMenuWidget.cpp \
@@ -71,12 +71,13 @@ SOURCES += main.cpp\
     HomeTitleWidget.cpp \
     HomeButtonWidget.cpp \
     KeyboardDialog.cpp \
-    KeypadDialog.cpp
+    KeypadDialog.cpp \
+    IndicatorCameraExposeWidget.cpp
 
 HEADERS  += MainWindow.h \
     CustomTogglePushButton.h \
     FontSize.h \
-    IndicatorCameraWidget.h \
+    IndicatorCameraFocusWidget.h \
     LoginWidget.h \
     MainMenuWidget.h \
     Setting4APWidget.h \
@@ -134,10 +135,11 @@ HEADERS  += MainWindow.h \
     HomeTitleWidget.h \
     HomeButtonWidget.h \
     KeyboardDialog.h \
-    KeypadDialog.h
+    KeypadDialog.h \
+    IndicatorCameraExposeWidget.h
 
 FORMS    += MainWindow.ui \
-    IndicatorCameraWidget.ui \
+    IndicatorCameraFocusWidget.ui \
     LoginWidget.ui \
     MainMenuWidget.ui \
     DateTimeWidget.ui \
@@ -182,7 +184,8 @@ FORMS    += MainWindow.ui \
     HomeTitleWidget.ui \
     HomeButtonWidget.ui \
     KeyboardDialog.ui \
-    KeypadDialog.ui
+    KeypadDialog.ui \
+    IndicatorCameraExposeWidget.ui
 
 RESOURCES += \
     style.qrc

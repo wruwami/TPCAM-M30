@@ -9,5 +9,6 @@
         <file>style/homeButton.qss</file>
         <file>keyboard/en.json</file>
         <file>keyboard/keypad.json</file>
+        <file>style/customCheckBox.qss</file>
     </qresource>
 </RCC>

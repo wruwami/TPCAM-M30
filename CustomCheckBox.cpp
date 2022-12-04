@@ -1,10 +1,18 @@
 #include "CustomCheckBox.h"
 
+#include <QDir>
+
 #include "FontSize.h"
 
 CustomCheckBox::CustomCheckBox(QWidget *parent) : QCheckBox(parent)
 {
-    this->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    QFile file(":/style/customCheckBox.qss");
+    file.open(QFile::ReadOnly);
+    QString styleSheet = QString::fromLatin1(file.readAll());
+
+    setStyleSheet(styleSheet);
+
+    this->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);    
 }
 
 void CustomCheckBox::resizeEvent(QResizeEvent *event)

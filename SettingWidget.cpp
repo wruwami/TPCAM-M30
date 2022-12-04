@@ -12,7 +12,7 @@
 #include "StringLoader.h"
 
 SettingWidget::SettingWidget(QWidget *parent) :
-    QDialog(parent),
+    QWidget(parent),
     ui(new Ui::SettingWidget)
 {
     ui->setupUi(this);
@@ -29,6 +29,9 @@ SettingWidget::SettingWidget(QWidget *parent) :
     ui->stackedWidget->addWidget(new Setting5Widget);
     ui->stackedWidget->addWidget(new Setting6Widget);
     ui->stackedWidget->addWidget(new Setting7Widget);
+
+    m_pSavePushButton = ui->savePushButton;
+    m_pCancelPushButton = ui->cancelPushButton;
 }
 
 SettingWidget::~SettingWidget()
@@ -85,14 +88,14 @@ void SettingWidget::on_setting7PushButton_clicked()
 }
 
 
-void SettingWidget::on_savePushButton_clicked()
-{
-    accept();
-}
+//void SettingWidget::on_savePushButton_clicked()
+//{
+////    accept();
+//}
 
 
-void SettingWidget::on_cancelPushButton_clicked()
-{
-    reject();
-}
+//void SettingWidget::on_cancelPushButton_clicked()
+//{
+////    reject();
+//}
 

@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 
+class DateTimeWidget;
 class LoginWidget;
 class MainMenuWidget;
 class IndicatorWidget;
@@ -20,7 +21,8 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 private:
-    void initialize();
+    void initializeMainMenuWidget();
+    void initializeLoginWidget();
     void finalize();
     void open_indicator_widget();
 private slots:
@@ -31,18 +33,24 @@ private slots:
     void on_speedPushButton_clicked();
     void on_wifiPushButton_clicked();
     void on_gpsPushButton_clicked();
-    void on_loginWidgetClose();
+    void on_loginWidgetClicked();
     void on_dateTimeWidgetClicked();
     void on_enforcementClicked();
     void on_filemanagementClicked();
     void on_settingClicked();
-    void on_mainMenuTitlePushButton_clicked();
+//    void on_mainMenuTitlePushButton_clicked();
     void on_device_id_clicked();
     void on_camera_align_clicked();
     void on_camera_zoom_focus();
+    void on_SettingSaveClicked();
+    void on_SettingCancelClicked();
+    void on_DateTimeSaveClicked();
+    void on_DateTimeCancelClicked();
+    void on_mainMenuHomeClicked();
 
 private:
     Ui::MainWindow *ui;
+    DateTimeWidget* m_pDateTimeWidget = nullptr;
     LoginWidget* m_pLoginWidget = nullptr;
     MainMenuWidget* m_pMainMenuWidget = nullptr;
     IndicatorWidget* m_pIndicatorWidget = nullptr;

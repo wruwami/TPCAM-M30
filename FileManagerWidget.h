@@ -14,7 +14,8 @@ class FileManagerWidget : public QWidget
 public:
     explicit FileManagerWidget(QWidget *parent = 0);
     ~FileManagerWidget();
-
+//public:
+//    QWidget* m_pHomePushButton;
 private:
     Ui::FileManagerWidget *ui;
 

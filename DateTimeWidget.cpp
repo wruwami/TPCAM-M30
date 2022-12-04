@@ -4,7 +4,7 @@
 #include "StringLoader.h"
 
 DateTimeWidget::DateTimeWidget(QWidget *parent) :
-    QDialog(parent),
+    QWidget(parent),
     ui(new Ui::DateTimeWidget)
 {
     ui->setupUi(this);
@@ -14,6 +14,9 @@ DateTimeWidget::DateTimeWidget(QWidget *parent) :
     ui->cancelPushButton->setText(LoadString("IDS_CANCEL"));
     ui->timeZoneLabel->setText(LoadString("IDS_TIMEZONE"));
     ui->gpsSyncCheckBox->setText(LoadString("IDS_GPS_SYNC"));
+
+    m_pSavePushButton = ui->savePushButton;
+    m_pCancelPushButton = ui->cancelPushButton;
 
     m_dateTime = m_dateTime.currentDateTime();
     setDateTimeValue();
@@ -106,12 +109,12 @@ void DateTimeWidget::on_secondMinusPushButton_clicked()
     setDateTimeValue();
 }
 
-void DateTimeWidget::on_savePushButton_clicked()
-{
-    accept();
-}
+//void DateTimeWidget::on_savePushButton_clicked()
+//{
+////    accept();
+//}
 
-void DateTimeWidget::on_cancelPushButton_clicked()
-{
-    reject();
-}
+//void DateTimeWidget::on_cancelPushButton_clicked()
+//{
+////    reject();
+//}

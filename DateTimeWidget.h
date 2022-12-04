@@ -1,7 +1,7 @@
 #ifndef DATETIMEWIDGET_H
 #define DATETIMEWIDGET_H
 
-#include <QDialog>
+#include <QWidget>
 #include <QDateTime>
 
 class CustomPushButton;
@@ -9,7 +9,7 @@ namespace Ui {
 class DateTimeWidget;
 }
 
-class DateTimeWidget : public QDialog
+class DateTimeWidget : public QWidget
 {
     Q_OBJECT
 
@@ -18,6 +18,9 @@ public:
     ~DateTimeWidget();
 private:
     void setDateTimeValue();
+public:
+    QWidget* m_pSavePushButton;
+    QWidget* m_pCancelPushButton;
 private slots:
     void on_yearPlusPushButton_clicked();
     void on_yearMinusPushButton_clicked();
@@ -31,9 +34,9 @@ private slots:
     void on_minuteMinusPushButton_clicked();
     void on_secondPlusPushButton_clicked();
     void on_secondMinusPushButton_clicked();
- void on_savePushButton_clicked();
+// void on_savePushButton_clicked();
 
- void on_cancelPushButton_clicked();
+// void on_cancelPushButton_clicked();
 
 private:
     QDateTime m_dateTime;

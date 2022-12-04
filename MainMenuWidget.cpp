@@ -38,7 +38,8 @@ MainMenuWidget::MainMenuWidget(QWidget *parent) :
     ui->stackedWidget->addWidget(m_pHomeTitleLabel);
     ui->stackedWidget->addWidget(m_pHomeButtonWidget);
 
-    m_pMainMenuTitlePushButton = m_pHomeButtonWidget->m_pHomePushButton;
+//    m_pMainMenuTitlePushButton = m_pHomeButtonWidget->m_pHomePushButton;
+    m_pHomePushButton = m_pHomeButtonWidget->m_pHomePushButton;
 
     m_pHomeTitleLabel->setText("Main Menu");
 

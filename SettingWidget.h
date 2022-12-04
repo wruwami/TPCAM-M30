@@ -1,20 +1,22 @@
 #ifndef SETTINGWIDGET_H
 #define SETTINGWIDGET_H
 
-#include <QDialog>
+#include <QWidget>
 
 namespace Ui {
 class SettingWidget;
 }
 
-class SettingWidget : public QDialog
+class SettingWidget : public QWidget
 {
     Q_OBJECT
 
 public:
     explicit SettingWidget(QWidget *parent = 0);
     ~SettingWidget();
-
+public:
+    QWidget* m_pSavePushButton;
+    QWidget* m_pCancelPushButton;
 private slots:
     void on_setting1PushButton_clicked();
 
@@ -30,9 +32,9 @@ private slots:
 
     void on_setting7PushButton_clicked();
 
-    void on_savePushButton_clicked();
+//    void on_savePushButton_clicked();
 
-    void on_cancelPushButton_clicked();
+//    void on_cancelPushButton_clicked();
 
 private:
     Ui::SettingWidget *ui;

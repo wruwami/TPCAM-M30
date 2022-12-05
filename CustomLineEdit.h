@@ -17,6 +17,7 @@ public slots:
     // QWidget interface
 protected:
     void resizeEvent(QResizeEvent *event);
+    void mousePressEvent(QMouseEvent *event);
 };
 
 #endif // CUSTOMLINEEDIT_H

@@ -2,6 +2,8 @@
 
 #include "FontSize.h"
 
+#include "KeyboardDialog.h"
+
 CustomLineEdit::CustomLineEdit(QWidget *parent) : QLineEdit(parent)
 {
     this->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
@@ -14,4 +16,13 @@ void CustomLineEdit::resizeEvent(QResizeEvent *event)
     if(font.pointSizeF()<=FontSize::Minimum) //최소폰트 설정
         font.setPointSizeF(FontSize::Minimum);
     this->setFont(font); //설정된 폰트를 위젯에 적용
+}
+
+void CustomLineEdit::mousePressEvent(QMouseEvent *event)
+{
+    KeyboardDialog keyboardDialog;
+    if (keyboardDialog.exec() == QDialog::accepted())
+    {
+        this->setText("");
+    }
 }

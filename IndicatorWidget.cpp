@@ -33,6 +33,7 @@ IndicatorWidget::IndicatorWidget(QWidget *parent) :
     ui->comPushButton->setImage("indicator", "indicator_wifi_disconnected.jpg", ui->comPushButton->size());
     ui->gpsPushButton->setImage("indicator", "indicator_gps_off.jpg", ui->gpsPushButton->size());
 
+    ui->screenRecordingPushButton->setVisible(false);
     ui->onPushButton->setVisible(false);
     ui->offPushButton->setVisible(false);
 }
@@ -162,7 +163,7 @@ void IndicatorWidget::on_weatherPushButton_clicked()
 
 void IndicatorWidget::on_cameraExposeClicked()
 {
-
+    //IndicatorCameraExposeWidget
 }
 
 void IndicatorWidget::on_cameraForcusClicked()

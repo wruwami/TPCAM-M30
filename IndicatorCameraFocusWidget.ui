@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1600</width>
-    <height>835</height>
+    <height>400</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -15,77 +15,57 @@
   </property>
   <layout class="QGridLayout" name="gridLayout_2">
    <item row="0" column="0">
-    <layout class="QGridLayout" name="gridLayout" columnstretch="1,1,1,1,1,1,1">
-     <item row="0" column="0" rowspan="2">
-      <spacer name="verticalSpacer">
-       <property name="orientation">
-        <enum>Qt::Vertical</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>20</width>
-         <height>40</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-     <item row="4" column="0">
-      <widget class="QPushButton" name="autoTriggerPushButton">
-       <property name="text">
-        <string>PushButton</string>
-       </property>
-      </widget>
-     </item>
-     <item row="3" column="0">
-      <widget class="QPushButton" name="speedPushButton">
-       <property name="text">
-        <string>PushButton</string>
-       </property>
-      </widget>
-     </item>
+    <layout class="QGridLayout" name="gridLayout" columnstretch="1,1,1,1,1,1,1" rowminimumheight="1,1,1">
      <item row="2" column="0">
-      <widget class="QPushButton" name="showHidePushButton">
+      <widget class="CustomPushButton" name="autoTriggerPushButton">
        <property name="text">
         <string>PushButton</string>
        </property>
       </widget>
      </item>
-     <item row="4" column="5">
-      <widget class="QPushButton" name="applyPushButton">
+     <item row="2" column="5">
+      <widget class="CustomPushButton" name="applyPushButton">
        <property name="text">
         <string>PushButton</string>
        </property>
       </widget>
      </item>
-     <item row="4" column="1">
-      <widget class="QPushButton" name="onePushTriggerPushButton">
+     <item row="2" column="4">
+      <widget class="CustomPushButton" name="forcusPlusPushButton">
        <property name="text">
         <string>PushButton</string>
        </property>
       </widget>
      </item>
-     <item row="4" column="4">
-      <widget class="QPushButton" name="forcusPlusPushButton">
+     <item row="1" column="0">
+      <widget class="CustomPushButton" name="speedPushButton">
        <property name="text">
         <string>PushButton</string>
        </property>
       </widget>
      </item>
-     <item row="4" column="3">
-      <widget class="QPushButton" name="forcusPushButton">
+     <item row="0" column="0">
+      <widget class="CustomPushButton" name="showHidePushButton">
        <property name="text">
         <string>PushButton</string>
        </property>
       </widget>
      </item>
-     <item row="4" column="2">
-      <widget class="QPushButton" name="forcusDownPushButton">
+     <item row="2" column="1">
+      <widget class="CustomPushButton" name="onePushTriggerPushButton">
        <property name="text">
         <string>PushButton</string>
        </property>
       </widget>
      </item>
-     <item row="4" column="6">
+     <item row="2" column="2">
+      <widget class="CustomPushButton" name="forcusDownPushButton">
+       <property name="text">
+        <string>PushButton</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="6">
       <spacer name="horizontalSpacer">
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
@@ -98,10 +78,24 @@
        </property>
       </spacer>
      </item>
+     <item row="2" column="3">
+      <widget class="CustomPushButton" name="forcusPushButton">
+       <property name="text">
+        <string>PushButton</string>
+       </property>
+      </widget>
+     </item>
     </layout>
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>CustomPushButton</class>
+   <extends>QPushButton</extends>
+   <header>CustomPushButton.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

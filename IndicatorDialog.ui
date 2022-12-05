@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>IndicatorWidget</class>
- <widget class="QWidget" name="IndicatorWidget">
+ <class>IndicatorDialog</class>
+ <widget class="QWidget" name="IndicatorDialog">
   <property name="geometry">
    <rect>
     <x>0</x>

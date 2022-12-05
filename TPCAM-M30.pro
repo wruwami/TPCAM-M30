@@ -15,6 +15,7 @@ TEMPLATE = app
 SOURCES += main.cpp\
     CustomTogglePushButton.cpp \
     IndicatorCameraFocusWidget.cpp \
+    IndicatorDialog.cpp \
     MainWindow.cpp \
     LoginWidget.cpp \
     MainMenuWidget.cpp \
@@ -22,7 +23,6 @@ SOURCES += main.cpp\
     StringLoader.cpp \
     DateTimeWidget.cpp \
     MainMenuContentWidget.cpp \
-    IndicatorWidget.cpp \
     SettingWidget.cpp \
     SelfTestWidget.cpp \
     CustomComboBox.cpp \
@@ -78,6 +78,7 @@ HEADERS  += MainWindow.h \
     CustomTogglePushButton.h \
     FontSize.h \
     IndicatorCameraFocusWidget.h \
+    IndicatorDialog.h \
     LoginWidget.h \
     MainMenuWidget.h \
     Setting4APWidget.h \
@@ -85,7 +86,6 @@ HEADERS  += MainWindow.h \
     Color.h \
     DateTimeWidget.h \
     MainMenuContentWidget.h \
-    IndicatorWidget.h \
     SettingWidget.h \
     SelfTestWidget.h \
     CustomCheckBox.h \
@@ -140,11 +140,11 @@ HEADERS  += MainWindow.h \
 
 FORMS    += MainWindow.ui \
     IndicatorCameraFocusWidget.ui \
+    IndicatorDialog.ui \
     LoginWidget.ui \
     MainMenuWidget.ui \
     DateTimeWidget.ui \
     MainMenuContentWidget.ui \
-    IndicatorWidget.ui \
     Setting4APWidget.ui \
     SettingWidget.ui \
     SelfTestWidget.ui \

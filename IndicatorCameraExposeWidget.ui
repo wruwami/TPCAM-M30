@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1600</width>
-    <height>835</height>
+    <height>560</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,123 +16,110 @@
   <layout class="QGridLayout" name="gridLayout_2">
    <item row="0" column="0">
     <layout class="QGridLayout" name="gridLayout">
-     <item row="3" column="0">
-      <widget class="QPushButton" name="speedPushButton">
-       <property name="text">
-        <string>PushButton</string>
-       </property>
-      </widget>
-     </item>
-     <item row="4" column="5">
-      <widget class="QPushButton" name="pushButton_9">
-       <property name="text">
-        <string>PushButton</string>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="0">
+     <item row="1" column="0">
       <widget class="QPushButton" name="showHidePushButton">
        <property name="text">
         <string>PushButton</string>
        </property>
       </widget>
      </item>
-     <item row="4" column="1">
+     <item row="3" column="1">
       <widget class="QPushButton" name="onePushTriggerPushButton">
        <property name="text">
         <string>PushButton</string>
        </property>
       </widget>
      </item>
-     <item row="4" column="0">
-      <widget class="QPushButton" name="autoTriggerPushButton">
+     <item row="3" column="0">
+      <widget class="QPushButton" name="daynNightPushButton">
        <property name="text">
         <string>PushButton</string>
        </property>
       </widget>
      </item>
-     <item row="4" column="2">
+     <item row="3" column="2">
       <widget class="QPushButton" name="forcusDownPushButton">
        <property name="text">
         <string>PushButton</string>
        </property>
       </widget>
      </item>
-     <item row="4" column="4">
-      <widget class="QPushButton" name="pushButton_8">
+     <item row="3" column="5">
+      <widget class="QPushButton" name="applyPushButton">
        <property name="text">
         <string>PushButton</string>
        </property>
       </widget>
      </item>
-     <item row="4" column="3">
-      <widget class="QPushButton" name="pushButton_7">
-       <property name="text">
-        <string>PushButton</string>
-       </property>
-      </widget>
-     </item>
-     <item row="4" column="6">
-      <widget class="QPushButton" name="pushButton_10">
-       <property name="text">
-        <string>PushButton</string>
-       </property>
-      </widget>
-     </item>
-     <item row="3" column="4">
-      <widget class="QPushButton" name="pushButton_11">
-       <property name="text">
-        <string>PushButton</string>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="4">
-      <widget class="QPushButton" name="pushButton_12">
-       <property name="text">
-        <string>PushButton</string>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="4">
-      <widget class="QPushButton" name="pushButton_13">
-       <property name="text">
-        <string>PushButton</string>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="6">
-      <widget class="QPushButton" name="pushButton_14">
-       <property name="text">
-        <string>PushButton</string>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="6">
-      <widget class="QPushButton" name="pushButton_15">
+     <item row="0" column="4">
+      <widget class="QPushButton" name="hlcOnPushButton">
        <property name="text">
         <string>PushButton</string>
        </property>
       </widget>
      </item>
      <item row="3" column="6">
+      <widget class="QPushButton" name="pushButton_10">
+       <property name="text">
+        <string>PushButton</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="4">
+      <widget class="QPushButton" name="disOffPushButton">
+       <property name="text">
+        <string>PushButton</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="3">
+      <widget class="QPushButton" name="pushButton_7">
+       <property name="text">
+        <string>PushButton</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="4">
+      <widget class="QPushButton" name="defogOffPushButton">
+       <property name="text">
+        <string>PushButton</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="4">
+      <widget class="QPushButton" name="dnrOnPushButton">
+       <property name="text">
+        <string>PushButton</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="6">
+      <widget class="QPushButton" name="pushButton_15">
+       <property name="text">
+        <string>PushButton</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="6">
       <widget class="QPushButton" name="pushButton_16">
        <property name="text">
         <string>PushButton</string>
        </property>
       </widget>
      </item>
-     <item row="0" column="0" rowspan="2">
-      <spacer name="verticalSpacer">
-       <property name="orientation">
-        <enum>Qt::Vertical</enum>
+     <item row="0" column="6">
+      <widget class="QPushButton" name="pushButton_14">
+       <property name="text">
+        <string>PushButton</string>
        </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>20</width>
-         <height>40</height>
-        </size>
+      </widget>
+     </item>
+     <item row="2" column="0">
+      <widget class="QPushButton" name="speedPushButton">
+       <property name="text">
+        <string>PushButton</string>
        </property>
-      </spacer>
+      </widget>
      </item>
     </layout>
    </item>

@@ -1,20 +1,22 @@
-#ifndef INDICATORCAMERAWIDGET_H
-#define INDICATORCAMERAWIDGET_H
+#ifndef INDICATORCAMERADIALOG_H
+#define INDICATORCAMERADIALOG_H
 
 #include <QDialog>
 
 class CustomPushButton;
+class IndicatorCameraExposeWidget;
+class IndicatorCameraFocusWidget;
 namespace Ui {
-class IndicatorWidget;
+class IndicatorDialog;
 }
 
-class IndicatorWidget : public QDialog
+class IndicatorDialog : public QDialog
 {
     Q_OBJECT
 
 public:
-    explicit IndicatorWidget(QWidget *parent = 0);
-    ~IndicatorWidget();
+    explicit IndicatorDialog(QWidget *parent = 0);
+    ~IndicatorDialog();
 private:
     void clearSecondRow();
 private slots:
@@ -37,7 +39,7 @@ private slots:
     void on_cameraForcusClicked();
 
 private:
-    Ui::IndicatorWidget *ui;
+    Ui::IndicatorDialog *ui;
     CustomPushButton* m_pCameraFocusPushButton;
     CustomPushButton* m_pCameraExposePushButton;
 
@@ -58,6 +60,9 @@ private:
     CustomPushButton* m_pWifiPushButton;
     CustomPushButton* m_pBTPushButton;
     CustomPushButton* m_pEthernetPushButton;
+
+    IndicatorCameraExposeWidget* m_pIndicatorCameraExposeWidget;
+    IndicatorCameraFocusWidget* m_pIndicatorCameraFocusWidget;
 };
 
-#endif // INDICATORCAMERAWIDGET_H
+#endif // INDICATORCAMERADIALOG_H

@@ -6,6 +6,8 @@ IndicatorCameraExposeWidget::IndicatorCameraExposeWidget(QWidget *parent) :
     ui(new Ui::IndicatorCameraExposeWidget)
 {
     ui->setupUi(this);
+
+//    ui->
 }
 
 IndicatorCameraExposeWidget::~IndicatorCameraExposeWidget()

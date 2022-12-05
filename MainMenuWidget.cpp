@@ -5,7 +5,7 @@
 #include <QFile>
 
 #include "Color.h"
-#include "IndicatorWidget.h"
+#include "IndicatorDialog.h"
 #include "StringLoader.h"
 
 #include "HomeButtonWidget.h"

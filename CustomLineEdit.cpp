@@ -21,8 +21,8 @@ void CustomLineEdit::resizeEvent(QResizeEvent *event)
 void CustomLineEdit::mousePressEvent(QMouseEvent *event)
 {
     KeyboardDialog keyboardDialog;
-    if (keyboardDialog.exec() == QDialog::accepted())
-    {
-        this->setText("");
-    }
+//    if (keyboardDialog.exec() == QDialog::accept)
+//    {
+//        this->setText("");
+//    }
 }

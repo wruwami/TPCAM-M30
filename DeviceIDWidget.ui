@@ -19,21 +19,21 @@
      <item>
       <layout class="QHBoxLayout" name="horizontalLayout_6">
        <item>
-        <widget class="QLabel" name="deviceIDLabel">
+        <widget class="CustomLabel" name="deviceIDLabel">
          <property name="text">
           <string>TextLabel</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="savePushButton">
+        <widget class="CustomPushButton" name="savePushButton">
          <property name="text">
           <string>PushButton</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="cancelPushButton">
+        <widget class="CustomPushButton" name="cancelPushButton">
          <property name="text">
           <string>PushButton</string>
          </property>
@@ -51,7 +51,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QCheckBox" name="checkBox">
+        <widget class="CustomCheckBox" name="checkBox">
          <property name="text">
           <string>CheckBox</string>
          </property>
@@ -62,17 +62,17 @@
      <item>
       <layout class="QHBoxLayout" name="horizontalLayout_5">
        <item>
-        <widget class="QLabel" name="deviceIDLabel_2">
+        <widget class="CustomLabel" name="deviceIDLabel_2">
          <property name="text">
           <string>TextLabel</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QLineEdit" name="lineEdit"/>
+        <widget class="CustomLineEdit" name="lineEdit"/>
        </item>
        <item>
-        <widget class="QPushButton" name="inputPushButton">
+        <widget class="CustomPushButton" name="inputPushButton">
          <property name="text">
           <string>PushButton</string>
          </property>
@@ -84,6 +84,28 @@
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>CustomPushButton</class>
+   <extends>QPushButton</extends>
+   <header>CustomPushButton.h</header>
+  </customwidget>
+  <customwidget>
+   <class>CustomCheckBox</class>
+   <extends>QCheckBox</extends>
+   <header>CustomCheckBox.h</header>
+  </customwidget>
+  <customwidget>
+   <class>CustomLabel</class>
+   <extends>QLabel</extends>
+   <header>CustomLabel.h</header>
+  </customwidget>
+  <customwidget>
+   <class>CustomLineEdit</class>
+   <extends>QLineEdit</extends>
+   <header>CustomLineEdit.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

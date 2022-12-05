@@ -6,7 +6,7 @@
 class DateTimeWidget;
 class LoginWidget;
 class MainMenuWidget;
-class IndicatorWidget;
+class IndicatorDialog;
 class MainMenuContentWidget;
 class MainMenuAdminAlignWidget;
 namespace Ui {
@@ -53,7 +53,7 @@ private:
     DateTimeWidget* m_pDateTimeWidget = nullptr;
     LoginWidget* m_pLoginWidget = nullptr;
     MainMenuWidget* m_pMainMenuWidget = nullptr;
-    IndicatorWidget* m_pIndicatorWidget = nullptr;
+    IndicatorDialog* m_pIndicatorWidget = nullptr;
     MainMenuContentWidget* m_pMainMenuContentWidget = nullptr;
     MainMenuAdminAlignWidget* m_pMainMenuAdminAlignWidget = nullptr;
 

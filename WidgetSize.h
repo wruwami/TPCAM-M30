@@ -66,4 +66,15 @@ static QSize GetWidgetSize(QSize size)
     return WidgetSize::GetInstance()->GetWidgetSize(size);
 }
 
+static QRect GetWidgetSizePos(QRect rect)
+{
+    return WidgetSize::GetInstance()->GetWidgetSizePos(rect);
+}
+
+static QRect GetWidgetSizePos(QRect rect, QPoint point)
+{
+    return WidgetSize::GetInstance()->GetWidgetSizePos(rect, point);
+}
+
+
 #endif // WIDGETSIZE_H

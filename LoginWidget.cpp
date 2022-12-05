@@ -3,7 +3,7 @@
 
 #include "Color.h"
 #include "StringLoader.h"
-#include "IndicatorWidget.h"
+#include "IndicatorDialog.h"
 #include "MainWindow.h"
 #include "StringLoader.h"
 #include "BaseDialog.h"

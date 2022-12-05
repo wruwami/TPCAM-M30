@@ -5,7 +5,7 @@
 
 #include "DateTimeWidget.h"
 #include "EnforcementWidget.h"
-#include "IndicatorWidget.h"
+#include "IndicatorDialog.h"
 #include "MainMenuWidget.h"
 #include "MainMenuContentWidget.h"
 #include "MainMenuAdminAlignWidget.h"
@@ -15,7 +15,7 @@
 #include "DeviceIDWidget.h"
 #include "CameraAlignWidget.h"
 #include "CameraZoomFocusWidget.h"
-
+#include "WidgetSize.h"
 #include "StringLoader.h"
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -114,8 +114,9 @@ void MainWindow::finalize()
 
 void MainWindow::open_indicator_widget()
 {
-    IndicatorWidget indicatorWidget;
-    indicatorWidget.setGeometry(ui->verticalLayout->itemAt(1)->widget()->geometry());
+    IndicatorDialog indicatorWidget;
+//    indicatorWidget.setGeometry(GetWidgetSizePos(QRect(0, 125, 1600, 960)));
+    indicatorWidget.setGeometry(ui->verticalLayout->itemAt(1)->geometry());
     indicatorWidget.exec();
 }
 

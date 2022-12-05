@@ -16,6 +16,7 @@ DeviceIDWidget::DeviceIDWidget(QWidget *parent) :
 
     ui->savePushButton->setText(LoadString("IDS_SAVE"));
     ui->cancelPushButton->setText(LoadString("IDS_CANCEL"));
+    ui->inputPushButton->setImage("Login", "keyboard.bmp");
 
 }
 

@@ -1,18 +1,19 @@
-#include "IndicatorWidget.h"
-#include "ui_IndicatorWidget.h"
+#include "IndicatorDialog.h"
+#include "ui_IndicatorDialog.h"
 #include "CustomPushButton.h"
 
 #include <QFile>
 
 #include "BaseDialog.h"
 #include "Color.h"
+#include "WidgetSize.h"
 
 #include "IndicatorCameraExposeWidget.h"
 #include "IndicatorCameraFocusWidget.h"
 
-IndicatorWidget::IndicatorWidget(QWidget *parent) :
+IndicatorDialog::IndicatorDialog(QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::IndicatorWidget)
+    ui(new Ui::IndicatorDialog)
 {
     setWindowFlags(Qt::FramelessWindowHint);
     ui->setupUi(this);
@@ -22,9 +23,12 @@ IndicatorWidget::IndicatorWidget(QWidget *parent) :
 //    QString styleSheet = QString::fromLatin1(file.readAll());
 
 //    this->setStyleSheet(styleSheet);
-//    setBackGroundColor(this, QColor(255, 255, 255, 0));
-//    setWindowOpacity(0);
+    setBackGroundColor(this, QColor(255, 255, 255, 128));
+//    ui->IndicatorWidget->setWindowOpacity(0.4);
+//    setWindowOpacity(0.5);
 //    setStyleSheet(styleSheet);
+
+
 
     ui->daynNightPushButton->setImage("indicator", "indicator_enable_night_mode_off.jpg", ui->daynNightPushButton->size());
     ui->weatherPushButton->setImage("indicator", "indicator_enable_weather_mode_on.jpg", ui->weatherPushButton->size());
@@ -38,12 +42,12 @@ IndicatorWidget::IndicatorWidget(QWidget *parent) :
     ui->offPushButton->setVisible(false);
 }
 
-IndicatorWidget::~IndicatorWidget()
+IndicatorDialog::~IndicatorDialog()
 {
     delete ui;
 }
 
-void IndicatorWidget::on_cameraPushButton_clicked()
+void IndicatorDialog::on_cameraPushButton_clicked()
 {
     clearSecondRow();
     m_pCameraExposePushButton = new CustomPushButton;
@@ -58,13 +62,13 @@ void IndicatorWidget::on_cameraPushButton_clicked()
     QObject::connect((QWidget*)m_pCameraFocusPushButton, SIGNAL(clicked()), this, SLOT(on_cameraForcusClicked()));
 }
 
-void IndicatorWidget::on_screenRecordingPushButton_clicked()
+void IndicatorDialog::on_screenRecordingPushButton_clicked()
 {
     ui->onPushButton->setVisible(true);
     ui->offPushButton->setVisible(true);
 }
 
-void IndicatorWidget::on_daynNightPushButton_clicked()
+void IndicatorDialog::on_daynNightPushButton_clicked()
 {
     clearSecondRow();
     m_pDay1PushButton = new CustomPushButton;
@@ -89,7 +93,7 @@ void IndicatorWidget::on_daynNightPushButton_clicked()
 
 }
 
-void IndicatorWidget::on_gpsPushButton_clicked()
+void IndicatorDialog::on_gpsPushButton_clicked()
 {
 //    clearSecondRow();
     BaseDialog baseDialog(Dialog::IndicatorGPSWidgetType);
@@ -97,7 +101,7 @@ void IndicatorWidget::on_gpsPushButton_clicked()
 
 }
 
-void IndicatorWidget::on_comPushButton_clicked()
+void IndicatorDialog::on_comPushButton_clicked()
 {
     clearSecondRow();
     m_pWifiPushButton = new CustomPushButton();
@@ -112,7 +116,7 @@ void IndicatorWidget::on_comPushButton_clicked()
     ui->horizontalLayout2->addWidget(m_pEthernetPushButton, 2);
 }
 
-void IndicatorWidget::on_speedPushButton_clicked()
+void IndicatorDialog::on_speedPushButton_clicked()
 {
     clearSecondRow();
     m_pSTPushButton = new CustomPushButton();
@@ -127,7 +131,7 @@ void IndicatorWidget::on_speedPushButton_clicked()
 
 }
 
-void IndicatorWidget::on_enforcementPushButton_clicked()
+void IndicatorDialog::on_enforcementPushButton_clicked()
 {
     clearSecondRow();
     m_pImagePushButton = new CustomPushButton();
@@ -146,7 +150,7 @@ void IndicatorWidget::on_enforcementPushButton_clicked()
 
 }
 
-void IndicatorWidget::on_weatherPushButton_clicked()
+void IndicatorDialog::on_weatherPushButton_clicked()
 {
     clearSecondRow();
     m_pSunnyPushButton = new CustomPushButton();
@@ -161,17 +165,21 @@ void IndicatorWidget::on_weatherPushButton_clicked()
     ui->horizontalLayout2->setStretch(6, 1);
 }
 
-void IndicatorWidget::on_cameraExposeClicked()
+void IndicatorDialog::on_cameraExposeClicked()
 {
-    //IndicatorCameraExposeWidget
+    m_pIndicatorCameraExposeWidget = new IndicatorCameraExposeWidget(this);
+    m_pIndicatorCameraExposeWidget->setGeometry(GetWidgetSizePos(QRect(0, 400, 1600, 560)));
+//    indicatorCameraExposeWidget->show();
 }
 
-void IndicatorWidget::on_cameraForcusClicked()
+void IndicatorDialog::on_cameraForcusClicked()
 {
-
+    m_pIndicatorCameraFocusWidget = new IndicatorCameraFocusWidget(this);
+    m_pIndicatorCameraFocusWidget->setGeometry(GetWidgetSizePos(QRect(0, 560, 1600, 400)));
+//    indicatorCameraFocusWidget->show();
 }
 
-void IndicatorWidget::clearSecondRow()
+void IndicatorDialog::clearSecondRow()
 {
 //    for (int i = 0 ; i < 7 ; i++)
 //    {

@@ -1,11 +1,22 @@
 #include "IndicatorCameraFocusWidget.h"
 #include "ui_IndicatorCameraFocusWidget.h"
 
+#include "StringLoader.h"
+
 IndicatorCameraFocusWidget::IndicatorCameraFocusWidget(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::IndicatorCameraFocusWidget)
 {
     ui->setupUi(this);
+
+    ui->showHidePushButton->setText(LoadString("IDS_HIDE"));
+    ui->speedPushButton->setText(LoadString("IDS_SPEED"));
+    ui->autoTriggerPushButton->setText(LoadString("IDS_AT"));
+    ui->onePushTriggerPushButton->setText(LoadString("IDS_OPT"));
+    ui->forcusDownPushButton->setText(LoadString("IDS_FOCUS_DOWN"));
+    ui->forcusPlusPushButton->setText(LoadString("IDS_FOCUS_UP"));
+
+    ui->applyPushButton->setText(LoadString("IDS_APPLY"));
 }
 
 IndicatorCameraFocusWidget::~IndicatorCameraFocusWidget()

@@ -61,8 +61,8 @@ private:
     CustomPushButton* m_pBTPushButton;
     CustomPushButton* m_pEthernetPushButton;
 
-    IndicatorCameraExposeWidget* m_pIndicatorCameraExposeWidget;
-    IndicatorCameraFocusWidget* m_pIndicatorCameraFocusWidget;
+    IndicatorCameraExposeWidget* m_pIndicatorCameraExposeWidget = nullptr;
+    IndicatorCameraFocusWidget* m_pIndicatorCameraFocusWidget = nullptr;
 };
 
 #endif // INDICATORCAMERADIALOG_H

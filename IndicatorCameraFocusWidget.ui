@@ -79,11 +79,7 @@
       </spacer>
      </item>
      <item row="2" column="3">
-      <widget class="CustomPushButton" name="forcusPushButton">
-       <property name="text">
-        <string>PushButton</string>
-       </property>
-      </widget>
+      <widget class="QLineEdit" name="focusLineEdit"/>
      </item>
     </layout>
    </item>

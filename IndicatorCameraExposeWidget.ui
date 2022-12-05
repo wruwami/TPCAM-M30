@@ -15,37 +15,9 @@
   </property>
   <layout class="QGridLayout" name="gridLayout_2">
    <item row="0" column="0">
-    <layout class="QGridLayout" name="gridLayout">
+    <layout class="QGridLayout" name="gridLayout" rowstretch="1,1,1,1" columnstretch="1,1,1,1,1,1,1">
      <item row="1" column="0">
       <widget class="QPushButton" name="showHidePushButton">
-       <property name="text">
-        <string>PushButton</string>
-       </property>
-      </widget>
-     </item>
-     <item row="3" column="1">
-      <widget class="QPushButton" name="onePushTriggerPushButton">
-       <property name="text">
-        <string>PushButton</string>
-       </property>
-      </widget>
-     </item>
-     <item row="3" column="0">
-      <widget class="QPushButton" name="daynNightPushButton">
-       <property name="text">
-        <string>PushButton</string>
-       </property>
-      </widget>
-     </item>
-     <item row="3" column="2">
-      <widget class="QPushButton" name="forcusDownPushButton">
-       <property name="text">
-        <string>PushButton</string>
-       </property>
-      </widget>
-     </item>
-     <item row="3" column="5">
-      <widget class="QPushButton" name="applyPushButton">
        <property name="text">
         <string>PushButton</string>
        </property>
@@ -58,8 +30,8 @@
        </property>
       </widget>
      </item>
-     <item row="3" column="6">
-      <widget class="QPushButton" name="pushButton_10">
+     <item row="3" column="5">
+      <widget class="QPushButton" name="applyPushButton">
        <property name="text">
         <string>PushButton</string>
        </property>
@@ -72,8 +44,8 @@
        </property>
       </widget>
      </item>
-     <item row="3" column="3">
-      <widget class="QPushButton" name="pushButton_7">
+     <item row="3" column="4">
+      <widget class="QPushButton" name="dnrOnPushButton">
        <property name="text">
         <string>PushButton</string>
        </property>
@@ -86,40 +58,37 @@
        </property>
       </widget>
      </item>
-     <item row="3" column="4">
-      <widget class="QPushButton" name="dnrOnPushButton">
-       <property name="text">
-        <string>PushButton</string>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="6">
-      <widget class="QPushButton" name="pushButton_15">
-       <property name="text">
-        <string>PushButton</string>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="6">
-      <widget class="QPushButton" name="pushButton_16">
-       <property name="text">
-        <string>PushButton</string>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="6">
-      <widget class="QPushButton" name="pushButton_14">
-       <property name="text">
-        <string>PushButton</string>
-       </property>
-      </widget>
-     </item>
      <item row="2" column="0">
       <widget class="QPushButton" name="speedPushButton">
        <property name="text">
         <string>PushButton</string>
        </property>
       </widget>
+     </item>
+     <item row="3" column="3">
+      <widget class="QComboBox" name="shutterSpeedComboBox"/>
+     </item>
+     <item row="3" column="2">
+      <widget class="QComboBox" name="irisComboBox"/>
+     </item>
+     <item row="3" column="1">
+      <widget class="QComboBox" name="gainComboBox"/>
+     </item>
+     <item row="3" column="0">
+      <widget class="QComboBox" name="daynNightComboBox"/>
+     </item>
+     <item row="3" column="6">
+      <spacer name="horizontalSpacer">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
      </item>
     </layout>
    </item>

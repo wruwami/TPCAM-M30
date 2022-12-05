@@ -44,6 +44,12 @@ IndicatorDialog::IndicatorDialog(QWidget *parent) :
 
 IndicatorDialog::~IndicatorDialog()
 {
+    if (m_pIndicatorCameraFocusWidget != nullptr)
+        delete m_pIndicatorCameraFocusWidget;
+
+    if (m_pIndicatorCameraExposeWidget != nullptr)
+        delete m_pIndicatorCameraExposeWidget;
+
     delete ui;
 }
 
@@ -167,16 +173,22 @@ void IndicatorDialog::on_weatherPushButton_clicked()
 
 void IndicatorDialog::on_cameraExposeClicked()
 {
+    if (m_pIndicatorCameraFocusWidget != nullptr)
+        delete m_pIndicatorCameraFocusWidget;
+
     m_pIndicatorCameraExposeWidget = new IndicatorCameraExposeWidget(this);
     m_pIndicatorCameraExposeWidget->setGeometry(GetWidgetSizePos(QRect(0, 400, 1600, 560)));
-//    indicatorCameraExposeWidget->show();
+//    m_pIndicatorCameraExposeWidget->show();
 }
 
 void IndicatorDialog::on_cameraForcusClicked()
 {
+    if (m_pIndicatorCameraExposeWidget != nullptr)
+        delete m_pIndicatorCameraExposeWidget;
+
     m_pIndicatorCameraFocusWidget = new IndicatorCameraFocusWidget(this);
     m_pIndicatorCameraFocusWidget->setGeometry(GetWidgetSizePos(QRect(0, 560, 1600, 400)));
-//    indicatorCameraFocusWidget->show();
+//    m_pIndicatorCameraFocusWidget->show();
 }
 
 void IndicatorDialog::clearSecondRow()

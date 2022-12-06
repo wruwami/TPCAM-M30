@@ -53,5 +53,23 @@ static void setBackGroundColor(QPushButton* widget, int hex)
     }
 }
 
+//static void setTextColor(QWidget* widget, QColor color)
+//{
+//    QPalette pal = QPalette();
+//    pal.setColor(widget->foregroundRole(), color);
+//    widget->setAutoFillBackground(true);
+//    widget->setPalette(pal);
+//    widget->update();
+//}
+
+//static void setTextColor(QWidget* widget, int color)
+//{
+//    QPalette pal = QPalette();
+//    pal.setColor(widget->foregroundRole(), color);
+//    widget->setAutoFillBackground(true);
+//    widget->setPalette(pal);
+//    widget->update();
+//}
+
 
 #endif // COLOR_H

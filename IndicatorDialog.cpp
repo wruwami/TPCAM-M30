@@ -7,6 +7,7 @@
 #include "BaseDialog.h"
 #include "Color.h"
 #include "WidgetSize.h"
+#include "StringLoader.h"
 
 #include "IndicatorCameraExposeWidget.h"
 #include "IndicatorCameraFocusWidget.h"
@@ -23,7 +24,7 @@ IndicatorDialog::IndicatorDialog(QWidget *parent) :
 //    QString styleSheet = QString::fromLatin1(file.readAll());
 
 //    this->setStyleSheet(styleSheet);
-    setBackGroundColor(this, QColor(255, 255, 255, 128));
+//    setBackGroundColor(this, QColor(255, 255, 255, 128));
 //    ui->IndicatorWidget->setWindowOpacity(0.4);
 //    setWindowOpacity(0.5);
 //    setStyleSheet(styleSheet);
@@ -58,6 +59,8 @@ void IndicatorDialog::on_cameraPushButton_clicked()
     clearSecondRow();
     m_pCameraExposePushButton = new CustomPushButton;
     m_pCameraFocusPushButton = new CustomPushButton;
+    m_pCameraExposePushButton->setText(LoadString("IDS_EXPOSE"));
+    m_pCameraFocusPushButton->setText(LoadString("IDS_FOCUS"));
 
     ui->horizontalLayout2->removeItem(ui->horizontalLayout2->takeAt(0));
     ui->horizontalLayout2->removeItem(ui->horizontalLayout2->takeAt(1));
@@ -65,7 +68,7 @@ void IndicatorDialog::on_cameraPushButton_clicked()
     ui->horizontalLayout2->insertWidget(1, m_pCameraFocusPushButton, 2);
 
     QObject::connect((QWidget*)m_pCameraExposePushButton, SIGNAL(clicked()), this, SLOT(on_cameraExposeClicked()));
-    QObject::connect((QWidget*)m_pCameraFocusPushButton, SIGNAL(clicked()), this, SLOT(on_cameraForcusClicked()));
+    QObject::connect((QWidget*)m_pCameraFocusPushButton, SIGNAL(clicked()), this, SLOT(on_cameraFocusClicked()));
 }
 
 void IndicatorDialog::on_screenRecordingPushButton_clicked()
@@ -174,34 +177,45 @@ void IndicatorDialog::on_weatherPushButton_clicked()
 void IndicatorDialog::on_cameraExposeClicked()
 {
     if (m_pIndicatorCameraFocusWidget != nullptr)
+    {
         delete m_pIndicatorCameraFocusWidget;
+        m_pIndicatorCameraFocusWidget = nullptr;
+    }
 
     m_pIndicatorCameraExposeWidget = new IndicatorCameraExposeWidget(this);
-    m_pIndicatorCameraExposeWidget->setGeometry(GetWidgetSizePos(QRect(0, 400, 1600, 560)));
-//    m_pIndicatorCameraExposeWidget->show();
+    m_pIndicatorCameraExposeWidget->setGeometry(GetWidgetSizePos(QRect(0, 272, 1600, 563)));
+    m_pIndicatorCameraExposeWidget->lower();
+    m_pIndicatorCameraExposeWidget->show();
 }
 
-void IndicatorDialog::on_cameraForcusClicked()
+void IndicatorDialog::on_cameraFocusClicked()
 {
     if (m_pIndicatorCameraExposeWidget != nullptr)
+    {
         delete m_pIndicatorCameraExposeWidget;
+        m_pIndicatorCameraExposeWidget = nullptr;
+    }
 
     m_pIndicatorCameraFocusWidget = new IndicatorCameraFocusWidget(this);
-    m_pIndicatorCameraFocusWidget->setGeometry(GetWidgetSizePos(QRect(0, 560, 1600, 400)));
-//    m_pIndicatorCameraFocusWidget->show();
+    m_pIndicatorCameraFocusWidget->setGeometry(GetWidgetSizePos(QRect(0, 433, 1600, 402)));
+    m_pIndicatorCameraFocusWidget->lower();
+    m_pIndicatorCameraFocusWidget->show();
 }
 
 void IndicatorDialog::clearSecondRow()
 {
-//    for (int i = 0 ; i < 7 ; i++)
-//    {
-//        QLayoutItem* item = ui->horizontalLayout2->takeAt(i);
-//        if (item != nullptr)
-//        {
-//            delete item->widget();
-//            delete item;
-//        }
-//    }
+    if (m_pIndicatorCameraFocusWidget != nullptr)
+    {
+        delete m_pIndicatorCameraFocusWidget;
+        m_pIndicatorCameraFocusWidget = nullptr;
+    }
+
+    if (m_pIndicatorCameraExposeWidget != nullptr)
+    {
+        delete m_pIndicatorCameraExposeWidget;
+        m_pIndicatorCameraExposeWidget = nullptr;
+    }
+
     QLayoutItem* item;
     while ( ( item = ui->horizontalLayout2->takeAt( 0 ) ) != nullptr )
     {

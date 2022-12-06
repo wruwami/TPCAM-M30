@@ -19,12 +19,12 @@ SOURCES += main.cpp\
     MainWindow.cpp \
     LoginWidget.cpp \
     MainMenuWidget.cpp \
+    SelfTestDialog.cpp \
     Setting4APWidget.cpp \
     StringLoader.cpp \
     DateTimeWidget.cpp \
     MainMenuContentWidget.cpp \
     SettingWidget.cpp \
-    SelfTestWidget.cpp \
     CustomComboBox.cpp \
     CustomCheckBox.cpp \
     CustomLabel.cpp \
@@ -81,13 +81,13 @@ HEADERS  += MainWindow.h \
     IndicatorDialog.h \
     LoginWidget.h \
     MainMenuWidget.h \
+    SelfTestDialog.h \
     Setting4APWidget.h \
     StringLoader.h \
     Color.h \
     DateTimeWidget.h \
     MainMenuContentWidget.h \
     SettingWidget.h \
-    SelfTestWidget.h \
     CustomCheckBox.h \
     CustomComboBox.h \
     CustomLabel.h \
@@ -145,9 +145,9 @@ FORMS    += MainWindow.ui \
     MainMenuWidget.ui \
     DateTimeWidget.ui \
     MainMenuContentWidget.ui \
+    SelfTestDialog.ui \
     Setting4APWidget.ui \
     SettingWidget.ui \
-    SelfTestWidget.ui \
     BaseDialog.ui \
     Setting1Widget.ui \
     Setting2Widget.ui \

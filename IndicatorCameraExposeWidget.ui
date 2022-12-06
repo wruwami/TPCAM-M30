@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1600</width>
-    <height>560</height>
+    <height>487</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,65 +17,65 @@
    <item row="0" column="0">
     <layout class="QGridLayout" name="gridLayout" rowstretch="1,1,1,1" columnstretch="1,1,1,1,1,1,1">
      <item row="1" column="0">
-      <widget class="QPushButton" name="showHidePushButton">
+      <widget class="CustomPushButton" name="showHidePushButton">
        <property name="text">
         <string>PushButton</string>
        </property>
       </widget>
      </item>
      <item row="0" column="4">
-      <widget class="QPushButton" name="hlcOnPushButton">
+      <widget class="CustomPushButton" name="hlcOnPushButton">
        <property name="text">
         <string>PushButton</string>
        </property>
       </widget>
      </item>
      <item row="3" column="5">
-      <widget class="QPushButton" name="applyPushButton">
+      <widget class="CustomPushButton" name="applyPushButton">
        <property name="text">
         <string>PushButton</string>
        </property>
       </widget>
      </item>
      <item row="2" column="4">
-      <widget class="QPushButton" name="disOffPushButton">
+      <widget class="CustomPushButton" name="disOffPushButton">
        <property name="text">
         <string>PushButton</string>
        </property>
       </widget>
      </item>
      <item row="3" column="4">
-      <widget class="QPushButton" name="dnrOnPushButton">
+      <widget class="CustomPushButton" name="dnrOnPushButton">
        <property name="text">
         <string>PushButton</string>
        </property>
       </widget>
      </item>
      <item row="1" column="4">
-      <widget class="QPushButton" name="defogOffPushButton">
+      <widget class="CustomPushButton" name="defogOffPushButton">
        <property name="text">
         <string>PushButton</string>
        </property>
       </widget>
      </item>
      <item row="2" column="0">
-      <widget class="QPushButton" name="speedPushButton">
+      <widget class="CustomPushButton" name="speedPushButton">
        <property name="text">
         <string>PushButton</string>
        </property>
       </widget>
      </item>
      <item row="3" column="3">
-      <widget class="QComboBox" name="shutterSpeedComboBox"/>
+      <widget class="CustomComboBox" name="shutterSpeedComboBox"/>
      </item>
      <item row="3" column="2">
-      <widget class="QComboBox" name="irisComboBox"/>
+      <widget class="CustomComboBox" name="irisComboBox"/>
      </item>
      <item row="3" column="1">
-      <widget class="QComboBox" name="gainComboBox"/>
+      <widget class="CustomComboBox" name="gainComboBox"/>
      </item>
      <item row="3" column="0">
-      <widget class="QComboBox" name="daynNightComboBox"/>
+      <widget class="CustomComboBox" name="daynNightComboBox"/>
      </item>
      <item row="3" column="6">
       <spacer name="horizontalSpacer">
@@ -94,6 +94,18 @@
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>CustomPushButton</class>
+   <extends>QPushButton</extends>
+   <header>CustomPushButton.h</header>
+  </customwidget>
+  <customwidget>
+   <class>CustomComboBox</class>
+   <extends>QComboBox</extends>
+   <header>CustomComboBox.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

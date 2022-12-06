@@ -5,7 +5,7 @@
 #include <Qdir>
 
 #include "StringLoader.h"
-#include "SelfTestWidget.h"
+#include "SelfTestDialog.h"
 
 int main(int argc, char *argv[])
 {
@@ -20,8 +20,8 @@ int main(int argc, char *argv[])
 
     StringLoader::GetInstance()->Initialize("strings", "stringTable.csv", "English");
 
-//    SelfTestWidget selfTestWidget;
-//    selfTestWidget.exec();
+    SelfTestDialog selfTestDialog;
+    selfTestDialog.exec();
 
     MainWindow w;
     w.show();

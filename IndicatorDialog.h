@@ -36,7 +36,7 @@ private slots:
 
     void on_weatherPushButton_clicked();
     void on_cameraExposeClicked();
-    void on_cameraForcusClicked();
+    void on_cameraFocusClicked();
 
 private:
     Ui::IndicatorDialog *ui;

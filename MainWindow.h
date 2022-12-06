@@ -25,6 +25,7 @@ private:
     void initializeLoginWidget();
     void finalize();
     void open_indicator_widget();
+    void removeseconditem();
 private slots:
     void on_cameraPushButton_clicked();
     void on_daynNightPushButton_clicked();

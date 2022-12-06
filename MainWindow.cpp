@@ -52,13 +52,13 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+
+
 void MainWindow::initializeMainMenuWidget()
 {
     if (m_userName == "admin-align")
     {
-        QWidget* widget = ui->verticalLayout->itemAt(1)->widget();
-        delete widget;
-        widget = nullptr;
+        removeseconditem();
 
         ui->verticalLayout->removeItem(ui->verticalLayout->takeAt(1));
         if (m_pMainMenuAdminAlignWidget == nullptr)
@@ -72,9 +72,7 @@ void MainWindow::initializeMainMenuWidget()
     }
     else
     {
-        QWidget* widget = ui->verticalLayout->itemAt(1)->widget();
-        delete widget;
-        widget = nullptr;
+        removeseconditem();
 
         ui->verticalLayout->removeItem(ui->verticalLayout->takeAt(1));
         if (m_pMainMenuContentWidget == nullptr)
@@ -116,16 +114,14 @@ void MainWindow::initializeMainMenuWidget()
 
 void MainWindow::initializeLoginWidget()
 {
-    QWidget* widget = ui->verticalLayout->itemAt(1)->widget();
-    delete widget;
-    widget = nullptr;
+    removeseconditem();
 
-    if (m_pLoginWidget == nullptr)
+//    if (m_pLoginWidget == nullptr)
         m_pLoginWidget = new LoginWidget;
 //    delete m_pDateTimeWidget;
 //    m_pDateTimeWidget = nullptr;
 
-    ui->verticalLayout->removeItem(ui->verticalLayout->takeAt(1));
+//    ui->verticalLayout->removeItem(ui->verticalLayout->takeAt(1));
     ui->verticalLayout->addWidget(m_pLoginWidget, 835);
     m_pMainMenuWidget->setMainMenuTitle(LoadString("IDS_LOGIN"));
 
@@ -158,6 +154,16 @@ void MainWindow::open_indicator_widget()
 //    indicatorWidget.setGeometry(GetWidgetSizePos(QRect(0, 125, 1600, 960)));
     indicatorWidget.setGeometry(ui->verticalLayout->itemAt(1)->geometry());
     indicatorWidget.exec();
+}
+
+void MainWindow::removeseconditem()
+{
+    if (ui->verticalLayout->count() > 1)
+    {
+        QWidget* widget = ui->verticalLayout->itemAt(1)->widget();
+        delete widget;
+        widget = nullptr;
+    }
 }
 
 void MainWindow::on_cameraPushButton_clicked()
@@ -235,10 +241,13 @@ void MainWindow::on_loginWidgetClicked()
 
 void MainWindow::on_dateTimeWidgetClicked()
 {
-//    delete ui->verticalLayout->itemAt(1);
-    ui->verticalLayout->removeItem(ui->verticalLayout->takeAt(1));
-    delete m_pLoginWidget;
-    m_pLoginWidget = nullptr;
+    removeseconditem();
+//    ui->verticalLayout->removeItem(ui->verticalLayout->takeAt(1));
+//    if (m_pLoginWidget)
+//    {
+//        delete m_pLoginWidget;
+//        m_pLoginWidget = nullptr;
+//    }
 //    if (m_pDateTimeWidget == nullptr)
     m_pDateTimeWidget = new DateTimeWidget;
     m_pMainMenuWidget->setMainMenuTitle(LoadString("IDS_DATE_TIME"));
@@ -338,12 +347,35 @@ void MainWindow::on_DateTimeCancelClicked()
 
 void MainWindow::on_mainMenuHomeClicked()
 {
-//    delete ui->verticalLayout->itemAt(1)->widget();
+    if (m_pMainMenuAdminAlignWidget)
+    {
+        delete m_pMainMenuAdminAlignWidget;
+        m_pMainMenuAdminAlignWidget = nullptr;
+    }
+
+    if (m_pMainMenuAdminAlignWidget)
+    {
+        delete m_pMainMenuAdminAlignWidget;
+        m_pMainMenuAdminAlignWidget = nullptr;
+    }
+
     initializeMainMenuWidget();
 }
 
 void MainWindow::on_logo_clicked()
 {
+    if (m_pMainMenuAdminAlignWidget)
+    {
+        delete m_pMainMenuAdminAlignWidget;
+        m_pMainMenuAdminAlignWidget = nullptr;
+    }
+
+    if (m_pMainMenuAdminAlignWidget)
+    {
+        delete m_pMainMenuAdminAlignWidget;
+        m_pMainMenuAdminAlignWidget = nullptr;
+    }
+
     initializeLoginWidget();
 }
 

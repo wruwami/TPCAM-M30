@@ -33,6 +33,9 @@ LoginWidget::LoginWidget(QWidget *parent) :
     ui->userNamePushButton->setImage("Login", "keyboard.bmp");
     ui->logoLabel->setImage("Login", "comlaser_logo.bmp");
 
+    ui->userNameComboBox->addItem("admin");
+    ui->userNameComboBox->addItem("admin-align");
+
 //    m_userName = ui->userNameComboBox->it;
 }
 
@@ -65,4 +68,9 @@ void LoginWidget::on_userNamePushButton_clicked()
 {
     KeyboardDialog keyboardDialog;
     keyboardDialog.exec();
+}
+
+void LoginWidget::on_userNameComboBox_currentIndexChanged(const QString &arg)
+{
+    m_userName = arg;
 }

@@ -36,6 +36,7 @@ FileManagerWidget::FileManagerWidget(QWidget *parent) :
     ui->deletePushButton->setText(LoadString("IDS_DELETE"));
     ui->sharePushButton->setText(LoadString("IDS_SHARE"));
     ui->movePushButton->setText(LoadString("IDS_MOVE"));
+    ui->tableWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 }
 
 FileManagerWidget::~FileManagerWidget()

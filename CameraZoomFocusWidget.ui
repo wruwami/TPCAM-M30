@@ -19,17 +19,17 @@
      <item row="3" column="0">
       <layout class="QHBoxLayout" name="horizontalLayout_3">
        <item>
-        <widget class="QComboBox" name="dayComboBox"/>
+        <widget class="CustomComboBox" name="dayComboBox"/>
        </item>
        <item>
-        <widget class="QPushButton" name="autoTriggerPushButton">
+        <widget class="CustomPushButton" name="autoTriggerPushButton">
          <property name="text">
           <string>PushButton</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="initPushButton">
+        <widget class="CustomPushButton" name="initPushButton">
          <property name="text">
           <string>PushButton</string>
          </property>
@@ -53,21 +53,21 @@
      <item row="4" column="0">
       <layout class="QHBoxLayout" name="horizontalLayout_2">
        <item>
-        <widget class="QPushButton" name="pushButton_9">
+        <widget class="CustomPushButton" name="pushButton_9">
          <property name="text">
           <string>PushButton</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="pushButton_8">
+        <widget class="CustomPushButton" name="pushButton_8">
          <property name="text">
           <string>PushButton</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="pushButton_10">
+        <widget class="CustomPushButton" name="pushButton_10">
          <property name="text">
           <string>PushButton</string>
          </property>
@@ -91,21 +91,21 @@
      <item row="2" column="0">
       <layout class="QHBoxLayout" name="horizontalLayout_5">
        <item>
-        <widget class="QPushButton" name="optPushButton">
+        <widget class="CustomPushButton" name="optPushButton">
          <property name="text">
           <string>PushButton</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="focusPlusPushButton">
+        <widget class="CustomPushButton" name="focusPlusPushButton">
          <property name="text">
           <string>PushButton</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="FocusMinusPushButton">
+        <widget class="CustomPushButton" name="FocusMinusPushButton">
          <property name="text">
           <string>PushButton</string>
          </property>
@@ -160,14 +160,14 @@
       </widget>
      </item>
      <item row="4" column="2">
-      <widget class="QPushButton" name="pgrsSavePushButton">
+      <widget class="CustomPushButton" name="pgrsSavePushButton">
        <property name="text">
         <string>PushButton</string>
        </property>
       </widget>
      </item>
      <item row="4" column="3">
-      <widget class="QPushButton" name="jpegSavePushButton">
+      <widget class="CustomPushButton" name="jpegSavePushButton">
        <property name="text">
         <string>PushButton</string>
        </property>
@@ -180,6 +180,18 @@
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>CustomPushButton</class>
+   <extends>QPushButton</extends>
+   <header>CustomPushButton.h</header>
+  </customwidget>
+  <customwidget>
+   <class>CustomComboBox</class>
+   <extends>QComboBox</extends>
+   <header>CustomComboBox.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

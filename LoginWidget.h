@@ -25,6 +25,8 @@ private slots:
 
     void on_userNamePushButton_clicked();
 
+    void on_userNameComboBox_currentIndexChanged(const QString &arg);
+
 public:
     CustomPushButton* m_loginPushButton;
     CustomPushButton* m_dateTimePushButton;

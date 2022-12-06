@@ -79,7 +79,7 @@
       </spacer>
      </item>
      <item row="2" column="3">
-      <widget class="QLineEdit" name="focusLineEdit"/>
+      <widget class="CustomLineEdit" name="focusLineEdit"/>
      </item>
     </layout>
    </item>
@@ -90,6 +90,11 @@
    <class>CustomPushButton</class>
    <extends>QPushButton</extends>
    <header>CustomPushButton.h</header>
+  </customwidget>
+  <customwidget>
+   <class>CustomLineEdit</class>
+   <extends>QLineEdit</extends>
+   <header>CustomLineEdit.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

@@ -17,7 +17,9 @@ MainMenuAdminAlignWidget::MainMenuAdminAlignWidget(QWidget *parent) :
     ui->cameraZoomFocusPushButton->setText(LoadString("IDS_CAMERA_ZOOM_FOCUS"));
     ui->cameraHUDAlignPushButton->setText(LoadString("IDS_CAMERA_HUD_ALIGN"));
 
-    ui->label->setImage("Main_menu", "comlaser_logo.bmp");
+    m_pLogoButton = ui->logoPushButton;
+
+    ui->logoPushButton->setImage("Main_menu", "comlaser_logo.bmp");
 }
 
 MainMenuAdminAlignWidget::~MainMenuAdminAlignWidget()

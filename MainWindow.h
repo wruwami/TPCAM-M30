@@ -47,6 +47,8 @@ private slots:
     void on_DateTimeSaveClicked();
     void on_DateTimeCancelClicked();
     void on_mainMenuHomeClicked();
+    void on_logo_clicked();
+    void on_userNameChanged(QString arg);
 
 private:
     Ui::MainWindow *ui;
@@ -56,7 +58,7 @@ private:
     IndicatorDialog* m_pIndicatorWidget = nullptr;
     MainMenuContentWidget* m_pMainMenuContentWidget = nullptr;
     MainMenuAdminAlignWidget* m_pMainMenuAdminAlignWidget = nullptr;
-
+    QString m_userName;
 };
 
 #endif // MAINWINDOW_H

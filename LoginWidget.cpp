@@ -18,6 +18,7 @@ LoginWidget::LoginWidget(QWidget *parent) :
     setBackGroundColor(this, 0xf2f2f2);
     m_loginPushButton = ui->loginPushButton;
     m_dateTimePushButton = ui->dateTimePushButton;
+    m_pUserNameComboBox = ui->userNameComboBox;
 
     ui->dateTimePushButton->setText(LoadString("IDS_DATE_TIME"));
     ui->lightPushButton->setText(LoadString("IDS_LIGHT"));
@@ -70,7 +71,7 @@ void LoginWidget::on_userNamePushButton_clicked()
     keyboardDialog.exec();
 }
 
-void LoginWidget::on_userNameComboBox_currentIndexChanged(const QString &arg)
-{
-    m_userName = arg;
-}
+//void LoginWidget::on_userNameComboBox_currentIndexChanged(const QString &arg)
+//{
+//    m_userName = arg;
+//}

@@ -27,6 +27,7 @@ public:
     QWidget* m_pEnforcementButton;
     QWidget* m_pFileManagertButton;
     QWidget* m_pSettingButton;
+    QWidget* m_pLogoButton;
 private:
     Ui::MainMenuContentWidget *ui;
 

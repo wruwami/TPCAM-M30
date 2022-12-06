@@ -35,6 +35,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     QObject::connect((QWidget*)m_pLoginWidget->m_loginPushButton, SIGNAL(clicked()), this, SLOT(on_loginWidgetClicked()));
     QObject::connect((QWidget*)m_pLoginWidget->m_dateTimePushButton, SIGNAL(clicked()), this, SLOT(on_dateTimeWidgetClicked()));
+    QObject::connect((QWidget*)m_pLoginWidget->m_pUserNameComboBox, SIGNAL(currentIndexChanged(QString)), this, SLOT(on_userNameChanged(QString)));
     QObject::connect((QWidget*)m_pMainMenuWidget->m_pHomePushButton, SIGNAL(clicked()), this, SLOT(on_mainMenuHomeClicked()));
 
 }
@@ -53,21 +54,28 @@ MainWindow::~MainWindow()
 
 void MainWindow::initializeMainMenuWidget()
 {
-    if (m_pLoginWidget->m_userName == "admin-align")
+    if (m_userName == "admin-align")
     {
-        delete ui->verticalLayout->itemAt(1)->widget();
+        QWidget* widget = ui->verticalLayout->itemAt(1)->widget();
+        delete widget;
+        widget = nullptr;
+
         ui->verticalLayout->removeItem(ui->verticalLayout->takeAt(1));
         if (m_pMainMenuAdminAlignWidget == nullptr)
             m_pMainMenuAdminAlignWidget = new MainMenuAdminAlignWidget;
-        m_pMainMenuWidget->setMainMenuImage("Main_menu", "home_big_n.bmp");
+        m_pMainMenuWidget->setMainMenuTitle(LoadString("IDS_ADMIN"));
         ui->verticalLayout->addWidget(m_pMainMenuAdminAlignWidget, 835);
         QObject::connect((QWidget*)m_pMainMenuAdminAlignWidget->m_pDeviceIdWidget, SIGNAL(clicked()), this, SLOT(on_device_id_clicked()));
         QObject::connect((QWidget*)m_pMainMenuAdminAlignWidget->m_pCameraAlignWidget, SIGNAL(clicked()), this, SLOT(on_camera_align_clicked()));
         QObject::connect((QWidget*)m_pMainMenuAdminAlignWidget->m_pCameraZoomFocusWidget, SIGNAL(clicked()), this, SLOT(on_camera_zoom_focus()));
+        QObject::connect((QWidget*)m_pMainMenuAdminAlignWidget->m_pLogoButton, SIGNAL(clicked()), this, SLOT(on_logo_clicked()));
     }
     else
     {
-        delete ui->verticalLayout->itemAt(1)->widget();
+        QWidget* widget = ui->verticalLayout->itemAt(1)->widget();
+        delete widget;
+        widget = nullptr;
+
         ui->verticalLayout->removeItem(ui->verticalLayout->takeAt(1));
         if (m_pMainMenuContentWidget == nullptr)
             m_pMainMenuContentWidget = new MainMenuContentWidget;
@@ -76,6 +84,7 @@ void MainWindow::initializeMainMenuWidget()
         QObject::connect((QWidget*)m_pMainMenuContentWidget->m_pEnforcementButton, SIGNAL(clicked()), this, SLOT(on_enforcementClicked()));
         QObject::connect((QWidget*)m_pMainMenuContentWidget->m_pFileManagertButton, SIGNAL(clicked()), this, SLOT(on_filemanagementClicked()));
         QObject::connect((QWidget*)m_pMainMenuContentWidget->m_pSettingButton, SIGNAL(clicked()), this, SLOT(on_settingClicked()));
+        QObject::connect((QWidget*)m_pMainMenuContentWidget->m_pLogoButton, SIGNAL(clicked()), this, SLOT(on_logo_clicked()));
 
     }
 //    delete ui->verticalLayout->itemAt(1)->widget();
@@ -107,10 +116,15 @@ void MainWindow::initializeMainMenuWidget()
 
 void MainWindow::initializeLoginWidget()
 {
+    QWidget* widget = ui->verticalLayout->itemAt(1)->widget();
+    delete widget;
+    widget = nullptr;
+
     if (m_pLoginWidget == nullptr)
         m_pLoginWidget = new LoginWidget;
-    delete m_pDateTimeWidget;
-    m_pDateTimeWidget = nullptr;
+//    delete m_pDateTimeWidget;
+//    m_pDateTimeWidget = nullptr;
+
     ui->verticalLayout->removeItem(ui->verticalLayout->takeAt(1));
     ui->verticalLayout->addWidget(m_pLoginWidget, 835);
     m_pMainMenuWidget->setMainMenuTitle(LoadString("IDS_LOGIN"));
@@ -118,7 +132,7 @@ void MainWindow::initializeLoginWidget()
 
     QObject::connect((QWidget*)m_pLoginWidget->m_loginPushButton, SIGNAL(clicked()), this, SLOT(on_loginWidgetClicked()));
     QObject::connect((QWidget*)m_pLoginWidget->m_dateTimePushButton, SIGNAL(clicked()), this, SLOT(on_dateTimeWidgetClicked()));
-
+    QObject::connect((QWidget*)m_pLoginWidget->m_pUserNameComboBox, SIGNAL(currentIndexChanged(QString)), this, SLOT(on_userNameChanged(QString)));
 }
 
 void MainWindow::finalize()
@@ -183,8 +197,13 @@ void MainWindow::on_gpsPushButton_clicked()
 
 void MainWindow::on_loginWidgetClicked()
 {
-    if (m_pLoginWidget->m_userName == "admin-align")
+    if (m_userName == "admin-align")
     {
+//        QWidget* widget = ui->verticalLayout->itemAt(1)->widget();
+//        delete widget;
+//        widget = nullptr;
+        delete m_pLoginWidget;
+        m_pLoginWidget = nullptr;
         ui->verticalLayout->removeItem(ui->verticalLayout->takeAt(1));
         if (m_pMainMenuAdminAlignWidget == nullptr)
             m_pMainMenuAdminAlignWidget = new MainMenuAdminAlignWidget;
@@ -193,18 +212,24 @@ void MainWindow::on_loginWidgetClicked()
         QObject::connect((QWidget*)m_pMainMenuAdminAlignWidget->m_pDeviceIdWidget, SIGNAL(clicked()), this, SLOT(on_device_id_clicked()));
         QObject::connect((QWidget*)m_pMainMenuAdminAlignWidget->m_pCameraAlignWidget, SIGNAL(clicked()), this, SLOT(on_camera_align_clicked()));
         QObject::connect((QWidget*)m_pMainMenuAdminAlignWidget->m_pCameraZoomFocusWidget, SIGNAL(clicked()), this, SLOT(on_camera_zoom_focus()));
+        QObject::connect((QWidget*)m_pMainMenuAdminAlignWidget->m_pLogoButton, SIGNAL(clicked()), this, SLOT(on_logo_clicked()));
     }
     else
     {
+        delete m_pLoginWidget;
+        m_pLoginWidget = nullptr;
+//        QWidget* widget = ui->verticalLayout->itemAt(1)->widget();
+//        delete widget;
+//        widget = nullptr;
         ui->verticalLayout->removeItem(ui->verticalLayout->takeAt(1));
-        if (m_pMainMenuContentWidget == nullptr)
+//        if (m_pMainMenuContentWidget == nullptr)
             m_pMainMenuContentWidget = new MainMenuContentWidget;
         m_pMainMenuWidget->setMainMenuTitle(LoadString("IDS_MAIN_MENU"));
         ui->verticalLayout->addWidget(m_pMainMenuContentWidget, 835);
         QObject::connect((QWidget*)m_pMainMenuContentWidget->m_pEnforcementButton, SIGNAL(clicked()), this, SLOT(on_enforcementClicked()));
         QObject::connect((QWidget*)m_pMainMenuContentWidget->m_pFileManagertButton, SIGNAL(clicked()), this, SLOT(on_filemanagementClicked()));
         QObject::connect((QWidget*)m_pMainMenuContentWidget->m_pSettingButton, SIGNAL(clicked()), this, SLOT(on_settingClicked()));
-
+        QObject::connect((QWidget*)m_pMainMenuContentWidget->m_pLogoButton, SIGNAL(clicked()), this, SLOT(on_logo_clicked()));
     }
 }
 
@@ -214,8 +239,8 @@ void MainWindow::on_dateTimeWidgetClicked()
     ui->verticalLayout->removeItem(ui->verticalLayout->takeAt(1));
     delete m_pLoginWidget;
     m_pLoginWidget = nullptr;
-    if (m_pDateTimeWidget == nullptr)
-        m_pDateTimeWidget = new DateTimeWidget;
+//    if (m_pDateTimeWidget == nullptr)
+    m_pDateTimeWidget = new DateTimeWidget;
     m_pMainMenuWidget->setMainMenuTitle(LoadString("IDS_DATE_TIME"));
     ui->verticalLayout->addWidget(m_pDateTimeWidget, 835);
     QObject::connect((QWidget*)m_pDateTimeWidget->m_pSavePushButton, SIGNAL(clicked()), this, SLOT(on_DateTimeSaveClicked()));
@@ -315,4 +340,14 @@ void MainWindow::on_mainMenuHomeClicked()
 {
 //    delete ui->verticalLayout->itemAt(1)->widget();
     initializeMainMenuWidget();
+}
+
+void MainWindow::on_logo_clicked()
+{
+    initializeLoginWidget();
+}
+
+void MainWindow::on_userNameChanged(QString arg)
+{
+    m_userName = arg;
 }

@@ -18,6 +18,7 @@ public:
     QWidget* m_pDeviceIdWidget;
     QWidget* m_pCameraAlignWidget;
     QWidget* m_pCameraZoomFocusWidget;
+    QWidget* m_pLogoButton;
 private slots:
 //    void on_deviceIDPushButton_clicked();
 

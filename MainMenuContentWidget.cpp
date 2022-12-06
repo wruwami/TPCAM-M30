@@ -22,7 +22,9 @@ MainMenuContentWidget::MainMenuContentWidget(QWidget *parent) :
     ui->fileManagerPushButton->setImage("Main_menu", "mainmenu_file_management.bmp");
     ui->enforcementPushButton->setImage("Main_menu", "mainmenu_enforcement.bmp");
 
-    ui->label->setImage("Main_menu", "comlaser_logo.bmp");
+    m_pLogoButton = ui->logoPushButton;
+
+    ui->logoPushButton->setImage("Main_menu", "comlaser_logo.bmp");
 }
 
 MainMenuContentWidget::~MainMenuContentWidget()

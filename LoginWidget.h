@@ -4,6 +4,7 @@
 #include <QWidget>
 
 class CustomPushButton;
+class CustomComboBox;
 namespace Ui {
 class LoginWidget;
 }
@@ -16,7 +17,7 @@ public:
     explicit LoginWidget(QWidget *parent = 0);
     ~LoginWidget();
 public:
-    QString m_userName;
+//    QString m_userName;
 private slots:
     void on_loginPushButton_clicked();
     void on_dateTimePushButton_clicked();
@@ -25,11 +26,12 @@ private slots:
 
     void on_userNamePushButton_clicked();
 
-    void on_userNameComboBox_currentIndexChanged(const QString &arg);
+//    void on_userNameComboBox_currentIndexChanged(const QString &arg);
 
 public:
     CustomPushButton* m_loginPushButton;
     CustomPushButton* m_dateTimePushButton;
+    CustomComboBox* m_pUserNameComboBox;
 private:
     Ui::LoginWidget *ui;
 };

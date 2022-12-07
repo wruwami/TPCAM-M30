@@ -25,6 +25,13 @@
          </property>
         </widget>
        </item>
+       <item>
+        <widget class="CustomPushButton" name="closePushButton">
+         <property name="text">
+          <string>PushButton</string>
+         </property>
+        </widget>
+       </item>
       </layout>
      </item>
     </layout>
@@ -36,6 +43,11 @@
    <class>CustomLabel</class>
    <extends>QLabel</extends>
    <header>CustomLabel.h</header>
+  </customwidget>
+  <customwidget>
+   <class>CustomPushButton</class>
+   <extends>QPushButton</extends>
+   <header>CustomPushButton.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

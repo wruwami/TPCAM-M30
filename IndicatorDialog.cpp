@@ -3,6 +3,7 @@
 #include "CustomPushButton.h"
 
 #include <QFile>
+#include <QPainter>
 
 #include "BaseDialog.h"
 #include "Color.h"
@@ -17,12 +18,14 @@ IndicatorDialog::IndicatorDialog(QWidget *parent) :
     ui(new Ui::IndicatorDialog)
 {
     setWindowFlags(Qt::FramelessWindowHint);
+    setAttribute(Qt::WA_TranslucentBackground);
     ui->setupUi(this);
 
 //    QFile file(":/style/indicatorWidget.qss");
 //    file.open(QFile::ReadOnly);
 //    QString styleSheet = QString::fromLatin1(file.readAll());
 
+//    setBackGroundColor(this, 0xfffffff0);
 //    this->setStyleSheet(styleSheet);
 //    setBackGroundColor(this, QColor(255, 255, 255, 128));
 //    ui->IndicatorWidget->setWindowOpacity(0.4);
@@ -41,6 +44,8 @@ IndicatorDialog::IndicatorDialog(QWidget *parent) :
     ui->screenRecordingPushButton->setVisible(false);
     ui->onPushButton->setVisible(false);
     ui->offPushButton->setVisible(false);
+//    ui->pushButton->setVisible(false);
+//    ui->pushButton->setStyleSheet("QPushButton {background-color:rgba(255,255,255,0);border:none;}");
 }
 
 IndicatorDialog::~IndicatorDialog()
@@ -202,6 +207,22 @@ void IndicatorDialog::on_cameraFocusClicked()
     m_pIndicatorCameraFocusWidget->show();
 }
 
+void IndicatorDialog::paintEvent(QPaintEvent *event)
+{
+    QPainter painter(this);
+    painter.setRenderHint(QPainter::Antialiasing);
+    painter.setPen(Qt::NoPen);
+    painter.setBrush(QColor(0,0,0,128)); // 4번째 인자에 적당한 투명도를 입력합니다.
+    painter.drawRect(GetWidgetSizePos(QRect(0, 125, 1600,  965)));
+//    painter.setBrush(QColor(0,0,0,0)); // 4번째 인자에 적당한 투명도를 입력합니다.
+//    painter.drawRect(GetWidgetSizePos(QRect(0, 0, 1600,  125)));
+}
+
+void IndicatorDialog::mousePressEvent(QMouseEvent *event)
+{
+    accept();
+}
+
 void IndicatorDialog::clearSecondRow()
 {
     if (m_pIndicatorCameraFocusWidget != nullptr)
@@ -230,4 +251,9 @@ void IndicatorDialog::clearSecondRow()
         ui->horizontalLayout2->setStretch(i, 2);
     }
 
+}
+
+void IndicatorDialog::on_pushButton_clicked()
+{
+    accept();
 }

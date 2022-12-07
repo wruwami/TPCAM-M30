@@ -15,6 +15,9 @@ public:
     explicit FileManagerSnapShotDialog(QWidget *parent = 0);
     ~FileManagerSnapShotDialog();
 
+private slots:
+    void on_backPushButton_clicked();
+
 private:
     Ui::FileManagerSnapShotDialog *ui;
 };

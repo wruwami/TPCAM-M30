@@ -194,3 +194,8 @@ void BaseDialog::paintEvent(QPaintEvent *event)
     QRect rect = ui->verticalLayout->itemAt(0)->geometry();
     painter.drawLine(rect.bottomLeft(), rect.bottomRight());
 }
+
+void BaseDialog::on_closePushButton_clicked()
+{
+    accept();
+}

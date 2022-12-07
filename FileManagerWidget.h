@@ -25,6 +25,7 @@ protected:
     void paintEvent(QPaintEvent *event);
 private slots:
     void on_deletePushButton_clicked();
+    void on_tableWidget_clicked(const QModelIndex &index);
 };
 
 #endif // FILEMANAGERWIDGET_H

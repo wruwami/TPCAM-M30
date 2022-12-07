@@ -151,8 +151,8 @@ void MainWindow::finalize()
 void MainWindow::open_indicator_widget()
 {
     IndicatorDialog indicatorWidget;
-//    indicatorWidget.setGeometry(GetWidgetSizePos(QRect(0, 125, 1600, 960)));
-    indicatorWidget.setGeometry(ui->verticalLayout->itemAt(1)->geometry());
+    indicatorWidget.setGeometry(GetWidgetSizePos(QRect(0, 125, 1600, 960)));
+//    indicatorWidget.setGeometry(ui->centralWidget->geometry());
     indicatorWidget.exec();
 }
 

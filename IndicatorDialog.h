@@ -38,6 +38,8 @@ private slots:
     void on_cameraExposeClicked();
     void on_cameraFocusClicked();
 
+    void on_pushButton_clicked();
+
 private:
     Ui::IndicatorDialog *ui;
     CustomPushButton* m_pCameraFocusPushButton;
@@ -63,6 +65,11 @@ private:
 
     IndicatorCameraExposeWidget* m_pIndicatorCameraExposeWidget = nullptr;
     IndicatorCameraFocusWidget* m_pIndicatorCameraFocusWidget = nullptr;
+
+    // QWidget interface
+protected:
+    void paintEvent(QPaintEvent *event);
+    void mousePressEvent(QMouseEvent *event);
 };
 
 #endif // INDICATORCAMERADIALOG_H

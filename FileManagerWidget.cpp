@@ -7,6 +7,7 @@
 #include "CustomPushButton.h"
 #include "StringLoader.h"
 #include "BaseDialog.h"
+#include "FileManagerSnapShotDialog.h"
 
 FileManagerWidget::FileManagerWidget(QWidget *parent) :
     QWidget(parent),
@@ -81,4 +82,10 @@ void FileManagerWidget::on_deletePushButton_clicked()
 {
     BaseDialog baseDialog(Dialog::FileManagerQuestionMessageWidgetType);
     baseDialog.exec();
+}
+
+void FileManagerWidget::on_tableWidget_clicked(const QModelIndex &index)
+{
+    FileManagerSnapShotDialog fileManagerSnapShotDialog;
+    fileManagerSnapShotDialog.exec();
 }

@@ -10,5 +10,6 @@
         <file>keyboard/en.json</file>
         <file>keyboard/keypad.json</file>
         <file>style/customCheckBox.qss</file>
+        <file>style/customComboBox.qss</file>
     </qresource>
 </RCC>

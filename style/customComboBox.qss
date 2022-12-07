@@ -1,0 +1,29 @@
+QComboBox
+{
+    text-align:center;
+    color: white;
+    background: #25759B;
+    border:none;
+}
+QComboBox QListView
+{
+    text-align:center;
+    color: white;
+    background: #25759B;
+    selection-background-color: #52A9C1;
+}
+QComboBox::drop-down
+{
+    width : 35px;
+    border: none; /* This seems to replace the whole arrow of the combo box */
+}
+QComboBox::down-arrow {
+    image: url(:/icon/icon/combobox_dropdown.png);
+    width: 30px;
+    height: 30px;
+}
+
+QListView::item
+{
+    //height: %0px;
+}

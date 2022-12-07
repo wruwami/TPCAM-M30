@@ -32,14 +32,14 @@
         </spacer>
        </item>
        <item>
-        <widget class="QPushButton" name="okPushButton">
+        <widget class="CustomPushButton" name="okPushButton">
          <property name="text">
           <string>PushButton</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="cancelPushButton">
+        <widget class="CustomPushButton" name="cancelPushButton">
          <property name="text">
           <string>PushButton</string>
          </property>
@@ -53,7 +53,7 @@
         <widget class="QLineEdit" name="lineEdit"/>
        </item>
        <item>
-        <widget class="QPushButton" name="deleteAllPushButton">
+        <widget class="CustomPushButton" name="deleteAllPushButton">
          <property name="text">
           <string>PushButton</string>
          </property>
@@ -65,6 +65,13 @@
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>CustomPushButton</class>
+   <extends>QPushButton</extends>
+   <header>CustomPushButton.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

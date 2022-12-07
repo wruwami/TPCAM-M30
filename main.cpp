@@ -24,8 +24,8 @@ int main(int argc, char *argv[])
     selfTestDialog.exec();
 
     MainWindow w;
-    w.show();
-//    w.showFullScreen();
+//    w.show();
+    w.showFullScreen();
 
     return a.exec();
 }

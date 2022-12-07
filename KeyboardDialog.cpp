@@ -9,7 +9,7 @@
 #include "keyboard/keyboard.h"
 #include "keyboard/keylayout.h"
 
-
+#include "WidgetSize.h"
 
 KeyboardDialog::KeyboardDialog(QWidget *parent) :
     QDialog(parent),
@@ -18,6 +18,8 @@ KeyboardDialog::KeyboardDialog(QWidget *parent) :
     ui->setupUi(this);
 
     setWindowFlags(Qt::FramelessWindowHint);
+    setGeometry(GetWidgetSizePos(QRect(0, 125, 1600, 835)));
+
     ui->okPushButton->setText(LoadString("IDS_OK"));
     ui->cancelPushButton->setText(LoadString("IDS_CANCEL"));
 
@@ -41,5 +43,40 @@ KeyboardDialog::~KeyboardDialog()
 
 void KeyboardDialog::onKeyPressed(const QString &iKey, Key *mKey)
 {
+//    QString mLayoutName;
 
+    if (iKey == "space")
+    {
+        ui->lineEdit->insert(" ");
+    }
+    else if (iKey == "return")
+    {
+        m_str = ui->lineEdit->text();
+        QDialog::accept();
+    }
+    else if (iKey == "back")
+    {
+        ui->lineEdit->backspace();
+    }
+    else
+    {
+        ui->lineEdit->insert(iKey);
+    }
+}
+
+const QString &KeyboardDialog::str() const
+{
+    return m_str;
+}
+
+void KeyboardDialog::on_okPushButton_clicked()
+{
+    ui->lineEdit->clear();
+    QDialog::accept();
+}
+
+void KeyboardDialog::on_cancelPushButton_clicked()
+{
+    ui->lineEdit->clear();
+    QDialog::reject();
 }

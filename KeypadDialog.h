@@ -17,6 +17,15 @@ public:
     ~KeypadDialog();
     void onKeyPressed(const QString &iKey, Key* mKey);
 
+    QString str() const;
+
+private:
+    QString m_str;
+private slots:
+    void on_okPushButton_clicked();
+
+    void on_cancelPushButton_clicked();
+
 private:
     Ui::KeypadDialog *ui;
 

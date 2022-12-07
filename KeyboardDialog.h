@@ -16,6 +16,14 @@ public:
     explicit KeyboardDialog(QWidget *parent = 0);
     ~KeyboardDialog();
     void onKeyPressed(const QString &iKey, Key* mKey);
+    const QString &str() const;
+
+private:
+    QString m_str;
+private slots:
+    void on_okPushButton_clicked();
+
+    void on_cancelPushButton_clicked();
 
 private:
     Ui::KeyboardDialog *ui;

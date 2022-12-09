@@ -15,6 +15,9 @@ public:
     explicit Setting1Widget(QWidget *parent = 0);
     ~Setting1Widget();
 
+private slots:
+    void on_locationPushButton_clicked();
+
 private:
     Ui::Setting1Widget *ui;
 };

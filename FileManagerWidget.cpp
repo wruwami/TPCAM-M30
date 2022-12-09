@@ -39,6 +39,8 @@ FileManagerWidget::FileManagerWidget(QWidget *parent) :
     ui->movePushButton->setText(LoadString("IDS_MOVE"));
 
     ui->frameLabel->setText(LoadString("IDS_STILL_IMAGE_AND_MOVIE_VIEWER"));
+
+    ui->tableWidget->setGeometry(ui->gridLayout_2->itemAtPosition(1, 1)->geometry());
 //    ui->tableWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 }
 
@@ -54,7 +56,7 @@ void FileManagerWidget::resizeEvent(QResizeEvent *event)
 
 void FileManagerWidget::paintEvent(QPaintEvent *event)
 {
-    QWidget::paintEvent(event);
+//    QWidget::paintEvent(event);
     QPainter painter(this);
     QStyleOptionFrame  option;
     option.initFrom(this);

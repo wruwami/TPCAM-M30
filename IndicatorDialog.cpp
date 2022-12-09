@@ -33,7 +33,7 @@ IndicatorDialog::IndicatorDialog(QWidget *parent) :
 //    setStyleSheet(styleSheet);
 
 
-
+    ui->cameraPushButton->setImage("indicator", "camera.jpg");
     ui->daynNightPushButton->setImage("indicator", "indicator_enable_night_mode_off.jpg", ui->daynNightPushButton->size());
     ui->weatherPushButton->setImage("indicator", "indicator_enable_weather_mode_on.jpg", ui->weatherPushButton->size());
     ui->enforcementPushButton->setImage("indicator", "indicator_mode_v.jpg");
@@ -91,6 +91,12 @@ void IndicatorDialog::on_daynNightPushButton_clicked()
     m_pNight1PushButton = new CustomPushButton;
     m_pNight2PushButton = new CustomPushButton;
     m_pNight3PushButton = new CustomPushButton;
+    m_pDay1PushButton->setImage("indicator", "day1.jpg");
+    m_pDay2PushButton->setImage("indicator", "day2.jpg");
+    m_pDay3PushButton->setImage("indicator", "day3.jpg");
+    m_pNight1PushButton->setImage("indicator", "night1.jpg");
+    m_pNight2PushButton->setImage("indicator", "night2.jpg");
+    m_pNight3PushButton->setImage("indicator", "night3.jpg");
 
     ui->horizontalLayout2->removeItem(ui->horizontalLayout2->takeAt(0));
     ui->horizontalLayout2->removeItem(ui->horizontalLayout2->takeAt(1));
@@ -110,7 +116,7 @@ void IndicatorDialog::on_daynNightPushButton_clicked()
 void IndicatorDialog::on_gpsPushButton_clicked()
 {
 //    clearSecondRow();
-    BaseDialog baseDialog(Dialog::IndicatorGPSWidgetType);
+    BaseDialog baseDialog(Dialog::IndicatorGPSWidgetType, true);
     baseDialog.exec();
 
 }

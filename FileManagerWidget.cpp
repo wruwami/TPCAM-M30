@@ -37,6 +37,8 @@ FileManagerWidget::FileManagerWidget(QWidget *parent) :
     ui->deletePushButton->setText(LoadString("IDS_DELETE"));
     ui->sharePushButton->setText(LoadString("IDS_SHARE"));
     ui->movePushButton->setText(LoadString("IDS_MOVE"));
+
+    ui->frameLabel->setText(LoadString("IDS_STILL_IMAGE_AND_MOVIE_VIEWER"));
 //    ui->tableWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 }
 
@@ -88,4 +90,41 @@ void FileManagerWidget::on_tableWidget_clicked(const QModelIndex &index)
 {
     FileManagerSnapShotDialog fileManagerSnapShotDialog;
     fileManagerSnapShotDialog.exec();
+}
+
+void FileManagerWidget::on_searchPushButton_clicked()
+{
+
+}
+
+void FileManagerWidget::on_zoomPushButton_clicked()
+{
+
+}
+
+void FileManagerWidget::on_sharePushButton_clicked()
+{
+
+}
+
+void FileManagerWidget::on_movePushButton_clicked()
+{
+    BaseDialog baseDialog(FileManagerFileTransferWidgetType);
+    baseDialog.exec();
+}
+
+void FileManagerWidget::on_printPushButton_clicked()
+{
+    BaseDialog baseDialog(FileManagerErrorMessageWidgetType);
+    baseDialog.exec();
+}
+
+void FileManagerWidget::on_connectPushButton_clicked()
+{
+
+}
+
+void FileManagerWidget::on_percentPushButton_clicked()
+{
+
 }

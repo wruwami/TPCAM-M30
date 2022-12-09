@@ -32,7 +32,7 @@ class BaseDialog : public QDialog
     Q_OBJECT
 
 public:
-    explicit BaseDialog(Dialog, QWidget *parent = 0);
+    explicit BaseDialog(Dialog, bool = false, QWidget *parent = 0);
     ~BaseDialog();
 private:
     void setSize(QSize size);
@@ -45,6 +45,8 @@ private:
     // QWidget interface
 protected:
     void paintEvent(QPaintEvent *event);
+private slots:
+    void on_closePushButton_clicked();
 };
 
 #endif // BASEDIALOG_H

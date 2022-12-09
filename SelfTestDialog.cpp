@@ -6,6 +6,7 @@
 
 #include "Color.h"
 #include "StringLoader.h"
+#include "BaseDialog.h"
 
 SelfTestDialog::SelfTestDialog(QWidget *parent) :
     QDialog(parent),
@@ -42,8 +43,10 @@ SelfTestDialog::SelfTestDialog(QWidget *parent) :
 
     ui->expiredDateLabel->setStyleSheet("QLabel { color : red; }");
     ui->versionLabel->setStyleSheet("QLabel { color : #ffc000; }");
-//    setTextColor(ui->expiredDateLabel, Qt::red);
-//    setTextColor(ui->versionLabel, 0xffc000);
+
+    // test
+    BaseDialog baseDialog(SelfTestWarningMessageWidgetType);
+    baseDialog.exec();
 
     startTimer(1000);
 }

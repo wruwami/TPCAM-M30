@@ -21,6 +21,7 @@ public:
     void setMainMenuImage(QString path_name, QString file_name);
     void enableButtons(bool enable);
     void updateStretch();
+    void showIndicator(bool = true);
 public:
     CustomPushButton* m_pHomePushButton;
 private:

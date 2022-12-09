@@ -55,6 +55,7 @@ MainMenuWidget::MainMenuWidget(QWidget *parent) :
     ui->batteryPercentLabel->setImage("indicator", "indicator_battery4.bmp", ui->batteryPercentLabel->size());
     ui->batteryStatusLabel->setImage("indicator", "charging.png", ui->batteryStatusLabel->size());
 #else
+    ui->cameraPushButton->setImage("indicator", "camera.jpg");
     ui->daynNightPushButton->setImage("indicator", "indicator_enable_night_mode_off.jpg");
     ui->weatherPushButton->setImage("indicator", "indicator_enable_weather_mode_on.jpg");
     ui->enforcementPushButton->setImage("indicator", "indicator_mode_v.jpg");
@@ -73,6 +74,29 @@ MainMenuWidget::~MainMenuWidget()
     delete ui;
 }
 
+void MainMenuWidget::showIndicator(bool isShow)
+{
+    if (isShow)
+    {
+        ui->cameraPushButton->show();
+        ui->daynNightPushButton->show();
+        ui->weatherPushButton->show();
+        ui->enforcementPushButton->show();
+        ui->speedPushButton->show();
+        ui->wifiPushButton->show();
+        ui->gpsPushButton->show();
+    }
+    else
+    {
+        ui->cameraPushButton->hide();
+        ui->daynNightPushButton->hide();
+        ui->weatherPushButton->hide();
+        ui->enforcementPushButton->hide();
+        ui->speedPushButton->hide();
+        ui->wifiPushButton->hide();
+        ui->gpsPushButton->hide();
+    }
+}
 
 
 void MainMenuWidget::setMainMenuTitle(QString title)

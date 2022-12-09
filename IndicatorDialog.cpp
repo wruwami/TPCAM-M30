@@ -21,18 +21,6 @@ IndicatorDialog::IndicatorDialog(QWidget *parent) :
     setAttribute(Qt::WA_TranslucentBackground);
     ui->setupUi(this);
 
-//    QFile file(":/style/indicatorWidget.qss");
-//    file.open(QFile::ReadOnly);
-//    QString styleSheet = QString::fromLatin1(file.readAll());
-
-//    setBackGroundColor(this, 0xfffffff0);
-//    this->setStyleSheet(styleSheet);
-//    setBackGroundColor(this, QColor(255, 255, 255, 128));
-//    ui->IndicatorWidget->setWindowOpacity(0.4);
-//    setWindowOpacity(0.5);
-//    setStyleSheet(styleSheet);
-
-
     ui->cameraPushButton->setImage("indicator", "camera.jpg");
     ui->daynNightPushButton->setImage("indicator", "indicator_enable_night_mode_off.jpg", ui->daynNightPushButton->size());
     ui->weatherPushButton->setImage("indicator", "indicator_enable_weather_mode_on.jpg", ui->weatherPushButton->size());
@@ -41,7 +29,7 @@ IndicatorDialog::IndicatorDialog(QWidget *parent) :
     ui->comPushButton->setImage("indicator", "indicator_wifi_disconnected.jpg", ui->comPushButton->size());
     ui->gpsPushButton->setImage("indicator", "indicator_gps_off.jpg", ui->gpsPushButton->size());
 
-    ui->screenRecordingPushButton->setVisible(false);
+    ui->screenRecordingPushButton->setVisible(true);
     ui->onPushButton->setVisible(false);
     ui->offPushButton->setVisible(false);
 //    ui->pushButton->setVisible(false);

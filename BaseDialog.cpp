@@ -49,7 +49,9 @@ BaseDialog::BaseDialog(Dialog dialog, bool isCloseButton, QWidget *parent) :
     {
     case Dialog::SelfTestWarningMessageWidgetType:
     {
-
+        ui->verticalLayout->addWidget(new SelfTestWarningMessageWidget(this));
+        ui->titleLabel->setText(LoadString("IDS_WARNING_MESSAGE"));
+        setSize(1216, 694);
     }
         break;
     case Dialog::LoginExpiredDateWidgetType:

@@ -3,20 +3,21 @@
 
 #include "StringLoader.h"
 
-SelfTestWarningMessageWidget::SelfTestWarningMessageWidget(QWidget *parent) :
+SelfTestWarningMessageWidget::SelfTestWarningMessageWidget(QDialog *parent) :
     QWidget(parent),
     ui(new Ui::SelfTestWarningMessageWidget)
 {
+    m_pParent = parent;
     ui->setupUi(this);
 
     ui->label->setText(LoadString("IDS_WARNING_MESSAGE"));
     ui->label_2->setText(LoadString("IDS_CONTINUE_QUESTION"));
 
-    ui->laserLabel->setText(LoadString("IDS_LASER"));
+    ui->cameraLabel->setText(LoadString("IDS_CAMERA"));
     ui->storageLabel->setText(LoadString("IDS_STORAGE"));
     ui->laserLabel->setText(LoadString("IDS_LASER"));
     ui->batteryLabel->setText(LoadString("IDS_BATTERY"));
-    ui->laserValueLabel->setText(LoadString("IDS_FAIL"));
+    ui->cameraValueLabel->setText(LoadString("IDS_FAIL"));
     ui->storageValueLabel->setText(LoadString("IDS_FAIL"));
     ui->laserValueLabel->setText(LoadString("IDS_FAIL"));
     ui->batteryValueLabel->setText(LoadString("IDS_FAIL"));
@@ -28,4 +29,15 @@ SelfTestWarningMessageWidget::SelfTestWarningMessageWidget(QWidget *parent) :
 SelfTestWarningMessageWidget::~SelfTestWarningMessageWidget()
 {
     delete ui;
+}
+
+
+void SelfTestWarningMessageWidget::on_continuePushButton_clicked()
+{
+    m_pParent->accept();
+}
+
+void SelfTestWarningMessageWidget::on_powerOffPushButton_clicked()
+{
+    m_pParent->reject();
 }

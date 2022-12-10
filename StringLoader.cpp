@@ -6,7 +6,7 @@
 
 #include <QString>
 #include <QList>
-#include <Qdir>
+#include "qdir.h"
 
 
 StringLoader* StringLoader::instance = nullptr;

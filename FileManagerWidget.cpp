@@ -3,11 +3,28 @@
 
 #include <QDebug>
 #include <QPainter>
+#include <QHeaderView>
 
 #include "CustomPushButton.h"
 #include "StringLoader.h"
 #include "BaseDialog.h"
 #include "FileManagerSnapShotDialog.h"
+
+//MyHorizontalHeader(QWidget *parent = 0) : QHeaderView(Qt::Horizontal, parent)
+
+//{
+
+//     connect(this, SIGNAL(sectionResized(int, int, int)), this,
+
+//             SLOT(handleSectionResized(int)));
+
+//     connect(this, SIGNAL(sectionMoved(int, int, int)), this,
+
+//             SLOT(handleSectionMoved(int, int, int)));
+
+//     setMovable(true);
+
+//}
 
 FileManagerWidget::FileManagerWidget(QWidget *parent) :
     QWidget(parent),
@@ -15,12 +32,12 @@ FileManagerWidget::FileManagerWidget(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    ui->ImageVideoComboBox->addItem(LoadString("IDS_I"));
-    ui->ImageVideoComboBox->addItem(LoadString("IDS_A"));
-    ui->ImageVideoComboBox->addItem(LoadString("IDS_V"));
+//    ui->ImageVideoComboBox->addItem(LoadString("IDS_I"));
+//    ui->ImageVideoComboBox->addItem(LoadString("IDS_A"));
+//    ui->ImageVideoComboBox->addItem(LoadString("IDS_V"));
 
-    ui->dateImageLabel->setImage("file_manager", "file_management_folder_icon_small.bmp");
-    ui->dateLabel->setText(LoadString("IDS_DATE"));
+//    ui->dateImageLabel->setImage("file_manager", "file_management_folder_icon_small.bmp");
+//    ui->dateLabel->setText(LoadString("IDS_DATE"));
 
     ui->firstPushButton->setImage("file_manager", "file_management_prev_big_seek_button.bmp");
     ui->previousPushButton->setImage("file_manager", "file_management_prev_seek_button.bmp");
@@ -40,7 +57,11 @@ FileManagerWidget::FileManagerWidget(QWidget *parent) :
 
     ui->frameLabel->setText(LoadString("IDS_STILL_IMAGE_AND_MOVIE_VIEWER"));
 
-    ui->tableWidget->setGeometry(ui->gridLayout_2->itemAtPosition(1, 1)->geometry());
+//    QHeaderView* header = new QHeaderView;
+//    header->set
+//    ui->tableWidget->setHorizontalHeader(header);
+//    ui->tableWidget->setGeometry(ui->gridLayout_2->itemAtPosition(1, 1)->geometry());
+//    ui->tableWidget->setColumnWidth(0, ui->gridLayout_2->itemAtPosition(1, 1)->geometry().width());
 //    ui->tableWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 }
 

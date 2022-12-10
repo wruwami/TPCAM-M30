@@ -15,15 +15,12 @@
   </property>
   <layout class="QGridLayout" name="gridLayout">
    <item row="0" column="1">
-    <layout class="QHBoxLayout" name="horizontalLayout">
+    <layout class="QHBoxLayout" name="horizontalLayout" stretch="9,12">
      <item>
       <layout class="QVBoxLayout" name="verticalLayout_2">
        <item>
         <layout class="QGridLayout" name="gridLayout_2">
-         <item row="0" column="1">
-          <widget class="QComboBox" name="ImageVideoComboBox"/>
-         </item>
-         <item row="1" column="1" colspan="4">
+         <item row="0" column="1" colspan="2">
           <widget class="QTableWidget" name="tableWidget">
            <property name="autoFillBackground">
             <bool>false</bool>
@@ -46,20 +43,6 @@
            <row/>
            <column/>
            <column/>
-          </widget>
-         </item>
-         <item row="0" column="2">
-          <widget class="CustomLabel" name="dateImageLabel">
-           <property name="text">
-            <string>TextLabel</string>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="3" colspan="2">
-          <widget class="CustomLabel" name="dateLabel">
-           <property name="text">
-            <string>TextLabel</string>
-           </property>
           </widget>
          </item>
         </layout>
@@ -200,11 +183,6 @@
   </layout>
  </widget>
  <customwidgets>
-  <customwidget>
-   <class>CustomLabel</class>
-   <extends>QLabel</extends>
-   <header>CustomLabel.h</header>
-  </customwidget>
   <customwidget>
    <class>CustomPushButton</class>
    <extends>QPushButton</extends>

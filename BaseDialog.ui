@@ -28,7 +28,7 @@
        <item>
         <widget class="CustomPushButton" name="closePushButton">
          <property name="text">
-          <string>PushButton</string>
+          <string/>
          </property>
         </widget>
        </item>

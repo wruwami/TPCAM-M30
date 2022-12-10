@@ -1,6 +1,6 @@
 #include "CustomCheckBox.h"
 
-#include <QDir>
+#include "qdir.h"
 
 #include "FontSize.h"
 

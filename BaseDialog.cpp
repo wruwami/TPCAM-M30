@@ -39,6 +39,7 @@ BaseDialog::BaseDialog(Dialog dialog, bool isCloseButton, QWidget *parent) :
     {
         ui->closePushButton->show();
         ui->closePushButton->setImage("MessageBox", "closeButton.png");
+        ui->closePushButton->setStyleSheet("QPushButton {background-color : rgba(255,255,255,0); border:none;}");
     }
     else
     {

@@ -24,6 +24,10 @@ KeypadDialog::KeypadDialog(QWidget *parent) :
     Keyboard *k = new Keyboard(file, InputMode::keyboard, this);
     ui->verticalLayout->addWidget(k);
 
+    ui->verticalLayout->setStretch(0, 1);
+    ui->verticalLayout->setStretch(1, 1);
+    ui->verticalLayout->setStretch(2, 4);
+
 }
 
 KeypadDialog::~KeypadDialog()

@@ -32,7 +32,9 @@ KeyboardDialog::KeyboardDialog(QWidget *parent) :
 //    KeyLayout *kl = k->GetKeyLayout();
 //    k->setFocus();
 //    k->show();
-
+    ui->verticalLayout->setStretch(0, 1);
+    ui->verticalLayout->setStretch(1, 1);
+    ui->verticalLayout->setStretch(2, 4);
 
 }
 

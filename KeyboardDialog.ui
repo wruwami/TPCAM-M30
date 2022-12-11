@@ -50,7 +50,7 @@
      <item>
       <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="9,1">
        <item>
-        <widget class="QLineEdit" name="lineEdit"/>
+        <widget class="CustomLineEdit" name="lineEdit"/>
        </item>
        <item>
         <widget class="CustomPushButton" name="deleteAllPushButton">
@@ -70,6 +70,11 @@
    <class>CustomPushButton</class>
    <extends>QPushButton</extends>
    <header>CustomPushButton.h</header>
+  </customwidget>
+  <customwidget>
+   <class>CustomLineEdit</class>
+   <extends>QLineEdit</extends>
+   <header>CustomLineEdit.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

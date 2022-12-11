@@ -10,6 +10,8 @@
 #include "BaseDialog.h"
 #include "FileManagerSnapShotDialog.h"
 #include "WidgetSize.h"
+#include "KeypadDialog.h"
+
 //#include "comboheader.h"
 
 class MyHeader : public QHeaderView
@@ -172,7 +174,8 @@ void FileManagerWidget::on_tableWidget_clicked(const QModelIndex &index)
 
 void FileManagerWidget::on_searchPushButton_clicked()
 {
-
+    KeypadDialog keyPadDialog;
+    keyPadDialog.exec();
 }
 
 void FileManagerWidget::on_zoomPushButton_clicked()

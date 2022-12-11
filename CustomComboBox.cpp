@@ -2,6 +2,7 @@
 
 #include <QStyledItemDelegate>
 #include <QProxyStyle>
+#include <QResizeEvent>
 
 #include "FontSize.h"
 
@@ -42,6 +43,8 @@ CustomComboBox::CustomComboBox(QWidget *parent) : QComboBox(parent)
     this->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     setStyle(new AlignComboBoxProxy);
     setItemDelegate(new AlignDelegate(Qt::AlignLeft, this));
+    setStyleSheet(QString("QComboBox QListView {text-align:center;}\
+                   QListView::item {height: %0px;}").arg(height()));
 }
 
 void CustomComboBox::resizeEvent(QResizeEvent *event)
@@ -51,4 +54,7 @@ void CustomComboBox::resizeEvent(QResizeEvent *event)
     if(font.pointSizeF()<=FontSize::Minimum) //최소폰트 설정
         font.setPointSizeF(FontSize::Minimum);
     this->setFont(font); //설정된 폰트를 위젯에 적용
+
+    setStyleSheet(QString("QComboBox QListView {text-align:center;}\
+QListView::item {height: %0px;}").arg(event->size().height()));
 }

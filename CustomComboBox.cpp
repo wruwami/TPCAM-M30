@@ -40,8 +40,8 @@ public:
 CustomComboBox::CustomComboBox(QWidget *parent) : QComboBox(parent)
 {
     this->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-//    setStyle(new AlignComboBoxProxy);
-//    setItemDelegate(new AlignDelegate(Qt::AlignCenter, this));
+    setStyle(new AlignComboBoxProxy);
+    setItemDelegate(new AlignDelegate(Qt::AlignLeft, this));
 }
 
 void CustomComboBox::resizeEvent(QResizeEvent *event)

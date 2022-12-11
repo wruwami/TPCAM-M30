@@ -3,6 +3,8 @@
 
 #include "StringLoader.h"
 
+#include "CustomPushButton.h"
+
 CameraAlignWidget::CameraAlignWidget(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::CameraAlignWidget)
@@ -20,6 +22,7 @@ CameraAlignWidget::CameraAlignWidget(QWidget *parent) :
     ui->savePushButton->setText(LoadString("IDS_SAVE"));
     ui->cancelPushButton->setText(LoadString("IDS_CANCEL"));
 
+    m_pHomeButton = ui->homePushButton;
 }
 
 CameraAlignWidget::~CameraAlignWidget()

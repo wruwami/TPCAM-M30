@@ -2,6 +2,7 @@
 #include "ui_Setting1Widget.h"
 
 #include "StringLoader.h"
+#include "BaseDialog.h"
 
 Setting1Widget::Setting1Widget(QWidget *parent) :
     QWidget(parent),
@@ -32,3 +33,9 @@ Setting1Widget::~Setting1Widget()
     delete ui;
 }
 
+
+void Setting1Widget::on_locationPushButton_clicked()
+{
+    BaseDialog baseDialog(Setting1LocationWidgetType, true);
+    baseDialog.exec();
+}

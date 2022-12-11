@@ -1,6 +1,6 @@
 #include "CustomPushButton.h"
 
-#include <QDir>
+#include "qdir.h"
 #include <QResizeEvent>
 #include <QPainter>
 #include <QDebug>

@@ -2,7 +2,7 @@
 #include <QApplication>
 #include <QFile>
 #include <QString>
-#include <Qdir>
+#include "qdir.h"
 
 #include "StringLoader.h"
 #include "SelfTestDialog.h"

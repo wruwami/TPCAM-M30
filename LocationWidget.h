@@ -17,6 +17,10 @@ public:
 
 private:
     Ui::LocationWidget *ui;
+
+    // QWidget interface
+protected:
+    void paintEvent(QPaintEvent *event);
 };
 
 #endif // LOCATIONWIDGET_H

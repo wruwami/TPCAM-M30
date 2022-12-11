@@ -3,12 +3,15 @@
 
 #include "StringLoader.h"
 #include "Color.h"
+#include "WidgetSize.h"
 
 FileManagerSnapShotDialog::FileManagerSnapShotDialog(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::FileManagerSnapShotDialog)
 {
     ui->setupUi(this);
+
+    resize(GetWidgetSize(QSize(1299, 690)));
 
     setWindowFlags(Qt::FramelessWindowHint);
     setBackGroundColor(this, 0xffffff);

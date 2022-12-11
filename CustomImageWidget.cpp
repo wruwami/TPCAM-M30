@@ -1,7 +1,7 @@
 #include "CustomImageWidget.h"
 
 #include <QFile>
-#include <QDir>
+#include "qdir.h"
 #include <QPainter>
 
 #define DEFAULT_PATH    "images"

@@ -26,7 +26,7 @@
 
 #include "WidgetSize.h"
 
-BaseDialog::BaseDialog(Dialog dialog, QWidget *parent) :
+BaseDialog::BaseDialog(Dialog dialog, bool isCloseButton, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::BaseDialog)
 {
@@ -35,13 +35,24 @@ BaseDialog::BaseDialog(Dialog dialog, QWidget *parent) :
     this->setWindowFlags(Qt::FramelessWindowHint);
     setBackGroundColor(this, 0xd9d9d9);
 
-
+    if (isCloseButton)
+    {
+        ui->closePushButton->show();
+        ui->closePushButton->setImage("MessageBox", "closeButton.png");
+        ui->closePushButton->setStyleSheet("QPushButton {background-color : rgba(255,255,255,0); border:none;}");
+    }
+    else
+    {
+        ui->closePushButton->hide();
+    }
 
     switch (dialog)
     {
     case Dialog::SelfTestWarningMessageWidgetType:
     {
-
+        ui->verticalLayout->addWidget(new SelfTestWarningMessageWidget(this));
+        ui->titleLabel->setText(LoadString("IDS_WARNING_MESSAGE"));
+        setSize(1216, 694);
     }
         break;
     case Dialog::LoginExpiredDateWidgetType:
@@ -56,7 +67,6 @@ BaseDialog::BaseDialog(Dialog dialog, QWidget *parent) :
         ui->verticalLayout->addWidget(new IndicatorGPSWidget);
         ui->titleLabel->setText(LoadString("IDS_INDICATOR_GPS"));
         setSize(745, 635);
-
     }
         break;
     case Dialog::Setting1LocationWidgetType:
@@ -64,7 +74,6 @@ BaseDialog::BaseDialog(Dialog dialog, QWidget *parent) :
         ui->verticalLayout->addWidget(new LocationWidget);
         ui->titleLabel->setText(LoadString("IDS_LOCATION"));
         setSize(734, 635);
-
     }
         break;
     case Dialog::Setting3SystemInfoWidgetType:

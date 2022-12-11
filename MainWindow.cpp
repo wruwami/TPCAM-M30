@@ -56,6 +56,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::initializeMainMenuWidget()
 {
+    m_pMainMenuWidget->show();
     if (m_userName == "admin-align")
     {
         removeseconditem();
@@ -164,6 +165,11 @@ void MainWindow::removeseconditem()
         delete widget;
         widget = nullptr;
     }
+}
+
+void MainWindow::showIndicator(bool isShow)
+{
+    m_pMainMenuWidget->showIndicator(isShow);
 }
 
 void MainWindow::on_cameraPushButton_clicked()
@@ -303,16 +309,20 @@ void MainWindow::on_device_id_clicked()
     ui->verticalLayout->removeItem(ui->verticalLayout->itemAt(1));
     ui->verticalLayout->addWidget(new DeviceIDWidget, 835);
 
-//    m_pMainMenuWidget->setMainMenuImage("Main_menu", "home_big_n.bmp");
+    m_pMainMenuWidget->setMainMenuImage("Main_menu", "home_big_n.bmp");
 
 }
 
 void MainWindow::on_camera_align_clicked()
 {
+    m_pMainMenuWidget->hide();
     delete m_pMainMenuAdminAlignWidget;
     m_pMainMenuAdminAlignWidget = nullptr;
     ui->verticalLayout->removeItem(ui->verticalLayout->itemAt(1));
-    ui->verticalLayout->addWidget(new CameraAlignWidget, 835);
+    if (m_pCameraAlignWidget == nullptr)
+        m_pCameraAlignWidget = new CameraAlignWidget;
+    ui->verticalLayout->addWidget(m_pCameraAlignWidget, 960);
+    QObject::connect((QWidget*)m_pCameraAlignWidget->m_pHomeButton, SIGNAL(clicked()), this, SLOT(on_mainMenuHomeClicked()));
 
 }
 
@@ -323,6 +333,9 @@ void MainWindow::on_camera_zoom_focus()
     ui->verticalLayout->removeItem(ui->verticalLayout->itemAt(1));
     ui->verticalLayout->addWidget(new CameraZoomFocusWidget, 835);
 
+    m_pMainMenuWidget->setMainMenuImage("Main_menu", "home_big_n.bmp");
+
+    showIndicator(false);
 }
 
 void MainWindow::on_SettingSaveClicked()
@@ -347,6 +360,7 @@ void MainWindow::on_DateTimeCancelClicked()
 
 void MainWindow::on_mainMenuHomeClicked()
 {
+    showIndicator(true);
     if (m_pMainMenuAdminAlignWidget)
     {
         delete m_pMainMenuAdminAlignWidget;
@@ -357,6 +371,12 @@ void MainWindow::on_mainMenuHomeClicked()
     {
         delete m_pMainMenuAdminAlignWidget;
         m_pMainMenuAdminAlignWidget = nullptr;
+    }
+
+    if (m_pCameraAlignWidget)
+    {
+        delete m_pCameraAlignWidget;
+        m_pCameraAlignWidget = nullptr;
     }
 
     initializeMainMenuWidget();

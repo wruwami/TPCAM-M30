@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 
+class CameraAlignWidget;
 class DateTimeWidget;
 class LoginWidget;
 class MainMenuWidget;
@@ -26,6 +27,7 @@ private:
     void finalize();
     void open_indicator_widget();
     void removeseconditem();
+    void showIndicator(bool);
 private slots:
     void on_cameraPushButton_clicked();
     void on_daynNightPushButton_clicked();
@@ -59,6 +61,7 @@ private:
     IndicatorDialog* m_pIndicatorWidget = nullptr;
     MainMenuContentWidget* m_pMainMenuContentWidget = nullptr;
     MainMenuAdminAlignWidget* m_pMainMenuAdminAlignWidget = nullptr;
+    CameraAlignWidget* m_pCameraAlignWidget = nullptr;
     QString m_userName;
 };
 

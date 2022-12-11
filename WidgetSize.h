@@ -76,5 +76,18 @@ static QRect GetWidgetSizePos(QRect rect, QPoint point)
     return WidgetSize::GetInstance()->GetWidgetSizePos(rect, point);
 }
 
+static int GetFontSize(int fontsize)
+{
+    return WidgetSize::GetInstance()->GetFontSize(fontsize);
+}
 
+static int getScreenWidth()
+{
+    return WidgetSize::GetInstance()->getScreenWidth();
+}
+
+static int getScreenHeight()
+{
+    return WidgetSize::GetInstance()->getScreenHeight();
+}
 #endif // WIDGETSIZE_H

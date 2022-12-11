@@ -21,19 +21,7 @@ IndicatorDialog::IndicatorDialog(QWidget *parent) :
     setAttribute(Qt::WA_TranslucentBackground);
     ui->setupUi(this);
 
-//    QFile file(":/style/indicatorWidget.qss");
-//    file.open(QFile::ReadOnly);
-//    QString styleSheet = QString::fromLatin1(file.readAll());
-
-//    setBackGroundColor(this, 0xfffffff0);
-//    this->setStyleSheet(styleSheet);
-//    setBackGroundColor(this, QColor(255, 255, 255, 128));
-//    ui->IndicatorWidget->setWindowOpacity(0.4);
-//    setWindowOpacity(0.5);
-//    setStyleSheet(styleSheet);
-
-
-
+    ui->cameraPushButton->setImage("indicator", "camera.jpg");
     ui->daynNightPushButton->setImage("indicator", "indicator_enable_night_mode_off.jpg", ui->daynNightPushButton->size());
     ui->weatherPushButton->setImage("indicator", "indicator_enable_weather_mode_on.jpg", ui->weatherPushButton->size());
     ui->enforcementPushButton->setImage("indicator", "indicator_mode_v.jpg");
@@ -41,7 +29,7 @@ IndicatorDialog::IndicatorDialog(QWidget *parent) :
     ui->comPushButton->setImage("indicator", "indicator_wifi_disconnected.jpg", ui->comPushButton->size());
     ui->gpsPushButton->setImage("indicator", "indicator_gps_off.jpg", ui->gpsPushButton->size());
 
-    ui->screenRecordingPushButton->setVisible(false);
+    ui->screenRecordingPushButton->setVisible(true);
     ui->onPushButton->setVisible(false);
     ui->offPushButton->setVisible(false);
 //    ui->pushButton->setVisible(false);
@@ -91,6 +79,12 @@ void IndicatorDialog::on_daynNightPushButton_clicked()
     m_pNight1PushButton = new CustomPushButton;
     m_pNight2PushButton = new CustomPushButton;
     m_pNight3PushButton = new CustomPushButton;
+    m_pDay1PushButton->setImage("indicator", "day1.jpg");
+    m_pDay2PushButton->setImage("indicator", "day2.jpg");
+    m_pDay3PushButton->setImage("indicator", "day3.jpg");
+    m_pNight1PushButton->setImage("indicator", "night1.jpg");
+    m_pNight2PushButton->setImage("indicator", "night2.jpg");
+    m_pNight3PushButton->setImage("indicator", "night3.jpg");
 
     ui->horizontalLayout2->removeItem(ui->horizontalLayout2->takeAt(0));
     ui->horizontalLayout2->removeItem(ui->horizontalLayout2->takeAt(1));
@@ -110,7 +104,7 @@ void IndicatorDialog::on_daynNightPushButton_clicked()
 void IndicatorDialog::on_gpsPushButton_clicked()
 {
 //    clearSecondRow();
-    BaseDialog baseDialog(Dialog::IndicatorGPSWidgetType);
+    BaseDialog baseDialog(Dialog::IndicatorGPSWidgetType, true);
     baseDialog.exec();
 
 }

@@ -3,11 +3,52 @@
 
 #include <QDebug>
 #include <QPainter>
+#include <QHeaderView>
 
 #include "CustomPushButton.h"
 #include "StringLoader.h"
 #include "BaseDialog.h"
 #include "FileManagerSnapShotDialog.h"
+#include "WidgetSize.h"
+//#include "comboheader.h"
+
+class MyHeader : public QHeaderView
+{
+public:
+  MyHeader(Qt::Orientation orientation, QWidget * parent = nullptr) : QHeaderView(orientation, parent)
+  {}
+
+protected:
+  void paintSection(QPainter *painter, const QRect &rect, int logicalIndex) const
+  {
+    painter->save();
+    QHeaderView::paintSection(painter, rect, logicalIndex);
+    painter->restore();
+    if (logicalIndex == 0)
+    {
+      QStyleOptionButton option;
+      option.rect = QRect(10,10,10,10);
+//      if (isOn)
+//        option.state = QStyle::State_On;
+//      else
+//        option.state = QStyle::State_Off;
+        this->style()->drawControl(QStyle::CE_ComboBoxLabel, &option, painter);
+//      this->style()->drawPrimitive(QStyle::PE_IndicatorCheckBox, &option, painter);
+    }
+
+  }
+  void mousePressEvent(QMouseEvent *event)
+  {
+//    if (isOn)
+//      isOn = false;
+//    else
+//      isOn = true;
+    this->update();
+    QHeaderView::mousePressEvent(event);
+  }
+private:
+  bool isOn;
+};
 
 FileManagerWidget::FileManagerWidget(QWidget *parent) :
     QWidget(parent),
@@ -31,12 +72,51 @@ FileManagerWidget::FileManagerWidget(QWidget *parent) :
     ui->connectPushButton->setText(LoadString("IDS_CONNECT"));
     ui->printPushButton->setText(LoadString("IDS_PRINT"));
 
-    ui->movePushButton->setText(LoadString("IDS_MOVE"));
+    ui->mainMenuPushButton->setText(LoadString("IDS_M"));
     ui->searchPushButton->setText(LoadString("IDS_SEARCH"));
     ui->zoomPushButton->setText(LoadString("IDS_ZOOM"));
     ui->deletePushButton->setText(LoadString("IDS_DELETE"));
     ui->sharePushButton->setText(LoadString("IDS_SHARE"));
     ui->movePushButton->setText(LoadString("IDS_MOVE"));
+
+    ui->frameLabel->setText(LoadString("IDS_STILL_IMAGE_AND_MOVIE_VIEWER"));
+
+////    QRect rect = ui->gridLayout_2->contentsRect();
+    int width = ((getScreenWidth() - 15) / 21 * 9);//ui->percentPushButton->width() + ui->connectPushButton->width() + ui->printPushButton->width();
+////    int width = ui->horizontalLayout->itemAt(0)->geometry().width();
+    ui->tableWidget->setColumnWidth(0, width * 105 / (230 + 105));
+    ui->tableWidget->setColumnWidth(1, width * 230 / (230 + 105));
+
+
+    QHeaderView *verticalHeader = ui->tableWidget->verticalHeader();
+    verticalHeader->setSectionResizeMode(QHeaderView::Stretch);
+////    int width = ui->tableWidget->width();//kui->gridLayout_2->itemAtPosition(1, 0)->geometry().width();
+
+////    verticalHeader->setSectionResizeMode(0, QHeaderView::Stretch);
+////    verticalHeader->setSectionResizeMode(1, QHeaderView::Stretch);
+////    verticalHeader->resizeSection(0, width /3);
+////    verticalHeader->resizeSection(1, width /3 * 2);
+//    verticalHeader->setDefaultSectionSize(24);
+
+//    QHeaderView *horizontalHeader = ui->tableWidget->horizontalHeader();
+////    horizontalHeader->setSectionResizeMode(QHeaderView::Stretch);
+//    horizontalHeader->setSectionResizeMode(0, QHeaderView::Fixed);
+//    horizontalHeader->setSectionResizeMode(1, QHeaderView::Fixed);
+//int width = horizontalHeader->defaultSectionSize();
+
+//    int width = ui->tableWidget->width();
+//    horizontalHeader->resizeSection(0, width * 105 / (230 + 105));
+//    horizontalHeader->resizeSection(1, width * 230 / (230 + 105));
+
+
+    //    MyHeader* header = new MyHeader(Qt::Horizontal, ui->tableWidget);
+
+//    ui->tableWidget->setHorizontalHeader(new ComboHeader);
+//    QStyle::CE_CheckBox
+//    header->setsty
+//    ui->tableWidget->setHorizontalHeader(header);
+//    ui->tableWidget->setGeometry(ui->gridLayout_2->itemAtPosition(1, 1)->geometry());
+//    ui->tableWidget->setColumnWidth(0, ui->gridLayout_2->itemAtPosition(1, 1)->geometry().width());
 //    ui->tableWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 }
 
@@ -52,7 +132,7 @@ void FileManagerWidget::resizeEvent(QResizeEvent *event)
 
 void FileManagerWidget::paintEvent(QPaintEvent *event)
 {
-    QWidget::paintEvent(event);
+//    QWidget::paintEvent(event);
     QPainter painter(this);
     QStyleOptionFrame  option;
     option.initFrom(this);
@@ -88,4 +168,41 @@ void FileManagerWidget::on_tableWidget_clicked(const QModelIndex &index)
 {
     FileManagerSnapShotDialog fileManagerSnapShotDialog;
     fileManagerSnapShotDialog.exec();
+}
+
+void FileManagerWidget::on_searchPushButton_clicked()
+{
+
+}
+
+void FileManagerWidget::on_zoomPushButton_clicked()
+{
+
+}
+
+void FileManagerWidget::on_sharePushButton_clicked()
+{
+
+}
+
+void FileManagerWidget::on_movePushButton_clicked()
+{
+    BaseDialog baseDialog(FileManagerFileTransferWidgetType);
+    baseDialog.exec();
+}
+
+void FileManagerWidget::on_printPushButton_clicked()
+{
+    BaseDialog baseDialog(FileManagerErrorMessageWidgetType);
+    baseDialog.exec();
+}
+
+void FileManagerWidget::on_connectPushButton_clicked()
+{
+
+}
+
+void FileManagerWidget::on_percentPushButton_clicked()
+{
+
 }

@@ -14,6 +14,13 @@
 
 //#include "comboheader.h"
 
+enum Mode
+{
+    I_MODE,
+    A_MODE,
+    V_MODE,
+};
+
 class MyHeader : public QHeaderView
 {
 public:
@@ -208,4 +215,26 @@ void FileManagerWidget::on_connectPushButton_clicked()
 void FileManagerWidget::on_percentPushButton_clicked()
 {
 
+}
+
+void FileManagerWidget::on_ImageVideoComboBox_currentIndexChanged(int index)
+{
+    switch (index)
+    {
+    case 0: // I
+    {
+        m_nMode = Mode::I_MODE;
+    }
+        break;
+    case 1: // A
+    {
+        m_nMode = Mode::A_MODE;
+    }
+        break;
+    case 2: // V
+    {
+        m_nMode = Mode::V_MODE;
+    }
+        break;
+    }
 }

@@ -19,7 +19,7 @@ public:
 //    QWidget* m_pHomePushButton;
 private:
     Ui::FileManagerWidget *ui;
-
+    int m_nMode;
     // QWidget interface
 protected:
     void resizeEvent(QResizeEvent *event);
@@ -34,6 +34,7 @@ private slots:
     void on_printPushButton_clicked();
     void on_connectPushButton_clicked();
     void on_percentPushButton_clicked();
+    void on_ImageVideoComboBox_currentIndexChanged(int index);
 };
 
 #endif // FILEMANAGERWIDGET_H

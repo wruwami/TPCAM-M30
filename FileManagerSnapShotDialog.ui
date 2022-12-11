@@ -15,7 +15,7 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_2">
    <item>
-    <layout class="QVBoxLayout" name="verticalLayout">
+    <layout class="QVBoxLayout" name="verticalLayout" stretch="65,282">
      <item>
       <layout class="QHBoxLayout" name="horizontalLayout" stretch="69,488,95">
        <item>
@@ -44,20 +44,10 @@
      <item>
       <layout class="QHBoxLayout" name="horizontalLayout_2">
        <item>
-        <widget class="QScrollArea" name="scrollArea">
-         <property name="widgetResizable">
-          <bool>true</bool>
+        <widget class="CustomList" name="listWidget">
+         <property name="lineWidth">
+          <number>0</number>
          </property>
-         <widget class="QWidget" name="scrollAreaWidgetContents">
-          <property name="geometry">
-           <rect>
-            <x>0</x>
-            <y>0</y>
-            <width>372</width>
-            <height>239</height>
-           </rect>
-          </property>
-         </widget>
         </widget>
        </item>
       </layout>
@@ -68,14 +58,19 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>CustomLabel</class>
-   <extends>QLabel</extends>
-   <header>CustomLabel.h</header>
-  </customwidget>
-  <customwidget>
    <class>CustomPushButton</class>
    <extends>QPushButton</extends>
    <header>CustomPushButton.h</header>
+  </customwidget>
+  <customwidget>
+   <class>CustomLabel</class>
+   <extends>QLabel</extends>
+   <header location="global">CustomLabel.h</header>
+  </customwidget>
+  <customwidget>
+   <class>CustomList</class>
+   <extends>QListWidget</extends>
+   <header>CustomList.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

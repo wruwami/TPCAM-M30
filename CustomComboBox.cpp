@@ -3,6 +3,7 @@
 #include <QStyledItemDelegate>
 #include <QProxyStyle>
 #include <QResizeEvent>
+#include <QLineEdit>
 
 #include "FontSize.h"
 
@@ -41,8 +42,12 @@ public:
 CustomComboBox::CustomComboBox(QWidget *parent) : QComboBox(parent)
 {
     this->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    setEditable(true);
+    lineEdit()->setDisabled(true);
+    lineEdit()->setAlignment(Qt::AlignVCenter);
+    lineEdit()->setReadOnly(true);
     setStyle(new AlignComboBoxProxy);
-    setItemDelegate(new AlignDelegate(Qt::AlignLeft, this));
+    setItemDelegate(new AlignDelegate(Qt::AlignVCenter, this));
     setStyleSheet(QString("QComboBox QListView {text-align:center;}\
                    QListView::item {height: %0px;}").arg(height()));
 }

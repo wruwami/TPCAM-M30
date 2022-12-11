@@ -14,7 +14,8 @@ class FileManagerSnapShotDialog : public QDialog
 public:
     explicit FileManagerSnapShotDialog(QWidget *parent = 0);
     ~FileManagerSnapShotDialog();
-
+private:
+    void addListItem(QString str);
 private slots:
     void on_backPushButton_clicked();
 

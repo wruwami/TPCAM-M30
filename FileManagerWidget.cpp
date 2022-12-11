@@ -187,7 +187,24 @@ void FileManagerWidget::on_searchPushButton_clicked()
 
 void FileManagerWidget::on_zoomPushButton_clicked()
 {
+    switch (m_nMode)
+    {
+    case Mode::I_MODE: // I
+    {
 
+    }
+        break;
+    case Mode::A_MODE: // A
+    {
+
+    }
+        break;
+    case Mode::V_MODE: // V
+    {
+
+    }
+        break;
+    }
 }
 
 void FileManagerWidget::on_sharePushButton_clicked()
@@ -224,16 +241,19 @@ void FileManagerWidget::on_ImageVideoComboBox_currentIndexChanged(int index)
     case 0: // I
     {
         m_nMode = Mode::I_MODE;
+        ui->zoomPushButton->setText(LoadString("IDS_ZOOM"));
     }
         break;
     case 1: // A
     {
         m_nMode = Mode::A_MODE;
+        ui->zoomPushButton->setText(LoadString("IDS_ZOOM"));
     }
         break;
     case 2: // V
     {
         m_nMode = Mode::V_MODE;
+        ui->zoomPushButton->setText(LoadString("IDS_ZOOM"));
     }
         break;
     }

@@ -19,8 +19,10 @@ SOURCES += main.cpp\
     MainWindow.cpp \
     LoginWidget.cpp \
     MainMenuWidget.cpp \
+    MovieViewerDialog.cpp \
     SelfTestDialog.cpp \
     Setting4APWidget.cpp \
+    StillImageViewerDialog.cpp \
     StringLoader.cpp \
     DateTimeWidget.cpp \
     MainMenuContentWidget.cpp \
@@ -40,8 +42,6 @@ SOURCES += main.cpp\
     EnforcementWidget.cpp \
     EnforcementComponentWidget.cpp \
     FileManagerWidget.cpp \
-    StillImageViewerWidget.cpp \
-    MovieViewerWidget.cpp \
     MainMenuAdminAlignWidget.cpp \
     DeviceIDWidget.cpp \
     CameraAlignWidget.cpp \
@@ -82,8 +82,10 @@ HEADERS  += MainWindow.h \
     IndicatorDialog.h \
     LoginWidget.h \
     MainMenuWidget.h \
+    MovieViewerDialog.h \
     SelfTestDialog.h \
     Setting4APWidget.h \
+    StillImageViewerDialog.h \
     StringLoader.h \
     Color.h \
     DateTimeWidget.h \
@@ -104,8 +106,6 @@ HEADERS  += MainWindow.h \
     EnforcementWidget.h \
     EnforcementComponentWidget.h \
     FileManagerWidget.h \
-    StillImageViewerWidget.h \
-    MovieViewerWidget.h \
     MainMenuAdminAlignWidget.h \
     DeviceIDWidget.h \
     CameraAlignWidget.h \
@@ -147,6 +147,7 @@ FORMS    += MainWindow.ui \
     MainMenuWidget.ui \
     DateTimeWidget.ui \
     MainMenuContentWidget.ui \
+    MovieViewerDialog.ui \
     SelfTestDialog.ui \
     Setting4APWidget.ui \
     SettingWidget.ui \
@@ -160,8 +161,6 @@ FORMS    += MainWindow.ui \
     EnforcementWidget.ui \
     EnforcementComponentWidget.ui \
     FileManagerWidget.ui \
-    StillImageViewerWidget.ui \
-    MovieViewerWidget.ui \
     MainMenuAdminAlignWidget.ui \
     DeviceIDWidget.ui \
     CameraAlignWidget.ui \
@@ -172,6 +171,7 @@ FORMS    += MainWindow.ui \
     SelfTestWarningMessageWidget.ui \
     IndicatorGPSWidget.ui \
     LocationWidget.ui \
+    StillImageViewerDialog.ui \
     SystemInfoWidget.ui \
     FactoryDefaultWidget.ui \
     AdminPWWidget.ui \

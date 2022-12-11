@@ -17,21 +17,21 @@
    <item row="0" column="0">
     <layout class="QGridLayout" name="gridLayout">
      <item row="0" column="0">
-      <widget class="QLabel" name="remaiTimeLabel">
+      <widget class="CustomLabel" name="remaiTimeLabel">
        <property name="text">
         <string>TextLabel</string>
        </property>
       </widget>
      </item>
      <item row="0" column="1">
-      <widget class="QLabel" name="fileCountLabel">
+      <widget class="CustomLabel" name="fileCountLabel">
        <property name="text">
         <string>TextLabel</string>
        </property>
       </widget>
      </item>
      <item row="0" column="2">
-      <widget class="QLabel" name="speedLabel">
+      <widget class="CustomLabel" name="speedLabel">
        <property name="text">
         <string>TextLabel</string>
        </property>
@@ -52,7 +52,7 @@
       </widget>
      </item>
      <item row="3" column="0" colspan="3">
-      <widget class="QLabel" name="fileNameLabel">
+      <widget class="CustomLabel" name="fileNameLabel">
        <property name="text">
         <string>TextLabel</string>
        </property>
@@ -62,6 +62,13 @@
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>CustomLabel</class>
+   <extends>QLabel</extends>
+   <header location="global">CustomLabel.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

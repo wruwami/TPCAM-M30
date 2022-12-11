@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>StillImageViewerWidget</class>
- <widget class="QWidget" name="StillImageViewerWidget">
+ <class>StillImageViewerDialog</class>
+ <widget class="QWidget" name="StillImageViewerDialog">
   <property name="geometry">
    <rect>
     <x>0</x>

@@ -36,6 +36,6 @@ Setting1Widget::~Setting1Widget()
 
 void Setting1Widget::on_locationPushButton_clicked()
 {
-    BaseDialog baseDialog(Setting1LocationWidgetType, true);
+    BaseDialog baseDialog(Setting1LocationWidgetType, "", true);
     baseDialog.exec();
 }

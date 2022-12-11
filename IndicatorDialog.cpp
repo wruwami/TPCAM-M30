@@ -104,7 +104,7 @@ void IndicatorDialog::on_daynNightPushButton_clicked()
 void IndicatorDialog::on_gpsPushButton_clicked()
 {
 //    clearSecondRow();
-    BaseDialog baseDialog(Dialog::IndicatorGPSWidgetType, true);
+    BaseDialog baseDialog(Dialog::IndicatorGPSWidgetType, "", true);
     baseDialog.exec();
 
 }

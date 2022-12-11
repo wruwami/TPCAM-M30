@@ -12,11 +12,17 @@ class AdminPWWidget : public QWidget
     Q_OBJECT
 
 public:
-    explicit AdminPWWidget(QWidget *parent = 0);
+    explicit AdminPWWidget(QString meg = "", QWidget *parent = 0);
     ~AdminPWWidget();
+
+private slots:
+    void on_okPushButton_clicked();
+
+    void on_cancelPushButton_clicked();
 
 private:
     Ui::AdminPWWidget *ui;
+    QDialog* m_pParent;
 };
 
 #endif // ADMINPWWIDGET_H

@@ -32,7 +32,7 @@ class BaseDialog : public QDialog
     Q_OBJECT
 
 public:
-    explicit BaseDialog(Dialog, bool = false, QWidget *parent = 0);
+    explicit BaseDialog(Dialog, QString = "", bool = false, QWidget *parent = 0);
     ~BaseDialog();
 private:
     void setSize(QSize size);

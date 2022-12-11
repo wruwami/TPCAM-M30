@@ -17,21 +17,21 @@
    <item>
     <layout class="QGridLayout" name="gridLayout">
      <item row="2" column="0">
-      <widget class="QPushButton" name="pushButton">
+      <widget class="CustomPushButton" name="pushButton">
        <property name="text">
         <string>PushButton</string>
        </property>
       </widget>
      </item>
      <item row="0" column="0">
-      <widget class="QLabel" name="printError1Label">
+      <widget class="CustomLabel" name="printError1Label">
        <property name="text">
         <string>TextLabel</string>
        </property>
       </widget>
      </item>
      <item row="1" column="0">
-      <widget class="QLabel" name="printError2Label">
+      <widget class="CustomLabel" name="printError2Label">
        <property name="text">
         <string>TextLabel</string>
        </property>
@@ -41,6 +41,18 @@
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>CustomPushButton</class>
+   <extends>QPushButton</extends>
+   <header>CustomPushButton.h</header>
+  </customwidget>
+  <customwidget>
+   <class>CustomLabel</class>
+   <extends>QLabel</extends>
+   <header location="global">CustomLabel.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

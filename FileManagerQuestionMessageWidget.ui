@@ -15,23 +15,23 @@
   </property>
   <layout class="QGridLayout" name="gridLayout_2">
    <item row="0" column="0">
-    <layout class="QGridLayout" name="gridLayout">
+    <layout class="QGridLayout" name="gridLayout" rowstretch="3,2">
      <item row="1" column="0">
-      <widget class="QPushButton" name="okPushButton">
+      <widget class="CustomPushButton" name="okPushButton">
        <property name="text">
         <string>PushButton</string>
        </property>
       </widget>
      </item>
      <item row="1" column="1">
-      <widget class="QPushButton" name="cancelPushButton">
+      <widget class="CustomPushButton" name="cancelPushButton">
        <property name="text">
         <string>PushButton</string>
        </property>
       </widget>
      </item>
      <item row="0" column="0" colspan="2">
-      <widget class="QLabel" name="questionLabel">
+      <widget class="CustomLabel" name="questionLabel">
        <property name="text">
         <string>TextLabel</string>
        </property>
@@ -41,6 +41,18 @@
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>CustomPushButton</class>
+   <extends>QPushButton</extends>
+   <header>CustomPushButton.h</header>
+  </customwidget>
+  <customwidget>
+   <class>CustomLabel</class>
+   <extends>QLabel</extends>
+   <header location="global">CustomLabel.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

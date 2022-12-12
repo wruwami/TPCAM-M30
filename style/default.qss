@@ -10,6 +10,9 @@ QPushButton:pressed {
     border-color: red;
 }
 
+QPushButton:disabled {
+    border-color:#7030a0;
+}
 
 QLabel {
     background-color: transparent;
@@ -25,10 +28,18 @@ QComboBox {
     color : black;
 }
 
+QComboBox:disabled {
+    border-color:#7030a0;
+}
+
 QLineEdit {
     background-color: white;
     border-width: 1px;
-    border-color: blue;
+    border-color: black;
     border-style: solid;
     color : black;
+}
+
+QLineEdit:disabled {
+    border-color:#7030a0;
 }

@@ -1,17 +1,3 @@
-QComboBox
-{
-    text-align:center;
-    color: white;
-    background: #25759B;
-    border:none;
-}
-QComboBox QListView
-{
-    text-align:center;
-    color: white;
-    background: #25759B;
-    selection-background-color: #52A9C1;
-}
 QComboBox::drop-down
 {
     width : 35px;
@@ -21,9 +7,4 @@ QComboBox::down-arrow {
     image: url(images/Main_menu/combobox_drop_down_arrow.jpg);
     width: 30px;
     height: 30px;
-}
-
-QListView::item
-{
-    //height: %0px;
 }

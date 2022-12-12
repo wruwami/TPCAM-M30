@@ -21,7 +21,7 @@ KeypadDialog::KeypadDialog(QWidget *parent) :
 
     QFile file;
     file.setFileName(":/keyboard/keypad.json");    // Using it from the resource file.
-    Keyboard *k = new Keyboard(file, InputMode::keyboard, this);
+    Keyboard *k = new Keyboard(file, InputMode::Keypad, this);
     ui->verticalLayout->addWidget(k);
 
     ui->verticalLayout->setStretch(0, 1);
@@ -64,6 +64,7 @@ QString KeypadDialog::str() const
 
 void KeypadDialog::on_okPushButton_clicked()
 {
+    m_str = ui->lineEdit->text();
     ui->lineEdit->clear();
     QDialog::accept();
 }

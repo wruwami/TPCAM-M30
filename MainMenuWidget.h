@@ -3,6 +3,7 @@
 
 #include <QWidget>
 
+class QSpacerItem;
 class CustomLabel;
 class CustomPushButton;
 class HomeButtonWidget;
@@ -28,6 +29,7 @@ private:
     Ui::MainMenuWidget *ui;
     CustomLabel* m_pHomeTitleLabel;
     HomeButtonWidget* m_pHomeButtonWidget;
+    QSpacerItem* m_pSpacerItem;
 public:
     CustomPushButton* m_pCameraPushbutton;
     CustomPushButton* m_pDaynNightPushbutton;

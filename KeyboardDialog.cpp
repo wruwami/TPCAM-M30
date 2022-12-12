@@ -76,6 +76,7 @@ const QString &KeyboardDialog::str() const
 
 void KeyboardDialog::on_okPushButton_clicked()
 {
+    m_str = ui->lineEdit->text();
     ui->lineEdit->clear();
     QDialog::accept();
 }

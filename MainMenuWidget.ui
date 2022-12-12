@@ -23,8 +23,7 @@
       <enum>QLayout::SetMinimumSize</enum>
      </property>
      <item>
-      <widget class="QStackedWidget" name="stackedWidget">
-      </widget>
+      <widget class="QStackedWidget" name="stackedWidget"/>
      </item>
      <item>
       <widget class="CustomPushButton" name="cameraPushButton">
@@ -108,14 +107,14 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>CustomLabel</class>
-   <extends>QLabel</extends>
-   <header>CustomLabel.h</header>
-  </customwidget>
-  <customwidget>
    <class>CustomPushButton</class>
    <extends>QPushButton</extends>
    <header>CustomPushButton.h</header>
+  </customwidget>
+  <customwidget>
+   <class>CustomLabel</class>
+   <extends>QLabel</extends>
+   <header>CustomLabel.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

@@ -3,6 +3,7 @@
 
 #include <QTime>
 #include <QFile>
+#include <QSpacerItem>
 
 #include "Color.h"
 #include "IndicatorDialog.h"
@@ -39,6 +40,7 @@ MainMenuWidget::MainMenuWidget(QWidget *parent) :
     m_pHomeButtonWidget = new HomeButtonWidget;
     ui->stackedWidget->addWidget(m_pHomeTitleLabel);
     ui->stackedWidget->addWidget(m_pHomeButtonWidget);
+    m_pSpacerItem = new QSpacerItem(m_pCameraPushbutton->width(), m_pCameraPushbutton->height(), QSizePolicy::Expanding, QSizePolicy::Expanding);
 
 //    m_pMainMenuTitlePushButton = m_pHomeButtonWidget->m_pHomePushButton;
     m_pHomePushButton = m_pHomeButtonWidget->m_pHomePushButton;
@@ -73,6 +75,9 @@ MainMenuWidget::MainMenuWidget(QWidget *parent) :
 
 MainMenuWidget::~MainMenuWidget()
 {
+    delete m_pSpacerItem;
+    delete m_pHomeTitleLabel;
+    delete m_pHomeButtonWidget;
     delete ui;
 }
 
@@ -80,6 +85,11 @@ void MainMenuWidget::showIndicator(bool isShow)
 {
     if (isShow)
     {
+//        for (int i = 1 ; i < 8 ; i++)
+        {
+            ui->horizontalLayout_2->removeItem(m_pSpacerItem);
+        }
+
         ui->cameraPushButton->show();
         ui->daynNightPushButton->show();
         ui->weatherPushButton->show();
@@ -87,10 +97,15 @@ void MainMenuWidget::showIndicator(bool isShow)
         ui->speedPushButton->show();
         ui->wifiPushButton->show();
         ui->gpsPushButton->show();
+
     }
     else
     {
-//        ui->horizontalLayout_2->insertItem(1, new QSPacer);
+        for (int i = 1 ; i < 8 ; i++)
+        {
+            ui->horizontalLayout_2->insertItem(i, m_pSpacerItem);
+        }
+
         ui->cameraPushButton->hide();
         ui->daynNightPushButton->hide();
         ui->weatherPushButton->hide();

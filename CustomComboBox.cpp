@@ -66,6 +66,10 @@ void CustomComboBox::resizeEvent(QResizeEvent *event)
         font.setPointSizeF(FontSize::Minimum);
     this->setFont(font); //설정된 폰트를 위젯에 적용
 
-    setStyleSheet(QString("QComboBox QListView {text-align:center;}\
+    QFile file(":/style/customComboBox.qss");
+    file.open(QFile::ReadOnly);
+    QString styleSheet = QString::fromLatin1(file.readAll());
+
+    setStyleSheet(QString(styleSheet + "QComboBox QListView {text-align:center;}\
 QListView::item {height: %0px;}").arg(event->size().height()));
 }

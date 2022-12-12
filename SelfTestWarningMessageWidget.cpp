@@ -10,7 +10,7 @@ SelfTestWarningMessageWidget::SelfTestWarningMessageWidget(QDialog *parent) :
     m_pParent = parent;
     ui->setupUi(this);
 
-    ui->label->setText(LoadString("IDS_WARNING_MESSAGE"));
+    ui->label->setText(LoadString("IDS_NOT_WORKING_NORMALLY"));
     ui->label_2->setText(LoadString("IDS_CONTINUE_QUESTION"));
 
     ui->cameraLabel->setText(LoadString("IDS_CAMERA"));

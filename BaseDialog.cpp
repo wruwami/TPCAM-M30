@@ -26,7 +26,7 @@
 
 #include "WidgetSize.h"
 
-BaseDialog::BaseDialog(Dialog dialog, QString msg, bool isCloseButton, QWidget *parent) :
+BaseDialog::BaseDialog(Dialog dialog, Qt::Alignment align, QString msg, bool isCloseButton, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::BaseDialog)
 {
@@ -46,12 +46,14 @@ BaseDialog::BaseDialog(Dialog dialog, QString msg, bool isCloseButton, QWidget *
         ui->closePushButton->hide();
     }
 
+
     switch (dialog)
     {
     case Dialog::SelfTestWarningMessageWidgetType:
     {
         ui->verticalLayout->addWidget(new SelfTestWarningMessageWidget(this));
         ui->titleLabel->setText(LoadString("IDS_WARNING_MESSAGE"));
+        ui->titleLabel->setAlignment(align);
         setSize(1216, 694);
     }
         break;
@@ -59,6 +61,7 @@ BaseDialog::BaseDialog(Dialog dialog, QString msg, bool isCloseButton, QWidget *
     {
         ui->verticalLayout->addWidget(new LoginExpiredDateWidget(this));
         ui->titleLabel->setText(LoadString("IDS_LOGIN_EXPIRED_DATE"));
+        ui->titleLabel->setAlignment(align);
         setSize(1146,604);
     }
     break;
@@ -66,6 +69,7 @@ BaseDialog::BaseDialog(Dialog dialog, QString msg, bool isCloseButton, QWidget *
     {
         ui->verticalLayout->addWidget(new IndicatorGPSWidget(this));
         ui->titleLabel->setText(LoadString("IDS_INDICATOR_GPS"));
+        ui->titleLabel->setAlignment(align);
         setSize(745, 635);
     }
         break;
@@ -73,6 +77,7 @@ BaseDialog::BaseDialog(Dialog dialog, QString msg, bool isCloseButton, QWidget *
     {
         ui->verticalLayout->addWidget(new LocationWidget(this));
         ui->titleLabel->setText(LoadString("IDS_LOCATION"));
+        ui->titleLabel->setAlignment(align);
         setSize(734, 635);
     }
         break;
@@ -80,6 +85,7 @@ BaseDialog::BaseDialog(Dialog dialog, QString msg, bool isCloseButton, QWidget *
     {
         ui->verticalLayout->addWidget(new SystemInfoWidget(this));
         ui->titleLabel->setText(LoadString("IDS_SYSTEM_INFO"));
+        ui->titleLabel->setAlignment(align);
         setSize(745, 635);
     }
         break;
@@ -87,6 +93,7 @@ BaseDialog::BaseDialog(Dialog dialog, QString msg, bool isCloseButton, QWidget *
     {
         ui->verticalLayout->addWidget(new FactoryDefaultWidget(this));
         ui->titleLabel->setText(LoadString("IDS_FACTORY_DEFAULT"));
+        ui->titleLabel->setAlignment(align);
         setSize(1139, 600);
     }
         break;
@@ -94,6 +101,7 @@ BaseDialog::BaseDialog(Dialog dialog, QString msg, bool isCloseButton, QWidget *
     {
         ui->verticalLayout->addWidget(new AdminPWWidget(msg, this));
         ui->titleLabel->setText(LoadString("IDS_ADMIN_PW"));
+        ui->titleLabel->setAlignment(align);
         setSize(1139, 600);
     }
         break;
@@ -101,6 +109,7 @@ BaseDialog::BaseDialog(Dialog dialog, QString msg, bool isCloseButton, QWidget *
     {
         ui->verticalLayout->addWidget(new PasswordChangingWidget(this));
         ui->titleLabel->setText(LoadString("IDS_PASSWORD_CHANGING"));
+        ui->titleLabel->setAlignment(align);
         setSize(1208, 655);
     }
         break;
@@ -108,6 +117,7 @@ BaseDialog::BaseDialog(Dialog dialog, QString msg, bool isCloseButton, QWidget *
     {
         ui->verticalLayout->addWidget(new NetworkPWWidget(this));
         ui->titleLabel->setText(LoadString("IDS_NETWORK_PW"));
+        ui->titleLabel->setAlignment(align);
         setSize(1139, 600);
     }
         break;
@@ -115,6 +125,7 @@ BaseDialog::BaseDialog(Dialog dialog, QString msg, bool isCloseButton, QWidget *
     {
         ui->verticalLayout->addWidget(new WifiSearchWidget(this));
         ui->titleLabel->setText(LoadString("IDS_WIFI_SEARCH"));
+        ui->titleLabel->setAlignment(align);
         setSize(1208, 635);
     }
         break;
@@ -122,6 +133,7 @@ BaseDialog::BaseDialog(Dialog dialog, QString msg, bool isCloseButton, QWidget *
     {
         ui->verticalLayout->addWidget(new BluetoothSearchFilterWidget(this));
         ui->titleLabel->setText(LoadString("IDS_BLUETOOTH_SEARCH_FILTER"));
+        ui->titleLabel->setAlignment(align);
         setSize(1208, 631);
     }
         break;
@@ -129,6 +141,7 @@ BaseDialog::BaseDialog(Dialog dialog, QString msg, bool isCloseButton, QWidget *
     {
         ui->verticalLayout->addWidget(new EnforcementWarningMessageWidget(this));
         ui->titleLabel->setText(LoadString("IDS_ENFORCEMENT_WARNING_MESSAGE"));
+        ui->titleLabel->setAlignment(align);
         setSize(1216, 694);
     }
         break;
@@ -136,6 +149,7 @@ BaseDialog::BaseDialog(Dialog dialog, QString msg, bool isCloseButton, QWidget *
     {
         ui->verticalLayout->addWidget(new FileManagerErrorMessageWidget(this));
         ui->titleLabel->setText(LoadString("IDS_FILEMANAGER_ERROR_MESSAGE"));
+        ui->titleLabel->setAlignment(align);
         setSize(1208, 514);
     }
         break;
@@ -143,6 +157,7 @@ BaseDialog::BaseDialog(Dialog dialog, QString msg, bool isCloseButton, QWidget *
     {
         ui->verticalLayout->addWidget(new FileManagerQuestionMessageWidget(this));
         ui->titleLabel->setText(LoadString("IDS_FILEMANAGER_QUESTION_MESSAGE"));
+        ui->titleLabel->setAlignment(align);
         setSize(1208, 689);
     }
         break;
@@ -150,6 +165,7 @@ BaseDialog::BaseDialog(Dialog dialog, QString msg, bool isCloseButton, QWidget *
     {
         ui->verticalLayout->addWidget(new FileManagerFileTransferWidget(this));
         ui->titleLabel->setText(LoadString("IDS_FILEMANAGER_FILE_TRANSFER"));
+        ui->titleLabel->setAlignment(align);
         setSize(1208, 702);
     }
         break;

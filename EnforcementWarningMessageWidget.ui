@@ -17,35 +17,35 @@
    <item row="0" column="0">
     <layout class="QGridLayout" name="gridLayout">
      <item row="1" column="0" colspan="2">
-      <widget class="QLabel" name="warning2Label">
+      <widget class="CustomLabel" name="warning2Label">
        <property name="text">
         <string>TextLabel</string>
        </property>
       </widget>
      </item>
      <item row="0" column="0" colspan="2">
-      <widget class="QLabel" name="warning1Label">
+      <widget class="CustomLabel" name="warning1Label">
        <property name="text">
         <string>TextLabel</string>
        </property>
       </widget>
      </item>
      <item row="2" column="0">
-      <widget class="QLabel" name="sdCardLabel">
+      <widget class="CustomLabel" name="sdCardLabel">
        <property name="text">
         <string>TextLabel</string>
        </property>
       </widget>
      </item>
      <item row="2" column="1">
-      <widget class="QLabel" name="sdCardValueLabel">
+      <widget class="CustomLabel" name="sdCardValueLabel">
        <property name="text">
         <string>TextLabel</string>
        </property>
       </widget>
      </item>
      <item row="3" column="0" colspan="2">
-      <widget class="QPushButton" name="pushButton">
+      <widget class="CustomPushButton" name="pushButton">
        <property name="text">
         <string>PushButton</string>
        </property>
@@ -55,6 +55,18 @@
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>CustomPushButton</class>
+   <extends>QPushButton</extends>
+   <header>CustomPushButton.h</header>
+  </customwidget>
+  <customwidget>
+   <class>CustomLabel</class>
+   <extends>QLabel</extends>
+   <header location="global">CustomLabel.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

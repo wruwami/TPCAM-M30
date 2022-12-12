@@ -169,8 +169,12 @@ void FileManagerWidget::paintEvent(QPaintEvent *event)
 
 void FileManagerWidget::on_deletePushButton_clicked()
 {
-    BaseDialog baseDialog(Dialog::FileManagerQuestionMessageWidgetType);
-    baseDialog.exec();
+    BaseDialog baseDialog(Dialog::FileManagerQuestionMessageWidgetType, Qt::AlignmentFlag::AlignCenter);
+    if (baseDialog.exec() == QDialog::Accepted)
+    {
+        BaseDialog baseDialog(Dialog::AdminPWWidgetType);
+        baseDialog.exec();
+    }
 }
 
 void FileManagerWidget::on_tableWidget_clicked(const QModelIndex &index)
@@ -214,13 +218,13 @@ void FileManagerWidget::on_sharePushButton_clicked()
 
 void FileManagerWidget::on_movePushButton_clicked()
 {
-    BaseDialog baseDialog(FileManagerFileTransferWidgetType);
+    BaseDialog baseDialog(FileManagerFileTransferWidgetType, Qt::AlignmentFlag::AlignCenter);
     baseDialog.exec();
 }
 
 void FileManagerWidget::on_printPushButton_clicked()
 {
-    BaseDialog baseDialog(FileManagerErrorMessageWidgetType);
+    BaseDialog baseDialog(FileManagerErrorMessageWidgetType, Qt::AlignmentFlag::AlignCenter);
     baseDialog.exec();
 }
 

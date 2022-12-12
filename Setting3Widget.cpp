@@ -51,6 +51,10 @@ void Setting3Widget::on_factoryDefaultPushButton_clicked()
 
 void Setting3Widget::on_adminPWPushButton_clicked()
 {
-    BaseDialog baseDialog(Dialog::AdminPWWidgetType, LoadString("IDS_PLEASE_INPUT_PW"));
-    baseDialog.exec();
+    BaseDialog baseDialog(Dialog::AdminPWWidgetType, Qt::AlignmentFlag::AlignLeft, LoadString("IDS_PLEASE_INPUT_PW"));
+    if (baseDialog.exec() == QDialog::Accepted)
+    {
+        BaseDialog baseDialog(Dialog::PasswordChangingWidgetType, Qt::AlignmentFlag::AlignCenter);
+        baseDialog.exec();
+    }
 }

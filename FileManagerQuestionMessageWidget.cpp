@@ -24,7 +24,7 @@ FileManagerQuestionMessageWidget::~FileManagerQuestionMessageWidget()
 
 void FileManagerQuestionMessageWidget::on_okPushButton_clicked()
 {
-    BaseDialog baseDialog(AdminPWWidgetType, "");
+    BaseDialog baseDialog(AdminPWWidgetType, Qt::AlignmentFlag::AlignLeft, "");
     if (baseDialog.exec() == QDialog::Accepted)
         m_pParent->accept();
 }

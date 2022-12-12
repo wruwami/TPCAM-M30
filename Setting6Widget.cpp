@@ -27,6 +27,6 @@ Setting6Widget::~Setting6Widget()
 
 void Setting6Widget::on_searchPushButton_clicked()
 {
-    BaseDialog baseDialog(Dialog::BluetoothSearchFilterWidgetType);
+    BaseDialog baseDialog(Dialog::BluetoothSearchFilterWidgetType, Qt::AlignmentFlag::AlignCenter);
     baseDialog.exec();
 }

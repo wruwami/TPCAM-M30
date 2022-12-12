@@ -45,7 +45,7 @@ SelfTestDialog::SelfTestDialog(QWidget *parent) :
     ui->versionLabel->setStyleSheet("QLabel { color : #ffc000; }");
 
     // test
-    BaseDialog baseDialog(SelfTestWarningMessageWidgetType);
+    BaseDialog baseDialog(SelfTestWarningMessageWidgetType, Qt::AlignmentFlag::AlignCenter);
     baseDialog.exec();
 
     startTimer(1000);

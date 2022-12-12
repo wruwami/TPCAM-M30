@@ -29,6 +29,6 @@ Setting4APWidget::~Setting4APWidget()
 
 void Setting4APWidget::on_pwPushButton_clicked()
 {
-    BaseDialog baseDialog(Dialog::NetworkPWWidgetType);
+    BaseDialog baseDialog(Dialog::NetworkPWWidgetType, Qt::AlignmentFlag::AlignCenter);
     baseDialog.exec();
 }

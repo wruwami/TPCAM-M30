@@ -116,6 +116,7 @@ void MainWindow::initializeMainMenuWidget()
 void MainWindow::initializeLoginWidget()
 {
     removeseconditem();
+    m_userName = "admin";
 
 //    if (m_pLoginWidget == nullptr)
         m_pLoginWidget = new LoginWidget;

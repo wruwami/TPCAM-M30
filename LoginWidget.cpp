@@ -37,6 +37,9 @@ LoginWidget::LoginWidget(QWidget *parent) :
     ui->userNameComboBox->addItem("admin");
     ui->userNameComboBox->addItem("admin-align");
 
+    ui->deviceIDLineEdit->setText("TP30001-00001");
+    ui->deviceIDLineEdit->setDisabled(true);
+
 //    m_userName = ui->userNameComboBox->it;
 }
 

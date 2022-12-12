@@ -11,7 +11,8 @@ QPushButton:pressed {
 }
 
 QPushButton:disabled {
-    border-color:#7030a0;
+    color:#7f7f7f;
+    border:1px solid #7030a0;
 }
 
 QLabel {
@@ -29,7 +30,8 @@ QComboBox {
 }
 
 QComboBox:disabled {
-    border-color:#7030a0;
+    color:#7f7f7f;
+    border:1px solid #7030a0;
 }
 
 QLineEdit {
@@ -41,5 +43,6 @@ QLineEdit {
 }
 
 QLineEdit:disabled {
-    border-color:#7030a0;
+    color:#7f7f7f;
+    border:1px solid #7030a0;
 }

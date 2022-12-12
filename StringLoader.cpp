@@ -62,7 +62,8 @@ m_file_name = dir_qstr.toStdString() + "\\" + file_name;
     std::string strLanguage;
     getline( inFile, strLanguage);
     QString qstrLanguage = QString::fromStdString(strLanguage);
-    QStringList m_LanguageList = qstrLanguage.split(",");
+    m_LanguageList = qstrLanguage.split(",");
+    m_LanguageList.removeFirst();
     int i = m_LanguageList.indexOf(input_language);
 
     while (!inFile.eof()) {

@@ -27,6 +27,11 @@
        </item>
        <item>
         <widget class="CustomPushButton" name="closePushButton">
+         <property name="styleSheet">
+          <string notr="true">QPushButton{
+	border:none;
+}</string>
+         </property>
          <property name="text">
           <string/>
          </property>
@@ -40,14 +45,14 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>CustomLabel</class>
-   <extends>QLabel</extends>
-   <header>CustomLabel.h</header>
-  </customwidget>
-  <customwidget>
    <class>CustomPushButton</class>
    <extends>QPushButton</extends>
    <header>CustomPushButton.h</header>
+  </customwidget>
+  <customwidget>
+   <class>CustomLabel</class>
+   <extends>QLabel</extends>
+   <header location="global">CustomLabel.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

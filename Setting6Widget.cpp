@@ -18,6 +18,8 @@ Setting6Widget::Setting6Widget(QWidget *parent) : QWidget(parent),
     ui->ftpComboBox->addItem(LoadString("IDS_DISABLE"));
     ui->ftpComboBox->addItem(LoadString("IDS_ENABLE_AUTO"));
     ui->ftpComboBox->addItem(LoadString("IDS_ENABLE_MANUAL"));
+
+    ui->languageComboBox->addItems(LoadLangaugeList());
 }
 
 Setting6Widget::~Setting6Widget()

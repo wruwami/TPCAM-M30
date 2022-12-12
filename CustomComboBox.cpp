@@ -48,8 +48,14 @@ CustomComboBox::CustomComboBox(QWidget *parent) : QComboBox(parent)
     lineEdit()->setReadOnly(true);
     setStyle(new AlignComboBoxProxy);
     setItemDelegate(new AlignDelegate(Qt::AlignVCenter, this));
-    setStyleSheet(QString("QComboBox QListView {text-align:center;}\
-                   QListView::item {height: %0px;}").arg(height()));
+//    setStyleSheet(QString("QComboBox::down-arrow { image: url(images/Main_menu/combobox_drop_down_arrow.jpg);}"));
+    QFile file(":/style/customComboBox.qss");
+    file.open(QFile::ReadOnly);
+    QString styleSheet = QString::fromLatin1(file.readAll());
+
+    setStyleSheet(styleSheet);
+
+
 }
 
 void CustomComboBox::resizeEvent(QResizeEvent *event)

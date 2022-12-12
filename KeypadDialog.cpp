@@ -28,6 +28,7 @@ KeypadDialog::KeypadDialog(QWidget *parent) :
     ui->verticalLayout->setStretch(1, 1);
     ui->verticalLayout->setStretch(2, 4);
 
+    ui->lineEdit->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 }
 
 KeypadDialog::~KeypadDialog()

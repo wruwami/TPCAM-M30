@@ -26,10 +26,10 @@ Setting3Widget::Setting3Widget(QWidget *parent) :
     ui->unitComboBox->addItem(LoadString("IDS_MPH_FT"));
     ui->unitComboBox->setCurrentIndex(0);
 
-    ui->unitComboBox->addItem(LoadString("IDS_YYYY_MM_DD"));
-    ui->unitComboBox->addItem(LoadString("IDS_MM_DD_YYYY"));
-    ui->unitComboBox->addItem(LoadString("IDS_DD_MM_YYYY"));
-    ui->unitComboBox->setCurrentIndex(0);
+    ui->dateFormatComboBox->addItem(LoadString("IDS_YYYY_MM_DD"));
+    ui->dateFormatComboBox->addItem(LoadString("IDS_MM_DD_YYYY"));
+    ui->dateFormatComboBox->addItem(LoadString("IDS_DD_MM_YYYY"));
+    ui->dateFormatComboBox->setCurrentIndex(0);
 }
 
 Setting3Widget::~Setting3Widget()
@@ -39,13 +39,13 @@ Setting3Widget::~Setting3Widget()
 
 void Setting3Widget::on_showInfoPushButton_clicked()
 {
-    BaseDialog baseDialog(Dialog::Setting3SystemInfoWidgetType);
+    BaseDialog baseDialog(Dialog::Setting3SystemInfoWidgetType,Qt::AlignmentFlag::AlignCenter, "", true);
     baseDialog.exec();
 }
 
 void Setting3Widget::on_factoryDefaultPushButton_clicked()
 {
-    BaseDialog baseDialog(Dialog::Setting3FactoryDefaultWidgetType);
+    BaseDialog baseDialog(Dialog::Setting3FactoryDefaultWidgetType, Qt::AlignmentFlag::AlignLeft, LoadString("IDS_ARE_U_SURE_FACTORY_DEFAILT"));
     baseDialog.exec();
 }
 

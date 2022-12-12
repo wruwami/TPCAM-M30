@@ -17,6 +17,10 @@ public:
 
 private:
     Ui::SystemInfoWidget *ui;
+    // QWidget interface
+protected:
+    void paintEvent(QPaintEvent *event);
+
 };
 
 #endif // SYSTEMINFOWIDGET_H

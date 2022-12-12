@@ -18,7 +18,7 @@ QComboBox::drop-down
     border: none; /* This seems to replace the whole arrow of the combo box */
 }
 QComboBox::down-arrow {
-    image: url(:/icon/icon/combobox_dropdown.png);
+    image: url(images/Main_menu/combobox_drop_down_arrow.jpg);
     width: 30px;
     height: 30px;
 }

@@ -20,7 +20,7 @@ QLabel {
 QComboBox {
     background-color: white;
     border-width: 1px;
-    border-color: blue;
+    border-color: black;
     border-style: solid;
     color : black;
 }

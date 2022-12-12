@@ -3,10 +3,16 @@
 #include "FontSize.h"
 
 #include "KeyboardDialog.h"
+#include "KeypadDialog.h"
 
 CustomLineEdit::CustomLineEdit(QWidget *parent) : QLineEdit(parent)
 {
     this->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+}
+
+void CustomLineEdit::SetMode(Mode nMode)
+{
+    m_nMode = nMode;
 }
 
 void CustomLineEdit::resizeEvent(QResizeEvent *event)
@@ -20,9 +26,28 @@ void CustomLineEdit::resizeEvent(QResizeEvent *event)
 
 void CustomLineEdit::mousePressEvent(QMouseEvent *event)
 {
-    KeyboardDialog keyboardDialog;
-    if (keyboardDialog.exec() == QDialog::Accepted)
+    switch (m_nMode)
     {
-        this->setText(keyboardDialog.str());
+    case KeyboardType:
+    {
+        KeyboardDialog keyboardDialog;
+        if (keyboardDialog.exec() == QDialog::Accepted)
+        {
+            this->setText(keyboardDialog.str());
+        }
     }
+        break;
+    case KeypadType:
+    {
+        KeypadDialog keypadDialog;
+        if (keypadDialog.exec() == QDialog::Accepted)
+        {
+            this->setText(keypadDialog.str());
+        }
+
+    }
+        break;
+
+    }
+
 }

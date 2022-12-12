@@ -22,18 +22,20 @@ IndicatorDialog::IndicatorDialog(QWidget *parent) :
     ui->setupUi(this);
 
     ui->cameraPushButton->setImage("indicator", "camera.jpg");
-    ui->daynNightPushButton->setImage("indicator", "indicator_enable_night_mode_off.jpg", ui->daynNightPushButton->size());
-    ui->weatherPushButton->setImage("indicator", "indicator_enable_weather_mode_on.jpg", ui->weatherPushButton->size());
+    ui->daynNightPushButton->setImage("indicator", "indicator_enable_night_mode_off.jpg");
+    ui->weatherPushButton->setImage("indicator", "indicator_enable_weather_mode_on.jpg");
     ui->enforcementPushButton->setImage("indicator", "indicator_mode_v.jpg");
-    ui->speedPushButton->setImage("indicator", "indicator_enable_user_mode_on.jpg", ui->speedPushButton->size());
-    ui->comPushButton->setImage("indicator", "indicator_wifi_disconnected.jpg", ui->comPushButton->size());
-    ui->gpsPushButton->setImage("indicator", "indicator_gps_off.jpg", ui->gpsPushButton->size());
+    ui->speedPushButton->setImage("indicator", "indicator_enable_user_mode_on.jpg");
+    ui->comPushButton->setImage("indicator", "indicator_wifi_disconnected.jpg");
+    ui->gpsPushButton->setImage("indicator", "indicator_gps_off.jpg");
+
+    ui->screenRecordingPushButton->setImage("indicator", "screen_recording.jpg");
+    ui->onPushButton->setImage("indicator", "screen_recording_on.jpg");
+    ui->offPushButton->setImage("indicator", "screen_recording_off.jpg");
 
     ui->screenRecordingPushButton->setVisible(true);
     ui->onPushButton->setVisible(false);
     ui->offPushButton->setVisible(false);
-//    ui->pushButton->setVisible(false);
-//    ui->pushButton->setStyleSheet("QPushButton {background-color:rgba(255,255,255,0);border:none;}");
 }
 
 IndicatorDialog::~IndicatorDialog()
@@ -115,6 +117,9 @@ void IndicatorDialog::on_comPushButton_clicked()
     m_pWifiPushButton = new CustomPushButton();
     m_pBTPushButton = new CustomPushButton();
     m_pEthernetPushButton = new CustomPushButton();
+    m_pWifiPushButton->setImage("indicator", "indicator_wifi_connected.jpg");
+    m_pBTPushButton->setImage("indicator", "BT.jpg");
+    m_pEthernetPushButton->setImage("indicator", "ethernet.png");
 
     ui->horizontalLayout2->removeItem(ui->horizontalLayout2->takeAt(6));
     ui->horizontalLayout2->removeItem(ui->horizontalLayout2->takeAt(5));
@@ -129,6 +134,8 @@ void IndicatorDialog::on_speedPushButton_clicked()
     clearSecondRow();
     m_pSTPushButton = new CustomPushButton();
     m_pLTPushButton = new CustomPushButton();
+    m_pSTPushButton->setImage("indicator", "indicator_enable_user_mode_on.jpg");
+    m_pLTPushButton->setImage("indicator", "indicator_enable_user_mode_off.jpg");
 
     ui->horizontalLayout2->setStretch(0, 3);
     ui->horizontalLayout2->removeItem(ui->horizontalLayout2->takeAt(3));
@@ -145,6 +152,9 @@ void IndicatorDialog::on_enforcementPushButton_clicked()
     m_pImagePushButton = new CustomPushButton();
     m_pVideoPushButton = new CustomPushButton();
     m_pImageVideoPushButton = new CustomPushButton();
+    m_pImagePushButton->setImage("indicator", "indicator_mode_i.jpg");
+    m_pVideoPushButton->setImage("indicator", "indicator_mode_v.jpg");
+    m_pImageVideoPushButton->setImage("indicator", "indicator_mode_a.jpg");
 
 //    ui->gridLayout->setColumnStretch(0, 3);
     ui->horizontalLayout2->removeItem(ui->horizontalLayout2->takeAt(2));
@@ -163,6 +173,8 @@ void IndicatorDialog::on_weatherPushButton_clicked()
     clearSecondRow();
     m_pSunnyPushButton = new CustomPushButton();
     m_pRainyPushButton = new CustomPushButton();
+    m_pSunnyPushButton->setImage("indicator", "indicator_enable_weather_mode_off.jpg");
+    m_pRainyPushButton->setImage("indicator", "indicator_enable_weather_mode_on.jpg");
 
     ui->horizontalLayout2->setStretch(0, 3);
     ui->horizontalLayout2->removeItem(ui->horizontalLayout2->takeAt(1));

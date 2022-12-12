@@ -11,5 +11,9 @@
         <file>keyboard/keypad.json</file>
         <file>style/customCheckBox.qss</file>
         <file>style/customComboBox.qss</file>
+        <file>keyboard/icons/backspace.png</file>
+        <file>keyboard/icons/caps.png</file>
+        <file>keyboard/icons/enter.png</file>
+        <file>keyboard/icons/lows.png</file>
     </qresource>
 </RCC>

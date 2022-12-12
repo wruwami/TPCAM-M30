@@ -51,6 +51,6 @@ void Setting3Widget::on_factoryDefaultPushButton_clicked()
 
 void Setting3Widget::on_adminPWPushButton_clicked()
 {
-    BaseDialog baseDialog(Dialog::AdminPWWidgetType);
+    BaseDialog baseDialog(Dialog::AdminPWWidgetType, LoadString("IDS_PLEASE_INPUT_PW"));
     baseDialog.exec();
 }

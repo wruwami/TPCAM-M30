@@ -12,7 +12,7 @@ class AdminPWWidget : public QWidget
     Q_OBJECT
 
 public:
-    explicit AdminPWWidget(QString meg = "", QWidget *parent = 0);
+    explicit AdminPWWidget(QString msg = "", QWidget *parent = 0);
     ~AdminPWWidget();
 
 private slots:

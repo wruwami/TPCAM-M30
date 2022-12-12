@@ -5,7 +5,7 @@
 
 #include <QDialog>
 
-AdminPWWidget::AdminPWWidget(QString meg, QWidget *parent) :
+AdminPWWidget::AdminPWWidget(QString msg, QWidget *parent) :
     QWidget(parent),
     ui(new Ui::AdminPWWidget)
 {
@@ -13,6 +13,10 @@ AdminPWWidget::AdminPWWidget(QString meg, QWidget *parent) :
 
     m_pParent = (QDialog*)parent;
 
+    if (!msg.isEmpty())
+    {
+        ui->label->setText(msg);
+    }
     ui->PWLabel->setText(LoadString("IDS_PW"));
 
     ui->okPushButton->setText(LoadString("IDS_OK"));

@@ -21,6 +21,11 @@ QLabel {
     color : black;
 }
 
+QLabel:disabled {
+    color:#7f7f7f;
+    border:1px solid #7030a0;
+}
+
 QComboBox {
     background-color: white;
     border-width: 1px;

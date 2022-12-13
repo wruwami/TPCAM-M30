@@ -75,7 +75,7 @@ MainMenuWidget::MainMenuWidget(QWidget *parent) :
 
 MainMenuWidget::~MainMenuWidget()
 {
-    delete m_pSpacerItem;
+//    delete m_pSpacerItem;
     delete m_pHomeTitleLabel;
     delete m_pHomeButtonWidget;
     delete ui;

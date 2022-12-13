@@ -35,16 +35,16 @@ private slots:
     void on_enforcementPushButton_clicked();
 
     void on_weatherPushButton_clicked();
-    void on_cameraExposeClicked();
-    void on_cameraFocusClicked();
+//    void on_cameraExposeClicked();
+//    void on_cameraFocusClicked();
 
     void on_pushButton_clicked();
-
-private:
-    Ui::IndicatorDialog *ui;
+public:
     CustomPushButton* m_pCameraFocusPushButton;
     CustomPushButton* m_pCameraExposePushButton;
 
+private:
+    Ui::IndicatorDialog *ui;
     CustomPushButton* m_pDay1PushButton;
     CustomPushButton* m_pDay2PushButton;
     CustomPushButton* m_pDay3PushButton;
@@ -62,9 +62,6 @@ private:
     CustomPushButton* m_pWifiPushButton;
     CustomPushButton* m_pBTPushButton;
     CustomPushButton* m_pEthernetPushButton;
-
-    IndicatorCameraExposeWidget* m_pIndicatorCameraExposeWidget = nullptr;
-    IndicatorCameraFocusWidget* m_pIndicatorCameraFocusWidget = nullptr;
 
     // QWidget interface
 protected:

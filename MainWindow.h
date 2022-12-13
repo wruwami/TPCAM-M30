@@ -3,6 +3,8 @@
 
 #include <QMainWindow>
 
+class IndicatorCameraExposeWidget;
+class IndicatorCameraFocusWidget;
 class CameraAlignWidget;
 class DateTimeWidget;
 class LoginWidget;
@@ -54,7 +56,8 @@ private slots:
     void on_mainMenuHomeClicked();
     void on_logo_clicked();
     void on_userNameChanged(QString arg);
-
+    void on_cameraExposeClicked();
+    void on_cameraFocusClicked();
 private:
     Ui::MainWindow *ui;
     DateTimeWidget* m_pDateTimeWidget = nullptr;
@@ -64,6 +67,9 @@ private:
     MainMenuContentWidget* m_pMainMenuContentWidget = nullptr;
     MainMenuAdminAlignWidget* m_pMainMenuAdminAlignWidget = nullptr;
     CameraAlignWidget* m_pCameraAlignWidget = nullptr;
+    IndicatorCameraExposeWidget* m_pIndicatorCameraExposeWidget = nullptr;
+    IndicatorCameraFocusWidget* m_pIndicatorCameraFocusWidget = nullptr;
+
     QString m_userName;
     int m_nFailTimerId;
 

@@ -2,12 +2,13 @@
 #define INDICATORCAMERAEXPOSEWIDGET_H
 
 #include <QWidget>
+#include <Qdialog>
 
 namespace Ui {
 class IndicatorCameraExposeWidget;
 }
 
-class IndicatorCameraExposeWidget : public QWidget
+class IndicatorCameraExposeWidget : public QDialog
 {
     Q_OBJECT
 
@@ -17,6 +18,11 @@ public:
 
 private:
     Ui::IndicatorCameraExposeWidget *ui;
+
+
+    // QWidget interface
+protected:
+    void mousePressEvent(QMouseEvent *event);
 };
 
 #endif // INDICATORCAMERAEXPOSEWIDGET_H

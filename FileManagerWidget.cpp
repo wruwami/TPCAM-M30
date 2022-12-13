@@ -11,52 +11,14 @@
 #include "FileManagerSnapShotDialog.h"
 #include "WidgetSize.h"
 #include "KeypadDialog.h"
-
-//#include "comboheader.h"
+#include "StillImageViewerDialog.h"
+#include "MovieViewerDialog.h"
 
 enum Mode
 {
     I_MODE,
     A_MODE,
     V_MODE,
-};
-
-class MyHeader : public QHeaderView
-{
-public:
-  MyHeader(Qt::Orientation orientation, QWidget * parent = nullptr) : QHeaderView(orientation, parent)
-  {}
-
-protected:
-  void paintSection(QPainter *painter, const QRect &rect, int logicalIndex) const
-  {
-    painter->save();
-    QHeaderView::paintSection(painter, rect, logicalIndex);
-    painter->restore();
-    if (logicalIndex == 0)
-    {
-      QStyleOptionButton option;
-      option.rect = QRect(10,10,10,10);
-//      if (isOn)
-//        option.state = QStyle::State_On;
-//      else
-//        option.state = QStyle::State_Off;
-        this->style()->drawControl(QStyle::CE_ComboBoxLabel, &option, painter);
-//      this->style()->drawPrimitive(QStyle::PE_IndicatorCheckBox, &option, painter);
-    }
-
-  }
-  void mousePressEvent(QMouseEvent *event)
-  {
-//    if (isOn)
-//      isOn = false;
-//    else
-//      isOn = true;
-    this->update();
-    QHeaderView::mousePressEvent(event);
-  }
-private:
-  bool isOn;
 };
 
 FileManagerWidget::FileManagerWidget(QWidget *parent) :
@@ -77,13 +39,14 @@ FileManagerWidget::FileManagerWidget(QWidget *parent) :
     ui->nextPushButton->setImage("file_manager", "file_management_next_seek_button.bmp");
     ui->lastPushButton->setImage("file_manager", "file_management_next_big_seek_button.bmp");
 
-//    ui->percentPushButton->setText(LoadString("IDS_"))
+    ui->percentPushButton->setDisabled(true);
+    ui->percentPushButton->setText("S:100%");
     ui->connectPushButton->setText(LoadString("IDS_CONNECT"));
     ui->printPushButton->setText(LoadString("IDS_PRINT"));
 
     ui->mainMenuPushButton->setText(LoadString("IDS_M"));
     ui->searchPushButton->setText(LoadString("IDS_SEARCH"));
-    ui->zoomPushButton->setText(LoadString("IDS_ZOOM"));
+    ui->zoomPlayPushButton->setText(LoadString("IDS_ZOOM"));
     ui->deletePushButton->setText(LoadString("IDS_DELETE"));
     ui->sharePushButton->setText(LoadString("IDS_SHARE"));
     ui->movePushButton->setText(LoadString("IDS_MOVE"));
@@ -189,26 +152,30 @@ void FileManagerWidget::on_searchPushButton_clicked()
     keyPadDialog.exec();
 }
 
-void FileManagerWidget::on_zoomPushButton_clicked()
+void FileManagerWidget::on_zoomPlayPushButton_clicked()
 {
     switch (m_nMode)
     {
     case Mode::I_MODE: // I
     {
-
+        StillImageViewerDialog stillImageViewDialog;
+        stillImageViewDialog.exec();
     }
         break;
     case Mode::A_MODE: // A
     {
-
+        MovieViewerDialog movieViewerDialog;
+        movieViewerDialog.exec();
     }
         break;
     case Mode::V_MODE: // V
     {
-
+        MovieViewerDialog movieViewerDialog;
+        movieViewerDialog.exec();
     }
         break;
     }
+
 }
 
 void FileManagerWidget::on_sharePushButton_clicked()
@@ -218,18 +185,18 @@ void FileManagerWidget::on_sharePushButton_clicked()
 
 void FileManagerWidget::on_movePushButton_clicked()
 {
-    BaseDialog baseDialog(FileManagerFileTransferWidgetType, Qt::AlignmentFlag::AlignCenter);
+    BaseDialog baseDialog(FileManagerFileTransferWidgetType, Qt::AlignmentFlag::AlignCenter, "", true);
     baseDialog.exec();
 }
 
 void FileManagerWidget::on_printPushButton_clicked()
 {
-    BaseDialog baseDialog(FileManagerErrorMessageWidgetType, Qt::AlignmentFlag::AlignCenter);
-    baseDialog.exec();
 }
 
 void FileManagerWidget::on_connectPushButton_clicked()
 {
+    BaseDialog baseDialog(FileManagerErrorMessageWidgetType, Qt::AlignmentFlag::AlignCenter);
+    baseDialog.exec();
 
 }
 
@@ -245,19 +212,19 @@ void FileManagerWidget::on_ImageVideoComboBox_currentIndexChanged(int index)
     case 0: // I
     {
         m_nMode = Mode::I_MODE;
-        ui->zoomPushButton->setText(LoadString("IDS_ZOOM"));
+        ui->zoomPlayPushButton->setText(LoadString("IDS_ZOOM"));
     }
         break;
     case 1: // A
     {
         m_nMode = Mode::A_MODE;
-        ui->zoomPushButton->setText(LoadString("IDS_ZOOM"));
+        ui->zoomPlayPushButton->setText(LoadString("IDS_PLAY"));
     }
         break;
     case 2: // V
     {
         m_nMode = Mode::V_MODE;
-        ui->zoomPushButton->setText(LoadString("IDS_ZOOM"));
+        ui->zoomPlayPushButton->setText(LoadString("IDS_PLAY"));
     }
         break;
     }

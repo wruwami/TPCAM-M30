@@ -15,6 +15,9 @@ public:
     explicit StillImageViewerDialog(QWidget *parent = 0);
     ~StillImageViewerDialog();
 
+private slots:
+    void on_quitPushButton_clicked();
+
 private:
     Ui::StillImageViewerDialog*ui;
 };

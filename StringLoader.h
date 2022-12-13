@@ -8,6 +8,7 @@
 #include <list>
 #include <string>
 
+namespace ResourceLoader{
 class StringLoader
 {
 private:
@@ -24,8 +25,8 @@ public:
 
     void Initialize(std::string path_name, std::string file_name, std::string language);
 
-    std::map<std::string, QString> LoadString();
-    QString LoadString(std::string index);
+    std::map<std::string, QString> GetString();
+    QString GetString(std::string index);
     QStringList LoadLanuageList();
 private:
     void AddInvalidString(std::string str);
@@ -35,15 +36,17 @@ private:
     std::map <std::string, QString> m_StringResource;
     QStringList  m_LanguageList;
 };
-
+}
 static QString LoadString(std::string index)
 {
-    return StringLoader::GetInstance()->LoadString(index);
+//    using namespace ResourceLoader;
+    return ResourceLoader::StringLoader::GetInstance()->GetString(index);
 }
 
 static QStringList LoadLangaugeList()
 {
-    return StringLoader::GetInstance()->LoadLanuageList();
+//    using namespace ResourceLoader;
+    return ResourceLoader::StringLoader::GetInstance()->LoadLanuageList();
 }
 
 #endif // STRINGLOADER_H

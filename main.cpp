@@ -17,7 +17,7 @@ int main(int argc, char *argv[])
     QString styleSheet = QString::fromLatin1(file.readAll());
 
     a.setStyleSheet(styleSheet);
-
+    using namespace ResourceLoader;
     StringLoader::GetInstance()->Initialize("strings", "stringTable.csv", "English");
 
 //    SelfTestDialog selfTestDialog;

@@ -15,6 +15,9 @@ public:
     explicit MovieViewerDialog(QWidget *parent = 0);
     ~MovieViewerDialog();
 
+private slots:
+    void on_quitPushButton_clicked();
+
 private:
     Ui::MovieViewerDialog*ui;
 };

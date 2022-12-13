@@ -8,7 +8,7 @@
 #include <QList>
 #include "qdir.h"
 
-
+using namespace ResourceLoader;
 StringLoader* StringLoader::instance = nullptr;
 
 void StringLoader::Initialize(std::string path_name, std::string file_name, std::string language)
@@ -78,12 +78,12 @@ m_file_name = dir_qstr.toStdString() + "\\" + file_name;
     inFile.close();
 }
 
-std::map<std::string, QString> StringLoader::LoadString()
+std::map<std::string, QString> StringLoader::GetString()
 {
     return m_StringResource;
 }
 
-QString StringLoader::LoadString(std::string index)
+QString StringLoader::GetString(std::string index)
 {
     if (m_StringResource.find(index) != m_StringResource.end())
     {

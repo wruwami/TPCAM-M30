@@ -15,7 +15,7 @@
   </property>
   <layout class="QGridLayout" name="gridLayout_2">
    <item row="0" column="0">
-    <layout class="QGridLayout" name="gridLayout">
+    <layout class="QGridLayout" name="gridLayout" columnstretch="3,3,1">
      <item row="1" column="0">
       <widget class="CustomLabel" name="FTPIDPWLabel">
        <property name="text">
@@ -37,10 +37,10 @@
        </property>
       </widget>
      </item>
-     <item row="4" column="3">
+     <item row="4" column="1">
       <widget class="CustomComboBox" name="printerComboBox"/>
      </item>
-     <item row="3" column="3">
+     <item row="3" column="1">
       <widget class="CustomLineEdit" name="subnetMaskLineEdit"/>
      </item>
      <item row="3" column="0">
@@ -57,27 +57,27 @@
        </property>
       </widget>
      </item>
-     <item row="1" column="4">
+     <item row="1" column="2">
       <widget class="CustomPushButton" name="pwPushButton">
        <property name="text">
         <string>PushButton</string>
        </property>
       </widget>
      </item>
-     <item row="1" column="3">
+     <item row="1" column="1">
       <widget class="CustomLineEdit" name="FTPIDPWLineEdit"/>
      </item>
-     <item row="2" column="3">
+     <item row="2" column="1">
       <widget class="CustomLineEdit" name="ipLineEdit"/>
      </item>
-     <item row="0" column="4">
+     <item row="0" column="2">
       <widget class="QPushButton" name="searchPushButton">
        <property name="text">
         <string>PushButton</string>
        </property>
       </widget>
      </item>
-     <item row="0" column="3">
+     <item row="0" column="1">
       <widget class="QComboBox" name="wifiSSIDComboBox"/>
      </item>
     </layout>
@@ -86,14 +86,14 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>CustomLabel</class>
-   <extends>QLabel</extends>
-   <header>CustomLabel.h</header>
-  </customwidget>
-  <customwidget>
    <class>CustomPushButton</class>
    <extends>QPushButton</extends>
    <header>CustomPushButton.h</header>
+  </customwidget>
+  <customwidget>
+   <class>CustomLabel</class>
+   <extends>QLabel</extends>
+   <header>CustomLabel.h</header>
   </customwidget>
   <customwidget>
    <class>CustomComboBox</class>

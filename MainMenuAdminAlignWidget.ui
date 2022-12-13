@@ -84,6 +84,15 @@
        </item>
        <item>
         <widget class="CustomPushButton" name="logoPushButton">
+         <property name="styleSheet">
+          <string notr="true">QPushButton {
+	border : none;
+}
+
+QPushButton::pressed {
+	border : 1px solid red;
+}</string>
+         </property>
          <property name="text">
           <string>PushButton</string>
          </property>

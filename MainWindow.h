@@ -28,6 +28,8 @@ private:
     void open_indicator_widget();
     void removeseconditem();
     void showIndicator(bool);
+    void setWarningMode();
+    void SetWindowWarningMode();
 private slots:
     void on_cameraPushButton_clicked();
     void on_daynNightPushButton_clicked();
@@ -63,6 +65,12 @@ private:
     MainMenuAdminAlignWidget* m_pMainMenuAdminAlignWidget = nullptr;
     CameraAlignWidget* m_pCameraAlignWidget = nullptr;
     QString m_userName;
+    int m_nFailTimerId;
+
+    // QObject interface
+protected:
+    void timerEvent(QTimerEvent *event);
+    void paintEvent(QPaintEvent *event);
 };
 
 #endif // MAINWINDOW_H

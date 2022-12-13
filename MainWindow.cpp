@@ -2,7 +2,9 @@
 #include "ui_MainWindow.h"
 
 #include <QVBoxLayout>
+#include <QPainter>
 
+#include "Color.h"
 #include "DateTimeWidget.h"
 #include "EnforcementWidget.h"
 #include "IndicatorDialog.h"
@@ -37,6 +39,8 @@ MainWindow::MainWindow(QWidget *parent) :
     QObject::connect((QWidget*)m_pLoginWidget->m_dateTimePushButton, SIGNAL(clicked()), this, SLOT(on_dateTimeWidgetClicked()));
     QObject::connect((QWidget*)m_pLoginWidget->m_pUserNameComboBox, SIGNAL(currentIndexChanged(QString)), this, SLOT(on_userNameChanged(QString)));
     QObject::connect((QWidget*)m_pMainMenuWidget->m_pHomePushButton, SIGNAL(clicked()), this, SLOT(on_mainMenuHomeClicked()));
+
+//    SetWarningMode();
 
 }
 
@@ -86,31 +90,6 @@ void MainWindow::initializeMainMenuWidget()
         QObject::connect((QWidget*)m_pMainMenuContentWidget->m_pLogoButton, SIGNAL(clicked()), this, SLOT(on_logo_clicked()));
 
     }
-//    delete ui->verticalLayout->itemAt(1)->widget();
-//    ui->verticalLayout->removeItem(ui->verticalLayout->itemAt(1));
-//    m_pMainMenuWidget->setMainMenuTitle(LoadString("IDS_MAIN_MENU"));
-
-////    delete m_pLoginWidget;
-////    m_pLoginWidget = nullptr;
-
-//    MainMenuWidget* mainMenuWidget = new MainMenuWidget;
-//    if (m_pMainMenuContentWidget == nullptr)
-//        m_pMainMenuContentWidget = new MainMenuContentWidget;
-//    ui->verticalLayout->addWidget(m_pMainMenuContentWidget, 835);
-
-//    QObject::connect((QWidget*)mainMenuWidget->m_pCameraPushbutton, SIGNAL(clicked()), this, SLOT(on_cameraPushButton_clicked()));
-//    QObject::connect((QWidget*)mainMenuWidget->m_pDaynNightPushbutton, SIGNAL(clicked()), this, SLOT(on_daynNightPushButton_clicked()));
-//    QObject::connect((QWidget*)mainMenuWidget->m_pWeatherPushbutton, SIGNAL(clicked()), this, SLOT(on_weatherPushButton_clicked()));
-//    QObject::connect((QWidget*)mainMenuWidget->m_pEnforcementPushbutton, SIGNAL(clicked()), this, SLOT(on_enforcementPushButton_clicked()));
-//    QObject::connect((QWidget*)mainMenuWidget->m_pSpeedPushbutton, SIGNAL(clicked()), this, SLOT(on_speedPushButton_clicked()));
-//    QObject::connect((QWidget*)mainMenuWidget->m_pWifiPushbutton, SIGNAL(clicked()), this, SLOT(on_wifiPushButton_clicked()));
-//    QObject::connect((QWidget*)mainMenuWidget->m_pGpsPushbutton, SIGNAL(clicked()), this, SLOT(on_gpsPushButton_clicked()));
-////    QObject::connect((QWidget*)mainMenuWidget->m_pMainMenuTitlePushButton, SIGNAL(clicked()), this, SLOT(on_mainMenuTitlePushButton_clicked()));
-
-//    QObject::connect((QWidget*)m_pMainMenuContentWidget->m_pEnforcementButton, SIGNAL(clicked()), this, SLOT(on_enforcementClicked()));
-//    QObject::connect((QWidget*)m_pMainMenuContentWidget->m_pFileManagertButton, SIGNAL(clicked()), this, SLOT(on_filemanagementClicked()));
-//    QObject::connect((QWidget*)m_pMainMenuContentWidget->m_pSettingButton, SIGNAL(clicked()), this, SLOT(on_settingClicked()));
-
 }
 
 void MainWindow::initializeLoginWidget()
@@ -171,6 +150,18 @@ void MainWindow::removeseconditem()
 void MainWindow::showIndicator(bool isShow)
 {
     m_pMainMenuWidget->showIndicator(isShow);
+}
+
+void MainWindow::setWarningMode()
+{
+    m_nFailTimerId = startTimer(1000);
+
+}
+
+void MainWindow::SetWindowWarningMode()
+{
+//    setBackGroundColor(ui->centralWidget, Qt::red);
+//    setWindowOpacity(0.5);
 }
 
 void MainWindow::on_cameraPushButton_clicked()
@@ -403,4 +394,17 @@ void MainWindow::on_logo_clicked()
 void MainWindow::on_userNameChanged(QString arg)
 {
     m_userName = arg;
+}
+
+void MainWindow::timerEvent(QTimerEvent *event)
+{
+    SetWindowWarningMode();
+}
+
+void MainWindow::paintEvent(QPaintEvent *event)
+{
+//    setAttribute(Qt::WA_NoSystemBackground);
+//    setAttribute(Qt::WA_TransparentForMouseEvents);
+//    QPainter painter(this);
+//    painter.fillRect(rect(), QBrush(QColor(255, 0, 0, 128)));
 }

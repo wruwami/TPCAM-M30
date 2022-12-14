@@ -20,8 +20,8 @@ int main(int argc, char *argv[])
     using namespace ResourceLoader;
     StringLoader::GetInstance()->Initialize("strings", "stringTable.csv", "English");
 
-//    SelfTestDialog selfTestDialog;
-//    selfTestDialog.exec();
+    SelfTestDialog selfTestDialog;
+    selfTestDialog.exec();
 
     MainWindow w;
 //    w.show();

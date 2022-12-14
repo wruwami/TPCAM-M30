@@ -17,6 +17,8 @@ WifiSearchWidget::WifiSearchWidget(QWidget *parent) :
     ui->applyPushButton->setText(LoadString("IDS_APPLY"));
     ui->yesPushButton->setText(LoadString("IDS_YES"));
     ui->noPushButton->setText(LoadString("IDS_NO"));
+
+    ui->lineEdit->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 }
 
 WifiSearchWidget::~WifiSearchWidget()

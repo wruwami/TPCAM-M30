@@ -25,7 +25,7 @@ Setting1Widget::Setting1Widget(QWidget *parent) :
     ui->speedModeComboBox->addItem(LoadString("IDS_LT"));
     ui->speedModeComboBox->addItem(LoadString("IDS_ST"));
 
-    ui->locationPushButton->setImage("setting1_1", "keyboard.bmp");
+    ui->locationPushButton->setImage("setting_1", "keyboard.bmp");
 
     ui->speedLimit1LineEdit->SetMode(KeypadType);
     ui->speedLimit2LineEdit->SetMode(KeypadType);

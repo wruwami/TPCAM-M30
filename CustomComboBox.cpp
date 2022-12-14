@@ -42,10 +42,10 @@ public:
 CustomComboBox::CustomComboBox(QWidget *parent) : QComboBox(parent)
 {
     this->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-    setEditable(true);
-    lineEdit()->setDisabled(true);
-    lineEdit()->setAlignment(Qt::AlignVCenter);
-    lineEdit()->setReadOnly(true);
+//    setEditable(true);
+//    lineEdit()->setDisabled(true);
+//    lineEdit()->setAlignment(Qt::AlignVCenter);
+//    lineEdit()->setReadOnly(true);
     setStyle(new AlignComboBoxProxy);
     setItemDelegate(new AlignDelegate(Qt::AlignVCenter, this));
 //    setStyleSheet(QString("QComboBox::down-arrow { image: url(images/Main_menu/combobox_drop_down_arrow.jpg);}"));

@@ -30,12 +30,13 @@ IndicatorDialog::IndicatorDialog(QWidget *parent) :
     ui->gpsPushButton->setImage("indicator", "indicator_gps_off.jpg");
 
     ui->screenRecordingPushButton->setImage("indicator", "screen_recording.jpg");
-    ui->onPushButton->setImage("indicator", "screen_recording_on.jpg");
-    ui->offPushButton->setImage("indicator", "screen_recording_off.jpg");
+//    ui->screenRecordingPushButton->setImage("indicator", "screen_recording.jpg");
+//    ui->onPushButton->setImage("indicator", "screen_recording_on.jpg");
+//    ui->offPushButton->setImage("indicator", "screen_recording_off.jpg");
 
     ui->screenRecordingPushButton->setVisible(true);
-    ui->onPushButton->setVisible(false);
-    ui->offPushButton->setVisible(false);
+//    ui->onPushButton->setVisible(false);
+//    ui->offPushButton->setVisible(false);
 
     m_pCameraExposePushButton = new CustomPushButton;
     m_pCameraFocusPushButton = new CustomPushButton;
@@ -70,8 +71,8 @@ void IndicatorDialog::on_cameraPushButton_clicked()
 
 void IndicatorDialog::on_screenRecordingPushButton_clicked()
 {
-    ui->onPushButton->setVisible(true);
-    ui->offPushButton->setVisible(true);
+//    ui->onPushButton->setVisible(true);
+//    ui->offPushButton->setVisible(true);
 }
 
 void IndicatorDialog::on_daynNightPushButton_clicked()

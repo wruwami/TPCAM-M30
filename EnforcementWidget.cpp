@@ -20,7 +20,7 @@ EnforcementWidget::EnforcementWidget(QWidget *parent) :
     layout->addWidget(new EnforcementComponentWidget);
     setLayout(layout);
 
-    QOpenGLWidget* pOpenGLWidget = new QOpenGLWidget(this);
+//    QOpenGLWidget* pOpenGLWidget = new QOpenGLWidget(this);
 ////    pOpenGLWidget->setGeometry(parent->geometry());
 //    pOpenGLWidget->showFullScreen();
 

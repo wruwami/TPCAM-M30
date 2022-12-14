@@ -13,6 +13,8 @@ Setting6Widget::Setting6Widget(QWidget *parent) : QWidget(parent),
     ui->bludtoothLabel->setText(LoadString("IDS_BLUETOOTH"));
     ui->ftpLabel->setText(LoadString("IDS_FTP"));
 
+    ui->searchPushButton->setText(LoadString("IDS_SEARCH"));
+
     ui->languageComboBox->addItems(LoadLangaugeList());
 
     ui->ftpComboBox->addItem(LoadString("IDS_DISABLE"));
@@ -20,6 +22,11 @@ Setting6Widget::Setting6Widget(QWidget *parent) : QWidget(parent),
     ui->ftpComboBox->addItem(LoadString("IDS_ENABLE_MANUAL"));
 
     ui->languageComboBox->addItems(LoadLangaugeList());
+
+    ui->ftpAddressLineEdit->setText("ftp://comlaser.xxxx.xxx");
+    ui->ftpPortLineEdit->setText(LoadString("IDS_PORT"));
+    ui->userNameLineEdit->setText(LoadString("IDS_USER_NAME"));
+    ui->userPassLineEdit->setText(LoadString("IDS_USER_PASS"));
 }
 
 Setting6Widget::~Setting6Widget()

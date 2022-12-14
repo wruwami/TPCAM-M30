@@ -17,6 +17,7 @@ KeypadDialog::KeypadDialog(QWidget *parent) :
     ui->okPushButton->setText(LoadString("IDS_OK"));
     ui->cancelPushButton->setText(LoadString("IDS_CANCEL"));
 
+    ui->deleteAllPushButton->setImage("Main_menu", "delete_all.bmp");
 //    setGeometry();
 
     QFile file;

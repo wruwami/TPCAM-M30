@@ -17,7 +17,7 @@ public:
 
 private:
     Ui::SelfTestDialog *ui;
-
+    int m_nSecond = 0;
 
     // QObject interface
 protected:

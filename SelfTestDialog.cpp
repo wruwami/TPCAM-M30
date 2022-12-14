@@ -45,8 +45,8 @@ SelfTestDialog::SelfTestDialog(QWidget *parent) :
     ui->versionLabel->setStyleSheet("QLabel { color : #ffc000; }");
 
     // test
-    BaseDialog baseDialog(SelfTestWarningMessageWidgetType, Qt::AlignmentFlag::AlignCenter);
-    baseDialog.exec();
+//    BaseDialog baseDialog(SelfTestWarningMessageWidgetType, Qt::AlignmentFlag::AlignCenter);
+//    baseDialog.exec();
 
     startTimer(1000);
 }
@@ -61,4 +61,14 @@ void SelfTestDialog::timerEvent(QTimerEvent *event)
 {
     ui->dateTimeLabel->setText(QDate::currentDate().toString("yyyy/MM/dd") + " " + QTime::currentTime().toString("hh:mm:ss"));
 //    ui->timeLabel->setText(QTime::currentTime().toString("hh:mm:ss"));
+    m_nSecond++;
+    if (m_nSecond == 3)
+        accept();
+    else if (m_nSecond == 2)
+    {
+        ui->cameraValueLabel->setText(LoadString("IDS_SELFTEST_SUCCESS"));
+        ui->laserValueLabel->setText(LoadString("IDS_SELFTEST_SUCCESS"));
+        ui->batteryValueLabel->setText(LoadString("IDS_SELFTEST_SUCCESS"));
+        ui->storageValueLabel->setText(LoadString("IDS_SELFTEST_SUCCESS"));
+    }
 }

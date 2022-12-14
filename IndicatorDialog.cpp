@@ -13,6 +13,8 @@
 #include "IndicatorCameraExposeWidget.h"
 #include "IndicatorCameraFocusWidget.h"
 
+#include <QGraphicsOpacityEffect>
+
 IndicatorDialog::IndicatorDialog(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::IndicatorDialog)

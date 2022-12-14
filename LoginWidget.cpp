@@ -70,7 +70,7 @@ void LoginWidget::on_lightPushButton_clicked()
 
 void LoginWidget::on_userNamePushButton_clicked()
 {
-    KeyboardDialog keyboardDialog;
+    KeyboardDialog keyboardDialog(ui->userNameComboBox->currentText());
     keyboardDialog.exec();
 }
 

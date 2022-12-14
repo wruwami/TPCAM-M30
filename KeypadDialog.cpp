@@ -75,3 +75,8 @@ void KeypadDialog::on_cancelPushButton_clicked()
     ui->lineEdit->clear();
     QDialog::reject();
 }
+
+void KeypadDialog::on_deleteAllPushButton_clicked()
+{
+    ui->lineEdit->clear();
+}

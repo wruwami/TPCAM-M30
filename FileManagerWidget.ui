@@ -74,7 +74,7 @@
         </layout>
        </item>
        <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_7">
+        <layout class="QHBoxLayout" name="horizontalLayout_7" stretch="1,1,1,1">
          <item>
           <widget class="CustomPushButton" name="firstPushButton">
            <property name="text">
@@ -106,7 +106,7 @@
         </layout>
        </item>
        <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_5">
+        <layout class="QHBoxLayout" name="horizontalLayout_5" stretch="1,1,1">
          <item>
           <widget class="CustomPushButton" name="percentPushButton">
            <property name="text">

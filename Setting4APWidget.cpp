@@ -21,6 +21,8 @@ Setting4APWidget::Setting4APWidget(QWidget *parent) :
     ui->printerComboBox->addItem(LoadString("IDS_THERMAL_WOOSIM"));
     ui->printerComboBox->addItem(LoadString("IDS_BT_HP"));
 
+    ui->pwPushButton->setText(LoadString("IDS_PW"));
+
     ui->macAddressLineEdit->setDisabled(true);
     ui->ipLineEdit->SetMode(Mode::KeypadType);
     ui->macAddressLineEdit->SetMode(Mode::KeyboardType);

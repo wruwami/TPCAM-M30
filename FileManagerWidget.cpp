@@ -34,10 +34,10 @@ FileManagerWidget::FileManagerWidget(QWidget *parent) :
     ui->dateImageLabel->setImage("file_manager", "file_management_folder_icon_small.bmp");
     ui->dateLabel->setText(LoadString("IDS_DATE"));
 
-    ui->firstPushButton->setImage("file_manager", "file_management_prev_big_seek_button.bmp");
-    ui->previousPushButton->setImage("file_manager", "file_management_prev_seek_button.bmp");
-    ui->nextPushButton->setImage("file_manager", "file_management_next_seek_button.bmp");
-    ui->lastPushButton->setImage("file_manager", "file_management_next_big_seek_button.bmp");
+    ui->firstPushButton->setImage("file_manager", "file_management_prev_big_seek_button.jpg");
+    ui->previousPushButton->setImage("file_manager", "file_management_prev_seek_button.jpg");
+    ui->nextPushButton->setImage("file_manager", "file_management_next_seek_button.jpg");
+    ui->lastPushButton->setImage("file_manager", "file_management_next_big_seek_button.jpg");
 
     ui->percentPushButton->setDisabled(true);
     ui->percentPushButton->setText("S:100%");
@@ -56,12 +56,12 @@ FileManagerWidget::FileManagerWidget(QWidget *parent) :
 ////    QRect rect = ui->gridLayout_2->contentsRect();
     int width = ((getScreenWidth() - 15) / 21 * 9);//ui->percentPushButton->width() + ui->connectPushButton->width() + ui->printPushButton->width();
 ////    int width = ui->horizontalLayout->itemAt(0)->geometry().width();
-    ui->tableWidget->setColumnWidth(0, width * 105 / (230 + 105));
-    ui->tableWidget->setColumnWidth(1, width * 230 / (230 + 105));
+//    ui->tableWidget->setColumnWidth(0, width * 105 / (230 + 105));
+//    ui->tableWidget->setColumnWidth(1, width * 230 / (230 + 105));
 
 
-    QHeaderView *verticalHeader = ui->tableWidget->verticalHeader();
-    verticalHeader->setSectionResizeMode(QHeaderView::Stretch);
+//    QHeaderView *verticalHeader = ui->tableWidget->verticalHeader();
+//    verticalHeader->setSectionResizeMode(QHeaderView::Stretch);
 ////    int width = ui->tableWidget->width();//kui->gridLayout_2->itemAtPosition(1, 0)->geometry().width();
 
 ////    verticalHeader->setSectionResizeMode(0, QHeaderView::Stretch);

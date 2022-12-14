@@ -83,7 +83,7 @@
         </spacer>
        </item>
        <item>
-        <widget class="CustomPushButton" name="logoPushButton">
+        <widget class="QPushButton" name="logoPushButton">
          <property name="styleSheet">
           <string notr="true">QPushButton {
 	border : none;
@@ -94,7 +94,7 @@ QPushButton::pressed {
 }</string>
          </property>
          <property name="text">
-          <string>PushButton</string>
+          <string/>
          </property>
         </widget>
        </item>

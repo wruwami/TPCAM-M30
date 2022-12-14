@@ -1,6 +1,8 @@
 #include "MainMenuContentWidget.h"
 #include "ui_MainMenuContentWidget.h"
 
+#include "qdir.h"
+
 #include "SettingWidget.h"
 #include "FileManagerWidget.h"
 #include "EnforcementWidget.h"
@@ -24,8 +26,13 @@ MainMenuContentWidget::MainMenuContentWidget(QWidget *parent) :
 
     m_pLogoButton = ui->logoPushButton;
 
-    ui->logoPushButton->setImage("Main_menu", "comlaser_logo.bmp");
-}
+//    ui->logoPushButton->setImage("Main_menu", "comlaser_logo.bmp");
+    QDir qdir;
+    QPixmap pixmap;
+    pixmap.load(qdir.absolutePath() + "/" + "images" + "/" + "Main_menu" + "/" + "comlaser_logo.bmp");
+    ui->logoPushButton->setIcon(QIcon(pixmap));
+    pixmap.rect().adjust(1, 1, -1, -1);
+    ui->logoPushButton->setIconSize(pixmap.size());}
 
 MainMenuContentWidget::~MainMenuContentWidget()
 {

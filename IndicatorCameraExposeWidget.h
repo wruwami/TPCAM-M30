@@ -2,7 +2,7 @@
 #define INDICATORCAMERAEXPOSEWIDGET_H
 
 #include <QWidget>
-#include <Qdialog>
+#include <QDialog>
 
 namespace Ui {
 class IndicatorCameraExposeWidget;

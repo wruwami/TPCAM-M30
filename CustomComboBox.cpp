@@ -35,7 +35,7 @@ public:
                       QPalette::ColorRole textRole) const
     {
 
-        QProxyStyle::drawItemText(painter, rect, Qt::AlignCenter, pal, enabled, text, textRole);
+        QProxyStyle::drawItemText(painter, rect, Qt::AlignLeft | Qt::AlignVCenter, pal, enabled, text, textRole);
     }
 };
 
@@ -47,7 +47,7 @@ CustomComboBox::CustomComboBox(QWidget *parent) : QComboBox(parent)
 //    lineEdit()->setAlignment(Qt::AlignVCenter);
 //    lineEdit()->setReadOnly(true);
     setStyle(new AlignComboBoxProxy);
-    setItemDelegate(new AlignDelegate(Qt::AlignVCenter, this));
+    setItemDelegate(new AlignDelegate(Qt::AlignLeft | Qt::AlignVCenter, this));
 //    setStyleSheet(QString("QComboBox::down-arrow { image: url(images/Main_menu/combobox_drop_down_arrow.jpg);}"));
     QFile file(":/style/customComboBox.qss");
     file.open(QFile::ReadOnly);

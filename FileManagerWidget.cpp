@@ -34,11 +34,12 @@ FileManagerWidget::FileManagerWidget(QWidget *parent) :
     ui->dateImageLabel->setImage("file_manager", "file_management_folder_icon_small.bmp");
     ui->dateLabel->setText(LoadString("IDS_DATE"));
 
-    ui->firstPushButton->setImage("file_manager", "file_management_prev_big_seek_button.jpg");
-    ui->previousPushButton->setImage("file_manager", "file_management_prev_seek_button.jpg");
-    ui->nextPushButton->setImage("file_manager", "file_management_next_seek_button.jpg");
-    ui->lastPushButton->setImage("file_manager", "file_management_next_big_seek_button.jpg");
+    ui->firstPushButton->setImage("file_manager", "file_management_prev_big_seek_button.png");
+    ui->previousPushButton->setImage("file_manager", "file_management_prev_seek_button.png");
+    ui->nextPushButton->setImage("file_manager", "file_management_next_seek_button.png");
+    ui->lastPushButton->setImage("file_manager", "file_management_next_big_seek_button.png");
 
+//    ui->firstPushButton->setStyleSheet(QString("image: url(images/file_manager/file_management_prev_big_seek_button.png); width: %0; height : %1;").arg(ui->firstPushButton->width(), ui->firstPushButton->height()));
     ui->percentPushButton->setDisabled(true);
     ui->percentPushButton->setText("S:100%");
     ui->connectPushButton->setText(LoadString("IDS_CONNECT"));
@@ -99,7 +100,7 @@ FileManagerWidget::~FileManagerWidget()
 
 void FileManagerWidget::resizeEvent(QResizeEvent *event)
 {
-
+//    ui->firstPushButton->setStyleSheet(QString("image: url(images/file_manager/file_management_prev_big_seek_button.png); width: %0, height : %1").arg(ui->firstPushButton->width(), ui->firstPushButton->height()));
 }
 
 void FileManagerWidget::paintEvent(QPaintEvent *event)

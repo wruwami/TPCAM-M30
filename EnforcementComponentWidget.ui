@@ -86,14 +86,14 @@
        <item row="3" column="0">
         <widget class="CustomPushButton" name="truckPushButton">
          <property name="text">
-          <string>PushButton</string>
+          <string/>
          </property>
         </widget>
        </item>
        <item row="3" column="1">
         <widget class="CustomPushButton" name="bikePushButton">
          <property name="text">
-          <string>PushButton</string>
+          <string/>
          </property>
         </widget>
        </item>
@@ -123,7 +123,7 @@ QLabel:disabled {
        <item row="0" column="1">
         <widget class="CustomPushButton" name="saveImagePushButton">
          <property name="text">
-          <string>PushButton</string>
+          <string/>
          </property>
         </widget>
        </item>

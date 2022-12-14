@@ -20,6 +20,7 @@ void CustomPushButton::setImage(QString path_name, QString file_name)
 {
     // icon 방식
     // 추후 icon방식이 적절하지 않으면 background-image 방식으로 변경하여야 함.
+    setMinimumSize(QSize(0, 0));
     QDir qdir;
     QString file_full_path;
 //#ifdef Q_OS_WIN
@@ -30,10 +31,10 @@ void CustomPushButton::setImage(QString path_name, QString file_name)
 
 #if 1
     m_pixmap.load(file_full_path);
-    m_ratio = (float)m_pixmap.width() / (float)width();
 //    m_pixmap = m_pixmap.scaled(size().width(), size().height(), Qt::KeepAspectRatioByExpanding);
     m_icon = QIcon(m_pixmap);
     this->setIcon(m_icon);
+//    this->setIconSize(m_icon.availableSizes().first());
 //    QSize _size = QSize(size().width()*2, size().height()*2);
 //    this->setIconSize(_size);
 //    qDebug() << m_pixmap.size();
@@ -177,8 +178,10 @@ void CustomPushButton::paintEvent(QPaintEvent *event)
 
 //    QRect adjusted = rect();//.adjusted(0,0,0,-1);
     QRect adjusted = contentsRect().adjusted(1,1,-2,-2);
+//    QRect adjusted = m_pixmap.rect().adjusted(1,1,-1,-1);
     painter.drawRect(adjusted);
 //    m_pixmap = m_pixmap.scaled(m_size);
+//    painter.drawPixmap(adjusted, m_icon.pixmap(adjusted.size()));
     painter.drawPixmap(adjusted, m_icon.pixmap(adjusted.size()));
 
 //    painter.drawPixmap(adjusted, m_pixmap);

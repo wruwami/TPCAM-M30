@@ -78,28 +78,28 @@
          <item>
           <widget class="CustomPushButton" name="firstPushButton">
            <property name="text">
-            <string>PushButton</string>
+            <string/>
            </property>
           </widget>
          </item>
          <item>
           <widget class="CustomPushButton" name="previousPushButton">
            <property name="text">
-            <string>PushButton</string>
+            <string/>
            </property>
           </widget>
          </item>
          <item>
           <widget class="CustomPushButton" name="nextPushButton">
            <property name="text">
-            <string>PushButton</string>
+            <string/>
            </property>
           </widget>
          </item>
          <item>
           <widget class="CustomPushButton" name="lastPushButton">
            <property name="text">
-            <string>PushButton</string>
+            <string/>
            </property>
           </widget>
          </item>
@@ -110,21 +110,21 @@
          <item>
           <widget class="CustomPushButton" name="percentPushButton">
            <property name="text">
-            <string>PushButton</string>
+            <string/>
            </property>
           </widget>
          </item>
          <item>
           <widget class="CustomPushButton" name="connectPushButton">
            <property name="text">
-            <string>PushButton</string>
+            <string/>
            </property>
           </widget>
          </item>
          <item>
           <widget class="CustomPushButton" name="printPushButton">
            <property name="text">
-            <string>PushButton</string>
+            <string/>
            </property>
           </widget>
          </item>

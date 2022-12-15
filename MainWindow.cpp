@@ -23,7 +23,6 @@
 #include "IndicatorCameraExposeWidget.h"
 #include "IndicatorCameraFocusWidget.h"
 
-
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -37,7 +36,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->verticalLayout->removeItem(ui->verticalLayout->itemAt(1));
     ui->verticalLayout->addWidget(m_pLoginWidget, 835);
     m_pMainMenuWidget->setMainMenuTitle(LoadString("IDS_LOGIN"));
-
+    m_pIndicatorWidget = new IndicatorDialog;
 
     QObject::connect((QWidget*)m_pLoginWidget->m_loginPushButton, SIGNAL(clicked()), this, SLOT(on_loginWidgetClicked()));
     QObject::connect((QWidget*)m_pLoginWidget->m_dateTimePushButton, SIGNAL(clicked()), this, SLOT(on_dateTimeWidgetClicked()));
@@ -55,8 +54,12 @@ MainWindow::~MainWindow()
     if (m_pMainMenuContentWidget != nullptr)
         delete m_pMainMenuContentWidget;
 
-    delete m_pIndicatorCameraExposeWidget;
-    delete m_pIndicatorCameraFocusWidget;
+    if (m_pIndicatorWidget)
+    {
+        m_pIndicatorWidget->close();
+        delete m_pIndicatorWidget;
+        m_pIndicatorWidget = nullptr;
+    }
 
     finalize();
 
@@ -138,16 +141,9 @@ void MainWindow::finalize()
 
 void MainWindow::open_indicator_widget()
 {
-    m_pIndicatorWidget = new IndicatorDialog(this);
-    m_pIndicatorWidget->setGeometry(GetWidgetSizePos(QRect(0, 125, 1600, 960)));
-
-//    indicatorWidget.setGeometry(ui->centralWidget->geometry());
     m_pIndicatorWidget->show();
 
-//    m_pIndicatorWidget->m_pCameraExposePushButton = new CustomPushButton;
-//    m_pIndicatorWidget->m_pCameraFocusPushButton = new CustomPushButton;
-//    QObject::connect((QWidget*)m_pIndicatorWidget->m_pCameraExposePushButton, SIGNAL(clicked()), this, SLOT(on_cameraExposeClicked()));
-//    QObject::connect((QWidget*)m_pIndicatorWidget->m_pCameraFocusPushButton, SIGNAL(clicked()), this, SLOT(on_cameraFocusClicked()));
+//    QObject::connect((QWidget*)m_pIndicatorWidget->m_pCameraPushButton, SIGNAL(clicked()), this, SLOT(on_cameraClicked()));
 }
 
 void MainWindow::removeseconditem()
@@ -407,57 +403,6 @@ void MainWindow::on_logo_clicked()
 void MainWindow::on_userNameChanged(QString arg)
 {
     m_userName = arg;
-}
-
-void MainWindow::on_cameraExposeClicked()
-{
-    if (m_pIndicatorCameraFocusWidget != nullptr)
-    {
-        delete m_pIndicatorCameraFocusWidget;
-        m_pIndicatorCameraFocusWidget = nullptr;
-    }
-
-//    m_pIndicatorCameraExposeWidget = new IndicatorCameraExposeWidget(this);
-//    m_pIndicatorCameraExposeWidget->setGeometry(GetWidgetSizePos(QRect(0, 272, 1600, 563)));
-//    m_pIndicatorCameraExposeWidget->lower();
-//    m_pIndicatorCameraExposeWidget->show();
-    if (m_pIndicatorWidget)
-    {
-        m_pIndicatorWidget->close();
-        delete m_pIndicatorWidget;
-        m_pIndicatorWidget = nullptr;
-    }
-
-    IndicatorCameraExposeWidget indicatorCameraExposeWidget;
-    indicatorCameraExposeWidget.exec();
-
-
-
-}
-
-void MainWindow::on_cameraFocusClicked()
-{
-
-    if (m_pIndicatorCameraExposeWidget != nullptr)
-    {
-        delete m_pIndicatorCameraExposeWidget;
-        m_pIndicatorCameraExposeWidget = nullptr;
-    }
-
-//    m_pIndicatorCameraFocusWidget = new IndicatorCameraFocusWidget(this);
-//    m_pIndicatorCameraFocusWidget->setGeometry(GetWidgetSizePos(QRect(0, 433, 1600, 402)));
-//    m_pIndicatorCameraFocusWidget->lower();
-//    m_pIndicatorCameraFocusWidget->show();
-
-    if (m_pIndicatorWidget)
-    {
-        m_pIndicatorWidget->close();
-        delete m_pIndicatorWidget;
-        m_pIndicatorWidget = nullptr;
-    }
-
-    IndicatorCameraFocusWidget indicatorCameraFocusWidget;
-    indicatorCameraFocusWidget.exec();
 }
 
 void MainWindow::timerEvent(QTimerEvent *event)

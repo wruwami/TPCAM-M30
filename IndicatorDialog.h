@@ -35,8 +35,8 @@ private slots:
     void on_enforcementPushButton_clicked();
 
     void on_weatherPushButton_clicked();
-//    void on_cameraExposeClicked();
-//    void on_cameraFocusClicked();
+    void on_cameraExposeClicked();
+    void on_cameraFocusClicked();
 
     void on_pushButton_clicked();
 public:
@@ -45,7 +45,6 @@ public:
 
 private:
     Ui::IndicatorDialog *ui;
-    QWidget* m_pParent;
     CustomPushButton* m_pDay1PushButton;
     CustomPushButton* m_pDay2PushButton;
     CustomPushButton* m_pDay3PushButton;

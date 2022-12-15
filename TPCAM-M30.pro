@@ -73,7 +73,7 @@ SOURCES += main.cpp\
     KeyboardDialog.cpp \
     KeypadDialog.cpp \
     IndicatorCameraExposeWidget.cpp \
-    CustomList.cpp
+    CustomList.cpp \
 
 HEADERS  += MainWindow.h \
     CustomTogglePushButton.h \
@@ -138,7 +138,7 @@ HEADERS  += MainWindow.h \
     KeyboardDialog.h \
     KeypadDialog.h \
     IndicatorCameraExposeWidget.h \
-    CustomList.h
+    CustomList.h \
 
 FORMS    += MainWindow.ui \
     IndicatorCameraFocusWidget.ui \
@@ -187,7 +187,7 @@ FORMS    += MainWindow.ui \
     HomeButtonWidget.ui \
     KeyboardDialog.ui \
     KeypadDialog.ui \
-    IndicatorCameraExposeWidget.ui
+    IndicatorCameraExposeWidget.ui \
 
 RESOURCES += \
     style.qrc

@@ -40,11 +40,12 @@ private slots:
 
     void on_pushButton_clicked();
 public:
-    CustomPushButton* m_pCameraFocusPushButton;
-    CustomPushButton* m_pCameraExposePushButton;
+    CustomPushButton* m_pCameraFocusPushButton = nullptr;
+    CustomPushButton* m_pCameraExposePushButton = nullptr;
 
 private:
     Ui::IndicatorDialog *ui;
+    QWidget* m_pParent;
     CustomPushButton* m_pDay1PushButton;
     CustomPushButton* m_pDay2PushButton;
     CustomPushButton* m_pDay3PushButton;

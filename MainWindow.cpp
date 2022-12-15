@@ -4,6 +4,7 @@
 #include <QVBoxLayout>
 #include <QPainter>
 
+#include "CustomPushButton.h"
 #include "Color.h"
 #include "DateTimeWidget.h"
 #include "EnforcementWidget.h"
@@ -137,13 +138,16 @@ void MainWindow::finalize()
 
 void MainWindow::open_indicator_widget()
 {
-    m_pIndicatorWidget = new IndicatorDialog;
+    m_pIndicatorWidget = new IndicatorDialog(this);
     m_pIndicatorWidget->setGeometry(GetWidgetSizePos(QRect(0, 125, 1600, 960)));
 
 //    indicatorWidget.setGeometry(ui->centralWidget->geometry());
     m_pIndicatorWidget->show();
-    QObject::connect((QWidget*)m_pIndicatorWidget->m_pCameraExposePushButton, SIGNAL(clicked()), this, SLOT(on_cameraExposeClicked()));
-    QObject::connect((QWidget*)m_pIndicatorWidget->m_pCameraFocusPushButton, SIGNAL(clicked()), this, SLOT(on_cameraFocusClicked()));
+
+//    m_pIndicatorWidget->m_pCameraExposePushButton = new CustomPushButton;
+//    m_pIndicatorWidget->m_pCameraFocusPushButton = new CustomPushButton;
+//    QObject::connect((QWidget*)m_pIndicatorWidget->m_pCameraExposePushButton, SIGNAL(clicked()), this, SLOT(on_cameraExposeClicked()));
+//    QObject::connect((QWidget*)m_pIndicatorWidget->m_pCameraFocusPushButton, SIGNAL(clicked()), this, SLOT(on_cameraFocusClicked()));
 }
 
 void MainWindow::removeseconditem()
@@ -421,6 +425,7 @@ void MainWindow::on_cameraExposeClicked()
     {
         m_pIndicatorWidget->close();
         delete m_pIndicatorWidget;
+        m_pIndicatorWidget = nullptr;
     }
 
     IndicatorCameraExposeWidget indicatorCameraExposeWidget;
@@ -448,6 +453,7 @@ void MainWindow::on_cameraFocusClicked()
     {
         m_pIndicatorWidget->close();
         delete m_pIndicatorWidget;
+        m_pIndicatorWidget = nullptr;
     }
 
     IndicatorCameraFocusWidget indicatorCameraFocusWidget;

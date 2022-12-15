@@ -117,3 +117,8 @@ void KeyboardDialog::on_cancelPushButton_clicked()
     ui->lineEdit->clear();
     QDialog::reject();
 }
+
+void KeyboardDialog::on_deleteAllPushButton_clicked()
+{
+    ui->lineEdit->clear();
+}

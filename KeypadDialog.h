@@ -14,6 +14,7 @@ class KeypadDialog : public QDialog
 
 public:
     explicit KeypadDialog(QWidget *parent = 0);
+    explicit KeypadDialog(QString str, QWidget *parent = 0);
     ~KeypadDialog();
     void onKeyPressed(const QString &iKey, Key* mKey);
 

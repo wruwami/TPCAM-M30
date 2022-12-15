@@ -72,9 +72,14 @@ m_file_name = dir_qstr.toStdString() + "\\" + file_name;
         if (strLine.empty())
             continue;
         QString qstrTmp = QString::fromStdString(strLine);
+
         QStringList list2 = qstrTmp.split(",");
+        if (list2[i][0] == '\"')
+            list2[i] = list2[i].remove("\"") + "," + list2[i+1].remove("\"");
         m_StringResource[list2[0].toStdString()] = list2[i];
+
     }
+
     inFile.close();
 }
 

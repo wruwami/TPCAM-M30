@@ -26,6 +26,8 @@ private slots:
 
     void on_cancelPushButton_clicked();
 
+    void on_deleteAllPushButton_clicked();
+
 private:
     Ui::KeyboardDialog *ui;
 };

@@ -30,7 +30,7 @@ void CustomLineEdit::mousePressEvent(QMouseEvent *event)
     {
     case KeyboardType:
     {
-        KeyboardDialog keyboardDialog;
+        KeyboardDialog keyboardDialog(this->text());
         if (keyboardDialog.exec() == QDialog::Accepted)
         {
             this->setText(keyboardDialog.str());
@@ -39,7 +39,7 @@ void CustomLineEdit::mousePressEvent(QMouseEvent *event)
         break;
     case KeypadType:
     {
-        KeypadDialog keypadDialog;
+        KeypadDialog keypadDialog(this->text());
         if (keypadDialog.exec() == QDialog::Accepted)
         {
             this->setText(keypadDialog.str());

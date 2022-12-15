@@ -81,54 +81,6 @@
        </item>
       </layout>
      </item>
-     <item row="2" column="2" rowspan="2">
-      <layout class="QGridLayout" name="gridLayout_9">
-       <item row="3" column="0">
-        <widget class="CustomPushButton" name="truckPushButton">
-         <property name="text">
-          <string/>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="1">
-        <widget class="CustomPushButton" name="bikePushButton">
-         <property name="text">
-          <string/>
-         </property>
-        </widget>
-       </item>
-       <item row="4" column="0" colspan="2">
-        <widget class="CustomLabel" name="speedLabel">
-         <property name="styleSheet">
-          <string notr="true">QLabel {
-    background-color: white;
-    border: none;
-    color : black;
-}
-
-QLabel:disabled {
-    background-color: white;
-    color:#7f7f7f;
-    border:1px solid #7030a0;
-}</string>
-         </property>
-         <property name="text">
-          <string>TextLabel</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="1">
-        <widget class="CustomPushButton" name="saveImagePushButton">
-         <property name="text">
-          <string/>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </item>
      <item row="1" column="0">
       <layout class="QGridLayout" name="gridLayout_4">
        <item row="0" column="1">
@@ -182,6 +134,54 @@ QLabel:disabled {
        </item>
       </layout>
      </item>
+     <item row="1" column="2" rowspan="3">
+      <layout class="QGridLayout" name="gridLayout_9">
+       <item row="3" column="0">
+        <widget class="CustomPushButton" name="truckPushButton">
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="1">
+        <widget class="CustomPushButton" name="bikePushButton">
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="0" colspan="2">
+        <widget class="CustomLabel" name="speedLabel">
+         <property name="styleSheet">
+          <string notr="true">QLabel {
+    background-color: white;
+    border: none;
+    color : black;
+}
+
+QLabel:disabled {
+    background-color: white;
+    color:#7f7f7f;
+    border:1px solid #7030a0;
+}</string>
+         </property>
+         <property name="text">
+          <string>TextLabel</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="CustomPushButton" name="saveImagePushButton">
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
     </layout>
    </item>
   </layout>
@@ -195,7 +195,7 @@ QLabel:disabled {
   <customwidget>
    <class>CustomLabel</class>
    <extends>QLabel</extends>
-   <header>CustomLabel.h</header>
+   <header location="global">CustomLabel.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

@@ -195,5 +195,5 @@ RESOURCES += \
 DISTFILES +=
 
 unix {
-LIBS += -lQt5X11Extras
+LIBS += -L/usr/lib/aarch64-linux-gnu/ -lQt5X11Extras
 }

@@ -57,12 +57,12 @@ FileManagerWidget::FileManagerWidget(QWidget *parent) :
 ////    QRect rect = ui->gridLayout_2->contentsRect();
     int width = ((getScreenWidth() - 15) / 21 * 9);//ui->percentPushButton->width() + ui->connectPushButton->width() + ui->printPushButton->width();
 ////    int width = ui->horizontalLayout->itemAt(0)->geometry().width();
-//    ui->tableWidget->setColumnWidth(0, width * 105 / (230 + 105));
-//    ui->tableWidget->setColumnWidth(1, width * 230 / (230 + 105));
+    ui->tableWidget->setColumnWidth(0, width * 105 / (230 + 105));
+    ui->tableWidget->setColumnWidth(1, width * 230 / (230 + 105));
 
 
-//    QHeaderView *verticalHeader = ui->tableWidget->verticalHeader();
-//    verticalHeader->setSectionResizeMode(QHeaderView::Stretch);
+    QHeaderView *verticalHeader = ui->tableWidget->verticalHeader();
+    verticalHeader->setSectionResizeMode(QHeaderView::Stretch);
 ////    int width = ui->tableWidget->width();//kui->gridLayout_2->itemAtPosition(1, 0)->geometry().width();
 
 ////    verticalHeader->setSectionResizeMode(0, QHeaderView::Stretch);
@@ -100,6 +100,9 @@ FileManagerWidget::~FileManagerWidget()
 
 void FileManagerWidget::resizeEvent(QResizeEvent *event)
 {
+//    ui->tableWidget->setColumnWidth(0, width * 105 / (230 + 105));
+//    ui->tableWidget->setColumnWidth(1, width * 230 / (230 + 105));
+
 //    ui->firstPushButton->setStyleSheet(QString("image: url(images/file_manager/file_management_prev_big_seek_button.png); width: %0, height : %1").arg(ui->firstPushButton->width(), ui->firstPushButton->height()));
 }
 

@@ -19,9 +19,15 @@ IndicatorDialog::IndicatorDialog(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::IndicatorDialog)
 {
+    ui->setupUi(this);
+
     setWindowFlags(Qt::FramelessWindowHint);
     setAttribute(Qt::WA_TranslucentBackground);
-    ui->setupUi(this);
+//    setStyleSheet("background-color: transparent;");
+//    auto qgoEffect = new QGraphicsOpacityEffect(this);
+//    qgoEffect->setOpacity(0.5);
+//    setGraphicsEffect(qgoEffect);
+//    setAutoFillBackground(true);
 
     ui->cameraPushButton->setImage("indicator", "camera.jpg");
     ui->daynNightPushButton->setImage("indicator", "indicator_enable_night_mode_off.jpg");

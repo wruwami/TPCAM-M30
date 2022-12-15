@@ -31,8 +31,9 @@ MainMenuContentWidget::MainMenuContentWidget(QWidget *parent) :
     QPixmap pixmap;
     pixmap.load(qdir.absolutePath() + "/" + "images" + "/" + "Main_menu" + "/" + "comlaser_logo.bmp");
     ui->logoPushButton->setIcon(QIcon(pixmap));
-    pixmap.rect().adjust(1, 2, -1, -1);
-    ui->logoPushButton->setIconSize(pixmap.size());}
+
+    ui->logoPushButton->setIconSize(pixmap.rect().adjusted(1, -1, -1, 1).size());
+}
 
 MainMenuContentWidget::~MainMenuContentWidget()
 {

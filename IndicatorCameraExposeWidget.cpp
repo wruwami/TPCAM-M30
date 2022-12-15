@@ -12,6 +12,8 @@ IndicatorCameraExposeWidget::IndicatorCameraExposeWidget(QWidget *parent) :
 
     setWindowFlags(Qt::FramelessWindowHint);
     setAttribute(Qt::WA_TranslucentBackground);
+
+//    setGeometry(GetWidgetSizePos(QRect(0, 125, 1600, 960)));
     setGeometry(GetWidgetSizePos(QRect(0, 272, 1600, 563)));
 
     ui->showHidePushButton->setText(LoadString("IDS_HIDE"));

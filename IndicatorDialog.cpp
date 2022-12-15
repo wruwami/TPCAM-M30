@@ -14,6 +14,7 @@
 #include "IndicatorCameraFocusWidget.h"
 
 #include <QGraphicsOpacityEffect>
+#include "WidgetSize.h"
 
 IndicatorDialog::IndicatorDialog(QWidget *parent) :
     QDialog(parent),
@@ -23,11 +24,13 @@ IndicatorDialog::IndicatorDialog(QWidget *parent) :
 
     setWindowFlags(Qt::FramelessWindowHint);
     setAttribute(Qt::WA_TranslucentBackground);
-//    setStyleSheet("background-color: transparent;");
+//    setStyleSheet(".QDialog{background-color: rgba(256,256,256,127); border:none;}");
 //    auto qgoEffect = new QGraphicsOpacityEffect(this);
 //    qgoEffect->setOpacity(0.5);
 //    setGraphicsEffect(qgoEffect);
 //    setAutoFillBackground(true);
+
+    setGeometry(GetWidgetSizePos(QRect(0, 125, 1600, 960)));
 
     ui->cameraPushButton->setImage("indicator", "camera.jpg");
     ui->daynNightPushButton->setImage("indicator", "indicator_enable_night_mode_off.jpg");

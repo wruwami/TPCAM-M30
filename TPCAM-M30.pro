@@ -193,3 +193,7 @@ RESOURCES += \
     style.qrc
 
 DISTFILES +=
+
+unix {
+LIBS += -lQt5X11Extras
+}

@@ -56,10 +56,9 @@ FileManagerWidget::FileManagerWidget(QWidget *parent) :
     ui->frameLabel->setText(LoadString("IDS_STILL_IMAGE_AND_MOVIE_VIEWER"));
 
 ////    QRect rect = ui->gridLayout_2->contentsRect();
-    int width = ((getScreenWidth() - 15) / 21 * 9);//ui->percentPushButton->width() + ui->connectPushButton->width() + ui->printPushButton->width();
+//    int width = ((getScreenWidth() - 15) / 21 * 9);//ui->percentPushButton->width() + ui->connectPushButton->width() + ui->printPushButton->width();
 ////    int width = ui->horizontalLayout->itemAt(0)->geometry().width();
-    ui->tableWidget->setColumnWidth(0, width * 105 / (230 + 105));
-    ui->tableWidget->setColumnWidth(1, width * 230 / (230 + 105));
+
 
 
     QHeaderView *verticalHeader = ui->tableWidget->verticalHeader();
@@ -101,8 +100,9 @@ FileManagerWidget::~FileManagerWidget()
 
 void FileManagerWidget::resizeEvent(QResizeEvent *event)
 {
-//    ui->tableWidget->setColumnWidth(0, width * 105 / (230 + 105));
-//    ui->tableWidget->setColumnWidth(1, width * 230 / (230 + 105));
+    int width = ui->tableWidget->size().width();
+    ui->tableWidget->setColumnWidth(0, width * 105 / (230 + 105));
+    ui->tableWidget->setColumnWidth(1, width * 230 / (230 + 105));
 
 //    ui->firstPushButton->setStyleSheet(QString("image: url(images/file_manager/file_management_prev_big_seek_button.png); width: %0, height : %1").arg(ui->firstPushButton->width(), ui->firstPushButton->height()));
 }
@@ -131,8 +131,6 @@ void FileManagerWidget::paintEvent(QPaintEvent *event)
     option3.lineWidth = 1;
     option3.frameShape = QFrame::HLine;
     style()->drawPrimitive(QStyle::PE_Frame,  &option3,  &painter,  this);
-
-
 }
 
 void FileManagerWidget::on_deletePushButton_clicked()

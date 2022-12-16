@@ -22,12 +22,16 @@
 #include "StringLoader.h"
 #include "IndicatorCameraExposeWidget.h"
 #include "IndicatorCameraFocusWidget.h"
+#include "SelfTestDialog.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
+    SelfTestDialog selfTestDialog;
+    selfTestDialog.exec();
 
     m_pMainMenuWidget = (MainMenuWidget*)ui->verticalLayout->itemAt(0)->widget();
 
@@ -37,6 +41,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->verticalLayout->addWidget(m_pLoginWidget, 835);
     m_pMainMenuWidget->setMainMenuTitle(LoadString("IDS_LOGIN"));
     m_pIndicatorWidget = new IndicatorDialog;
+    m_pIndicatorWidget->setModal(true);
+//    m_pIndicatorWidget->setFocusExposeDisabled(true);
 
     QObject::connect((QWidget*)m_pLoginWidget->m_loginPushButton, SIGNAL(clicked()), this, SLOT(on_loginWidgetClicked()));
     QObject::connect((QWidget*)m_pLoginWidget->m_dateTimePushButton, SIGNAL(clicked()), this, SLOT(on_dateTimeWidgetClicked()));
@@ -70,6 +76,8 @@ MainWindow::~MainWindow()
 
 void MainWindow::initializeMainMenuWidget()
 {
+    m_pIndicatorWidget->m_bFocusExposeDisabled = true;
+
     m_pMainMenuWidget->show();
     if (m_userName == "admin-align")
     {
@@ -104,6 +112,7 @@ void MainWindow::initializeMainMenuWidget()
 
 void MainWindow::initializeLoginWidget()
 {
+    m_pIndicatorWidget->m_bFocusExposeDisabled = true;
     removeseconditem();
     m_userName = "admin";
 
@@ -265,6 +274,8 @@ void MainWindow::on_dateTimeWidgetClicked()
 
 void MainWindow::on_enforcementClicked()
 {
+    m_pIndicatorWidget->m_bFocusExposeDisabled = false;
+
     delete m_pMainMenuContentWidget;
     m_pMainMenuContentWidget = nullptr;
     ui->verticalLayout->removeItem(ui->verticalLayout->itemAt(1));
@@ -275,6 +286,8 @@ void MainWindow::on_enforcementClicked()
 
 void MainWindow::on_filemanagementClicked()
 {
+//    m_pIndicatorWidget->setFocusExposeDisabled(t);
+
     delete m_pMainMenuContentWidget;
     m_pMainMenuContentWidget = nullptr;
     ui->verticalLayout->removeItem(ui->verticalLayout->itemAt(1));
@@ -285,6 +298,8 @@ void MainWindow::on_filemanagementClicked()
 
 void MainWindow::on_settingClicked()
 {
+//    m_pIndicatorWidget->setFocusExposeDisabled(false);
+
     delete m_pMainMenuContentWidget;
     m_pMainMenuContentWidget = nullptr;
     ui->verticalLayout->removeItem(ui->verticalLayout->itemAt(1));

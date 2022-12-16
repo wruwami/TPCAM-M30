@@ -27,6 +27,8 @@ Setting6Widget::Setting6Widget(QWidget *parent) : QWidget(parent),
     ui->ftpPortLineEdit->setText(LoadString("IDS_PORT"));
     ui->userNameLineEdit->setText(LoadString("IDS_USER_NAME"));
     ui->userPassLineEdit->setText(LoadString("IDS_USER_PASS"));
+
+    ui->ftpPortLineEdit->SetMode(Mode::KeypadType);
 }
 
 Setting6Widget::~Setting6Widget()

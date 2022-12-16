@@ -63,6 +63,15 @@ IndicatorDialog::~IndicatorDialog()
     delete ui;
 }
 
+void IndicatorDialog::setFocusExposeDisabled(bool isDisable)
+{
+    if (m_pCameraExposePushButton != nullptr)
+        m_pCameraExposePushButton->setDisabled(isDisable);
+
+    if (m_pCameraFocusPushButton != nullptr)
+        m_pCameraFocusPushButton->setDisabled(isDisable);
+}
+
 void IndicatorDialog::on_cameraPushButton_clicked()
 {
     clearSecondRow();
@@ -77,6 +86,8 @@ void IndicatorDialog::on_cameraPushButton_clicked()
     ui->horizontalLayout2->removeItem(ui->horizontalLayout2->takeAt(1));
     ui->horizontalLayout2->insertWidget(0, m_pCameraExposePushButton, 2);
     ui->horizontalLayout2->insertWidget(1, m_pCameraFocusPushButton, 2);
+
+    setFocusExposeDisabled(m_bFocusExposeDisabled);
 
     QObject::connect((QWidget*)m_pCameraExposePushButton, SIGNAL(clicked()), this, SLOT(on_cameraExposeClicked()));
     QObject::connect((QWidget*)m_pCameraFocusPushButton, SIGNAL(clicked()), this, SLOT(on_cameraFocusClicked()));
@@ -237,17 +248,17 @@ void IndicatorDialog::mousePressEvent(QMouseEvent *event)
 
 void IndicatorDialog::clearSecondRow()
 {
-//    if (m_pCameraFocusPushButton != nullptr)
-//    {
-//        delete m_pCameraFocusPushButton;
-//        m_pCameraFocusPushButton = nullptr;
-//    }
+    if (m_pCameraFocusPushButton != nullptr)
+    {
+        delete m_pCameraFocusPushButton;
+        m_pCameraFocusPushButton = nullptr;
+    }
 
-//    if (m_pCameraExposePushButton != nullptr)
-//    {
-//        delete m_pCameraExposePushButton;
-//        m_pCameraExposePushButton = nullptr;
-//    }
+    if (m_pCameraExposePushButton != nullptr)
+    {
+        delete m_pCameraExposePushButton;
+        m_pCameraExposePushButton = nullptr;
+    }
 
     QLayoutItem* item;
     while ( ( item = ui->horizontalLayout2->takeAt( 0 ) ) != nullptr )

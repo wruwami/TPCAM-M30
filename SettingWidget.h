@@ -17,6 +17,8 @@ public:
 public:
     QWidget* m_pSavePushButton;
     QWidget* m_pCancelPushButton;
+private:
+    void clearStyleSheet();
 private slots:
     void on_setting1PushButton_clicked();
 

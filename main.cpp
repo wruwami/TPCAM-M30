@@ -5,7 +5,6 @@
 #include "qdir.h"
 
 #include "StringLoader.h"
-#include "SelfTestDialog.h"
 
 int main(int argc, char *argv[])
 {
@@ -19,9 +18,6 @@ int main(int argc, char *argv[])
     a.setStyleSheet(styleSheet);
     using namespace ResourceLoader;
     StringLoader::GetInstance()->Initialize("strings", "stringTable.csv", "English");
-
-    SelfTestDialog selfTestDialog;
-    selfTestDialog.exec();
 
     MainWindow w;
 //    w.show();

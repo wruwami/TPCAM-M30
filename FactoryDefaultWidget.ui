@@ -15,39 +15,22 @@
   </property>
   <layout class="QGridLayout" name="gridLayout_2">
    <item row="0" column="0">
-    <layout class="QGridLayout" name="gridLayout" columnstretch="1,0,0,0,0">
-     <item row="2" column="0">
-      <widget class="CustomLabel" name="factoryDefaultLabel">
-       <property name="text">
-        <string>TextLabel</string>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="2" colspan="2">
-      <widget class="CustomLineEdit" name="lineEdit"/>
-     </item>
-     <item row="1" column="0" colspan="2">
-      <widget class="CustomLabel" name="pwLabel">
-       <property name="text">
-        <string>TextLabel</string>
-       </property>
-      </widget>
-     </item>
-     <item row="3" column="3">
+    <layout class="QGridLayout" name="gridLayout" rowstretch="1,1,1,1" columnstretch="1,1,1,1,1">
+     <item row="2" column="3">
       <widget class="CustomPushButton" name="cancelPushButton">
        <property name="text">
         <string>PushButton</string>
        </property>
       </widget>
      </item>
-     <item row="3" column="1">
+     <item row="2" column="1">
       <widget class="CustomPushButton" name="okPushButton">
        <property name="text">
         <string>PushButton</string>
        </property>
       </widget>
      </item>
-     <item row="3" column="2">
+     <item row="2" column="2">
       <spacer name="horizontalSpacer">
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
@@ -60,7 +43,7 @@
        </property>
       </spacer>
      </item>
-     <item row="3" column="0">
+     <item row="2" column="0">
       <spacer name="horizontalSpacer_3">
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
@@ -73,7 +56,7 @@
        </property>
       </spacer>
      </item>
-     <item row="3" column="4">
+     <item row="2" column="4">
       <spacer name="horizontalSpacer_2">
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
@@ -85,6 +68,23 @@
         </size>
        </property>
       </spacer>
+     </item>
+     <item row="1" column="2" colspan="3">
+      <widget class="CustomLineEdit" name="lineEdit"/>
+     </item>
+     <item row="1" column="0" colspan="2">
+      <widget class="CustomLabel" name="pwLabel">
+       <property name="text">
+        <string>TextLabel</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="0" colspan="5">
+      <widget class="CustomLabel" name="factoryDefaultLabel">
+       <property name="text">
+        <string>TextLabel</string>
+       </property>
+      </widget>
      </item>
     </layout>
    </item>
@@ -99,7 +99,7 @@
   <customwidget>
    <class>CustomLabel</class>
    <extends>QLabel</extends>
-   <header location="global">CustomLabel.h</header>
+   <header>CustomLabel.h</header>
   </customwidget>
   <customwidget>
    <class>CustomLineEdit</class>

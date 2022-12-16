@@ -35,6 +35,7 @@ private slots:
     void on_connectPushButton_clicked();
     void on_percentPushButton_clicked();
     void on_ImageVideoComboBox_currentIndexChanged(int index);
+    void on_datePushButton_clicked();
 };
 
 #endif // FILEMANAGERWIDGET_H

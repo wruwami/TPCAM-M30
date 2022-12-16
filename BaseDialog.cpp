@@ -33,7 +33,7 @@ BaseDialog::BaseDialog(Dialog dialog, Qt::Alignment align, QString msg, bool isC
     ui->setupUi(this);
 
     this->setWindowFlags(Qt::FramelessWindowHint);
-    setBackGroundColor(this, 0xd9d9d9);
+    setStyleSheet("{border: 1px solid black, background-color : #d9d9d9}");
 
     if (isCloseButton)
     {
@@ -46,6 +46,7 @@ BaseDialog::BaseDialog(Dialog dialog, Qt::Alignment align, QString msg, bool isC
         ui->closePushButton->hide();
     }
 
+    align |= Qt::AlignVCenter;
 
     switch (dialog)
     {

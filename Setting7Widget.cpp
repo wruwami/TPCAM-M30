@@ -27,8 +27,11 @@ Setting7Widget::Setting7Widget(QWidget *parent) :
     ui->micnSpeackerComboBox->addItem(LoadString("IDS_ON"));
     ui->micnSpeackerComboBox->addItem(LoadString("IDS_OFF"));
 
-//    ui->powerSavingTimeComboBox->addItem(LoadString("IDS_ON"));
-//    ui->powerSavingTimeComboBox->addItem(LoadString("IDS_OFF"));
+    ui->powerSavingTimeComboBox->addItem(LoadString("IDS_OFF"));
+    ui->powerSavingTimeComboBox->addItem(LoadString("IDS_10_MINUTE"));
+    ui->powerSavingTimeComboBox->addItem(LoadString("IDS_20_MINUTE"));
+    ui->powerSavingTimeComboBox->addItem(LoadString("IDS_30_MINUTE"));
+    ui->powerSavingTimeComboBox->setCurrentIndex(2);
 
 }
 

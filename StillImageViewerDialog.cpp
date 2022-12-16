@@ -2,6 +2,7 @@
 #include "ui_StillImageViewerDialog.h"
 
 #include "StringLoader.h"
+#include "WidgetSize.h"
 
 StillImageViewerDialog::StillImageViewerDialog(QWidget *parent) :
     QDialog(parent),
@@ -10,6 +11,8 @@ StillImageViewerDialog::StillImageViewerDialog(QWidget *parent) :
     ui->setupUi(this);
 
     this->setWindowFlags(Qt::FramelessWindowHint);
+    setGeometry(GetWidgetSizePos(QRect(0,0, 1600, 960)));
+
 
     ui->imageLabel->setText(LoadString("IDS_STILL_IMAGE_VIEWER"));
     ui->quitPushButton->setText(LoadString("IDS_QUIT"));

@@ -27,6 +27,13 @@ Setting1Widget::Setting1Widget(QWidget *parent) :
 
     ui->locationPushButton->setImage("setting_1", "keyboard.bmp");
 
+    ui->speedLimit1LineEdit->setText("100");
+    ui->speedLimit2LineEdit->setText("80");
+    ui->speedLimit3LineEdit->setText("60");
+    ui->captureSpeedLimit1LineEdit->setText("110");
+    ui->captureSpeedLimit2LineEdit->setText("90");
+    ui->captureSpeedLimit3LineEdit->setText("70");
+
     ui->speedLimit1LineEdit->SetMode(KeypadType);
     ui->speedLimit2LineEdit->SetMode(KeypadType);
     ui->speedLimit3LineEdit->SetMode(KeypadType);

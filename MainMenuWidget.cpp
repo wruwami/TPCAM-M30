@@ -89,7 +89,6 @@ void MainMenuWidget::showIndicator(bool isShow)
         {
             ui->horizontalLayout_2->removeItem(m_pSpacerItem);
         }
-
         ui->cameraPushButton->show();
         ui->daynNightPushButton->show();
         ui->weatherPushButton->show();

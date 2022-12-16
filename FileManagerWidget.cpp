@@ -32,7 +32,8 @@ FileManagerWidget::FileManagerWidget(QWidget *parent) :
     ui->ImageVideoComboBox->addItem(LoadString("IDS_V"));
 
     ui->dateImageLabel->setImage("file_manager", "file_management_folder_icon_small.bmp");
-    ui->dateLabel->setText(LoadString("IDS_DATE"));
+    ui->datePushButton->setText(LoadString("IDS_DATE"));
+    ui->datePushButton->setStyleSheet("QPushButton {background-color: rgba(255,255,255,0); border:none;}");
 
     ui->firstPushButton->setImage("file_manager", "file_management_prev_big_seek_button.bmp");
     ui->previousPushButton->setImage("file_manager", "file_management_prev_seek_button.bmp");
@@ -146,8 +147,7 @@ void FileManagerWidget::on_deletePushButton_clicked()
 
 void FileManagerWidget::on_tableWidget_clicked(const QModelIndex &index)
 {
-    FileManagerSnapShotDialog fileManagerSnapShotDialog;
-    fileManagerSnapShotDialog.exec();
+
 }
 
 void FileManagerWidget::on_searchPushButton_clicked()
@@ -232,4 +232,10 @@ void FileManagerWidget::on_ImageVideoComboBox_currentIndexChanged(int index)
     }
         break;
     }
+}
+
+void FileManagerWidget::on_datePushButton_clicked()
+{
+    FileManagerSnapShotDialog fileManagerSnapShotDialog;
+    fileManagerSnapShotDialog.exec();
 }

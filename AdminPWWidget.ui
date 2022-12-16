@@ -15,7 +15,7 @@
   </property>
   <layout class="QGridLayout" name="gridLayout_2">
    <item row="0" column="0">
-    <layout class="QGridLayout" name="gridLayout" rowstretch="1,0,0" columnstretch="1,2,1,2,1">
+    <layout class="QGridLayout" name="gridLayout" rowstretch="1,1,1" columnstretch="1,2,1,2,1">
      <item row="2" column="1">
       <widget class="CustomPushButton" name="okPushButton">
        <property name="text">
@@ -99,7 +99,7 @@
   <customwidget>
    <class>CustomLabel</class>
    <extends>QLabel</extends>
-   <header location="global">CustomLabel.h</header>
+   <header>CustomLabel.h</header>
   </customwidget>
   <customwidget>
    <class>CustomLineEdit</class>

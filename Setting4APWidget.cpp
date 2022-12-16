@@ -36,6 +36,6 @@ Setting4APWidget::~Setting4APWidget()
 
 void Setting4APWidget::on_pwPushButton_clicked()
 {
-    BaseDialog baseDialog(Dialog::NetworkPWWidgetType, Qt::AlignmentFlag::AlignCenter);
+    BaseDialog baseDialog(Dialog::AdminPWWidgetType, Qt::AlignmentFlag::AlignCenter, LoadString("IDS_PLEASE_INPUT_NETWORK_PASSWORD"));
     baseDialog.exec();
 }

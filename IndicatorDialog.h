@@ -17,6 +17,7 @@ class IndicatorDialog : public QDialog
 public:
     explicit IndicatorDialog(QWidget *parent = 0);
     ~IndicatorDialog();
+    void setFocusExposeDisabled(bool = false);
 private:
     void clearSecondRow();
 private slots:
@@ -42,7 +43,7 @@ private slots:
 public:
     CustomPushButton* m_pCameraFocusPushButton = nullptr;
     CustomPushButton* m_pCameraExposePushButton = nullptr;
-
+    bool m_bFocusExposeDisabled = true;
 private:
     Ui::IndicatorDialog *ui;
     CustomPushButton* m_pDay1PushButton;

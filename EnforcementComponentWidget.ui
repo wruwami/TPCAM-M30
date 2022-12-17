@@ -15,7 +15,7 @@
   </property>
   <layout class="QGridLayout" name="gridLayout_3">
    <item row="0" column="0">
-    <layout class="QGridLayout" name="gridLayout">
+    <layout class="QGridLayout" name="gridLayout" rowstretch="1,1,1,1">
      <item row="0" column="0">
       <spacer name="verticalSpacer">
        <property name="orientation">
@@ -43,7 +43,7 @@
       </spacer>
      </item>
      <item row="3" column="0">
-      <layout class="QGridLayout" name="gridLayout_6">
+      <layout class="QGridLayout" name="gridLayout_6" columnstretch="2,2,1">
        <item row="1" column="2">
         <widget class="CustomPushButton" name="dzMinusPushButton">
          <property name="text">
@@ -82,7 +82,7 @@
       </layout>
      </item>
      <item row="1" column="0">
-      <layout class="QGridLayout" name="gridLayout_4">
+      <layout class="QGridLayout" name="gridLayout_4" columnstretch="2,2,1">
        <item row="0" column="1">
         <widget class="CustomLabel" name="enforcementTimeLabel">
          <property name="styleSheet">
@@ -132,25 +132,45 @@
          </property>
         </widget>
        </item>
+       <item row="0" column="2">
+        <spacer name="horizontalSpacer_2">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
       </layout>
      </item>
      <item row="1" column="2" rowspan="3">
-      <layout class="QGridLayout" name="gridLayout_9">
-       <item row="3" column="0">
-        <widget class="CustomPushButton" name="truckPushButton">
-         <property name="text">
-          <string/>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="1">
+      <layout class="QGridLayout" name="gridLayout_9" rowstretch="1,1,1" columnstretch="1,1">
+       <item row="1" column="1">
         <widget class="CustomPushButton" name="bikePushButton">
          <property name="text">
           <string/>
          </property>
         </widget>
        </item>
-       <item row="4" column="0" colspan="2">
+       <item row="1" column="0">
+        <widget class="CustomPushButton" name="truckPushButton">
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="CustomPushButton" name="saveImagePushButton">
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0" colspan="2">
         <widget class="CustomLabel" name="speedLabel">
          <property name="styleSheet">
           <string notr="true">QLabel {
@@ -170,13 +190,6 @@ QLabel:disabled {
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="1">
-        <widget class="CustomPushButton" name="saveImagePushButton">
-         <property name="text">
-          <string/>
          </property>
         </widget>
        </item>

@@ -276,8 +276,12 @@ void MainWindow::on_enforcementClicked()
 {
     m_pIndicatorWidget->m_bFocusExposeDisabled = false;
 
-    delete m_pMainMenuContentWidget;
-    m_pMainMenuContentWidget = nullptr;
+    if (m_pMainMenuContentWidget)
+    {
+        delete m_pMainMenuContentWidget;
+        m_pMainMenuContentWidget = nullptr;
+    }
+
     ui->verticalLayout->removeItem(ui->verticalLayout->itemAt(1));
     ui->verticalLayout->addWidget(new EnforcementWidget, 835);
 
@@ -288,8 +292,11 @@ void MainWindow::on_filemanagementClicked()
 {
 //    m_pIndicatorWidget->setFocusExposeDisabled(t);
 
-    delete m_pMainMenuContentWidget;
-    m_pMainMenuContentWidget = nullptr;
+    if (m_pMainMenuContentWidget)
+    {
+        delete m_pMainMenuContentWidget;
+        m_pMainMenuContentWidget = nullptr;
+    }
     ui->verticalLayout->removeItem(ui->verticalLayout->itemAt(1));
     ui->verticalLayout->addWidget(new FileManagerWidget, 835);
 
@@ -300,8 +307,12 @@ void MainWindow::on_settingClicked()
 {
 //    m_pIndicatorWidget->setFocusExposeDisabled(false);
 
-    delete m_pMainMenuContentWidget;
-    m_pMainMenuContentWidget = nullptr;
+    if (m_pMainMenuContentWidget)
+    {
+        delete m_pMainMenuContentWidget;
+        m_pMainMenuContentWidget = nullptr;
+    }
+
     ui->verticalLayout->removeItem(ui->verticalLayout->itemAt(1));
     SettingWidget* pSettingWidget = new SettingWidget;
     ui->verticalLayout->addWidget(pSettingWidget, 835);

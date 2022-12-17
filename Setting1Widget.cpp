@@ -40,6 +40,9 @@ Setting1Widget::Setting1Widget(QWidget *parent) :
     ui->captureSpeedLimit1LineEdit->SetMode(KeypadType);
     ui->captureSpeedLimit2LineEdit->SetMode(KeypadType);
     ui->captureSpeedLimit3LineEdit->SetMode(KeypadType);
+
+    //시연용
+    ui->locationComboBox->addItem("Seoul");
 }
 
 Setting1Widget::~Setting1Widget()

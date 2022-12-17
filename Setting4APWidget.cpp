@@ -27,6 +27,11 @@ Setting4APWidget::Setting4APWidget(QWidget *parent) :
     ui->ipLineEdit->SetMode(Mode::KeypadType);
     ui->macAddressLineEdit->SetMode(Mode::KeyboardType);
 
+    // 시연용
+    ui->macAddressLineEdit->setText("20:0D:B0:1E:1C:57");
+    ui->wifiSSIDnFTPlineEdit->setText("TP30000");
+    ui->ipLineEdit->setText("192.168.10.1");
+    ui->subnetMaskLineEdit->setText->("255.255.255.0");
 }
 
 Setting4APWidget::~Setting4APWidget()

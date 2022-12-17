@@ -43,6 +43,9 @@ void Setting5Widget::setDHCPMode()
     ui->gridLayout->addItem(new QSpacerItem(ui->subnetMaskLineEdit->size().width(), ui->subnetMaskLineEdit->size().height(), QSizePolicy::Expanding, QSizePolicy::Expanding), 5, 1);
     ui->gridLayout->addItem(new QSpacerItem(ui->gatewayLineEdit->size().width(), ui->gatewayLineEdit->size().height(), QSizePolicy::Expanding, QSizePolicy::Expanding), 6, 1);
     ui->gridLayout->addItem(new QSpacerItem(ui->dnsServerLineEdit->size().width(), ui->dnsServerLineEdit->size().height(), QSizePolicy::Expanding, QSizePolicy::Expanding), 7, 1);
+
+    // 시연용
+    ui->ipLineEdit->setText("20:0D:B0:1E:1C:57");
 }
 
 void Setting5Widget::setManualMode()
@@ -67,6 +70,12 @@ void Setting5Widget::setManualMode()
     ui->gatewayLabel->setText(LoadString("IDS_GATEWAY"));
     ui->subnetMaskLabel->setText(LoadString("IDS_SUBNET_MASK"));
     ui->dnsServerLabel->setText(LoadString("IDS_DNS_SERVER"));
+
+    // 시연용
+    ui->ipLineEdit->setText("192.168.10.40");
+    ui->subnetMaskLineEdit->setText("255.255.255.0");
+    ui->gatewayLineEdit->setText("192.168.0.1");
+    ui->dnsServerLineEdit->setText("168.xxx.xxx.1");
 
 }
 

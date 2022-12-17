@@ -22,13 +22,15 @@ Setting6Widget::Setting6Widget(QWidget *parent) : QWidget(parent),
     ui->ftpComboBox->addItem(LoadString("IDS_ENABLE_MANUAL"));
 
     ui->languageComboBox->addItems(LoadLangaugeList());
-
-    ui->ftpAddressLineEdit->setText("ftp://comlaser.xxxx.xxx");
     ui->ftpPortLineEdit->setText(LoadString("IDS_PORT"));
     ui->userNameLineEdit->setText(LoadString("IDS_USER_NAME"));
     ui->userPassLineEdit->setText(LoadString("IDS_USER_PASS"));
 
     ui->ftpPortLineEdit->SetMode(Mode::KeypadType);
+
+    // 시연용
+    ui->bluetoothComboBox->addItem("Com_Test1");
+    ui->ftpAddressLineEdit->setText("ftp://comlaser.xxxx.xxx");
 }
 
 Setting6Widget::~Setting6Widget()

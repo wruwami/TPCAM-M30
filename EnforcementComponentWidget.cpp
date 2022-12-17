@@ -27,3 +27,8 @@ EnforcementComponentWidget::~EnforcementComponentWidget()
 {
     delete ui;
 }
+
+void EnforcementComponentWidget::on_hidePushButton_clicked()
+{
+
+}

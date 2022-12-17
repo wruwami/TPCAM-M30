@@ -33,12 +33,14 @@ LoginWidget::LoginWidget(QWidget *parent) :
 
     ui->userNamePushButton->setImage("Login", "keyboard.bmp");
     ui->logoLabel->setImage("Login", "comlaser_logo.bmp");
+    ui->deviceIDLineEdit->setDisabled(true);
 
+    //시연용
     ui->userNameComboBox->addItem("admin");
     ui->userNameComboBox->addItem("admin-align");
 
     ui->deviceIDLineEdit->setText("TP30001-00001");
-    ui->deviceIDLineEdit->setDisabled(true);
+    ui->userNameComboBox->addItem("NY-Man-Jo...");
 
 //    m_userName = ui->userNameComboBox->it;
 }

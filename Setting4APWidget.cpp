@@ -31,7 +31,7 @@ Setting4APWidget::Setting4APWidget(QWidget *parent) :
     ui->macAddressLineEdit->setText("20:0D:B0:1E:1C:57");
     ui->wifiSSIDnFTPlineEdit->setText("TP30000");
     ui->ipLineEdit->setText("192.168.10.1");
-    ui->subnetMaskLineEdit->setText->("255.255.255.0");
+    ui->subnetMaskLineEdit->setText("255.255.255.0");
 }
 
 Setting4APWidget::~Setting4APWidget()

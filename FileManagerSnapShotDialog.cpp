@@ -6,6 +6,7 @@
 #include "StringLoader.h"
 #include "Color.h"
 #include "WidgetSize.h"
+#include "CustomScrollbar.h"
 
 FileManagerSnapShotDialog::FileManagerSnapShotDialog(QWidget *parent) :
     QDialog(parent),
@@ -22,12 +23,18 @@ FileManagerSnapShotDialog::FileManagerSnapShotDialog(QWidget *parent) :
     ui->snapShotIconLabel->setImage("file_manager", "file_management_folder_icon_normal.bmp");
     ui->backPushButton->setText(LoadString("IDS_BACK"));
 
+//    ui->listWidget->setStyleSheet(QString("QListView::item { height: %0px; }").arg(ui->snapShotIconLabel->height()/64* 45));
+
     addListItem("20170508");
     addListItem("20170510");
     addListItem("20170511");
     addListItem("20170512");
     addListItem("20170514");
     addListItem("20170515");
+    addListItem("20170517");
+    addListItem("20170518");
+
+//    ui->listWidget->setVerticalScrollBar(new CustomScrollbar(ui->listWidget->width() * 78 / 650));
 }
 
 FileManagerSnapShotDialog::~FileManagerSnapShotDialog()
@@ -52,4 +59,10 @@ void FileManagerSnapShotDialog::addListItem(QString str)
 void FileManagerSnapShotDialog::on_backPushButton_clicked()
 {
     accept();
+}
+
+void FileManagerSnapShotDialog::resizeEvent(QResizeEvent *event)
+{
+    ui->listWidget->setStyleSheet(QString("QListView::item { height: %0px; }").arg(ui->snapShotIconLabel->height()/64* 45));
+    ui->listWidget->setVerticalScrollBar(new CustomScrollbar(ui->listWidget->width() * 78 / 650));
 }

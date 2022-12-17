@@ -17,13 +17,19 @@
    <item row="0" column="1">
     <layout class="QHBoxLayout" name="horizontalLayout" stretch="9,12">
      <item>
-      <layout class="QVBoxLayout" name="verticalLayout_2" stretch="290,58,58">
+      <layout class="QVBoxLayout" name="verticalLayout_2" stretch="290,52,58">
        <item>
         <layout class="QGridLayout" name="gridLayout_2" rowstretch="1,4" columnstretch="105,56,174">
          <item row="1" column="0" colspan="3">
           <widget class="QTableWidget" name="tableWidget">
            <property name="autoFillBackground">
             <bool>false</bool>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">QTableView{
+	background-color : #f0f0f0;
+	border : 1px solid black;
+}</string>
            </property>
            <property name="verticalScrollBarPolicy">
             <enum>Qt::ScrollBarAlwaysOff</enum>

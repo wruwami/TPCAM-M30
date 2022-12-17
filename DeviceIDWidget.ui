@@ -15,9 +15,9 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_2">
    <item>
-    <layout class="QVBoxLayout" name="verticalLayout" stretch="1,1,1,1">
+    <layout class="QVBoxLayout" name="verticalLayout" stretch="1,0,1,1,1">
      <item>
-      <layout class="QHBoxLayout" name="horizontalLayout_6">
+      <layout class="QHBoxLayout" name="horizontalLayout_6" stretch="3,1,1">
        <item>
         <widget class="CustomLabel" name="deviceIDLabel">
          <property name="text">
@@ -42,7 +42,14 @@
       </layout>
      </item>
      <item>
-      <layout class="QHBoxLayout" name="horizontalLayout">
+      <widget class="Line" name="line">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout" stretch="9,1">
        <item>
         <widget class="CustomLabel" name="changeSSIDnFTPLabel">
          <property name="text">
@@ -60,7 +67,7 @@
       </layout>
      </item>
      <item>
-      <layout class="QHBoxLayout" name="horizontalLayout_5">
+      <layout class="QHBoxLayout" name="horizontalLayout_5" stretch="4,5,1">
        <item>
         <widget class="CustomLabel" name="deviceIDLabel_2">
          <property name="text">
@@ -94,14 +101,14 @@
    <header>CustomPushButton.h</header>
   </customwidget>
   <customwidget>
-   <class>CustomLineEdit</class>
-   <extends>QLineEdit</extends>
-   <header>CustomLineEdit.h</header>
-  </customwidget>
-  <customwidget>
    <class>CustomLabel</class>
    <extends>QLabel</extends>
    <header>CustomLabel.h</header>
+  </customwidget>
+  <customwidget>
+   <class>CustomLineEdit</class>
+   <extends>QLineEdit</extends>
+   <header>CustomLineEdit.h</header>
   </customwidget>
   <customwidget>
    <class>CustomCheckBox</class>

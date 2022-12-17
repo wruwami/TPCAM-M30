@@ -21,6 +21,11 @@ private slots:
 
 private:
     Ui::FileManagerSnapShotDialog *ui;
+
+
+    // QWidget interface
+protected:
+    void resizeEvent(QResizeEvent *event);
 };
 
 #endif // FILEMANAGERSNAPSHOTDIALOG_H

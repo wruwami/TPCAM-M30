@@ -215,14 +215,14 @@
    <header>CustomPushButton.h</header>
   </customwidget>
   <customwidget>
-   <class>CustomLabel</class>
-   <extends>QLabel</extends>
-   <header>CustomLabel.h</header>
-  </customwidget>
-  <customwidget>
    <class>CustomComboBox</class>
    <extends>QComboBox</extends>
    <header>CustomComboBox.h</header>
+  </customwidget>
+  <customwidget>
+   <class>CustomLabel</class>
+   <extends>QLabel</extends>
+   <header>CustomLabel.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

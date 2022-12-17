@@ -131,6 +131,12 @@ void FileManagerWidget::paintEvent(QPaintEvent *event)
     option3.lineWidth = 1;
     option3.frameShape = QFrame::HLine;
     style()->drawPrimitive(QStyle::PE_Frame,  &option3,  &painter,  this);
+
+    QPen Pen(Qt::black);
+    Pen.setStyle(Qt::SolidLine);
+    painter.setPen(Pen);
+    painter.drawLine(ui->tableWidget->geometry().left() + ui->tableWidget->geometry().width() * 105 / (230 + 105), ui->dateImageLabel->geometry().top(), ui->tableWidget->geometry().left() + ui->tableWidget->size().width() * 105 / (230 + 105), ui->tableWidget->geometry().bottom());
+
 }
 
 void FileManagerWidget::on_deletePushButton_clicked()

@@ -59,13 +59,6 @@
        </property>
       </widget>
      </item>
-     <item row="0" column="1" colspan="2">
-      <widget class="QLabel" name="hudLabel">
-       <property name="text">
-        <string>TextLabel</string>
-       </property>
-      </widget>
-     </item>
      <item row="7" column="1">
       <widget class="CustomPushButton" name="cameraPushButton">
        <property name="text">
@@ -180,6 +173,19 @@
         </size>
        </property>
       </spacer>
+     </item>
+     <item row="0" column="1" colspan="2">
+      <widget class="QLabel" name="hudLabel">
+       <property name="styleSheet">
+        <string notr="true">QLabel{
+	background-color : white;
+    color:black;
+}</string>
+       </property>
+       <property name="text">
+        <string>HUD[06, 06]</string>
+       </property>
+      </widget>
      </item>
     </layout>
    </item>

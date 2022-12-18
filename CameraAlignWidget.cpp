@@ -21,6 +21,7 @@ CameraAlignWidget::CameraAlignWidget(QWidget *parent) :
     ui->downPushButton->setText(LoadString("IDS_DOWN"));
     ui->savePushButton->setText(LoadString("IDS_SAVE"));
     ui->cancelPushButton->setText(LoadString("IDS_CANCEL"));
+    ui->cameraPushButton->setText(LoadString("IDS_CAMERA"));
 
     m_pHomeButton = ui->homePushButton;
 }

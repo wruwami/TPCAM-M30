@@ -16,7 +16,7 @@ IndicatorCameraExposeWidget::IndicatorCameraExposeWidget(QWidget *parent) :
 //    setAttribute(Qt::WA_TranslucentBackground);
 
 //    setGeometry(GetWidgetSizePos(QRect(0, 125, 1600, 960)));
-    setGeometry(GetWidgetSizePos(QRect(0, 272 + 125, 1600, 563)));
+    setGeometry(GetWidgetSizePos(QRect(0, 125, 1600, 835)));
 
     ui->showHidePushButton->setText(LoadString("IDS_HIDE"));
     ui->speedPushButton->setText(LoadString("IDS_SPEED"));
@@ -50,4 +50,23 @@ IndicatorCameraExposeWidget::~IndicatorCameraExposeWidget()
 void IndicatorCameraExposeWidget::mousePressEvent(QMouseEvent *event)
 {
     accept();
+}
+
+void IndicatorCameraExposeWidget::on_showHidePushButton_clicked()
+{
+    m_bHide = !m_bHide;
+    if (m_bHide)
+    {
+        ui->hlcOnPushButton->hide();
+        ui->defogOffPushButton->hide();
+        ui->disOffPushButton->hide();
+        ui->showHidePushButton->setText(LoadString("IDS_SHOW"));
+    }
+    else
+    {
+        ui->hlcOnPushButton->show();
+        ui->defogOffPushButton->show();
+        ui->disOffPushButton->show();
+        ui->showHidePushButton->setText(LoadString("IDS_SHOW"));
+    }
 }

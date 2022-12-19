@@ -121,12 +121,12 @@ void IndicatorDialog::on_daynNightPushButton_clicked()
     ui->horizontalLayout2->removeItem(ui->horizontalLayout2->takeAt(3));
     ui->horizontalLayout2->removeItem(ui->horizontalLayout2->takeAt(4));
     ui->horizontalLayout2->removeItem(ui->horizontalLayout2->takeAt(5));
-    ui->horizontalLayout2->insertWidget(0, m_pDay1PushButton, 2);
-    ui->horizontalLayout2->insertWidget(1, m_pDay2PushButton, 2);
-    ui->horizontalLayout2->insertWidget(2, m_pDay3PushButton, 2);
-    ui->horizontalLayout2->insertWidget(3, m_pNight1PushButton, 2);
-    ui->horizontalLayout2->insertWidget(4, m_pNight2PushButton, 2);
-    ui->horizontalLayout2->insertWidget(5, m_pNight3PushButton, 2);
+    ui->horizontalLayout2->insertWidget(0, m_pDay1PushButton, 6);
+    ui->horizontalLayout2->insertWidget(1, m_pDay2PushButton, 6);
+    ui->horizontalLayout2->insertWidget(2, m_pDay3PushButton, 6);
+    ui->horizontalLayout2->insertWidget(3, m_pNight1PushButton, 6);
+    ui->horizontalLayout2->insertWidget(4, m_pNight2PushButton, 6);
+    ui->horizontalLayout2->insertWidget(5, m_pNight3PushButton, 6);
 
 }
 

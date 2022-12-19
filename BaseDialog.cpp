@@ -31,15 +31,19 @@ BaseDialog::BaseDialog(Dialog dialog, Qt::Alignment align, QString msg, bool isC
     ui(new Ui::BaseDialog)
 {
     ui->setupUi(this);
+    m_bIsCloseButton = isCloseButton;
 
-    this->setWindowFlags(Qt::FramelessWindowHint);
-    setStyleSheet("{border: 1px solid black, background-color : #d9d9d9}");
+//    this->setWindowFlags(Qt::FramelessWindowHint);
+    this->setWindowFlags(Qt::CustomizeWindowHint);
+    this->setStyleSheet("{border: 1px solid black; background-color : #d9d9d9;}");
+//    this->setAttribute(Qt::WA_StyledBackground);
 
     if (isCloseButton)
     {
         ui->closePushButton->show();
-        ui->closePushButton->setImage("MessageBox", "closeButton.png");
-        ui->closePushButton->setStyleSheet("QPushButton {background-color : rgba(255,255,255,0); border:none;}");
+//        ui->closePushButton->resize(ui->closePushButton->width(), ui->closePushButton->width());
+//        ui->closePushButton->setImage("MessageBox", "closeButton.png", QSize(0,0));
+        ui->closePushButton->setStyleSheet("QPushButton {border-image : url(images/MessageBox/closeButton.png); border:none;}");
     }
     else
     {
@@ -195,7 +199,7 @@ void BaseDialog::setSize(QSize size)
 //    ui->titleLabel->resize(GetWidgetSize(QSize(size.width(), 130)));
 //    ui->verticalLayout->itemAt(1)->widget()->resize(GetWidgetSize(QSize(size.width(), size.height() - 130)));
 
-    resize(GetWidgetSize(size));
+    this->setFixedSize(GetWidgetSize(size));
     ui->verticalLayout->setStretch(0, 130);
     ui->verticalLayout->setStretch(1, size.height() - 130);
 //    ui->titleLabel->resize(GetWidgetSize(QSize(size.width(), 130)));
@@ -205,7 +209,7 @@ void BaseDialog::setSize(int w, int h)
 {
 //    ui->verticalLayout->itemAt(0)->widget()->resize(GetWidgetSize(QSize(w, 130)));
 //    ui->verticalLayout->itemAt(1)->widget()->resize(GetWidgetSize(QSize(w, h - 130)));
-    resize(GetWidgetSize(QSize(w, h)));
+    this->setFixedSize(GetWidgetSize(QSize(w, h)));
     ui->verticalLayout->setStretch(0, 130);
     ui->verticalLayout->setStretch(1, h - 130);
 //    ui->titleLabel->resize(GetWidgetSize(QSize(w, 130)));
@@ -219,6 +223,29 @@ void BaseDialog::paintEvent(QPaintEvent *event)
     painter.setPen(QPen(QColor(127,127,127)));
     QRect rect = ui->verticalLayout->itemAt(0)->geometry();
     painter.drawLine(rect.bottomLeft(), rect.bottomRight());
+
+
+}
+
+void BaseDialog::resizeEvent(QResizeEvent *event)
+{
+//    QPainter painter(this);
+//    QStyleOptionFrame  option;
+//    option.initFrom(this);
+//    option.rect = geometry();
+//    option.lineWidth = 10;
+//    option.frameShape = QFrame::Box;
+//    style()->drawPrimitive(QStyle::PE_Frame,  &option,  &painter,  this);
+
+    if (m_bIsCloseButton)
+    {
+        int width = ui->horizontalLayout->geometry().width();
+        ui->horizontalLayout->setStretch(0, width - 130);
+        ui->horizontalLayout->setStretch(1, 130);
+        ui->closePushButton->resize(width, width);
+//        int width = ui->horizontalLayout->geometry().adjusted(1,1,-1,-1).size().width();
+//        ui->closePushButton->setGeometry(QRect(geometry().width() - width - 1, 1, width, width));
+    }
 }
 
 void BaseDialog::on_closePushButton_clicked()

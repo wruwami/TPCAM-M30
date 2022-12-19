@@ -2,12 +2,16 @@
 #include "ui_DeviceIDWidget.h"
 
 #include "StringLoader.h"
+#include "KeyboardDialog.h"
 
 DeviceIDWidget::DeviceIDWidget(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::DeviceIDWidget)
 {
     ui->setupUi(this);
+
+    m_pSaveButton = ui->savePushButton;
+    m_pCancelButton = ui->cancelPushButton;
 
     ui->deviceIDLabel->setText(LoadString("IDS_DEVICE_ID"));
     ui->deviceIDLabel_2->setText(LoadString("IDS_DEVICE_ID"));
@@ -18,6 +22,10 @@ DeviceIDWidget::DeviceIDWidget(QWidget *parent) :
     ui->cancelPushButton->setText(LoadString("IDS_CANCEL"));
     ui->inputPushButton->setImage("Login", "keyboard.bmp");
 
+    ui->lineEdit->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+
+    // 시연용
+    ui->lineEdit->setText("TP0002000");
 }
 
 DeviceIDWidget::~DeviceIDWidget()
@@ -27,5 +35,9 @@ DeviceIDWidget::~DeviceIDWidget()
 
 void DeviceIDWidget::on_inputPushButton_clicked()
 {
-
+    KeyboardDialog keyboardDialog;
+    if (keyboardDialog.exec() == QDialog::Accepted)
+    {
+        ui->lineEdit->setText(keyboardDialog.str());
+    }
 }

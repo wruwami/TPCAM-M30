@@ -38,7 +38,7 @@
             <enum>Qt::ScrollBarAlwaysOff</enum>
            </property>
            <property name="rowCount">
-            <number>4</number>
+            <number>5</number>
            </property>
            <property name="columnCount">
             <number>2</number>
@@ -52,6 +52,7 @@
            <attribute name="verticalHeaderVisible">
             <bool>false</bool>
            </attribute>
+           <row/>
            <row/>
            <row/>
            <row/>
@@ -221,14 +222,14 @@
    <header>CustomPushButton.h</header>
   </customwidget>
   <customwidget>
-   <class>CustomComboBox</class>
-   <extends>QComboBox</extends>
-   <header>CustomComboBox.h</header>
-  </customwidget>
-  <customwidget>
    <class>CustomLabel</class>
    <extends>QLabel</extends>
    <header>CustomLabel.h</header>
+  </customwidget>
+  <customwidget>
+   <class>CustomComboBox</class>
+   <extends>QComboBox</extends>
+   <header>CustomComboBox.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

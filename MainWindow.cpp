@@ -334,10 +334,12 @@ void MainWindow::on_device_id_clicked()
     delete m_pMainMenuAdminAlignWidget;
     m_pMainMenuAdminAlignWidget = nullptr;
     ui->verticalLayout->removeItem(ui->verticalLayout->itemAt(1));
-    ui->verticalLayout->addWidget(new DeviceIDWidget, 835);
+    DeviceIDWidget* pDeviceIDWidget = new DeviceIDWidget;
+    ui->verticalLayout->addWidget(pDeviceIDWidget, 835);
 
     m_pMainMenuWidget->setMainMenuImage("Main_menu", "home_big_n.bmp");
-
+    QObject::connect((QWidget*)pDeviceIDWidget->m_pSaveButton, SIGNAL(clicked()), this, SLOT(on_DeviceIdSaveClicked()));
+    QObject::connect((QWidget*)pDeviceIDWidget->m_pCancelButton, SIGNAL(clicked()), this, SLOT(on_DeviceIdCancelClicked()));
 }
 
 void MainWindow::on_camera_align_clicked()
@@ -429,6 +431,16 @@ void MainWindow::on_logo_clicked()
 void MainWindow::on_userNameChanged(QString arg)
 {
     m_userName = arg;
+}
+
+void MainWindow::on_DeviceIdSaveClicked()
+{
+    on_mainMenuHomeClicked();
+}
+
+void MainWindow::on_DeviceIdCancelClicked()
+{
+    on_mainMenuHomeClicked();
 }
 
 void MainWindow::timerEvent(QTimerEvent *event)

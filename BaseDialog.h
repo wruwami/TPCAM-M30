@@ -39,12 +39,12 @@ private:
     void setSize(int w, int h);
 private:
     Ui::BaseDialog *ui;
-//    QMap<QString, QString>
-
+    bool m_bIsCloseButton;
 
     // QWidget interface
 protected:
     void paintEvent(QPaintEvent *event);
+    void resizeEvent(QResizeEvent *event);
 private slots:
     void on_closePushButton_clicked();
 };

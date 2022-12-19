@@ -145,7 +145,7 @@ IDS_USER_PASS,PASSWORD,,,,,
 IDS_FILTER_NAME,filter name,,,,,
 IDS_YES,yes,,,,,
 IDS_NO,no,,,,,
-IDS_BLUETOOTH_SEARCH_FILTER,bluetooth search filter,,,,,
+IDS_BLUETOOTH_SEARCH_FILTER,Bluetooth Search Filter,,,,,
 IDS_READY,ready,,,,,
 IDS_DZ_PLUS,DZ+,,,,,
 IDS_DZ_MINUS,DZ-,,,,,
@@ -181,3 +181,12 @@ IDS_QUIT,Quit,,,,,
 IDS_ORIGIN,Origin,,,,,
 IDS_PLAY,Play,,,,,
 IDS_PAUSE,Pause,,,,,
+IDS_PLEASE_INPUT_NETWORK_PASSWORD,"Please, input network password."
+IDS_ALIGN,Align
+IDS_MODE,Mode
+IDS_CAM,Cam
+IDS_SERIAL_NUMBER,Serial Number
+IDS_SYSTEM_INFO,System Info
+IDS_PRINT_ERROR1,Cannot connect a printer!!
+IDS_PRINT_ERROR2,IDS_PRINT_ERROR2
+IDS_FILEMANAGER_ERROR_MESSAGE,Please check settings for the printer

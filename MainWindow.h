@@ -56,6 +56,8 @@ private slots:
     void on_mainMenuHomeClicked();
     void on_logo_clicked();
     void on_userNameChanged(QString arg);
+    void on_DeviceIdSaveClicked();
+    void on_DeviceIdCancelClicked();
 private:
     Ui::MainWindow *ui;
     DateTimeWidget* m_pDateTimeWidget = nullptr;

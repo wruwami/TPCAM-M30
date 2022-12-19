@@ -1,7 +1,7 @@
 #include "PasswordChangingWidget.h"
 #include "ui_PasswordChangingWidget.h"
 
-#include <Qdialog>
+#include <QDialog>
 
 #include "StringLoader.h"
 

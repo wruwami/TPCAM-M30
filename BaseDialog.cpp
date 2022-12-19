@@ -240,10 +240,10 @@ void BaseDialog::resizeEvent(QResizeEvent *event)
     if (m_bIsCloseButton)
     {
         QRect rect = ui->horizontalLayout->geometry();
-        rect.setWidth(rect.width()-130);
-        int width = GetWidgetSize(rect.size()).width();
-        ui->horizontalLayout->setStretch(0, width);
-        ui->horizontalLayout->setStretch(1, width - ui->horizontalLayout->geometry().size().width());
+//        rect.setWidth(rect.width()-130);
+        int width = GetWidgetSize(rect.size()).height();
+        ui->horizontalLayout->setStretch(0, ui->horizontalLayout->geometry().size().width() - width);
+        ui->horizontalLayout->setStretch(1, width);
         ui->closePushButton->resize(width, width);
 //        int width = ui->horizontalLayout->geometry().adjusted(1,1,-1,-1).size().width();
 //        ui->closePushButton->setGeometry(QRect(geometry().width() - width - 1, 1, width, width));

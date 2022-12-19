@@ -239,9 +239,11 @@ void BaseDialog::resizeEvent(QResizeEvent *event)
 
     if (m_bIsCloseButton)
     {
-        int width = ui->horizontalLayout->geometry().width();
-        ui->horizontalLayout->setStretch(0, width - 130);
-        ui->horizontalLayout->setStretch(1, 130);
+        QRect rect = ui->horizontalLayout->geometry();
+        rect.setWidth(rect.width()-130);
+        int width = GetWidgetSize(rect.size()).width();
+        ui->horizontalLayout->setStretch(0, width);
+        ui->horizontalLayout->setStretch(1, width - ui->horizontalLayout->geometry().size().width());
         ui->closePushButton->resize(width, width);
 //        int width = ui->horizontalLayout->geometry().adjusted(1,1,-1,-1).size().width();
 //        ui->closePushButton->setGeometry(QRect(geometry().width() - width - 1, 1, width, width));

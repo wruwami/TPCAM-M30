@@ -30,5 +30,13 @@ EnforcementComponentWidget::~EnforcementComponentWidget()
 
 void EnforcementComponentWidget::on_hidePushButton_clicked()
 {
+    m_bHide = !m_bHide;
+    if (m_bHide)
+    {
 
+    }
+    else
+    {
+
+    }
 }

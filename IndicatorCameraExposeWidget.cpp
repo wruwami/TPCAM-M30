@@ -70,3 +70,8 @@ void IndicatorCameraExposeWidget::on_showHidePushButton_clicked()
         ui->showHidePushButton->setText(LoadString("IDS_SHOW"));
     }
 }
+
+void IndicatorCameraExposeWidget::on_speedPushButton_clicked()
+{
+    accept();
+}

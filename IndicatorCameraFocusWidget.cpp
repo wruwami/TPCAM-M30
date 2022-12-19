@@ -34,3 +34,16 @@ void IndicatorCameraFocusWidget::mousePressEvent(QMouseEvent *event)
 {
     accept();
 }
+
+void IndicatorCameraFocusWidget::on_showHidePushButton_clicked()
+{
+    m_bHide = !m_bHide;
+    if (m_bHide)
+    {
+        ui->showHidePushButton->setText(LoadString("IDS_SHOW"));
+    }
+    else
+    {
+        ui->showHidePushButton->setText(LoadString("IDS_HIDE"));
+    }
+}

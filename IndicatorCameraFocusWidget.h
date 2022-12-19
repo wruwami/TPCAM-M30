@@ -18,11 +18,13 @@ public:
 
 private:
     Ui::IndicatorCameraFocusWidget *ui;
-
+    bool m_bHide = false;
 
     // QWidget interface
 protected:
     void mousePressEvent(QMouseEvent *event);
+private slots:
+    void on_showHidePushButton_clicked();
 };
 
 #endif // INDICATORCAMERAFOCUSWIDGET_H

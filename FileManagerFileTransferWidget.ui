@@ -19,21 +19,21 @@
      <item row="0" column="0">
       <widget class="CustomLabel" name="remaiTimeLabel">
        <property name="text">
-        <string>TextLabel</string>
+        <string>0.0s</string>
        </property>
       </widget>
      </item>
      <item row="0" column="1">
       <widget class="CustomLabel" name="fileCountLabel">
        <property name="text">
-        <string>TextLabel</string>
+        <string>4/100</string>
        </property>
       </widget>
      </item>
      <item row="0" column="2">
       <widget class="CustomLabel" name="speedLabel">
        <property name="text">
-        <string>TextLabel</string>
+        <string>xxx/kB/s</string>
        </property>
       </widget>
      </item>
@@ -54,7 +54,8 @@
      <item row="3" column="0" colspan="3">
       <widget class="CustomLabel" name="fileNameLabel">
        <property name="text">
-        <string>TextLabel</string>
+        <string>I_00003_220505_122510_52.jpg
+</string>
        </property>
       </widget>
      </item>
@@ -66,7 +67,7 @@
   <customwidget>
    <class>CustomLabel</class>
    <extends>QLabel</extends>
-   <header location="global">CustomLabel.h</header>
+   <header>CustomLabel.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

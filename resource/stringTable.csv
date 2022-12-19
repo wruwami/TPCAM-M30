@@ -142,7 +142,7 @@ IDS_DNS_SERVER,DNS Server,,,,,
 IDS_IP_ADDRESS,IP Address,,,,,
 IDS_PORT,port,,,,,
 IDS_USER_PASS,PASSWORD,,,,,
-IDS_FILTER_NAME,filter name,,,,,
+IDS_FILTER_NAME,Filter Name,,,,,
 IDS_YES,yes,,,,,
 IDS_NO,no,,,,,
 IDS_BLUETOOTH_SEARCH_FILTER,Bluetooth Search Filter,,,,,
@@ -188,5 +188,9 @@ IDS_CAM,Cam
 IDS_SERIAL_NUMBER,Serial Number
 IDS_SYSTEM_INFO,System Info
 IDS_PRINT_ERROR1,Cannot connect a printer!!
-IDS_PRINT_ERROR2,IDS_PRINT_ERROR2
-IDS_FILEMANAGER_ERROR_MESSAGE,Please check settings for the printer
+IDS_PRINT_ERROR2,Please check settings for the printer
+IDS_FILEMANAGER_ERROR_MESSAGE,Error Message
+IDS_PASSWORD_CHANGING,Password Changing
+IDS_CURRENT,Current
+IDS_NEW,New
+IDS_CONFIRM,Confirm

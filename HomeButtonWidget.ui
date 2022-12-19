@@ -15,7 +15,7 @@
   </property>
   <layout class="QHBoxLayout" name="horizontalLayout_2">
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout" stretch="87,355">
+    <layout class="QHBoxLayout" name="horizontalLayout" stretch="100,355">
      <item>
       <widget class="CustomPushButton" name="homePushButton">
        <property name="text">

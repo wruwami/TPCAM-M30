@@ -2,7 +2,6 @@
 #define BASEDIALOG_H
 
 #include <QDialog>
-#include <QMap>
 
 enum Dialog
 {
@@ -37,6 +36,7 @@ public:
 private:
     void setSize(QSize size);
     void setSize(int w, int h);
+    void drawBorder(QRect);
 private:
     Ui::BaseDialog *ui;
     bool m_bIsCloseButton;

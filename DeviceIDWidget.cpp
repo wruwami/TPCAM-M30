@@ -22,6 +22,8 @@ DeviceIDWidget::DeviceIDWidget(QWidget *parent) :
     ui->cancelPushButton->setText(LoadString("IDS_CANCEL"));
     ui->inputPushButton->setImage("Login", "keyboard.bmp");
 
+    ui->checkBox->setChecked(true);
+
     ui->lineEdit->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
     // 시연용

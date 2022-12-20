@@ -16,9 +16,11 @@ DateTimeWidget::DateTimeWidget(QWidget *parent) :
     ui->cancelPushButton->setText(LoadString("IDS_CANCEL"));
     ui->timeZoneLabel->setText(LoadString("IDS_TIMEZONE"));
     ui->gpsSyncCheckBox->setText(LoadString("IDS_GPS_SYNC"));
+    ui->gpsSyncCheckBox->setChecked(true);
 
     m_pSavePushButton = ui->savePushButton;
     m_pCancelPushButton = ui->cancelPushButton;
+
 
     QList<QByteArray> ids = QTimeZone::availableTimeZoneIds();
     foreach (QByteArray id, ids) {

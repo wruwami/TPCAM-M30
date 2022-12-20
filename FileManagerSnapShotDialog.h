@@ -3,6 +3,7 @@
 
 #include <QDialog>
 
+class QListWidgetItem;
 namespace Ui {
 class FileManagerSnapShotDialog;
 }
@@ -14,14 +15,20 @@ class FileManagerSnapShotDialog : public QDialog
 public:
     explicit FileManagerSnapShotDialog(QWidget *parent = 0);
     ~FileManagerSnapShotDialog();
+    QString strDate() const;
+
 private:
     void addListItem(QString str);
 private slots:
     void on_backPushButton_clicked();
 
+//    void on_listWidget_clicked(const QModelIndex &index);
+
+    void on_listWidget_itemClicked(QListWidgetItem *item);
+
 private:
     Ui::FileManagerSnapShotDialog *ui;
-
+    QString m_strDate;
 
     // QWidget interface
 protected:

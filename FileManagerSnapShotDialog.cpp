@@ -2,6 +2,7 @@
 #include "ui_FileManagerSnapShotDialog.h"
 
 #include "qdir.h"
+#include <QListWidget>
 
 #include "StringLoader.h"
 #include "Color.h"
@@ -65,4 +66,21 @@ void FileManagerSnapShotDialog::resizeEvent(QResizeEvent *event)
 {
     ui->listWidget->setStyleSheet(QString("QListView::item { height: %0px; }").arg(ui->snapShotIconLabel->height()/64* 45));
     ui->listWidget->setVerticalScrollBar(new CustomScrollbar(ui->listWidget->width() * 78 / 650));
+}
+
+//void FileManagerSnapShotDialog::on_listWidget_clicked(const QModelIndex &index)
+//{
+//    m_strDate = index.data();
+//    accept();
+//}
+
+QString FileManagerSnapShotDialog::strDate() const
+{
+    return m_strDate;
+}
+
+void FileManagerSnapShotDialog::on_listWidget_itemClicked(QListWidgetItem *item)
+{
+    m_strDate = item->text();
+    accept();
 }

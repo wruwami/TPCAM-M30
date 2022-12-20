@@ -25,8 +25,6 @@ KeyboardDialog::KeyboardDialog(QWidget *parent) :
 
     ui->deleteAllPushButton->setImage("Main_menu", "delete_all.bmp");
 
-//    setGeometry();
-
     QFile file;
     file.setFileName(":/keyboard/en.json");    // Using it from the resource file.
     Keyboard *k = new Keyboard(file, InputMode::keyboard, this);

@@ -33,10 +33,10 @@ BaseDialog::BaseDialog(Dialog dialog, Qt::Alignment align, QString msg, bool isC
     ui->setupUi(this);
     m_bIsCloseButton = isCloseButton;
 
-    this->setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
+    this->setWindowFlags(Qt::FramelessWindowHint);
 //    this->setWindowFlags(Qt::CustomizeWindowHint);
-    this->setStyleSheet("{border-width: 5px; border-style: solid; border-color: black; background-color : #d9d9d9;}");
-    this->setAttribute(Qt::WA_StyledBackground);
+//    this->setStyleSheet("{border-width: 5px; border-style: solid; border-color: black; background-color : #d9d9d9;}");
+//    this->setAttribute(Qt::WA_StyledBackground);
 
     if (isCloseButton)
     {
@@ -203,9 +203,6 @@ void BaseDialog::setSize(QSize size)
     ui->verticalLayout->setStretch(0, 130);
     ui->verticalLayout->setStretch(1, size.height() - 130);
 //    ui->titleLabel->resize(GetWidgetSize(QSize(size.width(), 130)));
-    QRect rect = this->rect();
-    rect.setSize(size);
-    drawBorder(rect);
 }
 
 void BaseDialog::setSize(int w, int h)
@@ -217,22 +214,10 @@ void BaseDialog::setSize(int w, int h)
     ui->verticalLayout->setStretch(0, 130);
     ui->verticalLayout->setStretch(1, h - 130);
     //    ui->titleLabel->resize(GetWidgetSize(QSize(w, 130)));
-    QRect rect = this->rect();
-    rect.setSize(size);
-    drawBorder(rect);
 }
 
 void BaseDialog::drawBorder(QRect rect)
 {
-
-//    QPainter painter(this);
-//    painter.drawRect(rect(), QBrush(QColor(Qt::black)));
-//    QStyleOptionFrame  option;
-//    option.initFrom(this);
-//    option.rect = rect.adjusted(1, 1, -1, -1);
-//    option.lineWidth = 1;
-//    option.frameShape = QFrame::Box;
-//    style()->drawPrimitive(QStyle::PE_Frame,  &option,  &painter,  this);
 }
 
 
@@ -263,12 +248,16 @@ void BaseDialog::resizeEvent(QResizeEvent *event)
 
     if (m_bIsCloseButton)
     {
-        QRect rect = ui->horizontalLayout->geometry();
+
+        QRect rect = ui->frame->geometry();
+//        rect.setSize(QSize(rect.width(), 130));
 //        rect.setWidth(rect.width()-130);
-        int width = GetWidgetSize(rect.size()).height();
-        ui->horizontalLayout->setStretch(0, ui->horizontalLayout->geometry().size().width() - width);
+        int width = GetWidthWidth(130);
+        ui->horizontalLayout->setStretch(0, rect.width() - width);
         ui->horizontalLayout->setStretch(1, width);
-        ui->closePushButton->resize(width, width);
+//        ui->horizontalLayout->setStretch(0, width);
+//        ui->horizontalLayout->setStretch(1, ui->horizontalLayout->geometry().size().width() - width);
+        ui->closePushButton->resize(width - 10, width - 10);
 //        int width = ui->horizontalLayout->geometry().adjusted(1,1,-1,-1).size().width();
 //        ui->closePushButton->setGeometry(QRect(geometry().width() - width - 1, 1, width, width));
     }

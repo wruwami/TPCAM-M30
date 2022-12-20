@@ -17,6 +17,10 @@ public:
 
 private:
     Ui::IndicatorGPSWidget *ui;
+    // QWidget interface
+protected:
+    void paintEvent(QPaintEvent *event);
+
 };
 
 #endif // INDICATORGPSWIDGET_H

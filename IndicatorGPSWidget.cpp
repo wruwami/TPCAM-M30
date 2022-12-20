@@ -1,6 +1,9 @@
 #include "IndicatorGPSWidget.h"
 #include "ui_IndicatorGPSWidget.h"
 
+#include <QPen>
+#include <QPainter>
+
 #include "StringLoader.h"
 
 IndicatorGPSWidget::IndicatorGPSWidget(QWidget *parent) :
@@ -19,4 +22,18 @@ IndicatorGPSWidget::IndicatorGPSWidget(QWidget *parent) :
 IndicatorGPSWidget::~IndicatorGPSWidget()
 {
     delete ui;
+}
+
+void IndicatorGPSWidget::paintEvent(QPaintEvent *event)
+{
+    QPen Pen(Qt::black);
+    Pen.setStyle(Qt::DashLine);
+    QPainter painter(this);
+    painter.setPen(Pen);
+
+    painter.drawLine(0, height()/5, width(), height()/5);
+    painter.drawLine(0, height()/5 * 2, width(), height()/5*2);
+    painter.drawLine(0, height()/5 * 3, width(), height()/5*3);
+    painter.drawLine(0, height()/5 * 4, width(), height()/5*4);
+
 }

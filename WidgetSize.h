@@ -57,6 +57,8 @@ public:
     QPoint GetWidgetPos(QPoint pos);
     QPoint GetWidgetPos(QPoint pos, QPoint oripos);
     int GetFontSize(int fontsize);
+    int GetWidgetHeight(int height);
+    int GetWidgetWidth(int width);
 private:
     QRect m_rec;
 };
@@ -89,5 +91,15 @@ static int getScreenWidth()
 static int getScreenHeight()
 {
     return WidgetSize::GetInstance()->getScreenHeight();
+}
+
+static int GetWidthHeight(int height)
+{
+    return WidgetSize::GetInstance()->GetWidgetHeight(height);
+}
+
+static int GetWidthWidth(int width)
+{
+    return WidgetSize::GetInstance()->GetWidgetWidth(width);
 }
 #endif // WIDGETSIZE_H

@@ -24,26 +24,9 @@
       </widget>
      </item>
      <item>
-      <widget class="Line" name="line">
-       <property name="midLineWidth">
-        <number>0</number>
-       </property>
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-      </widget>
-     </item>
-     <item>
       <widget class="QLabel" name="timeLabel">
        <property name="text">
         <string>TextLabel</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="Line" name="line_2">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
        </property>
       </widget>
      </item>
@@ -55,23 +38,9 @@
       </widget>
      </item>
      <item>
-      <widget class="Line" name="line_3">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-      </widget>
-     </item>
-     <item>
       <widget class="QLabel" name="longitudeLabel">
        <property name="text">
         <string>TextLabel</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="Line" name="line_4">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
        </property>
       </widget>
      </item>

@@ -68,6 +68,16 @@ QSize WidgetSize::GetWidgetSize(QSize size)
     return QSize(size.width() * m_rec.width() / Width , size.height() * m_rec.height()/ Height );
 }
 
+int WidgetSize::GetWidgetHeight(int height)
+{
+    return height * m_rec.height()/ Height;
+}
+
+int WidgetSize::GetWidgetWidth(int width)
+{
+    return width * m_rec.width()/ Width;
+}
+
 QPoint WidgetSize::GetWidgetPos(QPoint pos)
 {
     return QPoint(pos.x() * m_rec.width() / Width , pos.y() * m_rec.height()/ Height );

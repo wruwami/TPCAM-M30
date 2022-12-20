@@ -25,6 +25,7 @@ protected:
     void mousePressEvent(QMouseEvent *event);
 private slots:
     void on_showHidePushButton_clicked();
+    void on_speedPushButton_clicked();
 };
 
 #endif // INDICATORCAMERAFOCUSWIDGET_H

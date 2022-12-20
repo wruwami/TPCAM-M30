@@ -47,3 +47,8 @@ void IndicatorCameraFocusWidget::on_showHidePushButton_clicked()
         ui->showHidePushButton->setText(LoadString("IDS_HIDE"));
     }
 }
+
+void IndicatorCameraFocusWidget::on_speedPushButton_clicked()
+{
+    accept();
+}

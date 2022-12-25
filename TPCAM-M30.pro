@@ -140,7 +140,8 @@ HEADERS  += MainWindow.h \
     KeypadDialog.h \
     IndicatorCameraExposeWidget.h \
     CustomList.h \
-    CustomScrollbar.h
+    CustomScrollbar.h \
+    rapidcsv.h
 
 FORMS    += MainWindow.ui \
     IndicatorCameraFocusWidget.ui \

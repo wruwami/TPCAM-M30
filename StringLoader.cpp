@@ -72,10 +72,13 @@ m_file_name = dir_qstr.toStdString() + "\\" + file_name;
         if (strLine.empty())
             continue;
         QString qstrTmp = QString::fromStdString(strLine);
-
+#if 1
+        QStringList list2 = Split(qstrTmp);
+#else
         QStringList list2 = qstrTmp.split(",");
         if (list2[i][0] == '\"')
             list2[i] = list2[i].remove("\"") + "," + list2[i+1].remove("\"");
+#endif
         m_StringResource[list2[0].toStdString()] = list2[i];
 
     }
@@ -117,6 +120,11 @@ void StringLoader::AddInvalidString(std::string str)
     }
     inFile << str + "," + str + "\n";
     inFile.close();
+}
+
+QStringList StringLoader::Split(QString str)
+{
+
 }
 
 QStringList StringLoader::LoadLanuageList()

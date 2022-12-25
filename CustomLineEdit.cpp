@@ -2,12 +2,16 @@
 
 #include "FontSize.h"
 
+#include <QLocale>
+
 #include "KeyboardDialog.h"
 #include "KeypadDialog.h"
 
 CustomLineEdit::CustomLineEdit(QWidget *parent) : QLineEdit(parent)
 {
     this->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+//    QLocale qLocale;
+//    setLocale(qLocale);
 }
 
 void CustomLineEdit::SetMode(Mode nMode)

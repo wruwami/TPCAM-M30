@@ -30,6 +30,7 @@ public:
     QStringList LoadLanuageList();
 private:
     void AddInvalidString(std::string str);
+    QStringList Split(QString str);
 
 private:
     std::string m_file_name;

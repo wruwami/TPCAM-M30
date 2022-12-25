@@ -15,5 +15,6 @@
         <file>keyboard/icons/caps.png</file>
         <file>keyboard/icons/enter.png</file>
         <file>keyboard/icons/lows.png</file>
+        <file>keyboard/kr.json</file>
     </qresource>
 </RCC>

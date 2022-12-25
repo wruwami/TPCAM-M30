@@ -57,6 +57,35 @@ KeyboardDialog::KeyboardDialog(QString str, QWidget *parent) :
 //    setGeometry();
 
     QFile file;
+    file.setFileName(":/keyboard/kr.json");    // Using it from the resource file.
+    Keyboard *k = new Keyboard(file, InputMode::keyboard, this);
+    ui->verticalLayout->addWidget(k);
+//    KeyLayout *kl = k->GetKeyLayout();
+//    k->setFocus();
+//    k->show();
+    ui->verticalLayout->setStretch(0, 1);
+    ui->verticalLayout->setStretch(1, 1);
+    ui->verticalLayout->setStretch(2, 4);
+
+    ui->lineEdit->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+}
+
+KeyboardDialog::KeyboardDialog(QString str, QString language, QWidget *parent) :
+    QDialog(parent),
+    ui(new Ui::KeyboardDialog)
+{
+    ui->setupUi(this);
+
+    ui->lineEdit->setText(str);
+    setWindowFlags(Qt::FramelessWindowHint);
+    setGeometry(GetWidgetSizePos(QRect(0, 125, 1600, 835)));
+
+    ui->okPushButton->setText(LoadString("IDS_OK"));
+    ui->cancelPushButton->setText(LoadString("IDS_CANCEL"));
+
+    ui->deleteAllPushButton->setImage("Main_menu", "delete_all.bmp");
+
+    QFile file;
     file.setFileName(":/keyboard/en.json");    // Using it from the resource file.
     Keyboard *k = new Keyboard(file, InputMode::keyboard, this);
     ui->verticalLayout->addWidget(k);
@@ -69,6 +98,7 @@ KeyboardDialog::KeyboardDialog(QString str, QWidget *parent) :
 
     ui->lineEdit->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 }
+
 
 KeyboardDialog::~KeyboardDialog()
 {

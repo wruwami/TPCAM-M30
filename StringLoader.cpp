@@ -8,6 +8,8 @@
 #include <QList>
 #include "qdir.h"
 
+#include "rapidcsv.h"
+
 using namespace ResourceLoader;
 StringLoader* StringLoader::instance = nullptr;
 
@@ -56,34 +58,45 @@ m_file_name = dir_qstr.toStdString() + "\\" + file_name;
             return;
         }
     }
+    inFile.close();
 
+    rapidcsv::Document doc(m_file_name, rapidcsv::LabelParams(0, 0));
 
-    QString input_language = QString::fromStdString(language);
-    std::string strLanguage;
-    getline( inFile, strLanguage);
-    QString qstrLanguage = QString::fromStdString(strLanguage);
-    m_LanguageList = qstrLanguage.split(",");
-    m_LanguageList.removeFirst();
-    int i = m_LanguageList.indexOf(input_language) + 1;
+    std::vector<std::string> row = doc.GetRow<std::string>(-1);
+    foreach (std::string language, row) {
+        m_LanguageList.append(QString::fromStdString(language));
+    }
+//    m_LanguageList.removeOne("Index");
 
-    while (!inFile.eof()) {
-        std::string strLine;
-        getline ( inFile, strLine);
-        if (strLine.empty())
-            continue;
-        QString qstrTmp = QString::fromStdString(strLine);
-#if 1
-        QStringList list2 = Split(qstrTmp);
-#else
-        QStringList list2 = qstrTmp.split(",");
-        if (list2[i][0] == '\"')
-            list2[i] = list2[i].remove("\"") + "," + list2[i+1].remove("\"");
-#endif
-        m_StringResource[list2[0].toStdString()] = list2[i];
-
+    std::vector<std::string> col = doc.GetColumn<std::string>(-1);
+    foreach (std::string index, col) {
+        m_StringResource[index] = QString::fromStdString(doc.GetCell<std::string>(language, index));
     }
 
-    inFile.close();
+//    QString input_language = QString::fromStdString(language);
+//    std::string strLanguage;
+//    getline( inFile, strLanguage);
+//    QString qstrLanguage = QString::fromStdString(strLanguage);
+//    m_LanguageList = qstrLanguage.split(",");
+//    m_LanguageList.removeFirst();
+//    int i = m_LanguageList.indexOf(input_language) + 1;
+
+//    while (!inFile.eof()) {
+//        std::string strLine;
+//        getline ( inFile, strLine);
+//        if (strLine.empty())
+//            continue;
+//        QString qstrTmp = QString::fromStdString(strLine);
+//#if 1
+//        QStringList list2 = Split(qstrTmp);
+//#else
+//        QStringList list2 = qstrTmp.split(",");
+//        if (list2[i][0] == '\"')
+//            list2[i] = list2[i].remove("\"") + "," + list2[i+1].remove("\"");
+//#endif
+//        m_StringResource[list2[0].toStdString()] = list2[i];
+
+//    }
 }
 
 std::map<std::string, QString> StringLoader::GetString()

@@ -11,6 +11,10 @@
 
 #include "WidgetSize.h"
 
+#ifdef Q_OS_LINUX
+    #include "hangul-1.0/hangul.h"
+#endif
+
 KeyboardDialog::KeyboardDialog(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::KeyboardDialog)

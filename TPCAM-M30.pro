@@ -197,6 +197,7 @@ RESOURCES += \
 
 DISTFILES +=
 
-unix {
-LIBS += -L/usr/lib/aarch64-linux-gnu/ -lQt5X11Extras
-}
+unix:!macx: LIBS += -L/usr/local/lib/ -lhangul
+
+INCLUDEPATH += /usr/local/include
+DEPENDPATH += /usr/local/include

@@ -3,6 +3,16 @@
 
 #include <QMainWindow>
 
+enum Language{
+    English,
+    Korean,
+    French,
+    Spanish,
+    Portuguese,
+    Arabic,
+};
+
+
 class IndicatorCameraExposeWidget;
 class IndicatorCameraFocusWidget;
 class CameraAlignWidget;
@@ -70,6 +80,7 @@ private:
 
     QString m_userName;
     int m_nFailTimerId;
+    Language m_mLanguage = Language::English;
 
     // QObject interface
 protected:

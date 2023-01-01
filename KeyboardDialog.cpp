@@ -12,7 +12,54 @@
 #include "WidgetSize.h"
 
 #ifdef Q_OS_LINUX
-    #include "hangul-1.0/hangul.h"
+    #include <iconv.h>
+
+#ifdef WORDS_BIGENDIAN
+#define UCS4 "UCS-4BE"
+#else
+#define UCS4 "UCS-4LE"
+#endif
+
+#ifndef ICONV_CONST
+#define ICONV_CONST
+#endif
+
+void ucs4_to_utf8(char *buf, const ucschar *ucs4, size_t bufsize)
+{
+    size_t n;
+    ICONV_CONST char*  inbuf;
+    size_t inbytesleft;
+    char*  outbuf;
+    size_t outbytesleft;
+    size_t ret;
+    iconv_t cd;
+
+    for (n = 0; ucs4[n] != 0; n++)
+    continue;
+
+    if (n == 0) {
+    buf[0] = '\0';
+    return;
+    }
+
+    cd = iconv_open("UTF-8", UCS4);
+    if (cd == (iconv_t)(-1))
+    return;
+
+    inbuf = (char*)ucs4;
+    inbytesleft = n * 4;
+    outbuf = buf;
+    outbytesleft = bufsize;
+    ret = iconv(cd, &inbuf, &inbytesleft, &outbuf, &outbytesleft);
+    (void)ret;
+
+    iconv_close(cd);
+
+    if (outbytesleft > 0)
+    *outbuf = '\0';
+    else
+    buf[bufsize - 1] = '\0';
+}
 #endif
 
 KeyboardDialog::KeyboardDialog(QWidget *parent) :
@@ -61,7 +108,7 @@ KeyboardDialog::KeyboardDialog(QString str, QWidget *parent) :
 //    setGeometry();
 
     QFile file;
-    file.setFileName(":/keyboard/kr.json");    // Using it from the resource file.
+    file.setFileName(":/keyboard/ko.json");    // Using it from the resource file.
     Keyboard *k = new Keyboard(file, InputMode::keyboard, this);
     ui->verticalLayout->addWidget(k);
 //    KeyLayout *kl = k->GetKeyLayout();
@@ -74,7 +121,7 @@ KeyboardDialog::KeyboardDialog(QString str, QWidget *parent) :
     ui->lineEdit->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 }
 
-KeyboardDialog::KeyboardDialog(QString str, QString language, QWidget *parent) :
+KeyboardDialog::KeyboardDialog(QString str, Language lang, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::KeyboardDialog)
 {
@@ -90,7 +137,49 @@ KeyboardDialog::KeyboardDialog(QString str, QString language, QWidget *parent) :
     ui->deleteAllPushButton->setImage("Main_menu", "delete_all.bmp");
 
     QFile file;
-    file.setFileName(":/keyboard/en.json");    // Using it from the resource file.
+    switch (lang)
+    {
+        case English:
+        file.setFileName(":/keyboard/en.json");    // Using it from the resource file.
+    {
+    }
+        break;
+    case Korean:
+    {
+        file.setFileName(":/keyboard/ko.json");    // Using it from the resource file.
+#ifdef Q_OS_LINUX
+        hangul_init();
+
+        hic = hangul_ic_new("2");
+#endif
+    }
+        break;
+    case French:
+    {
+        file.setFileName(":/keyboard/fr.json");    // Using it from the resource file.
+
+    }
+        break;
+    case Spanish:
+    {
+        file.setFileName(":/keyboard/es.json");    // Using it from the resource file.
+
+    }
+        break;
+    case Portuguese:
+    {
+        file.setFileName(":/keyboard/pt.json");    // Using it from the resource file.
+
+    }
+        break;
+    case Arabic:
+    {
+        file.setFileName(":/keyboard/ar.json");    // Using it from the resource file.
+
+    }
+        break;
+    }
+
     Keyboard *k = new Keyboard(file, InputMode::keyboard, this);
     ui->verticalLayout->addWidget(k);
 //    KeyLayout *kl = k->GetKeyLayout();
@@ -106,12 +195,22 @@ KeyboardDialog::KeyboardDialog(QString str, QString language, QWidget *parent) :
 
 KeyboardDialog::~KeyboardDialog()
 {
+#ifdef Q_OS_LINUX
+    if (m_nLanguage == Korean)
+    {
+        hangul_ic_delete(hic);
+
+        hangul_fini();
+    }
+#endif
+
     delete ui;
 }
 
 void KeyboardDialog::onKeyPressed(const QString &iKey, Key *mKey)
 {
 //    QString mLayoutName;
+    char commit[32] = { '\0', };
 
     if (iKey == "space")
     {
@@ -128,7 +227,22 @@ void KeyboardDialog::onKeyPressed(const QString &iKey, Key *mKey)
     }
     else
     {
+#ifdef Q_OS_LINUX
+        if (m_nLanguage == Korean)
+        {
+            int ascii = (int)(iKey.toStdString().c_str()[0]);
+            int ret = hangul_ic_process(hic, ascii);
+            ucs4_to_utf8(commit, hangul_ic_get_commit_string(hic), sizeof(commit));
+            ui->lineEdit->insert(commit);
+        }
+        else
+        {
+            ui->lineEdit->insert(iKey);
+        }
+#else
         ui->lineEdit->insert(iKey);
+#endif
+
     }
 }
 

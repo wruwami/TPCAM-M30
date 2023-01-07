@@ -24,8 +24,12 @@
 #define ICONV_CONST
 #endif
 
-void ucs4_to_utf8(char *buf, const ucschar *ucs4, size_t bufsize)
+enum HangulToEnglish
 {
+
+};
+
+void ucs4_to_utf8(char *buf, const ucschar *ucs4, size_t bufsize){
     size_t n;
     ICONV_CONST char*  inbuf;
     size_t inbytesleft;
@@ -108,7 +112,12 @@ KeyboardDialog::KeyboardDialog(QString str, QWidget *parent) :
 //    setGeometry();
 
     QFile file;
-    file.setFileName(":/keyboard/ko.json");    // Using it from the resource file.
+    file.setFileName(":/keyboard/en.json");    // Using it from the resource file.
+#ifdef Q_OS_LINUX
+        hangul_init();
+
+        m_hic = hangul_ic_new("2");
+#endif
     Keyboard *k = new Keyboard(file, InputMode::keyboard, this);
     ui->verticalLayout->addWidget(k);
 //    KeyLayout *kl = k->GetKeyLayout();
@@ -150,7 +159,7 @@ KeyboardDialog::KeyboardDialog(QString str, Language lang, QWidget *parent) :
 #ifdef Q_OS_LINUX
         hangul_init();
 
-        hic = hangul_ic_new("2");
+        m_hic = hangul_ic_new("2");
 #endif
     }
         break;
@@ -198,7 +207,7 @@ KeyboardDialog::~KeyboardDialog()
 #ifdef Q_OS_LINUX
     if (m_nLanguage == Korean)
     {
-        hangul_ic_delete(hic);
+        hangul_ic_delete(m_hic);
 
         hangul_fini();
     }
@@ -210,7 +219,6 @@ KeyboardDialog::~KeyboardDialog()
 void KeyboardDialog::onKeyPressed(const QString &iKey, Key *mKey)
 {
 //    QString mLayoutName;
-    char commit[32] = { '\0', };
 
     if (iKey == "space")
     {
@@ -230,10 +238,12 @@ void KeyboardDialog::onKeyPressed(const QString &iKey, Key *mKey)
 #ifdef Q_OS_LINUX
         if (m_nLanguage == Korean)
         {
-            int ascii = (int)(iKey.toStdString().c_str()[0]);
-            int ret = hangul_ic_process(hic, ascii);
-            ucs4_to_utf8(commit, hangul_ic_get_commit_string(hic), sizeof(commit));
-            ui->lineEdit->insert(commit);
+            int ascii = iKey[0].unicode();
+            int ret = hangul_ic_process(m_hic, ascii);
+            ucs4_to_utf8(m_commit, hangul_ic_get_commit_string(m_hic), sizeof(m_commit));
+//            const ucschar* ch = hangul_ic_get_commit_string(m_hic);
+//            QString utf8 = QString::fromUcs4(ch);
+            ui->lineEdit->insert(m_commit);
         }
         else
         {
@@ -249,6 +259,11 @@ void KeyboardDialog::onKeyPressed(const QString &iKey, Key *mKey)
 const QString &KeyboardDialog::str() const
 {
     return m_str;
+}
+
+int KeyboardDialog::HangulCovertEnglish(QChar ch)
+{
+
 }
 
 void KeyboardDialog::on_okPushButton_clicked()

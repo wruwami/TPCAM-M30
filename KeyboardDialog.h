@@ -33,7 +33,7 @@ public:
     void onKeyPressed(const QString &iKey, Key* mKey);
     const QString &str() const;
 private:
-    char HangulCovertEnglish(char ch);
+    char HangulCovertEnglish(QString str);
 private:
     QString m_str;
     Language m_nLanguage = Language::Korean;

@@ -258,43 +258,73 @@ const QString &KeyboardDialog::str() const
     return m_str;
 }
 
-char KeyboardDialog::HangulCovertEnglish(char ch)
+char KeyboardDialog::HangulCovertEnglish(QString str)
 {
-    switch(ch)
-    {
-    case 'ㅂ': return 'q';
-    case 'ㅈ': return 'w';
-    case 'ㄷ': return 'e';
-    case 'ㄱ': return 'r';
-    case 'ㅃ': return 'Q';
-    case 'ㅉ': return 'W';
-    case 'ㄸ': return 'E';
-    case 'ㄲ': return 'R';
-    case 'ㅁ': return 'a';
-    case 'ㄴ': return 's';
-    case 'ㅇ': return 'd';
-    case 'ㄹ': return 'f';
-    case 'ㅋ': return 'z';
-    case 'ㅌ': return 'x';
-    case 'ㅊ': return 'c';
-    case 'ㅍ': return 'v';
-    case 'ㅅ': return 't';
-    case 'ㅎ': return 'g';
-    case 'ㅠ': return 'b';
-    case 'ㅛ': return 'y';
-    case 'ㅕ': return 'u';
-    case 'ㅑ': return 'i';
-    case 'ㅐ': return 'o';
-    case 'ㅔ': return 'p';
-    case 'ㅒ': return 'O';
-    case 'ㅖ': return 'P';
-    case 'ㅗ': return 'h';
-    case 'ㅓ': return 'j';
-    case 'ㅏ': return 'k';
-    case 'ㅣ': return 'l';
-    case 'ㅜ': return 'n';
-    case 'ㅡ': return 'm';
-    }
+    if (str == "ㅂ")
+        return 'q';
+    else if (str == "ㅈ")
+        return 'w';
+    else if (str == "ㄷ")
+        return 'e';
+    else if (str == "ㄱ")
+        return 'r';
+    else if (str == "ㅃ")
+        return 'Q';
+    else if (str == "ㅉ")
+        return 'W';
+    else if (str == "ㄸ")
+        return 'E';
+    else if (str == "ㄲ")
+        return 'R';
+    else if (str == "ㅁ")
+        return 'a';
+    else if (str == "ㄴ")
+        return 's';
+    else if (str == "ㅇ")
+        return 'd';
+    else if (str == "ㄹ")
+        return 'f';
+    else if (str == "ㅋ")
+        return 'z';
+    else if (str == "ㅌ")
+        return 'x';
+    else if (str == "ㅊ")
+        return 'c';
+    else if (str == "ㅍ")
+        return 'v';
+    else if (str == "ㅎ")
+        return 'g';
+    else if (str == "ㅅ")
+        return 't';
+    else if (str == "ㅛ")
+        return 'y';
+    else if (str == "ㅕ")
+        return 'u';
+    else if (str == "ㅑ")
+        return 'i';
+    else if (str == "ㅐ")
+        return 'o';
+    else if (str == "ㅔ")
+        return 'p';
+    else if (str == "ㅒ")
+        return 'O';
+    else if (str == "ㅖ")
+        return 'P';
+    else if (str == "ㅗ")
+        return 'h';
+    else if (str == "ㅓ")
+        return 'j';
+    else if (str == "ㅏ")
+        return 'k';
+    else if (str == "ㅣ")
+        return 'l';
+    else if (str == "ㅠ")
+        return 'b';
+    else if (str == "ㅜ")
+        return 'n';
+    else if (str == "ㅡ")
+        return 'm';
+
 }
 
 void KeyboardDialog::on_okPushButton_clicked()

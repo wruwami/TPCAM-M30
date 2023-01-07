@@ -24,10 +24,7 @@
 #define ICONV_CONST
 #endif
 
-enum HangulToEnglish
-{
 
-};
 
 void ucs4_to_utf8(char *buf, const ucschar *ucs4, size_t bufsize){
     size_t n;
@@ -238,7 +235,7 @@ void KeyboardDialog::onKeyPressed(const QString &iKey, Key *mKey)
 #ifdef Q_OS_LINUX
         if (m_nLanguage == Korean)
         {
-            int ascii = iKey[0].unicode();
+            int ascii = HangulCovertEnglish(iKey[0]);
             int ret = hangul_ic_process(m_hic, ascii);
             ucs4_to_utf8(m_commit, hangul_ic_get_commit_string(m_hic), sizeof(m_commit));
 //            const ucschar* ch = hangul_ic_get_commit_string(m_hic);
@@ -261,9 +258,43 @@ const QString &KeyboardDialog::str() const
     return m_str;
 }
 
-int KeyboardDialog::HangulCovertEnglish(QChar ch)
+char KeyboardDialog::HangulCovertEnglish(char ch)
 {
-
+    switch(ch)
+    {
+    case 'ㅂ': return 'q';
+    case 'ㅈ': return 'w';
+    case 'ㄷ': return 'e';
+    case 'ㄱ': return 'r';
+    case 'ㅃ': return 'Q';
+    case 'ㅉ': return 'W';
+    case 'ㄸ': return 'E';
+    case 'ㄲ': return 'R';
+    case 'ㅁ': return 'a';
+    case 'ㄴ': return 's';
+    case 'ㅇ': return 'd';
+    case 'ㄹ': return 'f';
+    case 'ㅋ': return 'z';
+    case 'ㅌ': return 'x';
+    case 'ㅊ': return 'c';
+    case 'ㅍ': return 'v';
+    case 'ㅅ': return 't';
+    case 'ㅎ': return 'g';
+    case 'ㅠ': return 'b';
+    case 'ㅛ': return 'y';
+    case 'ㅕ': return 'u';
+    case 'ㅑ': return 'i';
+    case 'ㅐ': return 'o';
+    case 'ㅔ': return 'p';
+    case 'ㅒ': return 'O';
+    case 'ㅖ': return 'P';
+    case 'ㅗ': return 'h';
+    case 'ㅓ': return 'j';
+    case 'ㅏ': return 'k';
+    case 'ㅣ': return 'l';
+    case 'ㅜ': return 'n';
+    case 'ㅡ': return 'm';
+    }
 }
 
 void KeyboardDialog::on_okPushButton_clicked()

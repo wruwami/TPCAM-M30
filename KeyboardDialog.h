@@ -32,12 +32,15 @@ public:
     ~KeyboardDialog();
     void onKeyPressed(const QString &iKey, Key* mKey);
     const QString &str() const;
-
+private:
+    int HangulCovertEnglish(QChar ch);
 private:
     QString m_str;
-    Language m_nLanguage = Language::English;
+    Language m_nLanguage = Language::Korean;
+    char m_commit[32] = { '\0', };
+
 #ifdef Q_OS_LINUX
-    HangulInputContext *hic;
+    HangulInputContext *m_hic = nullptr;
 #endif
 
 private slots:

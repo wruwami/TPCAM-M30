@@ -1,16 +1,16 @@
 {
-  "locale":"en",
+  "locale":"fr",
   "layouts": [
     { "name":"lowercase",
-        "keys":[["q", "w", "e", "r", "t", "y", "u", "i", "o", "p","?"],
-               ["a", "s", "d", "f", "g", "h", "j", "k", "l","back"],
-               ["Caps", "z", "x", "c", "v", "b", "n", "m","return"],
+        "keys":[["a", "z", "e", "r", "t", "y", "u", "i", "o", "p","?"],
+               ["q", "s", "d", "f", "g", "h", "j", "k", "l","back"],
+               ["Caps", "w", "x", "c", "v", "b", "n", "m","return"],
                ["123", ".", "space", "@",",",";"]]
     },
     { "name":"uppercase",
-        "keys":[["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P", "¿"],
-               ["A", "S", "D", "F", "G", "H", "J", "K", "L","back"],
-               ["Lowr", "Z", "X", "C", "V", "B", "N", "M", "return"],
+        "keys":[["A", "Z", "E", "R", "T", "Y", "U", "I", "O", "P", "¿"],
+               ["Q", "S", "D", "F", "G", "H", "J", "K", "L","back"],
+               ["Lowr", "W", "X", "C", "V", "B", "N", "M", "return"],
                ["123", ".", "space", "@",",",";"]]
     },
     { "name":"numerical",

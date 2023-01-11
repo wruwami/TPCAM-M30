@@ -1,15 +1,15 @@
 {
-  "locale":"en",
+  "locale":"pt",
   "layouts": [
     { "name":"lowercase",
         "keys":[["q", "w", "e", "r", "t", "y", "u", "i", "o", "p","?"],
-               ["a", "s", "d", "f", "g", "h", "j", "k", "l","back"],
+               ["a", "s", "d", "f", "g", "h", "j", "k", "l", "ç", "back"],
                ["Caps", "z", "x", "c", "v", "b", "n", "m","return"],
                ["123", ".", "space", "@",",",";"]]
     },
     { "name":"uppercase",
         "keys":[["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P", "¿"],
-               ["A", "S", "D", "F", "G", "H", "J", "K", "L","back"],
+               ["A", "S", "D", "F", "G", "H", "J", "K", "L", "Ç", "back"],
                ["Lowr", "Z", "X", "C", "V", "B", "N", "M", "return"],
                ["123", ".", "space", "@",",",";"]]
     },

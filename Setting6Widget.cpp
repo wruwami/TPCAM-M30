@@ -43,3 +43,9 @@ void Setting6Widget::on_searchPushButton_clicked()
     BaseDialog baseDialog(Dialog::BluetoothSearchFilterWidgetType, Qt::AlignmentFlag::AlignCenter);
     baseDialog.exec();
 }
+
+void Setting6Widget::on_languageComboBox_currentIndexChanged(const QString &arg1)
+{
+    ResourceLoader::StringLoader::GetInstance()->Initialize("strings", "stringTable.csv", arg1.toStdString());
+
+}

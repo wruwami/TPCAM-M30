@@ -18,6 +18,8 @@ public:
 private slots:
     void on_searchPushButton_clicked();
 
+    void on_languageComboBox_currentIndexChanged(const QString &arg1);
+
 private:
     Ui::Setting6Widget *ui;
 };

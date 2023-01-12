@@ -6,6 +6,7 @@
 
 #include "KeyboardDialog.h"
 #include "KeypadDialog.h"
+#include "StringLoader.h"
 
 CustomLineEdit::CustomLineEdit(QWidget *parent) : QLineEdit(parent)
 {
@@ -34,7 +35,7 @@ void CustomLineEdit::mousePressEvent(QMouseEvent *event)
     {
     case KeyboardType:
     {
-        KeyboardDialog keyboardDialog(this->text());
+        KeyboardDialog keyboardDialog(this->text(), GetLanguage());
         if (keyboardDialog.exec() == QDialog::Accepted)
         {
             this->setText(keyboardDialog.str());

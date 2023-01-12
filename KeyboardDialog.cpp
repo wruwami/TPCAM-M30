@@ -229,7 +229,7 @@ KeyboardDialog::KeyboardDialog(QString str, QString lang, QWidget *parent) :
 KeyboardDialog::~KeyboardDialog()
 {
 #ifdef Q_OS_LINUX
-    if (m_nLanguage == Korean)
+    if (GetLanguage() == "Korean")
     {
         hangul_ic_delete(m_hic);
 
@@ -260,7 +260,7 @@ void KeyboardDialog::onKeyPressed(const QString &iKey, Key *mKey)
     else
     {
 #ifdef Q_OS_LINUX
-        if (m_nLanguage == Korean)
+        if (GetLanguage() == "Korean")
         {
             int ascii = HangulCovertEnglish(iKey[0]);
             int ret = hangul_ic_process(m_hic, ascii);

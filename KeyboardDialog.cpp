@@ -126,42 +126,6 @@ KeyboardDialog::KeyboardDialog(QString lang, QWidget *parent) :
     ui->lineEdit->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 }
 
-//KeyboardDialog::KeyboardDialog(QString str, QWidget *parent) :
-//    QDialog(parent),
-//    ui(new Ui::KeyboardDialog)
-//{
-//    ui->setupUi(this);
-
-//    ui->lineEdit->setText(str);
-//    setWindowFlags(Qt::FramelessWindowHint);
-//    setGeometry(GetWidgetSizePos(QRect(0, 125, 1600, 835)));
-
-//    ui->okPushButton->setText(LoadString("IDS_OK"));
-//    ui->cancelPushButton->setText(LoadString("IDS_CANCEL"));
-
-//    ui->deleteAllPushButton->setImage("Main_menu", "delete_all.bmp");
-
-////    setGeometry();
-
-//    QFile file;
-//    file.setFileName(":/keyboard/en.json");    // Using it from the resource file.
-//#ifdef Q_OS_LINUX
-//        hangul_init();
-
-//        m_hic = hangul_ic_new("2");
-//#endif
-//    Keyboard *k = new Keyboard(file, InputMode::keyboard, this);
-//    ui->verticalLayout->addWidget(k);
-////    KeyLayout *kl = k->GetKeyLayout();
-////    k->setFocus();
-////    k->show();
-//    ui->verticalLayout->setStretch(0, 1);
-//    ui->verticalLayout->setStretch(1, 1);
-//    ui->verticalLayout->setStretch(2, 4);
-
-//    ui->lineEdit->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-//}
-
 KeyboardDialog::KeyboardDialog(QString str, QString lang, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::KeyboardDialog)
@@ -240,6 +204,21 @@ KeyboardDialog::~KeyboardDialog()
     delete ui;
 }
 
+#ifdef Q_OS_LINUX
+QString KeyboardDialog::getPreeditString()
+{
+    const ucschar* str = hangul_ic_get_preedit_string(m_hic);
+    return QString::fromUcs4(str);
+}
+
+QString KeyboardDialog::getCommitString()
+{
+    const ucschar* str = hangul_ic_get_commit_string(m_hic);
+    return QString::fromUcs4(str);
+}
+#endif
+
+
 void KeyboardDialog::onKeyPressed(const QString &iKey, Key *mKey)
 {
 //    QString mLayoutName;
@@ -250,6 +229,13 @@ void KeyboardDialog::onKeyPressed(const QString &iKey, Key *mKey)
     }
     else if (iKey == "return")
     {
+#ifdef Q_OS_LINUX
+        if (GetLanguage() == "Korean")
+        {
+            ui->lineEdit->insert(getPreeditString());
+//            1hangul_ic_get_preedit_string();
+        }
+#endif
         m_str = ui->lineEdit->text();
         QDialog::accept();
     }
@@ -264,10 +250,23 @@ void KeyboardDialog::onKeyPressed(const QString &iKey, Key *mKey)
         {
             int ascii = HangulCovertEnglish(iKey[0]);
             int ret = hangul_ic_process(m_hic, ascii);
-            ucs4_to_utf8(m_commit, hangul_ic_get_commit_string(m_hic), sizeof(m_commit));
+
+            QString str = getCommitString();
+            if (!str.isEmpty())
+            {
+                ui->lineEdit->insert(str);
+            }
+            else
+            {
+//                ui->lineEdit->backspace();
+//                ui->lineEdit->insert(getPreeditString());
+            }
+//                ui->lineEdit->installEventFilter()
+
+//            ucs4_to_utf8(m_commit, hangul_ic_get_commit_string(m_hic), sizeof(m_commit));
 //            const ucschar* ch = hangul_ic_get_commit_string(m_hic);
 //            QString utf8 = QString::fromUcs4(ch);
-            ui->lineEdit->insert(m_commit);
+
         }
         else
         {

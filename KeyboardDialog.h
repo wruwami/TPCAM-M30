@@ -24,6 +24,11 @@ public:
     const QString &str() const;
 private:
     char HangulCovertEnglish(QString str);
+#ifdef Q_OS_LINUX
+    QString getPreeditString();
+    QString getCommitString();
+#endif
+
 private:
     QString m_str;
     char m_commit[32] = { '\0', };

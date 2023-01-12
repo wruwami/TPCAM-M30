@@ -1,0 +1,22 @@
+{
+	"lcd brightness selection": 2,
+	"lcd birghtness items": [
+		"Level1",
+		"Level2",
+		"Level3"
+	],
+	"unit selection": 1,
+	"weather mode items": [
+		"km/h",
+		"m",
+		"mph",
+		"ft"
+	],
+	"date format selection": 2,
+	"date format items": [
+		"YYYY/MM/DD",
+		"MM/DD/YYYY",
+		"DD/MM/YYYY",
+		"MMM,DD,YYY"
+	]
+}

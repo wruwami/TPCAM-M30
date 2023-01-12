@@ -1,0 +1,10 @@
+{
+	"emmc": {
+		"exit enforcement percent": 20.0,
+		"exit self test percent": 30.0
+	},
+	"SD": {
+		"exit enforcement percent": 10.0,
+		"exit self test percent": 20.0
+	}
+}

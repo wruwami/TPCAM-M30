@@ -37,7 +37,7 @@ DeviceIDWidget::~DeviceIDWidget()
 
 void DeviceIDWidget::on_inputPushButton_clicked()
 {
-    KeyboardDialog keyboardDialog;
+    KeyboardDialog keyboardDialog(GetLanguage());
     if (keyboardDialog.exec() == QDialog::Accepted)
     {
         ui->lineEdit->setText(keyboardDialog.str());

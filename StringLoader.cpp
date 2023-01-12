@@ -73,6 +73,8 @@ m_file_name = dir_qstr.toStdString() + "\\" + file_name;
         m_StringResource[index] = QString::fromStdString(doc.GetCell<std::string>(language, index));
     }
 
+    m_Language = QString::fromStdString(language);
+
 //    QString input_language = QString::fromStdString(language);
 //    std::string strLanguage;
 //    getline( inFile, strLanguage);
@@ -135,12 +137,12 @@ void StringLoader::AddInvalidString(std::string str)
     inFile.close();
 }
 
-QStringList StringLoader::Split(QString str)
-{
-
-}
-
 QStringList StringLoader::LoadLanuageList()
 {
     return m_LanguageList;
+}
+
+QString StringLoader::GetLanguage()
+{
+    return m_Language;
 }

@@ -28,20 +28,26 @@ public:
     std::map<std::string, QString> GetString();
     QString GetString(std::string index);
     QStringList LoadLanuageList();
+    QString GetLanguage();
 private:
     void AddInvalidString(std::string str);
-    QStringList Split(QString str);
 
 private:
     std::string m_file_name;
     std::map <std::string, QString> m_StringResource;
     QStringList  m_LanguageList;
+    QString m_Language = "English";
 };
 }
 static QString LoadString(std::string index)
 {
 //    using namespace ResourceLoader;
     return ResourceLoader::StringLoader::GetInstance()->GetString(index);
+}
+
+static QString GetLanguage()
+{
+    return ResourceLoader::StringLoader::GetInstance()->GetLanguage();
 }
 
 static QStringList LoadLangaugeList()

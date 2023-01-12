@@ -7,15 +7,6 @@
 #include "hangul-1.0/hangul.h"
 #endif
 
-enum Language{
-    English,
-    Korean,
-    French,
-    Spanish,
-    Portuguese,
-    Arabic,
-};
-
 class Key;
 namespace Ui {
 class KeyboardDialog;
@@ -26,9 +17,8 @@ class KeyboardDialog : public QDialog
     Q_OBJECT
 
 public:
-    explicit KeyboardDialog(QWidget *parent = 0);
-    explicit KeyboardDialog(QString str, QWidget *parent = 0);
-    explicit KeyboardDialog(QString str, Language lang, QWidget *parent = 0);
+    explicit KeyboardDialog(QString lang, QWidget *parent = 0);
+    explicit KeyboardDialog(QString str, QString lang, QWidget *parent = 0);
     ~KeyboardDialog();
     void onKeyPressed(const QString &iKey, Key* mKey);
     const QString &str() const;
@@ -36,7 +26,6 @@ private:
     char HangulCovertEnglish(QString str);
 private:
     QString m_str;
-    Language m_nLanguage = Language::Korean;
     char m_commit[32] = { '\0', };
 
 #ifdef Q_OS_LINUX

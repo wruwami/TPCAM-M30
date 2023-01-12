@@ -61,15 +61,12 @@ void SettingWidget::clearStyleSheet()
     ui->setting7PushButton->setStyleSheet("QPushButton { color: black; background-color: white; border-width: 1px; border-color: blue; border-style: solid;}");
 }
 
-
-
 void SettingWidget::on_setting1PushButton_clicked()
 {
     ui->stackedWidget->setCurrentIndex(0);
     clearStyleSheet();
     ui->setting1PushButton->setStyleSheet("QPushButton{ color : black; background-color :white; border-style: solid; border-width: 1px; border-color : red;}");
 }
-
 
 void SettingWidget::on_setting2PushButton_clicked()
 {
@@ -78,14 +75,12 @@ void SettingWidget::on_setting2PushButton_clicked()
     ui->setting2PushButton->setStyleSheet("QPushButton{ color : black; background-color :white; border-style: solid; border-width: 1px; border-color : red;}");
 }
 
-
 void SettingWidget::on_setting3PushButton_clicked()
 {
     ui->stackedWidget->setCurrentIndex(2);
     clearStyleSheet();
     ui->setting3PushButton->setStyleSheet("QPushButton{ color : black; background-color :white; border-style: solid; border-width: 1px; border-color : red;}");
 }
-
 
 void SettingWidget::on_setting4PushButton_clicked()
 {
@@ -94,14 +89,12 @@ void SettingWidget::on_setting4PushButton_clicked()
     ui->setting4PushButton->setStyleSheet("QPushButton{ color : black; background-color :white; border-style: solid; border-width: 1px; border-color : red;}");
 }
 
-
 void SettingWidget::on_setting5PushButton_clicked()
 {
     ui->stackedWidget->setCurrentIndex(4);
     clearStyleSheet();
     ui->setting5PushButton->setStyleSheet("QPushButton{ color : black; background-color :white; border-style: solid; border-width: 1px; border-color : red;}");
 }
-
 
 void SettingWidget::on_setting6PushButton_clicked()
 {
@@ -110,23 +103,9 @@ void SettingWidget::on_setting6PushButton_clicked()
     ui->setting6PushButton->setStyleSheet("QPushButton{ color : black; background-color :white; border-style: solid; border-width: 1px; border-color : red;}");
 }
 
-
 void SettingWidget::on_setting7PushButton_clicked()
 {
     ui->stackedWidget->setCurrentIndex(6);
     clearStyleSheet();
     ui->setting7PushButton->setStyleSheet("QPushButton{ color : black; background-color :white; border-style: solid; border-width: 1px; border-color : red;}");
 }
-
-
-//void SettingWidget::on_savePushButton_clicked()
-//{
-////    accept();
-//}
-
-
-//void SettingWidget::on_cancelPushButton_clicked()
-//{
-////    reject();
-//}
-

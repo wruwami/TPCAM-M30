@@ -63,7 +63,7 @@ void ucs4_to_utf8(char *buf, const ucschar *ucs4, size_t bufsize){
 }
 #endif
 
-KeyboardDialog::KeyboardDialog(QWidget *parent) :
+KeyboardDialog::KeyboardDialog(QString lang, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::KeyboardDialog)
 {
@@ -78,79 +78,11 @@ KeyboardDialog::KeyboardDialog(QWidget *parent) :
     ui->deleteAllPushButton->setImage("Main_menu", "delete_all.bmp");
 
     QFile file;
-    file.setFileName(":/keyboard/en.json");    // Using it from the resource file.
-    Keyboard *k = new Keyboard(file, InputMode::keyboard, this);
-    ui->verticalLayout->addWidget(k);
-//    KeyLayout *kl = k->GetKeyLayout();
-//    k->setFocus();
-//    k->show();
-    ui->verticalLayout->setStretch(0, 1);
-    ui->verticalLayout->setStretch(1, 1);
-    ui->verticalLayout->setStretch(2, 4);
-
-    ui->lineEdit->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-}
-
-KeyboardDialog::KeyboardDialog(QString str, QWidget *parent) :
-    QDialog(parent),
-    ui(new Ui::KeyboardDialog)
-{
-    ui->setupUi(this);
-
-    ui->lineEdit->setText(str);
-    setWindowFlags(Qt::FramelessWindowHint);
-    setGeometry(GetWidgetSizePos(QRect(0, 125, 1600, 835)));
-
-    ui->okPushButton->setText(LoadString("IDS_OK"));
-    ui->cancelPushButton->setText(LoadString("IDS_CANCEL"));
-
-    ui->deleteAllPushButton->setImage("Main_menu", "delete_all.bmp");
-
-//    setGeometry();
-
-    QFile file;
-    file.setFileName(":/keyboard/en.json");    // Using it from the resource file.
-#ifdef Q_OS_LINUX
-        hangul_init();
-
-        m_hic = hangul_ic_new("2");
-#endif
-    Keyboard *k = new Keyboard(file, InputMode::keyboard, this);
-    ui->verticalLayout->addWidget(k);
-//    KeyLayout *kl = k->GetKeyLayout();
-//    k->setFocus();
-//    k->show();
-    ui->verticalLayout->setStretch(0, 1);
-    ui->verticalLayout->setStretch(1, 1);
-    ui->verticalLayout->setStretch(2, 4);
-
-    ui->lineEdit->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-}
-
-KeyboardDialog::KeyboardDialog(QString str, Language lang, QWidget *parent) :
-    QDialog(parent),
-    ui(new Ui::KeyboardDialog)
-{
-    ui->setupUi(this);
-
-    ui->lineEdit->setText(str);
-    setWindowFlags(Qt::FramelessWindowHint);
-    setGeometry(GetWidgetSizePos(QRect(0, 125, 1600, 835)));
-
-    ui->okPushButton->setText(LoadString("IDS_OK"));
-    ui->cancelPushButton->setText(LoadString("IDS_CANCEL"));
-
-    ui->deleteAllPushButton->setImage("Main_menu", "delete_all.bmp");
-
-    QFile file;
-    switch (lang)
+    if (lang == "English")
     {
-        case English:
         file.setFileName(":/keyboard/en.json");    // Using it from the resource file.
-    {
     }
-        break;
-    case Korean:
+    else if (lang == "Korean")
     {
         file.setFileName(":/keyboard/ko.json");    // Using it from the resource file.
 #ifdef Q_OS_LINUX
@@ -159,31 +91,126 @@ KeyboardDialog::KeyboardDialog(QString str, Language lang, QWidget *parent) :
         m_hic = hangul_ic_new("2");
 #endif
     }
-        break;
-    case French:
+    else if (lang == "French")
     {
         file.setFileName(":/keyboard/fr.json");    // Using it from the resource file.
 
     }
-        break;
-    case Spanish:
+    else if(lang == "Spanish")
     {
         file.setFileName(":/keyboard/es.json");    // Using it from the resource file.
 
     }
-        break;
-    case Portuguese:
+
+    else if (lang == "Portuguese")
     {
         file.setFileName(":/keyboard/pt.json");    // Using it from the resource file.
 
     }
-        break;
-    case Arabic:
+    else if (lang == "Arabic")
     {
         file.setFileName(":/keyboard/ar.json");    // Using it from the resource file.
 
     }
-        break;
+
+
+    Keyboard *k = new Keyboard(file, InputMode::keyboard, this);
+    ui->verticalLayout->addWidget(k);
+//    KeyLayout *kl = k->GetKeyLayout();
+//    k->setFocus();
+//    k->show();
+    ui->verticalLayout->setStretch(0, 1);
+    ui->verticalLayout->setStretch(1, 1);
+    ui->verticalLayout->setStretch(2, 4);
+
+    ui->lineEdit->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+}
+
+//KeyboardDialog::KeyboardDialog(QString str, QWidget *parent) :
+//    QDialog(parent),
+//    ui(new Ui::KeyboardDialog)
+//{
+//    ui->setupUi(this);
+
+//    ui->lineEdit->setText(str);
+//    setWindowFlags(Qt::FramelessWindowHint);
+//    setGeometry(GetWidgetSizePos(QRect(0, 125, 1600, 835)));
+
+//    ui->okPushButton->setText(LoadString("IDS_OK"));
+//    ui->cancelPushButton->setText(LoadString("IDS_CANCEL"));
+
+//    ui->deleteAllPushButton->setImage("Main_menu", "delete_all.bmp");
+
+////    setGeometry();
+
+//    QFile file;
+//    file.setFileName(":/keyboard/en.json");    // Using it from the resource file.
+//#ifdef Q_OS_LINUX
+//        hangul_init();
+
+//        m_hic = hangul_ic_new("2");
+//#endif
+//    Keyboard *k = new Keyboard(file, InputMode::keyboard, this);
+//    ui->verticalLayout->addWidget(k);
+////    KeyLayout *kl = k->GetKeyLayout();
+////    k->setFocus();
+////    k->show();
+//    ui->verticalLayout->setStretch(0, 1);
+//    ui->verticalLayout->setStretch(1, 1);
+//    ui->verticalLayout->setStretch(2, 4);
+
+//    ui->lineEdit->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+//}
+
+KeyboardDialog::KeyboardDialog(QString str, QString lang, QWidget *parent) :
+    QDialog(parent),
+    ui(new Ui::KeyboardDialog)
+{
+    ui->setupUi(this);
+
+    ui->lineEdit->setText(str);
+    setWindowFlags(Qt::FramelessWindowHint);
+    setGeometry(GetWidgetSizePos(QRect(0, 125, 1600, 835)));
+
+    ui->okPushButton->setText(LoadString("IDS_OK"));
+    ui->cancelPushButton->setText(LoadString("IDS_CANCEL"));
+
+    ui->deleteAllPushButton->setImage("Main_menu", "delete_all.bmp");
+
+    QFile file;
+    if (lang == "English")
+    {
+        file.setFileName(":/keyboard/en.json");    // Using it from the resource file.
+    }
+    else if (lang == "Korean")
+    {
+        file.setFileName(":/keyboard/ko.json");    // Using it from the resource file.
+#ifdef Q_OS_LINUX
+        hangul_init();
+
+        m_hic = hangul_ic_new("2");
+#endif
+    }
+    else if (lang == "French")
+    {
+        file.setFileName(":/keyboard/fr.json");    // Using it from the resource file.
+
+    }
+    else if(lang == "Spanish")
+    {
+        file.setFileName(":/keyboard/es.json");    // Using it from the resource file.
+
+    }
+
+    else if (lang == "Portuguese")
+    {
+        file.setFileName(":/keyboard/pt.json");    // Using it from the resource file.
+
+    }
+    else if (lang == "Arabic")
+    {
+        file.setFileName(":/keyboard/ar.json");    // Using it from the resource file.
+
     }
 
     Keyboard *k = new Keyboard(file, InputMode::keyboard, this);

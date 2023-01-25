@@ -24,6 +24,7 @@ private slots:
     void on_languageComboBox_currentIndexChanged(const QString &arg1);
 private:
     QJsonObject m_jsonObject;
+    QJsonObject m_newJsonObject;
     ConfigManager m_config = ConfigManager("parameter_setting6.json");
 
 private:

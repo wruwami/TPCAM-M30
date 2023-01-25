@@ -23,6 +23,7 @@ private:
     Ui::Setting2Widget *ui;
 private:
     QJsonObject m_jsonObject;
+    QJsonObject m_newJsonObject;
     ConfigManager m_config = ConfigManager("parameter_setting2.json");
 
 };

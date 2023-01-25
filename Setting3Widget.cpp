@@ -12,6 +12,9 @@ Setting3Widget::Setting3Widget(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    m_jsonObject = m_config.GetConfig();
+    m_newJsonObject = m_jsonObject;
+
     ui->lcdBrightnessLabel->setText(LoadString("IDS_LCD_BRIGHTNESS"));
     ui->unitLabel->setText(LoadString("IDS_UNIT"));
     ui->dateFormatLabel->setText(LoadString("IDS_DATE_FORMAT"));
@@ -22,22 +25,38 @@ Setting3Widget::Setting3Widget(QWidget *parent) :
 //    ui->lcdBrightnessComboBox->addItem(LoadString("IDS_LEVEL1"));
 //    ui->lcdBrightnessComboBox->addItem(LoadString("IDS_LEVEL2"));
 //    ui->lcdBrightnessComboBox->addItem(LoadString("IDS_LEVEL3"));
-    foreach (QJsonValue json, m_jsonObject["anti-jamming items"].toArray())
+    foreach (QJsonValue json, m_jsonObject["lcd brightness items"].toArray())
     {
         ui->lcdBrightnessComboBox->addItem(json.toString());
     }
-    int index = m_jsonObject["anti-jamming selection"].toInt() - 1;
+    int index = m_jsonObject["lcd brightness selection"].toInt() - 1;
     ui->lcdBrightnessComboBox->setCurrentIndex(index);
 
 
 //    ui->unitComboBox->addItem(LoadString("IDS_KM_PER_H"));
 //    ui->unitComboBox->addItem(LoadString("IDS_MPH_FT"));
 //    ui->unitComboBox->setCurrentIndex(0);
+    foreach (QJsonValue json, m_jsonObject["unit items"].toArray())
+    {
+        ui->unitComboBox->addItem(json.toString());
+    }
+    index = m_jsonObject["unit selection"].toInt() - 1;
+    ui->unitComboBox->setCurrentIndex(index);
+
+
 
 //    ui->dateFormatComboBox->addItem(LoadString("IDS_YYYY_MM_DD"));
 //    ui->dateFormatComboBox->addItem(LoadString("IDS_MM_DD_YYYY"));
 //    ui->dateFormatComboBox->addItem(LoadString("IDS_DD_MM_YYYY"));
 //    ui->dateFormatComboBox->setCurrentIndex(0);
+    foreach (QJsonValue json, m_jsonObject["date format items"].toArray())
+    {
+        ui->dateFormatComboBox->addItem(json.toString());
+    }
+    index = m_jsonObject["date format selection"].toInt() - 1;
+    ui->dateFormatComboBox->setCurrentIndex(index);
+
+
 }
 
 Setting3Widget::~Setting3Widget()

@@ -2,6 +2,8 @@
 #define SETTINGWIDGET_H
 
 #include <QWidget>
+//#include <QJsonObject>
+#include "ConfigManager.h"
 
 namespace Ui {
 class SettingWidget;
@@ -11,6 +13,7 @@ class Setting1Widget;
 class Setting2Widget;
 class Setting3Widget;
 class Setting4APWidget;
+class Setting4STAWidget;
 class Setting5Widget;
 class Setting6Widget;
 class Setting7Widget;
@@ -31,10 +34,11 @@ private:
     Setting2Widget* m_pSetting2Widget;
     Setting3Widget* m_pSetting3Widget;
     Setting4APWidget* m_pSetting4APWidget;
+    Setting4STAWidget* m_pSetting4StaWidget;
     Setting5Widget* m_pSetting5Widget;
     Setting6Widget* m_pSetting6Widget;
     Setting7Widget* m_pSetting7Widget;
-
+    ConfigManager m_config = ConfigManager("parameter_setting4.json");
 private slots:
     void on_setting1PushButton_clicked();
     void on_setting2PushButton_clicked();

@@ -2,6 +2,7 @@
 #include "ui_Setting5Widget.h"
 
 #include <QSpacerItem>
+#include <QJsonArray>
 
 #include "StringLoader.h"
 
@@ -11,13 +12,25 @@ Setting5Widget::Setting5Widget(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    m_jsonObject = m_config.GetConfig();
+    m_newJsonObject = m_jsonObject;
+
+
     ui->ipAddressLabel->setText(LoadString("IDS_IP_ADDRESS"));
 
-    ui->ipAddressComboBox->addItem(LoadString("IDS_DHCP"));
-    ui->ipAddressComboBox->addItem(LoadString("IDS_MANUAL"));
-    ui->ipAddressComboBox->setCurrentIndex(0);
+//    ui->ipAddressComboBox->addItem(LoadString("IDS_DHCP"));
+//    ui->ipAddressComboBox->addItem(LoadString("IDS_MANUAL"));
+//    ui->ipAddressComboBox->setCurrentIndex(0);
+    foreach (QJsonValue json, m_jsonObject["ethernet_mode items"].toArray())
+    {
+        ui->ipAddressComboBox->addItem(json.toString());
+    }
+
+    int index = m_jsonObject["ethernet_mode selection"].toInt();
+    ui->ipAddressComboBox->setCurrentIndex(index - 1);
 
     ui->ipLineEdit->SetMode(Mode::KeypadType);
+//    ui->ipLineEdit->setText();
     ui->subnetMaskLineEdit->SetMode(Mode::KeypadType);
     ui->gatewayLineEdit->SetMode(Mode::KeypadType);
     ui->dnsServerLineEdit->SetMode(Mode::KeypadType);
@@ -44,8 +57,7 @@ void Setting5Widget::setDHCPMode()
     ui->gridLayout->addItem(new QSpacerItem(ui->gatewayLineEdit->size().width(), ui->gatewayLineEdit->size().height(), QSizePolicy::Expanding, QSizePolicy::Expanding), 6, 1);
     ui->gridLayout->addItem(new QSpacerItem(ui->dnsServerLineEdit->size().width(), ui->dnsServerLineEdit->size().height(), QSizePolicy::Expanding, QSizePolicy::Expanding), 7, 1);
 
-    // 시연용
-    ui->ipLineEdit->setText("20:0D:B0:1E:1C:57");
+    ui->ipLineEdit->setText(m_jsonObject["mac address"].toString());
 }
 
 void Setting5Widget::setManualMode()
@@ -71,11 +83,10 @@ void Setting5Widget::setManualMode()
     ui->subnetMaskLabel->setText(LoadString("IDS_SUBNET_MASK"));
     ui->dnsServerLabel->setText(LoadString("IDS_DNS_SERVER"));
 
-    // 시연용
-    ui->ipLineEdit->setText("192.168.10.40");
-    ui->subnetMaskLineEdit->setText("255.255.255.0");
-    ui->gatewayLineEdit->setText("192.168.0.1");
-    ui->dnsServerLineEdit->setText("168.xxx.xxx.1");
+    ui->ipLineEdit->setText(m_jsonObject["ip"].toString());
+    ui->subnetMaskLineEdit->setText(m_jsonObject["subnet mask"].toString());
+    ui->gatewayLineEdit->setText(m_jsonObject["gateway"].toString());
+    ui->dnsServerLineEdit->setText(m_jsonObject["dns server"].toString());
 
 }
 

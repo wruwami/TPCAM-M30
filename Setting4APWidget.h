@@ -22,6 +22,7 @@ private slots:
     void on_pwPushButton_clicked();
 private:
     QJsonObject m_jsonObject;
+    QJsonObject m_newJsonObject;
     ConfigManager m_config = ConfigManager("parameter_setting4.json");
 
 private:

@@ -24,6 +24,7 @@ private slots:
     void on_ipAddressComboBox_currentIndexChanged(int index);
 private:
     QJsonObject m_jsonObject;
+    QJsonObject m_newJsonObject;
     ConfigManager m_config = ConfigManager("parameter_setting5.json");
 
 private:

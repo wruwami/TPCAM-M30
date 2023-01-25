@@ -28,6 +28,7 @@ public:
     bool m_isSave = false;
 private:
     QJsonObject m_jsonObject;
+    QJsonObject m_newJsonObject;
     ConfigManager m_config = ConfigManager("parameter_setting3.json");
 
 private:

@@ -11,6 +11,9 @@ Setting4APWidget::Setting4APWidget(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    m_jsonObject = m_config.GetConfig();
+    m_newJsonObject = m_jsonObject;
+
     ui->macAddressLabel->setText(LoadString("IDS_MAC_ADDRESS"));
     ui->wifiSSIDnFTPIDlabel->setText(LoadString("IDS_WIFISSID_AND_FTP_ID"));
     ui->IpLabel->setText(LoadString("IDS_IP"));
@@ -21,17 +24,18 @@ Setting4APWidget::Setting4APWidget(QWidget *parent) :
     ui->printerComboBox->addItem(LoadString("IDS_THERMAL_WOOSIM"));
     ui->printerComboBox->addItem(LoadString("IDS_BT_HP"));
 
+
+
     ui->pwPushButton->setText(LoadString("IDS_PW"));
 
     ui->macAddressLineEdit->setDisabled(true);
     ui->ipLineEdit->SetMode(Mode::KeypadType);
     ui->macAddressLineEdit->SetMode(Mode::KeyboardType);
 
-    // 시연용
-    ui->macAddressLineEdit->setText("20:0D:B0:1E:1C:57");
-    ui->wifiSSIDnFTPlineEdit->setText("TP30000");
-    ui->ipLineEdit->setText("192.168.10.1");
-    ui->subnetMaskLineEdit->setText("255.255.255.0");
+    ui->macAddressLineEdit->setText(m_jsonObject["mac address"].toString());
+    ui->wifiSSIDnFTPlineEdit->setText(m_jsonObject["wiFi SSID"].toString());
+    ui->ipLineEdit->setText(m_jsonObject["ip"].toString());
+    ui->subnetMaskLineEdit->setText(m_jsonObject["subnet mask"].toString());
 }
 
 Setting4APWidget::~Setting4APWidget()

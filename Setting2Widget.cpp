@@ -12,6 +12,8 @@ Setting2Widget::Setting2Widget(QWidget *parent) :
     ui->setupUi(this);
 
     m_jsonObject = m_config.GetConfig();
+    m_newJsonObject = m_jsonObject;
+
 
     ui->reticleShapeLabel->setText(LoadString("IDS_RETICLE_SHAPE"));
     ui->weatherModeLabel->setText(LoadString("IDS_WEATHER_MODE"));

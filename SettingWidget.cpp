@@ -5,6 +5,7 @@
 #include "Setting2Widget.h"
 #include "Setting3Widget.h"
 #include "Setting4APWidget.h"
+#include "Setting4STAWidget.h"
 #include "Setting5Widget.h"
 #include "Setting6Widget.h"
 #include "Setting7Widget.h"
@@ -12,6 +13,7 @@
 #include "StringLoader.h"
 
 #include <QDebug>
+#include <QJsonObject>
 
 SettingWidget::SettingWidget(QWidget *parent) :
     QWidget(parent),
@@ -28,13 +30,20 @@ SettingWidget::SettingWidget(QWidget *parent) :
     m_pSetting2Widget = new Setting2Widget;
     m_pSetting3Widget = new Setting3Widget;
     m_pSetting4APWidget = new Setting4APWidget;
+    m_pSetting4StaWidget = new Setting4STAWidget;
     m_pSetting5Widget = new Setting5Widget;
     m_pSetting6Widget = new Setting6Widget;
     m_pSetting7Widget = new Setting7Widget;
     ui->stackedWidget->addWidget(m_pSetting1Widget);
     ui->stackedWidget->addWidget(m_pSetting2Widget);
     ui->stackedWidget->addWidget(m_pSetting3Widget);
-    ui->stackedWidget->addWidget(m_pSetting4APWidget);
+    QJsonObject jsonObject = m_config.GetConfig();
+    QString wifi_mode = jsonObject["wifi_mode"].toString();
+    if (wifi_mode == "AP")
+        ui->stackedWidget->addWidget(m_pSetting4APWidget);
+    else
+        ui->stackedWidget->addWidget(m_pSetting4StaWidget);
+
     ui->stackedWidget->addWidget(m_pSetting5Widget);
     ui->stackedWidget->addWidget(m_pSetting6Widget);
     ui->stackedWidget->addWidget(m_pSetting7Widget);
@@ -49,13 +58,22 @@ SettingWidget::SettingWidget(QWidget *parent) :
 
 SettingWidget::~SettingWidget()
 {
-    for (int i = 0 ; i < 7 ; i++)
-    {
-        QWidget* widget = ui->stackedWidget->widget(i);
-        ui->stackedWidget->removeWidget(widget);
-        delete widget;
-        widget = nullptr;
-    }
+    delete m_pSetting1Widget;
+    delete m_pSetting2Widget;
+    delete m_pSetting3Widget;
+    delete m_pSetting4APWidget;
+    delete m_pSetting4StaWidget;
+    delete m_pSetting5Widget;
+    delete m_pSetting6Widget;
+    delete m_pSetting7Widget;
+
+//    for (int i = 0 ; i < 7 ; i++)
+//    {
+//        QWidget* widget = ui->stackedWidget->widget(i);
+//        ui->stackedWidget->removeWidget(widget);
+//        delete widget;
+//        widget = nullptr;
+//    }
 
     delete ui;
 }

@@ -2,6 +2,9 @@
 #define SETTING4APWIDGET_H
 
 #include <QWidget>
+#include <QJsonObject>
+
+#include "ConfigManager.h"
 
 namespace Ui {
 class Setting4APWidget;
@@ -17,6 +20,9 @@ public:
 
 private slots:
     void on_pwPushButton_clicked();
+private:
+    QJsonObject m_jsonObject;
+    ConfigManager m_config = ConfigManager("parameter_setting4.json");
 
 private:
     Ui::Setting4APWidget *ui;

@@ -1,6 +1,7 @@
 #include "Setting3Widget.h"
 #include "ui_Setting3Widget.h"
 
+#include <QJsonArray>
 #include "StringLoader.h"
 
 #include "BaseDialog.h"
@@ -18,18 +19,25 @@ Setting3Widget::Setting3Widget(QWidget *parent) :
     ui->factoryDefaultPushButton->setText(LoadString("IDS_FACTORY_DEFAULT"));
     ui->adminPWPushButton->setText(LoadString("IDS_ADMIN_PW"));
 
-    ui->lcdBrightnessComboBox->addItem(LoadString("IDS_LEVEL1"));
-    ui->lcdBrightnessComboBox->addItem(LoadString("IDS_LEVEL2"));
-    ui->lcdBrightnessComboBox->addItem(LoadString("IDS_LEVEL3"));
+//    ui->lcdBrightnessComboBox->addItem(LoadString("IDS_LEVEL1"));
+//    ui->lcdBrightnessComboBox->addItem(LoadString("IDS_LEVEL2"));
+//    ui->lcdBrightnessComboBox->addItem(LoadString("IDS_LEVEL3"));
+    foreach (QJsonValue json, m_jsonObject["anti-jamming items"].toArray())
+    {
+        ui->lcdBrightnessComboBox->addItem(json.toString());
+    }
+    int index = m_jsonObject["anti-jamming selection"].toInt() - 1;
+    ui->lcdBrightnessComboBox->setCurrentIndex(index);
 
-    ui->unitComboBox->addItem(LoadString("IDS_KM_PER_H"));
-    ui->unitComboBox->addItem(LoadString("IDS_MPH_FT"));
-    ui->unitComboBox->setCurrentIndex(0);
 
-    ui->dateFormatComboBox->addItem(LoadString("IDS_YYYY_MM_DD"));
-    ui->dateFormatComboBox->addItem(LoadString("IDS_MM_DD_YYYY"));
-    ui->dateFormatComboBox->addItem(LoadString("IDS_DD_MM_YYYY"));
-    ui->dateFormatComboBox->setCurrentIndex(0);
+//    ui->unitComboBox->addItem(LoadString("IDS_KM_PER_H"));
+//    ui->unitComboBox->addItem(LoadString("IDS_MPH_FT"));
+//    ui->unitComboBox->setCurrentIndex(0);
+
+//    ui->dateFormatComboBox->addItem(LoadString("IDS_YYYY_MM_DD"));
+//    ui->dateFormatComboBox->addItem(LoadString("IDS_MM_DD_YYYY"));
+//    ui->dateFormatComboBox->addItem(LoadString("IDS_DD_MM_YYYY"));
+//    ui->dateFormatComboBox->setCurrentIndex(0);
 }
 
 Setting3Widget::~Setting3Widget()

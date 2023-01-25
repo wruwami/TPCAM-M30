@@ -1,6 +1,8 @@
 #include "Setting2Widget.h"
 #include "ui_Setting2Widget.h"
 
+#include <QJsonArray>
+
 #include "StringLoader.h"
 
 Setting2Widget::Setting2Widget(QWidget *parent) :
@@ -9,31 +11,64 @@ Setting2Widget::Setting2Widget(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    m_jsonObject = m_config.GetConfig();
+
     ui->reticleShapeLabel->setText(LoadString("IDS_RETICLE_SHAPE"));
     ui->weatherModeLabel->setText(LoadString("IDS_WEATHER_MODE"));
     ui->daynNightLabel->setText(LoadString("IDS_DAYNIGHT"));
     ui->buzzerLabel->setText(LoadString("IDS_BUZZER"));
     ui->antiJammingModeLabel->setText(LoadString("IDS_ANTI_JAMMING_MODE"));
 
-    ui->reticleShapeComboBox->addItem(LoadString("IDS_CROSS"));
-    ui->reticleShapeComboBox->addItem(LoadString("IDS_DOT"));
-    ui->reticleShapeComboBox->addItem(LoadString("IDS_ROUND"));
-    ui->reticleShapeComboBox->addItem(LoadString("IDS_RECTANGLE"));
+//    ui->reticleShapeComboBox->addItem(LoadString("IDS_CROSS"));
+//    ui->reticleShapeComboBox->addItem(LoadString("IDS_DOT"));
+//    ui->reticleShapeComboBox->addItem(LoadString("IDS_ROUND"));
+//    ui->reticleShapeComboBox->addItem(LoadString("IDS_RECTANGLE"));
+    foreach (QJsonValue json, m_jsonObject["reticle items"].toArray())
+    {
+        ui->reticleShapeComboBox->addItem(json.toString());
+    }
+    int index = m_jsonObject["reticle selection"].toInt() - 1;
+    ui->reticleShapeComboBox->setCurrentIndex(index);
 
-    ui->weatherModeComboBox->addItem(LoadString("IDS_SUNNY"));
+//    ui->weatherModeComboBox->addItem(LoadString("IDS_SUNNY"));
+    foreach (QJsonValue json, m_jsonObject["weather mode items"].toArray())
+    {
+        ui->weatherModeComboBox->addItem(json.toString());
+    }
+    index = m_jsonObject["weather selection"].toInt() - 1;
+    ui->weatherModeComboBox->setCurrentIndex(index);
 
-    ui->daynNightComboBox->addItem(LoadString("IDS_DAY_DARK"));
-    ui->daynNightComboBox->addItem(LoadString("IDS_DAY_STANDARD"));
-    ui->daynNightComboBox->addItem(LoadString("IDS_DAY_BRIGHT"));
-    ui->daynNightComboBox->addItem(LoadString("IDS_NIGHT_DARK"));
-    ui->daynNightComboBox->addItem(LoadString("IDS_NIGHT_STANDARD"));
-    ui->daynNightComboBox->addItem(LoadString("IDS_NIGHT_BRIGHT"));
 
-    ui->buzzerComboBox->addItem(LoadString("IDS_ON"));
-    ui->buzzerComboBox->addItem(LoadString("IDS_OFF"));
+//    ui->daynNightComboBox->addItem(LoadString("IDS_DAY_DARK"));
+//    ui->daynNightComboBox->addItem(LoadString("IDS_DAY_STANDARD"));
+//    ui->daynNightComboBox->addItem(LoadString("IDS_DAY_BRIGHT"));
+//    ui->daynNightComboBox->addItem(LoadString("IDS_NIGHT_DARK"));
+//    ui->daynNightComboBox->addItem(LoadString("IDS_NIGHT_STANDARD"));
+//    ui->daynNightComboBox->addItem(LoadString("IDS_NIGHT_BRIGHT"));
+    foreach (QJsonValue json, m_jsonObject["day&night mode items"].toArray())
+    {
+        ui->daynNightComboBox->addItem(json.toString());
+    }
+    index = m_jsonObject["day&night selection"].toInt() - 1;
+    ui->daynNightComboBox->setCurrentIndex(index);
 
-    ui->antiJammingModeComboBox->addItem(LoadString("IDS_ON"));
-    ui->antiJammingModeComboBox->addItem(LoadString("IDS_OFF"));
+//    ui->buzzerComboBox->addItem(LoadString("IDS_ON"));
+//    ui->buzzerComboBox->addItem(LoadString("IDS_OFF"));
+    foreach (QJsonValue json, m_jsonObject["buzzer items"].toArray())
+    {
+        ui->buzzerComboBox->addItem(json.toString());
+    }
+    index = m_jsonObject["buzzer selection"].toInt() - 1;
+    ui->buzzerComboBox->setCurrentIndex(index);
+
+//    ui->antiJammingModeComboBox->addItem(LoadString("IDS_ON"));
+//    ui->antiJammingModeComboBox->addItem(LoadString("IDS_OFF"));
+    foreach (QJsonValue json, m_jsonObject["anti-jamming items"].toArray())
+    {
+        ui->weatherModeComboBox->addItem(json.toString());
+    }
+    index = m_jsonObject["anti-jamming selection"].toInt() - 1;
+    ui->weatherModeComboBox->setCurrentIndex(index);
 
 }
 

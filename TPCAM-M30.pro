@@ -74,7 +74,8 @@ SOURCES += main.cpp\
     KeypadDialog.cpp \
     IndicatorCameraExposeWidget.cpp \
     CustomList.cpp \
-    CustomScrollbar.cpp
+    CustomScrollbar.cpp \
+    ConfigManager.cpp
 
 HEADERS  += MainWindow.h \
     CustomTogglePushButton.h \
@@ -141,7 +142,8 @@ HEADERS  += MainWindow.h \
     IndicatorCameraExposeWidget.h \
     CustomList.h \
     CustomScrollbar.h \
-    rapidcsv.h
+    rapidcsv.h \
+    ConfigManager.h
 
 FORMS    += MainWindow.ui \
     IndicatorCameraFocusWidget.ui \

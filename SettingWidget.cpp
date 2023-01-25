@@ -11,6 +11,8 @@
 
 #include "StringLoader.h"
 
+#include <QDebug>
+
 SettingWidget::SettingWidget(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::SettingWidget)
@@ -125,7 +127,13 @@ void SettingWidget::on_stackedWidget_currentChanged(int arg1)
 
 void SettingWidget::on_savePushButton_clicked()
 {
-
+    m_pSetting1Widget->m_isSave = true;
+    m_pSetting2Widget->m_isSave = true;
+    m_pSetting3Widget->m_isSave = true;
+//    m_pSetting4APWidget->m_isSave = true;
+//    m_pSetting5Widget->m_isSave = true;
+//    m_pSetting6Widget->m_isSave = true;
+//    m_pSetting7Widget->m_isSave = true;
 }
 
 void SettingWidget::on_cancelPushButton_clicked()

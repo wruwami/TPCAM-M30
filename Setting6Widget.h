@@ -2,6 +2,9 @@
 #define SETTING6WIDGET_H
 
 #include <QWidget>
+#include <QJsonObject>
+
+#include "ConfigManager.h"
 
 namespace Ui {
 class Setting6Widget;
@@ -19,6 +22,9 @@ private slots:
     void on_searchPushButton_clicked();
 
     void on_languageComboBox_currentIndexChanged(const QString &arg1);
+private:
+    QJsonObject m_jsonObject;
+    ConfigManager m_config = ConfigManager("parameter_setting6.json");
 
 private:
     Ui::Setting6Widget *ui;

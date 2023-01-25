@@ -9,6 +9,7 @@
 #include "BaseDialog.h"
 #include "KeyboardDialog.h"
 #include "KeypadDialog.h"
+#include "ConfigManager.h"
 
 LoginWidget::LoginWidget(QWidget *parent) :
     QWidget(parent),

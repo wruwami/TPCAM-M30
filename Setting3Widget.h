@@ -2,6 +2,9 @@
 #define SETTING3WIDGET_H
 
 #include <QWidget>
+#include <QJsonObject>
+
+#include "ConfigManager.h"
 
 namespace Ui {
 class Setting3Widget;
@@ -21,6 +24,11 @@ private slots:
     void on_factoryDefaultPushButton_clicked();
 
     void on_adminPWPushButton_clicked();
+public:
+    bool m_isSave = false;
+private:
+    QJsonObject m_jsonObject;
+    ConfigManager m_config = ConfigManager("parameter_setting3.json");
 
 private:
     Ui::Setting3Widget *ui;

@@ -1,6 +1,9 @@
 #include "Setting1Widget.h"
 #include "ui_Setting1Widget.h"
 
+#include <QDebug>
+#include <QJsonarray>
+
 #include "StringLoader.h"
 #include "BaseDialog.h"
 
@@ -10,6 +13,10 @@ Setting1Widget::Setting1Widget(QWidget *parent) :
 {
     ui->setupUi(this);
 
+//    m_config = new ConfigManager("parameter_setting1.json");
+    m_jsonObject = m_config.GetConfig();
+    m_newJsonObject = m_jsonObject;
+
     ui->locationLabel->setText(LoadString("IDS_LOCATION"));
     ui->speedLimitLabel->setText(LoadString("IDS_SPEED_LIMIT"));
     ui->captureSpeedLimitLabel->setText(LoadString("IDS_CAPTURE_LIMIT"));
@@ -18,21 +25,41 @@ Setting1Widget::Setting1Widget(QWidget *parent) :
 
     ui->locationPushButton->setImage("setting_1", "keyboard.bmp");
 
-    ui->enforcementModeComboBox->addItem(LoadString("IDS_ALL_IMAGE_VIDEO"));
-    ui->enforcementModeComboBox->addItem(LoadString("IDS_AUTO_IMAGE"));
-    ui->enforcementModeComboBox->addItem(LoadString("IDS_VIDEO"));
+//    ui->enforcementModeComboBox->addItem(LoadString("IDS_ALL_IMAGE_VIDEO"));
+//    ui->enforcementModeComboBox->addItem(LoadString("IDS_AUTO_IMAGE"));
+//    ui->enforcementModeComboBox->addItem(LoadString("IDS_VIDEO"));
+    foreach (QJsonValue json, m_jsonObject["enforcement mode items"].toArray())
+    {
+        ui->enforcementModeComboBox->addItem(json.toString());
+    }
+    int index = m_jsonObject["enforcement selection"].toInt();
+    ui->enforcementModeComboBox->setCurrentIndex(index - 1);
 
-    ui->speedModeComboBox->addItem(LoadString("IDS_LT"));
-    ui->speedModeComboBox->addItem(LoadString("IDS_ST"));
+    foreach (QJsonValue json, m_jsonObject["speed mode items"].toArray())
+    {
+        ui->speedModeComboBox->addItem(json.toString());
+    }
+    index = m_jsonObject["speed selection"].toInt();
+    ui->speedModeComboBox->setCurrentIndex(index - 1);
+
+//    ui->speedModeComboBox->addItem(LoadString("IDS_LT"));
+//    ui->speedModeComboBox->addItem(LoadString("IDS_ST"));
 
     ui->locationPushButton->setImage("setting_1", "keyboard.bmp");
 
-    ui->speedLimit1LineEdit->setText("100");
-    ui->speedLimit2LineEdit->setText("80");
-    ui->speedLimit3LineEdit->setText("60");
-    ui->captureSpeedLimit1LineEdit->setText("110");
-    ui->captureSpeedLimit2LineEdit->setText("90");
-    ui->captureSpeedLimit3LineEdit->setText("70");
+//    ui->speedLimit1LineEdit->setText("100");
+//    ui->speedLimit2LineEdit->setText("80");
+//    ui->speedLimit3LineEdit->setText("60");
+//    ui->captureSpeedLimit1LineEdit->setText("110");
+//    ui->captureSpeedLimit2LineEdit->setText("90");
+//    ui->captureSpeedLimit3LineEdit->setText("70");
+    ui->speedLimit1LineEdit->setText(QString::number(m_jsonObject["speed limit"].toArray()[0].toInt()));
+    ui->speedLimit2LineEdit->setText(QString::number(m_jsonObject["speed limit"].toArray()[1].toInt()));
+    ui->speedLimit3LineEdit->setText(QString::number(m_jsonObject["speed limit"].toArray()[2].toInt()));
+    ui->captureSpeedLimit1LineEdit->setText(QString::number(m_jsonObject["capture speed"].toArray()[0].toInt()));
+    ui->captureSpeedLimit2LineEdit->setText(QString::number(m_jsonObject["capture speed"].toArray()[1].toInt()));
+    ui->captureSpeedLimit3LineEdit->setText(QString::number(m_jsonObject["capture speed"].toArray()[2].toInt()));
+
 
     ui->speedLimit1LineEdit->SetMode(KeypadType);
     ui->speedLimit2LineEdit->SetMode(KeypadType);
@@ -41,12 +68,24 @@ Setting1Widget::Setting1Widget(QWidget *parent) :
     ui->captureSpeedLimit2LineEdit->SetMode(KeypadType);
     ui->captureSpeedLimit3LineEdit->SetMode(KeypadType);
 
-    //시연용
-    ui->locationComboBox->addItem("Seoul");
+    foreach (QJsonValue json, m_jsonObject["location items"].toArray())
+    {
+        ui->locationComboBox->addItem(json.toString());
+    }
+
+    index = m_jsonObject["location selection"].toInt();
+    ui->locationComboBox->setCurrentIndex(index - 1);
+
 }
 
 Setting1Widget::~Setting1Widget()
 {
+    if (m_isSave)
+    {
+        m_config.SetConfig(m_newJsonObject);
+        m_config.SaveFile();
+    }
+//    config.Save
     delete ui;
 }
 
@@ -55,4 +94,85 @@ void Setting1Widget::on_locationPushButton_clicked()
 {
     BaseDialog baseDialog(Setting1LocationWidgetType, Qt::AlignmentFlag::AlignCenter, "", true);
     baseDialog.exec();
+}
+
+void Setting1Widget::on_speedLimit1LineEdit_textChanged(const QString &arg1)
+{
+    QJsonArray ja;
+    ja.append(arg1.toInt());
+    ja.append(m_newJsonObject["speed limit"].toArray()[1]);
+    ja.append(m_newJsonObject["speed limit"].toArray()[2]);
+
+    m_newJsonObject["speed limit"] = ja;
+}
+
+void Setting1Widget::on_speedLimit2LineEdit_textChanged(const QString &arg1)
+{
+    QJsonArray ja;
+
+    ja.append(m_newJsonObject["speed limit"].toArray()[0]);
+    ja.append(arg1.toInt());
+    ja.append(m_newJsonObject["speed limit"].toArray()[2]);
+
+    m_newJsonObject["speed limit"] = ja;
+}
+
+void Setting1Widget::on_speedLimit3LineEdit_textChanged(const QString &arg1)
+{
+    QJsonArray ja;
+
+    ja.append(m_newJsonObject["speed limit"].toArray()[0]);
+    ja.append(m_newJsonObject["speed limit"].toArray()[1]);
+    ja.append(arg1.toInt());
+
+    m_newJsonObject["speed limit"] = ja;
+}
+
+void Setting1Widget::on_captureSpeedLimit1LineEdit_textChanged(const QString &arg1)
+{
+    QJsonArray ja;
+    ja.append(arg1.toInt());
+    ja.append(m_newJsonObject["capture speed"].toArray()[1]);
+    ja.append(m_newJsonObject["capture speed"].toArray()[2]);
+
+    m_newJsonObject["capture speed"] = ja;
+
+}
+
+void Setting1Widget::on_captureSpeedLimit2LineEdit_textChanged(const QString &arg1)
+{
+    QJsonArray ja;
+    ja.append(m_newJsonObject["capture speed"].toArray()[0]);
+    ja.append(arg1.toInt());
+    ja.append(m_newJsonObject["capture speed"].toArray()[2]);
+
+    m_newJsonObject["capture speed"] = ja;
+
+}
+
+void Setting1Widget::on_captureSpeedLimit3LineEdit_textChanged(const QString &arg1)
+{
+    QJsonArray ja;
+
+    ja.append(m_newJsonObject["capture speed"].toArray()[0]);
+    ja.append(m_newJsonObject["capture speed"].toArray()[1]);
+    ja.append(arg1.toInt());
+
+    m_newJsonObject["capture speed"] = ja;
+
+}
+
+void Setting1Widget::on_locationComboBox_currentIndexChanged(int index)
+{
+    m_newJsonObject["location selection"] = index + 1;
+}
+
+void Setting1Widget::on_enforcementModeComboBox_currentIndexChanged(int index)
+{
+    m_newJsonObject["enforcement selection"] = index + 1;
+}
+
+void Setting1Widget::on_speedModeComboBox_currentIndexChanged(int index)
+{
+    m_newJsonObject["speed selection"] = index + 1;
 }

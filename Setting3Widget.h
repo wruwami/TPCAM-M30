@@ -24,6 +24,12 @@ private slots:
     void on_factoryDefaultPushButton_clicked();
 
     void on_adminPWPushButton_clicked();
+    void on_lcdBrightnessComboBox_currentIndexChanged(int index);
+
+    void on_unitComboBox_currentIndexChanged(int index);
+
+    void on_dateFormatComboBox_currentIndexChanged(int index);
+
 public:
     bool m_isSave = false;
 private:

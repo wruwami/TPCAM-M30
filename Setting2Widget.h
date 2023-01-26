@@ -19,6 +19,17 @@ public:
     ~Setting2Widget();
 public:
     bool m_isSave = false;
+private slots:
+    void on_antiJammingModeComboBox_currentIndexChanged(int index);
+
+    void on_reticleShapeComboBox_currentIndexChanged(int index);
+
+    void on_weatherModeComboBox_currentIndexChanged(int index);
+
+    void on_daynNightComboBox_currentIndexChanged(int index);
+
+    void on_buzzerComboBox_currentIndexChanged(int index);
+
 private:
     Ui::Setting2Widget *ui;
 private:

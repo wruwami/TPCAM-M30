@@ -21,6 +21,8 @@ SettingWidget::SettingWidget(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    m_config = ConfigManager("parameter_setting4.json");
+
     this->setWindowFlags(Qt::FramelessWindowHint);
 
     ui->savePushButton->setText(LoadString("IDS_SAVE"));
@@ -148,10 +150,11 @@ void SettingWidget::on_savePushButton_clicked()
     m_pSetting1Widget->m_isSave = true;
     m_pSetting2Widget->m_isSave = true;
     m_pSetting3Widget->m_isSave = true;
-//    m_pSetting4APWidget->m_isSave = true;
-//    m_pSetting5Widget->m_isSave = true;
-//    m_pSetting6Widget->m_isSave = true;
-//    m_pSetting7Widget->m_isSave = true;
+    m_pSetting4APWidget->m_isSave = true;
+    m_pSetting4StaWidget->m_isSave = true;
+    m_pSetting5Widget->m_isSave = true;
+    m_pSetting6Widget->m_isSave = true;
+    m_pSetting7Widget->m_isSave = true;
 }
 
 void SettingWidget::on_cancelPushButton_clicked()

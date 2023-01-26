@@ -22,6 +22,22 @@ private slots:
     void on_searchPushButton_clicked();
 
     void on_languageComboBox_currentIndexChanged(const QString &arg1);
+    void on_languageComboBox_currentIndexChanged(int index);
+
+    void on_bluetoothComboBox_currentIndexChanged(int index);
+
+    void on_ftpComboBox_currentIndexChanged(int index);
+
+    void on_ftpAddressLineEdit_textChanged(const QString &arg1);
+
+    void on_ftpPortLineEdit_textChanged(const QString &arg1);
+
+    void on_userNameLineEdit_textChanged(const QString &arg1);
+
+    void on_userPassLineEdit_textChanged(const QString &arg1);
+
+public:
+    bool m_isSave;
 private:
     QJsonObject m_jsonObject;
     QJsonObject m_newJsonObject;

@@ -42,7 +42,7 @@ Setting7Widget::Setting7Widget(QWidget *parent) :
 
 //    ui->nineAxisSensorComboBox->addItem(LoadString("IDS_ON"));
 //    ui->nineAxisSensorComboBox->addItem(LoadString("IDS_OFF"));
-    foreach (QJsonValue json, m_jsonObject["9 axix items"].toArray())
+    foreach (QJsonValue json, m_jsonObject["9 axis items"].toArray())
     {
         ui->nineAxisSensorComboBox->addItem(json.toString());
     }
@@ -76,5 +76,36 @@ Setting7Widget::Setting7Widget(QWidget *parent) :
 
 Setting7Widget::~Setting7Widget()
 {
+    if (m_isSave)
+    {
+        m_config.SetConfig(m_newJsonObject);
+        m_config.SaveFile();
+    }
+
     delete ui;
+}
+
+void Setting7Widget::on_wifiComboBox_currentIndexChanged(int index)
+{
+    m_newJsonObject["wifi select"] = index + 1;
+}
+
+void Setting7Widget::on_bluetoothComboBox_currentIndexChanged(int index)
+{
+    m_newJsonObject["bluetooth select"] = index + 1;
+}
+
+void Setting7Widget::on_nineAxisSensorComboBox_currentIndexChanged(int index)
+{
+    m_newJsonObject["9 axis select"] = index + 1;
+}
+
+void Setting7Widget::on_micnSpeackerComboBox_currentIndexChanged(int index)
+{
+    m_newJsonObject["mic_speaker select"] = index + 1;
+}
+
+void Setting7Widget::on_powerSavingTimeComboBox_currentIndexChanged(int index)
+{
+    m_newJsonObject["power saving select"] = index + 1;
 }

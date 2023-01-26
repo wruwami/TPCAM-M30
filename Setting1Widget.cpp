@@ -85,7 +85,6 @@ Setting1Widget::~Setting1Widget()
         m_config.SetConfig(m_newJsonObject);
         m_config.SaveFile();
     }
-//    config.Save
     delete ui;
 }
 

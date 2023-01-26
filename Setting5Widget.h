@@ -22,6 +22,16 @@ private:
     void setManualMode();
 private slots:
     void on_ipAddressComboBox_currentIndexChanged(int index);
+    void on_ipLineEdit_textChanged(const QString &arg1);
+
+    void on_subnetMaskLineEdit_textChanged(const QString &arg1);
+
+    void on_gatewayLineEdit_textChanged(const QString &arg1);
+
+    void on_dnsServerLineEdit_textChanged(const QString &arg1);
+
+public:
+    bool m_isSave;
 private:
     QJsonObject m_jsonObject;
     QJsonObject m_newJsonObject;

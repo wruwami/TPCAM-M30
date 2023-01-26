@@ -1,8 +1,8 @@
 {
-	"ethernet _mode select": 2,
-	"ethernet _mode items": [
+	"ethernet_mode select": 2,
+	"ethernet_mode items": [
 		"Manual",
-		"Auto"
+		"DHCP"
 	],
 	"mac address": "20:0D:B0:1E:1C:58",
 	"ip": "192.168.10.40",

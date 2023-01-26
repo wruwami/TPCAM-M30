@@ -34,13 +34,19 @@ Setting4STAWidget::Setting4STAWidget(QWidget *parent) :
     int index = m_jsonObject["printer selection"].toInt() - 1;
     ui->printerComboBox->setCurrentIndex(index);
 
-    ui->FTPIDPWLineEdit->setText(m_jsonObject["sta ftp id & pw"].toString());
+    ui->FTPIDPWLineEdit->setText(m_jsonObject["sta ftp id & p/w"].toString());
     ui->ipLineEdit->setText(m_jsonObject["ip"].toString());
     ui->subnetMaskLineEdit->setText(m_jsonObject["subnet mask"].toString());
 }
 
 Setting4STAWidget::~Setting4STAWidget()
 {
+    if (m_isSave)
+    {
+        m_config.SetConfig(m_newJsonObject);
+        m_config.SaveFile();
+    }
+
     delete ui;
 }
 
@@ -52,5 +58,25 @@ void Setting4STAWidget::on_searchPushButton_clicked()
 
 void Setting4STAWidget::on_pwPushButton_clicked()
 {
+//    m_newJsonOjbect
+}
 
+void Setting4STAWidget::on_FTPIDPWLineEdit_textChanged(const QString &arg1)
+{
+    m_newJsonObject["sta fpt id & p/w"] = arg1;
+}
+
+void Setting4STAWidget::on_ipLineEdit_textChanged(const QString &arg1)
+{
+    m_newJsonObject["ip"] = arg1;
+}
+
+void Setting4STAWidget::on_subnetMaskLineEdit_textChanged(const QString &arg1)
+{
+    m_newJsonObject["subnet mask"] = arg1;
+}
+
+void Setting4STAWidget::on_printerComboBox_currentIndexChanged(int index)
+{
+    m_newJsonObject["printer selection"] = index + 1;
 }

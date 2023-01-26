@@ -67,14 +67,45 @@ Setting2Widget::Setting2Widget(QWidget *parent) :
 //    ui->antiJammingModeComboBox->addItem(LoadString("IDS_OFF"));
     foreach (QJsonValue json, m_jsonObject["anti-jamming items"].toArray())
     {
-        ui->weatherModeComboBox->addItem(json.toString());
+        ui->antiJammingModeComboBox->addItem(json.toString());
     }
     index = m_jsonObject["anti-jamming selection"].toInt() - 1;
-    ui->weatherModeComboBox->setCurrentIndex(index);
+    ui->antiJammingModeComboBox->setCurrentIndex(index);
 
 }
 
 Setting2Widget::~Setting2Widget()
 {
+    if (m_isSave)
+    {
+        m_config.SetConfig(m_newJsonObject);
+        m_config.SaveFile();
+    }
+
     delete ui;
+}
+
+void Setting2Widget::on_antiJammingModeComboBox_currentIndexChanged(int index)
+{
+    m_newJsonObject["anti-jamming selection"] = index + 1;
+}
+
+void Setting2Widget::on_reticleShapeComboBox_currentIndexChanged(int index)
+{
+    m_newJsonObject["reticle selection"] = index + 1;
+}
+
+void Setting2Widget::on_weatherModeComboBox_currentIndexChanged(int index)
+{
+    m_newJsonObject["weather selection"] = index + 1;
+}
+
+void Setting2Widget::on_daynNightComboBox_currentIndexChanged(int index)
+{
+    m_newJsonObject["day&night selection"] = index + 1;
+}
+
+void Setting2Widget::on_buzzerComboBox_currentIndexChanged(int index)
+{
+    m_newJsonObject["buzzer selection"] = index + 1;
 }

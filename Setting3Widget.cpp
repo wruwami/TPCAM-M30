@@ -61,6 +61,12 @@ Setting3Widget::Setting3Widget(QWidget *parent) :
 
 Setting3Widget::~Setting3Widget()
 {
+    if (m_isSave)
+    {
+        m_config.SetConfig(m_newJsonObject);
+        m_config.SaveFile();
+    }
+
     delete ui;
 }
 
@@ -84,4 +90,19 @@ void Setting3Widget::on_adminPWPushButton_clicked()
         BaseDialog baseDialog(Dialog::PasswordChangingWidgetType, Qt::AlignmentFlag::AlignCenter);
         baseDialog.exec();
     }
+}
+
+void Setting3Widget::on_lcdBrightnessComboBox_currentIndexChanged(int index)
+{
+    m_newJsonObject["lcd brightness selection"] = index + 1;
+}
+
+void Setting3Widget::on_unitComboBox_currentIndexChanged(int index)
+{
+    m_newJsonObject["unit selection"] = index + 1;
+}
+
+void Setting3Widget::on_dateFormatComboBox_currentIndexChanged(int index)
+{
+    m_newJsonObject["date format selection"] = index + 1;
 }

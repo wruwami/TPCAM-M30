@@ -17,6 +17,20 @@ class Setting7Widget : public QWidget
 public:
     explicit Setting7Widget(QWidget *parent = 0);
     ~Setting7Widget();
+public:
+    bool m_isSave;
+private slots:
+    void on_wifiComboBox_currentIndexChanged(int index);
+
+    void on_bluetoothComboBox_currentIndexChanged(int index);
+
+    void on_nineAxisSensorComboBox_currentIndexChanged(int index);
+
+    void on_micnSpeackerComboBox_currentIndexChanged(int index);
+
+
+    void on_powerSavingTimeComboBox_currentIndexChanged(int index);
+
 private:
     QJsonObject m_jsonObject;
     QJsonObject m_newJsonObject;

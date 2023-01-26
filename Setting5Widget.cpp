@@ -26,11 +26,10 @@ Setting5Widget::Setting5Widget(QWidget *parent) :
         ui->ipAddressComboBox->addItem(json.toString());
     }
 
-    int index = m_jsonObject["ethernet_mode selection"].toInt();
+    int index = m_jsonObject["ethernet_mode select"].toInt();
     ui->ipAddressComboBox->setCurrentIndex(index - 1);
 
     ui->ipLineEdit->SetMode(Mode::KeypadType);
-//    ui->ipLineEdit->setText();
     ui->subnetMaskLineEdit->SetMode(Mode::KeypadType);
     ui->gatewayLineEdit->SetMode(Mode::KeypadType);
     ui->dnsServerLineEdit->SetMode(Mode::KeypadType);
@@ -40,6 +39,12 @@ Setting5Widget::Setting5Widget(QWidget *parent) :
 
 Setting5Widget::~Setting5Widget()
 {
+    if (m_isSave)
+    {
+        m_config.SetConfig(m_newJsonObject);
+        m_config.SaveFile();
+    }
+
     delete ui;
 }
 
@@ -64,12 +69,13 @@ void Setting5Widget::setManualMode()
 {
     if ( ui->gridLayout->rowCount() > 6)
     {
-        delete ui->gridLayout->itemAtPosition(5, 1)->widget();
-        delete ui->gridLayout->itemAtPosition(6, 1)->widget();
-        delete ui->gridLayout->itemAtPosition(7, 1)->widget();
         ui->gridLayout->removeItem(ui->gridLayout->itemAtPosition(5, 1));
         ui->gridLayout->removeItem(ui->gridLayout->itemAtPosition(6, 1));
         ui->gridLayout->removeItem(ui->gridLayout->itemAtPosition(7, 1));
+
+//        delete ui->gridLayout->itemAtPosition(5, 1)->widget();
+//        delete ui->gridLayout->itemAtPosition(6, 1)->widget();
+//        delete ui->gridLayout->itemAtPosition(7, 1)->widget();
     }
     ui->ipLineEdit->setDisabled(false);
     ui->gatewayLabel->show();
@@ -92,6 +98,7 @@ void Setting5Widget::setManualMode()
 
 void Setting5Widget::on_ipAddressComboBox_currentIndexChanged(int index)
 {
+    m_newJsonObject["ethernet_mode select"] = index + 1;
     switch (index)
     {
     case 0:
@@ -107,3 +114,23 @@ void Setting5Widget::on_ipAddressComboBox_currentIndexChanged(int index)
     }
 }
 
+
+void Setting5Widget::on_ipLineEdit_textChanged(const QString &arg1)
+{
+    m_newJsonObject["ip"] = arg1;
+}
+
+void Setting5Widget::on_subnetMaskLineEdit_textChanged(const QString &arg1)
+{
+    m_newJsonObject["subnet mask"] = arg1;
+}
+
+void Setting5Widget::on_gatewayLineEdit_textChanged(const QString &arg1)
+{
+    m_newJsonObject["gateway"] = arg1;
+}
+
+void Setting5Widget::on_dnsServerLineEdit_textChanged(const QString &arg1)
+{
+    m_newJsonObject["dns server"] = arg1;
+}

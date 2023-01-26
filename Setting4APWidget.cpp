@@ -40,6 +40,12 @@ Setting4APWidget::Setting4APWidget(QWidget *parent) :
 
 Setting4APWidget::~Setting4APWidget()
 {
+    if (m_isSave)
+    {
+        m_config.SetConfig(m_newJsonObject);
+        m_config.SaveFile();
+    }
+
     delete ui;
 }
 
@@ -47,4 +53,24 @@ void Setting4APWidget::on_pwPushButton_clicked()
 {
     BaseDialog baseDialog(Dialog::AdminPWWidgetType, Qt::AlignmentFlag::AlignVCenter, LoadString("IDS_PLEASE_INPUT_NETWORK_PASSWORD"));
     baseDialog.exec();
+}
+
+void Setting4APWidget::on_wifiSSIDnFTPlineEdit_textChanged(const QString &arg1)
+{
+    m_newJsonObject["wiFi SSID"] = arg1;
+}
+
+void Setting4APWidget::on_ipLineEdit_textChanged(const QString &arg1)
+{
+    m_newJsonObject["ip"] = arg1;
+}
+
+void Setting4APWidget::on_subnetMaskLineEdit_textChanged(const QString &arg1)
+{
+    m_newJsonObject["subnet mask"] = arg1;
+}
+
+void Setting4APWidget::on_printerComboBox_currentIndexChanged(int index)
+{
+    m_newJsonObject["printer selection"] = index + 1;
 }

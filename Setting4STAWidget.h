@@ -22,6 +22,16 @@ private slots:
     void on_searchPushButton_clicked();
 
     void on_pwPushButton_clicked();
+    void on_FTPIDPWLineEdit_textChanged(const QString &arg1);
+
+    void on_ipLineEdit_textChanged(const QString &arg1);
+
+    void on_subnetMaskLineEdit_textChanged(const QString &arg1);
+
+    void on_printerComboBox_currentIndexChanged(int index);
+
+public:
+    bool m_isSave;
 private:
     QJsonObject m_jsonObject;
     QJsonObject m_newJsonObject;

@@ -31,7 +31,7 @@ Setting6Widget::Setting6Widget(QWidget *parent) : QWidget(parent),
     {
         ui->languageComboBox->addItem(json.toString());
     }
-    int index = m_jsonObject["language selection"].toInt();
+    int index = m_jsonObject["language select"].toInt();
     ui->languageComboBox->setCurrentIndex(index - 1);
 
     ui->ftpPortLineEdit->setText(LoadString("IDS_PORT"));
@@ -44,7 +44,7 @@ Setting6Widget::Setting6Widget(QWidget *parent) : QWidget(parent),
     {
         ui->bluetoothComboBox->addItem(json.toString());
     }
-    index = m_jsonObject["bluetooth selection"].toInt();
+    index = m_jsonObject["bluetooth select"].toInt();
     ui->bluetoothComboBox->setCurrentIndex(index - 1);
 
     foreach (QJsonValue json, m_jsonObject["ftp items"].toArray())
@@ -54,14 +54,20 @@ Setting6Widget::Setting6Widget(QWidget *parent) : QWidget(parent),
     index = m_jsonObject["ftp select"].toInt();
     ui->ftpComboBox->setCurrentIndex(index - 1);
 
-    ui->ftpAddressLineEdit->setText(m_jsonObject["ftp server(dns)"].toString());
-    ui->ftpPortLineEdit->setText(m_jsonObject["ftp port"].toString());
+    ui->ftpAddressLineEdit->setText(m_jsonObject["ftp server( dns )"].toString());
+    ui->ftpPortLineEdit->setText(QString::number(m_jsonObject["ftp port"].toInt()));
     ui->userNameLineEdit->setText(m_jsonObject["ftp user name"].toString());
     ui->userPassLineEdit->setText(m_jsonObject["ftp password"].toString());
 }
 
 Setting6Widget::~Setting6Widget()
 {
+    if (m_isSave)
+    {
+        m_config.SetConfig(m_newJsonObject);
+        m_config.SaveFile();
+    }
+
     delete ui;
 }
 
@@ -75,4 +81,39 @@ void Setting6Widget::on_languageComboBox_currentIndexChanged(const QString &arg1
 {
     ResourceLoader::StringLoader::GetInstance()->Initialize("strings", "stringTable.csv", arg1.toStdString());
 
+}
+
+void Setting6Widget::on_languageComboBox_currentIndexChanged(int index)
+{
+    m_newJsonObject["language select"] = index + 1;
+}
+
+void Setting6Widget::on_bluetoothComboBox_currentIndexChanged(int index)
+{
+    m_newJsonObject["bluetooth select"] = index + 1;
+}
+
+void Setting6Widget::on_ftpComboBox_currentIndexChanged(int index)
+{
+    m_newJsonObject["ftp select"] = index + 1;
+}
+
+void Setting6Widget::on_ftpAddressLineEdit_textChanged(const QString &arg1)
+{
+    m_newJsonObject["ftp server(dns)"] = arg1;
+}
+
+void Setting6Widget::on_ftpPortLineEdit_textChanged(const QString &arg1)
+{
+    m_newJsonObject["ftp port"] = arg1;
+}
+
+void Setting6Widget::on_userNameLineEdit_textChanged(const QString &arg1)
+{
+    m_newJsonObject["ftp user name"] = arg1;
+}
+
+void Setting6Widget::on_userPassLineEdit_textChanged(const QString &arg1)
+{
+    m_newJsonObject["ftp password"] = arg1;
 }

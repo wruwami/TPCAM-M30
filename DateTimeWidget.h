@@ -3,6 +3,9 @@
 
 #include <QWidget>
 #include <QDateTime>
+#include <QJsonObject>
+
+#include "ConfigManager.h"
 
 class CustomPushButton;
 namespace Ui {
@@ -38,8 +41,12 @@ private slots:
 
 // void on_cancelPushButton_clicked();
 
+    void on_timeZoneComboBox_currentIndexChanged(int index);
+
 private:
     QDateTime m_dateTime;
+    QJsonObject m_jsonObject;
+    ConfigManager m_config = ConfigManager("setting_daytime.json");
 
 private:
     Ui::DateTimeWidget *ui;

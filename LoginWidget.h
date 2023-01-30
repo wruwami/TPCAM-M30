@@ -2,6 +2,8 @@
 #define LOGINWIDGET_H
 
 #include <QWidget>
+#include <QJsonObject>
+#include "ConfigManager.h"
 
 class CustomPushButton;
 class CustomComboBox;
@@ -33,7 +35,12 @@ public:
     CustomPushButton* m_dateTimePushButton;
     CustomComboBox* m_pUserNameComboBox;
 private:
+    QJsonObject m_jsonObject;
+    QJsonObject m_newJsonObject;
+    ConfigManager m_config = ConfigManager("parameter_login.json");
+private:
     Ui::LoginWidget *ui;
+
 };
 
 #endif // LOGINWIDGET_H

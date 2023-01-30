@@ -1,12 +1,16 @@
 #include "SelfTestDialog.h"
 #include "ui_SelfTestDialog.h"
+
 #include <QDate>
 #include <QTime>
 #include <QFile>
+#include <QDebug>
+#include <QByteArray>
 
 #include "Color.h"
 #include "StringLoader.h"
 #include "BaseDialog.h"
+#include "DateFormatManager.h"
 
 SelfTestDialog::SelfTestDialog(QWidget *parent) :
     QDialog(parent),
@@ -37,9 +41,25 @@ SelfTestDialog::SelfTestDialog(QWidget *parent) :
     ui->storageTitleLabel->setText(LoadString("IDS_STORAGE_TITLE"));
 //    ui->storageTitleLabel->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
     ui->storageValueLabel->setText(LoadString("IDS_SELFTEST_CHECK"));
-    ui->expiredDateLabel->setText(LoadString("IDS_EXPIRED_DATE"));
-    ui->versionLabel->setText(LoadString("IDS_VERSION"));
 
+    QFile expired_file("/root/expired_date.txt");
+    expired_file.open(QFile::ReadOnly);
+
+    if (!expired_file.isOpen())
+    {
+        qDebug() << "no file has been opened";
+        ui->expiredDateLabel->setText(LoadString("IDS_EXPIRED_DATE"));
+    }
+    else
+    {
+        QByteArray ba = expired_file.readAll();
+        QString str = QString(ba);
+        ui->expiredDateLabel->setText(LoadString("IDS_EXPIRED_DATE") + GetDate(str));
+    }
+    expired_file.close();
+
+
+    ui->versionLabel->setText(LoadString("IDS_VERSION"));
 
     ui->expiredDateLabel->setStyleSheet("QLabel { color : red; }");
     ui->versionLabel->setStyleSheet("QLabel { color : #ffc000; }");

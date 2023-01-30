@@ -3,13 +3,18 @@
 
 #include <QTimeZone>
 
+#include "ConfigManager.h"
+#include "DateFormatManager.h"
 #include "StringLoader.h"
+
 
 DateTimeWidget::DateTimeWidget(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::DateTimeWidget)
 {
     ui->setupUi(this);
+
+    m_jsonObject = m_config.GetConfig();
 
     this->setWindowFlags(Qt::FramelessWindowHint);
     ui->savePushButton->setText(LoadString("IDS_SAVE"));
@@ -26,12 +31,16 @@ DateTimeWidget::DateTimeWidget(QWidget *parent) :
     foreach (QByteArray id, ids) {
         ui->timeZoneComboBox->addItem(id);
     }
+    ui->timeZoneComboBox->setCurrentIndex(m_jsonObject["timezone select"].toInt() - 1);
     m_dateTime = m_dateTime.currentDateTime();
     setDateTimeValue();
 }
 
 DateTimeWidget::~DateTimeWidget()
 {
+    m_config.SetConfig(m_jsonObject);
+    m_config.SaveFile();
+
     delete ui;
 }
 
@@ -126,3 +135,8 @@ void DateTimeWidget::on_secondMinusPushButton_clicked()
 //{
 ////    reject();
 //}
+
+void DateTimeWidget::on_timeZoneComboBox_currentIndexChanged(int index)
+{
+    m_jsonObject["timezone select"] = index + 1;
+}

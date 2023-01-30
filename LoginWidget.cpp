@@ -1,6 +1,8 @@
 #include "LoginWidget.h"
 #include "ui_LoginWidget.h"
 
+#include <QJsonArray>
+
 #include "Color.h"
 #include "StringLoader.h"
 #include "IndicatorDialog.h"
@@ -9,13 +11,16 @@
 #include "BaseDialog.h"
 #include "KeyboardDialog.h"
 #include "KeypadDialog.h"
-#include "ConfigManager.h"
 
 LoginWidget::LoginWidget(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::LoginWidget)
 {
     ui->setupUi(this);
+
+    m_jsonObject = m_config.GetConfig();
+    m_newJsonObject = m_jsonObject;
+
     setBackGroundColor(this, 0xf2f2f2);
     m_loginPushButton = ui->loginPushButton;
     m_dateTimePushButton = ui->dateTimePushButton;
@@ -35,13 +40,13 @@ LoginWidget::LoginWidget(QWidget *parent) :
     ui->userNamePushButton->setImage("Login", "keyboard.bmp");
     ui->logoLabel->setImage("Login", "comlaser_logo.bmp");
     ui->deviceIDLineEdit->setDisabled(true);
+    ui->deviceIDLineEdit->setText(m_jsonObject["Device ID"].toString());
 
-    //시연용
-    ui->userNameComboBox->addItem("admin");
-    ui->userNameComboBox->addItem("admin-align");
-
-    ui->deviceIDLineEdit->setText("TP30001-00001");
-    ui->userNameComboBox->addItem("NY-Man-Jo...");
+    foreach(QJsonValue json, m_jsonObject["User Name items"].toArray())
+    {
+        ui->userNameComboBox->addItem(json.toString());
+    }
+    ui->userNameComboBox->setCurrentIndex(m_jsonObject["User Name Select"].toInt() - 1);
 
 //    m_userName = ui->userNameComboBox->it;
 }
@@ -56,7 +61,7 @@ void LoginWidget::on_loginPushButton_clicked()
 {
 //    m_parent->ui->verticalLayout_2->removeWidget(m_pLoginWidget);
 //    IndicatorWidget indicatorWidget;
-//    m_paremt->ui->verticalLayout_2->addWidget(&indicatorWidget, 835);
+//    m_parent->ui->verticalLayout_2->addWidget(&indicatorWidget, 835);
     close();
 //    (MainWindow*)m_parent->
 //    ~LoginWidget();

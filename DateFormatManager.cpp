@@ -1,5 +1,6 @@
 #include "DateFormatManager.h"
 
+using namespace ResourceLoader;
 DateFormatManager* DateFormatManager::instance = nullptr;
 
 void DateFormatManager::SetDateFormat(QString dateFormat)

@@ -2,7 +2,7 @@
 #include "ui_Setting1Widget.h"
 
 #include <QDebug>
-#include <QJsonarray>
+#include <QJsonArray>
 
 #include "StringLoader.h"
 #include "BaseDialog.h"

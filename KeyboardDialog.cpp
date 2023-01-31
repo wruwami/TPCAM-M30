@@ -251,16 +251,16 @@ void KeyboardDialog::onKeyPressed(const QString &iKey, Key *mKey)
             int ascii = HangulCovertEnglish(iKey[0]);
             int ret = hangul_ic_process(m_hic, ascii);
 
-            QString str = getCommitString();
-            if (!str.isEmpty())
-            {
-                ui->lineEdit->insert(str);
-            }
-            else
-            {
-//                ui->lineEdit->backspace();
-//                ui->lineEdit->insert(getPreeditString());
-            }
+//            QString str = getCommitString();
+//            if (!str.isEmpty())
+//            {
+//                ui->lineEdit->insert(str);
+//            }
+//            else
+//            {
+////                ui->lineEdit->backspace();
+////                ui->lineEdit->insert(getPreeditString());
+//            }
 //                ui->lineEdit->installEventFilter()
 
 //            ucs4_to_utf8(m_commit, hangul_ic_get_commit_string(m_hic), sizeof(m_commit));

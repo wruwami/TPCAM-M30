@@ -11,6 +11,7 @@
 //    MMMDDYYY,
 //};
 
+namespace ResourceLoader{
 class DateFormatManager
 {
 private:
@@ -30,20 +31,21 @@ public:
 private:
     QString m_DateFormat;
 };
+}
 
-static SetDateFormat(QString dateFormat)
+static void SetDateFormat(QString dateFormat)
 {
-    DateFormatManager::GetInstance()->SetDateFormat(dateFormat);
+    ResourceLoader::DateFormatManager::GetInstance()->SetDateFormat(dateFormat);
 }
 
 static QString GetDateFormat()
 {
-    return DateFormatManager::GetInstance()->GetDateFormat();
+    return ResourceLoader::DateFormatManager::GetInstance()->GetDateFormat();
 }
 
-static GetDate(QString str)
+static QString GetDate(QString str)
 {
-    DateFormatManager::GetInstance()->GetDate(str);
+    return ResourceLoader::DateFormatManager::GetInstance()->GetDate(str);
 }
 
 #endif // DATEFORMATMANAGER_H

@@ -195,3 +195,5 @@ IDS_CURRENT,Current,현재의,Atual,Actual,Actuel,حاضِر
 IDS_NEW,New,새로운,Novo,Nuevo,Nouveau,جديد
 IDS_CONFIRM,Confirm,확인하다,confirme,Confirmar,Confirmer,يتأكد
 IDS_SHOW,Show,보여주다,Mostrar,Show,Montrer,تبين
+IDS_WIFI_SSID,wifi ssid & ftp ID,wifi ssid & ftp ID,wifi ssid & ftp ID,wifi ssid & ftp ID,wifi ssid & ftp ID,wifi ssid & ftp ID
+IDS_FTP_ID_PW,FTP ID/PW,FTP ID/PW,FTP ID/PW,FTP ID/PW,FTP ID/PW,FTP ID/PW

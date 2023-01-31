@@ -20,7 +20,7 @@ Setting6Widget::Setting6Widget(QWidget *parent) : QWidget(parent),
 
     ui->searchPushButton->setText(LoadString("IDS_SEARCH"));
 
-    ui->languageComboBox->addItems(LoadLangaugeList());
+//    ui->languageComboBox->addItems(LoadLangaugeList());
 
     ui->ftpComboBox->addItem(LoadString("IDS_DISABLE"));
     ui->ftpComboBox->addItem(LoadString("IDS_ENABLE_AUTO"));

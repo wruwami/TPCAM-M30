@@ -78,7 +78,8 @@ void LoginWidget::on_lightPushButton_clicked()
 
 void LoginWidget::on_userNamePushButton_clicked()
 {
-    KeyboardDialog keyboardDialog(GetLanguage(), ui->userNameComboBox->currentText());
+
+    KeyboardDialog keyboardDialog(ui->userNameComboBox->currentText(), GetLanguage());
     keyboardDialog.exec();
 }
 

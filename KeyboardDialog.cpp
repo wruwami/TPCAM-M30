@@ -78,11 +78,11 @@ KeyboardDialog::KeyboardDialog(QString lang, QWidget *parent) :
     ui->deleteAllPushButton->setImage("Main_menu", "delete_all.bmp");
 
     QFile file;
-    if (lang == "English")
+    if (lang == "english")
     {
         file.setFileName(":/keyboard/en.json");    // Using it from the resource file.
     }
-    else if (lang == "Korean")
+    else if (lang == "korean")
     {
         file.setFileName(":/keyboard/ko.json");    // Using it from the resource file.
 #ifdef Q_OS_LINUX
@@ -91,23 +91,23 @@ KeyboardDialog::KeyboardDialog(QString lang, QWidget *parent) :
         m_hic = hangul_ic_new("2");
 #endif
     }
-    else if (lang == "French")
+    else if (lang == "french")
     {
         file.setFileName(":/keyboard/fr.json");    // Using it from the resource file.
 
     }
-    else if(lang == "Spanish")
+    else if(lang == "spanish")
     {
         file.setFileName(":/keyboard/es.json");    // Using it from the resource file.
 
     }
 
-    else if (lang == "Portuguese")
+    else if (lang == "portuguese")
     {
         file.setFileName(":/keyboard/pt.json");    // Using it from the resource file.
 
     }
-    else if (lang == "Arabic")
+    else if (lang == "arabic")
     {
         file.setFileName(":/keyboard/ar.json");    // Using it from the resource file.
 
@@ -142,11 +142,11 @@ KeyboardDialog::KeyboardDialog(QString str, QString lang, QWidget *parent) :
     ui->deleteAllPushButton->setImage("Main_menu", "delete_all.bmp");
 
     QFile file;
-    if (lang == "English")
+    if (lang == "english")
     {
         file.setFileName(":/keyboard/en.json");    // Using it from the resource file.
     }
-    else if (lang == "Korean")
+    else if (lang == "korean")
     {
         file.setFileName(":/keyboard/ko.json");    // Using it from the resource file.
 #ifdef Q_OS_LINUX
@@ -155,23 +155,23 @@ KeyboardDialog::KeyboardDialog(QString str, QString lang, QWidget *parent) :
         m_hic = hangul_ic_new("2");
 #endif
     }
-    else if (lang == "French")
+    else if (lang == "french")
     {
         file.setFileName(":/keyboard/fr.json");    // Using it from the resource file.
 
     }
-    else if(lang == "Spanish")
+    else if(lang == "spanish")
     {
         file.setFileName(":/keyboard/es.json");    // Using it from the resource file.
 
     }
 
-    else if (lang == "Portuguese")
+    else if (lang == "portuguese")
     {
         file.setFileName(":/keyboard/pt.json");    // Using it from the resource file.
 
     }
-    else if (lang == "Arabic")
+    else if (lang == "arabic")
     {
         file.setFileName(":/keyboard/ar.json");    // Using it from the resource file.
 
@@ -193,7 +193,7 @@ KeyboardDialog::KeyboardDialog(QString str, QString lang, QWidget *parent) :
 KeyboardDialog::~KeyboardDialog()
 {
 #ifdef Q_OS_LINUX
-    if (GetLanguage() == "Korean")
+    if (GetLanguage() == "korean")
     {
         hangul_ic_delete(m_hic);
 
@@ -230,7 +230,7 @@ void KeyboardDialog::onKeyPressed(const QString &iKey, Key *mKey)
     else if (iKey == "return")
     {
 #ifdef Q_OS_LINUX
-        if (GetLanguage() == "Korean")
+        if (GetLanguage() == "korean")
         {
             ui->lineEdit->insert(getPreeditString());
 //            1hangul_ic_get_preedit_string();
@@ -246,10 +246,20 @@ void KeyboardDialog::onKeyPressed(const QString &iKey, Key *mKey)
     else
     {
 #ifdef Q_OS_LINUX
-        if (GetLanguage() == "Korean")
+        if (GetLanguage() == "korean")
         {
             int ascii = HangulCovertEnglish(iKey[0]);
             int ret = hangul_ic_process(m_hic, ascii);
+            if (ret)
+            {
+                ui->lineEdit->insert(getCommitString());
+            }
+            else
+            {
+                ui->lineEdit->backspace();
+                ui->lineEdit->insert(getPreeditString());
+            }
+
 
 //            QString str = getCommitString();
 //            if (!str.isEmpty())

@@ -2,12 +2,15 @@
 #include "ui_FileManagerSnapShotDialog.h"
 
 #include "qdir.h"
+#include "qdiriterator.h"
 #include <QListWidget>
 
 #include "StringLoader.h"
 #include "Color.h"
 #include "WidgetSize.h"
 #include "CustomScrollbar.h"
+
+#define DEFAULT_FILE_PATH   "files"
 
 FileManagerSnapShotDialog::FileManagerSnapShotDialog(QWidget *parent) :
     QDialog(parent),
@@ -26,14 +29,31 @@ FileManagerSnapShotDialog::FileManagerSnapShotDialog(QWidget *parent) :
 
 //    ui->listWidget->setStyleSheet(QString("QListView::item { height: %0px; }").arg(ui->snapShotIconLabel->height()/64* 45));
 
-    addListItem("20170508");
-    addListItem("20170510");
-    addListItem("20170511");
-    addListItem("20170512");
-    addListItem("20170514");
-    addListItem("20170515");
-    addListItem("20170517");
-    addListItem("20170518");
+    QDir dir;
+    QString folder_path;
+#ifdef Q_OS_WIN
+folder_path = dir.absolutePath() + "/" + DEFAULT_FILE_PATH + "/snapshot/";
+#else   /*Q_OS_LINUX*/
+folder_path = dir.absolutePath() + "/" + DEFAULT_FILE_PATH + "/snapshot/";
+#endif
+
+    QDirIterator it(folder_path, QDir::Dirs/*, QDirIterator::Subdirectories*/);
+    while (it.hasNext())
+    {
+        QString dir = it.next();
+        if (dir.mid(dir.size() - 1, 1) == ".")
+            continue;
+        addListItem(dir);
+    }
+
+//    addListItem("20170508");
+//    addListItem("20170510");
+//    addListItem("20170511");
+//    addListItem("20170512");
+//    addListItem("20170514");
+//    addListItem("20170515");
+//    addListItem("20170517");
+//    addListItem("20170518");
 
 //    ui->listWidget->setVerticalScrollBar(new CustomScrollbar(ui->listWidget->width() * 78 / 650));
 }

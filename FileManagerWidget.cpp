@@ -1,6 +1,8 @@
 #include "FileManagerWidget.h"
 #include "ui_FileManagerWidget.h"
 
+#include "qdir.h"
+#include "qdiriterator.h"
 #include <QDebug>
 #include <QPainter>
 #include <QHeaderView>
@@ -243,6 +245,27 @@ void FileManagerWidget::on_datePushButton_clicked()
     FileManagerSnapShotDialog fileManagerSnapShotDialog;
     if (fileManagerSnapShotDialog.exec() == QDialog::Accepted)
     {
-        ui->datePushButton->setText(fileManagerSnapShotDialog.strDate());
+//        m_folder_path = fileManagerSnapShotDialog.strDate();
+//        QDir dirfolder_path
+        QString date = fileManagerSnapShotDialog.strDate();
+        int index = date.lastIndexOf('/');
+        ui->datePushButton->setText(date.mid(index + 1, date.size() - index - 1));
+
+        int i = 0;
+        QDirIterator it(date, QDir::Files);
+        while (it.hasNext())
+        {
+            QString file = it.next();
+            index = file.lastIndexOf('/');
+//            if (file.mid(file.size() - 1, 1) == ".")
+//                continue;
+            //addListItem(file);
+            QTableWidgetItem* indexItem = new QTableWidgetItem(QString::number(i));
+            QTableWidgetItem* item = new QTableWidgetItem(file.mid(index + 1, file.size() - index - 1));
+            ui->tableWidget->setItem(i, 0, indexItem);
+            ui->tableWidget->setItem(i++, 1, item);
+
+        }
+//        date
     }
 }

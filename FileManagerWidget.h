@@ -21,6 +21,7 @@ private:
     Ui::FileManagerWidget *ui;
     int m_nMode;
     // QWidget interface
+    QString m_folder_path;
 protected:
     void resizeEvent(QResizeEvent *event);
     void paintEvent(QPaintEvent *event);

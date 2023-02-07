@@ -269,3 +269,4 @@ void FileManagerWidget::on_datePushButton_clicked()
 //        date
     }
 }
+

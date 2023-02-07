@@ -104,7 +104,7 @@ IDS_LASER_TITLE,LASER,레이저,LASER,LÁSER,LASER,الليزر
 IDS_BATTERY_TITLE,BATTERY,배터리,BATERIA,BATERÍA,BATTERIE,البطارية
 IDS_STORAGE_TITLE,STORAGE,저장,ARMAZENAR,ALMACENAMIENTO,ESPACE DE RANGEMENT,تخزين
 IDS_EXPIRED_DATE,Expired date(service required after): 2022/12/11,만료일(이후 서비스 필요): 2022/12/11,Data expirada (serviço necessário após): 2022/12/11,Fecha de vencimiento (servicio requerido después): 2022/12/11,Date d'expiration (service requis après) : 2022/12/11,تاريخ انتهاء الصلاحية (الخدمة مطلوبة بعد): 2022/12/11
-IDS_VERSION,V1.0.0 (2022/06/10),V1.0.0(2022년 6월 10일),V1.0.0 (2022/06/10),V1.0.0 (2022/06/10),V1.0.0 (2022/06/10),V1.0.0 (2022/06/10)
+IDS_VERSION,V1.0.0,V1.0.0,V1.0.0,V1.0.0,V1.0.0,V1.0.0
 IDS_MAIN_MENU,Main Menu,메인 메뉴,Menu principal,Menú principal,Menu principal,القائمة الرئيسية
 IDS_CAMERA_ZOOM_FOCUS,CAMERA ZOOM FOCUS,카메라 줌 포커스,FOCO DO ZOOM DA CÂMERA,ENFOQUE DEL ZOOM DE LA CÁMARA,MISE AU POINT DU ZOOM DE LA CAMÉRA,تركيز التكبير / التصغير بالكاميرا
 IDS_CAMERA_HUD_ALIGN,CAMERA HUD ALIGN,카메라 HUD 정렬,ALINHAMENTO DO HUD DA CÂMERA,ALINEACIÓN DEL HUD DE LA CÁMARA,ALIGNEMENT DU HUD DE LA CAMÉRA,محاذاة شاشة عرض الكاميرا

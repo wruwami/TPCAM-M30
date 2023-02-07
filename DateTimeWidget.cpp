@@ -15,13 +15,14 @@ DateTimeWidget::DateTimeWidget(QWidget *parent) :
     ui->setupUi(this);
 
     m_jsonObject = m_config.GetConfig();
+    m_newJsonObject = m_jsonObject;
 
     this->setWindowFlags(Qt::FramelessWindowHint);
     ui->savePushButton->setText(LoadString("IDS_SAVE"));
     ui->cancelPushButton->setText(LoadString("IDS_CANCEL"));
     ui->timeZoneLabel->setText(LoadString("IDS_TIMEZONE"));
     ui->gpsSyncCheckBox->setText(LoadString("IDS_GPS_SYNC"));
-    ui->gpsSyncCheckBox->setChecked(true);
+    ui->gpsSyncCheckBox->setChecked(m_jsonObject["gps sync"].toBool());
 
     m_pSavePushButton = ui->savePushButton;
     m_pCancelPushButton = ui->cancelPushButton;
@@ -38,9 +39,6 @@ DateTimeWidget::DateTimeWidget(QWidget *parent) :
 
 DateTimeWidget::~DateTimeWidget()
 {
-    m_config.SetConfig(m_jsonObject);
-    m_config.SaveFile();
-
     delete ui;
 }
 
@@ -126,17 +124,23 @@ void DateTimeWidget::on_secondMinusPushButton_clicked()
     setDateTimeValue();
 }
 
-//void DateTimeWidget::on_savePushButton_clicked()
-//{
-////    accept();
-//}
+void DateTimeWidget::on_savePushButton_clicked()
+{
+    m_newJsonObject["gps sync"] = ui->gpsSyncCheckBox->isChecked();
 
-//void DateTimeWidget::on_cancelPushButton_clicked()
-//{
-////    reject();
-//}
+    m_config.SetConfig(m_newJsonObject);
+    m_config.SaveFile();
+
+#ifdef  Q_OS_LINUX
+    folder_path = dir.absolutePath() + "/" + DEFAULT_FILE_PATH + "/snapshot/";
+#endif
+}
+
+void DateTimeWidget::on_cancelPushButton_clicked()
+{
+}
 
 void DateTimeWidget::on_timeZoneComboBox_currentIndexChanged(int index)
 {
-    m_jsonObject["timezone select"] = index + 1;
+    m_newJsonObject["timezone select"] = index + 1;
 }

@@ -37,15 +37,14 @@ private slots:
     void on_minuteMinusPushButton_clicked();
     void on_secondPlusPushButton_clicked();
     void on_secondMinusPushButton_clicked();
-// void on_savePushButton_clicked();
+    void on_savePushButton_clicked();
+    void on_cancelPushButton_clicked();
 
-// void on_cancelPushButton_clicked();
-
-    void on_timeZoneComboBox_currentIndexChanged(int index);
-
+    void on_timeZoneComboBox_currentIndexChanged(int index);    
 private:
     QDateTime m_dateTime;
     QJsonObject m_jsonObject;
+    QJsonObject m_newJsonObject;
     ConfigManager m_config = ConfigManager("setting_daytime.json");
 
 private:

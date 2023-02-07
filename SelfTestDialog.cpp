@@ -59,7 +59,7 @@ SelfTestDialog::SelfTestDialog(QWidget *parent) :
     expired_file.close();
 
 
-    ui->versionLabel->setText(LoadString("IDS_VERSION"));
+    ui->versionLabel->setText(LoadString("IDS_VERSION") + "(" + GetDate(QDate::currentDate().toString("yyyyMMdd")) + ")");
 
     ui->expiredDateLabel->setStyleSheet("QLabel { color : red; }");
     ui->versionLabel->setStyleSheet("QLabel { color : #ffc000; }");
@@ -79,16 +79,16 @@ SelfTestDialog::~SelfTestDialog()
 
 void SelfTestDialog::timerEvent(QTimerEvent *event)
 {
-    ui->dateTimeLabel->setText(QDate::currentDate().toString("yyyy/MM/dd") + " " + QTime::currentTime().toString("hh:mm:ss"));
+    ui->dateTimeLabel->setText(GetDate(QDate::currentDate().toString("yyyyMMdd")) + " " + QTime::currentTime().toString("hh:mm:ss"));
 //    ui->timeLabel->setText(QTime::currentTime().toString("hh:mm:ss"));
     m_nSecond++;
-    if (m_nSecond == 3)
-        accept();
-    else if (m_nSecond == 2)
-    {
+//    if (m_nSecond == 3)
+//        accept();
+//    else if (m_nSecond == 2)
+//    {
         ui->cameraValueLabel->setText(LoadString("IDS_SELFTEST_SUCCESS"));
         ui->laserValueLabel->setText(LoadString("IDS_SELFTEST_SUCCESS"));
         ui->batteryValueLabel->setText(LoadString("IDS_SELFTEST_SUCCESS"));
         ui->storageValueLabel->setText(LoadString("IDS_SELFTEST_SUCCESS"));
-    }
+//    }
 }

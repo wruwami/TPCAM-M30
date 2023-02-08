@@ -143,6 +143,15 @@ void DateTimeWidget::on_savePushButton_clicked()
     {
         qDebug() << "Failed to change date time";
     }
+
+    QString TimeZoneString ("timedatectl set-timezone ");
+    dateTimeString.append(ui->timeZoneComboBox->currentText());
+
+    systemDateTimeStatus= system(dateTimeString.toStdString().c_str());
+    if (systemDateTimeStatus == -1)
+    {
+        qDebug() << "Failed to change time zone";
+    }
 #endif
 }
 

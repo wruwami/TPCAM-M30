@@ -2,6 +2,7 @@
 #include "ui_DateTimeWidget.h"
 
 #include <QTimeZone>
+#include <QDebug>
 
 #include "ConfigManager.h"
 #include "DateFormatManager.h"
@@ -132,7 +133,16 @@ void DateTimeWidget::on_savePushButton_clicked()
     m_config.SaveFile();
 
 #ifdef  Q_OS_LINUX
-    folder_path = dir.absolutePath() + "/" + DEFAULT_FILE_PATH + "/snapshot/";
+    QString string = m_dateTime.toString("\"yyyy-MM-dd hh:mm\"");
+    QString dateTimeString ("date -s ");
+    dateTimeString.append(string);    
+    dateTimeString.append("TZ : " + ui->timeZoneComboBox->currentText());
+
+    int systemDateTimeStatus= system(dateTimeString.toStdString().c_str());
+    if (systemDateTimeStatus == -1)
+    {
+        qDebug() << "Failed to change date time";
+    }
 #endif
 }
 

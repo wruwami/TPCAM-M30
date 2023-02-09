@@ -9,6 +9,8 @@ class CustomLabel : public QLabel
 public:
     explicit CustomLabel(QWidget *parent = 0);
 //    void setIconImage(QString path_name, QString file_name);
+    void setImageFromAvi(QString file_path, QSize size);
+    void setImage(QString file_path, QSize size);
     void setImage(QString path_name, QString file_name);
     void setImage(QString path_name, QString file_name, QSize size);
 signals:

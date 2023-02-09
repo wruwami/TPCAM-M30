@@ -12,7 +12,7 @@
 
 #define DEFAULT_FILE_PATH   "files"
 
-FileManagerSnapShotDialog::FileManagerSnapShotDialog(QWidget *parent) :
+FileManagerSnapShotDialog::FileManagerSnapShotDialog(int nMode, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::FileManagerSnapShotDialog)
 {
@@ -30,32 +30,39 @@ FileManagerSnapShotDialog::FileManagerSnapShotDialog(QWidget *parent) :
 //    ui->listWidget->setStyleSheet(QString("QListView::item { height: %0px; }").arg(ui->snapShotIconLabel->height()/64* 45));
 
     QDir dir;
-    QString folder_path;
-#ifdef Q_OS_WIN
-folder_path = dir.absolutePath() + "/" + DEFAULT_FILE_PATH + "/snapshot/";
-#else   /*Q_OS_LINUX*/
-folder_path = dir.absolutePath() + "/" + DEFAULT_FILE_PATH + "/snapshot/";
-#endif
+    QSet<QString> dirSet;
+    QString snapshot_folder_path;
+    snapshot_folder_path = dir.absolutePath() + "/" + DEFAULT_FILE_PATH + "/snapshot/";
 
-    QDirIterator it(folder_path, QDir::Dirs/*, QDirIterator::Subdirectories*/);
+
+    QDirIterator it(snapshot_folder_path, QDir::Dirs/*, QDirIterator::Subdirectories*/);
     while (it.hasNext())
     {
         QString dir = it.next();
         if (dir.mid(dir.size() - 1, 1) == ".")
             continue;
+        if (nMode == 0 || nMode == 1)
+            dirSet.insert(dir);
+        //        addListItem(dir);
+    }
+    QString video_folder_path;
+    video_folder_path = dir.absolutePath() + "/" + DEFAULT_FILE_PATH + "/video/";
+
+
+    QDirIterator it2(video_folder_path, QDir::Dirs/*, QDirIterator::Subdirectories*/);
+    while (it2.hasNext())
+    {
+        QString dir = it2.next();
+        if (dir.mid(dir.size() - 1, 1) == ".")
+            continue;
+        if (nMode == 1 || nMode == 2)
+            dirSet.insert(dir);
+        //        addListItem(dir);
+    }
+    foreach(QString dir, dirSet)
+    {
         addListItem(dir);
     }
-
-//    addListItem("20170508");
-//    addListItem("20170510");
-//    addListItem("20170511");
-//    addListItem("20170512");
-//    addListItem("20170514");
-//    addListItem("20170515");
-//    addListItem("20170517");
-//    addListItem("20170518");
-
-//    ui->listWidget->setVerticalScrollBar(new CustomScrollbar(ui->listWidget->width() * 78 / 650));
 }
 
 FileManagerSnapShotDialog::~FileManagerSnapShotDialog()

@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core gui multimediawidgets
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -145,7 +145,8 @@ HEADERS  += MainWindow.h \
     CustomScrollbar.h \
     rapidcsv.h \
     ConfigManager.h \
-    DateFormatManager.h
+    DateFormatManager.h \
+    FileFormat.h
 
 FORMS    += MainWindow.ui \
     IndicatorCameraFocusWidget.ui \

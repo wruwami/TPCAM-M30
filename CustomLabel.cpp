@@ -23,6 +23,23 @@ CustomLabel::CustomLabel(QWidget *parent) : QLabel(parent)
 //    this->seti
 ////    this->setScaledContents(true);
 //}
+void CustomLabel::setImageFromAvi(QString file_path, QSize size)
+{
+    QPixmap pixmap;
+    pixmap.load(file_path);
+    QPixmap fitpixmap = pixmap.scaled(size.width(), size.height(), Qt::KeepAspectRatio, Qt::SmoothTransformation);
+    this->setPixmap(fitpixmap);
+//    this->setScaledContents(true);
+}
+
+void CustomLabel::setImage(QString file_path, QSize size)
+{
+    QPixmap pixmap;
+    pixmap.load(file_path);
+    QPixmap fitpixmap = pixmap.scaled(size.width(), size.height(), Qt::KeepAspectRatio, Qt::SmoothTransformation);
+    this->setPixmap(fitpixmap);
+//    this->setScaledContents(true);
+}
 
 void CustomLabel::setImage(QString path_name, QString file_name)
 {

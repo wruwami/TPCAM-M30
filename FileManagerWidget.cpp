@@ -6,6 +6,8 @@
 #include <QDebug>
 #include <QPainter>
 #include <QHeaderView>
+#include <QVideoWidget>
+#include <QMediaPlayer>
 
 #include "CustomPushButton.h"
 #include "StringLoader.h"
@@ -153,6 +155,10 @@ void FileManagerWidget::on_deletePushButton_clicked()
 
 void FileManagerWidget::on_tableWidget_clicked(const QModelIndex &index)
 {
+//    QImage image;
+//    image.load();
+
+    ui->frameLabel->setImage(m_avFileFormatList[index.row()].file_path, ui->frameLabel->size());
 
 }
 
@@ -242,7 +248,7 @@ void FileManagerWidget::on_ImageVideoComboBox_currentIndexChanged(int index)
 
 void FileManagerWidget::on_datePushButton_clicked()
 {
-    FileManagerSnapShotDialog fileManagerSnapShotDialog;
+    FileManagerSnapShotDialog fileManagerSnapShotDialog(m_nMode);
     if (fileManagerSnapShotDialog.exec() == QDialog::Accepted)
     {
 //        m_folder_path = fileManagerSnapShotDialog.strDate();
@@ -250,6 +256,8 @@ void FileManagerWidget::on_datePushButton_clicked()
         QString date = fileManagerSnapShotDialog.strDate();
         int index = date.lastIndexOf('/');
         ui->datePushButton->setText(date.mid(index + 1, date.size() - index - 1));
+
+        ui->tableWidget->clear();
 
         int i = 0;
         QDirIterator it(date, QDir::Files);
@@ -260,8 +268,15 @@ void FileManagerWidget::on_datePushButton_clicked()
 //            if (file.mid(file.size() - 1, 1) == ".")
 //                continue;
             //addListItem(file);
-            QTableWidgetItem* indexItem = new QTableWidgetItem(QString::number(i));
-            QTableWidgetItem* item = new QTableWidgetItem(file.mid(index + 1, file.size() - index - 1));
+
+            AVFileFormat avfileFormat = GetFileFormat(file);
+            m_avFileFormatList.append(avfileFormat);
+
+            QTableWidgetItem* indexItem = new QTableWidgetItem(QString::number(i + 1));
+
+            QTableWidgetItem* item = new QTableWidgetItem(avfileFormat.captureSpeed + "km/h, " + QString("%0%1:%2%3:%4%5").arg(avfileFormat.date[0]).arg(avfileFormat.date[1]).arg(avfileFormat.date[2]).arg(avfileFormat.date[3]).arg(avfileFormat.date[4]).arg(avfileFormat.date[5]));
+            if (i > 5)
+                ui->tableWidget->insertRow(i);
             ui->tableWidget->setItem(i, 0, indexItem);
             ui->tableWidget->setItem(i++, 1, item);
 

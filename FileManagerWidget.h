@@ -4,6 +4,8 @@
 #include <QWidget>
 #include <QHeaderView>
 
+#include "FileFormat.h"
+
 namespace Ui {
 class FileManagerWidget;
 }
@@ -22,6 +24,7 @@ private:
     int m_nMode;
     // QWidget interface
     QString m_folder_path;
+    QList<AVFileFormat> m_avFileFormatList;
 protected:
     void resizeEvent(QResizeEvent *event);
     void paintEvent(QPaintEvent *event);

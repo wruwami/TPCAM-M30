@@ -13,7 +13,7 @@ class FileManagerSnapShotDialog : public QDialog
     Q_OBJECT
 
 public:
-    explicit FileManagerSnapShotDialog(QWidget *parent = 0);
+    explicit FileManagerSnapShotDialog(int nMode, QWidget *parent = 0);
     ~FileManagerSnapShotDialog();
     QString strDate() const;
 

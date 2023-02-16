@@ -30,37 +30,40 @@ FileManagerSnapShotDialog::FileManagerSnapShotDialog(int nMode, QWidget *parent)
 //    ui->listWidget->setStyleSheet(QString("QListView::item { height: %0px; }").arg(ui->snapShotIconLabel->height()/64* 45));
 
     QDir dir;
-    QSet<QString> dirSet;
-    QString snapshot_folder_path;
-    snapshot_folder_path = dir.absolutePath() + "/" + DEFAULT_FILE_PATH + "/snapshot/";
+
+    QString folder_path;
+    switch (nMode)
+    {
+        case 0:
+    {
+        folder_path = dir.absolutePath() + "/" + DEFAULT_FILE_PATH + "/snapshot/";
+    }
+        break;
+    case 1:
+    {
+        folder_path = dir.absolutePath() + "/" + DEFAULT_FILE_PATH + "/auto/";
+    }
+        break;
+    case 2:
+    {
+        folder_path = dir.absolutePath() + "/" + DEFAULT_FILE_PATH + "/video/";
+    }
+        break;
+    case 3:
+    {
+        folder_path = dir.absolutePath() + "/" + DEFAULT_FILE_PATH + "/manual_capture/";
+    }
+        break;
+    }
 
 
-    QDirIterator it(snapshot_folder_path, QDir::Dirs/*, QDirIterator::Subdirectories*/);
+    QDirIterator it(folder_path, QDir::Dirs/*, QDirIterator::Subdirectories*/);
     while (it.hasNext())
     {
         QString dir = it.next();
         if (dir.mid(dir.size() - 1, 1) == ".")
             continue;
-        if (nMode == 0 || nMode == 1)
-            dirSet.insert(dir);
-        //        addListItem(dir);
-    }
-    QString video_folder_path;
-    video_folder_path = dir.absolutePath() + "/" + DEFAULT_FILE_PATH + "/video/";
 
-
-    QDirIterator it2(video_folder_path, QDir::Dirs/*, QDirIterator::Subdirectories*/);
-    while (it2.hasNext())
-    {
-        QString dir = it2.next();
-        if (dir.mid(dir.size() - 1, 1) == ".")
-            continue;
-        if (nMode == 1 || nMode == 2)
-            dirSet.insert(dir);
-        //        addListItem(dir);
-    }
-    foreach(QString dir, dirSet)
-    {
         addListItem(dir);
     }
 }

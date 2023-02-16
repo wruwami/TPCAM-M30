@@ -23,6 +23,7 @@ enum Mode
     I_MODE,
     A_MODE,
     V_MODE,
+    M_MODE,
 };
 
 FileManagerWidget::FileManagerWidget(QWidget *parent) :
@@ -34,6 +35,8 @@ FileManagerWidget::FileManagerWidget(QWidget *parent) :
     ui->ImageVideoComboBox->addItem(LoadString("IDS_I"));
     ui->ImageVideoComboBox->addItem(LoadString("IDS_A"));
     ui->ImageVideoComboBox->addItem(LoadString("IDS_V"));
+    ui->ImageVideoComboBox->addItem(LoadString("IDS_MANUAL_CAPTURE"));
+    //ui->ImageVideoComboBox->addItem(LoadString("IDS_S"));
 
     ui->dateImageLabel->setImage("file_manager", "file_management_folder_icon_small.bmp");
     ui->datePushButton->setText(LoadString("IDS_DATE"));
@@ -48,7 +51,9 @@ FileManagerWidget::FileManagerWidget(QWidget *parent) :
     ui->percentPushButton->setDisabled(true);
     ui->percentPushButton->setText("S:100%");
     ui->connectPushButton->setText(LoadString("IDS_CONNECT"));
+
     ui->printPushButton->setText(LoadString("IDS_PRINT"));
+    ui->printPushButton->setDisabled(true);
 
     ui->mainMenuPushButton->setText(LoadString("IDS_M"));
     ui->searchPushButton->setText(LoadString("IDS_SEARCH"));
@@ -58,6 +63,14 @@ FileManagerWidget::FileManagerWidget(QWidget *parent) :
     ui->movePushButton->setText(LoadString("IDS_MOVE"));
 
     ui->frameLabel->setText(LoadString("IDS_STILL_IMAGE_AND_MOVIE_VIEWER"));
+    m_videoWidget = new QVideoWidget;
+    ui->verticalLayout->insertWidget(1, m_videoWidget, 335);
+//    m_videoWidget->setGeometry(ui->frameLabel->geometry());
+    m_videoWidget->hide();
+
+
+    m_player = new QMediaPlayer(this);
+    m_player->setVideoOutput(m_videoWidget);
 
 ////    QRect rect = ui->gridLayout_2->contentsRect();
 //    int width = ((getScreenWidth() - 15) / 21 * 9);//ui->percentPushButton->width() + ui->connectPushButton->width() + ui->printPushButton->width();
@@ -99,7 +112,29 @@ FileManagerWidget::FileManagerWidget(QWidget *parent) :
 
 FileManagerWidget::~FileManagerWidget()
 {
+    delete m_player;
+    delete m_videoWidget;
     delete ui;
+}
+
+void FileManagerWidget::setTableContent()
+{
+    //foreach(AVFileFormat fileFormat, m_avFileFormatList)
+    for (int i = m_AVFileFormatIndex ; i < m_AVFileFormatIndex + 6 ; i++)
+    {
+        AVFileFormat avfileFormat = m_avFileFormatList[i];
+        if (m_AVFileFormatIndex >= m_avFileFormatList.size())
+            break;
+
+        QTableWidgetItem* indexItem = new QTableWidgetItem(QString::number(i + 1));
+
+        QTableWidgetItem* item = new QTableWidgetItem(avfileFormat.captureSpeed + "km/h, " + QString("%0%1:%2%3:%4%5").arg(avfileFormat.date[0]).arg(avfileFormat.date[1]).arg(avfileFormat.date[2]).arg(avfileFormat.date[3]).arg(avfileFormat.date[4]).arg(avfileFormat.date[5]));
+        if (i < 6)
+        {
+            ui->tableWidget->setItem(i, 0, indexItem);
+            ui->tableWidget->setItem(i++, 1, item);
+        }
+    }
 }
 
 void FileManagerWidget::resizeEvent(QResizeEvent *event)
@@ -157,9 +192,22 @@ void FileManagerWidget::on_tableWidget_clicked(const QModelIndex &index)
 {
 //    QImage image;
 //    image.load();
+    m_currentAVFileFormat = m_avFileFormatList[index.row()];
 
-    ui->frameLabel->setImage(m_avFileFormatList[index.row()].file_path, ui->frameLabel->size());
-
+    if (!strncmp(m_avFileFormatList[index.row()].filePrefix, "VV", 2))
+    {
+        m_videoWidget->show();
+        ui->frameLabel->hide();
+        m_player->setMedia(QUrl::fromLocalFile(m_avFileFormatList[index.row()].file_path));
+        m_player->play();
+        m_player->pause();
+    }
+    else if (!strncmp(m_avFileFormatList[index.row()].filePrefix, "AI", 2))
+    {
+        ui->frameLabel->show();
+        m_videoWidget->hide();
+        ui->frameLabel->setImage(m_avFileFormatList[index.row()].file_path, ui->frameLabel->size());
+    }
 }
 
 void FileManagerWidget::on_searchPushButton_clicked()
@@ -174,20 +222,26 @@ void FileManagerWidget::on_zoomPlayPushButton_clicked()
     {
     case Mode::I_MODE: // I
     {
-        StillImageViewerDialog stillImageViewDialog;
+        StillImageViewerDialog stillImageViewDialog(m_currentAVFileFormat.file_path);
         stillImageViewDialog.exec();
     }
         break;
     case Mode::A_MODE: // A
     {
-        MovieViewerDialog movieViewerDialog;
+        MovieViewerDialog movieViewerDialog(m_currentAVFileFormat.file_path);
         movieViewerDialog.exec();
     }
         break;
     case Mode::V_MODE: // V
     {
-        MovieViewerDialog movieViewerDialog;
+        MovieViewerDialog movieViewerDialog(m_currentAVFileFormat.file_path);
         movieViewerDialog.exec();
+    }
+        break;
+    case Mode::M_MODE: // Manual Capture
+    {
+        StillImageViewerDialog stillImageViewDialog(m_currentAVFileFormat.file_path);
+        stillImageViewDialog.exec();
     }
         break;
     }
@@ -243,6 +297,12 @@ void FileManagerWidget::on_ImageVideoComboBox_currentIndexChanged(int index)
         ui->zoomPlayPushButton->setText(LoadString("IDS_PLAY"));
     }
         break;
+    case 3: // M
+    {
+        m_nMode = Mode::M_MODE;
+        ui->zoomPlayPushButton->setText(LoadString("IDS_ZOOM"));
+    }
+        break;
     }
 }
 
@@ -258,6 +318,8 @@ void FileManagerWidget::on_datePushButton_clicked()
         ui->datePushButton->setText(date.mid(index + 1, date.size() - index - 1));
 
         ui->tableWidget->clear();
+        m_avFileFormatList.clear();
+        m_AVFileFormatIndex = 0;
 
         int i = 0;
         QDirIterator it(date, QDir::Files);
@@ -275,13 +337,49 @@ void FileManagerWidget::on_datePushButton_clicked()
             QTableWidgetItem* indexItem = new QTableWidgetItem(QString::number(i + 1));
 
             QTableWidgetItem* item = new QTableWidgetItem(avfileFormat.captureSpeed + "km/h, " + QString("%0%1:%2%3:%4%5").arg(avfileFormat.date[0]).arg(avfileFormat.date[1]).arg(avfileFormat.date[2]).arg(avfileFormat.date[3]).arg(avfileFormat.date[4]).arg(avfileFormat.date[5]));
-            if (i > 5)
-                ui->tableWidget->insertRow(i);
-            ui->tableWidget->setItem(i, 0, indexItem);
-            ui->tableWidget->setItem(i++, 1, item);
-
+            if (i < 6)
+            {
+                ui->tableWidget->setItem(i, 0, indexItem);
+                ui->tableWidget->setItem(i++, 1, item);
+            }
         }
 //        date
     }
 }
 
+
+void FileManagerWidget::on_firstPushButton_clicked()
+{
+    ui->tableWidget->clear();
+    m_AVFileFormatIndex -= 50;
+    if (m_AVFileFormatIndex < 0)
+        m_AVFileFormatIndex = 0;
+    setTableContent();
+}
+
+void FileManagerWidget::on_previousPushButton_clicked()
+{
+    ui->tableWidget->clear();
+    m_AVFileFormatIndex -= 5;
+    if (m_AVFileFormatIndex < 0)
+        m_AVFileFormatIndex = 0;
+    setTableContent();
+}
+
+void FileManagerWidget::on_nextPushButton_clicked()
+{
+    ui->tableWidget->clear();
+    m_AVFileFormatIndex += 5;
+    if (m_avFileFormatList.size() < m_AVFileFormatIndex)
+        m_AVFileFormatIndex = m_avFileFormatList.size() - 5;
+    setTableContent();
+}
+
+void FileManagerWidget::on_lastPushButton_clicked()
+{
+    ui->tableWidget->clear();
+    m_AVFileFormatIndex += 50;
+    if (m_avFileFormatList.size() < m_AVFileFormatIndex)
+        m_AVFileFormatIndex = m_avFileFormatList.size() - 5;
+    setTableContent();
+}

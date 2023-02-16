@@ -10,6 +10,8 @@ namespace Ui {
 class FileManagerWidget;
 }
 
+class QMediaPlayer;
+class QVideoWidget;
 class FileManagerWidget : public QWidget
 {
     Q_OBJECT
@@ -25,6 +27,13 @@ private:
     // QWidget interface
     QString m_folder_path;
     QList<AVFileFormat> m_avFileFormatList;
+    AVFileFormat m_currentAVFileFormat;
+    int m_AVFileFormatIndex = 0;
+    QVideoWidget *m_videoWidget;
+    QMediaPlayer* m_player;
+private:
+    void setTableContent();
+
 protected:
     void resizeEvent(QResizeEvent *event);
     void paintEvent(QPaintEvent *event);
@@ -40,6 +49,10 @@ private slots:
     void on_percentPushButton_clicked();
     void on_ImageVideoComboBox_currentIndexChanged(int index);
     void on_datePushButton_clicked();
+    void on_firstPushButton_clicked();
+    void on_previousPushButton_clicked();
+    void on_nextPushButton_clicked();
+    void on_lastPushButton_clicked();
 };
 
 #endif // FILEMANAGERWIDGET_H

@@ -1,10 +1,14 @@
 #include "MovieViewerDialog.h"
 #include "ui_MovieViewerDialog.h"
 
+#include <QVideoWidget>
+#include <QMediaPlayer>
+#include <QSlider>
+
 #include "StringLoader.h"
 #include "WidgetSize.h"
 
-MovieViewerDialog::MovieViewerDialog(QWidget *parent) :
+MovieViewerDialog::MovieViewerDialog(QString file_path, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::MovieViewerDialog)
 {
@@ -13,7 +17,14 @@ MovieViewerDialog::MovieViewerDialog(QWidget *parent) :
     this->setWindowFlags(Qt::FramelessWindowHint);
     setGeometry(GetWidgetSizePos(QRect(0,0, 1600, 960)));
 
-    ui->moveViewerLabel->setText(LoadString("IDS_MOVIE_VIEWER"));
+    m_player = new QMediaPlayer;
+    m_videoWidget = new QVideoWidget;
+    ui->horizontalLayout_5->addWidget(m_videoWidget);
+    m_videoWidget->show();
+
+    m_player->setMedia(QUrl::fromLocalFile(file_path));
+
+//    ui->moveViewerLabel->setText(LoadString("IDS_MOVIE_VIEWER"));
 
     ui->quitPushButton->setText(LoadString("IDS_QUIT"));
     ui->playPushButton->setText(LoadString("IDS_PLAY"));
@@ -29,4 +40,34 @@ MovieViewerDialog::~MovieViewerDialog()
 void MovieViewerDialog::on_quitPushButton_clicked()
 {
     accept();
+}
+
+void MovieViewerDialog::on_firstPushButton_clicked()
+{
+
+}
+
+void MovieViewerDialog::on_previousPushButton_clicked()
+{
+
+}
+
+void MovieViewerDialog::on_playPushButton_clicked()
+{
+    m_player->play();
+}
+
+void MovieViewerDialog::on_nextPushButton_clicked()
+{
+
+}
+
+void MovieViewerDialog::on_lastPushButton_clicked()
+{
+
+}
+
+void MovieViewerDialog::on_printPushButton_clicked()
+{
+
 }

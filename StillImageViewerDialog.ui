@@ -17,7 +17,7 @@
    <item>
     <layout class="QVBoxLayout" name="verticalLayout" stretch="432,47">
      <item>
-      <widget class="QLabel" name="imageLabel">
+      <widget class="CustomLabel" name="imageLabel">
        <property name="text">
         <string>TextLabel</string>
        </property>
@@ -74,6 +74,11 @@
    <class>CustomPushButton</class>
    <extends>QPushButton</extends>
    <header>CustomPushButton.h</header>
+  </customwidget>
+  <customwidget>
+   <class>CustomLabel</class>
+   <extends>QLabel</extends>
+   <header>CustomLabel.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

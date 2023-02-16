@@ -36,7 +36,7 @@ void CustomLabel::setImage(QString file_path, QSize size)
 {
     QPixmap pixmap;
     pixmap.load(file_path);
-    QPixmap fitpixmap = pixmap.scaled(size.width(), size.height(), Qt::KeepAspectRatio, Qt::SmoothTransformation);
+    QPixmap fitpixmap = pixmap.scaled(size.width(), size.height(), Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
     this->setPixmap(fitpixmap);
 //    this->setScaledContents(true);
 }

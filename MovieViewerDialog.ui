@@ -17,18 +17,7 @@
    <item>
     <layout class="QVBoxLayout" name="verticalLayout" stretch="390,33,12,94">
      <item>
-      <layout class="QHBoxLayout" name="horizontalLayout_5">
-       <item>
-        <widget class="CustomLabel" name="moveViewerLabel">
-         <property name="text">
-          <string>TextLabel</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
-         </property>
-        </widget>
-       </item>
-      </layout>
+      <layout class="QHBoxLayout" name="horizontalLayout_5"/>
      </item>
      <item>
       <layout class="QHBoxLayout" name="horizontalLayout"/>
@@ -36,9 +25,9 @@
      <item>
       <layout class="QHBoxLayout" name="horizontalLayout_2">
        <item>
-        <widget class="QProgressBar" name="progressBar">
-         <property name="value">
-          <number>24</number>
+        <widget class="QSlider" name="horizontalSlider">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
          </property>
         </widget>
        </item>
@@ -120,11 +109,6 @@
    <class>CustomPushButton</class>
    <extends>QPushButton</extends>
    <header>CustomPushButton.h</header>
-  </customwidget>
-  <customwidget>
-   <class>CustomLabel</class>
-   <extends>QLabel</extends>
-   <header>CustomLabel.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

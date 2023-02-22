@@ -24,6 +24,7 @@ enum Mode
     A_MODE,
     V_MODE,
     M_MODE,
+    S_MODE,
 };
 
 FileManagerWidget::FileManagerWidget(QWidget *parent) :
@@ -36,7 +37,7 @@ FileManagerWidget::FileManagerWidget(QWidget *parent) :
     ui->ImageVideoComboBox->addItem(LoadString("IDS_A"));
     ui->ImageVideoComboBox->addItem(LoadString("IDS_V"));
     ui->ImageVideoComboBox->addItem(LoadString("IDS_MANUAL_CAPTURE"));
-    //ui->ImageVideoComboBox->addItem(LoadString("IDS_S"));
+    ui->ImageVideoComboBox->addItem(LoadString("IDS_SCREEN"));
 
     ui->dateImageLabel->setImage("file_manager", "file_management_folder_icon_small.bmp");
     ui->datePushButton->setText(LoadString("IDS_DATE"));
@@ -61,6 +62,8 @@ FileManagerWidget::FileManagerWidget(QWidget *parent) :
     ui->deletePushButton->setText(LoadString("IDS_DELETE"));
     ui->sharePushButton->setText(LoadString("IDS_SHARE"));
     ui->movePushButton->setText(LoadString("IDS_MOVE"));
+
+    m_pHomePushButton = ui->mainMenuPushButton;
 
     ui->frameLabel->setText(LoadString("IDS_STILL_IMAGE_AND_MOVIE_VIEWER"));
     m_videoWidget = new QVideoWidget;
@@ -119,8 +122,8 @@ FileManagerWidget::~FileManagerWidget()
 
 void FileManagerWidget::setTableContent()
 {
-    //foreach(AVFileFormat fileFormat, m_avFileFormatList)
-    for (int i = m_AVFileFormatIndex ; i < m_AVFileFormatIndex + 6 ; i++)
+    int j = 0;
+    for (int i = m_AVFileFormatIndex ; i < m_AVFileFormatIndex + 5 ; i++, j++)
     {
         AVFileFormat avfileFormat = m_avFileFormatList[i];
         if (m_AVFileFormatIndex >= m_avFileFormatList.size())
@@ -129,11 +132,8 @@ void FileManagerWidget::setTableContent()
         QTableWidgetItem* indexItem = new QTableWidgetItem(QString::number(i + 1));
 
         QTableWidgetItem* item = new QTableWidgetItem(avfileFormat.captureSpeed + "km/h, " + QString("%0%1:%2%3:%4%5").arg(avfileFormat.date[0]).arg(avfileFormat.date[1]).arg(avfileFormat.date[2]).arg(avfileFormat.date[3]).arg(avfileFormat.date[4]).arg(avfileFormat.date[5]));
-        if (i < 6)
-        {
-            ui->tableWidget->setItem(i, 0, indexItem);
-            ui->tableWidget->setItem(i++, 1, item);
-        }
+        ui->tableWidget->setItem(j, 0, indexItem);
+        ui->tableWidget->setItem(j, 1, item);
     }
 }
 
@@ -190,8 +190,6 @@ void FileManagerWidget::on_deletePushButton_clicked()
 
 void FileManagerWidget::on_tableWidget_clicked(const QModelIndex &index)
 {
-//    QImage image;
-//    image.load();
     m_currentAVFileFormat = m_avFileFormatList[index.row()];
 
     if (!strncmp(m_avFileFormatList[index.row()].filePrefix, "VV", 2))
@@ -212,8 +210,11 @@ void FileManagerWidget::on_tableWidget_clicked(const QModelIndex &index)
 
 void FileManagerWidget::on_searchPushButton_clicked()
 {
-    KeypadDialog keyPadDialog;
-    keyPadDialog.exec();
+//    QString title_text = m_currentAVFileFormat.date
+
+    BaseDialog baseDialog(Dialog::SearchBoxType, Qt::AlignmentFlag::AlignLeft, "", true, m_dateTime);
+    baseDialog.exec();
+
 }
 
 void FileManagerWidget::on_zoomPlayPushButton_clicked()
@@ -315,7 +316,8 @@ void FileManagerWidget::on_datePushButton_clicked()
 //        QDir dirfolder_path
         QString date = fileManagerSnapShotDialog.strDate();
         int index = date.lastIndexOf('/');
-        ui->datePushButton->setText(date.mid(index + 1, date.size() - index - 1));
+        m_dateTime = date.mid(index + 1, date.size() - index - 1);
+        ui->datePushButton->setText(m_dateTime);
 
         ui->tableWidget->clear();
         m_avFileFormatList.clear();

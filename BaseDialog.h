@@ -20,6 +20,7 @@ enum Dialog
     FileManagerErrorMessageWidgetType,
     FileManagerQuestionMessageWidgetType,
     FileManagerFileTransferWidgetType,
+    SearchBoxType,
 };
 
 namespace Ui {
@@ -31,7 +32,7 @@ class BaseDialog : public QDialog
     Q_OBJECT
 
 public:
-    explicit BaseDialog(Dialog, Qt::Alignment = Qt::AlignmentFlag::AlignLeft, QString = "", bool = false, QWidget *parent = 0);
+    explicit BaseDialog(Dialog, Qt::Alignment = Qt::AlignmentFlag::AlignLeft, QString = "", bool = false, QString title_text = "", QWidget *parent = 0);
     ~BaseDialog();
 private:
     void setSize(QSize size);

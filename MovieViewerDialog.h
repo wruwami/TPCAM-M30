@@ -20,7 +20,6 @@ public:
 private slots:
     void on_quitPushButton_clicked();
 
-    void on_firstPushButton_clicked();
 
     void on_previousPushButton_clicked();
 
@@ -28,9 +27,15 @@ private slots:
 
     void on_nextPushButton_clicked();
 
-    void on_lastPushButton_clicked();
 
     void on_printPushButton_clicked();
+
+    void on_pausePushButton_clicked();
+    void positionChanged(qint64 progress);
+    void durationChanged(qint64 progress);
+    void on_twoSpeedPushButton_clicked();
+
+    void on_halfspeedPushButton_clicked();
 
 private:
     Ui::MovieViewerDialog*ui;

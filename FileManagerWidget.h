@@ -10,6 +10,7 @@ namespace Ui {
 class FileManagerWidget;
 }
 
+class QPushButton;
 class QMediaPlayer;
 class QVideoWidget;
 class FileManagerWidget : public QWidget
@@ -19,8 +20,8 @@ class FileManagerWidget : public QWidget
 public:
     explicit FileManagerWidget(QWidget *parent = 0);
     ~FileManagerWidget();
-//public:
-//    QWidget* m_pHomePushButton;
+public:
+    QPushButton* m_pHomePushButton;
 private:
     Ui::FileManagerWidget *ui;
     int m_nMode;
@@ -31,6 +32,7 @@ private:
     int m_AVFileFormatIndex = 0;
     QVideoWidget *m_videoWidget;
     QMediaPlayer* m_player;
+    QString m_dateTime;
 private:
     void setTableContent();
 

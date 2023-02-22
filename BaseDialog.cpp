@@ -23,10 +23,11 @@
 #include "FileManagerErrorMessageWidget.h"
 #include "FileManagerQuestionMessageWidget.h"
 #include "FileManagerFileTransferWidget.h"
+#include "SearchBoxWidget.h"
 
 #include "WidgetSize.h"
 
-BaseDialog::BaseDialog(Dialog dialog, Qt::Alignment align, QString msg, bool isCloseButton, QWidget *parent) :
+BaseDialog::BaseDialog(Dialog dialog, Qt::Alignment align, QString msg, bool isCloseButton, QString title_text, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::BaseDialog)
 {
@@ -174,7 +175,14 @@ BaseDialog::BaseDialog(Dialog dialog, Qt::Alignment align, QString msg, bool isC
         setSize(1208, 702);
     }
         break;
-
+    case Dialog::SearchBoxType:
+    {
+        ui->verticalLayout->addWidget(new SearchBoxWidget(this));
+        ui->titleLabel->setText(title_text);
+        ui->titleLabel->setAlignment(align);
+        setSize(1208, 702);
+    }
+        break;
     default:
     {
 //        throw std::not_implement

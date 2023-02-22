@@ -1,34 +1,32 @@
-#ifndef CUSTOMLABEL_H
-#define CUSTOMLABEL_H
+#ifndef CUSTOMZOOMLABEL_H
+#define CUSTOMZOOMLABEL_H
 
 #include <QLabel>
 
-class CustomLabel : public QLabel
+class CustomZoomLabel : public QLabel
 {
     Q_OBJECT
 public:
-    explicit CustomLabel(QWidget *parent = 0);
-//    void setIconImage(QString path_name, QString file_name);
+    explicit CustomZoomLabel(QWidget *parent = 0);
+    //    void setIconImage(QString path_name, QString file_name);
     void setImageFromAvi(QString file_path, QSize size);
     void setImage(QString file_path, QSize size);
     void setImage(QString path_name, QString file_name);
     void setImage(QString path_name, QString file_name, QSize size);
-    void setZoom(double factor, QRect rect);
 private:
     QPixmap scaleImage(double factor);
 private:
     QPixmap m_pixmap;
     QPixmap m_fitpixmap;
-
+    bool m_isZoom = false;
 signals:
 
 public slots:
-
-
-    // QWidget interface
+        // QWidget interface
 protected:
     void resizeEvent(QResizeEvent *event);
+    void mousePressEvent(QMouseEvent *event);
 
 };
 
-#endif // CUSTOMLABEL_H
+#endif // CUSTOMZOOMLABEL_H

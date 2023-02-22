@@ -29,6 +29,7 @@ private slots:
 private:
     Ui::StillImageViewerDialog*ui;
     QString m_file_path;
+    double m_factor = 1;
 };
 
 #endif // STILLIMAGEVIEWERDIALOG_H

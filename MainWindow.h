@@ -12,6 +12,7 @@ class MainMenuWidget;
 class IndicatorDialog;
 class MainMenuContentWidget;
 class MainMenuAdminAlignWidget;
+class FileManagerWidget;
 namespace Ui {
 class MainWindow;
 }
@@ -67,6 +68,7 @@ private:
     MainMenuContentWidget* m_pMainMenuContentWidget = nullptr;
     MainMenuAdminAlignWidget* m_pMainMenuAdminAlignWidget = nullptr;
     CameraAlignWidget* m_pCameraAlignWidget = nullptr;
+    FileManagerWidget* m_pFileManagerWidget;
 
     QString m_userName;
     int m_nFailTimerId;

@@ -298,8 +298,10 @@ void MainWindow::on_filemanagementClicked()
         m_pMainMenuContentWidget = nullptr;
     }
     ui->verticalLayout->removeItem(ui->verticalLayout->itemAt(1));
-    ui->verticalLayout->addWidget(new FileManagerWidget, 835);
+    m_pFileManagerWidget = new FileManagerWidget;
+    ui->verticalLayout->addWidget(m_pFileManagerWidget, 835);
 
+    QObject::connect((QWidget*)m_pFileManagerWidget->m_pHomePushButton, SIGNAL(clicked()), this, SLOT(on_mainMenuHomeClicked()));
     m_pMainMenuWidget->setMainMenuImage("Main_menu", "home_big_n.bmp");
 }
 

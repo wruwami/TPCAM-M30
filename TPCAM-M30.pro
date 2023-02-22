@@ -76,7 +76,9 @@ SOURCES += main.cpp\
     CustomList.cpp \
     CustomScrollbar.cpp \
     ConfigManager.cpp \
-    DateFormatManager.cpp
+    DateFormatManager.cpp \
+    SearchBoxWidget.cpp \
+    CustomZoomLabel.cpp
 
 HEADERS  += MainWindow.h \
     CustomTogglePushButton.h \
@@ -146,7 +148,9 @@ HEADERS  += MainWindow.h \
     rapidcsv.h \
     ConfigManager.h \
     DateFormatManager.h \
-    FileFormat.h
+    FileFormat.h \
+    SearchBoxWidget.h \
+    CustomZoomLabel.h
 
 FORMS    += MainWindow.ui \
     IndicatorCameraFocusWidget.ui \
@@ -196,6 +200,7 @@ FORMS    += MainWindow.ui \
     KeyboardDialog.ui \
     KeypadDialog.ui \
     IndicatorCameraExposeWidget.ui \
+    SearchBoxWidget.ui
 
 RESOURCES += \
     style.qrc

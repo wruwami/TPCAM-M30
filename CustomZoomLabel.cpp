@@ -1,17 +1,18 @@
-#include "CustomLabel.h"
+#include "CustomZoomLabel.h"
 
 #include "qdir.h"
+#include <QMouseEvent>
 
 #define DEFAULT_PATH    "images"
 
 #include "FontSize.h"
 
-CustomLabel::CustomLabel(QWidget *parent) : QLabel(parent)
+CustomZoomLabel::CustomZoomLabel(QWidget *parent) : QLabel(parent)
 {
     this->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 }
 
-//void CustomLabel::setIconImage(QString path_name, QString file_name)
+//void CustomZoomLabel::setIconImage(QString path_name, QString file_name)
 //{
 //    QDir qdir;
 //    QString file_full_path;
@@ -23,25 +24,23 @@ CustomLabel::CustomLabel(QWidget *parent) : QLabel(parent)
 //    this->seti
 ////    this->setScaledContents(true);
 //}
-void CustomLabel::setImageFromAvi(QString file_path, QSize size)
+void CustomZoomLabel::setImageFromAvi(QString file_path, QSize size)
 {
-
     m_pixmap.load(file_path);
-    m_fitpixmap = m_pixmap.scaled(size.width(), size.height(), Qt::KeepAspectRatio, Qt::SmoothTransformation);
-    this->setPixmap(m_fitpixmap);
+    QPixmap fitpixmap = m_pixmap.scaled(size.width(), size.height(), Qt::KeepAspectRatio, Qt::SmoothTransformation);
+    this->setPixmap(fitpixmap);
 //    this->setScaledContents(true);
 }
 
-void CustomLabel::setImage(QString file_path, QSize size)
+void CustomZoomLabel::setImage(QString file_path, QSize size)
 {
-
     m_pixmap.load(file_path);
     m_fitpixmap = m_pixmap.scaled(size.width(), size.height(), Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
     this->setPixmap(m_fitpixmap);
 //    this->setScaledContents(true);
 }
 
-void CustomLabel::setImage(QString path_name, QString file_name)
+void CustomZoomLabel::setImage(QString path_name, QString file_name)
 {
     QDir qdir;
     QString file_full_path;
@@ -54,7 +53,7 @@ void CustomLabel::setImage(QString path_name, QString file_name)
 //    this->setScaledContents(true);
 }
 
-void CustomLabel::setImage(QString path_name, QString file_name, QSize size)
+void CustomZoomLabel::setImage(QString path_name, QString file_name, QSize size)
 {
     QDir qdir;
     QString file_full_path;
@@ -64,35 +63,18 @@ void CustomLabel::setImage(QString path_name, QString file_name, QSize size)
     m_pixmap.load(file_full_path);
 //    QPixmap fitpixmap=pixmap.scaled(size.width(), size.height(), Qt::KeepAspectRatio, Qt::SmoothTransformation);
     this->setPixmap(m_pixmap);
-    //    this->setScaledContents(true);
+//    this->setScaledContents(true);
 }
 
-//QPixmap CustomLabel::scaleImage(double factor)
-//{
-//    QPixmap m_fitpixmap;
-//    m_fitpixmap = m_pixmap.scaled(factor * size());
-//    return m_fitpixmap;
-//}
-
-void CustomLabel::setZoom(double factor, QRect rect)
+QPixmap CustomZoomLabel::scaleImage(double factor)
 {
-    int x = rect.left() + rect.right() / factor;
-    int y = rect.top() + rect.bottom() / factor;
-    int width = rect.width() / factor;
-    int height = rect.height() / factor;
-//    this->setPixmap(m_fitpixmap.scaled(factor * size().width(), factor * size().height()).copy(rect));
-    this->setPixmap(scaleImage(factor).copy(0, 0, width, height));
-//    this->setPixmap(m_fitpixmap.scaled(factor * m_fitpixmap.size()));
+    QPixmap m_fitpixmap;
+    m_fitpixmap = m_pixmap.scaled(factor * size());
+    return m_fitpixmap;
 }
 
-QPixmap CustomLabel::scaleImage(double factor)
-{
-    QPixmap pixmap;
-    pixmap = m_fitpixmap.scaled(factor * m_fitpixmap.size());
-    return pixmap;
-}
 
-void CustomLabel::resizeEvent(QResizeEvent *event)
+void CustomZoomLabel::resizeEvent(QResizeEvent *event)
 {
     QFont font;
     if(font.pointSizeF()>=FontSize::Maximum) //최소폰트 설정
@@ -101,4 +83,20 @@ void CustomLabel::resizeEvent(QResizeEvent *event)
     if(font.pointSizeF()<=FontSize::Minimum) //최소폰트 설정
         font.setPointSizeF(FontSize::Minimum);
     this->setFont(font); //설정된 폰트를 위젯에 적용
+}
+
+void CustomZoomLabel::mousePressEvent(QMouseEvent *event)
+{
+    m_isZoom = !m_isZoom;
+
+    if (m_isZoom)
+    {
+        QRect rect(event->x(), event->y(), width(), height());
+        setPixmap(scaleImage(2).copy(rect));
+    }
+    else
+    {
+        setPixmap(m_fitpixmap);
+    }
+
 }

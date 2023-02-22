@@ -38,15 +38,18 @@ void StillImageViewerDialog::on_quitPushButton_clicked()
 
 void StillImageViewerDialog::on_plusPushButton_clicked()
 {
-
+    m_factor *= 2;
+    ui->imageLabel->setZoom(m_factor, ui->imageLabel->rect());
 }
 
 void StillImageViewerDialog::on_minusPushButton_clicked()
 {
-
+    m_factor /= 2;
+    ui->imageLabel->setZoom(m_factor, ui->imageLabel->rect());
 }
 
 void StillImageViewerDialog::on_originPushButton_clicked()
 {
-    
+    m_factor = 1;
+    ui->imageLabel->setZoom(m_factor, ui->imageLabel->rect());
 }

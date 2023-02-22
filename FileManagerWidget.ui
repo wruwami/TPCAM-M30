@@ -142,7 +142,7 @@
      <item>
       <layout class="QVBoxLayout" name="verticalLayout" stretch="335,85">
        <item>
-        <widget class="CustomLabel" name="frameLabel">
+        <widget class="CustomZoomLabel" name="frameLabel">
          <property name="text">
           <string>TextLabel</string>
          </property>
@@ -215,6 +215,11 @@
    <class>CustomComboBox</class>
    <extends>QComboBox</extends>
    <header>CustomComboBox.h</header>
+  </customwidget>
+  <customwidget>
+   <class>CustomZoomLabel</class>
+   <extends>QLabel</extends>
+   <header>CustomZoomLabel.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

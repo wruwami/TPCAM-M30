@@ -190,9 +190,12 @@ void FileManagerWidget::on_deletePushButton_clicked()
 
 void FileManagerWidget::on_tableWidget_clicked(const QModelIndex &index)
 {
-    m_currentAVFileFormat = m_avFileFormatList[index.row()];
+    if (m_avFileFormatList.size() >= index.row())
+        m_currentAVFileFormat = m_avFileFormatList[index.row()];
+    else
+        return;
 
-    if (!strncmp(m_avFileFormatList[index.row()].filePrefix, "VV", 2))
+    if (!strncmp(m_currentAVFileFormat.filePrefix, "VV", 2))
     {
         m_videoWidget->show();
         ui->frameLabel->hide();
@@ -200,7 +203,7 @@ void FileManagerWidget::on_tableWidget_clicked(const QModelIndex &index)
         m_player->play();
         m_player->pause();
     }
-    else if (!strncmp(m_avFileFormatList[index.row()].filePrefix, "AI", 2))
+    else if (!strncmp(m_currentAVFileFormat.filePrefix, "AI", 2))
     {
         ui->frameLabel->show();
         m_videoWidget->hide();
@@ -372,7 +375,7 @@ void FileManagerWidget::on_nextPushButton_clicked()
 {
     ui->tableWidget->clear();
     m_AVFileFormatIndex += 5;
-    if (m_avFileFormatList.size() < m_AVFileFormatIndex)
+    if (m_avFileFormatList.size() <= m_AVFileFormatIndex)
         m_AVFileFormatIndex = m_avFileFormatList.size() - 5;
     setTableContent();
 }
@@ -381,7 +384,7 @@ void FileManagerWidget::on_lastPushButton_clicked()
 {
     ui->tableWidget->clear();
     m_AVFileFormatIndex += 50;
-    if (m_avFileFormatList.size() < m_AVFileFormatIndex)
+    if (m_avFileFormatList.size() <= m_AVFileFormatIndex)
         m_AVFileFormatIndex = m_avFileFormatList.size() - 5;
     setTableContent();
 }

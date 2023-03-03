@@ -41,6 +41,7 @@ private:
     Ui::MovieViewerDialog*ui;
     QVideoWidget* m_videoWidget;
     QMediaPlayer* m_player;
+    qint64 duration;
 };
 
 #endif // MOVIEVIEWERDIALOG_H

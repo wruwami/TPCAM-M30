@@ -190,8 +190,8 @@ void FileManagerWidget::on_deletePushButton_clicked()
 
 void FileManagerWidget::on_tableWidget_clicked(const QModelIndex &index)
 {
-    if (m_avFileFormatList.size() >= index.row())
-        m_currentAVFileFormat = m_avFileFormatList[index.row()];
+    if (m_avFileFormatList.size() >= (index.row() + m_AVFileFormatIndex))
+        m_currentAVFileFormat = m_avFileFormatList[index.row()+ m_AVFileFormatIndex];
     else
         return;
 
@@ -199,7 +199,7 @@ void FileManagerWidget::on_tableWidget_clicked(const QModelIndex &index)
     {
         m_videoWidget->show();
         ui->frameLabel->hide();
-        m_player->setMedia(QUrl::fromLocalFile(m_avFileFormatList[index.row()].file_path));
+        m_player->setMedia(QUrl::fromLocalFile(m_avFileFormatList[index.row()+ m_AVFileFormatIndex].file_path));
         m_player->play();
         m_player->pause();
     }
@@ -207,7 +207,7 @@ void FileManagerWidget::on_tableWidget_clicked(const QModelIndex &index)
     {
         ui->frameLabel->show();
         m_videoWidget->hide();
-        ui->frameLabel->setImage(m_avFileFormatList[index.row()].file_path, ui->frameLabel->size());
+        ui->frameLabel->setImage(m_avFileFormatList[index.row()+ m_AVFileFormatIndex].file_path, ui->frameLabel->size());
     }
 }
 
@@ -226,25 +226,25 @@ void FileManagerWidget::on_zoomPlayPushButton_clicked()
     {
     case Mode::I_MODE: // I
     {
-        StillImageViewerDialog stillImageViewDialog(m_currentAVFileFormat.file_path);
+        StillImageViewerDialog stillImageViewDialog(m_currentAVFileFormat);
         stillImageViewDialog.exec();
     }
         break;
     case Mode::A_MODE: // A
     {
-        MovieViewerDialog movieViewerDialog(m_currentAVFileFormat.file_path);
+        MovieViewerDialog movieViewerDialog(m_currentAVFileFormat);
         movieViewerDialog.exec();
     }
         break;
     case Mode::V_MODE: // V
     {
-        MovieViewerDialog movieViewerDialog(m_currentAVFileFormat.file_path);
+        MovieViewerDialog movieViewerDialog(m_currentAVFileFormat);
         movieViewerDialog.exec();
     }
         break;
     case Mode::M_MODE: // Manual Capture
     {
-        StillImageViewerDialog stillImageViewDialog(m_currentAVFileFormat.file_path);
+        StillImageViewerDialog stillImageViewDialog(m_currentAVFileFormat);
         stillImageViewDialog.exec();
     }
         break;
@@ -356,6 +356,9 @@ void FileManagerWidget::on_datePushButton_clicked()
 void FileManagerWidget::on_firstPushButton_clicked()
 {
     ui->tableWidget->clear();
+    if (m_avFileFormatList.size() ==  0)
+        return;
+
     m_AVFileFormatIndex -= 50;
     if (m_AVFileFormatIndex < 0)
         m_AVFileFormatIndex = 0;
@@ -365,6 +368,9 @@ void FileManagerWidget::on_firstPushButton_clicked()
 void FileManagerWidget::on_previousPushButton_clicked()
 {
     ui->tableWidget->clear();
+    if (m_avFileFormatList.size() ==  0)
+        return;
+
     m_AVFileFormatIndex -= 5;
     if (m_AVFileFormatIndex < 0)
         m_AVFileFormatIndex = 0;
@@ -374,15 +380,20 @@ void FileManagerWidget::on_previousPushButton_clicked()
 void FileManagerWidget::on_nextPushButton_clicked()
 {
     ui->tableWidget->clear();
+    if (m_avFileFormatList.size() ==  0)
+        return;
+
     m_AVFileFormatIndex += 5;
     if (m_avFileFormatList.size() <= m_AVFileFormatIndex)
         m_AVFileFormatIndex = m_avFileFormatList.size() - 5;
     setTableContent();
 }
-
-void FileManagerWidget::on_lastPushButton_clicked()
+ void FileManagerWidget::on_lastPushButton_clicked()
 {
     ui->tableWidget->clear();
+    if (m_avFileFormatList.size() ==  0)
+        return;
+
     m_AVFileFormatIndex += 50;
     if (m_avFileFormatList.size() <= m_AVFileFormatIndex)
         m_AVFileFormatIndex = m_avFileFormatList.size() - 5;

@@ -4,7 +4,7 @@
 #include "StringLoader.h"
 #include "WidgetSize.h"
 
-StillImageViewerDialog::StillImageViewerDialog(QString file_path, QWidget *parent) :
+StillImageViewerDialog::StillImageViewerDialog(AVFileFormat avFileFormat, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::StillImageViewerDialog)
 {
@@ -13,7 +13,7 @@ StillImageViewerDialog::StillImageViewerDialog(QString file_path, QWidget *paren
     this->setWindowFlags(Qt::FramelessWindowHint);
     setGeometry(GetWidgetSizePos(QRect(0,0, 1600, 960)));
 
-    m_file_path = file_path;
+    m_file_path = avFileFormat.file_path;
 //    ui->imageLabel->setText(LoadString("IDS_STILL_IMAGE_VIEWER"));
 
     ui->quitPushButton->setText(LoadString("IDS_QUIT"));

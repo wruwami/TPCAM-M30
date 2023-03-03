@@ -8,7 +8,7 @@
 #include "StringLoader.h"
 #include "WidgetSize.h"
 
-MovieViewerDialog::MovieViewerDialog(QString file_path, QWidget *parent) :
+MovieViewerDialog::MovieViewerDialog(AVFileFormat avFileFormat, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::MovieViewerDialog)
 {
@@ -23,9 +23,10 @@ MovieViewerDialog::MovieViewerDialog(QString file_path, QWidget *parent) :
     m_videoWidget->show();
     m_player->setVideoOutput(m_videoWidget);
 
-    QUrl url = QUrl::fromLocalFile(file_path);
+    QUrl url = QUrl::fromLocalFile(avFileFormat.file_path);
     m_player->setMedia(url);
 
+    ui->horizontalSlider->setRange(0, m_player->duration() / 1000);
 //    ui->moveViewerLabel->setText(LoadString("IDS_MOVIE_VIEWER"));
 
     ui->quitPushButton->setText(LoadString("IDS_QUIT"));
@@ -35,8 +36,9 @@ MovieViewerDialog::MovieViewerDialog(QString file_path, QWidget *parent) :
 
     ui->horizontalSlider->setRange(0, m_player->duration() / 1000);
 
-    connect(m_player, SIGNAL(positionChanged(qint64)), this, SLOT(positionChanged(qint64)));
-    connect(m_player, SIGNAL(durationChanged(qint64)), this, SLOT(durationChanged(qint64)));
+    connect(ui->horizontalSlider, SIGNAL(sliderMoved(int)), this, SLOT(seek(int)));
+    connect(m_player, SIGNAL(positionChanged(qint64)), SLOT(positionChanged(qint64)));
+    connect(m_player, SIGNAL(durationChanged(qint64)), SLOT(durationChanged(qint64)));
 }
 
 MovieViewerDialog::~MovieViewerDialog()
@@ -84,10 +86,10 @@ void MovieViewerDialog::positionChanged(qint64 progress)
 
 }
 
-void MovieViewerDialog::durationChanged(qint64 progress)
+void MovieViewerDialog::durationChanged(qint64 duration)
 {
-//    this->duration = duration/1000;
-//    ui->horizontalSlider->setMaximum(duration / 1000);
+    this->duration = duration/1000;
+    ui->horizontalSlider->setMaximum(duration / 1000);
 }
 
 void MovieViewerDialog::on_twoSpeedPushButton_clicked()
@@ -98,4 +100,9 @@ void MovieViewerDialog::on_twoSpeedPushButton_clicked()
 void MovieViewerDialog::on_halfspeedPushButton_clicked()
 {
     m_player->setPlaybackRate(0.5);
+}
+
+void MovieViewerDialog::seek(int seconds)
+{
+    m_player->setPosition(seconds * 1000);
 }

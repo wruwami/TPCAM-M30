@@ -1,6 +1,8 @@
 #ifndef STILLIMAGEVIEWERDIALOG_H
 #define STILLIMAGEVIEWERDIALOG_H
 
+#include "FileFormat.h"
+
 #include <QDialog>
 
 namespace Ui {
@@ -12,7 +14,7 @@ class StillImageViewerDialog : public QDialog
     Q_OBJECT
 
 public:
-    explicit StillImageViewerDialog(QString file_path, QWidget *parent = 0);
+    explicit StillImageViewerDialog(AVFileFormat avFileFormat, QWidget *parent = 0);
     ~StillImageViewerDialog();
 
 protected:

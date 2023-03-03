@@ -2,6 +2,7 @@
 #define FILEFORMAT_H
 
 #include <QString>
+#include <QStringList>
 
 struct AVFileFormat {
     char filePrefix[2]; //    1.      AV : Prefix for file (AV : Image + Video, AI : Only Image, VV : Only Video)

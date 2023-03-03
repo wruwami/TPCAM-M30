@@ -3,6 +3,8 @@
 
 #include <QDialog>
 
+#include "FileFormat.h"
+
 namespace Ui {
 class MovieViewerDialog;
 }
@@ -14,7 +16,7 @@ class MovieViewerDialog : public QDialog
     Q_OBJECT
 
 public:
-    explicit MovieViewerDialog(QString file_path, QWidget *parent = 0);
+    explicit MovieViewerDialog(AVFileFormat avFileFormat, QWidget *parent = 0);
     ~MovieViewerDialog();
 
 private slots:
@@ -36,7 +38,7 @@ private slots:
     void on_twoSpeedPushButton_clicked();
 
     void on_halfspeedPushButton_clicked();
-
+    void seek(int seconds);
 private:
     Ui::MovieViewerDialog*ui;
     QVideoWidget* m_videoWidget;

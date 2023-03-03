@@ -51,7 +51,7 @@ void MovieViewerDialog::on_quitPushButton_clicked()
 
 void MovieViewerDialog::on_previousPushButton_clicked()
 {
-
+    m_player->pause();
 }
 
 void MovieViewerDialog::on_playPushButton_clicked()

@@ -28,6 +28,11 @@ StillImageViewerDialog::~StillImageViewerDialog()
 
 void StillImageViewerDialog::paintEvent(QPaintEvent *event)
 {
+
+}
+
+void StillImageViewerDialog::resizeEvent(QResizeEvent *event)
+{
     ui->imageLabel->setImage(m_file_path, ui->imageLabel->size());
 }
 
@@ -51,5 +56,5 @@ void StillImageViewerDialog::on_minusPushButton_clicked()
 void StillImageViewerDialog::on_originPushButton_clicked()
 {
     m_factor = 1;
-    ui->imageLabel->setZoom(m_factor, ui->imageLabel->rect());
+    ui->imageLabel->setImage(m_file_path, ui->imageLabel->size());
 }

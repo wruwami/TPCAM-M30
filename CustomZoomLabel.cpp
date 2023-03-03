@@ -68,9 +68,7 @@ void CustomZoomLabel::setImage(QString path_name, QString file_name, QSize size)
 
 QPixmap CustomZoomLabel::scaleImage(double factor)
 {
-    QPixmap m_fitpixmap;
-    m_fitpixmap = m_pixmap.scaled(factor * size());
-    return m_fitpixmap;
+    return m_pixmap.scaled(factor * size());
 }
 
 

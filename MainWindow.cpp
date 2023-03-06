@@ -520,7 +520,9 @@ void MainWindow::on_enforcementClicked()
     connect(m_pIndicatorWidget, SIGNAL(sig_EnforcementModeA()), m_pEnforcementWidget->m_pEnforcementComponentWidget, SLOT(on_EnforceModeA()));
     connect(m_pIndicatorWidget, SIGNAL(sig_EnforcementModeV()), m_pEnforcementWidget->m_pEnforcementComponentWidget, SLOT(on_EnforceModeV()));
     connect(m_pEnforcementWidget->m_pEnforcementComponentWidget, SIGNAL(ShowRedOutLine(bool)), this, SLOT(on_ShowRedOutLine(bool)));
+    connect(m_pEnforcementWidget->m_pEnforcementComponentWidget, SIGNAL(sig_exit()), m_pIndicatorWidget, SLOT(EnforcementClose()));
     connect(m_pEnforcementWidget->m_pEnforcementComponentWidget, SIGNAL(sig_exit()), this, SLOT(on_mainMenuHomeClicked()));
+
     if (m_userName == "admin-test")
         m_pEnforcementWidget->m_pEnforcementComponentWidget->m_bVirtualMode = true;
     else
@@ -605,7 +607,9 @@ void MainWindow::OpenEnforcement()
     connect(m_pIndicatorWidget, SIGNAL(sig_EnforcementModeA()), m_pEnforcementWidget->m_pEnforcementComponentWidget, SLOT(on_EnforceModeA()));
     connect(m_pIndicatorWidget, SIGNAL(sig_EnforcementModeV()), m_pEnforcementWidget->m_pEnforcementComponentWidget, SLOT(on_EnforceModeV()));
     connect(m_pEnforcementWidget->m_pEnforcementComponentWidget, SIGNAL(ShowRedOutLine(bool)), this, SLOT(on_ShowRedOutLine(bool)));
+    connect(m_pEnforcementWidget->m_pEnforcementComponentWidget, SIGNAL(sig_exit()), m_pIndicatorWidget, SLOT(EnforcementClose()));
     connect(m_pEnforcementWidget->m_pEnforcementComponentWidget, SIGNAL(sig_exit()), this, SLOT(on_mainMenuHomeClicked()));
+
 
 //    disconnect(m_pIndicatorWidget, SIGNAL(sig_LTMode()), m_pEnforcementWidget->m_pEnforcementComponentWidget, SLOT(on_LTMode()));
     if (m_userName == "admin-test")
@@ -1360,6 +1364,8 @@ void MainWindow::on_camera_zoom_focus()
 
     m_pMainMenuWidget->hideButton();
     m_pMainMenuWidget->setTransparentBackGround(true);
+    m_pMainMenuWidget->setMainMenuImage("Main_menu", "home_big_n.bmp");
+
 
 //    delete m_pMainMenuAdminAlignWidget;
 //    m_pMainMenuAdminAlignWidget = nullptr;
@@ -1371,7 +1377,6 @@ void MainWindow::on_camera_zoom_focus()
 //    pCameraZoonFocusWidget->setPSerialViscaManager(m_pSerialViscaManager);
     SetCamera();
     pCameraZoonFocusWidget->SetCamera(m_pCamera);
-    m_pMainMenuWidget->setMainMenuImage("Main_menu", "home_big_n.bmp");
 
     showIndicator(false);
 }
@@ -1415,6 +1420,14 @@ void MainWindow::on_mainMenuHomeClicked()
     {
         m_pMainMenuWidget = new MainMenuWidget;
         QObject::connect((QWidget*)m_pMainMenuWidget->m_pHomePushButton, SIGNAL(clicked()), this, SLOT(on_mainMenuHomeClicked()));
+        QObject::connect((QWidget*)m_pMainMenuWidget->m_pCameraPushbutton, SIGNAL(clicked()), this, SLOT(on_cameraPushButton_clicked()));
+        QObject::connect((QWidget*)m_pMainMenuWidget->m_pDaynNightPushbutton, SIGNAL(clicked()), this, SLOT(on_daynNightPushButton_clicked()));
+        QObject::connect((QWidget*)m_pMainMenuWidget->m_pWeatherPushbutton, SIGNAL(clicked()), this, SLOT(on_weatherPushButton_clicked()));
+        QObject::connect((QWidget*)m_pMainMenuWidget->m_pEnforcementPushbutton, SIGNAL(clicked()), this, SLOT(on_enforcementPushButton_clicked()));
+        QObject::connect((QWidget*)m_pMainMenuWidget->m_pSpeedPushbutton, SIGNAL(clicked()), this, SLOT(on_speedPushButton_clicked()));
+        QObject::connect((QWidget*)m_pMainMenuWidget->m_pWifiPushbutton, SIGNAL(clicked()), this, SLOT(on_wifiPushButton_clicked()));
+        QObject::connect((QWidget*)m_pMainMenuWidget->m_pGpsPushbutton, SIGNAL(clicked()), this, SLOT(on_gpsPushButton_clicked()));
+
         m_pMainMenuWidget->setTransparentBackGround(false);
         m_pIndicatorWidget->SetMainMenu(m_pMainMenuWidget);
         ui->verticalLayout->addWidget(m_pMainMenuWidget, 125);
@@ -1424,6 +1437,8 @@ void MainWindow::on_mainMenuHomeClicked()
     if (m_widgetType == Enforcement)
     {
         m_pIndicatorWidget->m_bEnforcement = false;
+        m_pIndicatorWidget->m_bFocusExposeDisabled = true;
+        m_pIndicatorWidget->setFocusExposeDisabled(true);
     }
     showIndicator(true);
 

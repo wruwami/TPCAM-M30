@@ -81,7 +81,7 @@ private:
     void doATMode();
 //    void doManualMode();
     void doReadyMode();
-    int GetCaptureSpeedLimit();
+    float GetCaptureSpeedLimit();
     void initStyle();
 
     void displaySpeedDistance(float, float, QColor = Qt::white, bool = false);
@@ -100,7 +100,8 @@ private:
     void doVModeTimer(bool);
     void doEnforceMode(bool);
     void doPreManualMode();
-    void clearDistanceSpeed();
+    void clearDistance();
+    void clearSpeed();
 
 public:
     SerialLaserManager* m_pSerialLaserManager = nullptr;
@@ -145,7 +146,8 @@ private:
     EnforcementMode m_nEnforcementMode;
     bool m_bRedLine = false;
     QTimer m_VModeTimer;
-    QTimer m_WhiteClearTimer;
+    QTimer m_WhiteSpeedClearTimer;
+    QTimer m_WhiteDistanceClearTimer;
 //    QTimer m_ManualModeTimer;
     int m_nVModeSecond = 60;
     bool m_bVModeTimerWorking = false;
@@ -192,7 +194,8 @@ private slots:
 
     void on_saveImagePushButton_clicked();
     void StopHUDRec();
-    void ClearDisplay();
+    void ClearSpeedDisplay();
+    void ClearDistanceDisplay();
     void RestartSignal();
     void VModeVideoSave();
     void on_Show();

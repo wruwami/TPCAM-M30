@@ -6,6 +6,7 @@
 #include <QTimer>
 
 #include "ConfigManager.h"
+#include "HUDManager.h"
 
 enum AlignMode{
     HUD,
@@ -82,10 +83,12 @@ private slots:
 
 protected:
     void paintEvent(QPaintEvent *event);
+    void mousePressEvent(QMouseEvent *event);
 
 private:
     Ui::CameraAlignWidget *ui;
     Camera* m_pCamera;
+    HUDManager m_hud;
 };
 
 #endif // CAMERAALIGNWIDGET_H

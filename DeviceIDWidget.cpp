@@ -36,13 +36,14 @@ DeviceIDWidget::DeviceIDWidget(QWidget *parent) :
     QJsonObject object = config.GetConfig();
     QJsonObject object2 = object["Device ID"].toObject();
 
-    QString Prefix = object2["Prefix"].toString();
-    QString SerialNum = object2["SerialNum"].toString();
-    QString Postfix = object2["Postfix"].toString();
+    QString SerialNum;
+    if (!QString::compare(object2["Prefix"].toString(), "null", Qt::CaseInsensitive) || !object2["Prefix"].toString().isEmpty())
+        SerialNum.append(object2["Prefix"].toString() + "_" + object2["SerialNum"].toString());
+    if (!QString::compare(object2["Postfix"].toString(), "null", Qt::CaseInsensitive) || !object2["Postfix"].toString().isEmpty())
+        SerialNum.append("_" + object2["Postfix"].toString());
 
 
-
-//    ui->lineEdit->setText("TP0002000");
+    ui->lineEdit->setText(SerialNum);
 }
 
 DeviceIDWidget::~DeviceIDWidget()

@@ -22,6 +22,7 @@ SdCardMemoryLack::SdCardMemoryLack(QString msg, QWidget *parent) :
     ui->sdCardValueLabel->setText(msg);
     ui->sdCardValueLabel->setFontSize(23);
     ui->sdCardValueLabel->setColor(Qt::red);
+
 }
 
 SdCardMemoryLack::~SdCardMemoryLack()

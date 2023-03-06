@@ -69,11 +69,6 @@ IndicatorDialog::IndicatorDialog(QWidget *parent) :
 IndicatorDialog::~IndicatorDialog()
 {
 
-    m_configManager1.SetConfig(m_jsonObject1);
-    m_configManager1.SaveFile();
-
-    m_configManager2.SetConfig(m_jsonObject2);
-    m_configManager2.SaveFile();
 //    if (m_pIndicatorCameraFocusWidget != nullptr)
 //        delete m_pIndicatorCameraFocusWidget;
 
@@ -399,6 +394,16 @@ void IndicatorDialog::paintEvent(QPaintEvent *event)
 void IndicatorDialog::mousePressEvent(QMouseEvent *event)
 {
     accept();
+}
+
+void IndicatorDialog::hideEvent(QHideEvent *event)
+{
+    m_configManager1.SetConfig(m_jsonObject1);
+    m_configManager1.SaveFile();
+
+    m_configManager2.SetConfig(m_jsonObject2);
+    m_configManager2.SaveFile();
+
 }
 
 void IndicatorDialog::clearSecondRow()
@@ -730,6 +735,11 @@ void IndicatorDialog::on_EthernetPushButton_clicked()
         system(cmd.toStdString().c_str());
         m_nEthernetState = NotConnected;
     }
+}
+
+void IndicatorDialog::EnforcementClose()
+{
+    setFocusExposeDisabled(false);
 }
 
 void IndicatorDialog::setPSerialLaserManager(SerialLaserManager *newPSerialLaserManager)

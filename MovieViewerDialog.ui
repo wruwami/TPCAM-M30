@@ -85,7 +85,7 @@
        <item row="0" column="3">
         <widget class="CustomPushButton" name="playPushButton">
          <property name="text">
-          <string>PushButton</string>
+          <string/>
          </property>
         </widget>
        </item>
@@ -99,7 +99,7 @@
        <item row="0" column="0">
         <widget class="CustomPushButton" name="quitPushButton">
          <property name="text">
-          <string>PushButton</string>
+          <string/>
          </property>
         </widget>
        </item>
@@ -113,14 +113,14 @@
        <item row="1" column="6">
         <widget class="CustomPushButton" name="printPushButton">
          <property name="text">
-          <string>PushButton</string>
+          <string/>
          </property>
         </widget>
        </item>
        <item row="1" column="3">
         <widget class="CustomPushButton" name="pausePushButton">
          <property name="text">
-          <string>PushButton</string>
+          <string/>
          </property>
         </widget>
        </item>

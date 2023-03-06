@@ -14,7 +14,7 @@
 
 CustomPushButton::CustomPushButton(QWidget *parent) : QPushButton(parent)
 {
-    this->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    this->setSizePolicy(QSizePolicy::Ignored, QSizePolicy::Expanding);
 //    m_size = size();
 }
 
@@ -153,9 +153,27 @@ void CustomPushButton::setFontSize(int font_size)
     this->setFont(font);
 }
 
+//void CustomPushButton::setText(const QString text)
+//{
+//    max = maximumSize();
+//    min = minimumSize();
+//    setMinimumSize(size());
+//    setMaximumSize(size());
+//    settingText = true;
+
+//    QPushButton::setText(text);
+//}
+
 void CustomPushButton::resizeEvent(QResizeEvent *event)
 {
-//    QFont font;
+//    QPushButton::resizeEvent(event);
+//    if(settingText){
+//        setMinimumSize(min);
+//        setMaximumSize(max);
+//        settingText = false;
+//    }
+
+    //    QFont font;
 //    font.setPointSizeF(this->width()/FontSize::Maximum); // /40은 창크기에 따른 비례 값으로 디버깅하면서 변경해야한다.
 //    if(font.pointSizeF()<=FontSize::Minimum) //최소폰트 설정
 //        font.setPointSizeF(FontSize::Minimum);

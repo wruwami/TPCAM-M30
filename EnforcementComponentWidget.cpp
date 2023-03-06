@@ -56,7 +56,8 @@ EnforcementComponentWidget::EnforcementComponentWidget(QWidget *parent) :
 
     m_captureSpeed = m_object["capture speed"].toArray();
 
-    ui->speedLimitLabel->setText(QString("CS: %0%4\nT: %2%4\nM: %3%4").arg(QString::number(getSpeedValue(m_captureSpeed[0].toInt()), 'f' , 1)).arg(QString::number(getSpeedValue(m_captureSpeed[1].toInt()), 'f' , 1)).arg(QString::number(getSpeedValue(m_captureSpeed[2].toInt()), 'f' , 1)).arg(speedUnitValue()));
+    QString speedLimit = QString("CS: %0%4\nT: %2%4\nM: %3%4").arg(QString::number(m_captureSpeed[0].toInt())).arg(QString::number(m_captureSpeed[1].toInt())).arg(QString::number(m_captureSpeed[2].toInt())).arg(speedUnitValue());
+    ui->speedLimitLabel->setText(speedLimit);
     ui->speedLimitLabel->setFontSize(14);
     ui->speedLimitLabel->setDisabled(true);
 
@@ -174,7 +175,9 @@ EnforcementComponentWidget::EnforcementComponentWidget(QWidget *parent) :
 
     m_nVModeSecond = ConfigManager("video_mode.json").GetConfig()["recoding minute"].toInt() * 60;
     connect(&m_VModeTimer, SIGNAL(timeout()), this, SLOT(VModeVideoSave()));
-    connect(&m_WhiteClearTimer, SIGNAL(timeout), this, SLOT(ClearDisplay()));
+    //    connect(&m_WhiteClearTimer, SIGNAL(timeout), this, SLOT(ClearDisplay()));
+    connect(&m_WhiteSpeedClearTimer, SIGNAL(timeout()), this, SLOT(ClearSpeedDisplay()));
+    connect(&m_WhiteDistanceClearTimer, SIGNAL(timeout()), this, SLOT(ClearDistanceDisplay()));
 //    connect(&m_ManualModeTimer, SIGNAL(timeout()), this, SLOT(on_ManualMode()));
 
     doEnforceMode(false);
@@ -625,23 +628,23 @@ void EnforcementComponentWidget::doReadyMode()
     SetLogMsg(BUTTON_CLICKED, "READY_MODE");
 }
 
-int EnforcementComponentWidget::GetCaptureSpeedLimit()
+float EnforcementComponentWidget::GetCaptureSpeedLimit()
 {
     switch (m_nVehicleMode)
     {
     case Normal:
     {
-        return getSpeedValue(m_captureSpeed.at(0).toInt());
+        return (float)(m_captureSpeed.at(0).toDouble());
     }
         break;
     case Truck:
     {
-        return getSpeedValue(m_captureSpeed.at(1).toInt());
+        return (float)(m_captureSpeed.at(0).toDouble());
     }
         break;
     case MotoCycle:
     {
-        return getSpeedValue(m_captureSpeed.at(2).toInt());
+        return (float)(m_captureSpeed.at(0).toDouble());
     }
         break;
     }
@@ -934,17 +937,17 @@ void EnforcementComponentWidget::setVehicleMode()
     if (m_bTruckChecked && m_bBikeChecked)
     {
         m_nVehicleMode = Normal;
-        SetLogMsg(BUTTON_CLICKED, "CAPTURE CAR," + QString::number(getSpeedValue(m_captureSpeed[0].toInt()), 'f' , 1));
+        SetLogMsg(BUTTON_CLICKED, "CAPTURE CAR," + QString::number(m_captureSpeed[0].toDouble(), 'f' , 1));
     }
     else if (m_bTruckChecked && !m_bBikeChecked)
     {
         m_nVehicleMode = Truck;
-        SetLogMsg(BUTTON_CLICKED, "CAPTURE TRUCK," + QString::number(getSpeedValue(m_captureSpeed[1].toInt()), 'f' , 1));
+        SetLogMsg(BUTTON_CLICKED, "CAPTURE TRUCK," + QString::number(m_captureSpeed[1].toDouble(), 'f' , 1));
     }
     else if (!m_bTruckChecked && m_bBikeChecked)
     {
         m_nVehicleMode = MotoCycle;
-        SetLogMsg(BUTTON_CLICKED, "CAPTURE TRUCK," + QString::number(getSpeedValue(m_captureSpeed[2].toInt()), 'f' , 1));
+        SetLogMsg(BUTTON_CLICKED, "CAPTURE TRUCK," + QString::number(m_captureSpeed[2].toDouble(), 'f' , 1));
     }
     return;
     //        assert();
@@ -1087,15 +1090,22 @@ void EnforcementComponentWidget::doPreManualMode()
 
 }
 
-void EnforcementComponentWidget::clearDistanceSpeed()
+void EnforcementComponentWidget::clearSpeed()
+{
+    m_hudManager.HUDEnforcementSpeedClear();
+
+    ui->speedLabel->clear();
+    doEnforceMode(false); //REC label clear(false)
+}
+
+void EnforcementComponentWidget::clearDistance()
 {
     ui->distanceLabel->setColor(Qt::white);
     ui->distanceLabel->setText("----.-" + distanceValue());
 
-    m_hudManager.HUDEnforcementClear();
+    m_hudManager.HUDEnforcementDistanceClear();
 
-    ui->speedLabel->clear();
-    doEnforceMode(false);
+
 }
 
 void EnforcementComponentWidget::setPSerialViscaManager(SerialViscaManager *newPSerialViscaManager)
@@ -1258,6 +1268,15 @@ void EnforcementComponentWidget::on_showCaptureSpeedDistance(float fSpeed, float
     {
         if (VehicleLastId != VehicleId)
         {
+            SerialPacket* laser_packet = m_pSerialLaserManager->getLaser_packet();
+
+            disconnect(laser_packet, SIGNAL(sig_showCaptureSpeedDistance(float,float, int)), this, SLOT(on_showCaptureSpeedDistance(float,float, int)));
+            disconnect(laser_packet, SIGNAL(sig_showSpeedDistance(float,float)), this, SLOT(on_showSpeedDistance(float,float)));
+            disconnect(laser_packet, SIGNAL(sig_showDistance(float,int)), this, SLOT(on_showDistance(float, int)));
+
+            m_WhiteDistanceClearTimer.stop();
+            m_WhiteSpeedClearTimer.stop();
+
             VehicleLastId = VehicleId;
             // 화면에 속도 및 거리, REC 표시 출력
             displaySpeedDistance(fSpeed, fDistance, Qt::red, true);
@@ -1275,10 +1294,6 @@ void EnforcementComponentWidget::on_showCaptureSpeedDistance(float fSpeed, float
 
             m_hudManager.HUDEnforcementLimitOver(fSpeed, fDistance);
 
-            SerialPacket* laser_packet = m_pSerialLaserManager->getLaser_packet();
-            disconnect(laser_packet, SIGNAL(sig_showCaptureSpeedDistance(float,float, int)), this, SLOT(on_showCaptureSpeedDistance(float,float, int)));
-            disconnect(laser_packet, SIGNAL(sig_showSpeedDistance(float,float)), this, SLOT(on_showSpeedDistance(float,float)));
-            disconnect(laser_packet, SIGNAL(sig_showDistance(float,int)), this, SLOT(on_showDistance(float, int)));
 //            disconnect(laser_packet, SIGNAL(sig_showCaptureSpeedDistance(float,float, int)), &m_hudManager.hud(), SLOT(showCaptureSpeedDistance(float, float, int)));
 //            disconnect(laser_packet, SIGNAL(sig_showSpeedDistance(float,float)), &m_hudManager.hud(), SLOT(showSpeedDistanceSensitivity(float, float)));
 //            disconnect(laser_packet, SIGNAL(sig_showDistance(float,int)), &m_hudManager.hud(), SLOT(showDistanceSensitivity(float, int)));
@@ -1298,7 +1313,9 @@ void EnforcementComponentWidget::on_showCaptureSpeedDistance(float fSpeed, float
         m_hudManager.HUDEnforcement(false, fSpeed, fDistance);
 
         doEnforceMode(false);
-        m_WhiteClearTimer.start(200);
+        //        m_WhiteClearTimer.start(200);
+        m_WhiteSpeedClearTimer.start(200);
+        m_WhiteDistanceClearTimer.start(200);
 //        로그 저장
     }
 }
@@ -1315,7 +1332,9 @@ void EnforcementComponentWidget::on_showSpeedDistance(float fSpeed, float fDista
 
     doEnforceMode(false);
 //        로그 저장
-    m_WhiteClearTimer.start(200);
+//    m_WhiteClearTimer.start(200);
+    m_WhiteSpeedClearTimer.start(200);
+    m_WhiteDistanceClearTimer.start(200);
 }
 
 void EnforcementComponentWidget::on_showDistance(float fDistance, int nSensitivity)
@@ -1325,11 +1344,13 @@ void EnforcementComponentWidget::on_showDistance(float fDistance, int nSensitivi
 //    화면에 거리 출력
     displayDistance(fDistance);
 //	HUD에 거리 출력
-    m_hudManager.HUDEnforcement(false, 0, fDistance);
+//    m_hudManager.HUDEnforcement(false, 0, fDistance);
+    m_hudManager.HUDEnforcementDistance(false, 0, fDistance);
 
     //    displayRedOutline(false);
 //    로그 저장
-    m_WhiteClearTimer.start(200);
+//    m_WhiteClearTimer.start(200);
+    m_WhiteDistanceClearTimer.start(200);
 }
 
 void EnforcementComponentWidget::on_Night()
@@ -1417,7 +1438,7 @@ void EnforcementComponentWidget::timerEvent(QTimerEvent *event)
     StorageManager storageManager;
 //    if (storageManager.GetSDExitEnforcement())
 //    {
-//        float sdpercent = storageManager.GetSDAvailable();
+//        float sdpercent = storageManager.GetSDAvailable() / storageManager.GetSDTotal() * 100;
 //        QString sdCardValue = LoadString("IDS_SD_CARD") + QString::number(sdpercent, 'f', 1) + "%";
 //        BaseDialog baseDialog(SdCardMemoryLackType, Qt::AlignmentFlag::AlignCenter, sdCardValue, false, LoadString("IDS_WARNING MESSAGE"));
 //        if (baseDialog.exec() == QDialog::Accepted)
@@ -1563,10 +1584,16 @@ void EnforcementComponentWidget::StopHUDRec()
     m_hudManager.ShowSpeed(true, false);
 }
 
-void EnforcementComponentWidget::ClearDisplay()
+void EnforcementComponentWidget::ClearSpeedDisplay()
 {
-    clearDistanceSpeed();
+    clearSpeed();
 }
+
+void EnforcementComponentWidget::ClearDistanceDisplay()
+{
+    clearDistance();
+}
+
 
 void EnforcementComponentWidget::RestartSignal()
 {
@@ -1577,7 +1604,9 @@ void EnforcementComponentWidget::RestartSignal()
 //    connect(laser_packet, SIGNAL(sig_showCaptureSpeedDistance(float,float, int)), &m_hudManager.hud(), SLOT(showCaptureSpeedDistance(float, float, int)));
 //    connect(laser_packet, SIGNAL(sig_showSpeedDistance(float,float)), &m_hudManager.hud(), SLOT(showSpeedDistanceSensitivity(float, float)));
 //    connect(laser_packet, SIGNAL(sig_showDistance(float,int)), &m_hudManager.hud(), SLOT(showDistanceSensitivity(float, int)));
-    clearDistanceSpeed();
+//    clearDistanceSpeed();
+    clearSpeed();
+    clearDistance();
 }
 
 void EnforcementComponentWidget::VModeVideoSave()

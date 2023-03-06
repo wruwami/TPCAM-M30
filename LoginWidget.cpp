@@ -50,7 +50,15 @@ LoginWidget::LoginWidget(QWidget *parent) :
     ui->userNamePushButton->setImage("Login", "keyboard.bmp");
     ui->logoLabel->setImage("Login", "comlaser_logo.bmp");
     ui->deviceIDLineEdit->setDisabled(true);
-    ui->deviceIDLineEdit->setText(m_jsonObject["Device ID"].toString());
+    QJsonObject object = ConfigManager("setting_device_ID.json").GetConfig();
+    QJsonObject object2 = object["Device ID"].toObject();
+    QString SerialNum;
+    if (!QString::compare(object2["Prefix"].toString(), "null", Qt::CaseInsensitive) || !object2["Prefix"].toString().isEmpty())
+        SerialNum.append(object2["Prefix"].toString() + "_" + object2["SerialNum"].toString());
+    if (!QString::compare(object2["Postfix"].toString(), "null", Qt::CaseInsensitive) || !object2["Postfix"].toString().isEmpty())
+        SerialNum.append("_" + object2["Postfix"].toString());
+
+    ui->deviceIDLineEdit->setText(SerialNum);
     ui->deviceIDLineEdit->setFontSize(23);
 
 

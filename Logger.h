@@ -9,6 +9,12 @@
 //    SystemLogType,
 //};
 
+enum ViscaLogType
+{
+    VISCA_RECEIVE_DATA,
+    VISCA_SEND_DATA,
+};
+
 enum LaserLogType
 {
     LASER_RECEIVE_DATA,
@@ -47,6 +53,7 @@ public:
     }
     void SetLogMsg(LaserLogType, QString = "");
     void SetLogMsg(SystemLogType, QString = "");
+    void SetLogMsg(ViscaLogType, QString = "");
 
 };
 
@@ -54,6 +61,12 @@ static void SetLogMsg(LaserLogType logType, QString msg = "")
 {
     return Logger::GetInstance()->SetLogMsg(logType, msg);
 }
+
+static void SetLogMsg(ViscaLogType logType, QString msg = "")
+{
+    return Logger::GetInstance()->SetLogMsg(logType, msg);
+}
+
 
 static void SetLogMsg(SystemLogType logType, QString msg = "")
 {

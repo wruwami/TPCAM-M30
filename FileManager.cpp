@@ -105,6 +105,12 @@ QString FileManager::GetSDPath(SDPath sdPath)
         return MakeSDPath("system_log");
     }
         break;
+        case VISCA_LOG:
+    {
+        return MakeSDPath("visca_log");
+    }
+        break;
+
         case VIDEO:
     {
         return MakeSDPath("video");
@@ -135,6 +141,12 @@ QString FileManager::GetFileName(SDPath sdpath)
         return "system_log_" + date.toString("yyyyMMdd") + ".txt";
     }
         break;
+    case VISCA_LOG:
+    {
+        return "visca_log_" + date.toString("yyyyMMdd") + ".txt";
+    }
+        break;
+
     }
 }
 
@@ -262,7 +274,7 @@ QString FileManager::GetFileName(PrefixType prefix, stEnforcementInfo enforceInf
         break;
     }
     QString strZoomIndex;
-    strZoomIndex.sprintf("%02d", enforceInfo.zoom_index);
+    strZoomIndex.sprintf("%02d", enforceInfo.zoom_index + 1);
     mode.append(strZoomIndex);
 
     int index = g_nCrackDownIndex; // index
@@ -324,7 +336,7 @@ QString FileManager::MakeSDPath(QString path)
         dir.mkdir(GetSDPath() + "/" + path);
     }
 
-    if (path == "laser_log" || path == "system_log")
+    if (path == "laser_log" || path == "system_log" || path == "visca_log")
         return dir.absolutePath();
 
     QDateTime datetime = datetime.currentDateTime();

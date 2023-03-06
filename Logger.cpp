@@ -103,3 +103,27 @@ void Logger::SetLogMsg(SystemLogType logType, QString msg)
         file.write(logString.toStdString().c_str(), logString.size());
     }
 }
+
+void Logger::SetLogMsg(ViscaLogType logType, QString  msg)
+{
+    QString logString = GetLogHeader();
+    switch (logType)
+    {
+    case VISCA_RECEIVE_DATA:
+    {
+        logString.append("RX_" + msg + "\n");
+    }
+        break;
+    case VISCA_SEND_DATA:
+    {
+        logString.append("TX_" + msg + "\n");
+    }
+        break;
+    }
+    QString full_file_name = GETSDPATH(VISCA_LOG) + "/" +  GetFileName(VISCA_LOG);
+    QFile file(full_file_name);
+    if (file.open(QIODevice::WriteOnly | QIODevice::Append)) {
+        file.write(logString.toStdString().c_str(), logString.size());
+    }
+
+}

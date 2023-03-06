@@ -24,13 +24,13 @@ private:
     QString m_text;
 };
 
-static bool cmp(std::pair<std::string, std::string>& a,
-         std::pair<std::string, std::string>& b)
+static bool cmp(std::pair<std::string, int>& a,
+         std::pair<std::string, int>& b)
 {
-    return atoi(a.second.c_str()) > atoi(b.second.c_str());
+    return a.second > b.second;
 }
 
-static void sort(std::map<std::string, std::string>& map, std::vector<std::pair<std::string, std::string>>& vec)
+static void sort(std::map<std::string, int>& map, std::vector<std::pair<std::string, int>>& vec)
 {
 //    std::vector<std::pair<std::string, int> > vec;
 

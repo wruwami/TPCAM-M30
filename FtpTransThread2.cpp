@@ -27,14 +27,18 @@ void FtpTransThread2::run()
 
         ftplib ftp;/* = new ftplib();*/
     //    qDebug() << QString(jsonObject["ftp server( dns )"].toString() + ":" + ;
-        ftp.Connect(QString(jsonObject["ftp server( dns )"].toString() + ":" + std::to_string(jsonObject["ftp port"].toInt()).c_str()).toStdString().c_str());
-        ftp.Login(jsonObject["ftp user name"].toString().toStdString().c_str(), jsonObject["ftp password"].toString().toStdString().c_str());
+        int ret = ftp.Connect(QString(jsonObject["ftp server( dns )"].toString() + ":" + std::to_string(jsonObject["ftp port"].toInt()).c_str()).toStdString().c_str());
+        if (ret == 0)
+            emit sig_exit();
+
+        ret = ftp.Login(jsonObject["ftp user name"].toString().toStdString().c_str(), jsonObject["ftp password"].toString().toStdString().c_str());
+        if (ret == 0)
+            emit sig_exit();
+
         char targetDir[1024];
         ftp.Pwd(targetDir, 1024);
-
-    //    ftp_t ftp(jsonObject["ftp server( dns )"].toString().toStdString().c_str(), 21);
-    //    ftp.login(jsonObject["ftp user name"].toString().toStdString().c_str(), jsonObject["ftp password"].toString().toStdString().c_str());
-    //    std::string targetDir = ftp.get_file_path();
+        if (!strcmp(targetDir, ""))
+            emit sig_exit();
 
         QDir qdir(GetSDPath());
         QDirIterator iterDir(GetSDPath(), QDir::Files | QDir::NoSymLinks, QDirIterator::Subdirectories);
@@ -106,7 +110,7 @@ void FtpTransThread2::run()
     //        connect(reply, SIGNAL(uploadProgress(qint64 ,qint64)), SLOT(loadProgress(qint64 ,qint64)));
         }
         ftp.Quit();
-        quit();
+        emit sig_exit();
 }
 
 //void FtpTransThread2::close2()

@@ -523,9 +523,9 @@ void EnforcementComponentWidget::laserInit()
     QJsonObject object2 = config2.GetConfig();
 
     if (object2["weather selection"].toInt() == 1)
-        m_pSerialLaserManager->set_weather_mode(1);
-    else
         m_pSerialLaserManager->set_weather_mode(0);
+    else
+        m_pSerialLaserManager->set_weather_mode(1);
 
     if (object2["anti-jamming selection"].toInt() == 1)
         m_pSerialLaserManager->set_AJamming_mode(1);
@@ -689,6 +689,8 @@ void EnforcementComponentWidget::displayDistance(float fDistance)
 {
     ui->distanceLabel->setColor(Qt::white);
     ui->distanceLabel->setText(QString::number(getDistanceValue(fDistance), 'f', 1) + distanceValue());
+
+    ui->speedLabel->setText("");
 }
 
 void EnforcementComponentWidget::displayRedOutline(bool nOn)
@@ -934,7 +936,7 @@ void EnforcementComponentWidget::initRec()
 
 void EnforcementComponentWidget::setVehicleMode()
 {
-    if (m_bTruckChecked && m_bBikeChecked)
+    if (!m_bTruckChecked && !m_bBikeChecked)
     {
         m_nVehicleMode = Normal;
         SetLogMsg(BUTTON_CLICKED, "CAPTURE CAR," + QString::number(m_captureSpeed[0].toDouble(), 'f' , 1));

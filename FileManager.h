@@ -25,6 +25,7 @@ enum SDPath {
     AUTO,
     FACTORY,
     LASER_LOG,
+    VISCA_LOG,
     MANUAL_CAPTURE,
     SCREEN,
     SNAPSHOT,

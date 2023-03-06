@@ -56,7 +56,7 @@ void FileTransThread::run()
 
             QString fileName = iterDir2.next();
             QString targetFileName = fileName;
-            targetFileName = fileName.replace(GetSDPath(), GetUSBPath());
+            targetFileName = targetFileName.replace(GetSDPath(), GetUSBPath());            targetFileName = fileName.replace(GetSDPath(), GetUSBPath());
             targetFileName.replace("\"", "");
             QString file_path(iterDir2.fileName());
             int index = file_path.lastIndexOf('/');
@@ -76,7 +76,7 @@ void FileTransThread::run()
 
             file.copy(targetFileName);
         }
-    quit();
+	emit sig_exit();
 }
 
 //void FileTransThread::close2()

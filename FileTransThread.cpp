@@ -45,7 +45,7 @@ void FileTransThread::run()
 //        ui->allProgressBar->setMaximum(m_count);
         emit setMaximum(m_count);
         int i = 0;
-        QDirIterator iterDir2(GetSDPath(), QDir::Files | QDir::NoSymLinks, QDirIterator::Subdirectories);
+        QDirIterator iterDir2(GetSDPath(), QDir::Files | QDir::NoDotAndDotDot |QDir::NoSymLinks, QDirIterator::Subdirectories);
         emit setValue(0);
         while (iterDir2.hasNext())
         {
@@ -53,9 +53,9 @@ void FileTransThread::run()
                 return;
 
             i++;
-            iterDir2.next();
 
-            QString fileName = iterDir2.next().replace(GetSDPath(), GetUSBPath());
+            QString fileName = iterDir2.next();
+            QString targetFileName = fileName.replace(GetSDPath(), GetUSBPath());
             fileName.replace("\"", "");
             QString file_path(iterDir2.fileName());
             int index = file_path.lastIndexOf('/');
@@ -67,14 +67,15 @@ void FileTransThread::run()
 //            ui->fileCountLabel->setFontSize(23);
 
 
-            QFile file(iterDir2.next());
+            QFile file(fileName);
 //            ui->allProgressBar->setValue(++i);
             emit setValue(i);
     //        qDebug() << iterDir2.next();
     //        qDebug() << fileName;
 
-            file.copy(fileName);
+            file.copy(targetFileName);
         }
+
 }
 
 //void FileTransThread::close2()

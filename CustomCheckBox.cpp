@@ -19,7 +19,7 @@ CustomCheckBox::CustomCheckBox(QWidget *parent) : QCheckBox(parent)
     { \
       image: url(%2/images/Date_time/unchecked.bmp); \
     } \
-    ").arg(GetWidgetSize(QSize(44, 44)).width()).arg(GetWidgetSize(QSize(44, 44)).height()).arg(GeteMMCPath()));
+    ").arg(GetWidgetSize(QSize(88, 88)).width()).arg(GetWidgetSize(QSize(88, 88)).height()).arg(GeteMMCPath()));
     // "QCheckBox::indicator { width:50px; height: 50px; }"
 //    this->resize();
 

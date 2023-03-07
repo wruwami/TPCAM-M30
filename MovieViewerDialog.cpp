@@ -35,8 +35,8 @@ MovieViewerDialog::MovieViewerDialog(QString file_path, QWidget *parent) :
 
     ui->horizontalSlider->setRange(0, m_player->duration() / 1000);
 
-    connect(ui->horizontalSlider, SIGNAL(positionChanged(qint64)), SLOT(positionChanged(qint64)));
-    connect(ui->horizontalSlider, SIGNAL(durationChanged(qint64)), SLOT(durationChanged(qint64)));
+    connect(m_player, SIGNAL(positionChanged(qint64)), this, SLOT(positionChanged(qint64)));
+    connect(m_player, SIGNAL(durationChanged(qint64)), this, SLOT(durationChanged(qint64)));
 }
 
 MovieViewerDialog::~MovieViewerDialog()
@@ -53,7 +53,7 @@ void MovieViewerDialog::on_quitPushButton_clicked()
 
 void MovieViewerDialog::on_previousPushButton_clicked()
 {
-
+    m_player->setPosition(m_player->position() - duration);
 }
 
 void MovieViewerDialog::on_playPushButton_clicked()
@@ -63,7 +63,7 @@ void MovieViewerDialog::on_playPushButton_clicked()
 
 void MovieViewerDialog::on_nextPushButton_clicked()
 {
-
+    m_player->setPosition(m_player->position() + duration);
 }
 
 void MovieViewerDialog::on_printPushButton_clicked()
@@ -92,10 +92,10 @@ void MovieViewerDialog::durationChanged(qint64 progress)
 
 void MovieViewerDialog::on_twoSpeedPushButton_clicked()
 {
-
+    m_player->setPlaybackRate(2);
 }
 
 void MovieViewerDialog::on_halfspeedPushButton_clicked()
 {
-
+    m_player->setPlaybackRate(0.5);
 }

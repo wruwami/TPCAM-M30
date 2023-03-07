@@ -28,6 +28,11 @@ StillImageViewerDialog::~StillImageViewerDialog()
 
 void StillImageViewerDialog::paintEvent(QPaintEvent *event)
 {
+
+}
+
+void StillImageViewerDialog::resizeEvent(QResizeEvent *event)
+{
     ui->imageLabel->setImage(m_file_path, ui->imageLabel->size());
 }
 

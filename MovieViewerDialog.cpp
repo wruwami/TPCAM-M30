@@ -33,6 +33,8 @@ MovieViewerDialog::MovieViewerDialog(QString file_path, QWidget *parent) :
     ui->pausePushButton->setText(LoadString("IDS_PAUSE"));
     ui->printPushButton->setText(LoadString("IDS_PRINT"));
 
+    ui->horizontalSlider->setRange(0, m_player->duration() / 1000);
+
     connect(ui->horizontalSlider, SIGNAL(positionChanged(qint64)), SLOT(positionChanged(qint64)));
     connect(ui->horizontalSlider, SIGNAL(durationChanged(qint64)), SLOT(durationChanged(qint64)));
 }
@@ -84,7 +86,8 @@ void MovieViewerDialog::positionChanged(qint64 progress)
 
 void MovieViewerDialog::durationChanged(qint64 progress)
 {
-
+//    this->duration = duration/1000;
+//    ui->horizontalSlider->setMaximum(duration / 1000);
 }
 
 void MovieViewerDialog::on_twoSpeedPushButton_clicked()

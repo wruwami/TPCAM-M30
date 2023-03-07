@@ -49,6 +49,7 @@ void CustomLabel::setImage(QString path_name, QString file_name)
 
 
     m_pixmap.load(file_full_path);
+    m_fitpixmap = m_pixmap;
 //    QPixmap fitpixmap=pixmap.scaled(width(), height(), Qt::KeepAspectRatio, Qt::SmoothTransformation);
     this->setPixmap(m_pixmap);
 //    this->setScaledContents(true);
@@ -60,7 +61,7 @@ void CustomLabel::setImage(QString path_name, QString file_name, QSize size)
     QString file_full_path;
     file_full_path = qdir.absolutePath() + "/" + DEFAULT_PATH + "/" + path_name + "/" + file_name;
 
-
+    m_fitpixmap = m_pixmap;
     m_pixmap.load(file_full_path);
 //    QPixmap fitpixmap=pixmap.scaled(size.width(), size.height(), Qt::KeepAspectRatio, Qt::SmoothTransformation);
     this->setPixmap(m_pixmap);
@@ -76,19 +77,28 @@ void CustomLabel::setImage(QString path_name, QString file_name, QSize size)
 
 void CustomLabel::setZoom(double factor, QRect rect)
 {
-    int x = rect.left() + rect.right() / factor;
-    int y = rect.top() + rect.bottom() / factor;
-    int width = rect.width() / factor;
-    int height = rect.height() / factor;
-//    this->setPixmap(m_fitpixmap.scaled(factor * size().width(), factor * size().height()).copy(rect));
-    this->setPixmap(scaleImage(factor).copy(0, 0, width, height));
+
+    int x = (geometry().left() + geometry().right()) / 2;
+    int y = (geometry().top() + geometry().bottom()) / 2;
+//    int x = m_fitpixmap.width() / 2;
+//    int y = m_fitpixmap.
+    int width = geometry().width();
+    int height = geometry().height();
+    QPixmap pixmap;
+    if (factor > 1)
+    {
+        pixmap = scaleImage(factor).copy(x, y, width, height);
+    }
+    else
+        pixmap = scaleImage(factor).copy(0, 0, width, height);
+    this->setPixmap(pixmap);
 //    this->setPixmap(m_fitpixmap.scaled(factor * m_fitpixmap.size()));
 }
 
 QPixmap CustomLabel::scaleImage(double factor)
 {
     QPixmap pixmap;
-    pixmap = m_fitpixmap.scaled(factor * m_fitpixmap.size());
+    pixmap = m_fitpixmap.scaled(factor * size()/*, Qt::IgnoreAspectRatio, Qt::SmoothTransformation*/);
     return pixmap;
 }
 

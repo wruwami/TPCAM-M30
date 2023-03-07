@@ -17,6 +17,7 @@ public:
 
 protected:
     void paintEvent(QPaintEvent *event);
+    void resizeEvent(QResizeEvent *event);
 private slots:
     void on_quitPushButton_clicked();
 

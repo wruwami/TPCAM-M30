@@ -27,9 +27,11 @@ private:
 private:
     Ui::FileManagerFileTransferDialog *ui;
     QList<AVFileFormat> m_avFileFormatList;
-
+    int m_second = 0;
 private slots:
     void loadProgress(qint64 bytesSent, qint64 bytesTotal);    //Update progress bar
+protected:
+    void timerEvent(QTimerEvent *event);
 };
 
 #endif // FILEMANAGERFILETRANSFERDIALOG_H

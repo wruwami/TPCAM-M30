@@ -6,6 +6,7 @@
 #include <QFile>
 #include <QNetworkRequest>
 #include <QNetworkReply>
+#include <QTimerEvent>
 
 #include "ConfigManager.h"
 
@@ -27,8 +28,10 @@ FileManagerFileTransferDialog::FileManagerFileTransferDialog(QList<AVFileFormat>
     }
     else
     {
-
+        TransferFTP();
     }
+
+    startTimer(1000);
 }
 
 FileManagerFileTransferDialog::~FileManagerFileTransferDialog()
@@ -61,12 +64,16 @@ void FileManagerFileTransferDialog::TransferFTP()
     QNetworkRequest request(url);
     QNetworkReply* reply;
     int i = 0;
+    ui->allProgressBar->setMaximum(m_avFileFormatList.size());
     foreach (auto avFormat, m_avFileFormatList)
     {
+        ui->fileNameLabel->setText(QString(avFormat.file_path));
+        ui->fileCountLabel->setText(QString("%1 / %2").arg(i + 1).arg(m_avFileFormatList.size()));
         QFile file(QString(avFormat.file_path));
         file.open(QIODevice::ReadOnly);
         byte_file=file.readAll();
         reply = accessManager->put(request, byte_file);
+        ui->allProgressBar->setValue(i + 1);
         connect(reply, SIGNAL(uploadProgress(qint64 ,qint64)), SLOT(loadProgress(qint64 ,qint64)));
     }
     connect(accessManager, SIGNAL(finished(QNetworkReply*)), SLOT(replyFinished(QNetworkReply*)));
@@ -78,6 +85,12 @@ void FileManagerFileTransferDialog::loadProgress(qint64 bytesSent, qint64 bytesT
 //    ui->label_Byte->setText(QString("%1 / %2").arg(bytesSent).arg(bytesTotal));
     ui->oneProgressBar->setMaximum(bytesTotal); //Max
     ui->oneProgressBar->setValue(bytesSent);  //The current value
+    ui->speedLabel->setText(QString("%1 kB/s").arg(bytesSent / bytesTotal));
+}
+
+void FileManagerFileTransferDialog::timerEvent(QTimerEvent *event)
+{
+    ui->remaiTimeLabel->setText(QString("%1").arg(m_second++));
 }
 
 //void FileManagerFileTransferDialog::loadError(QNetworkReply::NetworkError)    //Error output during transmission

@@ -78,7 +78,8 @@ SOURCES += main.cpp\
     ConfigManager.cpp \
     DateFormatManager.cpp \
     SearchBoxWidget.cpp \
-    CustomZoomLabel.cpp
+    CustomZoomLabel.cpp \
+    FileManagerFileTransferDialog.cpp
 
 HEADERS  += MainWindow.h \
     CustomTogglePushButton.h \
@@ -150,7 +151,8 @@ HEADERS  += MainWindow.h \
     DateFormatManager.h \
     FileFormat.h \
     SearchBoxWidget.h \
-    CustomZoomLabel.h
+    CustomZoomLabel.h \
+    FileManagerFileTransferDialog.h
 
 FORMS    += MainWindow.ui \
     IndicatorCameraFocusWidget.ui \
@@ -200,7 +202,8 @@ FORMS    += MainWindow.ui \
     KeyboardDialog.ui \
     KeypadDialog.ui \
     IndicatorCameraExposeWidget.ui \
-    SearchBoxWidget.ui
+    SearchBoxWidget.ui \
+    FileManagerFileTransferDialog.ui
 
 RESOURCES += \
     style.qrc

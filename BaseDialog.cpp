@@ -201,6 +201,11 @@ BaseDialog::~BaseDialog()
     delete ui;
 }
 
+void BaseDialog::setAvFileFormatList(QList<AVFileFormat> avFileFormatList)
+{
+
+}
+
 void BaseDialog::setSize(QSize size)
 {
 //    ui->verticalLayout->itemAt(0)->widget()->resize(GetWidgetSize(QSize(size.width(), 130)));

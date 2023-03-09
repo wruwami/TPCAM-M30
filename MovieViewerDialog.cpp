@@ -7,6 +7,7 @@
 
 #include "StringLoader.h"
 #include "WidgetSize.h"
+#include "DateFormatManager.h"
 
 MovieViewerDialog::MovieViewerDialog(AVFileFormat avFileFormat, QWidget *parent) :
     QDialog(parent),
@@ -33,6 +34,15 @@ MovieViewerDialog::MovieViewerDialog(AVFileFormat avFileFormat, QWidget *parent)
     ui->playPushButton->setText(LoadString("IDS_PLAY"));
     ui->pausePushButton->setText(LoadString("IDS_PAUSE"));
     ui->printPushButton->setText(LoadString("IDS_PRINT"));
+
+    ui->laserSpeedLabel->setText(QString("C %1km/h").arg(avFileFormat.captureSpeedLimit));
+    ui->laserDistanceLabel->setText(QString("%1m").arg(avFileFormat.distance));
+    ui->indexLabel->setText("[" + QString(avFileFormat.index).mid(0,5) + "]");
+    ui->dateLabel->setText(GetDate(avFileFormat.date));
+    ui->timeLabel->setText(QString(avFileFormat.time).mid(0,6));
+    ui->rtLabel->setText("RT - - - km/h, - - - - -m");
+
+
 
     ui->horizontalSlider->setRange(0, m_player->duration() / 1000);
 

@@ -17,6 +17,7 @@
 #include "KeypadDialog.h"
 #include "StillImageViewerDialog.h"
 #include "MovieViewerDialog.h"
+#include "FileManagerFileTransferDialog.h"
 
 enum Mode
 {
@@ -184,7 +185,10 @@ void FileManagerWidget::on_deletePushButton_clicked()
     if (baseDialog.exec() == QDialog::Accepted)
     {
         BaseDialog baseDialog(Dialog::AdminPWWidgetType);
-        baseDialog.exec();
+        if (baseDialog.exec() == QDialog::Accepted)
+        {
+
+        }
     }
 }
 
@@ -254,13 +258,19 @@ void FileManagerWidget::on_zoomPlayPushButton_clicked()
 
 void FileManagerWidget::on_sharePushButton_clicked()
 {
-
+//    BaseDialog baseDialog(FileManagerFileTransferWidgetType, Qt::AlignmentFlag::AlignCenter, "", true, LoadString("IDS_FTP_FILE_TRANSFER"));
+//    baseDialog.exec();
+    FileManagerFileTransferDialog fileManagerFileTransferDialog(m_avFileFormatList, FTPType);
+    fileManagerFileTransferDialog.exec();
 }
 
 void FileManagerWidget::on_movePushButton_clicked()
 {
-    BaseDialog baseDialog(FileManagerFileTransferWidgetType, Qt::AlignmentFlag::AlignCenter, "", true);
-    baseDialog.exec();
+//    BaseDialog baseDialog(FileManagerFileTransferWidgetType, Qt::AlignmentFlag::AlignCenter, "", true, LoadString("IDS_USB_MEMORY_TRANSFER"));
+//    baseDialog.exec();
+    FileManagerFileTransferDialog fileManagerFileTransferDialog(m_avFileFormatList, FileType);
+    fileManagerFileTransferDialog.exec();
+
 }
 
 void FileManagerWidget::on_printPushButton_clicked()

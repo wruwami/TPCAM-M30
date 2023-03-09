@@ -45,6 +45,7 @@ static AVFileFormat GetFileFormat(QString file_path)
     avFileFormat.userId = strList[12];
     avFileFormat.deviceId = strList[13].toStdString().c_str()[0];
     avFileFormat.file_path = file_path;
+    avFileFormat.unit = 'S';
     return avFileFormat;
 }
 

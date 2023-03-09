@@ -3,6 +3,8 @@
 
 #include <QDialog>
 
+#include "FileFormat.h"
+
 enum Dialog
 {
     SelfTestWarningMessageWidgetType,
@@ -34,6 +36,7 @@ class BaseDialog : public QDialog
 public:
     explicit BaseDialog(Dialog, Qt::Alignment = Qt::AlignmentFlag::AlignLeft, QString = "", bool = false, QString title_text = "", QWidget *parent = 0);
     ~BaseDialog();
+    void setAvFileFormatList(QList<AVFileFormat> avFileFormatList);
 private:
     void setSize(QSize size);
     void setSize(int w, int h);

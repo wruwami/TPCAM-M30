@@ -3,6 +3,8 @@
 
 #include "StringLoader.h"
 
+#include "FileFormat.h"
+
 FileManagerFileTransferWidget::FileManagerFileTransferWidget(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::FileManagerFileTransferWidget)

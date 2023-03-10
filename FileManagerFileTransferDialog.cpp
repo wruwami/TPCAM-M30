@@ -24,7 +24,7 @@ FileManagerFileTransferDialog::FileManagerFileTransferDialog(QList<AVFileFormat>
 
     if (type == FileType)
     {
-
+        TransferFile();
     }
     else
     {
@@ -91,6 +91,15 @@ void FileManagerFileTransferDialog::loadProgress(qint64 bytesSent, qint64 bytesT
 void FileManagerFileTransferDialog::timerEvent(QTimerEvent *event)
 {
     ui->remaiTimeLabel->setText(QString("%1").arg(m_second++));
+}
+
+void FileManagerFileTransferDialog::TransferFile()
+{
+    foreach(auto avFormat, m_avFileFormatList)
+    {
+        QFile file(avFormat.file_path);
+        file.copy("/mnt/");
+    }
 }
 
 //void FileManagerFileTransferDialog::loadError(QNetworkReply::NetworkError)    //Error output during transmission

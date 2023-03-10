@@ -24,6 +24,7 @@ public:
     ~FileManagerFileTransferDialog();
 private:
     void TransferFTP();
+    void TransferFile();
 private:
     Ui::FileManagerFileTransferDialog *ui;
     QList<AVFileFormat> m_avFileFormatList;

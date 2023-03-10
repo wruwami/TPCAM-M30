@@ -18,6 +18,7 @@
 #include "StillImageViewerDialog.h"
 #include "MovieViewerDialog.h"
 #include "FileManagerFileTransferDialog.h"
+#include "SearchBoxDialog.h"
 
 enum Mode
 {
@@ -187,7 +188,12 @@ void FileManagerWidget::on_deletePushButton_clicked()
         BaseDialog baseDialog(Dialog::AdminPWWidgetType);
         if (baseDialog.exec() == QDialog::Accepted)
         {
-
+            foreach(auto avFormat, m_avFileFormatList)
+            {
+                QFile file(avFormat.file_path);
+                file.remove();
+                ui->tableWidget->clear();
+            }
         }
     }
 }
@@ -207,7 +213,37 @@ void FileManagerWidget::on_tableWidget_clicked(const QModelIndex &index)
         m_player->play();
         m_player->pause();
     }
+    else if (!strncmp(m_currentAVFileFormat.filePrefix, "AV", 2))
+    {
+        m_videoWidget->show();
+        ui->frameLabel->hide();
+        m_player->setMedia(QUrl::fromLocalFile(m_avFileFormatList[index.row()+ m_AVFileFormatIndex].file_path));
+        m_player->play();
+        m_player->pause();
+    }
+    else if (!strncmp(m_currentAVFileFormat.filePrefix, "SR", 2))
+    {
+        m_videoWidget->show();
+        ui->frameLabel->hide();
+        m_player->setMedia(QUrl::fromLocalFile(m_avFileFormatList[index.row()+ m_AVFileFormatIndex].file_path));
+        m_player->play();
+        m_player->pause();
+    }
+    else if (!strncmp(m_currentAVFileFormat.filePrefix, "MV", 2))
+    {
+        m_videoWidget->show();
+        ui->frameLabel->hide();
+        m_player->setMedia(QUrl::fromLocalFile(m_avFileFormatList[index.row()+ m_AVFileFormatIndex].file_path));
+        m_player->play();
+        m_player->pause();
+    }
     else if (!strncmp(m_currentAVFileFormat.filePrefix, "AI", 2))
+    {
+        ui->frameLabel->show();
+        m_videoWidget->hide();
+        ui->frameLabel->setImage(m_avFileFormatList[index.row()+ m_AVFileFormatIndex].file_path, ui->frameLabel->size());
+    }
+    else if (!strncmp(m_currentAVFileFormat.filePrefix, "SC", 2))
     {
         ui->frameLabel->show();
         m_videoWidget->hide();
@@ -219,9 +255,28 @@ void FileManagerWidget::on_searchPushButton_clicked()
 {
 //    QString title_text = m_currentAVFileFormat.date
 
-    BaseDialog baseDialog(Dialog::SearchBoxType, Qt::AlignmentFlag::AlignLeft, "", true, m_dateTime);
-    baseDialog.exec();
+    SearchBoxDialog searchBoxDialog;
+    if (searchBoxDialog.exec() == QDialog::Accepted)
+    {
+        int firstValue = searchBoxDialog.getFirstValue();
+        int secondValue = searchBoxDialog.getSecondValue();
+        QList<AVFileFormat> avFileFormatList;
 
+        foreach (auto avFormat, m_avFileFormatList)
+        {
+            int minute = QString(avFormat.time).mid(3, 2).toInt();
+            if ( minute >= firstValue && secondValue >= minute)
+            {
+                avFileFormatList.push_back(avFormat);
+            }
+        }
+        m_avFileFormatList = avFileFormatList;
+        setTableContent();
+    }
+    else
+    {
+
+    }
 }
 
 void FileManagerWidget::on_zoomPlayPushButton_clicked()

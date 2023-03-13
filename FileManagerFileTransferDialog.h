@@ -10,7 +10,7 @@ enum Type
     FileType,
     FTPType,
 };
-
+class QNetworkReply;
 namespace Ui {
 class FileManagerFileTransferDialog;
 }
@@ -29,8 +29,11 @@ private:
     Ui::FileManagerFileTransferDialog *ui;
     QList<AVFileFormat> m_avFileFormatList;
     int m_second = 0;
+    int m_index = 0;
 private slots:
     void loadProgress(qint64 bytesSent, qint64 bytesTotal);    //Update progress bar
+
+    void replyFinished(QNetworkReply*);
 protected:
     void timerEvent(QTimerEvent *event);
 };

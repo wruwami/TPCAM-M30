@@ -100,12 +100,12 @@ void Setting6Widget::on_ftpComboBox_currentIndexChanged(int index)
 
 void Setting6Widget::on_ftpAddressLineEdit_textChanged(const QString &arg1)
 {
-    m_newJsonObject["ftp server(dns)"] = arg1;
+    m_newJsonObject["ftp server( dns )"] = arg1;
 }
 
 void Setting6Widget::on_ftpPortLineEdit_textChanged(const QString &arg1)
 {
-    m_newJsonObject["ftp port"] = arg1;
+    m_newJsonObject["ftp port"] = arg1.toInt();
 }
 
 void Setting6Widget::on_userNameLineEdit_textChanged(const QString &arg1)

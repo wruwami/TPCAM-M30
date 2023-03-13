@@ -127,10 +127,9 @@ void FileManagerWidget::setTableContent()
     int j = 0;
     for (int i = m_AVFileFormatIndex ; i < m_AVFileFormatIndex + 5 ; i++, j++)
     {
-        AVFileFormat avfileFormat = m_avFileFormatList[i];
-        if (m_AVFileFormatIndex >= m_avFileFormatList.size())
+        if (i >= m_avFileFormatList.size())
             break;
-
+        AVFileFormat avfileFormat = m_avFileFormatList[i];
         QTableWidgetItem* indexItem = new QTableWidgetItem(QString::number(i + 1));
 
         QTableWidgetItem* item = new QTableWidgetItem(avfileFormat.captureSpeed + "km/h, " + QString("%0%1:%2%3:%4%5").arg(avfileFormat.date[0]).arg(avfileFormat.date[1]).arg(avfileFormat.date[2]).arg(avfileFormat.date[3]).arg(avfileFormat.date[4]).arg(avfileFormat.date[5]));

@@ -7,8 +7,11 @@
 #include <QNetworkRequest>
 #include <QNetworkReply>
 #include <QTimerEvent>
+#include <QFileDialog>
 
 #include "ConfigManager.h"
+
+#include "StringLoader.h"
 
 FileManagerFileTransferDialog::FileManagerFileTransferDialog(QList<AVFileFormat> avFileFormatList, Type type, QWidget *parent) :
     QDialog(parent),
@@ -19,16 +22,33 @@ FileManagerFileTransferDialog::FileManagerFileTransferDialog(QList<AVFileFormat>
     this->setWindowFlags(Qt::FramelessWindowHint);
 
     ui->closePushButton->setStyleSheet("QPushButton {border-image : url(images/MessageBox/closeButton.png); border:none;}");
+    ui->closePushButton->
+    connect(ui->closePushButton, &QAbstractButton::clicked, this, &QWidget::close);
 
     m_avFileFormatList = avFileFormatList;
+    QSizePolicy sp_retain = ui->speedLabel->sizePolicy();
+    sp_retain.setRetainSizeWhenHidden(true);
+    ui->speedLabel->setSizePolicy(sp_retain);
+
+    QSizePolicy sp_retain2 = ui->oneProgressBar->sizePolicy();
+    sp_retain2.setRetainSizeWhenHidden(true);
+    ui->oneProgressBar->setSizePolicy(sp_retain2);
+
+
 
     if (type == FileType)
     {
+        ui->speedLabel->hide();
+        ui->oneProgressBar->hide();
+        ui->titleLabel->setText(LoadString("IDS_FILE_TRANSFER"));
         TransferFile();
+
     }
     else
     {
+        ui->titleLabel->setText(LoadString("IDS_FTP_TRANSFER"));
         TransferFTP();
+
     }
 
     startTimer(1000);
@@ -52,29 +72,40 @@ void FileManagerFileTransferDialog::TransferFTP()
     QJsonObject jsonObject = config.GetConfig();
 
 
-    QUrl url;
-    url.setScheme("ftp");
-    url.setHost(jsonObject["ftp server( dns )"].toString());
-//    url.setPath(jsonObject["ftp port"]);
-    url.setPort(jsonObject["ftp port"].toInt());
-    url.setUserName(jsonObject["ftp user name"].toString());
-    url.setPassword(jsonObject["ftp password"].toString());
+    m_index = 0;
 
-    QByteArray byte_file;
-    QNetworkRequest request(url);
-    QNetworkReply* reply;
+
     int i = 0;
     ui->allProgressBar->setMaximum(m_avFileFormatList.size());
     foreach (auto avFormat, m_avFileFormatList)
     {
-        ui->fileNameLabel->setText(QString(avFormat.file_path));
-        ui->fileCountLabel->setText(QString("%1 / %2").arg(i + 1).arg(m_avFileFormatList.size()));
+        QUrl url;
+        url.setScheme("ftp");
+        url.setHost(jsonObject["ftp server( dns )"].toString());
+
+        url.setPort(jsonObject["ftp port"].toInt());
+        url.setUserName(jsonObject["ftp user name"].toString());
+        url.setPassword(jsonObject["ftp password"].toString());
+
+        QString file_path(avFormat.file_path);
+        int index = file_path.lastIndexOf('/');
+        QString file_name = file_path.mid(index + 1, file_path.size() - index - 1);
+        url.setPath("/home/firefly/" + file_name);
+
+        ui->fileNameLabel->setText(file_name);
+
+
+        QByteArray byte_file;
+        QNetworkRequest request(url);
+        QNetworkReply* reply;
+
         QFile file(QString(avFormat.file_path));
         file.open(QIODevice::ReadOnly);
         byte_file=file.readAll();
         reply = accessManager->put(request, byte_file);
-        ui->allProgressBar->setValue(i + 1);
+
         connect(reply, SIGNAL(uploadProgress(qint64 ,qint64)), SLOT(loadProgress(qint64 ,qint64)));
+
     }
     connect(accessManager, SIGNAL(finished(QNetworkReply*)), SLOT(replyFinished(QNetworkReply*)));
 //    connect(reply, SIGNAL(error(QNetworkReply::NetworkError)),SLOT(loadError(QNetworkReply::NetworkError)));
@@ -85,7 +116,23 @@ void FileManagerFileTransferDialog::loadProgress(qint64 bytesSent, qint64 bytesT
 //    ui->label_Byte->setText(QString("%1 / %2").arg(bytesSent).arg(bytesTotal));
     ui->oneProgressBar->setMaximum(bytesTotal); //Max
     ui->oneProgressBar->setValue(bytesSent);  //The current value
-    ui->speedLabel->setText(QString("%1 kB/s").arg(bytesSent / bytesTotal));
+    if (bytesSent != 0 && bytesTotal != 0)
+        ui->speedLabel->setText(QString("%1 kB/s").arg(bytesSent / bytesTotal));
+}
+
+
+void FileManagerFileTransferDialog::replyFinished(QNetworkReply *reply)
+{
+
+    QString file_path(m_avFileFormatList[m_index].file_path);
+    int index = file_path.lastIndexOf('/');
+    QString file_name = file_path.mid(index + 1, file_path.size() - index - 1);
+
+
+    ui->allProgressBar->setValue(m_index + 1);
+    ui->fileNameLabel->setText(file_name);
+    ui->fileCountLabel->setText(QString("%1 / %2").arg(m_index + 1).arg(m_avFileFormatList.size()));
+    m_index++;
 }
 
 void FileManagerFileTransferDialog::timerEvent(QTimerEvent *event)
@@ -95,15 +142,22 @@ void FileManagerFileTransferDialog::timerEvent(QTimerEvent *event)
 
 void FileManagerFileTransferDialog::TransferFile()
 {
+    ui->oneProgressBar->setValue(0);
+    ui->allProgressBar->setValue(0);
+    QString dir = QFileDialog::getExistingDirectory(this, "path select", QDir::currentPath(), QFileDialog::ShowDirsOnly);
+    ui->allProgressBar->setMaximum(m_avFileFormatList.size());
+    int i = 0;
     foreach(auto avFormat, m_avFileFormatList)
     {
-        QFile file(avFormat.file_path);
-        file.copy("/mnt/");
-    }
-}
 
-//void FileManagerFileTransferDialog::loadError(QNetworkReply::NetworkError)    //Error output during transmission
-//{
-//    ui->textEdit_Console->append(reply->errorString());
-//    qDebug()<<"Error: "<<reply->error();
-//}
+        ui->fileCountLabel->setText(QString("%1 / %2").arg(i + 1).arg(m_avFileFormatList.size()));
+        QString file_path(avFormat.file_path);
+        int index = file_path.lastIndexOf('/');
+        QString file_name = file_path.mid(index + 1, file_path.size() - index - 1);
+        ui->fileNameLabel->setText(QString(file_name));
+        QFile file(file_path);
+        ui->allProgressBar->setValue(++i);
+        file.copy(dir + '/' + file_name);
+    }
+//    accept();
+}

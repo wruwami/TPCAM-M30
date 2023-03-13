@@ -45,6 +45,7 @@ BaseDialog::BaseDialog(Dialog dialog, Qt::Alignment align, QString msg, bool isC
 //        ui->closePushButton->resize(ui->closePushButton->width(), ui->closePushButton->width());
 //        ui->closePushButton->setImage("MessageBox", "closeButton.png", QSize(0,0));
         ui->closePushButton->setStyleSheet("QPushButton {border-image : url(images/MessageBox/closeButton.png); border:none;}");
+        connect(ui->closePushButton, &QAbstractButton::clicked, this, &QWidget::close);
     }
     else
     {

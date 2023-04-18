@@ -14,8 +14,7 @@ C0001 -
 //#include "config.h"
 #include <pthread.h>
 #include <sys/ioctl.h>
-
-#include <winsock2.h>
+#include <arpa/inet.h>
 
 #define WIFI_PRINTER_MAX_BUFFER					4096
 #define DEVICE_ID_MAX_LENGTH							7
@@ -95,15 +94,32 @@ typedef struct _st_WIFI_PRINTER{
     bool	isConnected;
 } ST_WIFI_PRIINTER;
 
+class ThermalPrinter
+{
+public:
+    ThermalPrinter();
+    virtual ~ThermalPrinter();
+
+
+};
+
 extern bool g_bOnlyComlaser;
 extern ST_WIFI_PRIINTER g_wifi_printer;
 extern char g_print_img_body_buff_file_management[1712 * 984];  // Only Y among YUV 420 image body buffer for thermal printer from uncompressed jpg file
 extern char g_print_img_body_buff_file_logo[1712 * 984];  // David, Add for LOGO file
+bool g_is_print_on_logo;
+bool g_is_printOption_body_on;
+bool g_is_printOption_ticket_num_on;
 
-
+int connect_wifi_printer();
 void close_wifi_printer_socket();
 void CreateWiFiReadThreadAndInitPrinter(void);
 void WiFi_Printf(int sock, char* fmt, ...);
 void print_wifi_printer(char *fullfilename);
+void json_data_manager_get_wifi_printer();
+bool json_data_manager_get_ip_address_1(char *str_ip_address_1);
+bool json_data_manager_get_ip_address_2(char *str_ip_address_2);
+bool json_data_manager_get_ip_address_3(char *str_ip_address_3);
+bool json_data_manager_get_wifi_printer(char* str_wifi_printer);
 
 #endif //__THERMAL_PRINTER_H__

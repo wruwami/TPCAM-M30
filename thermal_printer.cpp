@@ -4,10 +4,18 @@
 //#include "system.manager.h"
 #include <math.h>
 #include <iostream>
+#include <cstring>
+#include <fcntl.h>
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <stdarg.h>
+
+#include <unistd.h>
+#include <stdlib.h>
 
 #define TRUE    1
 #define FALSE   0
-#define NULL    nullptr
+//#define NULL    nullptr
 
 bool g_bOnlyComlaser = TRUE;
 int g_nInQuiry = 0;
@@ -28,6 +36,11 @@ static int parse_filename(char *filename);
 static void *t_wifi_read_packet(void *arg);
 
 unsigned char getPixel(int x, int y, char * img, int swidth)
+{
+    return (unsigned char)img[y*swidth + x];
+}
+
+unsigned char getPixel(int x, int y, unsigned char * img, int swidth)
 {
     return (unsigned char)img[y*swidth + x];
 }
@@ -881,7 +894,7 @@ void print_wifi_printer(char *fullfilename)
                 //fprintf(stdout, "[DEBUG] ===== Error : WiFi Printer should be changed : Size %d(%d, %d)=====\n", g_wifi_printer.size, atoi(str_wifi_printer), g_wifi_printer.manufacturer);
                 ClearWiFiRecvBuff(INQUIRY_NONE);
                 close_wifi_printer_socket();
-                disp_filemanagement_main_run(FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE);
+                //disp_filemanagement_main_run(FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE);
             }
             else
             {
@@ -907,13 +920,13 @@ void print_wifi_printer(char *fullfilename)
                         print_wifi_image(g_wifi_printer.socket, atoi(str_wifi_printer));	// 0 : Woosim, 1 : Eastroyce
                         print_wifi_body(g_wifi_printer.socket);
                     }
-                    disk_manager_write_summary_tracking_log(fullfilename, &g_file_elem_for_printer, 0.0f, 0.0f, TRUE, TRUE, 2); // bImageOnly param is ignored
+                    //disk_manager_write_summary_tracking_log(fullfilename, &g_file_elem_for_printer, 0.0f, 0.0f, TRUE, TRUE, 2); // bImageOnly param is ignored
                     //disp_filemanagement_main_run(FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE);
                 }
                 else
                 {
                     //WiFi_Printf(g_wifi_printer.socket, " This WiFi Printer Is NOT Supproted \r\n\r\n\r\n");
-                    disp_messagebox_run(CATEGORY_MESSAGEBOX_OK, MESSAGEBOX_CONTENT_WIFI_PRINITER_NOT_SUPPORTED);
+                    //disp_messagebox_run(CATEGORY_MESSAGEBOX_OK, MESSAGEBOX_CONTENT_WIFI_PRINITER_NOT_SUPPORTED);
                     //fprintf(stdout, "[DEBUG] ===== Error : This WiFi Printer Is NOT Supproted  =====\n");
                 }
             }
@@ -922,7 +935,7 @@ void print_wifi_printer(char *fullfilename)
         {
             //fprintf(stdout, "[DEBUG] ===== Error : WiFi Printer Connectivity Check Before Printing =====\n");
             close_wifi_printer_socket();
-            disp_filemanagement_main_run(FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE);
+            //disp_filemanagement_main_run(FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE);
         }
     }
 }
@@ -933,8 +946,8 @@ void CreateWiFiReadThreadAndInitPrinter(void)
     {
         free(g_wifi_printer.serv_addr);
     }
-    g_wifi_printer.serv_addr = malloc(sizeof(struct sockaddr_in));
-    s_pid_wifi_printer = TH_CREATE(&s_tid_wifi_printer, NULL, t_wifi_read_packet, NULL);
+    g_wifi_printer.serv_addr = (struct sockaddr_in*)malloc(sizeof(struct sockaddr_in));
+    s_pid_wifi_printer = pthread_create(&s_tid_wifi_printer, NULL, t_wifi_read_packet, NULL);
     if (s_pid_wifi_printer == 0)
     {
         //fprintf(stdout, "=========================================\n");
@@ -1184,7 +1197,7 @@ static void *t_wifi_read_packet(void *arg)
             else if (nResult == -1)
             {
                 close_wifi_printer_socket();
-                disp_filemanagement_main_run(FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE);
+                //disp_filemanagement_main_run(FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE);
                 //fprintf(stdout, "[DEBUG] Socket Receive Error : %s\n", strerror(errno));
             }
             else if (nResult == 0)
@@ -1192,7 +1205,7 @@ static void *t_wifi_read_packet(void *arg)
                 //fprintf(stdout, "\n[DEBUG] === received Bytes : ZERO!!!! ===\n");
             }
         }
-        msleep(10);
+        usleep(10 * 1000);
     }
     //fprintf(stdout, "[DEBUG] ===== WiFi Printer Receive Finished =====\n");
 }
@@ -1243,7 +1256,7 @@ void InquiryPrinterModelInfo()
             //fprintf(stdout, "\n[DEBUG] === Out of InquiryPrinterModelInfo after 3 seconds ===\n");
             break;
         }
-        msleep(1);
+        usleep(1000);
     }
 }
 
@@ -1288,7 +1301,7 @@ void InquiryPrinterFirmwareInfo()
             //fprintf(stdout, "\n[DEBUG] === Out of Inquiry Printer Firmware Info after 3 seconds ===\n");
             break;
         }
-        msleep(1);
+        usleep(1000);
     }
 }
 
@@ -1337,7 +1350,7 @@ int connect_wifi_printer()
         {
             g_wifi_printer.isConnected = TRUE;
 
-            msleep(100);
+            usleep(100 * 1000);
             InquiryPrinterFirmwareInfo();
             InquiryPrinterModelInfo();
 
@@ -1521,4 +1534,35 @@ static int parse_filename(char *filename)
         }
     }
     return nCount;
+}
+
+bool json_data_manager_get_ip_address_1(char *str_ip_address_1)
+{
+    //TRACE_JSON("json_data_manager_get_ip_address_1");
+    //strcpy(str_ip_address_1, s_st_json_setting_network.ip_address_1);
+
+    return TRUE;
+}
+
+bool json_data_manager_get_ip_address_2(char *str_ip_address_2)
+{
+    //TRACE_JSON("json_data_manager_get_ip_address_2");
+    //strcpy(str_ip_address_2, s_st_json_setting_network.ip_address_2);
+
+    return TRUE;
+}
+
+bool json_data_manager_get_ip_address_3(char *str_ip_address_3)
+{
+    //TRACE_JSON("json_data_manager_get_ip_address_3");
+    //strcpy(str_ip_address_3, s_st_json_setting_network.ip_address_3);
+
+    return TRUE;
+}
+
+bool json_data_manager_get_wifi_printer(char *str_wifi_printer)
+{
+//	strcpy(str_wifi_printer, s_st_json_setting_network.wifi_printer);
+
+    return TRUE;
 }

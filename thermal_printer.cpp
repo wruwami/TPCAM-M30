@@ -13,6 +13,8 @@
 #include <unistd.h>
 #include <stdlib.h>
 
+#include "ConfigManager.h"
+
 #define TRUE    1
 #define FALSE   0
 //#define NULL    nullptr
@@ -1538,6 +1540,8 @@ static int parse_filename(char *filename)
 
 bool json_data_manager_get_ip_address_1(char *str_ip_address_1)
 {
+    ConfigManager configManager = ConfigManager("parameter_setting4.json");
+    QJsonObject JsonObject = configManager.GetConfig();
     //TRACE_JSON("json_data_manager_get_ip_address_1");
     //strcpy(str_ip_address_1, s_st_json_setting_network.ip_address_1);
 
@@ -1546,23 +1550,22 @@ bool json_data_manager_get_ip_address_1(char *str_ip_address_1)
 
 bool json_data_manager_get_ip_address_2(char *str_ip_address_2)
 {
-    //TRACE_JSON("json_data_manager_get_ip_address_2");
-    //strcpy(str_ip_address_2, s_st_json_setting_network.ip_address_2);
-
+    ConfigManager configManager = ConfigManager("parameter_setting4.json");
+    QJsonObject JsonObject = configManager.GetConfig();
     return TRUE;
 }
 
 bool json_data_manager_get_ip_address_3(char *str_ip_address_3)
 {
-    //TRACE_JSON("json_data_manager_get_ip_address_3");
-    //strcpy(str_ip_address_3, s_st_json_setting_network.ip_address_3);
 
+    ConfigManager configManager = ConfigManager("parameter_setting4.json");
+    QJsonObject JsonObject = configManager.GetConfig();
     return TRUE;
 }
 
 bool json_data_manager_get_wifi_printer(char *str_wifi_printer)
 {
-//	strcpy(str_wifi_printer, s_st_json_setting_network.wifi_printer);
-
+    ConfigManager configManager = ConfigManager("print_option.json");
+    QJsonObject JsonObject = configManager.GetConfig();
     return TRUE;
 }

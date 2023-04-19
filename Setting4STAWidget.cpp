@@ -5,6 +5,7 @@
 
 #include "StringLoader.h"
 #include "BaseDialog.h"
+#include "KeyboardDialog.h"
 
 Setting4STAWidget::Setting4STAWidget(QWidget *parent) :
     QWidget(parent),
@@ -15,6 +16,7 @@ Setting4STAWidget::Setting4STAWidget(QWidget *parent) :
     m_jsonObject = m_config.GetConfig();
     m_newJsonObject = m_jsonObject;
 
+    ui->searchPushButton->setText(LoadString("IDS_SEARCH"));
     ui->wifiSSIDLabel->setText(LoadString("IDS_WIFI_SSID"));
     ui->FTPIDPWLabel->setText(LoadString("IDS_FTP_ID_PW"));
     ui->IpLabel->setText(LoadString("IDS_IP"));
@@ -50,20 +52,18 @@ Setting4STAWidget::~Setting4STAWidget()
     delete ui;
 }
 
-void Setting4STAWidget::on_searchPushButton_clicked()
-{
-    BaseDialog baseDialog(Dialog::WifiSearchWidgetType);
-    baseDialog.exec();
-}
-
 void Setting4STAWidget::on_pwPushButton_clicked()
 {
-//    m_newJsonOjbect
+    KeyboardDialog keyboardDialog(GetLanguage());
+    if (keyboardDialog.exec() == QDialog::Accepted)
+    {
+        m_newJsonObject["sta ftp p/w"] = keyboardDialog.str();
+    }
 }
 
 void Setting4STAWidget::on_FTPIDPWLineEdit_textChanged(const QString &arg1)
 {
-    m_newJsonObject["sta fpt id & p/w"] = arg1;
+    m_newJsonObject["sta ftp id & p/w"] = arg1;
 }
 
 void Setting4STAWidget::on_ipLineEdit_textChanged(const QString &arg1)
@@ -80,3 +80,11 @@ void Setting4STAWidget::on_printerComboBox_currentIndexChanged(int index)
 {
     m_newJsonObject["printer selection"] = index + 1;
 }
+
+
+void Setting4STAWidget::on_searchPushButton_clicked()
+{
+    BaseDialog baseDialog(Dialog::WifiSearchWidgetType);
+    baseDialog.exec();
+}
+

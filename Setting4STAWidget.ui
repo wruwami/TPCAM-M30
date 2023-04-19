@@ -70,15 +70,15 @@
      <item row="2" column="1">
       <widget class="CustomLineEdit" name="ipLineEdit"/>
      </item>
+     <item row="0" column="1">
+      <widget class="CustomComboBox" name="wifiSSIDComboBox"/>
+     </item>
      <item row="0" column="2">
       <widget class="CustomPushButton" name="searchPushButton">
        <property name="text">
         <string>PushButton</string>
        </property>
       </widget>
-     </item>
-     <item row="0" column="1">
-      <widget class="CustomComboBox" name="wifiSSIDComboBox"/>
      </item>
     </layout>
    </item>

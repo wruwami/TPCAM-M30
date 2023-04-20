@@ -80,8 +80,8 @@ SOURCES += main.cpp\
     SearchBoxWidget.cpp \
     CustomZoomLabel.cpp \
     FileManagerFileTransferDialog.cpp \
-    SearchBoxDialog.cpp \
-    thermal_printer.cpp
+    SearchBoxDialog.cpp
+
 
 HEADERS  += MainWindow.h \
     CustomTogglePushButton.h \
@@ -155,8 +155,7 @@ HEADERS  += MainWindow.h \
     SearchBoxWidget.h \
     CustomZoomLabel.h \
     FileManagerFileTransferDialog.h \
-    SearchBoxDialog.h \
-    thermal_printer.h
+    SearchBoxDialog.h
 
 FORMS    += MainWindow.ui \
     IndicatorCameraFocusWidget.ui \

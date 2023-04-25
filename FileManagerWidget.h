@@ -35,6 +35,7 @@ private:
     QString m_dateTime;
 private:
     void setTableContent();
+    void convertValue();
 
 protected:
     void resizeEvent(QResizeEvent *event);

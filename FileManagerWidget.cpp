@@ -19,6 +19,7 @@
 #include "MovieViewerDialog.h"
 #include "FileManagerFileTransferDialog.h"
 #include "SearchBoxDialog.h"
+#include "thermal_printer.h"
 
 enum Mode
 {
@@ -28,6 +29,11 @@ enum Mode
     M_MODE,
     S_MODE,
 };
+
+extern ST_ENFORCEMENT_FILENAME_ELEMENT g_file_elem_for_printer;
+extern bool g_is_print_on_logo;
+extern bool g_is_printOption_body_on;
+extern bool g_is_printOption_ticket_num_on;
 
 FileManagerWidget::FileManagerWidget(QWidget *parent) :
     QWidget(parent),
@@ -197,12 +203,42 @@ void FileManagerWidget::on_deletePushButton_clicked()
     }
 }
 
+void FileManagerWidget::convertValue()
+{
+    snprintf(g_file_elem_for_printer.prefix, 2, m_currentAVFileFormat.filePrefix);
+    snprintf(g_file_elem_for_printer.file_id, 5, m_currentAVFileFormat.index);
+    snprintf(g_file_elem_for_printer.year, 4, &m_currentAVFileFormat.date[0]);
+    snprintf(g_file_elem_for_printer.month, 2, &m_currentAVFileFormat.date[4]);
+    snprintf(g_file_elem_for_printer.day, 2, &m_currentAVFileFormat.date[6]);
+    snprintf(g_file_elem_for_printer.hour, 2, &m_currentAVFileFormat.time[0]);
+    snprintf(g_file_elem_for_printer.minute, 2, &m_currentAVFileFormat.time[2]);
+    snprintf(g_file_elem_for_printer.second, 2, &m_currentAVFileFormat.time[4]);
+    snprintf(g_file_elem_for_printer.msec, 1, &m_currentAVFileFormat.time[6]);
+    snprintf(g_file_elem_for_printer.laser_capture_speed, 5, m_currentAVFileFormat.captureSpeed.toStdString().c_str());
+    snprintf(g_file_elem_for_printer.display_limit_speed, 4, m_currentAVFileFormat.speedLimit.toStdString().c_str());
+    snprintf(g_file_elem_for_printer.capture_limit_speed, 4, m_currentAVFileFormat.captureSpeedLimit.toStdString().c_str());
+    snprintf(g_file_elem_for_printer.laser_capture_distance, 4, m_currentAVFileFormat.distance.toStdString().c_str());
+//    snprintf(g_file_elem_for_printer.user_mode, 1, m_currentAVFileFormat);
+//    snprintf(g_file_elem_for_printer.enforcement_mode, 1, m_currentAVFileFormat);
+//    snprintf(g_file_elem_for_printer.dual_mode, 1, m_currentAVFileFormat.);
+//    snprintf(g_file_elem_for_printer.zoom_level, 2, m_currentAVFileFormat);
+    snprintf(g_file_elem_for_printer.latitude, 10, m_currentAVFileFormat.latitude.toStdString().c_str());
+    snprintf(g_file_elem_for_printer.longitude, 11, m_currentAVFileFormat.longitude.toStdString().c_str());
+    sprintf(g_file_elem_for_printer.location, m_currentAVFileFormat.location.toStdString().c_str());
+    sprintf(g_file_elem_for_printer.user_name, m_currentAVFileFormat.userId.toStdString().c_str());
+    sprintf(g_file_elem_for_printer.device_id, m_currentAVFileFormat.deviceId.toStdString().c_str());
+    sprintf(g_file_elem_for_printer.unit, &m_currentAVFileFormat.unit);
+
+}
+
 void FileManagerWidget::on_tableWidget_clicked(const QModelIndex &index)
 {
     if (m_avFileFormatList.size() >= (index.row() + m_AVFileFormatIndex))
         m_currentAVFileFormat = m_avFileFormatList[index.row()+ m_AVFileFormatIndex];
     else
         return;
+
+    convertValue();
 
     if (!strncmp(m_currentAVFileFormat.filePrefix, "VV", 2))
     {
@@ -329,13 +365,15 @@ void FileManagerWidget::on_movePushButton_clicked()
 
 void FileManagerWidget::on_printPushButton_clicked()
 {
+    print_wifi_printer();
 }
 
 void FileManagerWidget::on_connectPushButton_clicked()
 {
-    BaseDialog baseDialog(FileManagerErrorMessageWidgetType, Qt::AlignmentFlag::AlignCenter);
-    baseDialog.exec();
+//    BaseDialog baseDialog(FileManagerErrorMessageWidgetType, Qt::AlignmentFlag::AlignCenter);
+//    baseDialog.exec();
 
+    CreateWiFiReadThreadAndInitPrinter();
 }
 
 void FileManagerWidget::on_percentPushButton_clicked()

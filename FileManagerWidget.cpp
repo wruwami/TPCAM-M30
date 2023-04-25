@@ -30,10 +30,10 @@ enum Mode
     S_MODE,
 };
 
-extern ST_ENFORCEMENT_FILENAME_ELEMENT g_file_elem_for_printer;
-extern bool g_is_print_on_logo;
-extern bool g_is_printOption_body_on;
-extern bool g_is_printOption_ticket_num_on;
+ST_ENFORCEMENT_FILENAME_ELEMENT g_file_elem_for_printer;
+bool g_is_print_on_logo;
+bool g_is_printOption_body_on;
+bool g_is_printOption_ticket_num_on;
 
 FileManagerWidget::FileManagerWidget(QWidget *parent) :
     QWidget(parent),

@@ -9,8 +9,7 @@
 #include "Color.h"
 #include "WidgetSize.h"
 #include "CustomScrollbar.h"
-
-#define DEFAULT_FILE_PATH   "files"
+#include "FileManager.h"
 
 FileManagerSnapShotDialog::FileManagerSnapShotDialog(int nMode, QWidget *parent) :
     QDialog(parent),
@@ -36,22 +35,22 @@ FileManagerSnapShotDialog::FileManagerSnapShotDialog(int nMode, QWidget *parent)
     {
         case 0:
     {
-        folder_path = dir.absolutePath() + "/" + DEFAULT_FILE_PATH + "/snapshot/";
+        folder_path = GetPath("/snapshot/");
     }
         break;
     case 1:
     {
-        folder_path = dir.absolutePath() + "/" + DEFAULT_FILE_PATH + "/auto/";
+        folder_path = GetPath("/auto/");
     }
         break;
     case 2:
     {
-        folder_path = dir.absolutePath() + "/" + DEFAULT_FILE_PATH + "/video/";
+        folder_path = GetPath("/video/");
     }
         break;
     case 3:
     {
-        folder_path = dir.absolutePath() + "/" + DEFAULT_FILE_PATH + "/manual_capture/";
+        folder_path = GetPath("/manual_capture/");
     }
         break;
     }

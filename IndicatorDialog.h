@@ -23,7 +23,7 @@ private:
 private slots:
     void on_cameraPushButton_clicked();
 
-    void on_screenRecordingPushButton_clicked();
+
 
     void on_daynNightPushButton_clicked();
 
@@ -40,6 +40,9 @@ private slots:
     void on_cameraFocusClicked();
 
     void on_pushButton_clicked();
+    void on_screenRecordingPushButton_clicked();
+    void on_screenCapturePushButton_clicked();
+
 public:
     CustomPushButton* m_pCameraFocusPushButton = nullptr;
     CustomPushButton* m_pCameraExposePushButton = nullptr;
@@ -68,6 +71,8 @@ private:
 protected:
     void paintEvent(QPaintEvent *event);
     void mousePressEvent(QMouseEvent *event);
+private:
+    bool m_isRecording = false;
 };
 
 #endif // INDICATORCAMERADIALOG_H

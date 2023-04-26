@@ -14,6 +14,7 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
     CustomTogglePushButton.cpp \
+    FileManager.cpp \
     IndicatorCameraFocusWidget.cpp \
     IndicatorDialog.cpp \
     MainWindow.cpp \
@@ -86,6 +87,7 @@ SOURCES += main.cpp\
 
 HEADERS  += MainWindow.h \
     CustomTogglePushButton.h \
+    FileManager.h \
     FontSize.h \
     IndicatorCameraFocusWidget.h \
     IndicatorDialog.h \

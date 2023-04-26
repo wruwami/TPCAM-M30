@@ -1,6 +1,7 @@
 #include "IndicatorDialog.h"
 #include "ui_IndicatorDialog.h"
 #include "CustomPushButton.h"
+#include <stdlib.h>
 
 #include <QFile>
 #include <QPainter>
@@ -93,11 +94,7 @@ void IndicatorDialog::on_cameraPushButton_clicked()
     QObject::connect((QWidget*)m_pCameraFocusPushButton, SIGNAL(clicked()), this, SLOT(on_cameraFocusClicked()));
 }
 
-void IndicatorDialog::on_screenRecordingPushButton_clicked()
-{
-//    ui->onPushButton->setVisible(true);
-//    ui->offPushButton->setVisible(true);
-}
+
 
 void IndicatorDialog::on_daynNightPushButton_clicked()
 {
@@ -282,3 +279,22 @@ void IndicatorDialog::on_pushButton_clicked()
 {
     accept();
 }
+
+void IndicatorDialog::on_screenRecordingPushButton_clicked()
+{
+    QString cmd;
+    QString resolution = "800x480";
+    QString file_name = "";
+    cmd = QString("ffmpeg -y -f x11grab -framerate 30 -video_size %s -i :0.0+0,0 -c:v libx264 -pix_fmt yuv420p -qp 0 -preset ultrafast %s").arg(resolution).arg(file_name);
+    if (m_isRecording)
+        system(cmd.toStdString().c_str());
+    else
+        system("q");
+    m_isRecording = !m_isRecording;
+}
+
+void IndicatorDialog::on_screenCapturePushButton_clicked()
+{
+
+}
+

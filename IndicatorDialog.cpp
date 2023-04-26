@@ -5,6 +5,7 @@
 
 #include <QFile>
 #include <QPainter>
+#include <QDateTime>
 
 #include "BaseDialog.h"
 #include "Color.h"
@@ -16,6 +17,7 @@
 
 #include <QGraphicsOpacityEffect>
 #include "WidgetSize.h"
+#include "FileManager.h"
 
 IndicatorDialog::IndicatorDialog(QWidget *parent) :
     QDialog(parent),
@@ -284,8 +286,9 @@ void IndicatorDialog::on_screenRecordingPushButton_clicked()
 {
     QString cmd;
     QString resolution = "800x480";
-    QString file_name = "";
-    cmd = QString("ffmpeg -y -f x11grab -framerate 30 -video_size %s -i :0.0+0,0 -c:v libx264 -pix_fmt yuv420p -qp 0 -preset ultrafast %s").arg(resolution).arg(file_name);
+    QTime time;
+    QString file_path = GetSubPath("/manual_capture/") + time.toString("mmss.mkv");
+    cmd = QString("ffmpeg -y -f x11grab -framerate 30 -video_size %1 -i :0.0+0,0 -c:v libx264 -pix_fmt yuv420p -qp 0 -preset ultrafast %2").arg(resolution).arg(file_path);
     if (m_isRecording)
         system(cmd.toStdString().c_str());
     else

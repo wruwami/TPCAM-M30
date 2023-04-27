@@ -6,6 +6,7 @@
 #include <QFile>
 #include <QPainter>
 #include <QDateTime>
+#include "qdir.h"
 
 #include "BaseDialog.h"
 #include "Color.h"
@@ -284,24 +285,38 @@ void IndicatorDialog::on_pushButton_clicked()
 
 void IndicatorDialog::on_screenRecordingPushButton_clicked()
 {
-    QString cmd;
-    QString resolution = "800x480";
-    QTime time;
-    QString file_path = GetSubPath("/manual_capture/") + time.toString("mmss.mkv");
-    cmd = QString("ffmpeg -hwaccel opencl -y -f x11grab -framerate 10 -video_size %1 -i :0.0+0,0 -c:v libx264 -pix_fmt yuv420p -qp 0 -preset ultrafast %2 &").arg(resolution).arg("output.mkv");
-    if (!m_isRecording)
+    char buff[256];
+    FILE* fp = popen("ps -ef | grep ffmpeg | awk '{print $8}'", "r");
+    if (fp == NULL)
     {
-        int ret = system(cmd.toStdString().c_str());
-        printf("%s", cmd.toStdString().c_str());
-        int a = 0;
+        perror("erro : ");
+        return;
+    }
+
+    while(fgets(buff, 256, fp) != NULL)
+    {
+        printf("%s", buff);
+    }
+
+    if (!strcmp(buff, "grep\n"))
+    {
+        QString cmd;
+        QString resolution = "800x480";
+        QTime time;
+        QString file_name = time.toString("mmss.mkv");
+        cmd = QString("ffmpeg -hwaccel opencl -y -f x11grab -framerate 10 -video_size %1 -i :0.0+0,0 -c:v libx264 -pix_fmt yuv420p -qp 0 -preset ultrafast %2 &").arg(resolution).arg(file_name);
+        system(cmd.toStdString().c_str());
     }
     else
-        system("q");
-    m_isRecording = !m_isRecording;
+    {
+        system("ps -ef | grep ffmpeg | awk '{print $2}' | xargs kill -9");
+    }
 }
 
 void IndicatorDialog::on_screenCapturePushButton_clicked()
 {
-
+    QPixmap pixmap = QPixmap::grabWindow(this->winId());
+    QString filename = GetSubPath("manual_capture") + "/" + GetFile("SC");
+    pixmap.save(filename, 0, 100);
 }
 

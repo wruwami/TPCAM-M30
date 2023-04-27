@@ -16,11 +16,11 @@ QString FileManager::GetPath(QString name)
 QString FileManager::GetSubPath(QString name)
 {
     QDateTime datetime = datetime.currentDateTime();
-    QString dt = GetFirstPath() + "/" + DEFAULT_FILE_PATH + "/" + name + "/" + datetime.toString("yyyyMMdd_HH");
-    QDir dir(GetFirstPath() + "/" + DEFAULT_FILE_PATH + "/" + name + "/");
+    QDir dir = GetFirstPath() + "/" + DEFAULT_FILE_PATH + "/" + name + "/" + datetime.toString("yyyyMMdd_HH");
+//    QDir dir(GetFirstPath() + "/" + DEFAULT_FILE_PATH + "/" + name + "/");
     if (!dir.exists())
     {
-        dir.mkdir(datetime.toString("yyyyMMdd_HH"));
+        dir.mkdir(GetFirstPath() + "/" + DEFAULT_FILE_PATH + "/" + name + "/" + datetime.toString("yyyyMMdd_HH"));
     }
     return dir.absolutePath();
 }
@@ -29,6 +29,12 @@ QString FileManager::GetSubPath(QString name)
 QString FileManager::AddFile(QString path_name, QString file_name)
 {
 
+}
+
+QString FileManager::GetFile(QString name)
+{
+    QTime time = time.currentTime();
+    return name + "_" + time.toString("mmss") + ".png";
 }
 
 QString FileManager::GetFirstPath()

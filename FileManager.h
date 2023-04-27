@@ -19,6 +19,7 @@ public:
     QString GetPath(QString name);
     QString GetSubPath(QString name);
     QString AddFile(QString path_name, QString file_name);
+    QString GetFile(QString name);
 private:
     QString GetFirstPath();
 
@@ -34,7 +35,11 @@ static QString AddFile(QString path_name, QString file_name)
 }
 static QString GetSubPath(QString name)
 {
-    return FileManager::GetInstance()->GetSubPath("name");
+    return FileManager::GetInstance()->GetSubPath(name);
+}
+static QString GetFile(QString name)
+{
+    return FileManager::GetInstance()->GetFile(name);
 }
 
 #endif // FILEMANAGER_H

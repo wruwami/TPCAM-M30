@@ -288,9 +288,13 @@ void IndicatorDialog::on_screenRecordingPushButton_clicked()
     QString resolution = "800x480";
     QTime time;
     QString file_path = GetSubPath("/manual_capture/") + time.toString("mmss.mkv");
-    cmd = QString("ffmpeg -y -f x11grab -framerate 30 -video_size %1 -i :0.0+0,0 -c:v libx264 -pix_fmt yuv420p -qp 0 -preset ultrafast %2").arg(resolution).arg(file_path);
-    if (m_isRecording)
-        system(cmd.toStdString().c_str());
+    cmd = QString("ffmpeg -hwaccel opencl -y -f x11grab -framerate 10 -video_size %1 -i :0.0+0,0 -c:v libx264 -pix_fmt yuv420p -qp 0 -preset ultrafast %2 &").arg(resolution).arg("output.mkv");
+    if (!m_isRecording)
+    {
+        int ret = system(cmd.toStdString().c_str());
+        printf("%s", cmd.toStdString().c_str());
+        int a = 0;
+    }
     else
         system("q");
     m_isRecording = !m_isRecording;

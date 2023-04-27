@@ -286,7 +286,8 @@ void IndicatorDialog::on_pushButton_clicked()
 void IndicatorDialog::on_screenRecordingPushButton_clicked()
 {
     char buff[256];
-    FILE* fp = popen("ps -ef | grep ffmpeg | awk '{print $8}'", "r");
+    memset(buff, 0, 256);
+    FILE* fp = popen("pidof ffmpeg", "r");
     if (fp == NULL)
     {
         perror("erro : ");
@@ -298,12 +299,11 @@ void IndicatorDialog::on_screenRecordingPushButton_clicked()
         printf("%s", buff);
     }
 
-    if (!strcmp(buff, "grep\n"))
+    if (!strlen(buff))
     {
         QString cmd;
         QString resolution = "800x480";
-        QTime time;
-        QString file_name = time.toString("mmss.mkv");
+        QString file_name = GetSubPath("manual_capture") + "/" + GetFile("SR");
         cmd = QString("ffmpeg -hwaccel opencl -y -f x11grab -framerate 10 -video_size %1 -i :0.0+0,0 -c:v libx264 -pix_fmt yuv420p -qp 0 -preset ultrafast %2 &").arg(resolution).arg(file_name);
         system(cmd.toStdString().c_str());
     }

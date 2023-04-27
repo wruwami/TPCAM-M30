@@ -34,7 +34,10 @@ QString FileManager::AddFile(QString path_name, QString file_name)
 QString FileManager::GetFile(QString name)
 {
     QTime time = time.currentTime();
-    return name + "_" + time.toString("mmss") + ".png";
+    if (name == "SC")
+        return name + "_" + time.toString("mmss") + ".png";
+    else
+        return name + "_" + time.toString("mmss") + ".mkv";
 }
 
 QString FileManager::GetFirstPath()

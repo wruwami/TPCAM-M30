@@ -11,6 +11,7 @@
 #include "StringLoader.h"
 #include "BaseDialog.h"
 #include "DateFormatManager.h"
+#include "FileManager.h"
 
 SelfTestDialog::SelfTestDialog(QWidget *parent) :
     QDialog(parent),
@@ -59,7 +60,7 @@ SelfTestDialog::SelfTestDialog(QWidget *parent) :
     expired_file.close();
 
 
-    ui->versionLabel->setText(LoadString("IDS_VERSION") + "(" + GetDate(QDate::currentDate().toString("yyyyMMdd")) + ")");
+    ui->versionLabel->setText(GetVersion() + "(" + GetDate(QDate::currentDate().toString("yyyyMMdd")) + ")");
 
     ui->expiredDateLabel->setStyleSheet("QLabel { color : red; }");
     ui->versionLabel->setStyleSheet("QLabel { color : #ffc000; }");
@@ -75,6 +76,28 @@ SelfTestDialog::~SelfTestDialog()
 {
 //    killTimer()
     delete ui;
+}
+
+QString SelfTestDialog::GetVersion()
+{
+    ;
+    QFile file(GetPath("", SD) + "/" + "verison_in");
+    file.open(QFile::ReadOnly);
+
+    if (!file.isOpen())
+    {
+        qDebug() << "no file has been opened";
+        ui->expiredDateLabel->setText(LoadString("IDS_EXPIRED_DATE"));
+    }
+    else
+    {
+        QByteArray ba = file.readAll();
+        QString str = QString(ba);
+        file.close();
+        return str;
+    }
+    file.close();
+    return str;
 }
 
 void SelfTestDialog::timerEvent(QTimerEvent *event)

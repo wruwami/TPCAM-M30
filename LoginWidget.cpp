@@ -79,7 +79,7 @@ LoginWidget::LoginWidget(QWidget *parent) :
         baseDialog.exec();
     }
 
-    LightManager* m_pLightMager = new LightManager;
+    m_pLightMager = new LightManager;
 
 //    m_userName = ui->userNameComboBox->it;
 }

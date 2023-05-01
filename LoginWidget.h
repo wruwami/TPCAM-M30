@@ -7,6 +7,7 @@
 
 class CustomPushButton;
 class CustomComboBox;
+class LightManager;
 namespace Ui {
 class LoginWidget;
 }
@@ -38,6 +39,7 @@ private:
     QJsonObject m_jsonObject;
     QJsonObject m_newJsonObject;
     ConfigManager m_config = ConfigManager("parameter_login.json");
+    LightManager* m_pLightMager;
 private:
     Ui::LoginWidget *ui;
 

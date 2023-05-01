@@ -18,6 +18,7 @@ SOURCES += main.cpp\
     ImageConverter.cpp \
     IndicatorCameraFocusWidget.cpp \
     IndicatorDialog.cpp \
+    LightManager.cpp \
     MainWindow.cpp \
     LoginWidget.cpp \
     MainMenuWidget.cpp \
@@ -95,6 +96,7 @@ HEADERS  += MainWindow.h \
     ImageConverter.h \
     IndicatorCameraFocusWidget.h \
     IndicatorDialog.h \
+    LightManager.h \
     LoginWidget.h \
     MainMenuWidget.h \
     MovieViewerDialog.h \

@@ -76,6 +76,16 @@ void IndicatorDialog::setFocusExposeDisabled(bool isDisable)
         m_pCameraFocusPushButton->setDisabled(isDisable);
 }
 
+bool IndicatorDialog::GetGPSStatus()
+{
+    return true;
+}
+
+bool IndicatorDialog::GetWifiStatus()
+{
+    return false;
+}
+
 void IndicatorDialog::on_cameraPushButton_clicked()
 {
     clearSecondRow();

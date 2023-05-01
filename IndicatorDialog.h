@@ -18,6 +18,8 @@ public:
     explicit IndicatorDialog(QWidget *parent = 0);
     ~IndicatorDialog();
     void setFocusExposeDisabled(bool = false);
+    bool GetGPSStatus();
+    bool GetWifiStatus();
 private:
     void clearSecondRow();
 private slots:

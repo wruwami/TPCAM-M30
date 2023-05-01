@@ -14,7 +14,7 @@
 #include "KeyboardDialog.h"
 #include "KeypadDialog.h"
 #include "FileManager.h"
-
+#include "LightManager.h"
 
 LoginWidget::LoginWidget(QWidget *parent) :
     QWidget(parent),
@@ -79,13 +79,18 @@ LoginWidget::LoginWidget(QWidget *parent) :
         baseDialog.exec();
     }
 
-
+    LightManager* m_pLightMager = new LightManager;
 
 //    m_userName = ui->userNameComboBox->it;
 }
 
 LoginWidget::~LoginWidget()
 {
+    if (m_pLightMager != nullptr)
+    {
+        delete m_pLightMager;
+        m_pLightMager = nullptr;
+    }
     delete m_loginPushButton;
     delete ui;
 }
@@ -107,6 +112,7 @@ void LoginWidget::on_dateTimePushButton_clicked()
 
 void LoginWidget::on_lightPushButton_clicked()
 {
+    m_pLightMager->SwapLight();
 }
 
 void LoginWidget::on_userNamePushButton_clicked()

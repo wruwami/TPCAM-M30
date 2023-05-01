@@ -3,6 +3,12 @@
 
 #include <QString>
 
+enum Type
+{
+    eMMC,
+    SD
+};
+
 class FileManager
 {
 private:
@@ -16,26 +22,27 @@ public:
         if(instance == nullptr) instance = new FileManager();
         return instance;
     }
-    QString GetPath(QString name);
-    QString GetSubPath(QString name);
+    QString GetPath(QString name,Type type);
+    QString GetSubPath(QString name,Type type);
     QString AddFile(QString path_name, QString file_name);
     QString GetFile(QString name);
 private:
-    QString GetFirstPath();
+    QString GeteMMCPath();
+    QString GetSDPath();
 
 };
 
-static QString GetPath(QString name)
+static QString GetPath(QString name, Type type)
 {
-    return FileManager::GetInstance()->GetPath(name);
+    return FileManager::GetInstance()->GetPath(name, type);
 }
 static QString AddFile(QString path_name, QString file_name)
 {
     return FileManager::GetInstance()->AddFile(path_name, file_name);
 }
-static QString GetSubPath(QString name)
+static QString GetSubPath(QString name, Type type)
 {
-    return FileManager::GetInstance()->GetSubPath(name);
+    return FileManager::GetInstance()->GetSubPath(name, type);
 }
 static QString GetFile(QString name)
 {

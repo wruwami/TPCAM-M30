@@ -35,22 +35,22 @@ FileManagerSnapShotDialog::FileManagerSnapShotDialog(int nMode, QWidget *parent)
     {
         case 0:
     {
-        folder_path = GetPath("/snapshot/");
+        folder_path = GetPath("/snapshot/", eMMC);
     }
         break;
     case 1:
     {
-        folder_path = GetPath("/auto/");
+        folder_path = GetPath("/auto/", eMMC);
     }
         break;
     case 2:
     {
-        folder_path = GetPath("/video/");
+        folder_path = GetPath("/video/", eMMC);
     }
         break;
     case 3:
     {
-        folder_path = GetPath("/manual_capture/");
+        folder_path = GetPath("/manual_capture/", eMMC);
     }
         break;
     }

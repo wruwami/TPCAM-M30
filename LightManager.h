@@ -8,7 +8,7 @@ public:
     LightManager();
     void SwapLight();
 private:
-    bool isLightOn = false;
+    bool isLightOn = true;
 };
 
 #endif // LIGHTMANAGER_H

@@ -13,8 +13,8 @@ LightManager::LightManager()
 void LightManager::SwapLight()
 {
     if (isLightOn)
-        system("echo 0 > /sys/class/gpio/gpio154/value");
-    else
         system("echo 1 > /sys/class/gpio/gpio154/value");
+    else
+        system("echo 0 > /sys/class/gpio/gpio154/value");
     isLightOn = !isLightOn;
 }

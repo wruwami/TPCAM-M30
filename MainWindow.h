@@ -13,7 +13,7 @@ class IndicatorDialog;
 class MainMenuContentWidget;
 class MainMenuAdminAlignWidget;
 class FileManagerWidget;
-class SerialManager;
+class SerialGPSManager;
 namespace Ui {
 class MainWindow;
 }
@@ -60,6 +60,7 @@ private slots:
     void on_userNameChanged(QString arg);
     void on_DeviceIdSaveClicked();
     void on_DeviceIdCancelClicked();
+    void on_datetimeChecked();
 private:
     Ui::MainWindow *ui;
     DateTimeWidget* m_pDateTimeWidget = nullptr;
@@ -70,7 +71,7 @@ private:
     MainMenuAdminAlignWidget* m_pMainMenuAdminAlignWidget = nullptr;
     CameraAlignWidget* m_pCameraAlignWidget = nullptr;
     FileManagerWidget* m_pFileManagerWidget;
-    SerialManager* m_pSerialManager;
+    SerialGPSManager* m_pSerialManager;
 
     QString m_userName;
     int m_nFailTimerId;

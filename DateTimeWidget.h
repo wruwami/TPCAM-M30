@@ -5,9 +5,11 @@
 #include <QDateTime>
 #include <QJsonObject>
 
+
 #include "ConfigManager.h"
 
 class CustomPushButton;
+class CustomCheckBox;
 namespace Ui {
 class DateTimeWidget;
 }
@@ -19,11 +21,14 @@ class DateTimeWidget : public QWidget
 public:
     explicit DateTimeWidget(QWidget *parent = 0);
     ~DateTimeWidget();
+    void SetGPSUTCDateTime(QDateTime datetime);
 private:
     void setDateTimeValue();
 public:
     QWidget* m_pSavePushButton;
     QWidget* m_pCancelPushButton;
+    QWidget* m_pParent;
+    CustomCheckBox* m_pGPSCheckBox;
 private slots:
     void on_yearPlusPushButton_clicked();
     void on_yearMinusPushButton_clicked();
@@ -41,6 +46,7 @@ private slots:
     void on_cancelPushButton_clicked();
 
     void on_timeZoneComboBox_currentIndexChanged(int index);    
+
 private:
     QDateTime m_dateTime;
     QJsonObject m_jsonObject;

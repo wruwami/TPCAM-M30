@@ -7,7 +7,7 @@
 #include "ConfigManager.h"
 #include "DateFormatManager.h"
 #include "StringLoader.h"
-
+#include "CustomCheckBox.h"
 
 DateTimeWidget::DateTimeWidget(QWidget *parent) :
     QWidget(parent),
@@ -27,7 +27,9 @@ DateTimeWidget::DateTimeWidget(QWidget *parent) :
 
     m_pSavePushButton = ui->savePushButton;
     m_pCancelPushButton = ui->cancelPushButton;
+    m_pGPSCheckBox = ui->gpsSyncCheckBox;
 
+    m_pParent = parent;
 
     QList<QByteArray> ids = QTimeZone::availableTimeZoneIds();
     foreach (QByteArray id, ids) {
@@ -43,6 +45,12 @@ DateTimeWidget::~DateTimeWidget()
     delete ui;
 }
 
+void DateTimeWidget::SetGPSUTCDateTime(QDateTime datetime)
+{
+    QByteArray tz = ui->timeZoneComboBox->currentText().toUtf8();
+    m_dateTime = QDateTime(datetime.date(), datetime.time(), QTimeZone(tz));
+}
+
 void DateTimeWidget::setDateTimeValue()
 {
     ui->yearLabel->setText(QString::fromStdString(std::to_string(m_dateTime.date().year())));
@@ -51,6 +59,20 @@ void DateTimeWidget::setDateTimeValue()
     ui->hourLabel->setText(QString::fromStdString(std::to_string(m_dateTime.time().hour())));
     ui->minuteLabel->setText(QString::fromStdString(std::to_string(m_dateTime.time().minute())));
     ui->secondLabel->setText(QString::fromStdString(std::to_string(m_dateTime.time().second())));
+
+//    QString string = m_dateTime.toString("\"yyyy-MM-dd hh:mm:ss\"");
+//    QString dateTimeString ("date -s ");
+//    dateTimeString.append(string);
+//    int systemDateTimeStatus= system(dateTimeString.toStdString().c_str());
+//    if (systemDateTimeStatus == -1)
+//    {
+//        qDebug() << "Failed to change date time";
+//    }
+//    int systemHwClockStatus = system("/sbin/hwclock -w");
+//    if (systemHwClockStatus == -1 )
+//    {
+//        qDebug() << "Failed to sync hardware clock";
+//    }
 }
 
 void DateTimeWidget::on_yearPlusPushButton_clicked()
@@ -128,15 +150,16 @@ void DateTimeWidget::on_secondMinusPushButton_clicked()
 void DateTimeWidget::on_savePushButton_clicked()
 {
     m_newJsonObject["gps sync"] = ui->gpsSyncCheckBox->isChecked();
+    bool isChecked = ui->gpsSyncCheckBox->isChecked();
 
     m_config.SetConfig(m_newJsonObject);
     m_config.SaveFile();
 
 #ifdef  Q_OS_LINUX
-    QString string = m_dateTime.toString("\"yyyy-MM-dd hh:mm\"");
+    QString string = m_dateTime.toString("\"yyyy-MM-dd hh:mm:ss\"");
     QString dateTimeString ("date -s ");
     dateTimeString.append(string);    
-    dateTimeString.append("TZ : " + ui->timeZoneComboBox->currentText());
+//    dateTimeString.append("TZ : " + ui->timeZoneComboBox->currentText());
 
     int systemDateTimeStatus= system(dateTimeString.toStdString().c_str());
     if (systemDateTimeStatus == -1)
@@ -144,8 +167,12 @@ void DateTimeWidget::on_savePushButton_clicked()
         qDebug() << "Failed to change date time";
     }
 
-    QString TimeZoneString ("timedatectl set-timezone ");
-    dateTimeString.append(ui->timeZoneComboBox->currentText());
+    if (isChecked)
+    {
+        QString TimeZoneString ("timedatectl set-timezone \"");
+        dateTimeString.append(ui->timeZoneComboBox->currentText());
+        dateTimeString.append("\"");
+    }
 
     systemDateTimeStatus= system(dateTimeString.toStdString().c_str());
     if (systemDateTimeStatus == -1)

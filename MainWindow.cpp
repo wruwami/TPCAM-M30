@@ -23,7 +23,7 @@
 #include "IndicatorCameraExposeWidget.h"
 #include "IndicatorCameraFocusWidget.h"
 #include "SelfTestDialog.h"
-#include "SerialManager.h"
+#include "SerialGPSManager.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -43,16 +43,18 @@ MainWindow::MainWindow(QWidget *parent) :
     m_pMainMenuWidget->setMainMenuTitle(LoadString("IDS_LOGIN"));
     m_pIndicatorWidget = new IndicatorDialog;
     m_pIndicatorWidget->setModal(true);
+    m_pDateTimeWidget = new DateTimeWidget;
 
-    m_pSerialManager = new SerialManager;
+    m_pSerialManager = new SerialGPSManager;
 
+    QObject::connect((QWidget*)m_pDateTimeWidget->m_pGPSCheckBox, SIGNAL(stateChanged()), this, SLOT(on_datetimeChecked()));
     QObject::connect((QWidget*)m_pLoginWidget->m_loginPushButton, SIGNAL(clicked()), this, SLOT(on_loginWidgetClicked()));
     QObject::connect((QWidget*)m_pLoginWidget->m_dateTimePushButton, SIGNAL(clicked()), this, SLOT(on_dateTimeWidgetClicked()));
     QObject::connect((QWidget*)m_pLoginWidget->m_pUserNameComboBox, SIGNAL(currentIndexChanged(QString)), this, SLOT(on_userNameChanged(QString)));
     QObject::connect((QWidget*)m_pMainMenuWidget->m_pHomePushButton, SIGNAL(clicked()), this, SLOT(on_mainMenuHomeClicked()));
 
 //    SetWarningMode();
-
+    startTimer(1000);
 }
 
 MainWindow::~MainWindow()
@@ -67,6 +69,12 @@ MainWindow::~MainWindow()
         m_pIndicatorWidget->close();
         delete m_pIndicatorWidget;
         m_pIndicatorWidget = nullptr;
+    }
+
+    if (m_pSerialManager)
+    {
+        delete m_pSerialManager;
+        m_pSerialManager = nullptr;
     }
 
     finalize();
@@ -267,7 +275,7 @@ void MainWindow::on_dateTimeWidgetClicked()
 //        m_pLoginWidget = nullptr;
 //    }
 //    if (m_pDateTimeWidget == nullptr)
-    m_pDateTimeWidget = new DateTimeWidget;
+
     m_pMainMenuWidget->setMainMenuTitle(LoadString("IDS_DATE_TIME"));
     ui->verticalLayout->addWidget(m_pDateTimeWidget, 835);
     QObject::connect((QWidget*)m_pDateTimeWidget->m_pSavePushButton, SIGNAL(clicked()), this, SLOT(on_DateTimeSaveClicked()));
@@ -445,6 +453,12 @@ void MainWindow::on_DeviceIdSaveClicked()
 void MainWindow::on_DeviceIdCancelClicked()
 {
     on_mainMenuHomeClicked();
+}
+
+void MainWindow::on_datetimeChecked()
+{
+    if (m_pSerialManager->GetSatellitesInView() != 0)
+        m_pDateTimeWidget->SetGPSUTCDateTime(m_pSerialManager->GetDateTime());
 }
 
 void MainWindow::timerEvent(QTimerEvent *event)

@@ -12,6 +12,7 @@
 #include "BaseDialog.h"
 #include "DateFormatManager.h"
 #include "FileManager.h"
+#include "SerialGPSManager.h"
 
 SelfTestDialog::SelfTestDialog(QWidget *parent) :
     QDialog(parent),
@@ -126,6 +127,18 @@ void SelfTestDialog::StartSelfTest()
         baseDialog.exec();
         return;
     }
+    SerialGPSManager serialGPSManager;
+    if (serialGPSManager.GetSatellitesInView() != 0)
+    {
+        QDateTime datetime = serialGPSManager.GetDateTime();
+        QString string = datetime.toString("\"yyyy-MM-dd hh:mm:ss\"");
+        QString dateTimeString ("date -s ");
+        dateTimeString.append(string);
+
+        system(dateTimeString.toStdString().c_str());
+
+    }
+
 
 }
 

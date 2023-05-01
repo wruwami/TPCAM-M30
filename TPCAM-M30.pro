@@ -24,7 +24,7 @@ SOURCES += main.cpp\
     MovieViewerDialog.cpp \
     NetworkManager.cpp \
     SelfTestDialog.cpp \
-    SerialManager.cpp \
+    SerialGPSManager.cpp \
     Setting4APWidget.cpp \
     StillImageViewerDialog.cpp \
     StringLoader.cpp \
@@ -100,7 +100,7 @@ HEADERS  += MainWindow.h \
     MovieViewerDialog.h \
     NetworkManager.h \
     SelfTestDialog.h \
-    SerialManager.h \
+    SerialGPSManager.h \
     Setting4APWidget.h \
     StillImageViewerDialog.h \
     StringLoader.h \

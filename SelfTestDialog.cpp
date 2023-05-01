@@ -97,7 +97,7 @@ QString SelfTestDialog::GetVersion()
         return str;
     }
     file.close();
-    return str;
+    return "";
 }
 
 void SelfTestDialog::timerEvent(QTimerEvent *event)

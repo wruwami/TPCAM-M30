@@ -3,6 +3,8 @@
 #include "qdir.h"
 #include <QDateTime>
 
+#include "DateFormatManager.h"
+
 #define DEFAULT_FILE_PATH   "files"
 
 FileManager* FileManager::instance = nullptr;
@@ -19,16 +21,16 @@ QString FileManager::GetSubPath(QString name,Type type)
     QDateTime datetime = datetime.currentDateTime();
     QDir dir;
     if (type == eMMC)
-        GeteMMCPath() + "/" + DEFAULT_FILE_PATH + "/" + name + "/" + datetime.toString("yyyyMMdd_HH");
+        GeteMMCPath() + "/" + DEFAULT_FILE_PATH + "/" + name + "/" + GetDate(datetime.toString());
     else
-        GetSDPath() + "/" + DEFAULT_FILE_PATH + "/" + name + "/" + datetime.toString("yyyyMMdd_HH");
+        GetSDPath() + "/" + DEFAULT_FILE_PATH + "/" + name + "/" + GetDate(datetime.toString());
 //    QDir dir(GetFirstPath() + "/" + DEFAULT_FILE_PATH + "/" + name + "/");
     if (!dir.exists())
     {
         if (type == eMMC)
-            dir.mkdir(GeteMMCPath() + "/" + DEFAULT_FILE_PATH + "/" + name + "/" + datetime.toString("yyyyMMdd_HH"));
+            dir.mkdir(GeteMMCPath() + "/" + DEFAULT_FILE_PATH + "/" + name + "/" + GetDate(datetime.toString()));
         else
-            dir.mkdir(GetSDPath() + "/" + DEFAULT_FILE_PATH + "/" + name + "/" + datetime.toString("yyyyMMdd_HH"));
+            dir.mkdir(GetSDPath() + "/" + DEFAULT_FILE_PATH + "/" + name + "/" + GetDate(datetime.toString()));
     }
     return dir.absolutePath();
 }

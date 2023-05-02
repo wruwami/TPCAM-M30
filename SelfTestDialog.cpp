@@ -70,6 +70,7 @@ SelfTestDialog::SelfTestDialog(QWidget *parent) :
 //    baseDialog.exec();
 
     startTimer(1000);
+    StartSelfTest();
 }
 
 SelfTestDialog::~SelfTestDialog()
@@ -80,8 +81,7 @@ SelfTestDialog::~SelfTestDialog()
 
 QString SelfTestDialog::GetVersion()
 {
-    ;
-    QFile file(GetPath("", SD) + "/" + "verison_in");
+    QFile file(GetPath("", SD) + "/" + "verison_info.txt");
     file.open(QFile::ReadOnly);
 
     if (!file.isOpen())
@@ -98,6 +98,55 @@ QString SelfTestDialog::GetVersion()
     }
     file.close();
     return "";
+}
+
+void SelfTestDialog::StartSelfTest()
+{
+    if (!CameraTest())
+    {
+        BaseDialog baseDialog(SelfTestWarningMessageWidgetType, Qt::AlignmentFlag::AlignCenter);
+        baseDialog.exec();
+        return;
+    }
+    if (!LaserTest())
+    {
+        BaseDialog baseDialog(SelfTestWarningMessageWidgetType, Qt::AlignmentFlag::AlignCenter);
+        baseDialog.exec();
+        return;
+    }
+    if (!BatteryTest())
+    {
+        BaseDialog baseDialog(SelfTestWarningMessageWidgetType, Qt::AlignmentFlag::AlignCenter);
+        baseDialog.exec();
+        return;
+    }
+    if (!StorageTest())
+    {
+        BaseDialog baseDialog(SelfTestWarningMessageWidgetType, Qt::AlignmentFlag::AlignCenter);
+        baseDialog.exec();
+        return;
+    }
+
+}
+
+bool SelfTestDialog::CameraTest()
+{
+
+}
+
+bool SelfTestDialog::LaserTest()
+{
+
+}
+
+bool SelfTestDialog::BatteryTest()
+{
+
+}
+
+bool SelfTestDialog::StorageTest()
+{
+
 }
 
 void SelfTestDialog::timerEvent(QTimerEvent *event)

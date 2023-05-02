@@ -17,6 +17,11 @@ public:
 
 private:
     QString GetVersion();
+    void StartSelfTest();
+    bool CameraTest();
+    bool LaserTest();
+    bool BatteryTest();
+    bool StorageTest();
 private:
     Ui::SelfTestDialog *ui;
     int m_nSecond = 0;

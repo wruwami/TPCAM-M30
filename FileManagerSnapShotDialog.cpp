@@ -35,22 +35,22 @@ FileManagerSnapShotDialog::FileManagerSnapShotDialog(int nMode, QWidget *parent)
     {
         case 0:
     {
-        folder_path = GetPath("/snapshot/", eMMC);
+        folder_path = GetPath("snapshot/", eMMC);
     }
         break;
     case 1:
     {
-        folder_path = GetPath("/auto/", eMMC);
+        folder_path = GetPath("auto/", eMMC);
     }
         break;
     case 2:
     {
-        folder_path = GetPath("/video/", eMMC);
+        folder_path = GetPath("video/", eMMC);
     }
         break;
     case 3:
     {
-        folder_path = GetPath("/manual_capture/", eMMC);
+        folder_path = GetPath("manual_capture/", eMMC);
     }
         break;
     }
@@ -72,7 +72,7 @@ FileManagerSnapShotDialog::~FileManagerSnapShotDialog()
     delete ui;
 }
 
-void FileManagerSnapShotDialog::addListItem(QString str)
+void FileManagerSnapShotDialog::addListItem(QString strDate)
 {
 
     QDir qdir;
@@ -81,7 +81,12 @@ void FileManagerSnapShotDialog::addListItem(QString str)
     pixmap.load(qdir.absolutePath() + "/images/file_manager/file_management_folder_icon_normal.bmp");
     QIcon icon(pixmap);
 
-    QListWidgetItem *item = new QListWidgetItem(str);
+    std::string str = strDate.toStdString();
+    int pos = str.rfind('/');
+    str = str.substr(pos + 1, str.size() - 8 + 1);
+    strDate = QString::fromStdString(str);
+
+    QListWidgetItem *item = new QListWidgetItem(strDate);
     item->setIcon(icon);
     ui->listWidget->addItem(item);
 }

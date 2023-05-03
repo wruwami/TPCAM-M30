@@ -43,7 +43,7 @@ SelfTestDialog::SelfTestDialog(QWidget *parent) :
 //    ui->storageTitleLabel->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
     ui->storageValueLabel->setText(LoadString("IDS_SELFTEST_CHECK"));
 
-    QFile expired_file("/root/expired_date.txt");
+    QFile expired_file(GetPath("", SD) + "/" + ("expired_date.txt"));
     expired_file.open(QFile::ReadOnly);
 
     if (!expired_file.isOpen())
@@ -87,7 +87,7 @@ QString SelfTestDialog::GetVersion()
     if (!file.isOpen())
     {
         qDebug() << "no file has been opened";
-        ui->expiredDateLabel->setText(LoadString("IDS_EXPIRED_DATE"));
+//        ui->versionLabel->setText(LoadString("IDS_EXPIRED_DATE"));
     }
     else
     {
@@ -131,22 +131,22 @@ void SelfTestDialog::StartSelfTest()
 
 bool SelfTestDialog::CameraTest()
 {
-
+    return true;
 }
 
 bool SelfTestDialog::LaserTest()
 {
-
+    return true;
 }
 
 bool SelfTestDialog::BatteryTest()
 {
-
+    return true;
 }
 
 bool SelfTestDialog::StorageTest()
 {
-
+    return true;
 }
 
 void SelfTestDialog::timerEvent(QTimerEvent *event)
@@ -158,9 +158,9 @@ void SelfTestDialog::timerEvent(QTimerEvent *event)
 //        accept();
 //    else if (m_nSecond == 2)
 //    {
-        ui->cameraValueLabel->setText(LoadString("IDS_SELFTEST_SUCCESS"));
-        ui->laserValueLabel->setText(LoadString("IDS_SELFTEST_SUCCESS"));
-        ui->batteryValueLabel->setText(LoadString("IDS_SELFTEST_SUCCESS"));
-        ui->storageValueLabel->setText(LoadString("IDS_SELFTEST_SUCCESS"));
+//        ui->cameraValueLabel->setText(LoadString("IDS_SELFTEST_SUCCESS"));
+//        ui->laserValueLabel->setText(LoadString("IDS_SELFTEST_SUCCESS"));
+//        ui->batteryValueLabel->setText(LoadString("IDS_SELFTEST_SUCCESS"));
+//        ui->storageValueLabel->setText(LoadString("IDS_SELFTEST_SUCCESS"));
 //    }
 }

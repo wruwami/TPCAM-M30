@@ -2,6 +2,8 @@
 #include "ui_LoginWidget.h"
 
 #include <QJsonArray>
+#include <QFile>
+#include <QDateTime>
 
 #include "Color.h"
 #include "StringLoader.h"
@@ -11,6 +13,8 @@
 #include "BaseDialog.h"
 #include "KeyboardDialog.h"
 #include "KeypadDialog.h"
+#include "FileManager.h"
+
 
 LoginWidget::LoginWidget(QWidget *parent) :
     QWidget(parent),
@@ -47,6 +51,35 @@ LoginWidget::LoginWidget(QWidget *parent) :
         ui->userNameComboBox->addItem(json.toString());
     }
     ui->userNameComboBox->setCurrentIndex(m_jsonObject["User Name Select"].toInt() - 1);
+
+    QFile expired_file(GetPath("", SD) + "/" + ("expired_date.txt"));
+    expired_file.open(QFile::ReadOnly);
+
+    if (expired_file.isOpen())
+    {
+        expired_file.copy(GetPath("", eMMC) + "/" + expired_file.Text);
+        expired_file.remove();
+//        ui->expiredDateLabel->setText(LoadString("IDS_EXPIRED_DATE"));
+    }
+    else
+    {
+
+    }
+    expired_file.close();
+
+    QByteArray ba = expired_file.readAll();
+    QString str = QString(ba);
+    QDateTime datetime;
+    datetime.fromString(str);
+
+    QDateTime current_datetime;
+    if (current_datetime.currentDateTime() > datetime)
+    {
+        BaseDialog baseDialog(Dialog::LoginExpiredDateWidgetType, Qt::AlignmentFlag::AlignLeft, "", false, LoadString("IDS_EXPIRED_DATE"));
+        baseDialog.exec();
+    }
+
+
 
 //    m_userName = ui->userNameComboBox->it;
 }

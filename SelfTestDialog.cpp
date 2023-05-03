@@ -49,7 +49,7 @@ SelfTestDialog::SelfTestDialog(QWidget *parent) :
     if (!expired_file.isOpen())
     {
         qDebug() << "no file has been opened";
-        ui->expiredDateLabel->setText(LoadString("IDS_EXPIRED_DATE"));
+//        ui->expiredDateLabel->setText(LoadString("IDS_EXPIRED_DATE"));
     }
     else
     {

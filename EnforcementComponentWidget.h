@@ -15,6 +15,9 @@ public:
     explicit EnforcementComponentWidget(QWidget *parent = 0);
     ~EnforcementComponentWidget();
 private:
+    void hide();
+    void show();
+private:
     bool m_bHide = false;
 private slots:
     void on_hidePushButton_clicked();

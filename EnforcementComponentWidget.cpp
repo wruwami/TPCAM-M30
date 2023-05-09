@@ -1,6 +1,8 @@
 #include "EnforcementComponentWidget.h"
 #include "ui_EnforcementComponentWidget.h"
 
+#include <QPainter>
+
 #include "StringLoader.h"
 
 EnforcementComponentWidget::EnforcementComponentWidget(QWidget *parent) :
@@ -64,6 +66,7 @@ void EnforcementComponentWidget::on_hidePushButton_clicked()
 
 void EnforcementComponentWidget::hide()
 {
+    m_isSetOutLine = true;
     ui->readyPushButton->hide();
     ui->zoomRangePushButton->hide();
     ui->dzPlusPushButton->hide();
@@ -82,6 +85,7 @@ void EnforcementComponentWidget::hide()
 
 void EnforcementComponentWidget::show()
 {
+    m_isSetOutLine = false;
     ui->readyPushButton->show();
     ui->zoomRangePushButton->show();
     ui->dzPlusPushButton->show();
@@ -96,4 +100,45 @@ void EnforcementComponentWidget::show()
     ui->enforcementCountLabel->show();
     ui->enforcementDistanceSpeedLabel->show();
     ui->enforcementTimeLabel->show();
+}
+
+void EnforcementComponentWidget::paintEvent(QPaintEvent *event)
+{
+//    QWidget::paintEvent(event);
+
+    if (m_isSetOutLine)
+    {
+        QPainter painter(this);
+    //    QStyleOptionFrame  option;
+    //    option.initFrom(this);
+    //    option.rect = ui->verticalLayout_2->geometry();
+    //    option.lineWidth = 1;
+    //    option.frameShape = QFrame::Box;
+    //    style()->drawPrimitive(QStyle::PE_Frame,  &option,  &painter,  this);
+
+    //    QStyleOptionFrame  option2;
+    //    option2.initFrom(this);
+    //    option2.rect = QRect(ui->horizontalLayout_7->geometry().left(), (ui->horizontalLayout_7->geometry().top() + ui->gridLayout_2->geometry().bottom()) / 2, ui->verticalLayout_2->geometry().width(), 1);
+    //    option2.lineWidth = 1;
+    //    option2.frameShape = QFrame::HLine;
+    //    style()->drawPrimitive(QStyle::PE_Frame,  &option2,  &painter,  this);
+
+    //    QStyleOptionFrame  option3;
+    //    option3.initFrom(this);
+    //    option3.rect = QRect(ui->horizontalLayout_7->geometry().left(), (ui->horizontalLayout_5->geometry().top() + ui->horizontalLayout_7->geometry().bottom()) / 2, ui->verticalLayout_2->geometry().width(), 1);
+    //    option3.lineWidth = 1;
+    //    option3.frameShape = QFrame::HLine;
+    //    style()->drawPrimitive(QStyle::PE_Frame,  &option3,  &painter,  this);
+
+        int gap = 3;
+
+        QPen Pen(Qt::red);
+        Pen.setStyle(Qt::SolidLine);
+        Pen.setWidth(10);
+        painter.setPen(Pen);
+        painter.drawLine(gap, gap, this->geometry().width() - 2 * gap, gap);
+        painter.drawLine(gap, gap, gap, this->geometry().height());
+        painter.drawLine(this->geometry().width() - gap, gap, this->geometry().width() - 2 * gap, this->geometry().height() - 2 * gap);
+        painter.drawLine(gap, this->geometry().height() - 2 * gap, this->geometry().width() - 2 * gap, this->geometry().height() - 2 * gap);
+    }
 }

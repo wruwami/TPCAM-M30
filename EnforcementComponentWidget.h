@@ -17,10 +17,14 @@ public:
 private:
     void hide();
     void show();
+    void setOutFrame(bool isSet);
 private:
     bool m_bHide = false;
+    bool m_isSetOutLine = false;
 private slots:
     void on_hidePushButton_clicked();
+protected:
+    void paintEvent(QPaintEvent *event);
 
 private:
     Ui::EnforcementComponentWidget *ui;

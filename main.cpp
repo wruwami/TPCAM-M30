@@ -5,6 +5,7 @@
 #include "qdir.h"
 #include <QJsonObject>
 #include <QJsonArray>
+#include <QNetworkInterface>
 
 #include "ConfigManager.h"
 #include "StringLoader.h"

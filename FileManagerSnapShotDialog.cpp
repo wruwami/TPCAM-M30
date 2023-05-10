@@ -53,6 +53,12 @@ FileManagerSnapShotDialog::FileManagerSnapShotDialog(int nMode, QWidget *parent)
         folder_path = GetPath("manual_capture/", eMMC);
     }
         break;
+    case 4:
+    {
+        folder_path = GetPath("screen/", eMMC);
+    }
+        break;
+
     }
 
 

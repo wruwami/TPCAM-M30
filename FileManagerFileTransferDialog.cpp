@@ -13,7 +13,7 @@
 
 #include "StringLoader.h"
 
-FileManagerFileTransferDialog::FileManagerFileTransferDialog(QList<AVFileFormat> avFileFormatList, Type type, QWidget *parent) :
+FileManagerFileTransferDialog::FileManagerFileTransferDialog(QList<AVFileFormat> avFileFormatList, TransType type, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::FileManagerFileTransferDialog)
 {

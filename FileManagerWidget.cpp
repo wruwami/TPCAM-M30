@@ -20,6 +20,7 @@
 #include "FileManagerFileTransferDialog.h"
 #include "SearchBoxDialog.h"
 #include "thermal_printer.h"
+#include "FileManager.h"
 
 enum Mode
 {
@@ -82,6 +83,8 @@ FileManagerWidget::FileManagerWidget(QWidget *parent) :
 
     m_player = new QMediaPlayer(this);
     m_player->setVideoOutput(m_videoWidget);
+
+    CreateWiFiReadThreadAndInitPrinter();
 
 ////    QRect rect = ui->gridLayout_2->contentsRect();
 //    int width = ((getScreenWidth() - 15) / 21 * 9);//ui->percentPushButton->width() + ui->connectPushButton->width() + ui->printPushButton->width();
@@ -205,25 +208,25 @@ void FileManagerWidget::on_deletePushButton_clicked()
 
 void FileManagerWidget::convertValue()
 {
-    snprintf(g_file_elem_for_printer.prefix, 2, m_currentAVFileFormat.filePrefix);
-    snprintf(g_file_elem_for_printer.file_id, 5, m_currentAVFileFormat.index);
-    snprintf(g_file_elem_for_printer.year, 4, &m_currentAVFileFormat.date[0]);
-    snprintf(g_file_elem_for_printer.month, 2, &m_currentAVFileFormat.date[4]);
-    snprintf(g_file_elem_for_printer.day, 2, &m_currentAVFileFormat.date[6]);
-    snprintf(g_file_elem_for_printer.hour, 2, &m_currentAVFileFormat.time[0]);
-    snprintf(g_file_elem_for_printer.minute, 2, &m_currentAVFileFormat.time[2]);
-    snprintf(g_file_elem_for_printer.second, 2, &m_currentAVFileFormat.time[4]);
-    snprintf(g_file_elem_for_printer.msec, 1, &m_currentAVFileFormat.time[6]);
-    snprintf(g_file_elem_for_printer.laser_capture_speed, 5, m_currentAVFileFormat.captureSpeed.toStdString().c_str());
-    snprintf(g_file_elem_for_printer.display_limit_speed, 4, m_currentAVFileFormat.speedLimit.toStdString().c_str());
-    snprintf(g_file_elem_for_printer.capture_limit_speed, 4, m_currentAVFileFormat.captureSpeedLimit.toStdString().c_str());
-    snprintf(g_file_elem_for_printer.laser_capture_distance, 4, m_currentAVFileFormat.distance.toStdString().c_str());
+    snprintf(g_file_elem_for_printer.prefix, 2 + 1, m_currentAVFileFormat.filePrefix);
+    snprintf(g_file_elem_for_printer.file_id, 5 + 1, m_currentAVFileFormat.index);
+    snprintf(g_file_elem_for_printer.year, 4 + 1, &m_currentAVFileFormat.date[0]);
+    snprintf(g_file_elem_for_printer.month, 2 + 1, &m_currentAVFileFormat.date[4]);
+    snprintf(g_file_elem_for_printer.day, 2 + 1, &m_currentAVFileFormat.date[6]);
+    snprintf(g_file_elem_for_printer.hour, 2 + 1, &m_currentAVFileFormat.time[0]);
+    snprintf(g_file_elem_for_printer.minute, 2 + 1, &m_currentAVFileFormat.time[2]);
+    snprintf(g_file_elem_for_printer.second, 2 + 1, &m_currentAVFileFormat.time[4]);
+    snprintf(g_file_elem_for_printer.msec, 1 + 1, &m_currentAVFileFormat.time[6]);
+    snprintf(g_file_elem_for_printer.laser_capture_speed, 5 + 1, m_currentAVFileFormat.captureSpeed.toStdString().c_str());
+    snprintf(g_file_elem_for_printer.display_limit_speed, 4 + 1, m_currentAVFileFormat.speedLimit.toStdString().c_str());
+    snprintf(g_file_elem_for_printer.capture_limit_speed, 4 + 1, m_currentAVFileFormat.captureSpeedLimit.toStdString().c_str());
+    snprintf(g_file_elem_for_printer.laser_capture_distance, 4 + 1, m_currentAVFileFormat.distance.toStdString().c_str());
 //    snprintf(g_file_elem_for_printer.user_mode, 1, m_currentAVFileFormat);
 //    snprintf(g_file_elem_for_printer.enforcement_mode, 1, m_currentAVFileFormat);
 //    snprintf(g_file_elem_for_printer.dual_mode, 1, m_currentAVFileFormat.);
 //    snprintf(g_file_elem_for_printer.zoom_level, 2, m_currentAVFileFormat);
-    snprintf(g_file_elem_for_printer.latitude, 10, m_currentAVFileFormat.latitude.toStdString().c_str());
-    snprintf(g_file_elem_for_printer.longitude, 11, m_currentAVFileFormat.longitude.toStdString().c_str());
+    snprintf(g_file_elem_for_printer.latitude, 10 + 1, m_currentAVFileFormat.latitude.toStdString().c_str());
+    snprintf(g_file_elem_for_printer.longitude, 11 + 1, m_currentAVFileFormat.longitude.toStdString().c_str());
     sprintf(g_file_elem_for_printer.location, m_currentAVFileFormat.location.toStdString().c_str());
     sprintf(g_file_elem_for_printer.user_name, m_currentAVFileFormat.userId.toStdString().c_str());
     sprintf(g_file_elem_for_printer.device_id, m_currentAVFileFormat.deviceId.toStdString().c_str());
@@ -373,7 +376,8 @@ void FileManagerWidget::on_connectPushButton_clicked()
 //    BaseDialog baseDialog(FileManagerErrorMessageWidgetType, Qt::AlignmentFlag::AlignCenter);
 //    baseDialog.exec();
 
-    CreateWiFiReadThreadAndInitPrinter();
+    connect_wifi_printer();
+    ui->printPushButton->setDisabled(false);
 }
 
 void FileManagerWidget::on_percentPushButton_clicked()
@@ -409,6 +413,12 @@ void FileManagerWidget::on_ImageVideoComboBox_currentIndexChanged(int index)
         ui->zoomPlayPushButton->setText(LoadString("IDS_ZOOM"));
     }
         break;
+    case 4: // S
+    {
+        m_nMode = Mode::S_MODE;
+        ui->zoomPlayPushButton->setText(LoadString("IDS_ZOOM"));
+    }
+        break;
     }
 }
 
@@ -420,20 +430,53 @@ void FileManagerWidget::on_datePushButton_clicked()
 //        m_folder_path = fileManagerSnapShotDialog.strDate();
 //        QDir dirfolder_path
         QString date = fileManagerSnapShotDialog.strDate();
-        int index = date.lastIndexOf('/');
-        m_dateTime = date.mid(index + 1, date.size() - index - 1);
+//        int index = date.lastIndexOf('/');
+//        m_dateTime = date.mid(index + 1, date.size() - index - 1);
         ui->datePushButton->setText(m_dateTime);
+
+        QString path;
+        switch (m_nMode)
+        {
+        case I_MODE:
+        {
+            path = "snapshot";
+            break;
+        }
+        case A_MODE:
+        {
+            path = "auto";
+            break;
+        }
+        case V_MODE:
+        {
+            path = "video";
+            break;
+        }
+        case M_MODE:
+        {
+            path = "manual_capture";
+            break;
+        }
+        case S_MODE:
+        {
+            path = "screen";
+            break;
+        }
+
+        }
+
+        QString full_date_path = GetPath(path, eMMC) + "/" + date;
 
         ui->tableWidget->clear();
         m_avFileFormatList.clear();
         m_AVFileFormatIndex = 0;
 
         int i = 0;
-        QDirIterator it(date, QDir::Files);
+        QDirIterator it(full_date_path, QDir::Files);
         while (it.hasNext())
         {
             QString file = it.next();
-            index = file.lastIndexOf('/');
+            int index = file.lastIndexOf('/');
 //            if (file.mid(file.size() - 1, 1) == ".")
 //                continue;
             //addListItem(file);

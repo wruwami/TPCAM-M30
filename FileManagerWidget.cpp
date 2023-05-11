@@ -8,6 +8,8 @@
 #include <QHeaderView>
 #include <QVideoWidget>
 #include <QMediaPlayer>
+#include <QByteArray>
+#include <QBuffer>
 
 #include "CustomPushButton.h"
 #include "StringLoader.h"
@@ -21,6 +23,7 @@
 #include "SearchBoxDialog.h"
 #include "thermal_printer.h"
 #include "FileManager.h"
+#include "ImageConverter.h"
 
 enum Mode
 {
@@ -35,6 +38,9 @@ ST_ENFORCEMENT_FILENAME_ELEMENT g_file_elem_for_printer;
 bool g_is_print_on_logo;
 bool g_is_printOption_body_on;
 bool g_is_printOption_ticket_num_on;
+char g_print_img_body_buff_file_management[1712 * 984];  // Only Y among YUV 420 image body buffer for thermal printer from uncompressed jpg file
+char g_print_img_body_buff_file_logo[1712 * 984];  // David, Add for LOGO file
+
 
 FileManagerWidget::FileManagerWidget(QWidget *parent) :
     QWidget(parent),
@@ -84,7 +90,7 @@ FileManagerWidget::FileManagerWidget(QWidget *parent) :
     m_player = new QMediaPlayer(this);
     m_player->setVideoOutput(m_videoWidget);
 
-    CreateWiFiReadThreadAndInitPrinter();
+//    CreateWiFiReadThreadAndInitPrinter();
 
 ////    QRect rect = ui->gridLayout_2->contentsRect();
 //    int width = ((getScreenWidth() - 15) / 21 * 9);//ui->percentPushButton->width() + ui->connectPushButton->width() + ui->printPushButton->width();
@@ -345,6 +351,13 @@ void FileManagerWidget::on_zoomPlayPushButton_clicked()
         stillImageViewDialog.exec();
     }
         break;
+    case Mode::S_MODE: // Manual Capture
+    {
+        MovieViewerDialog movieViewerDialog(m_currentAVFileFormat);
+        movieViewerDialog.exec();
+    }
+        break;
+
     }
 
 }
@@ -368,6 +381,17 @@ void FileManagerWidget::on_movePushButton_clicked()
 
 void FileManagerWidget::on_printPushButton_clicked()
 {
+    QImage image(m_currentAVFileFormat.file_path);
+    image.convertToFormat(QImage::Format::Format_RGB32);
+    ImageConverter imageConvert(image);
+    imageConvert.Convert();
+
+
+//    QImage image2(image.bits(), 1712, 984, QImage::Format::Format_RGB32);
+//    int sz2 = image2.byteCount();
+//    memcpy(g_print_img_body_buff_file_management , image2.bits(), sz2);
+
+//    pixmap.
     print_wifi_printer();
 }
 

@@ -15,6 +15,7 @@ TEMPLATE = app
 SOURCES += main.cpp\
     CustomTogglePushButton.cpp \
     FileManager.cpp \
+    ImageConverter.cpp \
     IndicatorCameraFocusWidget.cpp \
     IndicatorDialog.cpp \
     MainWindow.cpp \
@@ -89,6 +90,7 @@ HEADERS  += MainWindow.h \
     CustomTogglePushButton.h \
     FileManager.h \
     FontSize.h \
+    ImageConverter.h \
     IndicatorCameraFocusWidget.h \
     IndicatorDialog.h \
     LoginWidget.h \
@@ -218,7 +220,7 @@ RESOURCES += \
 
 DISTFILES +=
 
-unix:!macx: LIBS += -L/usr/local/lib/ -lhangul
+unix:!macx: LIBS += -L/usr/local/lib/ -lhangul -lavformat -lswscale -lavformat -lavcodec -lavutil
 
 INCLUDEPATH += /usr/local/include
 DEPENDPATH += /usr/local/include

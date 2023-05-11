@@ -26,8 +26,8 @@ char g_recvBuff[WIFI_PRINTER_MAX_BUFFER];
 
 
 ST_WIFI_PRIINTER g_wifi_printer;
-char g_print_img_body_buff_file_management[1712 * 984];  // Only Y among YUV 420 image body buffer for thermal printer from uncompressed jpg file
-char g_print_img_body_buff_file_logo[1712 * 984];  // David, Add for LOGO file -> (1712x280)
+//char g_print_img_body_buff_file_management[1712 * 984];  // Only Y among YUV 420 image body buffer for thermal printer from uncompressed jpg file
+//char g_print_img_body_buff_file_logo[1712 * 984];  // David, Add for LOGO file -> (1712x280)
 
 
 bool g_bExitWifiThread = FALSE;

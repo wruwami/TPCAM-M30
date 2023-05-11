@@ -10,6 +10,7 @@
 #include "ConfigManager.h"
 #include "StringLoader.h"
 #include "DateFormatManager.h"
+#include "thermal_printer.h"
 
 int main(int argc, char *argv[])
 {
@@ -34,6 +35,8 @@ int main(int argc, char *argv[])
     QJsonArray ja= json["language items"].toArray();
     int lang = json["language select"].toInt();
     StringLoader::GetInstance()->Initialize("strings", "stringTable.csv", ja[lang - 1].toString().toStdString());
+
+    CreateWiFiReadThreadAndInitPrinter();
 
     MainWindow w;
 //    w.show();

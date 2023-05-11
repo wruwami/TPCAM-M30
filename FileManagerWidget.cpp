@@ -35,9 +35,6 @@ enum Mode
 };
 
 ST_ENFORCEMENT_FILENAME_ELEMENT g_file_elem_for_printer;
-bool g_is_print_on_logo;
-bool g_is_printOption_body_on;
-bool g_is_printOption_ticket_num_on;
 char g_print_img_body_buff_file_management[1712 * 984];  // Only Y among YUV 420 image body buffer for thermal printer from uncompressed jpg file
 char g_print_img_body_buff_file_logo[1712 * 984];  // David, Add for LOGO file
 

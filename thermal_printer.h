@@ -117,6 +117,9 @@ typedef struct _st_WIFI_PRINTER{
     int json_data_manager_get_ip_address_2();
     int json_data_manager_get_ip_address_3();
     int json_data_manager_get_wifi_printer();
+    bool json_data_manager_get_print_option_body();
+    bool json_data_manager_get_print_option_logo();
+    bool json_data_manager_get_print_option_ticket_num();
     void print_wifi_header_office_txt_info(int socket);
     void InquiryPrinterFirmwareInfo();
     void SetPrinterFirmwareVer();
@@ -126,9 +129,6 @@ extern bool g_bOnlyComlaser;
 extern ST_WIFI_PRIINTER g_wifi_printer;
 extern char g_print_img_body_buff_file_management[1712 * 984];  // Only Y among YUV 420 image body buffer for thermal printer from uncompressed jpg file
 extern char g_print_img_body_buff_file_logo[1712 * 984];  // David, Add for LOGO file
-extern bool g_is_print_on_logo;
-extern bool g_is_printOption_body_on;
-extern bool g_is_printOption_ticket_num_on;
 extern ST_ENFORCEMENT_FILENAME_ELEMENT g_file_elem_for_printer;
 
 

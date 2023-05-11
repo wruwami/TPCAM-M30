@@ -29,7 +29,6 @@ ST_WIFI_PRIINTER g_wifi_printer;
 //char g_print_img_body_buff_file_management[1712 * 984];  // Only Y among YUV 420 image body buffer for thermal printer from uncompressed jpg file
 //char g_print_img_body_buff_file_logo[1712 * 984];  // David, Add for LOGO file -> (1712x280)
 
-
 bool g_bExitWifiThread = FALSE;
 static int				s_pid_wifi_printer = 0;
 static pthread_t		s_tid_wifi_printer = 0;
@@ -743,7 +742,7 @@ void ClearWiFiRecvBuff(PRINTER_INQUIRY nInq)
 
 void print_wifi_body(int socket)
 {
-    if (g_is_printOption_ticket_num_on)	// +- David, printOption Ticket No.(field_id number) print
+    if (json_data_manager_get_print_option_ticket_num())	// +- David, printOption Ticket No.(field_id number) print
     {
         //WiFi_Printf(socket, "Ticket No. : %s\n", "AI_99999");
         WiFi_Printf(socket, "Ticket No. : %s_%s\n", g_file_elem_for_printer.prefix, g_file_elem_for_printer.file_id);
@@ -784,7 +783,7 @@ void print_wifi_body(int socket)
         WiFi_Printf(socket, "Location : %s\r\n", g_file_elem_for_printer.location);
         WiFi_Printf(socket, "  GPS(%s, %s)\r\n\r\n", g_file_elem_for_printer.latitude, g_file_elem_for_printer.longitude);
 
-        if (g_is_printOption_body_on)	// +- David, printOption print
+        if (json_data_manager_get_print_option_body())	// +- David, printOption print
         {
             WiFi_Printf(socket, "Vehicle No. \r\n\r\n");
             WiFi_Printf(socket, "_ _ _ _ _ _ _ _ _ _ _ _ _ _\r\n");
@@ -807,7 +806,7 @@ void print_wifi_body(int socket)
     {
         WiFi_Printf(socket, "Location : %s(%s, %s)\r\n\r\n", g_file_elem_for_printer.location, g_file_elem_for_printer.latitude, g_file_elem_for_printer.longitude);
 
-        if (g_is_printOption_body_on)	// +- David, printOption print
+        if (json_data_manager_get_print_option_body())	// +- David, printOption print
         {
             WiFi_Printf(socket, "Vehicle No. \r\n\r\n");
             WiFi_Printf(socket, "_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\r\n");
@@ -830,7 +829,7 @@ void print_wifi_body(int socket)
     {
         WiFi_Printf(socket, "Location : %s(%s, %s)\r\n\r\n", g_file_elem_for_printer.location, g_file_elem_for_printer.latitude, g_file_elem_for_printer.longitude);
 
-        if (g_is_printOption_body_on)	// +- David, printOption print
+        if (json_data_manager_get_print_option_body())	// +- David, printOption print
         {
             WiFi_Printf(socket, "Vehicle No. \r\n\r\n");
             WiFi_Printf(socket, "_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\r\n");
@@ -853,7 +852,7 @@ void print_wifi_body(int socket)
     {
         WiFi_Printf(socket, "Location : %s(%s, %s)\r\n\r\n", g_file_elem_for_printer.location, g_file_elem_for_printer.latitude, g_file_elem_for_printer.longitude);
 
-        if (g_is_printOption_body_on)	// +- David, printOption print
+        if (json_data_manager_get_print_option_body())	// +- David, printOption print
         {
             WiFi_Printf(socket, "Vehicle No. \r\n\r\n");
             WiFi_Printf(socket, "_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\r\n");
@@ -905,7 +904,7 @@ void print_wifi_printer(/*char *fullfilename*/)
                     //print_wifi_image(g_wifi_printer.socket, atoi(str_wifi_printer));	// 0 : Woosim, 1 : Eastroyce
                     //print_wifi_body(g_wifi_printer.socket);
 
-                    if (g_is_print_on_logo)
+                    if (json_data_manager_get_print_option_logo())
                     {
                         // David, Add for LOGO Print
                         //fprintf(stdout, "// [DaW-PRT] === LOGO & TITLE Printing ..... \n");
@@ -941,18 +940,8 @@ void print_wifi_printer(/*char *fullfilename*/)
     }
 }
 
-void LoadPrinterSetting()
-{
-    ConfigManager configManager = ConfigManager("printer_option.json");
-    QJsonObject JsonObject = configManager.GetConfig();
-    g_is_print_on_logo = JsonObject["print_on_logo"].toBool();
-    g_is_printOption_body_on = JsonObject["printOption_body"].toBool();
-    g_is_printOption_ticket_num_on = JsonObject["printOption_ticket_num"].toBool();
-}
-
 void CreateWiFiReadThreadAndInitPrinter(void)
 {
-    LoadPrinterSetting();
     if (g_wifi_printer.serv_addr != NULL)
     {
         free(g_wifi_printer.serv_addr);
@@ -1571,4 +1560,25 @@ int json_data_manager_get_wifi_printer()
     ConfigManager configManager = ConfigManager("print_option.json");
     QJsonObject jsonObject = configManager.GetConfig();
     return jsonObject["Manufacturer"].toInt();
+}
+
+bool json_data_manager_get_print_option_body()
+{
+    ConfigManager configManager = ConfigManager("print_option.json");
+    QJsonObject jsonObject = configManager.GetConfig();
+    return jsonObject["printOption_body"].toBool();
+}
+bool json_data_manager_get_print_option_logo()
+{
+    ConfigManager configManager = ConfigManager("print_option.json");
+    QJsonObject jsonObject = configManager.GetConfig();
+    return jsonObject["print_on_logo"].toBool();
+
+}
+bool json_data_manager_get_print_option_ticket_num()
+{
+    ConfigManager configManager = ConfigManager("print_option.json");
+    QJsonObject jsonObject = configManager.GetConfig();
+    return jsonObject["printOption_ticket_num"].toBool();
+
 }

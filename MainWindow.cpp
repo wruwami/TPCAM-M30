@@ -23,6 +23,7 @@
 #include "IndicatorCameraExposeWidget.h"
 #include "IndicatorCameraFocusWidget.h"
 #include "SelfTestDialog.h"
+#include "SerialManager.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -42,7 +43,8 @@ MainWindow::MainWindow(QWidget *parent) :
     m_pMainMenuWidget->setMainMenuTitle(LoadString("IDS_LOGIN"));
     m_pIndicatorWidget = new IndicatorDialog;
     m_pIndicatorWidget->setModal(true);
-//    m_pIndicatorWidget->setFocusExposeDisabled(true);
+
+    m_pSerialManager = new SerialManager;
 
     QObject::connect((QWidget*)m_pLoginWidget->m_loginPushButton, SIGNAL(clicked()), this, SLOT(on_loginWidgetClicked()));
     QObject::connect((QWidget*)m_pLoginWidget->m_dateTimePushButton, SIGNAL(clicked()), this, SLOT(on_dateTimeWidgetClicked()));

@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui multimediawidgets
+QT       += core gui multimediawidgets serialport
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -22,7 +22,9 @@ SOURCES += main.cpp\
     LoginWidget.cpp \
     MainMenuWidget.cpp \
     MovieViewerDialog.cpp \
+    NetworkManager.cpp \
     SelfTestDialog.cpp \
+    SerialManager.cpp \
     Setting4APWidget.cpp \
     StillImageViewerDialog.cpp \
     StringLoader.cpp \
@@ -96,7 +98,9 @@ HEADERS  += MainWindow.h \
     LoginWidget.h \
     MainMenuWidget.h \
     MovieViewerDialog.h \
+    NetworkManager.h \
     SelfTestDialog.h \
+    SerialManager.h \
     Setting4APWidget.h \
     StillImageViewerDialog.h \
     StringLoader.h \

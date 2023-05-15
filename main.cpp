@@ -38,6 +38,8 @@ int main(int argc, char *argv[])
 
     CreateWiFiReadThreadAndInitPrinter();
 
+
+
     MainWindow w;
 //    w.show();
     w.setWindowFlags(Qt::Window);

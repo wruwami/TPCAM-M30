@@ -25,7 +25,7 @@ SerialManager::SerialManager(QObject *parent) : QObject(parent)
     m_pSerial = new QSerialPort(this);
 
     serial_connect();
-    connect(m_pSerial, SIGNAL(readyRead()), this, SLOT(connected()));
+    connect(m_pSerial, SIGNAL(readyRead()), this, SLOT(serial_received()));
 }
 
 void SerialManager::serial_connect()
@@ -66,11 +66,6 @@ void SerialManager::serial_connect()
 
         con=0;
     }
-}
-
-void SerialManager::connected()
-{
-    connect(m_pSerial, SIGNAL(readyRead()), this, SLOT(serial_received()));
 }
 
 void SerialManager::serial_received()

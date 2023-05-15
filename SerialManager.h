@@ -20,7 +20,6 @@ private:
 private:
     QSerialPort* m_pSerial;
 protected slots:
-    void connected();
     void serial_received();
 };
 

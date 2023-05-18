@@ -64,11 +64,11 @@ void NetworkManager::SetWifiStaMode()
     m_strNetPlan.append(QString("    wifis: \n\
        wlx200db01ff154: \n\
           dhcp4: no \n\
-             gateway4: %1 \n\
-             addresses: [%2/%3] \n\
-             access-points: \n\
-                \"%4\": \n\
-                password: \"%5\" \n\
+          gateway4: %1 \n\
+          addresses: [%2/%3] \n\
+          access-points: \n\
+             \"%4\": \n\
+             password: \"%5\" \n\
 ").arg(gateway).arg(m_wifi_jsonObject["ip"].toString()).arg(GetSubNetMask(m_wifi_jsonObject["subnet mask"].toString())).arg(m_wifi_jsonObject["sta ssid"].toString()).arg(m_wifi_jsonObject["sta ftp id & p/w"].toString()));
 }
 
@@ -81,12 +81,12 @@ void NetworkManager::SetWifiAPMode()
     m_strNetPlan.append(QString("    wifis: \n\
        wlx200db01ff154: \n\
           dhcp4: no \n\
-             gateway4: %1 \n\
-             addresses: [%2/%3] \n\
-             access-points: \n\
-                \"%4\": \n\
-                password: \"%5\" \n\
-                mode: ap \
+          gateway4: %1 \n\
+          addresses: [%2/%3] \n\
+          access-points: \n\
+             \"%4\": \n\
+             password: \"%5\" \n\
+             mode: ap \
 ").arg(gateway).arg(m_wifi_jsonObject["ip"].toString()).arg(GetSubNetMask(m_wifi_jsonObject["subnet mask"].toString())).arg(m_wifi_jsonObject["sta ssid"].toString()).arg(m_wifi_jsonObject["sta ftp id & p/w"].toString()));
 }
 

@@ -98,15 +98,15 @@ void Setting5Widget::setManualMode()
 
 void Setting5Widget::on_ipAddressComboBox_currentIndexChanged(int index)
 {
-    m_newJsonObject["ethernet_mode select"] = index;
+    m_newJsonObject["ethernet_mode select"] = index + 1;
     switch (index)
     {
-    case 1:
+    case 0:
     {
         setManualMode();
     }
         break;
-    case 2:
+    case 1:
     {
         setDHCPMode();
     }

@@ -15,6 +15,8 @@
 #include <QDebug>
 #include <QJsonObject>
 
+#include "NetworkManager.h"
+
 SettingWidget::SettingWidget(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::SettingWidget)
@@ -155,6 +157,9 @@ void SettingWidget::on_savePushButton_clicked()
     m_pSetting5Widget->m_isSave = true;
     m_pSetting6Widget->m_isSave = true;
     m_pSetting7Widget->m_isSave = true;
+
+    NetworkManager networkManager;
+    networkManager.SetNetworkSetting();
 }
 
 void SettingWidget::on_cancelPushButton_clicked()

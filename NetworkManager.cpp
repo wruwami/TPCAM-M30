@@ -96,9 +96,9 @@ void NetworkManager::SetEtherNet()
     {
         m_strNetPlan.append(QString("    ethernets: \n\
        eth0: \n\
-          dhcp: no \n\
+          dhcp4: no \n\
           addresses: [%1/%2] \n\
-          gateway: %3 \n\
+          gateway4: %3 \n\
           nameservers: \n\
              addresses: [%4] \n").arg(m_eth_jsonObject["ip"].toString()).arg(GetSubNetMask(m_eth_jsonObject["subnet mask"].toString())).arg(m_eth_jsonObject["gateway"].toString()).arg(m_eth_jsonObject["dns server"].toString()));
     }
@@ -106,7 +106,7 @@ void NetworkManager::SetEtherNet()
     {
         m_strNetPlan.append("    ethernets: \n\
        eth0: \n\
-          dhcp: yes \n");
+          dhcp4: yes \n");
     }
 }
 

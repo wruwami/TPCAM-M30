@@ -19,8 +19,10 @@ struct gprmc_data
     char K_variacao_magnetica_coord=-1;
 };
 
+SerialGPSManager* SerialGPSManager::instance = nullptr;
 
-SerialGPSManager::SerialGPSManager(QObject *parent) : QObject(parent)
+
+SerialGPSManager::SerialGPSManager()
 {
     m_pSerial = new QSerialPort(this);
 
@@ -76,6 +78,16 @@ QDateTime SerialGPSManager::GetDateTime()
 int SerialGPSManager::GetSatellitesInView()
 {
     return m_nSatellitesInView;
+}
+
+QString SerialGPSManager::GetLatitude()
+{
+    return m_Latitude;
+}
+
+QString SerialGPSManager::GetLongitude()
+{
+    return m_Longitude;
 }
 
 void SerialGPSManager::serial_received()

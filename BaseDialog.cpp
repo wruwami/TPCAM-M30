@@ -192,8 +192,6 @@ BaseDialog::BaseDialog(Dialog dialog, Qt::Alignment align, QString msg, bool isC
     }
 
 //    if (isClosebutton)
-
-
 }
 
 BaseDialog::~BaseDialog()

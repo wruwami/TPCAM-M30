@@ -45,8 +45,6 @@ MainWindow::MainWindow(QWidget *parent) :
     m_pIndicatorWidget->setModal(true);
     m_pDateTimeWidget = new DateTimeWidget;
 
-    m_pSerialManager = new SerialGPSManager;
-
     QObject::connect((QWidget*)m_pDateTimeWidget->m_pGPSCheckBox, SIGNAL(stateChanged()), this, SLOT(on_datetimeChecked()));
     QObject::connect((QWidget*)m_pLoginWidget->m_loginPushButton, SIGNAL(clicked()), this, SLOT(on_loginWidgetClicked()));
     QObject::connect((QWidget*)m_pLoginWidget->m_dateTimePushButton, SIGNAL(clicked()), this, SLOT(on_dateTimeWidgetClicked()));
@@ -69,12 +67,6 @@ MainWindow::~MainWindow()
         m_pIndicatorWidget->close();
         delete m_pIndicatorWidget;
         m_pIndicatorWidget = nullptr;
-    }
-
-    if (m_pSerialManager)
-    {
-        delete m_pSerialManager;
-        m_pSerialManager = nullptr;
     }
 
     finalize();
@@ -457,8 +449,8 @@ void MainWindow::on_DeviceIdCancelClicked()
 
 void MainWindow::on_datetimeChecked()
 {
-    if (m_pSerialManager->GetSatellitesInView() != 0)
-        m_pDateTimeWidget->SetGPSUTCDateTime(m_pSerialManager->GetDateTime());
+    if (SerialGPSManager::GetInstance()->GetSatellitesInView() != 0)
+        m_pDateTimeWidget->SetGPSUTCDateTime(SerialGPSManager::GetInstance()->GetDateTime());
 }
 
 void MainWindow::timerEvent(QTimerEvent *event)

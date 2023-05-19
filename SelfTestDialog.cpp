@@ -127,10 +127,9 @@ void SelfTestDialog::StartSelfTest()
         baseDialog.exec();
         return;
     }
-    SerialGPSManager serialGPSManager;
-    if (serialGPSManager.GetSatellitesInView() != 0)
+    if (SerialGPSManager::GetInstance()->GetSatellitesInView() != 0)
     {
-        QDateTime datetime = serialGPSManager.GetDateTime();
+        QDateTime datetime = SerialGPSManager::GetInstance()->GetDateTime();
         QString string = datetime.toString("\"yyyy-MM-dd hh:mm:ss\"");
         QString dateTimeString ("date -s ");
         dateTimeString.append(string);

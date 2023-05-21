@@ -123,8 +123,11 @@ void SerialGPSManager::serial_received()
         datum.J_variacao_magnetica = splitted[10].toFloat();
         datum.K_variacao_magnetica_coord = splitted[11].toStdString()[0];
 
+
         QString time_format = "ddMMyyHHmmss";
-        m_DateTime = QDateTime::fromString(splitted[9] + splitted[1], time_format);
+        QString time = splitted[1].mid(0, splitted[1].indexOf("."));
+        QString datetime = splitted[9] + time;
+        m_DateTime = QDateTime::fromString(datetime, time_format);
         m_Latitude = splitted[4] + splitted[3];
         m_Longitude = splitted[6] + splitted[5];
         //TTFF 계산

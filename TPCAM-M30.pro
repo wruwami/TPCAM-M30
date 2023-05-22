@@ -24,6 +24,7 @@ SOURCES += main.cpp\
     MainMenuWidget.cpp \
     MovieViewerDialog.cpp \
     NetworkManager.cpp \
+    SdcardManager.cpp \
     SelfTestDialog.cpp \
     SerialGPSManager.cpp \
     Setting4APWidget.cpp \
@@ -101,6 +102,7 @@ HEADERS  += MainWindow.h \
     MainMenuWidget.h \
     MovieViewerDialog.h \
     NetworkManager.h \
+    SdcardManager.h \
     SelfTestDialog.h \
     SerialGPSManager.h \
     Setting4APWidget.h \

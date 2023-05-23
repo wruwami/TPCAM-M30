@@ -24,6 +24,8 @@ SOURCES += main.cpp\
     MainMenuWidget.cpp \
     MovieViewerDialog.cpp \
     NetworkManager.cpp \
+    RemoteControlWorker.cpp \
+    RemoteController.cpp \
     SdcardManager.cpp \
     SelfTestDialog.cpp \
     SerialGPSManager.cpp \
@@ -102,6 +104,8 @@ HEADERS  += MainWindow.h \
     MainMenuWidget.h \
     MovieViewerDialog.h \
     NetworkManager.h \
+    RemoteControlWorker.h \
+    RemoteController.h \
     SdcardManager.h \
     SelfTestDialog.h \
     SerialGPSManager.h \

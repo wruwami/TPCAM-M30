@@ -11,6 +11,8 @@
 #include <string.h>
 #include <stdio.h>
 
+#include "MainWindow.h"
+
 static const char *const ev_value[3] = {
     "RELEASED",
     "PRESSED ",
@@ -18,9 +20,10 @@ static const char *const ev_value[3] = {
 };
 
 
-RemoteControlWorker::RemoteControlWorker(QObject *parent)
+RemoteControlWorker::RemoteControlWorker(MainWindow* mainwindow, QObject *parent)
     : QObject{parent}
 {
+    m_pMainwindow = mainwindow;
 
 }
 
@@ -56,12 +59,62 @@ void RemoteControlWorker::doWork() {
             break;
         }
 
-        if (ev.type == EV_KEY && ev.value >= 0 && ev.value <= 2)
+        if (ev.type == EV_KEY && ev.value == 0)
         {
             switch (ev.code)
             {
-            case 0:
+            case 0x200: // 0
+            {
+
+            }
                 break;
+
+            case 0x201: // 1
+            {
+            }
+                break;
+            case 0x202: // 2
+            {
+            }
+                break;
+            case 0x203: // 3
+            {
+                m_pMainwindow->OpenEnforcement();
+            }
+                break;
+            case 0x204: // 4
+            {
+            }
+                break;
+            case 0x205: // 5
+            {
+            }
+                break;
+            case 0x206: // 6
+            {
+            }
+                break;
+            case 0x207: // 7
+            {
+            }
+                break;
+            case 0x208: // 8
+            {
+            }
+                break;
+            case 0x209: // 9
+            {
+            }
+                break;
+            case 0x20a: // *
+            {
+            }
+                break;
+            case 0x20b: // #
+            {
+            }
+                break;
+
             }
 
             fprintf(stdout, "%s 0x%04x (%d)\n", ev_value[ev.value], (int)ev.code, (int)ev.code);

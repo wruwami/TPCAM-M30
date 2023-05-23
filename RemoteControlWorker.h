@@ -2,14 +2,16 @@
 #define REMOTECONTROLWORKER_H
 
 #include <QObject>
+#include "MainWindow.h"
 
 class RemoteControlWorker : public QObject
 {
     Q_OBJECT
 public:
-    explicit RemoteControlWorker(QObject *parent = nullptr);
+    explicit RemoteControlWorker(MainWindow* mainwindow, QObject *parent = nullptr);
     virtual ~RemoteControlWorker();
-
+private:
+    MainWindow* m_pMainwindow;
 public slots:
     void doWork();
 

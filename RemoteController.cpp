@@ -3,9 +3,11 @@
 #include <QThread>
 
 #include "RemoteControlWorker.h"
+#include "MainWindow.h"
 
-RemoteController::RemoteController()
+RemoteController::RemoteController(MainWindow *parent)
 {
+    m_pMainwindow = parent;
 }
 
 int RemoteController::Start()
@@ -17,7 +19,7 @@ void RemoteController::CreateThread()
 {
     QThread thread;
 
-    RemoteControlWorker *worker = new RemoteControlWorker;
+    RemoteControlWorker *worker = new RemoteControlWorker(m_pMainwindow);
     worker->moveToThread(&thread);
     thread.start();
 

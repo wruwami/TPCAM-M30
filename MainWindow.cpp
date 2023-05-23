@@ -24,6 +24,7 @@
 #include "IndicatorCameraFocusWidget.h"
 #include "SelfTestDialog.h"
 #include "SerialGPSManager.h"
+#include "RemoteController.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -44,6 +45,8 @@ MainWindow::MainWindow(QWidget *parent) :
     m_pIndicatorWidget = new IndicatorDialog;
     m_pIndicatorWidget->setModal(true);
     m_pDateTimeWidget = new DateTimeWidget;
+    m_pRemoteController = new RemoteController(this);
+    m_pRemoteController->CreateThread();
 
     QObject::connect((QWidget*)m_pDateTimeWidget->m_pGPSCheckBox, SIGNAL(stateChanged()), this, SLOT(on_datetimeChecked()));
     QObject::connect((QWidget*)m_pLoginWidget->m_loginPushButton, SIGNAL(clicked()), this, SLOT(on_loginWidgetClicked()));
@@ -289,6 +292,23 @@ void MainWindow::on_enforcementClicked()
 
     m_pMainMenuWidget->setMainMenuImage("Main_menu", "home_big_n.bmp");
 }
+
+void MainWindow::OpenEnforcement()
+{
+    m_pIndicatorWidget->m_bFocusExposeDisabled = false;
+
+    if (m_pMainMenuContentWidget)
+    {
+        delete m_pMainMenuContentWidget;
+        m_pMainMenuContentWidget = nullptr;
+    }
+
+    ui->verticalLayout->removeItem(ui->verticalLayout->itemAt(1));
+    ui->verticalLayout->addWidget(new EnforcementWidget, 835);
+
+    m_pMainMenuWidget->setMainMenuImage("Main_menu", "home_big_n.bmp");
+}
+
 
 void MainWindow::on_filemanagementClicked()
 {

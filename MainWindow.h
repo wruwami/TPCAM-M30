@@ -13,6 +13,7 @@ class IndicatorDialog;
 class MainMenuContentWidget;
 class MainMenuAdminAlignWidget;
 class FileManagerWidget;
+class RemoteController;
 namespace Ui {
 class MainWindow;
 }
@@ -24,6 +25,7 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
+    void OpenEnforcement();
 private:
     void initializeMainMenuWidget();
     void initializeLoginWidget();
@@ -70,6 +72,7 @@ private:
     MainMenuAdminAlignWidget* m_pMainMenuAdminAlignWidget = nullptr;
     CameraAlignWidget* m_pCameraAlignWidget = nullptr;
     FileManagerWidget* m_pFileManagerWidget;
+    RemoteController* m_pRemoteController;
 
 
     QString m_userName;

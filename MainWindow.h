@@ -26,6 +26,7 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
     void OpenEnforcement();
+    void OpenFileManagement();
 private:
     void initializeMainMenuWidget();
     void initializeLoginWidget();

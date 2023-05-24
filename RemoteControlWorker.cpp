@@ -105,6 +105,7 @@ void RemoteControlWorker::doWork() {
                 break;
             case 0x205: // 5
             {
+                m_pMainwindow->OpenFileManagement();
             }
                 break;
             case 0x206: // 6

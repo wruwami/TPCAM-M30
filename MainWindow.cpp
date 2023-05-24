@@ -26,6 +26,16 @@
 #include "SerialGPSManager.h"
 #include "RemoteController.h"
 
+enum WidgetType
+{
+    Main,
+    Setting,
+    Enforcement,
+    FileManager,
+    Other,
+};
+
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -287,6 +297,7 @@ void MainWindow::on_enforcementClicked()
         m_pMainMenuContentWidget = nullptr;
     }
 
+    delete ui->verticalLayout->itemAt(1)->widget();
     ui->verticalLayout->removeItem(ui->verticalLayout->itemAt(1));
     ui->verticalLayout->addWidget(new EnforcementWidget, 835);
 
@@ -295,8 +306,6 @@ void MainWindow::on_enforcementClicked()
 
 void MainWindow::OpenEnforcement()
 {
-    initializeMainMenuWidget();
-
     m_pIndicatorWidget->m_bFocusExposeDisabled = false;
 
     if (m_pMainMenuContentWidget)
@@ -305,6 +314,7 @@ void MainWindow::OpenEnforcement()
         m_pMainMenuContentWidget = nullptr;
     }
 
+    delete ui->verticalLayout->itemAt(1)->widget();
     ui->verticalLayout->removeItem(ui->verticalLayout->itemAt(1));
     ui->verticalLayout->addWidget(new EnforcementWidget, 835);
 

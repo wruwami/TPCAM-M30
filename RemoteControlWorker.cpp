@@ -10,8 +10,10 @@
 #include <stdint.h>
 #include <string.h>
 #include <stdio.h>
+#include "FileManager.h"
 
 #include "MainWindow.h"
+#include <QApplication>
 
 static const char *const ev_value[3] = {
     "RELEASED",
@@ -65,6 +67,21 @@ void RemoteControlWorker::doWork() {
             {
             case 0x200: // 0
             {
+//                QRect geometry;
+//                for (QScreen *const screen : QGuiApplication::screens()) {
+//                    geometry = geometry.united(screen->geometry());
+//                }
+
+//                QPixmap pixmap(QApplication::primaryScreen()->grabWindow(
+//                              QApplication::desktop()->winId(),
+//                              geometry.x(),
+//                              geometry.y(),
+//                              geometry.width(),
+//                              geometry.height()
+//                    ));
+//                pixmap.setDevicePixelRatio(QApplication::desktop()->devicePixelRatio());
+//                QString filename = GetSubPath("manual_capture", SD) + "/" + GetFile("SC");
+//                pixmap.save(filename, 0, 100);
 
             }
                 break;
@@ -104,6 +121,32 @@ void RemoteControlWorker::doWork() {
                 break;
             case 0x209: // 9
             {
+                char buff[256];
+                memset(buff, 0, 256);
+                FILE* fp = popen("pidof ffmpeg", "r");
+                if (fp == NULL)
+                {
+                    perror("erro : ");
+                    return;
+                }
+
+                while(fgets(buff, 256, fp) != NULL)
+                {
+                    printf("%s", buff);
+                }
+
+                if (!strlen(buff))
+                {
+                    QString cmd;
+                    QString resolution = "800x480";
+                    QString file_name = GetSubPath("manual_capture", SD) + "/" + GetFile("SR");
+                    cmd = QString("ffmpeg -hwaccel opencl -y -f x11grab -framerate 10 -video_size %1 -i :0.0+0,0 -c:v libx264 -pix_fmt yuv420p -qp 0 -preset ultrafast %2 &").arg(resolution).arg(file_name);
+                    system(cmd.toStdString().c_str());
+                }
+                else
+                {
+                    system("ps -ef | grep ffmpeg | awk '{print $2}' | xargs kill -9");
+                }
             }
                 break;
             case 0x20a: // *

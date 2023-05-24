@@ -17,18 +17,18 @@ int RemoteController::Start()
 
 void RemoteController::CreateThread()
 {
-    QThread thread;
 
+    m_thread = new QThread;
     RemoteControlWorker *worker = new RemoteControlWorker(m_pMainwindow);
-    worker->moveToThread(&thread);
-    thread.start();
+    worker->moveToThread(m_thread);
+    m_thread->start();
 
     QObject::connect(worker, &RemoteControlWorker::start, worker, &RemoteControlWorker::doWork);
-    QObject::connect(&thread, &QThread::finished, worker, &QObject::deleteLater);
+    QObject::connect(m_thread, &QThread::finished, worker, &QObject::deleteLater);
 
     QObject::connect(worker, &RemoteControlWorker::resultReady, [&](const QString &result){
         //            qDebug() << result;
-        thread.quit(); // 스레드중지
+        m_thread->quit(); // 스레드중지
     });
 
     emit worker->start("World");

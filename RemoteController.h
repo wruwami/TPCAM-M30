@@ -4,6 +4,7 @@
 //#include <QQueue>
 #include <QObject>
 
+class QThread;
 class MainWindow;
 class RemoteController
 {
@@ -13,6 +14,7 @@ public:
     void CreateThread();
 private:
     MainWindow* m_pMainwindow;
+    QThread* m_thread;
 //    QQueue<int> m_queue;
 };
 

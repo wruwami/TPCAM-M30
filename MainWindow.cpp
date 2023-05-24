@@ -295,6 +295,8 @@ void MainWindow::on_enforcementClicked()
 
 void MainWindow::OpenEnforcement()
 {
+    initializeMainMenuWidget();
+
     m_pIndicatorWidget->m_bFocusExposeDisabled = false;
 
     if (m_pMainMenuContentWidget)

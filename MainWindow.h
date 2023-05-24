@@ -3,6 +3,16 @@
 
 #include <QMainWindow>
 
+enum WidgetType
+{
+    Main,
+    Setting,
+    Enforcement,
+    FileManager,
+    Other,
+};
+
+
 class IndicatorCameraExposeWidget;
 class IndicatorCameraFocusWidget;
 class CameraAlignWidget;
@@ -72,10 +82,10 @@ private:
     MainMenuContentWidget* m_pMainMenuContentWidget = nullptr;
     MainMenuAdminAlignWidget* m_pMainMenuAdminAlignWidget = nullptr;
     CameraAlignWidget* m_pCameraAlignWidget = nullptr;
-    FileManagerWidget* m_pFileManagerWidget;
-    RemoteController* m_pRemoteController;
+    FileManagerWidget* m_pFileManagerWidget = nullptr;
+    RemoteController* m_pRemoteController = nullptr;
 
-
+    WidgetType m_widgetType = Other;
     QString m_userName;
     int m_nFailTimerId;
 //    Language m_mLanguage = Language::English;

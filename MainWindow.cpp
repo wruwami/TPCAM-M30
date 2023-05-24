@@ -26,14 +26,6 @@
 #include "SerialGPSManager.h"
 #include "RemoteController.h"
 
-enum WidgetType
-{
-    Main,
-    Setting,
-    Enforcement,
-    FileManager,
-    Other,
-};
 
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -291,11 +283,14 @@ void MainWindow::on_enforcementClicked()
 {
     m_pIndicatorWidget->m_bFocusExposeDisabled = false;
 
-    if (m_pMainMenuContentWidget)
-    {
-        delete m_pMainMenuContentWidget;
-        m_pMainMenuContentWidget = nullptr;
-    }
+//    if (m_pMainMenuContentWidget)
+//    {
+//        delete m_pMainMenuContentWidget;
+//        m_pMainMenuContentWidget = nullptr;
+//    }
+    QWidget* widget = ui->verticalLayout->itemAt(1)->widget();
+    delete widget;
+    widget = nullptr;
 
     ui->verticalLayout->removeItem(ui->verticalLayout->itemAt(1));
     ui->verticalLayout->addWidget(new EnforcementWidget, 835);
@@ -312,8 +307,12 @@ void MainWindow::OpenEnforcement()
         delete m_pMainMenuContentWidget;
         m_pMainMenuContentWidget = nullptr;
     }
+    if (m_pLoginWidget != nullptr)
+    {
+        delete m_pLoginWidget;
+        m_pLoginWidget = nullptr;
+    }
 
-    delete ui->verticalLayout->itemAt(1)->widget();
     ui->verticalLayout->removeItem(ui->verticalLayout->itemAt(1));
     ui->verticalLayout->addWidget(new EnforcementWidget, 835);
 
@@ -324,6 +323,7 @@ void MainWindow::OpenEnforcement()
 void MainWindow::on_filemanagementClicked()
 {
 //    m_pIndicatorWidget->setFocusExposeDisabled(t);
+    m_widgetType = FileManager;
 
     if (m_pMainMenuContentWidget)
     {
@@ -331,7 +331,9 @@ void MainWindow::on_filemanagementClicked()
         m_pMainMenuContentWidget = nullptr;
     }
     ui->verticalLayout->removeItem(ui->verticalLayout->itemAt(1));
-    m_pFileManagerWidget = new FileManagerWidget;
+
+    if (m_pFileManagerWidget != nullptr)
+        m_pFileManagerWidget = new FileManagerWidget;
     ui->verticalLayout->addWidget(m_pFileManagerWidget, 835);
 
     QObject::connect((QWidget*)m_pFileManagerWidget->m_pHomePushButton, SIGNAL(clicked()), this, SLOT(on_mainMenuHomeClicked()));
@@ -340,22 +342,26 @@ void MainWindow::on_filemanagementClicked()
 
 void MainWindow::OpenFileManagement()
 {
-    if (m_pMainMenuContentWidget)
-    {
-        delete m_pMainMenuContentWidget;
-        m_pMainMenuContentWidget = nullptr;
-    }
+//    if (m_pMainMenuContentWidget)
+//    {
+//        delete m_pMainMenuContentWidget;
+//        m_pMainMenuContentWidget = nullptr;
+//    }
+
+
+    delete ui->verticalLayout->itemAt(1)->widget();
     ui->verticalLayout->removeItem(ui->verticalLayout->itemAt(1));
-    m_pFileManagerWidget = new FileManagerWidget;
+    if (m_pFileManagerWidget != nullptr)
+        m_pFileManagerWidget = new FileManagerWidget;
     ui->verticalLayout->addWidget(m_pFileManagerWidget, 835);
 
-    QObject::connect((QWidget*)m_pFileManagerWidget->m_pHomePushButton, SIGNAL(clicked()), this, SLOT(on_mainMenuHomeClicked()));
     m_pMainMenuWidget->setMainMenuImage("Main_menu", "home_big_n.bmp");
 
 }
 
 void MainWindow::on_settingClicked()
 {
+    m_widgetType = Setting;
 //    m_pIndicatorWidget->setFocusExposeDisabled(false);
 
     if (m_pMainMenuContentWidget)

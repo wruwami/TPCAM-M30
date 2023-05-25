@@ -3,7 +3,6 @@
 
 #include <QVBoxLayout>
 #include <QPainter>
-#include <QDebug>
 
 #include "CustomPushButton.h"
 #include "Color.h"
@@ -62,7 +61,7 @@ MainWindow::MainWindow(QWidget *parent) :
     QObject::connect((QWidget*)m_pLoginWidget->m_pUserNameComboBox, SIGNAL(currentIndexChanged(QString)), this, SLOT(on_userNameChanged(QString)));
     QObject::connect((QWidget*)m_pMainMenuWidget->m_pHomePushButton, SIGNAL(clicked()), this, SLOT(on_mainMenuHomeClicked()));
 
-    qDebug() << ui->widget->geometry();
+
 //    SetWarningMode();
     startTimer(1000);
 }
@@ -308,31 +307,27 @@ void MainWindow::on_enforcementClicked()
 void MainWindow::OpenEnforcement()
 {
     m_pIndicatorWidget->m_bFocusExposeDisabled = false;
-    qDebug() << ui->widget->geometry();
-//    removeseconditem();
+    removeseconditem();
 //    if (m_pMainMenuContentWidget)
 //    {
 //        delete m_pMainMenuContentWidget;
 //        m_pMainMenuContentWidget = nullptr;
 //    }
-    if (m_pLoginWidget != nullptr)
-    {
-        delete m_pLoginWidget;
-        m_pLoginWidget = nullptr;
-    }
+//    if (m_pLoginWidget != nullptr)
+//    {
+//        delete m_pLoginWidget;
+//        m_pLoginWidget = nullptr;
+//    }
 //    initializeMainMenuWidget();
     ui->verticalLayout->removeItem(ui->verticalLayout->itemAt(1));
 
-    m_pEnforcementWidget = new EnforcementWidget;
-    qDebug() << m_pEnforcementWidget->geometry();
-//    m_pEnforcementWidget->resize(1600, 835);
-    ui->verticalLayout->addWidget(m_pEnforcementWidget, 835);
-    qDebug() <<         ui->verticalLayout->stretch(0);
-    qDebug() <<         ui->verticalLayout->stretch(1);
-//    ui->verticalLayout->addWidget(new EnforcementWidget, 835);
-//    ui->verticalLayout->setStretch(0, 125);
-    qDebug() << ui->widget_2->geometry();
+    ui->verticalLayout->addWidget(new EnforcementWidget, 835);
     m_pMainMenuWidget->setMainMenuImage("Main_menu", "home_big_n.bmp");
+}
+
+void  MainWindow::doFirstAction()
+{
+    this->OpenEnforcement();
 }
 
 
@@ -535,7 +530,4 @@ void MainWindow::paintEvent(QPaintEvent *event)
     //    painter.fillRect(rect(), QBrush(QColor(255, 0, 0, 128)));
 }
 
-void MainWindow::doFirstAction()
-{
-    this->OpenEnforcement();
-}
+

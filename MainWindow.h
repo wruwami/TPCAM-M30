@@ -37,6 +37,7 @@ public:
     ~MainWindow();
     void OpenEnforcement();
     void OpenFileManagement();
+    friend class RemoteController;
 private:
     void initializeMainMenuWidget();
     void initializeLoginWidget();
@@ -94,6 +95,8 @@ private:
 protected:
     void timerEvent(QTimerEvent *event);
     void paintEvent(QPaintEvent *event);
+protected slots:
+    void doFirstAction();
 };
 
 #endif // MAINWINDOW_H

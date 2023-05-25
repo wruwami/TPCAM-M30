@@ -15,12 +15,20 @@ private:
     MainWindow* m_pMainwindow;
 public slots:
     void doWork();
-    void doFirstAction();
 
 signals:
     void start(MainWindow*);
     void resultReady(const QString &result);
     void FirstAction();
+    void SecondAction();
+    void ThirdAction();
+    void ForthAction();
+    void FifththAction();
+    void SharpAction();
+    void StarAction();
+    void ZeroAction();
+    void NinethAction();
+
 };
 
 #endif // REMOTECONTROLWORKER_H

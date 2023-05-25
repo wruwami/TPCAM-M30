@@ -67,102 +67,54 @@ void RemoteControlWorker::doWork() {
             {
             case 0x200: // 0
             {
-//                QRect geometry;
-//                for (QScreen *const screen : QGuiApplication::screens()) {
-//                    geometry = geometry.united(screen->geometry());
-//                }
-
-//                QPixmap pixmap(QApplication::primaryScreen()->grabWindow(
-//                              QApplication::desktop()->winId(),
-//                              geometry.x(),
-//                              geometry.y(),
-//                              geometry.width(),
-//                              geometry.height()
-//                    ));
-//                pixmap.setDevicePixelRatio(QApplication::desktop()->devicePixelRatio());
-//                QString filename = GetSubPath("manual_capture", SD) + "/" + GetFile("SC");
-//                pixmap.save(filename, 0, 100);
-
+                emit ZeroAction();
             }
                 break;
 
             case 0x201: // 1
             {
+                emit FirstAction();
             }
                 break;
             case 0x202: // 2
             {
+                emit SecondAction();
             }
                 break;
             case 0x203: // 3
             {
-                emit FirstAction();
+                emit ThirdAction();
                 //m_pMainwindow->OpenEnforcement();
             }
                 break;
             case 0x204: // 4
             {
+                emit ZeroAction();
             }
                 break;
             case 0x205: // 5
             {
-                m_pMainwindow->OpenFileManagement();
-            }
-                break;
-            case 0x206: // 6
-            {
-            }
-                break;
-            case 0x207: // 7
-            {
-            }
-                break;
-            case 0x208: // 8
-            {
-            }
-                break;
-            case 0x209: // 9
-            {
-                char buff[256];
-                memset(buff, 0, 256);
-                FILE* fp = popen("pidof ffmpeg", "r");
-                if (fp == NULL)
-                {
-                    perror("erro : ");
-                    return;
-                }
-
-                while(fgets(buff, 256, fp) != NULL)
-                {
-                    printf("%s", buff);
-                }
-
-                if (!strlen(buff))
-                {
-                    QString cmd;
-                    QString resolution = "800x480";
-                    QString file_name = GetSubPath("manual_capture", SD) + "/" + GetFile("SR");
-                    cmd = QString("ffmpeg -hwaccel opencl -y -f x11grab -framerate 10 -video_size %1 -i :0.0+0,0 -c:v libx264 -pix_fmt yuv420p -qp 0 -preset ultrafast %2 &").arg(resolution).arg(file_name);
-                    system(cmd.toStdString().c_str());
-                }
-                else
-                {
-                    system("ps -ef | grep ffmpeg | awk '{print $2}' | xargs kill -9");
-                }
+                emit FifththAction();
             }
                 break;
             case 0x20a: // *
             {
+                emit StarAction();
             }
                 break;
-            case 0x20b: // #
+            case 0x20b: // sharp
             {
+                emit SharpAction();
             }
                 break;
-
+            case 0x209: // 9
+            {
+                emit NinethAction();
+            }
+                break;
             }
 
-            fprintf(stdout, "%s 0x%04x (%d)\n", ev_value[ev.value], (int)ev.code, (int)ev.code);
+//            fprintf(stdout, "%s 0x%04x (%d)\n", ev_value[ev.value], (int)ev.code, (int)ev.code);
         }
 
 
@@ -174,9 +126,4 @@ void RemoteControlWorker::doWork() {
     fprintf(stderr, "%s.\n", strerror(errno));
 
     emit resultReady("end");
-}
-
-void RemoteControlWorker::doFirstAction()
-{
-    m_pMainwindow->OpenEnforcement();
 }

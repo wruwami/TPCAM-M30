@@ -25,6 +25,7 @@
 #include "SelfTestDialog.h"
 #include "SerialGPSManager.h"
 #include "RemoteController.h"
+#include "FileManager.h"
 
 
 
@@ -325,9 +326,90 @@ void MainWindow::OpenEnforcement()
     m_pMainMenuWidget->setMainMenuImage("Main_menu", "home_big_n.bmp");
 }
 
-void  MainWindow::doFirstAction()
+void MainWindow::OpenMainMenu()
+{
+    m_pIndicatorWidget->m_bFocusExposeDisabled = false;
+    removeseconditem();
+//    if (m_pMainMenuContentWidget)
+//    {
+//        delete m_pMainMenuContentWidget;
+//        m_pMainMenuContentWidget = nullptr;
+//    }
+//    if (m_pLoginWidget != nullptr)
+//    {
+//        delete m_pLoginWidget;
+//        m_pLoginWidget = nullptr;
+//    }
+//    initializeMainMenuWidget();
+    ui->verticalLayout->removeItem(ui->verticalLayout->itemAt(1));
+    if (m_pMainMenuContentWidget != nullptr)
+        m_pMainMenuContentWidget = new MainMenuContentWidget;
+    m_pMainMenuWidget->setMainMenuTitle(LoadString("IDS_MAIN_MENU"));
+    ui->verticalLayout->addWidget(m_pMainMenuContentWidget, 835);
+
+}
+
+void MainWindow::doThirdAction()
 {
     this->OpenEnforcement();
+}
+
+void MainWindow::doForthAction()
+{
+
+}
+
+void MainWindow::do5thAction()
+{
+    this->OpenFileManagement();
+}
+
+void MainWindow::doSharpAction()
+{
+
+}
+
+void MainWindow::doStarAction()
+{
+    this->OpenMainMenu();
+}
+
+void MainWindow::doZeroAction()
+{
+    QPixmap pixmap = QPixmap::grabWindow(this->winId());
+    QString filename = GetSubPath("manual_capture", SD) + "/" + GetFile("SC");
+    pixmap.save(filename, 0, 100);
+}
+
+void MainWindow::do9thAction()
+{
+    char buff[256];
+    memset(buff, 0, 256);
+    FILE* fp = popen("pidof ffmpeg", "r");
+    if (fp == NULL)
+    {
+        perror("erro : ");
+        return;
+    }
+
+    while(fgets(buff, 256, fp) != NULL)
+    {
+        printf("%s", buff);
+    }
+
+    if (!strlen(buff))
+    {
+        QString cmd;
+        QString resolution = "800x480";
+        QString file_name = GetSubPath("manual_capture", SD) + "/" + GetFile("SR");
+        cmd = QString("ffmpeg -hwaccel opencl -y -f x11grab -framerate 10 -video_size %1 -i :0.0+0,0 -c:v libx264 -pix_fmt yuv420p -qp 0 -preset ultrafast %2 &").arg(resolution).arg(file_name);
+        system(cmd.toStdString().c_str());
+    }
+    else
+    {
+        system("ps -ef | grep ffmpeg | awk '{print $2}' | xargs kill -9");
+    }
+
 }
 
 
@@ -359,8 +441,7 @@ void MainWindow::OpenFileManagement()
 //        m_pMainMenuContentWidget = nullptr;
 //    }
 
-
-    delete ui->verticalLayout->itemAt(1)->widget();
+    removeseconditem();
     ui->verticalLayout->removeItem(ui->verticalLayout->itemAt(1));
     if (m_pFileManagerWidget != nullptr)
         m_pFileManagerWidget = new FileManagerWidget;
@@ -528,6 +609,11 @@ void MainWindow::paintEvent(QPaintEvent *event)
 //    setAttribute(Qt::WA_TransparentForMouseEvents);
 //    QPainter painter(this);
     //    painter.fillRect(rect(), QBrush(QColor(255, 0, 0, 128)));
+}
+
+void MainWindow::doFirstAction()
+{
+
 }
 
 

@@ -64,6 +64,11 @@ void EnforcementComponentWidget::on_hidePushButton_clicked()
     }
 }
 
+void EnforcementComponentWidget::doShartAction()
+{
+
+}
+
 void EnforcementComponentWidget::hide()
 {
     m_isSetOutLine = true;

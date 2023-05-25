@@ -14,6 +14,7 @@ class EnforcementComponentWidget : public QWidget
 public:
     explicit EnforcementComponentWidget(QWidget *parent = 0);
     ~EnforcementComponentWidget();
+    friend class RemoteController;
 private:
     void hide();
     void show();
@@ -23,6 +24,7 @@ private:
     bool m_isSetOutLine = false;
 private slots:
     void on_hidePushButton_clicked();
+    void doShartAction();
 protected:
     void paintEvent(QPaintEvent *event);
 

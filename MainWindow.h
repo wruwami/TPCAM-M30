@@ -35,8 +35,6 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
-    void OpenEnforcement();
-    void OpenFileManagement();
     friend class RemoteController;
 private:
     void initializeMainMenuWidget();
@@ -47,6 +45,9 @@ private:
     void showIndicator(bool);
     void setWarningMode();
     void SetWindowWarningMode();
+    void OpenEnforcement();
+    void OpenFileManagement();
+    void OpenMainMenu();
 private slots:
     void on_cameraPushButton_clicked();
     void on_daynNightPushButton_clicked();
@@ -97,6 +98,13 @@ protected:
     void paintEvent(QPaintEvent *event);
 protected slots:
     void doFirstAction();
+    void doThirdAction();
+    void doForthAction();
+    void do5thAction();
+    void doSharpAction();
+    void doStarAction();
+    void doZeroAction();
+    void do9thAction();
 };
 
 #endif // MAINWINDOW_H

@@ -443,7 +443,7 @@ void MainWindow::OpenFileManagement()
 
     removeseconditem();
     ui->verticalLayout->removeItem(ui->verticalLayout->itemAt(1));
-    if (m_pFileManagerWidget != nullptr)
+    if (m_pFileManagerWidget == nullptr)
         m_pFileManagerWidget = new FileManagerWidget;
     ui->verticalLayout->addWidget(m_pFileManagerWidget, 835);
 

@@ -24,6 +24,7 @@ void RemoteController::CreateThread()
     m_thread->start();
 
     QObject::connect(worker, &RemoteControlWorker::start, worker, &RemoteControlWorker::doWork);
+    QObject::connect(worker, &RemoteControlWorker::FirstAction, m_pMainwindow, &MainWindow::doFirstAction);
     QObject::connect(m_thread, &QThread::finished, worker, &QObject::deleteLater);
 
     QObject::connect(worker, &RemoteControlWorker::resultReady, [&](const QString &result){
@@ -31,6 +32,6 @@ void RemoteController::CreateThread()
         m_thread->quit(); // 스레드중지
     });
 
-    emit worker->start("World");
+    emit worker->start(m_pMainwindow);
 
 }

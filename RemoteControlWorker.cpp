@@ -96,7 +96,8 @@ void RemoteControlWorker::doWork() {
                 break;
             case 0x203: // 3
             {
-                m_pMainwindow->OpenEnforcement();
+                emit FirstAction();
+                //m_pMainwindow->OpenEnforcement();
             }
                 break;
             case 0x204: // 4
@@ -173,4 +174,9 @@ void RemoteControlWorker::doWork() {
     fprintf(stderr, "%s.\n", strerror(errno));
 
     emit resultReady("end");
+}
+
+void RemoteControlWorker::doFirstAction()
+{
+    m_pMainwindow->OpenEnforcement();
 }

@@ -3,6 +3,7 @@
 
 #include <QVBoxLayout>
 #include <QPainter>
+#include <QDebug>
 
 #include "CustomPushButton.h"
 #include "Color.h"
@@ -50,12 +51,18 @@ MainWindow::MainWindow(QWidget *parent) :
     m_pRemoteController = new RemoteController(this);
     m_pRemoteController->CreateThread();
 
+    QSizePolicy sp_retain = ui->widget_2->sizePolicy();
+    sp_retain.setRetainSizeWhenHidden(true);
+    ui->widget->setSizePolicy(sp_retain);
+    ui->widget_2->setSizePolicy(sp_retain);
+
     QObject::connect((QWidget*)m_pDateTimeWidget->m_pGPSCheckBox, SIGNAL(stateChanged()), this, SLOT(on_datetimeChecked()));
     QObject::connect((QWidget*)m_pLoginWidget->m_loginPushButton, SIGNAL(clicked()), this, SLOT(on_loginWidgetClicked()));
     QObject::connect((QWidget*)m_pLoginWidget->m_dateTimePushButton, SIGNAL(clicked()), this, SLOT(on_dateTimeWidgetClicked()));
     QObject::connect((QWidget*)m_pLoginWidget->m_pUserNameComboBox, SIGNAL(currentIndexChanged(QString)), this, SLOT(on_userNameChanged(QString)));
     QObject::connect((QWidget*)m_pMainMenuWidget->m_pHomePushButton, SIGNAL(clicked()), this, SLOT(on_mainMenuHomeClicked()));
 
+    qDebug() << ui->widget->geometry();
 //    SetWarningMode();
     startTimer(1000);
 }
@@ -283,14 +290,14 @@ void MainWindow::on_enforcementClicked()
 {
     m_pIndicatorWidget->m_bFocusExposeDisabled = false;
 
-//    if (m_pMainMenuContentWidget)
-//    {
-//        delete m_pMainMenuContentWidget;
-//        m_pMainMenuContentWidget = nullptr;
-//    }
-    QWidget* widget = ui->verticalLayout->itemAt(1)->widget();
-    delete widget;
-    widget = nullptr;
+    if (m_pMainMenuContentWidget)
+    {
+        delete m_pMainMenuContentWidget;
+        m_pMainMenuContentWidget = nullptr;
+    }
+//    QWidget* widget = ui->verticalLayout->itemAt(1)->widget();
+//    delete widget;
+//    widget = nullptr;
 
     ui->verticalLayout->removeItem(ui->verticalLayout->itemAt(1));
     ui->verticalLayout->addWidget(new EnforcementWidget, 835);
@@ -301,21 +308,30 @@ void MainWindow::on_enforcementClicked()
 void MainWindow::OpenEnforcement()
 {
     m_pIndicatorWidget->m_bFocusExposeDisabled = false;
-
-    if (m_pMainMenuContentWidget)
-    {
-        delete m_pMainMenuContentWidget;
-        m_pMainMenuContentWidget = nullptr;
-    }
+    qDebug() << ui->widget->geometry();
+//    removeseconditem();
+//    if (m_pMainMenuContentWidget)
+//    {
+//        delete m_pMainMenuContentWidget;
+//        m_pMainMenuContentWidget = nullptr;
+//    }
     if (m_pLoginWidget != nullptr)
     {
         delete m_pLoginWidget;
         m_pLoginWidget = nullptr;
     }
-
+//    initializeMainMenuWidget();
     ui->verticalLayout->removeItem(ui->verticalLayout->itemAt(1));
-    ui->verticalLayout->addWidget(new EnforcementWidget, 835);
 
+    m_pEnforcementWidget = new EnforcementWidget;
+    qDebug() << m_pEnforcementWidget->geometry();
+//    m_pEnforcementWidget->resize(1600, 835);
+    ui->verticalLayout->addWidget(m_pEnforcementWidget, 835);
+    qDebug() <<         ui->verticalLayout->stretch(0);
+    qDebug() <<         ui->verticalLayout->stretch(1);
+//    ui->verticalLayout->addWidget(new EnforcementWidget, 835);
+//    ui->verticalLayout->setStretch(0, 125);
+    qDebug() << ui->widget_2->geometry();
     m_pMainMenuWidget->setMainMenuImage("Main_menu", "home_big_n.bmp");
 }
 
@@ -516,5 +532,10 @@ void MainWindow::paintEvent(QPaintEvent *event)
 //    setAttribute(Qt::WA_NoSystemBackground);
 //    setAttribute(Qt::WA_TransparentForMouseEvents);
 //    QPainter painter(this);
-//    painter.fillRect(rect(), QBrush(QColor(255, 0, 0, 128)));
+    //    painter.fillRect(rect(), QBrush(QColor(255, 0, 0, 128)));
+}
+
+void MainWindow::doFirstAction()
+{
+    this->OpenEnforcement();
 }

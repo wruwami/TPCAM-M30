@@ -4,6 +4,7 @@
 #include <QObject>
 #include "MainWindow.h"
 
+class MainWindow;
 class RemoteControlWorker : public QObject
 {
     Q_OBJECT
@@ -14,10 +15,12 @@ private:
     MainWindow* m_pMainwindow;
 public slots:
     void doWork();
+    void doFirstAction();
 
 signals:
-    void start(const QString &);
+    void start(MainWindow*);
     void resultReady(const QString &result);
+    void FirstAction();
 };
 
 #endif // REMOTECONTROLWORKER_H

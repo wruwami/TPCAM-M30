@@ -89,7 +89,7 @@ void RemoteControlWorker::doWork() {
                 break;
             case 0x204: // 4
             {
-                emit ZeroAction();
+                emit ForthAction();
             }
                 break;
             case 0x205: // 5

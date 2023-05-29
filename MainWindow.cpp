@@ -27,7 +27,13 @@
 #include "RemoteController.h"
 #include "FileManager.h"
 
-
+template <typename T>
+inline void removeSecondItem(T*& pointer) {
+  if (pointer) {
+    delete pointer;
+    pointer = 0;
+  }
+}
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -69,17 +75,20 @@ MainWindow::MainWindow(QWidget *parent) :
 
 MainWindow::~MainWindow()
 {
-    if (m_pLoginWidget != nullptr)
-        delete m_pLoginWidget;
-    if (m_pMainMenuContentWidget != nullptr)
-        delete m_pMainMenuContentWidget;
+//    if (m_pLoginWidget != nullptr)
+//        delete m_pLoginWidget;
+//    if (m_pMainMenuContentWidget != nullptr)
+//        delete m_pMainMenuContentWidget;
 
-    if (m_pIndicatorWidget)
-    {
-        m_pIndicatorWidget->close();
-        delete m_pIndicatorWidget;
-        m_pIndicatorWidget = nullptr;
-    }
+//    if (m_pIndicatorWidget)
+//    {
+//        m_pIndicatorWidget->close();
+//        delete m_pIndicatorWidget;
+//        m_pIndicatorWidget = nullptr;
+//    }
+
+    QWidget* widget = ui->verticalLayout->itemAt(1)->widget();
+    removeSecondItem(widget);
 
     finalize();
 
@@ -95,7 +104,11 @@ void MainWindow::initializeMainMenuWidget()
     m_pMainMenuWidget->show();
     if (m_userName == "admin-align")
     {
-        removeseconditem();
+        if (ui->verticalLayout->count() > 1)
+        {
+            QWidget* widget = ui->verticalLayout->itemAt(1)->widget();
+            removeseconditem(widget);
+        }
 
         ui->verticalLayout->removeItem(ui->verticalLayout->takeAt(1));
         if (m_pMainMenuAdminAlignWidget == nullptr)
@@ -109,8 +122,12 @@ void MainWindow::initializeMainMenuWidget()
     }
     else
     {
-        removeseconditem();
 
+        if (ui->verticalLayout->count() > 1)
+        {
+            QWidget* widget = ui->verticalLayout->itemAt(1)->widget();
+            removeseconditem(widget);
+        }
         ui->verticalLayout->removeItem(ui->verticalLayout->takeAt(1));
         if (m_pMainMenuContentWidget == nullptr)
             m_pMainMenuContentWidget = new MainMenuContentWidget;
@@ -127,7 +144,11 @@ void MainWindow::initializeMainMenuWidget()
 void MainWindow::initializeLoginWidget()
 {
     m_pIndicatorWidget->m_bFocusExposeDisabled = true;
-    removeseconditem();
+    if (ui->verticalLayout->count() > 1)
+    {
+        QWidget* widget = ui->verticalLayout->itemAt(1)->widget();
+        removeseconditem(widget);
+    }
     m_userName = "admin";
 
 //    if (m_pLoginWidget == nullptr)
@@ -178,6 +199,16 @@ void MainWindow::removeseconditem()
         widget = nullptr;
     }
 }
+
+void MainWindow::removeseconditem(QWidget*& widget)
+{
+    if (ui->verticalLayout->count() > 1)
+    {
+        delete widget;
+        widget = nullptr;
+    }
+}
+
 
 void MainWindow::showIndicator(bool isShow)
 {
@@ -271,7 +302,11 @@ void MainWindow::on_loginWidgetClicked()
 
 void MainWindow::on_dateTimeWidgetClicked()
 {
-    removeseconditem();
+    if (ui->verticalLayout->count() > 1)
+    {
+        QWidget* widget = ui->verticalLayout->itemAt(1)->widget();
+        removeseconditem(widget);
+    }
 //    ui->verticalLayout->removeItem(ui->verticalLayout->takeAt(1));
 //    if (m_pLoginWidget)
 //    {
@@ -308,7 +343,11 @@ void MainWindow::on_enforcementClicked()
 void MainWindow::OpenEnforcement()
 {
     m_pIndicatorWidget->m_bFocusExposeDisabled = false;
-    removeseconditem();
+    if (ui->verticalLayout->count() > 1)
+    {
+        QWidget* widget = ui->verticalLayout->itemAt(1)->widget();
+        removeseconditem(widget);
+    }
 //    if (m_pMainMenuContentWidget)
 //    {
 //        delete m_pMainMenuContentWidget;
@@ -356,6 +395,17 @@ void MainWindow::doThirdAction()
 
 void MainWindow::doForthAction()
 {
+    ConfigManager config = ConfigManager("parameter_setting1.json");
+    QJsonObject object = config.GetConfig();
+    int enforcement = object["enforcement selection"].toInt();
+    if (enforcement < 4 )
+        enforcement++;
+    else
+        enforcement = 1;
+
+    object["enforcement selection"] = enforcement;
+    config.SetConfig(object);
+    config.SaveFile();
 
 }
 
@@ -424,12 +474,10 @@ void MainWindow::on_filemanagementClicked()
         m_pMainMenuContentWidget = nullptr;
     }
     ui->verticalLayout->removeItem(ui->verticalLayout->itemAt(1));
+    FileManagerWidget* pFileManagerWidget = new FileManagerWidget;
+    ui->verticalLayout->addWidget(new FileManagerWidget, 835);
 
-    if (m_pFileManagerWidget != nullptr)
-        m_pFileManagerWidget = new FileManagerWidget;
-    ui->verticalLayout->addWidget(m_pFileManagerWidget, 835);
-
-    QObject::connect((QWidget*)m_pFileManagerWidget->m_pHomePushButton, SIGNAL(clicked()), this, SLOT(on_mainMenuHomeClicked()));
+    QObject::connect((QWidget*)pFileManagerWidget->m_pHomePushButton, SIGNAL(clicked()), this, SLOT(on_mainMenuHomeClicked()));
     m_pMainMenuWidget->setMainMenuImage("Main_menu", "home_big_n.bmp");
 }
 
@@ -441,11 +489,12 @@ void MainWindow::OpenFileManagement()
 //        m_pMainMenuContentWidget = nullptr;
 //    }
 
-    removeseconditem();
+    QWidget* widget = ui->verticalLayout->itemAt(1)->widget();
+    removeseconditem(widget);
+
     ui->verticalLayout->removeItem(ui->verticalLayout->itemAt(1));
-    if (m_pFileManagerWidget == nullptr)
-        m_pFileManagerWidget = new FileManagerWidget;
-    ui->verticalLayout->addWidget(m_pFileManagerWidget, 835);
+
+    ui->verticalLayout->addWidget(new FileManagerWidget, 835);
 
     m_pMainMenuWidget->setMainMenuImage("Main_menu", "home_big_n.bmp");
 
@@ -539,11 +588,9 @@ void MainWindow::on_DateTimeCancelClicked()
 void MainWindow::on_mainMenuHomeClicked()
 {
     showIndicator(true);
-    if (m_pMainMenuAdminAlignWidget)
-    {
-        delete m_pMainMenuAdminAlignWidget;
-        m_pMainMenuAdminAlignWidget = nullptr;
-    }
+
+    QWidget* widget = ui->verticalLayout->itemAt(1)->widget();
+    removeseconditem(widget);
 
     if (m_pMainMenuAdminAlignWidget)
     {
@@ -551,11 +598,17 @@ void MainWindow::on_mainMenuHomeClicked()
         m_pMainMenuAdminAlignWidget = nullptr;
     }
 
-    if (m_pCameraAlignWidget)
+    if (m_pMainMenuAdminAlignWidget)
     {
-        delete m_pCameraAlignWidget;
-        m_pCameraAlignWidget = nullptr;
+        delete m_pMainMenuAdminAlignWidget;
+        m_pMainMenuAdminAlignWidget = nullptr;
     }
+
+//    if (m_pCameraAlignWidget)
+//    {
+//        delete m_pCameraAlignWidget;
+//        m_pCameraAlignWidget = nullptr;
+//    }
 
     initializeMainMenuWidget();
 }

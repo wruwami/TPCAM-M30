@@ -42,6 +42,7 @@ private:
     void finalize();
     void open_indicator_widget();
     void removeseconditem();
+    void removeseconditem(QWidget*&);
     void showIndicator(bool);
     void setWarningMode();
     void SetWindowWarningMode();
@@ -84,7 +85,6 @@ private:
     MainMenuContentWidget* m_pMainMenuContentWidget = nullptr;
     MainMenuAdminAlignWidget* m_pMainMenuAdminAlignWidget = nullptr;
     CameraAlignWidget* m_pCameraAlignWidget = nullptr;
-    FileManagerWidget* m_pFileManagerWidget = nullptr;
     RemoteController* m_pRemoteController = nullptr;
 
     WidgetType m_widgetType = Other;

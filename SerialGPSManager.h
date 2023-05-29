@@ -36,6 +36,7 @@ private:
     QDateTime m_DateTime;
     QString m_Latitude;
     QString m_Longitude;
+    QString m_sensitivity;
 
 private:
     QSerialPort* m_pSerial;

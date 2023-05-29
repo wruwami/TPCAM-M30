@@ -165,6 +165,7 @@ void SerialGPSManager::serial_received()
             snr_ary[l] = splitted.value(7+l*4).toInt();
         }
         m_nSatellitesInView = splitted.value(1).toUInt();
+        m_sensitivity = splitted.value(7);
         qDebug() << "Number of Message: "+splitted.value(1);
         qDebug() << "Message Number: "+splitted.value(2);
         qDebug() << "Satellites in View: "+splitted.value(3);

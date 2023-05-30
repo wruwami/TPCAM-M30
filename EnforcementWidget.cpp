@@ -17,7 +17,8 @@ EnforcementWidget::EnforcementWidget(QWidget *parent) :
 
 //    ui->verticalLayout->addWidget(new MainMenuWidget, 125);
     QVBoxLayout* layout = new QVBoxLayout;
-    layout->addWidget(new EnforcementComponentWidget);
+    m_pEnforcementComponentWidget = new EnforcementComponentWidget;
+    layout->addWidget(m_pEnforcementComponentWidget);
     setLayout(layout);
 
 //    QOpenGLWidget* pOpenGLWidget = new QOpenGLWidget(this);
@@ -38,6 +39,12 @@ EnforcementWidget::~EnforcementWidget()
     while ((item = layout()->takeAt(1)) = nullptr ){
         delete item->widget();
         delete item;
+    }
+
+    if (m_pEnforcementComponentWidget != nullptr)
+    {
+        delete m_pEnforcementComponentWidget;
+        m_pEnforcementComponentWidget = nullptr;
     }
 
     delete ui;

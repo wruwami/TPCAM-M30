@@ -5,10 +5,11 @@
 
 enum WidgetType
 {
-    Main,
+    Login,
     Setting,
     Enforcement,
     FileManager,
+    MainMenu,
     Other,
 };
 
@@ -24,6 +25,7 @@ class MainMenuContentWidget;
 class MainMenuAdminAlignWidget;
 class FileManagerWidget;
 class RemoteController;
+class EnforcementWidget;
 namespace Ui {
 class MainWindow;
 }
@@ -86,6 +88,7 @@ private:
     MainMenuAdminAlignWidget* m_pMainMenuAdminAlignWidget = nullptr;
     CameraAlignWidget* m_pCameraAlignWidget = nullptr;
     RemoteController* m_pRemoteController = nullptr;
+    EnforcementWidget* m_pEnforcementWidget = nullptr;
 
     WidgetType m_widgetType = Other;
     QString m_userName;
@@ -98,6 +101,7 @@ protected:
     void paintEvent(QPaintEvent *event);
 protected slots:
     void doFirstAction();
+    void doSecondAction();
     void doThirdAction();
     void doForthAction();
     void do5thAction();

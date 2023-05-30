@@ -46,6 +46,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     m_pMainMenuWidget = (MainMenuWidget*)ui->verticalLayout->itemAt(0)->widget();
 
+    m_widgetType = Login;
     m_pLoginWidget = new LoginWidget;
 //    m_pMainMenuContentWidget = new MainMenuContentWidget;
     ui->verticalLayout->removeItem(ui->verticalLayout->itemAt(1));
@@ -104,6 +105,7 @@ void MainWindow::initializeMainMenuWidget()
     m_pMainMenuWidget->show();
     if (m_userName == "admin-align")
     {
+        m_widgetType = Other;
         if (ui->verticalLayout->count() > 1)
         {
             QWidget* widget = ui->verticalLayout->itemAt(1)->widget();
@@ -122,6 +124,7 @@ void MainWindow::initializeMainMenuWidget()
     }
     else
     {
+        m_widgetType = MainMenu;
 
         if (ui->verticalLayout->count() > 1)
         {
@@ -143,6 +146,7 @@ void MainWindow::initializeMainMenuWidget()
 
 void MainWindow::initializeLoginWidget()
 {
+    m_widgetType = Login;
     m_pIndicatorWidget->m_bFocusExposeDisabled = true;
     if (ui->verticalLayout->count() > 1)
     {
@@ -266,6 +270,7 @@ void MainWindow::on_loginWidgetClicked()
 {
     if (m_userName == "admin-align")
     {
+        m_widgetType = Other;
 //        QWidget* widget = ui->verticalLayout->itemAt(1)->widget();
 //        delete widget;
 //        widget = nullptr;
@@ -283,6 +288,8 @@ void MainWindow::on_loginWidgetClicked()
     }
     else
     {
+        m_widgetType = MainMenu;
+
         delete m_pLoginWidget;
         m_pLoginWidget = nullptr;
 //        QWidget* widget = ui->verticalLayout->itemAt(1)->widget();
@@ -323,6 +330,7 @@ void MainWindow::on_dateTimeWidgetClicked()
 
 void MainWindow::on_enforcementClicked()
 {
+    m_widgetType = Enforcement;
     m_pIndicatorWidget->m_bFocusExposeDisabled = false;
 
     if (m_pMainMenuContentWidget)
@@ -335,13 +343,19 @@ void MainWindow::on_enforcementClicked()
 //    widget = nullptr;
 
     ui->verticalLayout->removeItem(ui->verticalLayout->itemAt(1));
-    ui->verticalLayout->addWidget(new EnforcementWidget, 835);
+    if (m_pEnforcementWidget == nullptr)
+        m_pEnforcementWidget = new EnforcementWidget;
+    ui->verticalLayout->addWidget(m_pEnforcementWidget, 835);
 
     m_pMainMenuWidget->setMainMenuImage("Main_menu", "home_big_n.bmp");
 }
 
 void MainWindow::OpenEnforcement()
 {
+    if (!(m_widgetType == FileManager && m_widgetType == Setting))
+        return;
+
+    m_widgetType = Enforcement;
     m_pIndicatorWidget->m_bFocusExposeDisabled = false;
     if (ui->verticalLayout->count() > 1)
     {
@@ -360,13 +374,18 @@ void MainWindow::OpenEnforcement()
 //    }
 //    initializeMainMenuWidget();
     ui->verticalLayout->removeItem(ui->verticalLayout->itemAt(1));
-
-    ui->verticalLayout->addWidget(new EnforcementWidget, 835);
+    if (m_pEnforcementWidget == nullptr)
+        m_pEnforcementWidget = new EnforcementWidget;
+    ui->verticalLayout->addWidget(m_pEnforcementWidget, 835);
     m_pMainMenuWidget->setMainMenuImage("Main_menu", "home_big_n.bmp");
 }
 
 void MainWindow::OpenMainMenu()
 {
+    if (m_widgetType != Enforcement)
+        return;
+
+    m_widgetType = MainMenu;
     m_pIndicatorWidget->m_bFocusExposeDisabled = false;
     removeseconditem();
 //    if (m_pMainMenuContentWidget)
@@ -416,7 +435,10 @@ void MainWindow::do5thAction()
 
 void MainWindow::doSharpAction()
 {
+    if (m_widgetType != Enforcement)
+        return;
 
+    m_pEnforcementWidget->m_pEnforcementComponentWidget->SaveImage();
 }
 
 void MainWindow::doStarAction()
@@ -483,6 +505,10 @@ void MainWindow::on_filemanagementClicked()
 
 void MainWindow::OpenFileManagement()
 {
+    if (!(m_widgetType == Enforcement && m_widgetType == Setting))
+        return;
+
+    m_widgetType = FileManager;
 //    if (m_pMainMenuContentWidget)
 //    {
 //        delete m_pMainMenuContentWidget;
@@ -615,6 +641,7 @@ void MainWindow::on_mainMenuHomeClicked()
 
 void MainWindow::on_logo_clicked()
 {
+
     if (m_pMainMenuAdminAlignWidget)
     {
         delete m_pMainMenuAdminAlignWidget;
@@ -666,7 +693,18 @@ void MainWindow::paintEvent(QPaintEvent *event)
 
 void MainWindow::doFirstAction()
 {
+    if (m_widgetType != Enforcement)
+        return;
+
+    m_pEnforcementWidget->m_pEnforcementComponentWidget->dzPlus();
 
 }
 
+void MainWindow::doSecondAction()
+{
+    if (m_widgetType != Enforcement)
+        return;
+
+    m_pEnforcementWidget->m_pEnforcementComponentWidget->dzPlus();
+}
 

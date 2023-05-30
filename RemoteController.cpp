@@ -24,6 +24,8 @@ void RemoteController::CreateThread()
     m_thread->start();
 
     QObject::connect(worker, &RemoteControlWorker::start, worker, &RemoteControlWorker::doWork);
+    QObject::connect(worker, &RemoteControlWorker::FirstAction, m_pMainwindow, &MainWindow::doFirstAction);
+    QObject::connect(worker, &RemoteControlWorker::SecondAction, m_pMainwindow, &MainWindow::doSecondAction);
     QObject::connect(worker, &RemoteControlWorker::SharpAction, m_pMainwindow, &MainWindow::doSharpAction);
     QObject::connect(worker, &RemoteControlWorker::ThirdAction, m_pMainwindow, &MainWindow::doThirdAction);
     QObject::connect(worker, &RemoteControlWorker::ForthAction, m_pMainwindow, &MainWindow::doForthAction);

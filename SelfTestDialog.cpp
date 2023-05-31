@@ -13,6 +13,8 @@
 #include "DateFormatManager.h"
 #include "FileManager.h"
 #include "SerialGPSManager.h"
+#include "SerialLaserManager.h"
+#include "SdcardManager.h"
 
 SelfTestDialog::SelfTestDialog(QWidget *parent) :
     QDialog(parent),
@@ -148,6 +150,13 @@ bool SelfTestDialog::CameraTest()
 
 bool SelfTestDialog::LaserTest()
 {
+    SerialLaserManager serialLaserManager;
+    if (serialLaserManager.connectLaser() == "Connect")
+    {
+        serialLaserManager.close();
+        return true;
+    }
+
     return true;
 }
 
@@ -158,7 +167,11 @@ bool SelfTestDialog::BatteryTest()
 
 bool SelfTestDialog::StorageTest()
 {
-    return true;
+    SdcardManager sdcardManager;
+    if (sdcardManager.isExistEMMccard == true && sdcardManager.isExistEMMccard == true)
+        return true;
+
+    return false;
 }
 
 void SelfTestDialog::timerEvent(QTimerEvent *event)

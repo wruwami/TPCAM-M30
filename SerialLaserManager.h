@@ -10,8 +10,8 @@ class SerialLaserManager : public QObject
     Q_OBJECT
 public:
     SerialLaserManager();
-private:
     QString connectLaser();
+    void close();
 private:
     QSerialPort* m_pSerial;
     SerialPacket *laser_packet;

@@ -69,4 +69,12 @@ QString SerialLaserManager::connectLaser()
         laser_con=0;
         return "Connect";
     }
+    return "";
+}
+
+void SerialLaserManager::close()
+{
+    if(m_pSerial->isOpen())
+        m_pSerial->close();
+    laser_con=0;
 }

@@ -7,10 +7,17 @@ class SdcardManager
 {
 public:
     SdcardManager();
-    int GetAvailable();
-    int GetTotal();
+    int GetSDAvailable();
+    int GetSDTotal();
+    int GeteMMCAvailable();
+    int GeteMMCTotal();
+
 private:
-    QStorageInfo m_storage;
+    QStorageInfo m_sdStorage;
+    QStorageInfo m_emmcStorage;
+public:
+    bool isExistSdcard = false;
+    bool isExistEMMccard = false;
 
 };
 

@@ -6,7 +6,7 @@ SdcardManager::SdcardManager()
 {
     foreach(m_sdStorage , QStorageInfo::mountedVolumes())
     {
-        if (m_sdStorage.name() == "/dev/mmcblk0p1")
+        if (m_sdStorage.displayName() == "/dev/mmcblk0p1")
         {
             isExistSdcard = true;
         }
@@ -14,18 +14,11 @@ SdcardManager::SdcardManager()
 
     foreach(m_sdStorage , QStorageInfo::mountedVolumes())
     {
-        if (m_emmcStorage.name() == "/")
+        if (m_emmcStorage.displayName() == "/")
         {
             isExistEMMccard = true;
         }
     }
-
-
-    foreach(auto sdStorage , QStorageInfo::mountedVolumes())
-    {
-        qDebug() << sdStorage.name();
-    }
-
 
 //    qDebug() << "name:" << m_storage.name();
 //    qDebug() << "fileSystemType:" << m_storage.fileSystemType();

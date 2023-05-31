@@ -60,6 +60,7 @@ SOURCES += main.cpp\
     CustomImageWidget.cpp \
     FileManagerSnapShotDialog.cpp \
     ViscaPacket.cpp \
+    filter.cpp \
     keyboard/key.cpp \
     keyboard/keyboard.cpp \
     keyboard/keylayout.cpp \
@@ -93,6 +94,7 @@ SOURCES += main.cpp\
     CustomZoomLabel.cpp \
     FileManagerFileTransferDialog.cpp \
     SearchBoxDialog.cpp \
+    ltc2943.cpp \
     thermal_printer.cpp
 
 
@@ -146,6 +148,7 @@ HEADERS  += MainWindow.h \
     ImageSize.h \
     FileManagerSnapShotDialog.h \
     ViscaPacket.h \
+    filter.h \
     keyboard/key.h \
     keyboard/keyboard.h \
     keyboard/keylayout.h \
@@ -173,6 +176,7 @@ HEADERS  += MainWindow.h \
     IndicatorCameraExposeWidget.h \
     CustomList.h \
     CustomScrollbar.h \
+    ltc2943.h \
     rapidcsv.h \
     ConfigManager.h \
     DateFormatManager.h \

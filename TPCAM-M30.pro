@@ -29,6 +29,9 @@ SOURCES += main.cpp\
     SdcardManager.cpp \
     SelfTestDialog.cpp \
     SerialGPSManager.cpp \
+    SerialLaserManager.cpp \
+    SerialPacket.cpp \
+    SerialViscaManager.cpp \
     Setting4APWidget.cpp \
     StillImageViewerDialog.cpp \
     StringLoader.cpp \
@@ -56,6 +59,7 @@ SOURCES += main.cpp\
     CameraZoomFocusWidget.cpp \
     CustomImageWidget.cpp \
     FileManagerSnapShotDialog.cpp \
+    ViscaPacket.cpp \
     keyboard/key.cpp \
     keyboard/keyboard.cpp \
     keyboard/keylayout.cpp \
@@ -109,6 +113,9 @@ HEADERS  += MainWindow.h \
     SdcardManager.h \
     SelfTestDialog.h \
     SerialGPSManager.h \
+    SerialLaserManager.h \
+    SerialPacket.h \
+    SerialViscaManager.h \
     Setting4APWidget.h \
     StillImageViewerDialog.h \
     StringLoader.h \
@@ -138,6 +145,7 @@ HEADERS  += MainWindow.h \
     CustomImageWidget.h \
     ImageSize.h \
     FileManagerSnapShotDialog.h \
+    ViscaPacket.h \
     keyboard/key.h \
     keyboard/keyboard.h \
     keyboard/keylayout.h \

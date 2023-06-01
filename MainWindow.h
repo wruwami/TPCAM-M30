@@ -2,6 +2,8 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include "ltc2943.h"
+
 
 enum WidgetType
 {
@@ -26,6 +28,7 @@ class MainMenuAdminAlignWidget;
 class FileManagerWidget;
 class RemoteController;
 class EnforcementWidget;
+class CustomLabel;
 namespace Ui {
 class MainWindow;
 }
@@ -51,6 +54,7 @@ private:
     void OpenEnforcement();
     void OpenFileManagement();
     void OpenMainMenu();
+    void CheckBatteryStatus();
 private slots:
     void on_cameraPushButton_clicked();
     void on_daynNightPushButton_clicked();
@@ -89,7 +93,10 @@ private:
     CameraAlignWidget* m_pCameraAlignWidget = nullptr;
     RemoteController* m_pRemoteController = nullptr;
     EnforcementWidget* m_pEnforcementWidget = nullptr;
+    CustomLabel* m_pBatteryStatus;
+    CustomLabel* m_pBatteryPercent;
 
+    LTC2943 ltc = LTC2943(15);
     WidgetType m_widgetType = Other;
     QString m_userName;
     int m_nFailTimerId;

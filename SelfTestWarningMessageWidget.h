@@ -15,6 +15,10 @@ class SelfTestWarningMessageWidget : public QWidget
 public:
     explicit SelfTestWarningMessageWidget(QDialog *parent = 0);
     ~SelfTestWarningMessageWidget();
+    void SetCameraStatus(bool);
+    void SetLaserStatus(bool);
+    void SetBatteryStatus(bool);
+    void SetStorageStatus(bool);
 private:
     QDialog* m_pParent;
 private slots:

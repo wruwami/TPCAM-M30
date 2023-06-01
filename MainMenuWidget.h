@@ -39,6 +39,8 @@ public:
     CustomPushButton* m_pWifiPushbutton;
     CustomPushButton* m_pGpsPushbutton;
     CustomPushButton* m_pMainMenuTitlePushButton;
+    CustomLabel* m_pBatteryChargingLabel;
+    CustomLabel* m_pBatteryPercentLabel;
 
 
     // QObject interface

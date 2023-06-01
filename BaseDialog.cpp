@@ -58,7 +58,12 @@ BaseDialog::BaseDialog(Dialog dialog, Qt::Alignment align, QString msg, bool isC
     {
     case Dialog::SelfTestWarningMessageWidgetType:
     {
-        ui->verticalLayout->addWidget(new SelfTestWarningMessageWidget(this));
+        SelfTestWarningMessageWidget* selfTestWarningMessageWidget = new SelfTestWarningMessageWidget(this);
+        selfTestWarningMessageWidget->SetCameraStatus(isCamera);
+        selfTestWarningMessageWidget->SetLaserStatus(isLaser);
+        selfTestWarningMessageWidget->SetBatteryStatus(isBattery);
+        selfTestWarningMessageWidget->SetStorageStatus(isStorage);
+        ui->verticalLayout->addWidget(selfTestWarningMessageWidget);
         ui->titleLabel->setText(LoadString("IDS_WARNING_MESSAGE"));
         ui->titleLabel->setAlignment(align);
         setSize(1216, 694);
@@ -203,6 +208,14 @@ BaseDialog::~BaseDialog()
 void BaseDialog::setAvFileFormatList(QList<AVFileFormat> avFileFormatList)
 {
 
+}
+
+void BaseDialog::SetSelfTestResult(bool camera, bool laser, bool battery, bool storage)
+{
+    bool isCamera = camera;
+    bool isLaser = laser;
+    bool isBattery = battery;
+    bool isStorage = storage;
 }
 
 void BaseDialog::setSize(QSize size)

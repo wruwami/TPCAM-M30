@@ -45,6 +45,8 @@ MainWindow::MainWindow(QWidget *parent) :
     selfTestDialog.exec();
 
     m_pMainMenuWidget = (MainMenuWidget*)ui->verticalLayout->itemAt(0)->widget();
+    m_pBatteryStatus = m_pMainMenuWidget->m_pBatteryChargingLabel;
+    m_pBatteryPercent = m_pMainMenuWidget->m_pBatteryPercentLabel;
 
     m_widgetType = Login;
     m_pLoginWidget = new LoginWidget;
@@ -407,6 +409,37 @@ void MainWindow::OpenMainMenu()
 
 }
 
+void MainWindow::CheckBatteryStatus()
+{
+    //get raw values
+    ltc.getValues();
+
+    //moving average filter
+    ltc.filterValues();
+
+    //
+
+    if((ltc.m_filteredVolt >= 12.5) && (ltc.m_filteredCurrent >= 0.1) && (ltc.m_bACChangeFlag == true))
+    {
+        ltc.setChargeThresholdH(ltc.m_filteredAC*(0.2) + ltc.getACThresholdH()*(0.8) );
+        ltc.m_bACChangeFlag = false;
+    }
+    else if((ltc.m_filteredVolt <= 9.5) && (ltc.m_filteredCurrent <= -0.1) && (ltc.m_bACChangeFlag == false))
+    {
+        int ACDiff = ltc.m_filteredAC-5000;
+        ltc.setChargeThresholdH(ltc.getACThresholdH()-(ACDiff*0.2));
+        ltc.m_bACChangeFlag = true;
+        ltc.setRawAccumulatedCharge(5000);
+    }
+
+//    if(ltc.m_filteredVolt <=9.4)
+//    {
+////        OS 자동 종료
+//        QProcess::startDetached("shutdown -h now");
+//    }
+
+}
+
 void MainWindow::doThirdAction()
 {
     this->OpenEnforcement();
@@ -681,6 +714,9 @@ void MainWindow::on_datetimeChecked()
 void MainWindow::timerEvent(QTimerEvent *event)
 {
     SetWindowWarningMode();
+
+    CheckBatteryStatus();
+
 }
 
 void MainWindow::paintEvent(QPaintEvent *event)

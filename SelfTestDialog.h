@@ -2,6 +2,7 @@
 #define SELFTESTDIALOG_H
 
 #include <QDialog>
+#include "ltc2943.h"
 
 namespace Ui {
 class SelfTestDialog;
@@ -25,7 +26,7 @@ private:
 private:
     Ui::SelfTestDialog *ui;
     int m_nSecond = 0;
-
+    LTC2943 ltc = LTC2943(15);
 
     // QObject interface
 protected:

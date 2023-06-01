@@ -31,6 +31,38 @@ SelfTestWarningMessageWidget::~SelfTestWarningMessageWidget()
     delete ui;
 }
 
+void SelfTestWarningMessageWidget::SetCameraStatus(bool isPass)
+{
+    if (isPass)
+        ui->cameraValueLabel->setText(LoadString("IDS_PASS"));
+    else
+        ui->cameraValueLabel->setText(LoadString("IDS_FAIL"));
+}
+
+void SelfTestWarningMessageWidget::SetLaserStatus(bool isPass)
+{
+    if (isPass)
+        ui->laserValueLabel->setText(LoadString("IDS_PASS"));
+    else
+        ui->laserValueLabel->setText(LoadString("IDS_FAIL"));
+}
+
+void SelfTestWarningMessageWidget::SetBatteryStatus(bool isPass)
+{
+    if (isPass)
+        ui->batteryValueLabel->setText(LoadString("IDS_PASS"));
+    else
+        ui->batteryValueLabel->setText(LoadString("IDS_FAIL"));
+}
+
+void SelfTestWarningMessageWidget::SetStorageStatus(bool isPass)
+{
+    if (isPass)
+        ui->storageValueLabel->setText(LoadString("IDS_PASS"));
+    else
+        ui->storageValueLabel->setText(LoadString("IDS_FAIL"));
+}
+
 
 void SelfTestWarningMessageWidget::on_continuePushButton_clicked()
 {

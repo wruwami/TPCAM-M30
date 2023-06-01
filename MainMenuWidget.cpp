@@ -34,7 +34,8 @@ MainMenuWidget::MainMenuWidget(QWidget *parent) :
     m_pSpeedPushbutton = ui->speedPushButton;
     m_pWifiPushbutton = ui->wifiPushButton;
     m_pGpsPushbutton = ui->gpsPushButton;
-
+    m_pBatteryChargingLabel = ui->batteryStatusLabel;
+    m_pBatteryPercentLabel = ui->batteryPercentLabel;
 
     m_pHomeTitleLabel = new CustomLabel;
     m_pHomeButtonWidget = new HomeButtonWidget;

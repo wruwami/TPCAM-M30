@@ -105,30 +105,52 @@ QString SelfTestDialog::GetVersion()
 
 void SelfTestDialog::StartSelfTest()
 {
-    if (!CameraTest())
+    bool isCamera = false;
+    bool isLaser = false;
+    bool isBattery = false;
+    bool isStorage = false;
+    if (CameraTest())
     {
-        BaseDialog baseDialog(SelfTestWarningMessageWidgetType, Qt::AlignmentFlag::AlignCenter);
-        baseDialog.exec();
-        return;
+        ui->cameraValueLabel->setText(LoadString("IDS_PASS"));
+        isCamera = true;
     }
-    if (!LaserTest())
+    else
     {
-        BaseDialog baseDialog(SelfTestWarningMessageWidgetType, Qt::AlignmentFlag::AlignCenter);
-        baseDialog.exec();
-        return;
+        ui->cameraValueLabel->setText(LoadString("IDS_FAIL"));
     }
-    if (!BatteryTest())
+    if (LaserTest())
     {
-        BaseDialog baseDialog(SelfTestWarningMessageWidgetType, Qt::AlignmentFlag::AlignCenter);
-        baseDialog.exec();
-        return;
+        ui->laserValueLabel->setText(LoadString("IDS_PASS"));
+        isLaser = true;
     }
-    if (!StorageTest())
+    else
     {
-        BaseDialog baseDialog(SelfTestWarningMessageWidgetType, Qt::AlignmentFlag::AlignCenter);
-        baseDialog.exec();
-        return;
+        ui->laserValueLabel->setText(LoadString("IDS_FAIL"));
     }
+    if (BatteryTest())
+    {
+        ui->batteryValueLabel->setText(LoadString("IDS_PASS"));
+        isBattery = true;
+    }
+    else
+    {
+        ui->batteryValueLabel->setText(LoadString("IDS_FAIL"));
+    }
+    if (StorageTest())
+    {
+        ui->storageValueLabel->setText(LoadString("IDS_PASS"));
+        isStorage = true;
+    }
+    else
+    {
+        ui->storageValueLabel->setText(LoadString("IDS_FAIL"));
+    }
+
+    BaseDialog baseDialog(SelfTestWarningMessageWidgetType, Qt::AlignmentFlag::AlignCenter);
+    baseDialog.SetSelfTestResult(isCamera, isLaser, isBattery, isStorage);
+    baseDialog.exec();
+
+
     if (SerialGPSManager::GetInstance()->GetSatellitesInView() != 0)
     {
         QDateTime datetime = SerialGPSManager::GetInstance()->GetDateTime();
@@ -157,12 +179,21 @@ bool SelfTestDialog::LaserTest()
         return true;
     }
 
-    return true;
+    return false;
 }
 
 bool SelfTestDialog::BatteryTest()
 {
-    return true;
+    //get raw values
+    ltc.getValues();
+
+    //moving average filter
+    ltc.filterValues();
+
+    if (ltc.m_filteredVolt > 9.4)
+        return true;
+
+    return false;
 }
 
 bool SelfTestDialog::StorageTest()

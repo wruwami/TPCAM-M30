@@ -4,20 +4,30 @@
 
 SdcardManager::SdcardManager()
 {
-    foreach(m_sdStorage , QStorageInfo::mountedVolumes())
+    foreach(auto storage , QStorageInfo::mountedVolumes())
     {
-        if (m_sdStorage.displayName() == "/dev/mmcblk0p1")
+        if (storage.device() == "/dev/mmcblk0p1")
         {
+            m_sdStorage = storage;
             isExistSdcard = true;
         }
     }
 
-    foreach(m_sdStorage , QStorageInfo::mountedVolumes())
+    foreach(auto storage , QStorageInfo::mountedVolumes())
     {
-        if (m_emmcStorage.displayName() == "/")
+        if (storage.device() == "/dev/mmcblk1p8")
         {
+            m_emmcStorage = storage;
             isExistEMMccard = true;
         }
+    }
+
+    foreach (auto sdStorage, QStorageInfo::mountedVolumes())
+    {
+        qDebug() << "displayName : " + sdStorage.displayName();
+        qDebug() << "name : " + sdStorage.name();
+        qDebug() << "fileSystemType : " + sdStorage.fileSystemType();
+        qDebug() << "device : " + sdStorage.device();
     }
 
 //    qDebug() << "name:" << m_storage.name();

@@ -209,6 +209,8 @@ bool SelfTestDialog::StorageTest()
     SdcardManager sdcardManager;
     if (sdcardManager.isExistEMMccard == true && sdcardManager.isExistEMMccard == true)
     {
+        qDebug() << sdcardManager.GetSDTotal();
+        qDebug() << sdcardManager.GeteMMCTotal();
         float sdpercent = sdcardManager.GetSDAvailable() / sdcardManager.GetSDTotal();
         float emmcpercent = sdcardManager.GeteMMCAvailable() / sdcardManager.GeteMMCTotal();
         if (sdpercent > 0.8 && emmcpercent > 0.8)

@@ -41,7 +41,7 @@ void SerialLaserManager::serial_received()
 
 QString SerialLaserManager::connectLaser()
 {
-    m_pSerial->setPortName("tty4S");
+    m_pSerial->setPortName("ttyS4");
     m_pSerial->setBaudRate(QSerialPort::Baud115200);
     m_pSerial->setDataBits(QSerialPort::Data8);
     m_pSerial->setParity(QSerialPort::NoParity);

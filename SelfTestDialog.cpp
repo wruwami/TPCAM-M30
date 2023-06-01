@@ -15,6 +15,7 @@
 #include "SerialGPSManager.h"
 #include "SerialLaserManager.h"
 #include "SdcardManager.h"
+#include "SerialViscaManager.h"
 
 SelfTestDialog::SelfTestDialog(QWidget *parent) :
     QDialog(parent),
@@ -168,7 +169,13 @@ void SelfTestDialog::StartSelfTest()
 
 bool SelfTestDialog::CameraTest()
 {
-    return true;
+    SerialViscaManager serialViscaManager;
+    if (serialViscaManager.connectVisca() == "Connect")
+    {
+        serialViscaManager.close();
+        return true;
+    }
+    return false;
 }
 
 bool SelfTestDialog::LaserTest()

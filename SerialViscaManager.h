@@ -10,8 +10,8 @@ class SerialViscaManager : public QObject
     Q_OBJECT
 public:
     SerialViscaManager();
-private:
     QString connectVisca();
+    void close();
 private:
     QSerialPort* m_pSerial;
     ViscaPacket *visca_packet;

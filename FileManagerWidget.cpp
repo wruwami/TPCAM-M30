@@ -193,10 +193,10 @@ void FileManagerWidget::paintEvent(QPaintEvent *event)
 
 void FileManagerWidget::on_deletePushButton_clicked()
 {
-    BaseDialog baseDialog(Dialog::FileManagerQuestionMessageWidgetType, Qt::AlignmentFlag::AlignCenter);
+    BaseDialog baseDialog(Dialog::FileManagerQuestionMessageWidgetType, Qt::AlignmentFlag::AlignCenter, "");
     if (baseDialog.exec() == QDialog::Accepted)
     {
-        BaseDialog baseDialog(Dialog::AdminPWWidgetType);
+        BaseDialog baseDialog(Dialog::AdminPWWidgetType, Qt::AlignmentFlag::AlignLeft, "");
         if (baseDialog.exec() == QDialog::Accepted)
         {
             foreach(auto avFormat, m_avFileFormatList)

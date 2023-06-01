@@ -29,6 +29,7 @@ class FileManagerWidget;
 class RemoteController;
 class EnforcementWidget;
 class CustomLabel;
+class CustomPushButton;
 namespace Ui {
 class MainWindow;
 }
@@ -94,7 +95,7 @@ private:
     RemoteController* m_pRemoteController = nullptr;
     EnforcementWidget* m_pEnforcementWidget = nullptr;
     CustomLabel* m_pBatteryStatus;
-    CustomLabel* m_pBatteryPercent;
+    QToolButton* m_pBatteryPercent;
 
     LTC2943 ltc = LTC2943(15);
     WidgetType m_widgetType = Other;

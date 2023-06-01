@@ -7,6 +7,7 @@ class QSpacerItem;
 class CustomLabel;
 class CustomPushButton;
 class HomeButtonWidget;
+class QToolButton;
 namespace Ui {
 class MainMenuWidget;
 }
@@ -40,7 +41,7 @@ public:
     CustomPushButton* m_pGpsPushbutton;
     CustomPushButton* m_pMainMenuTitlePushButton;
     CustomLabel* m_pBatteryChargingLabel;
-    CustomLabel* m_pBatteryPercentLabel;
+    QToolButton* m_pBatteryPercentButton;
 
 
     // QObject interface

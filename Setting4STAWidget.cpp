@@ -84,7 +84,7 @@ void Setting4STAWidget::on_printerComboBox_currentIndexChanged(int index)
 
 void Setting4STAWidget::on_searchPushButton_clicked()
 {
-    BaseDialog baseDialog(Dialog::WifiSearchWidgetType);
+    BaseDialog baseDialog(Dialog::WifiSearchWidgetType, Qt::AlignmentFlag::AlignLeft, "");
     baseDialog.exec();
 }
 

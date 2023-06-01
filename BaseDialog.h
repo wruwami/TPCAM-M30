@@ -35,7 +35,8 @@ class BaseDialog : public QDialog
 
 public:
     explicit BaseDialog(Dialog, Qt::Alignment = Qt::AlignmentFlag::AlignLeft, QString = "", bool = false, QString title_text = "", QWidget *parent = 0);
-    ~BaseDialog();
+    explicit BaseDialog(Dialog, Qt::Alignment = Qt::AlignmentFlag::AlignLeft, bool = false, bool = false, bool = false, bool = false, QWidget *parent = 0);
+    virtual ~BaseDialog();
     void setAvFileFormatList(QList<AVFileFormat> avFileFormatList);
     void SetSelfTestResult(bool camera, bool laser, bool battery, bool storage);
 private:
@@ -45,10 +46,10 @@ private:
 private:
     Ui::BaseDialog *ui;
     bool m_bIsCloseButton;
-    bool isCamera;
-    bool isLaser;
-    bool isBattery;
-    bool isStorage;
+    bool m_isCamera;
+    bool m_isLaser;
+    bool m_isBattery;
+    bool m_isStorage;
 
     // QWidget interface
 protected:

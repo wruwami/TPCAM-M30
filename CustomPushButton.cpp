@@ -40,8 +40,6 @@ void CustomPushButton::setImage(QString path_name, QString file_name)
 //    qDebug() << m_pixmap.size();
 //    qDebug() << size();
 
-
-    qDebug() << m_ratio;
 //    this->setIconSize(m_pixmap.size());
 //    this->setIconSize(QSize(size().width(), size().height()));
 #else

@@ -3,7 +3,7 @@
 
 #include "StringLoader.h"
 
-SelfTestWarningMessageWidget::SelfTestWarningMessageWidget(QDialog *parent) :
+SelfTestWarningMessageWidget::SelfTestWarningMessageWidget(bool isCamera, bool isLaser, bool isBattery, bool isStorage, QDialog *parent) :
     QWidget(parent),
     ui(new Ui::SelfTestWarningMessageWidget)
 {
@@ -17,10 +17,27 @@ SelfTestWarningMessageWidget::SelfTestWarningMessageWidget(QDialog *parent) :
     ui->storageLabel->setText(LoadString("IDS_STORAGE"));
     ui->laserLabel->setText(LoadString("IDS_LASER"));
     ui->batteryLabel->setText(LoadString("IDS_BATTERY"));
-    ui->cameraValueLabel->setText(LoadString("IDS_FAIL"));
-    ui->storageValueLabel->setText(LoadString("IDS_FAIL"));
-    ui->laserValueLabel->setText(LoadString("IDS_FAIL"));
-    ui->batteryValueLabel->setText(LoadString("IDS_FAIL"));
+
+    if (isCamera)
+        ui->cameraValueLabel->setText(LoadString("IDS_PASS"));
+    else
+        ui->cameraValueLabel->setText(LoadString("IDS_FAIL"));
+
+    if (isLaser)
+        ui->laserValueLabel->setText(LoadString("IDS_PASS"));
+    else
+        ui->laserValueLabel->setText(LoadString("IDS_FAIL"));
+
+    if (isBattery)
+        ui->batteryValueLabel->setText(LoadString("IDS_PASS"));
+    else
+        ui->batteryValueLabel->setText(LoadString("IDS_FAIL"));
+
+    if (isStorage)
+        ui->storageValueLabel->setText(LoadString("IDS_PASS"));
+    else
+        ui->storageValueLabel->setText(LoadString("IDS_FAIL"));
+
 
     ui->continuePushButton->setText(LoadString("IDS_CONTINUE"));
     ui->powerOffPushButton->setText(LoadString("IDS_POWER_OFF"));
@@ -30,39 +47,6 @@ SelfTestWarningMessageWidget::~SelfTestWarningMessageWidget()
 {
     delete ui;
 }
-
-void SelfTestWarningMessageWidget::SetCameraStatus(bool isPass)
-{
-    if (isPass)
-        ui->cameraValueLabel->setText(LoadString("IDS_PASS"));
-    else
-        ui->cameraValueLabel->setText(LoadString("IDS_FAIL"));
-}
-
-void SelfTestWarningMessageWidget::SetLaserStatus(bool isPass)
-{
-    if (isPass)
-        ui->laserValueLabel->setText(LoadString("IDS_PASS"));
-    else
-        ui->laserValueLabel->setText(LoadString("IDS_FAIL"));
-}
-
-void SelfTestWarningMessageWidget::SetBatteryStatus(bool isPass)
-{
-    if (isPass)
-        ui->batteryValueLabel->setText(LoadString("IDS_PASS"));
-    else
-        ui->batteryValueLabel->setText(LoadString("IDS_FAIL"));
-}
-
-void SelfTestWarningMessageWidget::SetStorageStatus(bool isPass)
-{
-    if (isPass)
-        ui->storageValueLabel->setText(LoadString("IDS_PASS"));
-    else
-        ui->storageValueLabel->setText(LoadString("IDS_FAIL"));
-}
-
 
 void SelfTestWarningMessageWidget::on_continuePushButton_clicked()
 {

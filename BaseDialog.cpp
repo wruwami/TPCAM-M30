@@ -58,11 +58,7 @@ BaseDialog::BaseDialog(Dialog dialog, Qt::Alignment align, QString msg, bool isC
     {
     case Dialog::SelfTestWarningMessageWidgetType:
     {
-        SelfTestWarningMessageWidget* selfTestWarningMessageWidget = new SelfTestWarningMessageWidget(this);
-        selfTestWarningMessageWidget->SetCameraStatus(isCamera);
-        selfTestWarningMessageWidget->SetLaserStatus(isLaser);
-        selfTestWarningMessageWidget->SetBatteryStatus(isBattery);
-        selfTestWarningMessageWidget->SetStorageStatus(isStorage);
+        SelfTestWarningMessageWidget* selfTestWarningMessageWidget = new SelfTestWarningMessageWidget(m_isCamera, m_isLaser, m_isBattery, m_isStorage, this);
         ui->verticalLayout->addWidget(selfTestWarningMessageWidget);
         ui->titleLabel->setText(LoadString("IDS_WARNING_MESSAGE"));
         ui->titleLabel->setAlignment(align);
@@ -196,7 +192,39 @@ BaseDialog::BaseDialog(Dialog dialog, Qt::Alignment align, QString msg, bool isC
         break;
     }
 
-//    if (isClosebutton)
+    //    if (isClosebutton)
+}
+
+BaseDialog::BaseDialog(Dialog dialog, Qt::Alignment align, bool isCamera, bool isLaser, bool isBattery, bool isStorage, QWidget *parent) :
+    QDialog(parent),
+    ui(new Ui::BaseDialog)
+{
+    ui->setupUi(this);
+
+    this->setWindowFlags(Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint);
+//    this->setWindowFlags(Qt::CustomizeWindowHint);
+//    this->setStyleSheet("{border-width: 5px; border-style: solid; border-color: black; background-color : #d9d9d9;}");
+//    this->setAttribute(Qt::WA_StyledBackground);
+
+    ui->closePushButton->hide();
+
+    align |= Qt::AlignVCenter;
+
+    switch (dialog)
+    {
+    case Dialog::SelfTestWarningMessageWidgetType:
+    {
+        SelfTestWarningMessageWidget* selfTestWarningMessageWidget = new SelfTestWarningMessageWidget(isCamera, isLaser, isBattery, isStorage, this);
+        ui->verticalLayout->addWidget(selfTestWarningMessageWidget);
+        ui->titleLabel->setText(LoadString("IDS_WARNING_MESSAGE"));
+        ui->titleLabel->setAlignment(align);
+        setSize(1216, 694);
+    }
+        break;
+
+    }
+
+    //    if (isClosebutton)
 }
 
 BaseDialog::~BaseDialog()
@@ -212,10 +240,10 @@ void BaseDialog::setAvFileFormatList(QList<AVFileFormat> avFileFormatList)
 
 void BaseDialog::SetSelfTestResult(bool camera, bool laser, bool battery, bool storage)
 {
-    bool isCamera = camera;
-    bool isLaser = laser;
-    bool isBattery = battery;
-    bool isStorage = storage;
+    m_isCamera = camera;
+    m_isLaser = laser;
+    m_isBattery = battery;
+    m_isStorage = storage;
 }
 
 void BaseDialog::setSize(QSize size)

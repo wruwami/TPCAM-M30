@@ -46,7 +46,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     m_pMainMenuWidget = (MainMenuWidget*)ui->verticalLayout->itemAt(0)->widget();
     m_pBatteryStatus = m_pMainMenuWidget->m_pBatteryChargingLabel;
-    m_pBatteryPercent = m_pMainMenuWidget->m_pBatteryPercentLabel;
+    m_pBatteryPercent = m_pMainMenuWidget->m_pBatteryPercentButton;
 
     m_widgetType = Login;
     m_pLoginWidget = new LoginWidget;
@@ -411,6 +411,7 @@ void MainWindow::OpenMainMenu()
 
 void MainWindow::CheckBatteryStatus()
 {
+
     //get raw values
     ltc.getValues();
 

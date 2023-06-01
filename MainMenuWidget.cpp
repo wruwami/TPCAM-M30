@@ -4,6 +4,8 @@
 #include <QTime>
 #include <QFile>
 #include <QSpacerItem>
+#include "qdir.h"
+#include <QDebug>
 
 #include "Color.h"
 #include "IndicatorDialog.h"
@@ -35,7 +37,7 @@ MainMenuWidget::MainMenuWidget(QWidget *parent) :
     m_pWifiPushbutton = ui->wifiPushButton;
     m_pGpsPushbutton = ui->gpsPushButton;
     m_pBatteryChargingLabel = ui->batteryStatusLabel;
-    m_pBatteryPercentLabel = ui->batteryPercentLabel;
+    m_pBatteryPercentButton= ui->batteryPercentButton;
 
     m_pHomeTitleLabel = new CustomLabel;
     m_pHomeButtonWidget = new HomeButtonWidget;
@@ -67,8 +69,27 @@ MainMenuWidget::MainMenuWidget(QWidget *parent) :
     ui->speedPushButton->setImage("indicator", "indicator_enable_user_mode_on.jpg");
     ui->wifiPushButton->setImage("indicator", "indicator_wifi_disconnected.jpg");
     ui->gpsPushButton->setImage("indicator", "indicator_gps_off.jpg");
+#endif
+    QDir qdir;
+    QString file_full_path;
+//#ifdef Q_OS_WIN
+//    file_full_path = qdir.absolutePath() + "\\" + DEFAULT_PATH + "\\" + path_name + "\\" + file_name;
+//#else   /*Q_OS_LINUX*/
+    file_full_path = qdir.absolutePath() + "/" + "images" + "/" + "indicator" + "/" + "indicator_battery4.bmp";
+//#endif
 
-    ui->batteryPercentLabel->setImage("indicator", "indicator_battery4.bmp");
+#if 1
+    QPixmap pixmap;
+    pixmap.load(file_full_path);
+    qDebug() << pixmap.size();
+//    m_pixmap = m_pixmap.scaled(size().width(), size().height(), Qt::KeepAspectRatioByExpanding);
+    ui->batteryPercentButton->setIconSize(pixmap.size());
+    QIcon icon = QIcon(pixmap);
+    ui->batteryPercentButton->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
+    ui->batteryPercentButton->setIcon(icon);
+
+//    ui->batteryPercentButton->setImage("indicator", "indicator_battery4.bmp");
+    ui->batteryPercentButton->setText("100%");
     ui->batteryStatusLabel->setImage("indicator", "charging.png");
 #endif
     startTimer(1000);

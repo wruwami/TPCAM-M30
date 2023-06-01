@@ -59,15 +59,20 @@ void EnforcementComponentWidget::dzPlus()
 {
     if (m_UserModeOn)
     {
-        if (m_nStIndex != m_stvector.size())
+        if (m_nStIndex < m_stvector.size())
+        {
             m_nStIndex++;
-        ui->zoomRangePushButton->setText(QString("(\"Z: %1 m\")").arg(m_stvector[m_nStIndex]));
+            ui->zoomRangePushButton->setText(QString("(Z: %1 m)").arg(m_stvector[m_nStIndex]));
+        }
+
     }
     else
     {
-        if (m_nLtIndex != m_ltvector.size())
+        if (m_nLtIndex < m_ltvector.size())
+        {
             m_nLtIndex++;
-        ui->zoomRangePushButton->setText(QString("(\"Z: %1 m\")").arg(m_ltvector[m_nLtIndex]));
+            ui->zoomRangePushButton->setText(QString("(Z: %1 m)").arg(m_ltvector[m_nLtIndex]));
+        }
     }
 }
 
@@ -76,14 +81,18 @@ void EnforcementComponentWidget::dzMinus()
     if (m_UserModeOn)
     {
         if (m_nStIndex != 0)
+        {
             m_nStIndex--;
-        ui->zoomRangePushButton->setText(QString("(\"Z: %1 m\")").arg(m_stvector[m_nStIndex]));
+            ui->zoomRangePushButton->setText(QString("(Z: %1 m)").arg(m_stvector[m_nStIndex]));
+        }
     }
     else
     {
         if (m_nLtIndex != 0)
+        {
             m_nLtIndex--;
-        ui->zoomRangePushButton->setText(QString("(\"Z: %1 m\")").arg(m_ltvector[m_nLtIndex]));
+            ui->zoomRangePushButton->setText(QString("(Z: %1 m)").arg(m_ltvector[m_nLtIndex]));
+        }
     }
 
 }

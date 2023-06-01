@@ -742,6 +742,6 @@ void MainWindow::doSecondAction()
     if (m_widgetType != Enforcement)
         return;
 
-    m_pEnforcementWidget->m_pEnforcementComponentWidget->dzPlus();
+    m_pEnforcementWidget->m_pEnforcementComponentWidget->dzMinus();
 }
 

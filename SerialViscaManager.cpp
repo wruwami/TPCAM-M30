@@ -56,6 +56,13 @@ QString SerialViscaManager::connectVisca()
     }
 }
 
+void SerialViscaManager::close()
+{
+    if(m_pSerial->isOpen())
+        m_pSerial->close();
+    camera_con=0;
+}
+
 
 
 void SerialViscaManager::receive_camera()

@@ -16,6 +16,7 @@
 #include <QJsonObject>
 
 #include "NetworkManager.h"
+#include "LcdBrightManager.h"
 
 SettingWidget::SettingWidget(QWidget *parent) :
     QWidget(parent),
@@ -160,6 +161,8 @@ void SettingWidget::on_savePushButton_clicked()
 
     NetworkManager networkManager;
     networkManager.SetNetworkSetting();
+
+    LcdBrightManager lcdBrightManager;
 }
 
 void SettingWidget::on_cancelPushButton_clicked()

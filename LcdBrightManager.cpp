@@ -10,10 +10,10 @@ LcdBrightManager::LcdBrightManager()
     QJsonObject object = config.GetConfig();
     int bright = object["lcd brightness selection"].toInt();
 
-    system("echo 1 > /sys/class/backlight/backlight/bl_power");
-    sleep(1);
-    system("echo 0 > /sys/class/backlight/backlight/bl_power");
-    sleep(1);
+//    system("echo 1 > /sys/class/backlight/backlight/bl_power");
+//    sleep(1);
+//    system("echo 0 > /sys/class/backlight/backlight/bl_power");
+//    sleep(1);
 
     switch (bright)
     {

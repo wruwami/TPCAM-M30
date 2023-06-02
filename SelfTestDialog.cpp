@@ -147,7 +147,7 @@ void SelfTestDialog::StartSelfTest()
         ui->storageValueLabel->setText(LoadString("IDS_FAIL"));
     }
 
-    BaseDialog baseDialog(SelfTestWarningMessageWidgetType, Qt::AlignmentFlag::AlignCenter, isCamera, isLaser, isBattery, isStorage);
+    BaseDialog baseDialog(SelfTestWarningMessageWidgetType, isCamera, isLaser, isBattery, isStorage, Qt::AlignmentFlag::AlignCenter);
 //    baseDialog.SetSelfTestResult();
     baseDialog.exec();
 

@@ -54,6 +54,7 @@ QString SerialViscaManager::connectVisca()
         camera_con=0;
         return "Connect";
     }
+    return "";
 }
 
 void SerialViscaManager::close()

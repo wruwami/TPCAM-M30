@@ -596,7 +596,7 @@ unsigned char	ViscaPacket::CheckRcvMsg(unsigned char RxData)
 //		0 : 비정상 패킷
 //		1 : 정상 패킷
 //------------------------------------------------------------------------------------
-unsigned char	ViscaPacket::MsgDecoder( QListView *listView, QStandardItemModel *model)
+unsigned char	ViscaPacket::MsgDecoder()
 {
     if(send_header_data.isEmpty())
         return 0;
@@ -616,8 +616,6 @@ unsigned char	ViscaPacket::MsgDecoder( QListView *listView, QStandardItemModel *
         info.sprintf("Zoom position(%X):%02X; %02X; %02X; %02X", m_zoomPQRS, g_ZoomPos.p, g_ZoomPos.q, g_ZoomPos.r, g_ZoomPos.s);
         qDebug() << info;
 
-        model->appendRow(new QStandardItem(info));
-        listView->setModel(model);
         return 1;
     }
     else if(send_data == 0x06) //dzoom on / off
@@ -630,8 +628,6 @@ unsigned char	ViscaPacket::MsgDecoder( QListView *listView, QStandardItemModel *
        info.sprintf("Dzoom on(1) / off(0): %02X", g_DZoomOnOff);
        qDebug() << info;
 
-       model->appendRow(new QStandardItem(info));
-       listView->setModel(model);
        return 1;
     }
     else if(send_data == 0x36) //dzoom mode
@@ -643,8 +639,6 @@ unsigned char	ViscaPacket::MsgDecoder( QListView *listView, QStandardItemModel *
 
         info.sprintf("DZoom mode combine(0) / seperate(1): %02X", g_DZoomMode);
         qDebug() << info;
-        model->appendRow(new QStandardItem(info));
-        listView->setModel(model);
         return 1;
     }
     else if(send_data == 0x46) //dzoom pos
@@ -654,8 +648,6 @@ unsigned char	ViscaPacket::MsgDecoder( QListView *listView, QStandardItemModel *
         m_DZoom =(g_DZoomPos.p << 4) | (g_DZoomPos.q << 0);
         info.sprintf("DZoom pos (%02X)_%02X; %02X", m_DZoom, g_DZoomPos.p, g_DZoomPos.q);
         qDebug() << info;
-        model->appendRow(new QStandardItem(info));
-        listView->setModel(model);
         return 2;
     }
     else if(send_data == 0x38) //focus mode
@@ -667,8 +659,6 @@ unsigned char	ViscaPacket::MsgDecoder( QListView *listView, QStandardItemModel *
 
         info.sprintf("Focus mode manual(0) / auto(1): %02X", g_FocusMode);
         qDebug() << info;
-        model->appendRow(new QStandardItem(info));
-        listView->setModel(model);
         return 1;
     }
     else if(send_data == 0x48) //focus position
@@ -680,8 +670,6 @@ unsigned char	ViscaPacket::MsgDecoder( QListView *listView, QStandardItemModel *
         m_focusPQRS = (g_FocusPos.p << 12) | (g_FocusPos.q <<8) | (g_FocusPos.r << 4) | (g_FocusPos.s <<0);
         info.sprintf("Focus position(%X):%02X ;%02X; %02X; %02X", m_focusPQRS, g_FocusPos.p, g_FocusPos.q, g_FocusPos.r, g_FocusPos.s);
         qDebug() << info;
-        model->appendRow(new QStandardItem(info));
-        listView->setModel(model);
 
         return 1;
     }
@@ -691,8 +679,6 @@ unsigned char	ViscaPacket::MsgDecoder( QListView *listView, QStandardItemModel *
 
         info.sprintf("WB mode (00=AUTO, 01=In, 02=Out):%02X", g_WBMode);
         qDebug() << info;
-        model->appendRow(new QStandardItem(info));
-        listView->setModel(model);
         return 1;
     }
     else if(send_data == 0x39) //AE mode
@@ -700,8 +686,6 @@ unsigned char	ViscaPacket::MsgDecoder( QListView *listView, QStandardItemModel *
         g_AEMode = g_RxBuf[2];
         info.sprintf("AE mode (00=AUTO, 03=Maual, 0A=SP, 0B=IP, 0X=BP):%02X", g_AEMode);
         qDebug() << info;
-        model->appendRow(new QStandardItem(info));
-        listView->setModel(model);
         return 1;
     }
     else if(send_data == 0x4A) //shutter pos
@@ -712,8 +696,6 @@ unsigned char	ViscaPacket::MsgDecoder( QListView *listView, QStandardItemModel *
         m_shutter = (g_ShutterPos.p << 4) | (g_ShutterPos.q <<0);
         info.sprintf("Shutter Position(%02X)_%02X; %02X", m_shutter, g_ShutterPos.p, g_ShutterPos.q);
         qDebug() << info;
-        model->appendRow(new QStandardItem(info));
-        listView->setModel(model);
         return 1;
     }
     else if(send_data == 0x4B) //iris pos
@@ -733,8 +715,6 @@ unsigned char	ViscaPacket::MsgDecoder( QListView *listView, QStandardItemModel *
         m_gain = (g_GainPos.p << 4) | (g_GainPos.q <<0);
         info.sprintf("Gain Position(%02X)_%02X; %02X",  m_gain, g_GainPos.p, g_GainPos.q);
         qDebug() << info;
-        model->appendRow(new QStandardItem(info));
-        listView->setModel(model);
 
         return 1;
     }
@@ -744,16 +724,12 @@ unsigned char	ViscaPacket::MsgDecoder( QListView *listView, QStandardItemModel *
         g_BrightPos.q = g_RxBuf[5];
         info.sprintf("Bright Position(%02X) %02X; %02X",  (g_BrightPos.p << 4) | (g_BrightPos.q <<0), g_BrightPos.p, g_BrightPos.q);
         qDebug() << info;
-        model->appendRow(new QStandardItem(info));
-        listView->setModel(model);
         return 1;
     }
     else if(send_data == 0x51) //auto icr on off?
     {
         info.sprintf("auto ICR on(0x02)/off(0x03): %02X", g_RxBuf[2] );
         qDebug() << info;
-        model->appendRow(new QStandardItem(info));
-        listView->setModel(model);
         return 1;
     }
     else if(send_data == 0x01) //icr on off?
@@ -766,8 +742,6 @@ unsigned char	ViscaPacket::MsgDecoder( QListView *listView, QStandardItemModel *
     {
         info.sprintf("Focus Near Limit Pos(qprs) : %02X %02X %02X %02X", g_RxBuf[2], g_RxBuf[3], g_RxBuf[4], g_RxBuf[5] );
         qDebug() << info;
-        model->appendRow(new QStandardItem(info));
-        listView->setModel(model);
         return 1;
     }
     else if(send_data == 0x58) //AF Sensitivity?
@@ -780,40 +754,30 @@ unsigned char	ViscaPacket::MsgDecoder( QListView *listView, QStandardItemModel *
     {
         info.sprintf("AF Mode Normal(0x00)/Interval(0x01)/Zoom Trigger(0x02) : %02X", g_RxBuf[2] );
         qDebug() << info;
-        model->appendRow(new QStandardItem(info));
-        listView->setModel(model);
         return 1;
     }
     else if(send_data == 0x27) //AF Time Setting?
     {
         info.sprintf("AF Time Setting(qprs) : %02X %02X %02X %02X", g_RxBuf[2], g_RxBuf[3], g_RxBuf[4], g_RxBuf[5] );
          qDebug() << info;
-        model->appendRow(new QStandardItem(info));
-        listView->setModel(model);
         return 1;
     }
     else if (send_data == 0x11) // IR Correction?
     {
         info.sprintf("IR Correction : Standard(0x00)/IR Light(0x01) : %02X", g_RxBuf[2] );
         qDebug() << info;
-       model->appendRow(new QStandardItem(info));
-       listView->setModel(model);
         return 1;
     }
     else if (send_data == 0x3d) // Wide Dynamic mode?
     {
         info.sprintf("WD : WD(0x02)/Off(0x03)/AutoOnOff(0x00)/RFix(0x01)/DverOpr(0x04) : %02X", g_RxBuf[2] );
         qDebug() << info;
-        model->appendRow(new QStandardItem(info));
-        listView->setModel(model);
         return 1;
     }
     else if (send_data == 0x34) // DIS Mode?
     {
         info.sprintf("DIS Mode : On(0x02)/Off(0x03)/Hold(0x00) : %02X", g_RxBuf[2] );
         qDebug() << info;
-        model->appendRow(new QStandardItem(info));
-        listView->setModel(model);
         return 1;
     }
     else if (send_data == 0x02) // Version Information
@@ -821,8 +785,6 @@ unsigned char	ViscaPacket::MsgDecoder( QListView *listView, QStandardItemModel *
         info.sprintf("Vendor : 0x%02X%02X, Version : Model Code[0x%02X%02X], ROM[0x%02X%02X], Socket[0x%02X]",
             g_RxBuf[2], g_RxBuf[3], g_RxBuf[4], g_RxBuf[5], g_RxBuf[6], g_RxBuf[7], g_RxBuf[8]);
         qDebug() << info;
-        model->appendRow(new QStandardItem(info));
-        listView->setModel(model);
         //cnrk
         g_Camera_VenderID = (g_RxBuf[2]<<8) | (g_RxBuf[3]);
 
@@ -833,8 +795,6 @@ unsigned char	ViscaPacket::MsgDecoder( QListView *listView, QStandardItemModel *
         info.sprintf("Model Code(Comlaser 1c) : [0x%02X%02X%02X], Version : [v%02X.%02X]",
             g_RxBuf[2], g_RxBuf[3], g_RxBuf[4], g_RxBuf[5], g_RxBuf[6]);
         qDebug() << info;
-        model->appendRow(new QStandardItem(info));
-        listView->setModel(model);
         return 1;
     }
     /* cnrk */
@@ -854,20 +814,20 @@ unsigned char	ViscaPacket::MsgDecoder( QListView *listView, QStandardItemModel *
 //    1 : 하나의 패킷이 수신되었다.
 //    0 : 하나의 패킷 수신이 완료되지 않았다.
 //    전역변수 g_ReceiveData 에 현재 수신된 패킷 정보가 저장된다.
-unsigned char ViscaPacket::ReceiveData( unsigned char RxData , QListView *listView, QStandardItemModel *model)
+unsigned char ViscaPacket::ReceiveData( unsigned char RxData )
 {
     unsigned char result=0;
     result =  CheckRcvMsg( RxData );
     if(result ==2)//inquires command
     {
-        MsgDecoder(listView, model);
+        MsgDecoder();
     }
     return result;
 }
 
 
 
-void ViscaPacket::ParsingPacket(QListView *listView, QStandardItemModel *model)
+void ViscaPacket::ParsingPacket()
 {
 
 }

@@ -29,6 +29,7 @@ SOURCES += main.cpp\
     RemoteController.cpp \
     SdcardManager.cpp \
     SelfTestDialog.cpp \
+    SerialControlVisca.cpp \
     SerialGPSManager.cpp \
     SerialLaserManager.cpp \
     SerialPacket.cpp \
@@ -116,6 +117,7 @@ HEADERS  += MainWindow.h \
     RemoteController.h \
     SdcardManager.h \
     SelfTestDialog.h \
+    SerialControlVisca.h \
     SerialGPSManager.h \
     SerialLaserManager.h \
     SerialPacket.h \

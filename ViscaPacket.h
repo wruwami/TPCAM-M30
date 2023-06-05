@@ -3,8 +3,6 @@
 //  ComLASER SW
 
 #include <QByteArray>
-#include <QListView>
-#include <QStandardItemModel>
 #include "SerialPacket.h"
 
 #ifndef ViscaPacketH
@@ -87,9 +85,9 @@ public:
 public:
 
     unsigned char CheckRcvMsg( unsigned char RxData );
-    unsigned char MsgDecoder( QListView *listView, QStandardItemModel *model );
-    unsigned char ReceiveData( unsigned char RxData, QListView *listView, QStandardItemModel *model);
-    void ParsingPacket(QListView *listView, QStandardItemModel *model);
+    unsigned char MsgDecoder( );
+    unsigned char ReceiveData( unsigned char RxData);
+    void ParsingPacket();
 
     QByteArray BlockCamMakePacket( unsigned char Head, unsigned char *Msg, unsigned char MsgSize );
     void BlockCamEncodePacket(unsigned char TotalMsgLen,

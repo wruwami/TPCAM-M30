@@ -56,6 +56,7 @@ private:
     void OpenFileManagement();
     void OpenMainMenu();
     void CheckBatteryStatus();
+    void SelfTestFail(bool = false);
 private slots:
     void on_cameraPushButton_clicked();
     void on_daynNightPushButton_clicked();
@@ -101,6 +102,9 @@ private:
     WidgetType m_widgetType = Other;
     QString m_userName;
     int m_nFailTimerId;
+    bool m_bLoginFail = false;
+    QWidget* widget;
+    bool m_bFlick = false;
 //    Language m_mLanguage = Language::English;
 
     // QObject interface

@@ -26,6 +26,10 @@ protected:
 private slots:
     void on_showHidePushButton_clicked();
     void on_speedPushButton_clicked();
+    void on_hlcOnPushButton_clicked();
+    void on_defogOffPushButton_clicked();
+    void on_disOffPushButton_clicked();
+    void on_dnrOnPushButton_clicked();
 };
 
 #endif // INDICATORCAMERAEXPOSEWIDGET_H

@@ -163,7 +163,10 @@ void SelfTestDialog::StartSelfTest()
         system(dateTimeString.toStdString().c_str());
 
     }
-
+    if (isCamera && isLaser && isBattery && isStorage)
+        accept();
+    else
+        reject();
 
 }
 

@@ -3,6 +3,7 @@
 
 #include <QVBoxLayout>
 #include <QPainter>
+#include <QDialog>
 
 #include "CustomPushButton.h"
 #include "Color.h"
@@ -42,7 +43,9 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
 
     SelfTestDialog selfTestDialog;
-    selfTestDialog.exec();
+    if (selfTestDialog.exec() == QDialog::Rejected)
+        m_bLoginFail = true;
+
 
     m_pMainMenuWidget = (MainMenuWidget*)ui->verticalLayout->itemAt(0)->widget();
     m_pBatteryStatus = m_pMainMenuWidget->m_pBatteryChargingLabel;
@@ -441,6 +444,32 @@ void MainWindow::CheckBatteryStatus()
 
 }
 
+#include <QLabel>
+#include <QDebug>
+
+void MainWindow::SelfTestFail(bool show)
+{
+    if (show)
+    {
+        widget = new QWidget;
+        widget->setWindowFlags(Qt::FramelessWindowHint);
+//        widget->setWindowFlags(Qt::WA_TranslucentBackground);
+        widget->setGeometry(this->geometry());
+//        qDebug() << this->geometry();
+        widget->raise();
+//        widget->setStyleSheet("QLabel {background-color: rgba(255, 0, 0, 125)}");
+        widget->setStyleSheet("background-color: rgba(255, 0, 0, 128);");
+        widget->setWindowOpacity(0.4);
+        widget->show();
+    }
+    else
+    {
+        delete widget;
+        widget = nullptr;
+    }
+
+}
+
 void MainWindow::doThirdAction()
 {
     this->OpenEnforcement();
@@ -717,6 +746,13 @@ void MainWindow::timerEvent(QTimerEvent *event)
     SetWindowWarningMode();
 
     CheckBatteryStatus();
+
+//    if (m_bLoginFail)
+//    {
+//        m_bFlick = !m_bFlick;
+//        SelfTestFail(m_bFlick);
+//    }
+
 
 }
 

@@ -67,7 +67,7 @@ void IndicatorCameraExposeWidget::on_showHidePushButton_clicked()
         ui->hlcOnPushButton->show();
         ui->defogOffPushButton->show();
         ui->disOffPushButton->show();
-        ui->showHidePushButton->setText(LoadString("IDS_SHOW"));
+        ui->showHidePushButton->setText(LoadString("IDS_HIDE"));
     }
 }
 
@@ -75,3 +75,27 @@ void IndicatorCameraExposeWidget::on_speedPushButton_clicked()
 {
     accept();
 }
+
+void IndicatorCameraExposeWidget::on_hlcOnPushButton_clicked()
+{
+
+}
+
+
+void IndicatorCameraExposeWidget::on_defogOffPushButton_clicked()
+{
+
+}
+
+
+void IndicatorCameraExposeWidget::on_disOffPushButton_clicked()
+{
+
+}
+
+
+void IndicatorCameraExposeWidget::on_dnrOnPushButton_clicked()
+{
+
+}
+

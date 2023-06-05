@@ -41,7 +41,6 @@ public:
     int con;
     int camera_con;
 
-    SerialPacket *laser_packet;
     ViscaPacket *visca_packet;
 
     //cnrk

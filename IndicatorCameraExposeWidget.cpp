@@ -38,13 +38,13 @@ IndicatorCameraExposeWidget::IndicatorCameraExposeWidget(QWidget *parent) :
     ui->shutterSpeedComboBox->addItems(shutterSpeeds);
     ui->applyPushButton->setText(LoadString("IDS_APPLY"));
 
-    m_serialControlVisca.connectCamera();
+    m_serialViscaManager.connectVisca();
 
 }
 
 IndicatorCameraExposeWidget::~IndicatorCameraExposeWidget()
 {
-    m_serialControlVisca.close();
+    m_serialViscaManager.close();
 
     delete ui;
 }
@@ -80,24 +80,65 @@ void IndicatorCameraExposeWidget::on_speedPushButton_clicked()
 
 void IndicatorCameraExposeWidget::on_hlcOnPushButton_clicked()
 {
+    m_bHLC = !m_bHLC;
+    if (m_bHLC)
+    {
+        m_serialViscaManager.set_HLC_on();
+        ui->hlcOnPushButton->setText(LoadString("IDS_HLC_ON"));
+    }
+    else
+    {
+        m_serialViscaManager.set_HLC_off();
+        ui->hlcOnPushButton->setText(LoadString("IDS_HLC_OFF"));
+    }
 
 }
 
 
 void IndicatorCameraExposeWidget::on_defogOffPushButton_clicked()
 {
-
+    m_bDEFOG = !m_bDEFOG;
+    if (m_bDEFOG)
+    {
+        m_serialViscaManager.set_defog_on();
+        ui->defogOffPushButton->setText(LoadString("IDS_DEFOG_ON"));
+    }
+    else
+    {
+        m_serialViscaManager.set_defog_off();
+        ui->defogOffPushButton->setText(LoadString("IDS_DEFOG_OFF"));
+    }
 }
 
 
 void IndicatorCameraExposeWidget::on_disOffPushButton_clicked()
 {
-
+    m_bDIS = !m_bDIS;
+    if (m_bDIS)
+    {
+        m_serialViscaManager.set_DIS_on();
+        ui->disOffPushButton->setText(LoadString("IDS_DIS_ON"));
+    }
+    else
+    {
+        m_serialViscaManager.set_DIS_off();
+        ui->disOffPushButton->setText(LoadString("IDS_DIS_OFF"));
+    }
 }
 
 
 void IndicatorCameraExposeWidget::on_dnrOnPushButton_clicked()
 {
-
+//    m_bDNR = !m_bDNR;
+//    if (m_bDNR)
+//    {
+//        m_serialViscaManager.set_`;
+//        ui->dnrOnPushButton->setText(LoadString("IDS_HLC_ON"));
+//    }
+//    else
+//    {
+//        m_serialViscaManager.set_HLC_off();
+//        ui->dnrOnPushButton->setText(LoadString("IDS_HLC_OFF"));
+//    }
 }
 

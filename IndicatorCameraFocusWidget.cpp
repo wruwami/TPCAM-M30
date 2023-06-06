@@ -23,10 +23,13 @@ IndicatorCameraFocusWidget::IndicatorCameraFocusWidget(QWidget *parent) :
     ui->forcusPlusPushButton->setText(LoadString("IDS_FOCUS_UP"));
 
     ui->applyPushButton->setText(LoadString("IDS_APPLY"));
+
+    m_serialViscaManager.connectVisca();
 }
 
 IndicatorCameraFocusWidget::~IndicatorCameraFocusWidget()
 {
+    m_serialViscaManager.close();
     delete ui;
 }
 
@@ -52,3 +55,33 @@ void IndicatorCameraFocusWidget::on_speedPushButton_clicked()
 {
     accept();
 }
+
+void IndicatorCameraFocusWidget::on_autoTriggerPushButton_clicked()
+{
+
+}
+
+
+void IndicatorCameraFocusWidget::on_onePushTriggerPushButton_clicked()
+{
+
+}
+
+
+void IndicatorCameraFocusWidget::on_forcusDownPushButton_clicked()
+{
+
+}
+
+
+void IndicatorCameraFocusWidget::on_forcusPlusPushButton_clicked()
+{
+
+}
+
+
+void IndicatorCameraFocusWidget::on_applyPushButton_clicked()
+{
+
+}
+

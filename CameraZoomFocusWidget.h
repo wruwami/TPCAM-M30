@@ -2,6 +2,7 @@
 #define CAMERAZOOMFOCUSWIDGET_H
 
 #include <QWidget>
+#include "SerialViscaManager.h"
 
 namespace Ui {
 class CameraZoomFocusWidget;
@@ -17,6 +18,7 @@ public:
 
 private:
     Ui::CameraZoomFocusWidget *ui;
+    SerialViscaManager m_serialViscaManager;
 };
 
 #endif // CAMERAZOOMFOCUSWIDGET_H

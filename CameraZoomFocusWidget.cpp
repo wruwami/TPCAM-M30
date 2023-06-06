@@ -49,9 +49,12 @@ CameraZoomFocusWidget::CameraZoomFocusWidget(QWidget *parent) :
     columnHeaders.append(LoadString("IDS_Z160"));
     columnHeaders.append(LoadString("IDS_Z260"));
     ui->tableWidget->setVerticalHeaderLabels(columnHeaders);
+
+    m_serialViscaManager.connectVisca();
 }
 
 CameraZoomFocusWidget::~CameraZoomFocusWidget()
 {
+    m_serialViscaManager.close();
     delete ui;
 }

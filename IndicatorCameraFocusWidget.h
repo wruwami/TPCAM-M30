@@ -1,8 +1,9 @@
 #ifndef INDICATORCAMERAFOCUSWIDGET_H
 #define INDICATORCAMERAFOCUSWIDGET_H
 
-#include <QWidget>
 #include <QDialog>
+
+#include "SerialViscaManager.h"
 
 namespace Ui {
 class IndicatorCameraFocusWidget;
@@ -19,6 +20,7 @@ public:
 private:
     Ui::IndicatorCameraFocusWidget *ui;
     bool m_bHide = false;
+    SerialViscaManager m_serialViscaManager;
 
     // QWidget interface
 protected:
@@ -26,6 +28,11 @@ protected:
 private slots:
     void on_showHidePushButton_clicked();
     void on_speedPushButton_clicked();
+    void on_autoTriggerPushButton_clicked();
+    void on_onePushTriggerPushButton_clicked();
+    void on_forcusDownPushButton_clicked();
+    void on_forcusPlusPushButton_clicked();
+    void on_applyPushButton_clicked();
 };
 
 #endif // INDICATORCAMERAFOCUSWIDGET_H

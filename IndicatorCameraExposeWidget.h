@@ -4,7 +4,7 @@
 #include <QWidget>
 #include <QDialog>
 
-#include "SerialControlVisca.h"
+#include "SerialViscaManager.h"
 
 namespace Ui {
 class IndicatorCameraExposeWidget;
@@ -21,7 +21,11 @@ public:
 private:
     Ui::IndicatorCameraExposeWidget *ui;
     bool m_bHide = false;
-    SerialControlVisca m_serialControlVisca;
+    SerialViscaManager m_serialViscaManager;
+    bool m_bDNR = false;
+    bool m_bDIS = false;
+    bool m_bDEFOG = false;
+    bool m_bHLC = false;
 
     // QWidget interface
 protected:

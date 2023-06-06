@@ -4,8 +4,6 @@
 #include "StringLoader.h"
 #include "WidgetSize.h"
 
-
-
 IndicatorCameraExposeWidget::IndicatorCameraExposeWidget(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::IndicatorCameraExposeWidget)
@@ -40,10 +38,14 @@ IndicatorCameraExposeWidget::IndicatorCameraExposeWidget(QWidget *parent) :
     ui->shutterSpeedComboBox->addItems(shutterSpeeds);
     ui->applyPushButton->setText(LoadString("IDS_APPLY"));
 
+    m_serialControlVisca.connectCamera();
+
 }
 
 IndicatorCameraExposeWidget::~IndicatorCameraExposeWidget()
 {
+    m_serialControlVisca.close();
+
     delete ui;
 }
 

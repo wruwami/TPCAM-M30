@@ -5,6 +5,7 @@
 #include <QHeaderView>
 
 #include "FileFormat.h"
+#include "SdcardManager.h"
 
 namespace Ui {
 class FileManagerWidget;
@@ -33,6 +34,7 @@ private:
     QVideoWidget *m_videoWidget;
     QMediaPlayer* m_player;
     QString m_dateTime;
+    SdcardManager m_sdcardManager;
 private:
     void setTableContent();
     void convertValue();
@@ -40,6 +42,7 @@ private:
 protected:
     void resizeEvent(QResizeEvent *event);
     void paintEvent(QPaintEvent *event);
+    void timerEvent(QTimerEvent *event);
 private slots:
     void on_deletePushButton_clicked();
     void on_tableWidget_clicked(const QModelIndex &index);

@@ -97,6 +97,7 @@ FileManagerWidget::FileManagerWidget(QWidget *parent) :
 
     QHeaderView *verticalHeader = ui->tableWidget->verticalHeader();
     verticalHeader->setSectionResizeMode(QHeaderView::Stretch);
+
 ////    int width = ui->tableWidget->width();//kui->gridLayout_2->itemAtPosition(1, 0)->geometry().width();
 
 ////    verticalHeader->setSectionResizeMode(0, QHeaderView::Stretch);
@@ -125,6 +126,7 @@ FileManagerWidget::FileManagerWidget(QWidget *parent) :
 //    ui->tableWidget->setGeometry(ui->gridLayout_2->itemAtPosition(1, 1)->geometry());
 //    ui->tableWidget->setColumnWidth(0, ui->gridLayout_2->itemAtPosition(1, 1)->geometry().width());
 //    ui->tableWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    startTimer(1000);
 }
 
 FileManagerWidget::~FileManagerWidget()
@@ -189,6 +191,12 @@ void FileManagerWidget::paintEvent(QPaintEvent *event)
     painter.setPen(Pen);
     painter.drawLine(ui->tableWidget->geometry().left() + ui->tableWidget->geometry().width() * 105 / (230 + 105), ui->dateImageLabel->geometry().top(), ui->tableWidget->geometry().left() + ui->tableWidget->size().width() * 105 / (230 + 105), ui->tableWidget->geometry().bottom());
 
+}
+
+void FileManagerWidget::timerEvent(QTimerEvent *event)
+{
+    int percent = m_sdcardManager.GetSDAvailable() / m_sdcardManager.GetSDTotal();
+    ui->percentPushButton->setText(QString("S:%1%").arg(percent));
 }
 
 void FileManagerWidget::on_deletePushButton_clicked()

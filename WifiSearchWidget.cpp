@@ -19,6 +19,8 @@ WifiSearchWidget::WifiSearchWidget(QWidget *parent) :
     ui->noPushButton->setText(LoadString("IDS_NO"));
 
     ui->lineEdit->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+
+    startTimer(1000);
 }
 
 WifiSearchWidget::~WifiSearchWidget()
@@ -41,4 +43,10 @@ void WifiSearchWidget::on_noPushButton_clicked()
     m_pParent->reject();
 }
 
+void WifiSearchWidget::timerEvent(QTimerEvent *event)
+{
+    m_wifiList = m_networkAccessManager.findActiveWirelesses();
+    ui->listWidget->addItems(m_wifiList);
+
+}
 

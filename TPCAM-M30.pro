@@ -24,6 +24,7 @@ SOURCES += main.cpp\
     LoginWidget.cpp \
     MainMenuWidget.cpp \
     MovieViewerDialog.cpp \
+    NetworkAccessManager.cpp \
     NetworkManager.cpp \
     RemoteControlWorker.cpp \
     RemoteController.cpp \
@@ -111,6 +112,7 @@ HEADERS  += MainWindow.h \
     LoginWidget.h \
     MainMenuWidget.h \
     MovieViewerDialog.h \
+    NetworkAccessManager.h \
     NetworkManager.h \
     RemoteControlWorker.h \
     RemoteController.h \

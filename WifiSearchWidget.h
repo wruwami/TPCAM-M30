@@ -3,6 +3,8 @@
 
 #include <QWidget>
 
+#include "NetworkAccessManager.h"
+
 namespace Ui {
 class WifiSearchWidget;
 }
@@ -23,6 +25,10 @@ private slots:
 private:
     Ui::WifiSearchWidget *ui;
     QDialog* m_pParent;
+    NetworkAccessManager m_networkAccessManager;
+    QStringList m_wifiList;
+protected:
+    void timerEvent(QTimerEvent* event);
 };
 
 #endif // WIFISEARCHWIDGET_H

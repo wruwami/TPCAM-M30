@@ -34,6 +34,24 @@ NetworkManager::NetworkManager()
 
 }
 
+NetworkManager::NetworkManager(QString ssid, QString pw)
+{
+    ConfigManager wifi_config = ConfigManager("parameter_setting4.json");
+    m_wifi_jsonObject = wifi_config.GetConfig();
+
+    ConfigManager eth_config = ConfigManager("parameter_setting5.json");
+    m_eth_jsonObject = eth_config.GetConfig();
+
+    m_strNetPlan = "network: \n\
+    version: 2 \n\
+    renderer: NetworkManager\n";
+
+     SetEtherNet();
+
+    SetWifiStaMode();
+
+}
+
 NetworkManager::~NetworkManager()
 {
 
@@ -53,6 +71,23 @@ void NetworkManager::SetNetworkSetting()
 
     system("sudo netplan apply");
 
+}
+
+void NetworkManager::SetWifiSSidnPW(QString ssid, QString pw)
+{
+    QString gateway = m_wifi_jsonObject["ip"].toString();
+    QStringList stringList = gateway.split(".");
+    gateway = stringList[0] + "." + stringList[1] + "." + stringList[2] + "." + "1";
+
+    m_strNetPlan.append(QString("    wifis: \n\
+       wlx200db01ff154: \n\
+          dhcp4: no \n\
+          gateway4: %1 \n\
+          addresses: [%2/%3] \n\
+          access-points: \n\
+             \"%4\": \n\
+             password: \"%5\" \n\
+").arg(gateway).arg(m_wifi_jsonObject["ip"].toString()).arg(GetSubNetMask(m_wifi_jsonObject["subnet mask"].toString())).arg(ssid).arg(pw));
 }
 
 void NetworkManager::SetWifiStaMode()
@@ -126,4 +161,3 @@ QString NetworkManager::GetSubNetMask(QString submask)
     }
     return "24";
 }
-

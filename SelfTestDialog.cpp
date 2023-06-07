@@ -147,11 +147,9 @@ void SelfTestDialog::StartSelfTest()
         ui->storageValueLabel->setText(LoadString("IDS_FAIL"));
     }
 
-    BaseDialog baseDialog(SelfTestWarningMessageWidgetType, isCamera, isLaser, isBattery, isStorage, Qt::AlignmentFlag::AlignCenter);
-//    baseDialog.SetSelfTestResult();
-    baseDialog.exec();
 
-    this->lower();
+
+//    this->lower();
 
     if (SerialGPSManager::GetInstance()->GetSatellitesInView() != 0)
     {
@@ -163,7 +161,10 @@ void SelfTestDialog::StartSelfTest()
         system(dateTimeString.toStdString().c_str());
 
     }
-    if (isCamera && isLaser && isBattery && isStorage)
+
+    BaseDialog baseDialog(SelfTestWarningMessageWidgetType, isCamera, isLaser, isBattery, isStorage, Qt::AlignmentFlag::AlignCenter);
+//    baseDialog.SetSelfTestResult();
+    if (baseDialog.exec() == QDialog::Accepted)
         accept();
     else
         reject();

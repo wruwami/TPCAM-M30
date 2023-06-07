@@ -64,19 +64,19 @@ void IndicatorCameraFocusWidget::on_autoTriggerPushButton_clicked()
 
 void IndicatorCameraFocusWidget::on_onePushTriggerPushButton_clicked()
 {
-
+    m_serialViscaManager.set_AF_one_push_trigger();
 }
 
 
 void IndicatorCameraFocusWidget::on_forcusDownPushButton_clicked()
 {
-
+    m_serialViscaManager.minus_focus();
 }
 
 
 void IndicatorCameraFocusWidget::on_forcusPlusPushButton_clicked()
 {
-
+    m_serialViscaManager.plus_focus();
 }
 
 

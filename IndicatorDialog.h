@@ -3,6 +3,9 @@
 
 #include <QDialog>
 
+#include "SerialViscaManager.h"
+#include "ConfigManager.h"
+
 class CustomPushButton;
 class IndicatorCameraExposeWidget;
 class IndicatorCameraFocusWidget;
@@ -44,7 +47,12 @@ private slots:
     void on_pushButton_clicked();
     void on_screenRecordingPushButton_clicked();
     void on_screenCapturePushButton_clicked();
-
+    void on_day1WidgetClicked();
+    void on_day2WidgetClicked();
+    void on_day3WidgetClicked();
+    void on_night1WidgetClicked();
+    void on_night2WidgetClicked();
+    void on_night3WidgetClicked();
 public:
     CustomPushButton* m_pCameraFocusPushButton = nullptr;
     CustomPushButton* m_pCameraExposePushButton = nullptr;
@@ -68,7 +76,9 @@ private:
     CustomPushButton* m_pWifiPushButton;
     CustomPushButton* m_pBTPushButton;
     CustomPushButton* m_pEthernetPushButton;
-
+    SerialViscaManager m_serialViscaManager;
+    ConfigManager m_configManager = ConfigManager("cam_auto_expose.txt");
+    QJsonObject m_jsonObject;
     // QWidget interface
 protected:
     void paintEvent(QPaintEvent *event);

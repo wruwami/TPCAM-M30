@@ -53,11 +53,13 @@ IndicatorDialog::IndicatorDialog(QWidget *parent) :
 //    ui->onPushButton->setVisible(false);
 //    ui->offPushButton->setVisible(false);
 
-
+    m_serialViscaManager.connectVisca();
+    m_jsonObject = m_configManager.GetConfig();
 }
 
 IndicatorDialog::~IndicatorDialog()
 {
+    m_serialViscaManager.close();
 //    if (m_pIndicatorCameraFocusWidget != nullptr)
 //        delete m_pIndicatorCameraFocusWidget;
 
@@ -138,6 +140,12 @@ void IndicatorDialog::on_daynNightPushButton_clicked()
     ui->horizontalLayout2->insertWidget(4, m_pNight2PushButton, 6);
     ui->horizontalLayout2->insertWidget(5, m_pNight3PushButton, 6);
 
+    connect(m_pDay1PushButton, SIGNAL(clicked()), this, SLOT(on_day1WidgetClicked()));
+    connect(m_pDay2PushButton, SIGNAL(clicked()), this, SLOT(on_day2WidgetClicked()));
+    connect(m_pDay3PushButton, SIGNAL(clicked()), this, SLOT(on_day3WidgetClicked()));
+    connect(m_pNight1PushButton, SIGNAL(clicked()), this, SLOT(on_night1WidgetClicked()));
+    connect(m_pNight2PushButton, SIGNAL(clicked()), this, SLOT(on_night2WidgetClicked()));
+    connect(m_pNight3PushButton, SIGNAL(clicked()), this, SLOT(on_night3WidgetClicked()));
 }
 
 void IndicatorDialog::on_gpsPushButton_clicked()
@@ -330,3 +338,33 @@ void IndicatorDialog::on_screenCapturePushButton_clicked()
     pixmap.save(filename, 0, 100);
 }
 
+void IndicatorDialog::on_day1WidgetClicked()
+{
+//    SerialViscaManager.
+//    m_jsonObject[""]
+}
+
+void IndicatorDialog::on_day2WidgetClicked()
+{
+
+}
+
+void IndicatorDialog::on_day3WidgetClicked()
+{
+
+}
+
+void IndicatorDialog::on_night1WidgetClicked()
+{
+
+}
+
+void IndicatorDialog::on_night2WidgetClicked()
+{
+
+}
+
+void IndicatorDialog::on_night3WidgetClicked()
+{
+
+}

@@ -70,28 +70,8 @@ MainMenuWidget::MainMenuWidget(QWidget *parent) :
     ui->wifiPushButton->setImage("indicator", "indicator_wifi_disconnected.jpg");
     ui->gpsPushButton->setImage("indicator", "indicator_gps_off.jpg");
 #endif
-    QDir qdir;
-    QString file_full_path;
-//#ifdef Q_OS_WIN
-//    file_full_path = qdir.absolutePath() + "\\" + DEFAULT_PATH + "\\" + path_name + "\\" + file_name;
-//#else   /*Q_OS_LINUX*/
-    file_full_path = qdir.absolutePath() + "/" + "images" + "/" + "indicator" + "/" + "indicator_battery4.bmp";
-//#endif
 
-#if 1
-    QPixmap pixmap;
-    pixmap.load(file_full_path);
-    qDebug() << pixmap.size();
-//    m_pixmap = m_pixmap.scaled(size().width(), size().height(), Qt::KeepAspectRatioByExpanding);
-    ui->batteryPercentButton->setIconSize(pixmap.size());
-    QIcon icon = QIcon(pixmap);
-    ui->batteryPercentButton->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
-    ui->batteryPercentButton->setIcon(icon);
-
-//    ui->batteryPercentButton->setImage("indicator", "indicator_battery4.bmp");
-    ui->batteryPercentButton->setText("100%");
     ui->batteryStatusLabel->setImage("indicator", "charging.png");
-#endif
     startTimer(1000);
 }
 
@@ -136,6 +116,51 @@ void MainMenuWidget::showIndicator(bool isShow)
         ui->gpsPushButton->hide();
 
     }
+}
+
+void MainMenuWidget::setBatteryPercentValue(int percent)
+{
+    QDir qdir;
+    QString file_full_path;
+
+    if (percent == 0)
+    {
+        file_full_path = qdir.absolutePath() + "/" + "images" + "/" + "indicator" + "/" + "indicator_battery0.bmp";
+    }
+    else if (percent < 20 && percent > 0)
+    {
+        file_full_path = qdir.absolutePath() + "/" + "images" + "/" + "indicator" + "/" + "indicator_battery1.bmp";
+    }
+    else if (percent < 40 && percent >= 20)
+    {
+        file_full_path = qdir.absolutePath() + "/" + "images" + "/" + "indicator" + "/" + "indicator_battery2.bmp";
+    }
+    else if (percent < 60 && percent >= 40)
+    {
+        file_full_path = qdir.absolutePath() + "/" + "images" + "/" + "indicator" + "/" + "indicator_battery3.bmp";
+    }
+    else if (percent < 80 && percent >= 60)
+    {
+        file_full_path = qdir.absolutePath() + "/" + "images" + "/" + "indicator" + "/" + "indicator_battery4.bmp";
+    }
+    else if (percent >= 80)
+    {
+        file_full_path = qdir.absolutePath() + "/" + "images" + "/" + "indicator" + "/" + "indicator_battery5.bmp";
+    }
+
+    QPixmap pixmap;
+    pixmap.load(file_full_path);
+    qDebug() << pixmap.size();
+    //    QUrl url(file_full_path);
+    //    url.set
+    //
+        ui->batteryPercentButton->setStyleSheet(QString("QToolButton { \
+                                    background-color: black; \
+                                    border-image: url(%0);\
+                                }\
+                                ").arg(file_full_path));
+
+    ui->batteryPercentButton->setText(QString("%0%").arg(percent));
 }
 
 

@@ -442,6 +442,9 @@ void MainWindow::CheckBatteryStatus()
 //        QProcess::startDetached("shutdown -h now");
 //    }
 
+    // battery count
+    int percent = ltc.m_filteredBat_persent/100;
+    m_pMainMenuWidget->setBatteryPercentValue(percent);
 }
 
 #include <QLabel>

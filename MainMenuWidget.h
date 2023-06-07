@@ -24,6 +24,8 @@ public:
     void enableButtons(bool enable);
     void updateStretch();
     void showIndicator(bool = true);
+    void setBatteryPercentValue(int);
+
 public:
     CustomPushButton* m_pHomePushButton;
 private:

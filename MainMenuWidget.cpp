@@ -38,7 +38,8 @@ MainMenuWidget::MainMenuWidget(QWidget *parent) :
     m_pGpsPushbutton = ui->gpsPushButton;
     m_pBatteryChargingLabel = ui->batteryStatusLabel;
     m_pBatteryPercentButton= ui->batteryPercentButton;
-    ui->batteryPercentButton->setStyleSheet("QLabel {color:yellow;}");
+
+    ui->batteryPercentButton->setStyleSheet("QToolButton {color:#FFFF00;}");
 
     m_pHomeTitleLabel = new CustomLabel;
     m_pHomeButtonWidget = new HomeButtonWidget;
@@ -159,10 +160,11 @@ void MainMenuWidget::setBatteryPercentValue(int percent)
         ui->batteryPercentButton->setStyleSheet(QString("QToolButton { \
                                     background-color: black; \
                                     border-image: url(%0);\
+                                    color: #FFFF00;\
                                 }\
                                 ").arg(file_full_path));
 
-ui->batteryPercentButton->setText(QString("%0%").arg(percent));
+    ui->batteryPercentButton->setText(QString("%0%").arg(percent));
 }
 
 void MainMenuWidget::setBatteryCharge(bool isCharge)

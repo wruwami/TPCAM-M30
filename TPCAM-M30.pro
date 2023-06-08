@@ -15,8 +15,6 @@ TEMPLATE = app
 SOURCES += main.cpp\
     CustomTogglePushButton.cpp \
     FileManager.cpp \
-    HUDManager.cpp \
-    HeadUpDisplay.cpp \
     ImageConverter.cpp \
     IndicatorCameraFocusWidget.cpp \
     IndicatorDialog.cpp \
@@ -106,8 +104,6 @@ HEADERS  += MainWindow.h \
     CustomTogglePushButton.h \
     FileManager.h \
     FontSize.h \
-    HUDManager.h \
-    HeadUpDisplay.h \
     ImageConverter.h \
     IndicatorCameraFocusWidget.h \
     IndicatorDialog.h \

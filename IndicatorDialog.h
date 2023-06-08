@@ -77,7 +77,7 @@ private:
     CustomPushButton* m_pBTPushButton;
     CustomPushButton* m_pEthernetPushButton;
     SerialViscaManager m_serialViscaManager;
-    ConfigManager m_configManager = ConfigManager("cam_auto_expose.txt");
+    ConfigManager m_configManager = ConfigManager("exposure.json");
     QJsonObject m_jsonObject;
     // QWidget interface
 protected:

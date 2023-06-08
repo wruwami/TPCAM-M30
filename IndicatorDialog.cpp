@@ -340,8 +340,15 @@ void IndicatorDialog::on_screenCapturePushButton_clicked()
 
 void IndicatorDialog::on_day1WidgetClicked()
 {
-//    SerialViscaManager.
-//    m_jsonObject[""]
+    QJsonObject object = m_jsonObject["Day"].toObject()["Dark"].toObject();
+    m_serialViscaManager.set_AE_shutter_priority();
+    m_serialViscaManager.set_iris(object["Iris"].toInt());
+    m_serialViscaManager.set_shutter_speed(object["Shutter"].toInt());
+    m_serialViscaManager.set_gain(object["Gain"].toInt());
+//    object["DNR"].toBool() ? m_serialViscaManager.set_dnr_on();
+    object["DIS"].toBool() ? m_serialViscaManager.set_DIS_on() : m_serialViscaManager.set_DIS_off();
+    object["DEFOG"].toBool() ? m_serialViscaManager.set_defog_on() : m_serialViscaManager.set_defog_off();
+    object["HLC"].toBool() ? m_serialViscaManager.set_HLC_on() : m_serialViscaManager.set_HLC_off();
 }
 
 void IndicatorDialog::on_day2WidgetClicked()

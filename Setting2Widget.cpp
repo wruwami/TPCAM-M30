@@ -93,6 +93,29 @@ void Setting2Widget::on_antiJammingModeComboBox_currentIndexChanged(int index)
 void Setting2Widget::on_reticleShapeComboBox_currentIndexChanged(int index)
 {
     m_newJsonObject["reticle selection"] = index + 1;
+    switch (index)
+    {
+    case 0:
+    {
+        m_hud.SetReticleShape(Dot);
+    }
+        break;
+    case 1:
+    {
+        m_hud.SetReticleShape(Cross);
+    }
+        break;
+    case 2:
+    {
+        m_hud.SetReticleShape(Round);
+    }
+        break;
+    case 3:
+    {
+        m_hud.SetReticleShape(Rectangle);
+    }
+        break;
+    }
 }
 
 void Setting2Widget::on_weatherModeComboBox_currentIndexChanged(int index)

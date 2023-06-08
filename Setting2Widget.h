@@ -5,6 +5,7 @@
 #include <QJsonObject>
 
 #include "ConfigManager.h"
+#include "HUDManager.h"
 
 namespace Ui {
 class Setting2Widget;
@@ -32,6 +33,7 @@ private slots:
 
 private:
     Ui::Setting2Widget *ui;
+    HUDManager m_hud;
 private:
     QJsonObject m_jsonObject;
     QJsonObject m_newJsonObject;

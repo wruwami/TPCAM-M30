@@ -38,7 +38,7 @@ MainMenuWidget::MainMenuWidget(QWidget *parent) :
     m_pGpsPushbutton = ui->gpsPushButton;
     m_pBatteryChargingLabel = ui->batteryStatusLabel;
     m_pBatteryPercentButton= ui->batteryPercentButton;
-    ui->batteryPercentButton->setStyleSheet("color:yellow");
+    ui->batteryPercentButton->setStyleSheet("QLabel {color:yellow;}");
 
     m_pHomeTitleLabel = new CustomLabel;
     m_pHomeButtonWidget = new HomeButtonWidget;

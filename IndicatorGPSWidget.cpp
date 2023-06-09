@@ -50,6 +50,7 @@ void IndicatorGPSWidget::paintEvent(QPaintEvent *event)
 
 void IndicatorGPSWidget::timerEvent(QTimerEvent *event)
 {
+    ui->sensitivityeLabel->setText(LoadString("IDS_SENSITIVITY") + SerialGPSManager::GetInstance()->GetSensitivity());
     ui->timeLabel->setText(LoadString("IDS_TIME") + SerialGPSManager::GetInstance()->GetDateTime().toString());
     ui->latitudeLabel->setText(LoadString("IDS_LATITUDE") + SerialGPSManager::GetInstance()->GetLatitude());
     ui->longitudeLabel->setText(LoadString("IDS_LONGITUDE") + SerialGPSManager::GetInstance()->GetLongitude());

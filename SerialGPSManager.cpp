@@ -70,9 +70,9 @@ void SerialGPSManager::serial_connect()
     }
 }
 
-QDateTime SerialGPSManager::GetDateTime()
+QString SerialGPSManager::GetDateTime()
 {
-    return m_DateTime;
+    return m_DateTime.toString("yyyy-MM-dd hh:mm:ss");
 }
 
 int SerialGPSManager::GetSatellitesInView()
@@ -89,6 +89,13 @@ QString SerialGPSManager::GetLongitude()
 {
     return m_Longitude;
 }
+
+QString SerialGPSManager::GetSensitivity()
+{
+    return m_sensitivity;
+}
+
+
 
 void SerialGPSManager::serial_received()
 {

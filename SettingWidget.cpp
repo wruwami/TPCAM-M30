@@ -72,6 +72,11 @@ SettingWidget::~SettingWidget()
     delete m_pSetting6Widget;
     delete m_pSetting7Widget;
 
+    NetworkManager networkManager;
+    networkManager.SetNetworkSetting();
+
+    LcdBrightManager lcdBrightManager;
+
 //    for (int i = 0 ; i < 7 ; i++)
 //    {
 //        QWidget* widget = ui->stackedWidget->widget(i);
@@ -159,10 +164,7 @@ void SettingWidget::on_savePushButton_clicked()
     m_pSetting6Widget->m_isSave = true;
     m_pSetting7Widget->m_isSave = true;
 
-    NetworkManager networkManager;
-    networkManager.SetNetworkSetting();
 
-    LcdBrightManager lcdBrightManager;
 }
 
 void SettingWidget::on_cancelPushButton_clicked()

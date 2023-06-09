@@ -23,6 +23,7 @@ public:
     }
 
     void serial_connect();
+    QString GetDateTimeString();
     QDateTime GetDateTime();
     int GetSatellitesInView();
     QString GetLatitude();
@@ -34,7 +35,7 @@ private:
     int m_nTTFFFlag = 0;
     QElapsedTimer m_timer;
     int m_nSatellitesInView = 0;
-    QString m_DateTime;
+    QDateTime m_DateTime;
     QString m_Latitude;
     QString m_Longitude;
     QString m_sensitivity;

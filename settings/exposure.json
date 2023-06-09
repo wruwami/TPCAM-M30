@@ -8,59 +8,59 @@
 			"DNR": "0",
 			"DIS": "0",
 			"DEFOG": "0",
-			"HLC": "0",
-			"Normal": {
-				"Priority": "0A",
-				"Iris": "00",
-				"Shutter": "05",
-				"Gain": "00",
-				"DNR": "0",
-				"DIS": "0",
-				"DEFOG": "0",
-				"HLC": "0"
-			},
-			"Bright": {
-				"Priority": "0A",
-				"Iris": "00",
-				"Shutter": "06",
-				"Gain": "00",
-				"DNR": "0",
-				"DIS": "0",
-				"DEFOG": "0",
-				"HLC": "0"
-			}
+			"HLC": "0"
 		},
-		"Night": {
-			"Dark": {
-				"Priority": "03",
-				"Iris": "11",
-				"Shutter": "05",
-				"Gain": "03",
-				"DNR": "0",
-				"DIS": "0",
-				"DEFOG": "0",
-				"HLC": "0"
-			},
-			"Normal": {
-				"Priority": "03",
-				"Iris": "11",
-				"Shutter": "05",
-				"Gain": "04",
-				"DNR": "0",
-				"DIS": "0",
-				"DEFOG": "0",
-				"HLC": "0"
-			},
-			"Bright": {
-				"Priority": "0A",
-				"Iris": "00",
-				"Shutter": "06",
-				"Gain": "00",
-				"DNR": "0",
-				"DIS": "0",
-				"DEFOG": "0",
-				"HLC": "0"
-			}
+		"Normal": {
+			"Priority": "0A",
+			"Iris": "00",
+			"Shutter": "05",
+			"Gain": "00",
+			"DNR": "0",
+			"DIS": "0",
+			"DEFOG": "0",
+			"HLC": "0"
+		},
+		"Bright": {
+			"Priority": "0A",
+			"Iris": "00",
+			"Shutter": "06",
+			"Gain": "00",
+			"DNR": "0",
+			"DIS": "0",
+			"DEFOG": "0",
+			"HLC": "0"
+		}
+	},
+	"Night": {
+		"Dark": {
+			"Priority": "03",
+			"Iris": "11",
+			"Shutter": "05",
+			"Gain": "03",
+			"DNR": "0",
+			"DIS": "0",
+			"DEFOG": "0",
+			"HLC": "0"
+		},
+		"Normal": {
+			"Priority": "03",
+			"Iris": "11",
+			"Shutter": "05",
+			"Gain": "04",
+			"DNR": "0",
+			"DIS": "0",
+			"DEFOG": "0",
+			"HLC": "0"
+		},
+		"Bright": {
+			"Priority": "0A",
+			"Iris": "00",
+			"Shutter": "06",
+			"Gain": "00",
+			"DNR": "0",
+			"DIS": "0",
+			"DEFOG": "0",
+			"HLC": "0"
 		}
 	}
 }

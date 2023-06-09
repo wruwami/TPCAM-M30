@@ -17,7 +17,7 @@ class Setting1Widget : public QWidget
 public:
     explicit Setting1Widget(QWidget *parent = 0);
     ~Setting1Widget();
-
+    void SaveConfig();
 private slots:
     void on_locationPushButton_clicked();
 
@@ -38,8 +38,6 @@ private slots:
 
     void on_speedModeComboBox_currentIndexChanged(int index);
 
-public:
-    bool m_isSave = false;
 private:
     QJsonObject m_jsonObject;
     QJsonObject m_newJsonObject;

@@ -17,7 +17,7 @@ class Setting4APWidget : public QWidget
 public:
     explicit Setting4APWidget(QWidget *parent = 0);
     ~Setting4APWidget();
-
+    void SaveConfig();
 private slots:
     void on_pwPushButton_clicked();    
     void on_wifiSSIDnFTPlineEdit_textChanged(const QString &arg1);
@@ -28,8 +28,6 @@ private slots:
 
     void on_printerComboBox_currentIndexChanged(int index);
 
-public:
-    bool m_isSave;
 private:
     QJsonObject m_jsonObject;
     QJsonObject m_newJsonObject;

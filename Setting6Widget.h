@@ -17,7 +17,7 @@ class Setting6Widget : public QWidget
 public:
     explicit Setting6Widget(QWidget *parent = 0);
     ~Setting6Widget();
-
+    void SaveConfig();
 private slots:
     void on_searchPushButton_clicked();
 
@@ -36,8 +36,6 @@ private slots:
 
     void on_userPassLineEdit_textChanged(const QString &arg1);
 
-public:
-    bool m_isSave;
 private:
     QJsonObject m_jsonObject;
     QJsonObject m_newJsonObject;

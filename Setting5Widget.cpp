@@ -39,13 +39,14 @@ Setting5Widget::Setting5Widget(QWidget *parent) :
 
 Setting5Widget::~Setting5Widget()
 {
-    if (m_isSave)
-    {
-        m_config.SetConfig(m_newJsonObject);
-        m_config.SaveFile();
-    }
-
     delete ui;
+}
+
+void Setting5Widget::SaveConfig()
+{
+    m_config.SetConfig(m_newJsonObject);
+    m_config.SaveFile();
+
 }
 
 void Setting5Widget::setDHCPMode()

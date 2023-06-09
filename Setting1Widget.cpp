@@ -80,12 +80,14 @@ Setting1Widget::Setting1Widget(QWidget *parent) :
 
 Setting1Widget::~Setting1Widget()
 {
-    if (m_isSave)
-    {
-        m_config.SetConfig(m_newJsonObject);
-        m_config.SaveFile();
-    }
     delete ui;
+}
+
+void Setting1Widget::SaveConfig()
+{
+    m_config.SetConfig(m_newJsonObject);
+    m_config.SaveFile();
+
 }
 
 

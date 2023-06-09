@@ -61,13 +61,14 @@ Setting3Widget::Setting3Widget(QWidget *parent) :
 
 Setting3Widget::~Setting3Widget()
 {
-    if (m_isSave)
-    {
-        m_config.SetConfig(m_newJsonObject);
-        m_config.SaveFile();
-    }
-
     delete ui;
+}
+
+void Setting3Widget::SaveConfig()
+{
+    m_config.SetConfig(m_newJsonObject);
+    m_config.SaveFile();
+
 }
 
 void Setting3Widget::on_showInfoPushButton_clicked()

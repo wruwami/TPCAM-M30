@@ -17,7 +17,7 @@ class Setting3Widget : public QWidget
 public:
     explicit Setting3Widget(QWidget *parent = 0);
     ~Setting3Widget();
-
+    void SaveConfig();
 private slots:
     void on_showInfoPushButton_clicked();
 
@@ -29,9 +29,6 @@ private slots:
     void on_unitComboBox_currentIndexChanged(int index);
 
     void on_dateFormatComboBox_currentIndexChanged(int index);
-
-public:
-    bool m_isSave = false;
 private:
     QJsonObject m_jsonObject;
     QJsonObject m_newJsonObject;

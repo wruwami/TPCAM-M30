@@ -76,13 +76,13 @@ Setting2Widget::Setting2Widget(QWidget *parent) :
 
 Setting2Widget::~Setting2Widget()
 {
-    if (m_isSave)
-    {
-        m_config.SetConfig(m_newJsonObject);
-        m_config.SaveFile();
-    }
+   delete ui;
+}
 
-    delete ui;
+void Setting2Widget::SaveConfig()
+{
+    m_config.SetConfig(m_newJsonObject);
+    m_config.SaveFile();
 }
 
 void Setting2Widget::on_antiJammingModeComboBox_currentIndexChanged(int index)

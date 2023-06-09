@@ -40,13 +40,15 @@ Setting4APWidget::Setting4APWidget(QWidget *parent) :
 
 Setting4APWidget::~Setting4APWidget()
 {
-    if (m_isSave)
-    {
-        m_config.SetConfig(m_newJsonObject);
-        m_config.SaveFile();
-    }
 
     delete ui;
+}
+
+void Setting4APWidget::SaveConfig()
+{
+    m_config.SetConfig(m_newJsonObject);
+    m_config.SaveFile();
+
 }
 
 void Setting4APWidget::on_pwPushButton_clicked()

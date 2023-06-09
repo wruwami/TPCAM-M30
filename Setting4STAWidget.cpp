@@ -43,13 +43,14 @@ Setting4STAWidget::Setting4STAWidget(QWidget *parent) :
 
 Setting4STAWidget::~Setting4STAWidget()
 {
-    if (m_isSave)
-    {
-        m_config.SetConfig(m_newJsonObject);
-        m_config.SaveFile();
-    }
-
     delete ui;
+}
+
+void Setting4STAWidget::SaveConfig()
+{
+    m_config.SetConfig(m_newJsonObject);
+    m_config.SaveFile();
+
 }
 
 void Setting4STAWidget::on_pwPushButton_clicked()

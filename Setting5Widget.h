@@ -17,6 +17,7 @@ class Setting5Widget : public QWidget
 public:
     explicit Setting5Widget(QWidget *parent = 0);
     ~Setting5Widget();
+    void SaveConfig();
 private:
     void setDHCPMode();
     void setManualMode();
@@ -30,8 +31,6 @@ private slots:
 
     void on_dnsServerLineEdit_textChanged(const QString &arg1);
 
-public:
-    bool m_isSave;
 private:
     QJsonObject m_jsonObject;
     QJsonObject m_newJsonObject;

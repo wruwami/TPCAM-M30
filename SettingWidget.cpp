@@ -150,14 +150,14 @@ void SettingWidget::on_stackedWidget_currentChanged(int arg1)
 
 void SettingWidget::on_savePushButton_clicked()
 {
-    m_pSetting1Widget->m_isSave = true;
-    m_pSetting2Widget->m_isSave = true;
-    m_pSetting3Widget->m_isSave = true;
-    m_pSetting4APWidget->m_isSave = true;
-    m_pSetting4StaWidget->m_isSave = true;
-    m_pSetting5Widget->m_isSave = true;
-    m_pSetting6Widget->m_isSave = true;
-    m_pSetting7Widget->m_isSave = true;
+    m_pSetting1Widget->SaveConfig();
+    m_pSetting2Widget->SaveConfig();
+    m_pSetting3Widget->SaveConfig();
+    m_pSetting4APWidget->SaveConfig();
+    m_pSetting4StaWidget->SaveConfig();
+    m_pSetting5Widget->SaveConfig();
+    m_pSetting6Widget->SaveConfig();
+    m_pSetting7Widget->SaveConfig();
 
     NetworkManager networkManager;
     networkManager.SetNetworkSetting();

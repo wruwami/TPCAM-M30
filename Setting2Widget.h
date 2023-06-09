@@ -18,8 +18,7 @@ class Setting2Widget : public QWidget
 public:
     explicit Setting2Widget(QWidget *parent = 0);
     ~Setting2Widget();
-public:
-    bool m_isSave = false;
+    void SaveConfig();
 private slots:
     void on_antiJammingModeComboBox_currentIndexChanged(int index);
 

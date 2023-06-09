@@ -62,13 +62,14 @@ Setting6Widget::Setting6Widget(QWidget *parent) : QWidget(parent),
 
 Setting6Widget::~Setting6Widget()
 {
-    if (m_isSave)
-    {
-        m_config.SetConfig(m_newJsonObject);
-        m_config.SaveFile();
-    }
-
     delete ui;
+}
+
+void Setting6Widget::SaveConfig()
+{
+    m_config.SetConfig(m_newJsonObject);
+    m_config.SaveFile();
+
 }
 
 void Setting6Widget::on_searchPushButton_clicked()

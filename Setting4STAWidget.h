@@ -17,7 +17,7 @@ class Setting4STAWidget : public QWidget
 public:
     explicit Setting4STAWidget(QWidget *parent = 0);
     ~Setting4STAWidget();
-
+    void SaveConfig();
 private slots:
     void on_pwPushButton_clicked();
     void on_FTPIDPWLineEdit_textChanged(const QString &arg1);
@@ -30,8 +30,6 @@ private slots:
 
     void on_searchPushButton_clicked();
 
-public:
-    bool m_isSave;
 private:
     QJsonObject m_jsonObject;
     QJsonObject m_newJsonObject;

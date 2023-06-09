@@ -76,13 +76,14 @@ Setting7Widget::Setting7Widget(QWidget *parent) :
 
 Setting7Widget::~Setting7Widget()
 {
-    if (m_isSave)
-    {
-        m_config.SetConfig(m_newJsonObject);
-        m_config.SaveFile();
-    }
-
     delete ui;
+}
+
+void Setting7Widget::SaveConfig()
+{
+    m_config.SetConfig(m_newJsonObject);
+    m_config.SaveFile();
+
 }
 
 void Setting7Widget::on_wifiComboBox_currentIndexChanged(int index)

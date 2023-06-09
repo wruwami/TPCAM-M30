@@ -38,14 +38,12 @@ MainMenuWidget::MainMenuWidget(QWidget *parent) :
     m_pGpsPushbutton = ui->gpsPushButton;
     m_pBatteryChargingLabel = ui->batteryStatusLabel;
     m_pBatteryPercentButton= ui->batteryPercentButton;
-    ui->batteryPercentButton->setStyleSheet("color:yellow");
 
     m_pHomeTitleLabel = new CustomLabel;
     m_pHomeButtonWidget = new HomeButtonWidget;
     ui->stackedWidget->addWidget(m_pHomeTitleLabel);
     ui->stackedWidget->addWidget(m_pHomeButtonWidget);
     m_pSpacerItem = new QSpacerItem(m_pCameraPushbutton->width(), m_pCameraPushbutton->height(), QSizePolicy::Expanding, QSizePolicy::Expanding);
-
 
 //    m_pMainMenuTitlePushButton = m_pHomeButtonWidget->m_pHomePushButton;
     m_pHomePushButton = m_pHomeButtonWidget->m_pHomePushButton;
@@ -73,7 +71,7 @@ MainMenuWidget::MainMenuWidget(QWidget *parent) :
     ui->gpsPushButton->setImage("indicator", "indicator_gps_off.jpg");
 #endif
 
-    ui->batteryStatusLabel->setImage("indicator", "indicator_battery_charge_off.bmp");
+    ui->batteryStatusLabel->setImage("indicator", "charging.png");
     startTimer(1000);
 }
 
@@ -162,15 +160,7 @@ void MainMenuWidget::setBatteryPercentValue(int percent)
                                 }\
                                 ").arg(file_full_path));
 
-ui->batteryPercentButton->setText(QString("%0%").arg(percent));
-}
-
-void MainMenuWidget::setBatteryCharge(bool isCharge)
-{
-    if (isCharge)
-        ui->batteryStatusLabel->setImage("indicator", "indicator_battery_charge_on.bmp");
-    else
-        ui->batteryStatusLabel->setImage("indicator", "indicator_battery_charge_off.bmp");
+    ui->batteryPercentButton->setText(QString("%0%").arg(percent));
 }
 
 

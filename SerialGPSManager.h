@@ -27,13 +27,14 @@ public:
     int GetSatellitesInView();
     QString GetLatitude();
     QString GetLongitude();
+    QString GetSensitivity();
 private:
-    int con;
+    int con = 0;
     int m_nTTFF=0;
     int m_nTTFFFlag = 0;
     QElapsedTimer m_timer;
     int m_nSatellitesInView = 0;
-    QDateTime m_DateTime;
+    QString m_DateTime;
     QString m_Latitude;
     QString m_Longitude;
     QString m_sensitivity;

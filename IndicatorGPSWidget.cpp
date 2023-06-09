@@ -16,7 +16,7 @@ IndicatorGPSWidget::IndicatorGPSWidget(QWidget *parent) :
 //    SerialGPSManager* m_serialGPSManager = new SerialGPSManager;
 
     ui->sensitivityeLabel->setText(LoadString("IDS_SENSITIVITY"));
-    ui->timeLabel->setText(LoadString("IDS_TIME") + SerialGPSManager::GetInstance()->GetDateTime().toString());
+    ui->timeLabel->setText(LoadString("IDS_TIME") + SerialGPSManager::GetInstance()->GetDateTimeString());
     ui->latitudeLabel->setText(LoadString("IDS_LATITUDE") + SerialGPSManager::GetInstance()->GetLatitude());
     ui->longitudeLabel->setText(LoadString("IDS_LONGITUDE") + SerialGPSManager::GetInstance()->GetLongitude());
     ui->numberOfSatellitesLabel->setText(LoadString("IDS_NUMBER_OF_SATELLITES") + QString::number(SerialGPSManager::GetInstance()->GetSatellitesInView()));
@@ -50,7 +50,8 @@ void IndicatorGPSWidget::paintEvent(QPaintEvent *event)
 
 void IndicatorGPSWidget::timerEvent(QTimerEvent *event)
 {
-    ui->timeLabel->setText(LoadString("IDS_TIME") + SerialGPSManager::GetInstance()->GetDateTime().toString());
+    ui->sensitivityeLabel->setText(LoadString("IDS_SENSITIVITY") + SerialGPSManager::GetInstance()->GetSensitivity());
+    ui->timeLabel->setText(LoadString("IDS_TIME") + SerialGPSManager::GetInstance()->GetDateTimeString());
     ui->latitudeLabel->setText(LoadString("IDS_LATITUDE") + SerialGPSManager::GetInstance()->GetLatitude());
     ui->longitudeLabel->setText(LoadString("IDS_LONGITUDE") + SerialGPSManager::GetInstance()->GetLongitude());
     ui->numberOfSatellitesLabel->setText(LoadString("IDS_NUMBER_OF_SATELLITES") + QString::number(SerialGPSManager::GetInstance()->GetSatellitesInView()));

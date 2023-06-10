@@ -11,8 +11,17 @@ FileManager* FileManager::instance = nullptr;
 
 QString FileManager::GetPath(QString name,Type type)
 {
+    QDir dir;
     if (type == eMMC)
+    {
+        dir = GeteMMCPath() + "/" + DEFAULT_FILE_PATH + "/" + name;
+        if (!dir.exists())
+            dir.mkdir(GeteMMCPath() + "/" + DEFAULT_FILE_PATH + "/" + name);
         return GeteMMCPath() + "/" + DEFAULT_FILE_PATH + "/" + name;
+    }
+    dir = GetSDPath() + "/" + DEFAULT_FILE_PATH + "/" + name;
+    if (!dir.exists())
+        dir.mkdir(GetSDPath() + "/" + DEFAULT_FILE_PATH + "/" + name);
     return GetSDPath() + "/" + DEFAULT_FILE_PATH + "/" + name;
 }
 
@@ -20,17 +29,27 @@ QString FileManager::GetSubPath(QString name,Type type)
 {
     QDateTime datetime = datetime.currentDateTime();
     QDir dir;
+
     if (type == eMMC)
-        GeteMMCPath() + "/" + DEFAULT_FILE_PATH + "/" + name + "/" + GetDate(datetime.toString());
+    {
+        dir = GeteMMCPath() + "/" + DEFAULT_FILE_PATH + "/" + name;
+        if (!dir.exists())
+            dir.mkdir(GeteMMCPath() + "/" + DEFAULT_FILE_PATH + "/" + name);
+        dir = GeteMMCPath() + "/" + DEFAULT_FILE_PATH + "/" + name + "/" + datetime.toString("yyyyMMdd_hh");
+    }
     else
-        GetSDPath() + "/" + DEFAULT_FILE_PATH + "/" + name + "/" + GetDate(datetime.toString());
-//    QDir dir(GetFirstPath() + "/" + DEFAULT_FILE_PATH + "/" + name + "/");
+    {
+        dir = GetSDPath() + "/" + DEFAULT_FILE_PATH + "/" + name;
+        if (!dir.exists())
+            dir.mkdir(GetSDPath() + "/" + DEFAULT_FILE_PATH + "/" + name);
+        dir = GetSDPath() + "/" + DEFAULT_FILE_PATH + "/" + name + "/" + datetime.toString("yyyyMMdd_hh");
+    }   //    QDir dir(GetFirstPath() + "/" + DEFAULT_FILE_PATH + "/" + name + "/");
     if (!dir.exists())
     {
         if (type == eMMC)
-            dir.mkdir(GeteMMCPath() + "/" + DEFAULT_FILE_PATH + "/" + name + "/" + GetDate(datetime.toString()));
+            dir.mkdir(GeteMMCPath() + "/" + DEFAULT_FILE_PATH + "/" + name + "/" + datetime.toString("yyyyMMdd_hh"));
         else
-            dir.mkdir(GetSDPath() + "/" + DEFAULT_FILE_PATH + "/" + name + "/" + GetDate(datetime.toString()));
+            dir.mkdir(GetSDPath() + "/" + DEFAULT_FILE_PATH + "/" + name + "/" + datetime.toString("yyyyMMdd_hh"));
     }
     return dir.absolutePath();
 }

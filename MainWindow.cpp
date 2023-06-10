@@ -365,12 +365,14 @@ void MainWindow::OpenEnforcement()
 
     m_widgetType = Enforcement;
     m_pIndicatorWidget->m_bFocusExposeDisabled = false;
-    if (ui->verticalLayout->count() > 1)
-    {
-        QWidget* widget = ui->verticalLayout->itemAt(1)->widget();
-        removeseconditem(widget);
-    }
-//    if (m_pMainMenuContentWidget)
+    removeseconditem();
+//    if (ui->verticalLayout->count() > 1)
+//    {
+//        QWidget* widget = ui->verticalLayout->itemAt(1)->widget();
+//        removeseconditem(widget);
+//    }
+
+    //    if (m_pMainMenuContentWidget)
 //    {
 //        delete m_pMainMenuContentWidget;
 //        m_pMainMenuContentWidget = nullptr;
@@ -448,6 +450,11 @@ void MainWindow::CheckBatteryStatus()
     // battery count
     int percent = ltc.m_filteredBat_persent/100;
     m_pMainMenuWidget->setBatteryPercentValue(percent);
+    int current = ltc.m_current;
+    if (current > -1)
+        m_pMainMenuWidget->setBatteryCharge(true);
+    else
+        m_pMainMenuWidget->setBatteryCharge(false);
 }
 
 #include <QLabel>
@@ -685,7 +692,16 @@ void MainWindow::on_mainMenuHomeClicked()
     showIndicator(true);
 
     QWidget* widget = ui->verticalLayout->itemAt(1)->widget();
-    removeseconditem(widget);
+    if (m_pEnforcementWidget == widget)
+    {
+        delete m_pEnforcementWidget;
+        m_pEnforcementWidget = nullptr;
+    }
+    else
+    {
+        removeseconditem(widget);
+    }
+
 
     if (m_pMainMenuAdminAlignWidget)
     {
@@ -693,10 +709,10 @@ void MainWindow::on_mainMenuHomeClicked()
         m_pMainMenuAdminAlignWidget = nullptr;
     }
 
-    if (m_pMainMenuAdminAlignWidget)
+    if (m_pMainMenuContentWidget)
     {
-        delete m_pMainMenuAdminAlignWidget;
-        m_pMainMenuAdminAlignWidget = nullptr;
+        delete m_pMainMenuContentWidget;
+        m_pMainMenuContentWidget = nullptr;
     }
 
 //    if (m_pCameraAlignWidget)

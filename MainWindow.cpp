@@ -357,7 +357,10 @@ void MainWindow::on_enforcementClicked()
 
 void MainWindow::OpenEnforcement()
 {
-    if (!(m_widgetType == FileManager && m_widgetType == Setting))
+    if (m_widgetType == Enforcement)
+        return;
+
+    if ((m_widgetType != FileManager && m_widgetType != Setting))
         return;
 
     m_widgetType = Enforcement;

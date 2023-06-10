@@ -365,7 +365,20 @@ void MainWindow::OpenEnforcement()
 
     m_widgetType = Enforcement;
     m_pIndicatorWidget->m_bFocusExposeDisabled = false;
-    removeseconditem();
+    if (ui->verticalLayout->count() > 1)
+    {
+        QWidget* widget = ui->verticalLayout->itemAt(1)->widget();
+        if (m_pEnforcementWidget == widget)
+        {
+            delete m_pEnforcementWidget;
+            m_pEnforcementWidget = nullptr;
+        }
+        else
+        {
+            removeseconditem(widget);
+        }
+    }
+
 //    if (ui->verticalLayout->count() > 1)
 //    {
 //        QWidget* widget = ui->verticalLayout->itemAt(1)->widget();
@@ -581,7 +594,15 @@ void MainWindow::on_filemanagementClicked()
 
 void MainWindow::OpenFileManagement()
 {
-    if (!(m_widgetType == Enforcement && m_widgetType == Setting))
+    if (m_widgetType == Enforcement)
+    {
+        if (m_pEnforcementWidget)
+        {
+            delete m_pEnforcementWidget;
+            m_pEnforcementWidget = nullptr;
+        }
+    }
+    if (m_widgetType != Enforcement && m_widgetType != Setting)
         return;
 
     m_widgetType = FileManager;
@@ -591,10 +612,13 @@ void MainWindow::OpenFileManagement()
 //        m_pMainMenuContentWidget = nullptr;
 //    }
 
-    QWidget* widget = ui->verticalLayout->itemAt(1)->widget();
-    removeseconditem(widget);
+    if (ui->verticalLayout->count() > 1)
+    {
+        QWidget* widget = ui->verticalLayout->itemAt(1)->widget();
+        removeseconditem(widget);
 
-    ui->verticalLayout->removeItem(ui->verticalLayout->itemAt(1));
+        ui->verticalLayout->removeItem(ui->verticalLayout->itemAt(1));
+    }
 
     ui->verticalLayout->addWidget(new FileManagerWidget, 835);
 

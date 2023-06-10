@@ -357,7 +357,10 @@ void MainWindow::on_enforcementClicked()
 
 void MainWindow::OpenEnforcement()
 {
-    if (!(m_widgetType == FileManager && m_widgetType == Setting))
+    if (m_widgetType == Enforcement)
+        return;
+
+    if ((m_widgetType != FileManager && m_widgetType != Setting))
         return;
 
     m_widgetType = Enforcement;
@@ -694,6 +697,12 @@ void MainWindow::on_mainMenuHomeClicked()
     {
         delete m_pMainMenuAdminAlignWidget;
         m_pMainMenuAdminAlignWidget = nullptr;
+    }
+
+    if (m_pEnforcementWidget)
+    {
+        delete m_pEnforcementWidget;
+        m_pEnforcementWidget = nullptr;
     }
 
 //    if (m_pCameraAlignWidget)

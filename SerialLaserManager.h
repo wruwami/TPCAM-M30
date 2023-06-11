@@ -12,6 +12,28 @@ public:
     SerialLaserManager();
     QString connectLaser();
     void close();
+
+    void start_laser();
+    void request_distance();
+    void set_speed_measure_mode(unsigned char mode);
+    void request_selftest();
+    void set_weather_mode(unsigned char mode);
+    void set_AJamming_mode(unsigned char mode);
+    void set_unit(unsigned char unit);
+    void set_buzzer_mode(unsigned char mode);
+    void set_detection_distance(double distance);
+    void set_detection_area(double area);
+    void set_night_mode(unsigned char mode);
+    void shutdown_laser();
+    void factoryreset_laser();
+
+
+    void start_virtualSpeed();
+    void show_laser_info();
+    void stop_laser();
+
+    void show_camera_version();
+    void show_camera_model();
 private:
     QSerialPort* m_pSerial;
     SerialPacket *laser_packet;

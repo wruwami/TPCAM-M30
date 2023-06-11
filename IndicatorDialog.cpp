@@ -54,11 +54,13 @@ IndicatorDialog::IndicatorDialog(QWidget *parent) :
 //    ui->offPushButton->setVisible(false);
 
     m_serialViscaManager.connectVisca();
+    m_serialLaserManager.connectLaser();
     m_jsonObject = m_configManager.GetConfig();
 }
 
 IndicatorDialog::~IndicatorDialog()
 {
+    m_serialLaserManager.close();
     m_serialViscaManager.close();
 //    if (m_pIndicatorCameraFocusWidget != nullptr)
 //        delete m_pIndicatorCameraFocusWidget;
@@ -226,6 +228,9 @@ void IndicatorDialog::on_weatherPushButton_clicked()
     ui->horizontalLayout2->removeItem(ui->horizontalLayout2->takeAt(2));
     ui->horizontalLayout2->insertWidget(1, m_pSunnyPushButton, 2);
     ui->horizontalLayout2->insertWidget(2, m_pRainyPushButton ,2);
+
+    connect(m_pSunnyPushButton, SIGNAL(clicked()), this, SLOT(on_clicked_sunny()));
+    connect(m_pRainyPushButton, SIGNAL(clicked()), this, SLOT(on_clicked_rainy()));
 
     ui->horizontalLayout2->setStretch(6, 1);
 }
@@ -414,4 +419,14 @@ void IndicatorDialog::on_night3WidgetClicked()
     object["DIS"].toBool() ? m_serialViscaManager.set_DIS_on() : m_serialViscaManager.set_DIS_off();
     object["DEFOG"].toBool() ? m_serialViscaManager.set_defog_on() : m_serialViscaManager.set_defog_off();
     object["HLC"].toBool() ? m_serialViscaManager.set_HLC_on() : m_serialViscaManager.set_HLC_off();
+}
+
+void IndicatorDialog::on_clicked_sunny()
+{
+    m_serialLaserManager.set_weather_mode(1);
+}
+
+void IndicatorDialog::on_clicked_rainy()
+{
+    m_serialLaserManager.set_weather_mode(0);
 }

@@ -5,6 +5,7 @@
 
 #include "SerialViscaManager.h"
 #include "ConfigManager.h"
+#include "SerialLaserManager.h"
 
 class CustomPushButton;
 class IndicatorCameraExposeWidget;
@@ -53,6 +54,9 @@ private slots:
     void on_night1WidgetClicked();
     void on_night2WidgetClicked();
     void on_night3WidgetClicked();
+
+    void on_clicked_sunny();
+    void on_clicked_rainy();
 public:
     CustomPushButton* m_pCameraFocusPushButton = nullptr;
     CustomPushButton* m_pCameraExposePushButton = nullptr;
@@ -77,6 +81,7 @@ private:
     CustomPushButton* m_pBTPushButton;
     CustomPushButton* m_pEthernetPushButton;
     SerialViscaManager m_serialViscaManager;
+    SerialLaserManager m_serialLaserManager;
     ConfigManager m_configManager = ConfigManager("cam_auto_expose.txt");
     QJsonObject m_jsonObject;
     // QWidget interface

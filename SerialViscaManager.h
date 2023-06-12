@@ -4,6 +4,23 @@
 #include <QObject>
 #include <QElapsedTimer>
 
+enum ViscaType{
+    SetExposureMode, //(Priority)
+    SETIris,
+    SETShutter,
+    SETGain,
+    SETDNR,
+    SETDIS,
+    SETDEFOG,
+    SETInfraredMode, // (ICR)
+    SETFocusMode, //(AF)
+    SETZoomMode,
+    SETZoom,
+    SETDZoom,
+    SETFocus,
+    SETHLC,
+};
+
 class QSerialPort;
 class ViscaPacket;
 class SerialViscaManager : public QObject
@@ -38,9 +55,27 @@ private:
     QString m_shutter_pq;
     QString m_gain_pq;
     QString m_iris_pq;
-
-
 public:
+    void SetViscaValue(ViscaType);
+    void SetViscaValue(ViscaType, int);
+//    void SetExposureMode(); //(Priority)
+//    void SETIris(int value);
+//    void SETShutter(int value);
+//    void SETGain(int value);
+//    void SETDNR();
+//    void SETDIS();
+//    void SETDEFOG();
+//    void SETInfraredMode(); // (ICR)
+//    void SETFocusMode(); //(AF)
+//    void SETZoomMode();
+//    void SETZoom(int value);
+//    void SETDZoom(int value);
+//    void SETFocus(int value);
+//    void SETHLC();
+
+
+
+private:
     void show_camera_version();
     void show_camera_model();
 

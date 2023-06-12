@@ -66,8 +66,15 @@ void SerialViscaManager::close()
     camera_con=0;
 }
 
+void SerialViscaManager::SetViscaValue(ViscaType type)
+{
 
+}
 
+void SerialViscaManager::SetViscaValue(ViscaType type, int value)
+{
+
+}
 
 void SerialViscaManager::receive_camera()
 {

@@ -463,8 +463,8 @@ void MainWindow::CheckBatteryStatus()
     // battery count
     int percent = ltc.m_filteredBat_persent/100;
     m_pMainMenuWidget->setBatteryPercentValue(percent);
-    int current = ltc.m_current;
-    if (current > -1)
+    int current = ltc.m_filteredCurrent;
+    if (current > 0)
         m_pMainMenuWidget->setBatteryCharge(true);
     else
         m_pMainMenuWidget->setBatteryCharge(false);

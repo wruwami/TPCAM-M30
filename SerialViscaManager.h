@@ -75,7 +75,7 @@ public:
 
 
 
-private:
+public:
     void show_camera_version();
     void show_camera_model();
 

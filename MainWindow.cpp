@@ -85,6 +85,7 @@ MainWindow::MainWindow(QWidget *parent) :
     QObject::connect((QWidget*)m_pLoginWidget->m_pUserNameComboBox, SIGNAL(currentIndexChanged(QString)), this, SLOT(on_userNameChanged(QString)));
     QObject::connect((QWidget*)m_pMainMenuWidget->m_pHomePushButton, SIGNAL(clicked()), this, SLOT(on_mainMenuHomeClicked()));
 
+    CheckLoginExpired();
 
 //    SetWarningMode();
     startTimer(1000);
@@ -524,6 +525,43 @@ void MainWindow::SelfTestFail(bool show)
 void MainWindow::PowerOff()
 {
     system("systemctl poweroff -i");
+}
+
+void MainWindow::CheckLoginExpired()
+{
+    ConfigManager configManager = ConfigManager("expired_date.txt");
+    QString str = configManager.GetText();
+    if (str.at(str.size() - 1) == '\n')
+    {
+        str.remove(str.size() - 1, 1);
+    }
+//    QFile expired_file(GetPath("", SD) + "/" + ("expired_date.txt"));
+//    expired_file.open(QFile::ReadOnly);
+
+//    if (expired_file.isOpen())
+//    {
+//        expired_file.copy(GetPath("", eMMC) + "/" + expired_file.Text);
+//        expired_file.remove();
+////        ui->expiredDateLabel->setText(LoadString("IDS_EXPIRED_DATE"));
+//    }
+//    else
+//    {
+
+//    }
+////    expired_file.close();
+
+//    QByteArray ba = expired_file.readAll();
+//    QString str = QString(ba);
+    QDateTime datetime;
+    ;
+    QDateTime current_datetime;
+
+    if (current_datetime.currentDateTime() > datetime.fromString(str, "yyyyMMdd"))
+    {
+        BaseDialog baseDialog(Dialog::LoginExpiredDateWidgetType, Qt::AlignmentFlag::AlignLeft, "", false, LoadString("IDS_EXPIRED_DATE"));
+        baseDialog.exec();
+    }
+
 }
 
 void MainWindow::doThirdAction()

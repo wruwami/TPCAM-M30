@@ -52,33 +52,6 @@ LoginWidget::LoginWidget(QWidget *parent) :
     }
     ui->userNameComboBox->setCurrentIndex(m_jsonObject["User Name Select"].toInt() - 1);
 
-    QFile expired_file(GetPath("", SD) + "/" + ("expired_date.txt"));
-    expired_file.open(QFile::ReadOnly);
-
-    if (expired_file.isOpen())
-    {
-        expired_file.copy(GetPath("", eMMC) + "/" + expired_file.Text);
-        expired_file.remove();
-//        ui->expiredDateLabel->setText(LoadString("IDS_EXPIRED_DATE"));
-    }
-    else
-    {
-
-    }
-    expired_file.close();
-
-    QByteArray ba = expired_file.readAll();
-    QString str = QString(ba);
-    QDateTime datetime;
-    datetime.fromString(str);
-
-    QDateTime current_datetime;
-    if (current_datetime.currentDateTime() > datetime)
-    {
-        BaseDialog baseDialog(Dialog::LoginExpiredDateWidgetType, Qt::AlignmentFlag::AlignLeft, "", false, LoadString("IDS_EXPIRED_DATE"));
-        baseDialog.exec();
-    }
-
     m_pLightMager = new LightManager;
 
 //    m_userName = ui->userNameComboBox->it;

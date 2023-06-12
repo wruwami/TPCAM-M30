@@ -23,9 +23,10 @@ ConfigManager::ConfigManager(QString file_name)
         return;
     }
 
-    QByteArray json = file.readAll();
+    QByteArray qa = file.readAll();
     QJsonParseError error{};
-    m_jsonDocument = QJsonDocument::fromJson(json, &error);
+    m_text = QString(qa);
+    m_jsonDocument = QJsonDocument::fromJson(qa, &error);
     file.close();
 }
 
@@ -37,6 +38,11 @@ QJsonObject ConfigManager::GetConfig()
 void ConfigManager::SetConfig(QJsonObject jsonObject)
 {
     m_jsonDocument = QJsonDocument(jsonObject);
+}
+
+QString ConfigManager::GetText()
+{
+    return m_text;
 }
 
 void ConfigManager::SaveFile()

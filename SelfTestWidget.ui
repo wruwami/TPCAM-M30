@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>SelfTestDialog</class>
+ <class>SelfTestWidget</class>
  <widget class="QWidget" name="SelfTestWidget">
   <property name="geometry">
    <rect>

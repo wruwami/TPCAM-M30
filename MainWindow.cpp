@@ -409,25 +409,39 @@ void MainWindow::OpenMainMenu()
         return;
 
     m_widgetType = MainMenu;
-    m_pIndicatorWidget->m_bFocusExposeDisabled = false;
-    removeseconditem();
-//    if (m_pMainMenuContentWidget)
-//    {
-//        delete m_pMainMenuContentWidget;
-//        m_pMainMenuContentWidget = nullptr;
-//    }
-//    if (m_pLoginWidget != nullptr)
-//    {
-//        delete m_pLoginWidget;
-//        m_pLoginWidget = nullptr;
-//    }
-//    initializeMainMenuWidget();
-    ui->verticalLayout->removeItem(ui->verticalLayout->itemAt(1));
-    if (m_pMainMenuContentWidget != nullptr)
-        m_pMainMenuContentWidget = new MainMenuContentWidget;
-    m_pMainMenuWidget->setMainMenuTitle(LoadString("IDS_MAIN_MENU"));
-    ui->verticalLayout->addWidget(m_pMainMenuContentWidget, 835);
+    showIndicator(true);
 
+    QWidget* widget = ui->verticalLayout->itemAt(1)->widget();
+    if (m_pEnforcementWidget == widget)
+    {
+        delete m_pEnforcementWidget;
+        m_pEnforcementWidget = nullptr;
+    }
+    else
+    {
+        removeseconditem(widget);
+    }
+
+
+    if (m_pMainMenuAdminAlignWidget)
+    {
+        delete m_pMainMenuAdminAlignWidget;
+        m_pMainMenuAdminAlignWidget = nullptr;
+    }
+
+    if (m_pMainMenuContentWidget)
+    {
+        delete m_pMainMenuContentWidget;
+        m_pMainMenuContentWidget = nullptr;
+    }
+
+//    if (m_pCameraAlignWidget)
+//    {
+//        delete m_pCameraAlignWidget;
+//        m_pCameraAlignWidget = nullptr;
+//    }
+
+    initializeMainMenuWidget();
 }
 
 void MainWindow::CheckBatteryStatus()

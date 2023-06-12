@@ -26,37 +26,42 @@ public:
     bool GetWifiStatus();
 private:
     void clearSecondRow();
+    void initlize();
 private slots:
     void on_cameraPushButton_clicked();
-
-
-
-    void on_daynNightPushButton_clicked();
-
-    void on_gpsPushButton_clicked();
-
-    void on_comPushButton_clicked();
-
-    void on_speedPushButton_clicked();
-
-    void on_enforcementPushButton_clicked();
-
-    void on_weatherPushButton_clicked();
     void on_cameraExposeClicked();
     void on_cameraFocusClicked();
 
-    void on_pushButton_clicked();
-    void on_screenRecordingPushButton_clicked();
-    void on_screenCapturePushButton_clicked();
+    void on_daynNightPushButton_clicked();
     void on_day1WidgetClicked();
     void on_day2WidgetClicked();
     void on_day3WidgetClicked();
     void on_night1WidgetClicked();
     void on_night2WidgetClicked();
     void on_night3WidgetClicked();
+    void on_gpsPushButton_clicked();
 
+    void on_speedPushButton_clicked();
+    void on_speedSTPushButton_clicked();
+    void on_speedLTPushButton_clicked();
+
+
+    void on_enforcementPushButton_clicked();
+    void on_enforcementIAPushButton_clicked();
+    void on_enforcementAPushButton_clicked();
+    void on_enforcementVPushButton_clicked();
+
+    void on_weatherPushButton_clicked();
     void on_clicked_sunny();
     void on_clicked_rainy();
+
+    void on_comPushButton_clicked();
+    void on_pushButton_clicked();
+    void on_screenRecordingPushButton_clicked();
+    void on_screenCapturePushButton_clicked();
+
+
+
 public:
     CustomPushButton* m_pCameraFocusPushButton = nullptr;
     CustomPushButton* m_pCameraExposePushButton = nullptr;
@@ -82,8 +87,10 @@ private:
     CustomPushButton* m_pEthernetPushButton;
     SerialViscaManager m_serialViscaManager;
     SerialLaserManager m_serialLaserManager;
-    ConfigManager m_configManager = ConfigManager("cam_auto_expose.txt");
-    QJsonObject m_jsonObject;
+    ConfigManager m_configManager1 = ConfigManager("parameter_setting1.json");
+    ConfigManager m_configManager2 = ConfigManager("parameter_setting2.json");
+    QJsonObject m_jsonObject1;
+    QJsonObject m_jsonObject2;
     // QWidget interface
 protected:
     void paintEvent(QPaintEvent *event);

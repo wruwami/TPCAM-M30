@@ -10,7 +10,7 @@ SerialViscaManager::SerialViscaManager()
     visca_packet = new ViscaPacket;
 
     camera_con = 0;
-    connectVisca();
+//    connectVisca();
     connect(serial_visca, SIGNAL(readyRead()), this, SLOT(receive_camera()));
 }
 

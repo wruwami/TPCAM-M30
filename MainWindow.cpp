@@ -27,6 +27,8 @@
 #include "SerialGPSManager.h"
 #include "RemoteController.h"
 #include "FileManager.h"
+#include "SelfTestWidget.h"
+#include "BaseDialog.h"
 
 template <typename T>
 inline void removeSecondItem(T*& pointer) {
@@ -42,10 +44,19 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    SelfTestDialog selfTestDialog;
-    if (selfTestDialog.exec() == QDialog::Rejected)
-        m_bLoginFail = true;
+//    SelfTestDialog selfTestDialog;
+//    if (selfTestDialog.exec() == QDialog::Rejected)
+//        m_bLoginFail = true;
+    {
+        SelfTestWidget selfTestWidget;
+        selfTestWidget.show();
 
+        BaseDialog baseDialog(SelfTestWarningMessageWidgetType, selfTestWidget.m_isCamera, selfTestWidget.m_isLaser, selfTestWidget.m_isBattery, selfTestWidget.m_isStorage, Qt::AlignmentFlag::AlignCenter);
+    //    baseDialog.SetSelfTestResult();
+        if (baseDialog.exec() == QDialog::Rejected)
+            PowerOff();
+
+    }
 
     m_pMainMenuWidget = (MainMenuWidget*)ui->verticalLayout->itemAt(0)->widget();
     m_pBatteryStatus = m_pMainMenuWidget->m_pBatteryChargingLabel;
@@ -493,7 +504,7 @@ void MainWindow::SelfTestFail(bool show)
     {
         widget = new QWidget;
         widget->setWindowFlags(Qt::FramelessWindowHint);
-//        widget->setWindowFlags(Qt::WA_TranslucentBackground);
+//        widget->setWindowFlags(Qt::WA_TranslucentBackground);5
         widget->setGeometry(this->geometry());
 //        qDebug() << this->geometry();
         widget->raise();
@@ -508,6 +519,11 @@ void MainWindow::SelfTestFail(bool show)
         widget = nullptr;
     }
 
+}
+
+void MainWindow::PowerOff()
+{
+    system("systemctl poweroff -i");
 }
 
 void MainWindow::doThirdAction()

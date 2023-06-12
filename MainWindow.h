@@ -57,6 +57,7 @@ private:
     void OpenMainMenu();
     void CheckBatteryStatus();
     void SelfTestFail(bool = false);
+    void PowerOff();
 private slots:
     void on_cameraPushButton_clicked();
     void on_daynNightPushButton_clicked();

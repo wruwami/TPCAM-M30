@@ -32,6 +32,7 @@ SOURCES += main.cpp\
     RemoteController.cpp \
     SdcardManager.cpp \
     SelfTestDialog.cpp \
+    SelfTestWidget.cpp \
     SerialGPSManager.cpp \
     SerialLaserManager.cpp \
     SerialPacket.cpp \
@@ -122,6 +123,7 @@ HEADERS  += MainWindow.h \
     RemoteController.h \
     SdcardManager.h \
     SelfTestDialog.h \
+    SelfTestWidget.h \
     SerialGPSManager.h \
     SerialLaserManager.h \
     SerialPacket.h \
@@ -204,6 +206,7 @@ FORMS    += MainWindow.ui \
     MainMenuContentWidget.ui \
     MovieViewerDialog.ui \
     SelfTestDialog.ui \
+    SelfTestWidget.ui \
     Setting4APWidget.ui \
     SettingWidget.ui \
     BaseDialog.ui \

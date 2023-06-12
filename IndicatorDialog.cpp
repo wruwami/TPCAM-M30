@@ -47,6 +47,8 @@ IndicatorDialog::IndicatorDialog(QWidget *parent) :
 
     m_serialViscaManager.connectVisca();
     m_serialLaserManager.connectLaser();
+
+    initlize();
 }
 
 IndicatorDialog::~IndicatorDialog()
@@ -370,7 +372,7 @@ void IndicatorDialog::initlize()
         break;
     }
 
-    switch(m_jsonObject1["day&night selection"].toInt())
+    switch(m_jsonObject2["day&night selection"].toInt())
     {
     case 1:
     {

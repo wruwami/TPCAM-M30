@@ -55,7 +55,8 @@ private:
     void OpenEnforcement();
     void OpenFileManagement();
     void OpenMainMenu();
-    void CheckBatteryStatus();
+    void CheckBatteryPercent();
+    void CheckBatteryCharge();
     void SelfTestFail(bool = false);
     void PowerOff();
     void CheckLoginExpired();
@@ -105,7 +106,9 @@ private:
     QString m_userName;
     int m_nFailTimerId;
     bool m_bLoginFail = false;
-    QWidget* widget;
+    QWidget* m_redAlertWidget;
+    QTimer* m_p100msTimer;
+    QTimer* m_p500msTimer;
     bool m_bFlick = false;
 //    Language m_mLanguage = Language::English;
 
@@ -123,6 +126,8 @@ protected slots:
     void doStarAction();
     void doZeroAction();
     void do9thAction();
+    void OnTimer100msFunc();
+    void OnTimer500msFunc();
 };
 
 #endif // MAINWINDOW_H

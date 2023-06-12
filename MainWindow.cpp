@@ -89,6 +89,13 @@ MainWindow::MainWindow(QWidget *parent) :
 
 //    SetWarningMode();
     startTimer(1000);
+
+    m_p100msTimer = new QTimer();
+    connect(m_p100msTimer, SIGNAL(timeout()), this, SLOT(OnTimer100msFunc()));
+    m_p100msTimer->start(100);
+    m_p500msTimer = new QTimer();
+    connect(m_p500msTimer, SIGNAL(timeout()), this, SLOT(OnTimer500msFunc()));
+    m_p500msTimer->start(500);
 }
 
 MainWindow::~MainWindow()
@@ -109,6 +116,9 @@ MainWindow::~MainWindow()
     removeSecondItem(widget);
 
     finalize();
+
+    delete m_p500msTimer;
+    delete m_p100msTimer;
 
     delete ui;
 }
@@ -456,7 +466,7 @@ void MainWindow::OpenMainMenu()
     initializeMainMenuWidget();
 }
 
-void MainWindow::CheckBatteryStatus()
+void MainWindow::CheckBatteryPercent()
 {
 
     //get raw values
@@ -467,18 +477,18 @@ void MainWindow::CheckBatteryStatus()
 
     //
 
-    if((ltc.m_filteredVolt >= 12.5) && (ltc.m_filteredCurrent >= 0.1) && (ltc.m_bACChangeFlag == true))
-    {
-        ltc.setChargeThresholdH(ltc.m_filteredAC*(0.2) + ltc.getACThresholdH()*(0.8) );
-        ltc.m_bACChangeFlag = false;
-    }
-    else if((ltc.m_filteredVolt <= 9.5) && (ltc.m_filteredCurrent <= -0.1) && (ltc.m_bACChangeFlag == false))
-    {
-        int ACDiff = ltc.m_filteredAC-5000;
-        ltc.setChargeThresholdH(ltc.getACThresholdH()-(ACDiff*0.2));
-        ltc.m_bACChangeFlag = true;
-        ltc.setRawAccumulatedCharge(5000);
-    }
+//    if((ltc.m_filteredVolt >= 12.5) && (ltc.m_filteredCurrent >= 0.1) && (ltc.m_bACChangeFlag == true))
+//    {
+//        ltc.setChargeThresholdH(ltc.m_filteredAC*(0.2) + ltc.getACThresholdH()*(0.8) );
+//        ltc.m_bACChangeFlag = false;
+//    }
+//    else if((ltc.m_filteredVolt <= 9.5) && (ltc.m_filteredCurrent <= -0.1) && (ltc.m_bACChangeFlag == false))
+//    {
+//        int ACDiff = ltc.m_filteredAC-5000;
+//        ltc.setChargeThresholdH(ltc.getACThresholdH()-(ACDiff*0.2));
+//        ltc.m_bACChangeFlag = true;
+//        ltc.setRawAccumulatedCharge(5000);
+//    }
 
 //    if(ltc.m_filteredVolt <=9.4)
 //    {
@@ -489,6 +499,17 @@ void MainWindow::CheckBatteryStatus()
     // battery count
     int percent = ltc.m_filteredBat_persent/100;
     m_pMainMenuWidget->setBatteryPercentValue(percent);
+
+}
+
+void MainWindow::CheckBatteryCharge()
+{
+    //get raw values
+    ltc.getValues();
+
+    //moving average filter
+    ltc.filterValues();
+
     int current = ltc.m_filteredCurrent;
     if (current > 0)
         m_pMainMenuWidget->setBatteryCharge(true);
@@ -496,28 +517,27 @@ void MainWindow::CheckBatteryStatus()
         m_pMainMenuWidget->setBatteryCharge(false);
 }
 
-#include <QLabel>
-#include <QDebug>
+
 
 void MainWindow::SelfTestFail(bool show)
 {
     if (show)
     {
-        widget = new QWidget;
-        widget->setWindowFlags(Qt::FramelessWindowHint);
+        m_redAlertWidget = new QWidget;
+        m_redAlertWidget->setWindowFlags(Qt::FramelessWindowHint);
 //        widget->setWindowFlags(Qt::WA_TranslucentBackground);5
-        widget->setGeometry(this->geometry());
+        m_redAlertWidget->setGeometry(this->geometry());
 //        qDebug() << this->geometry();
-        widget->raise();
+        m_redAlertWidget->raise();
 //        widget->setStyleSheet("QLabel {background-color: rgba(255, 0, 0, 125)}");
-        widget->setStyleSheet("background-color: rgba(255, 0, 0, 128);");
-        widget->setWindowOpacity(0.4);
-        widget->show();
+        m_redAlertWidget->setStyleSheet("background-color: rgba(255, 0, 0, 128);");
+        m_redAlertWidget->setWindowOpacity(0.4);
+        m_redAlertWidget->show();
     }
     else
     {
-        delete widget;
-        widget = nullptr;
+        delete m_redAlertWidget;
+        m_redAlertWidget = nullptr;
     }
 
 }
@@ -639,6 +659,16 @@ void MainWindow::do9thAction()
         system("ps -ef | grep ffmpeg | awk '{print $2}' | xargs kill -9");
     }
 
+}
+
+void MainWindow::OnTimer100msFunc()
+{
+    CheckBatteryCharge();
+}
+
+void MainWindow::OnTimer500msFunc()
+{
+    CheckBatteryPercent();
 }
 
 
@@ -859,7 +889,7 @@ void MainWindow::timerEvent(QTimerEvent *event)
 {
     SetWindowWarningMode();
 
-    CheckBatteryStatus();
+//    CheckBatteryPercent();
 
 //    if (m_bLoginFail)
 //    {

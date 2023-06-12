@@ -2,6 +2,7 @@
 #define NETWORKMANAGER_H
 
 #include <QJsonObject>
+#include <QNetworkInterface>
 
 class NetworkManager
 {
@@ -11,6 +12,8 @@ public:
     ~NetworkManager();
     void SetNetworkSetting();
     void SetWifiSSidnPW(QString, QString);
+    QString getMacAddress();
+
 private:
     void SetWifiStaMode();
     void SetWifiAPMode();

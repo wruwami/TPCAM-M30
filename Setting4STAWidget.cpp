@@ -22,6 +22,7 @@ Setting4STAWidget::Setting4STAWidget(QWidget *parent) :
     ui->IpLabel->setText(LoadString("IDS_IP"));
     ui->subnetMaskLabel->setText(LoadString("IDS_SUBNET_MASK"));
     ui->printerLabel->setText(LoadString("IDS_PRINTER"));
+    ui->pwPushButton->setText(LoadString("IDS_PW"));
 
 //    ui->printerComboBox->addItem(LoadString("IDS_THERMAL_EAST"));
 //    ui->printerComboBox->addItem(LoadString("IDS_THERMAL_WOOSIM"));

@@ -23,40 +23,16 @@ QString SerialViscaManager::connectVisca()
     serial_visca->setStopBits(QSerialPort::OneStop);
     serial_visca->setFlowControl(QSerialPort::NoFlowControl);
 
-    if(camera_con==0)
-    {
-        if(!serial_visca->open(QIODevice::ReadWrite)){
-//            qDebug() << "Serial port open error";
-        }
-        else
-        {
-            if(camera_con==0) //바꿈
-            {
-//                ui->pushButton_visca->setText("Disconnect");
-                camera_con=1;
-                return "Disconnect";
-            }
-            else
-            {
-//                ui->pushButton_visca->setText("Connect");
-                if(serial_visca->isOpen())
-                    serial_visca->close();
-
-                camera_con=0;
-                return "Connect";
-            }
-
-        }
+    if(!serial_visca->open(QIODevice::ReadWrite)){
+        return "Disconnect";//            qDebug() << "Serial port open error";
     }
     else
     {
-//        ui->pushButton_visca->setText("Connect");
-        if(serial_visca->isOpen())
-            serial_visca->close();
-        camera_con=0;
-        return "Connect";
+        if (serial_visca->isOpen())
+            return "Connect";
+        else
+            return "Disconnect";
     }
-    return "";
 }
 
 void SerialViscaManager::close()

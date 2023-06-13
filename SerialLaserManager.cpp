@@ -49,27 +49,16 @@ QString SerialLaserManager::connectLaser()
     m_pSerial->setFlowControl(QSerialPort::NoFlowControl);
 //    qDebug() << "Serial";
 
-    if(laser_con==0)
-    {
-        if(!m_pSerial->open(QIODevice::ReadWrite)){
-//            qDebug() << "Serial port open error";
-        }
-        else
-        {
-//             ui->pushButton_laser->setText("Disconnect");
-             laser_con=1;
-             return "Disconnect";
-        }
+    if(!m_pSerial->open(QIODevice::ReadWrite)){
+        return "Disconnect";
     }
     else
     {
-//        ui->pushButton_laser->setText("Connect");
-        if(m_pSerial->isOpen())
-            m_pSerial->close();
-        laser_con=0;
-        return "Connect";
+        if (m_pSerial->isOpen())
+            return "Connect";
+        else
+            return "Disconnect";
     }
-    return "";
 }
 
 void SerialLaserManager::close()

@@ -7,9 +7,9 @@
 #include "SerialLaserManager.h"
 
 enum Status{
-    Check,
-    Pass,
-    Fail,
+    Fail = 0,
+    Pass = 1,
+    Check = 2,
 };
 
 namespace Ui {

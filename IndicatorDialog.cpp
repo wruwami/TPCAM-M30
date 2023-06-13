@@ -462,7 +462,7 @@ void IndicatorDialog::on_screenCapturePushButton_clicked()
 
 void IndicatorDialog::on_day1WidgetClicked()
 {    
-
+//    ui->daynNightPushButton->setImage()
 
     QJsonObject object = m_jsonObject2["Day"].toObject()["Dark"].toObject();
     m_serialViscaManager.set_AE_shutter_priority();

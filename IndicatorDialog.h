@@ -10,6 +10,7 @@
 class CustomPushButton;
 class IndicatorCameraExposeWidget;
 class IndicatorCameraFocusWidget;
+class MainMenuWidget;
 namespace Ui {
 class IndicatorDialog;
 }
@@ -24,6 +25,7 @@ public:
     void setFocusExposeDisabled(bool = false);
     bool GetGPSStatus();
     bool GetWifiStatus();
+    void SetMainMenu(MainMenuWidget*);
 private:
     void clearSecondRow();
     void initlize();
@@ -47,7 +49,7 @@ private slots:
 
 
     void on_enforcementPushButton_clicked();
-    void on_enforcementIAPushButton_clicked();
+    void on_enforcementIPushButton_clicked();
     void on_enforcementAPushButton_clicked();
     void on_enforcementVPushButton_clicked();
 
@@ -89,8 +91,11 @@ private:
     SerialLaserManager m_serialLaserManager;
     ConfigManager m_configManager1 = ConfigManager("parameter_setting1.json");
     ConfigManager m_configManager2 = ConfigManager("parameter_setting2.json");
+    ConfigManager m_configManager3 = ConfigManager("exposure.json");
     QJsonObject m_jsonObject1;
     QJsonObject m_jsonObject2;
+    QJsonObject m_jsonObject3;
+    MainMenuWidget* m_pMainMenuWidget;
     // QWidget interface
 protected:
     void paintEvent(QPaintEvent *event);

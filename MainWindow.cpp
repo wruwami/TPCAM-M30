@@ -51,7 +51,8 @@ MainWindow::MainWindow(QWidget *parent) :
         SelfTestWidget selfTestWidget;
         selfTestWidget.show();
 
-        BaseDialog baseDialog(SelfTestWarningMessageWidgetType, selfTestWidget.m_isCamera, selfTestWidget.m_isLaser, selfTestWidget.m_isBattery, selfTestWidget.m_isStorage, Qt::AlignmentFlag::AlignCenter);
+
+        BaseDialog baseDialog(SelfTestWarningMessageWidgetType, selfTestWidget.m_nCamera, selfTestWidget.m_nLaser, selfTestWidget.m_nBattery, selfTestWidget.m_nStorage, Qt::AlignmentFlag::AlignCenter);
     //    baseDialog.SetSelfTestResult();
         if (baseDialog.exec() == QDialog::Rejected)
             PowerOff();

@@ -147,6 +147,8 @@ public:
     void show_dZoomMode();
     void show_noiseReduction();
 
+    ViscaPacket *getVisca_packet() const;
+
 public slots:
     void receive_camera();
 

@@ -16,6 +16,8 @@
 #include "SerialLaserManager.h"
 #include "SdcardManager.h"
 #include "SerialViscaManager.h"
+#include "SerialPacket.h"
+#include "ViscaPacket.h"
 
 SelfTestWidget::SelfTestWidget(QWidget *parent) :
     QWidget(parent),
@@ -71,10 +73,18 @@ SelfTestWidget::SelfTestWidget(QWidget *parent) :
 
     startTimer(1000);
     StartSelfTest();
+
+    while(1)
+    {
+        if (m_nCamera != Status::Check && m_nLaser != Status::Check && m_nBattery != Status::Check && m_nStorage != Status::Check)
+            break;
+    }
 }
 
 SelfTestWidget::~SelfTestWidget()
 {
+    m_serialLaserManager.close();
+    m_serialViscaManager.close();
 //    killTimer()
     delete ui;
 }
@@ -104,42 +114,40 @@ void SelfTestWidget::StartSelfTest()
 {
     if (CameraTest())
     {
-        ui->cameraValueLabel->setText(LoadString("IDS_PASS"));
-        m_isCamera = true;
+        m_nCamera = Check;
     }
     else
     {
-        ui->cameraValueLabel->setText(LoadString("IDS_FAIL"));
+        m_nCamera = Fail;
     }
     if (LaserTest())
     {
-        ui->laserValueLabel->setText(LoadString("IDS_PASS"));
-        m_isLaser = true;
+        m_nLaser = Check;
     }
     else
     {
-        ui->laserValueLabel->setText(LoadString("IDS_FAIL"));
+        m_nLaser = Fail;
     }
     if (BatteryTest())
     {
         ui->batteryValueLabel->setText(LoadString("IDS_PASS"));
-        m_isBattery = true;
+        m_nBattery = Pass;
     }
     else
     {
         ui->batteryValueLabel->setText(LoadString("IDS_FAIL"));
+        m_nBattery = Fail;
     }
     if (StorageTest())
     {
         ui->storageValueLabel->setText(LoadString("IDS_PASS"));
-        m_isStorage = true;
+        m_nStorage = Pass;
     }
     else
     {
         ui->storageValueLabel->setText(LoadString("IDS_FAIL"));
+        m_nStorage = Fail;
     }
-
-
 
 //    this->lower();
 
@@ -165,10 +173,9 @@ void SelfTestWidget::StartSelfTest()
 
 bool SelfTestWidget::CameraTest()
 {
-    SerialViscaManager serialViscaManager;
-    if (serialViscaManager.connectVisca() == "Connect")
+    if (m_serialViscaManager.connectVisca() == "Connect")
     {
-        serialViscaManager.close();
+        m_serialViscaManager.show_camera_model();
         return true;
     }
     return false;
@@ -176,13 +183,11 @@ bool SelfTestWidget::CameraTest()
 
 bool SelfTestWidget::LaserTest()
 {
-    SerialLaserManager serialLaserManager;
-    if (serialLaserManager.connectLaser() == "Connect")
+    if (m_serialLaserManager.connectLaser() == "Connect")
     {
-        serialLaserManager.close();
+        m_serialLaserManager.show_laser_info();
         return true;
     }
-
     return false;
 }
 
@@ -205,8 +210,6 @@ bool SelfTestWidget::StorageTest()
     SdcardManager sdcardManager;
     if (sdcardManager.isExistEMMccard == true && sdcardManager.isExistEMMccard == true)
     {
-        qDebug() << sdcardManager.GetSDTotal();
-        qDebug() << sdcardManager.GeteMMCTotal();
         float sdpercent = sdcardManager.GetSDAvailable() / sdcardManager.GetSDTotal();
         float emmcpercent = sdcardManager.GeteMMCAvailable() / sdcardManager.GeteMMCTotal();
         if (sdpercent > 0.8 && emmcpercent > 0.8)
@@ -219,15 +222,17 @@ bool SelfTestWidget::StorageTest()
 void SelfTestWidget::timerEvent(QTimerEvent *event)
 {
     ui->dateTimeLabel->setText(GetDate(QDate::currentDate().toString("yyyyMMdd")) + " " + QTime::currentTime().toString("hh:mm:ss"));
-//    ui->timeLabel->setText(QTime::currentTime().toString("hh:mm:ss"));
     m_nSecond++;
-//    if (m_nSecond == 3)
-//        accept();
-//    else if (m_nSecond == 2)
-//    {
-//        ui->cameraValueLabel->setText(LoadString("IDS_SELFTEST_SUCCESS"));
-//        ui->laserValueLabel->setText(LoadString("IDS_SELFTEST_SUCCESS"));
-//        ui->batteryValueLabel->setText(LoadString("IDS_SELFTEST_SUCCESS"));
-//        ui->storageValueLabel->setText(LoadString("IDS_SELFTEST_SUCCESS"));
-//    }
+
+    //qDebug() << /
+    SerialPacket* serial_packet = m_serialLaserManager.getLaser_packet();//->g_ReceiveData.header;
+    MsgFormat ReceiveData = serial_packet->g_ReceiveData;
+
+    qDebug() << ReceiveData.Header;
+    qDebug() << ReceiveData.Msg;
+
+    ViscaPacket* visca_packet = m_serialViscaManager.getVisca_packet();
+    qDebug() << visca_packet->g_RxBuf;
+
+
 }

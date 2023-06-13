@@ -350,3 +350,8 @@ void SerialLaserManager::stop_laser()
     if(m_pSerial)
         m_pSerial->write(data);
 }
+
+SerialPacket *SerialLaserManager::getLaser_packet() const
+{
+    return laser_packet;
+}

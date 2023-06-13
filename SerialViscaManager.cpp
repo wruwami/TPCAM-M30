@@ -66,6 +66,11 @@ void SerialViscaManager::close()
     camera_con=0;
 }
 
+ViscaPacket *SerialViscaManager::getVisca_packet() const
+{
+    return visca_packet;
+}
+
 void SerialViscaManager::SetViscaValue(ViscaType type)
 {
 

@@ -3,6 +3,14 @@
 
 #include <QWidget>
 #include "ltc2943.h"
+#include "SerialViscaManager.h"
+#include "SerialLaserManager.h"
+
+enum Status{
+    Check,
+    Pass,
+    Fail,
+};
 
 namespace Ui {
 class SelfTestWidget;
@@ -24,15 +32,18 @@ private:
     bool BatteryTest();
     bool StorageTest();
 public:
-    bool m_isCamera = false;
-    bool m_isLaser = false;
-    bool m_isBattery = false;
-    bool m_isStorage = false;
+    Status m_nCamera = Check;
+    Status m_nLaser = Check;
+    Status m_nBattery = Check;
+    Status m_nStorage = Check;
 
 private:
     Ui::SelfTestWidget *ui;
     int m_nSecond = 0;
     LTC2943 ltc = LTC2943(15);
+    SerialViscaManager m_serialViscaManager;
+    SerialLaserManager m_serialLaserManager;
+
 
     // QObject interface
 protected:

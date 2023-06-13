@@ -15,6 +15,16 @@ unsigned char	s_RxLength = 0;
 unsigned char	s_RxBuf[MAX_PACKET_SIZE];
 
 
+SerialPacket::SerialPacket()
+{
+    Init();
+}
+
+SerialPacket::~SerialPacket()
+{
+
+}
+
 void SerialPacket::Init()
 {
     dleed=0;
@@ -22,6 +32,11 @@ void SerialPacket::Init()
     g_TxLength = 0;
     g_length = 0;
     g_RxLength = 0;
+
+    g_ReceiveData.Header = 0;
+    g_ReceiveData.MsgLength = 0;
+    memset(g_ReceiveData.Msg, 0, MAX_PACKET_SIZE);
+
 }
 //------------------------------------------------------------------------------------
 //	정상 유무에 상관없이, 하나의 패킷 수신이 완료되었는지 분석

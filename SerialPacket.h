@@ -242,6 +242,8 @@ public:
 
 
 public:
+    SerialPacket();
+    virtual ~SerialPacket();
     void	    Init();
     unsigned char CheckRcvMsg( unsigned char RxData );
     unsigned char MsgDecoder( void );

@@ -54,6 +54,8 @@ class ViscaPacket
 {
 
 public:
+    ViscaPacket();
+    virtual ~ViscaPacket();
     unsigned char g_TxBuf[MAX_PACKET_SIZE];				//송신할 패킷을 저장하는곳
     unsigned short g_TxLength;               //송신할 패킷의 길이를 저장
 

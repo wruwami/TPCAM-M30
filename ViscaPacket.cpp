@@ -427,6 +427,16 @@ QByteArray ViscaPacket::BlockCamMakePacket( unsigned char Head, unsigned char *M
 //			0x4A = Register error
 //			0x4B = Register mode setting error
 
+ViscaPacket::ViscaPacket()
+{
+    send_header_data.clear();
+}
+
+ViscaPacket::~ViscaPacket()
+{
+
+}
+
 unsigned char	ViscaPacket::CheckRcvMsg(unsigned char RxData)
 {
     static unsigned char RxLength = 0, stx=0, info_flag=0;

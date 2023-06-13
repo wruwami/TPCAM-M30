@@ -78,6 +78,15 @@ SelfTestWidget::SelfTestWidget(QWidget *parent) :
     {
         ui->dateTimeLabel->setText(GetDate(QDate::currentDate().toString("yyyyMMdd")) + " " + QTime::currentTime().toString("hh:mm:ss"));
         m_nSecond++;
+        if (m_nSecond == 5)
+        {
+            if (m_nCamera == Status::Check)
+                m_nCamera = Status::Fail;
+            if (m_nLaser == Status::Check)
+                m_nLaser = Status::Fail;
+
+            break;
+        }
 
         //qDebug() << /
         SerialPacket* serial_packet = m_serialLaserManager.getLaser_packet();//->g_ReceiveData.header;
@@ -87,6 +96,8 @@ SelfTestWidget::SelfTestWidget(QWidget *parent) :
 //        qDebug() << ReceiveData.Msg;
         if (ReceiveData.Header == 0X05)
             m_nLaser = Status::Pass;
+        else if (ReceiveData.Header == 0X00)
+            m_nLaser = Status::Check;
         else
             m_nLaser = Status::Fail;
 
@@ -98,6 +109,8 @@ SelfTestWidget::SelfTestWidget(QWidget *parent) :
 
         if (send_data == 0X02)
             m_nCamera = Status::Pass;
+        else if (send_data == 0)
+            m_nCamera = Status::Check;
         else
             m_nCamera = Status::Fail;
 
@@ -248,7 +261,7 @@ bool SelfTestWidget::StorageTest()
 void SelfTestWidget::timerEvent(QTimerEvent *event)
 {
     ui->dateTimeLabel->setText(GetDate(QDate::currentDate().toString("yyyyMMdd")) + " " + QTime::currentTime().toString("hh:mm:ss"));
-    m_nSecond++;
+//    m_nSecond++;
 
     //qDebug() << /
     SerialPacket* serial_packet = m_serialLaserManager.getLaser_packet();//->g_ReceiveData.header;

@@ -60,6 +60,8 @@ public:
     unsigned char g_RxBuf[MAX_PACKET_SIZE];				//수신 데이터
     unsigned short  g_RxLength;				//수신데이터 길이
 
+    QByteArray send_header_data;
+
     int m_zoomPQRS;
     int m_focusPQRS;
     int m_gain;

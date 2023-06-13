@@ -76,8 +76,34 @@ SelfTestWidget::SelfTestWidget(QWidget *parent) :
 
     while(1)
     {
+        ui->dateTimeLabel->setText(GetDate(QDate::currentDate().toString("yyyyMMdd")) + " " + QTime::currentTime().toString("hh:mm:ss"));
+        m_nSecond++;
+
+        //qDebug() << /
+        SerialPacket* serial_packet = m_serialLaserManager.getLaser_packet();//->g_ReceiveData.header;
+        MsgFormat ReceiveData = serial_packet->g_ReceiveData;
+
+//        qDebug() << ReceiveData.Header;
+//        qDebug() << ReceiveData.Msg;
+        if (ReceiveData.Header == 0X05)
+            m_nLaser = Status::Pass;
+        else
+            m_nLaser = Status::Fail;
+
+        ViscaPacket* visca_packet = m_serialViscaManager.getVisca_packet();
+        unsigned char send_data = visca_packet->send_header_data[0];
+        //cnrk
+        visca_packet->send_header_data.remove(0, 1);
+
+
+        if (send_data == 0X02)
+            m_nCamera = Status::Pass;
+        else
+            m_nCamera = Status::Fail;
+
         if (m_nCamera != Status::Check && m_nLaser != Status::Check && m_nBattery != Status::Check && m_nStorage != Status::Check)
             break;
+        sleep(1);
     }
 }
 
@@ -234,5 +260,7 @@ void SelfTestWidget::timerEvent(QTimerEvent *event)
     ViscaPacket* visca_packet = m_serialViscaManager.getVisca_packet();
     qDebug() << visca_packet->g_RxBuf;
 
+    if (m_nCamera != Status::Check && m_nLaser != Status::Check && m_nBattery != Status::Check && m_nStorage != Status::Check)
+        this->close();
 
 }

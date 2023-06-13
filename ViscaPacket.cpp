@@ -325,7 +325,6 @@ QString g_Gain_Y_ASIX_Wonwoo[NUMBER_GAIN_CNT]= //
 #endif
 
 int g_Camera_VenderID = 0x0078;
-QByteArray send_header_data;
 
 
 

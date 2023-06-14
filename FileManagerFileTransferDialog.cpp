@@ -10,7 +10,7 @@
 #include <QFileDialog>
 
 #include "ConfigManager.h"
-
+#include "FileManager.h"
 #include "StringLoader.h"
 
 FileManagerFileTransferDialog::FileManagerFileTransferDialog(QList<AVFileFormat> avFileFormatList, TransType type, QWidget *parent) :
@@ -144,7 +144,8 @@ void FileManagerFileTransferDialog::TransferFile()
 {
     ui->oneProgressBar->setValue(0);
     ui->allProgressBar->setValue(0);
-    QString dir = QFileDialog::getExistingDirectory(this, "path select", QDir::currentPath(), QFileDialog::ShowDirsOnly);
+//    QString dir = QFileDialog::getExistingDirectory(this, "path select", QDir::currentPath(), QFileDialog::ShowDirsOnly);
+    QString dir = GetUSBPath();
     ui->allProgressBar->setMaximum(m_avFileFormatList.size());
     int i = 0;
     foreach(auto avFormat, m_avFileFormatList)

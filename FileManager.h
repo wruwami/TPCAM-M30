@@ -28,7 +28,7 @@ public:
     QString GetFile(QString name);
     QString GeteMMCPath();
     QString GetSDPath();
-
+    QString GetUSBPath();
 };
 
 static QString GetPath(QString name, Type type)
@@ -55,6 +55,11 @@ static QString GeteMMCPath()
 static QString GetSDPath()
 {
     return FileManager::GetInstance()->GetSDPath();
+}
+
+static QString GetUSBPath()
+{
+    return FileManager::GetInstance()->GetUSBPath();
 }
 
 #endif // FILEMANAGER_H

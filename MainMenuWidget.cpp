@@ -10,6 +10,7 @@
 #include "Color.h"
 #include "IndicatorDialog.h"
 #include "StringLoader.h"
+#include "ConfigManager.h"
 
 #include "HomeButtonWidget.h"
 
@@ -65,14 +66,9 @@ MainMenuWidget::MainMenuWidget(QWidget *parent) :
     ui->batteryPercentLabel->setImage("indicator", "indicator_battery4.bmp", ui->batteryPercentLabel->size());
     ui->batteryStatusLabel->setImage("indicator", "charging.png", ui->batteryStatusLabel->size());
 #else
-    ui->cameraPushButton->setImage("indicator", "camera.jpg");
-    ui->daynNightPushButton->setImage("indicator", "indicator_enable_night_mode_off.jpg");
-    ui->weatherPushButton->setImage("indicator", "indicator_enable_weather_mode_on.jpg");
-    ui->enforcementPushButton->setImage("indicator", "indicator_mode_v.jpg");
-    ui->speedPushButton->setImage("indicator", "indicator_enable_user_mode_on.jpg");
-    ui->wifiPushButton->setImage("indicator", "indicator_wifi_disconnected.jpg");
-    ui->gpsPushButton->setImage("indicator", "indicator_gps_off.jpg");
 #endif
+
+    initImage();
 
     ui->batteryStatusLabel->setImage("indicator", "indicator_battery_charge_off.bmp");
     startTimer(1000);
@@ -173,6 +169,107 @@ void MainMenuWidget::setBatteryCharge(bool isCharge)
         ui->batteryStatusLabel->setImage("indicator", "indicator_battery_charge_on.bmp");
     else
         ui->batteryStatusLabel->setImage("indicator", "indicator_battery_charge_off.bmp");
+}
+
+void MainMenuWidget::setIndicatorImage(CustomPushButton* pCustomButton, QString path_name, QString file_name)
+{
+    pCustomButton->setImage(path_name, file_name);
+}
+
+void MainMenuWidget::initImage()
+{
+    ConfigManager config1 = ConfigManager("parameter_setting1.json");
+    ConfigManager config2 = ConfigManager("parameter_setting2.json");
+    QJsonObject object1 = config1.GetConfig();
+    QJsonObject object2 = config2.GetConfig();
+
+    ui->cameraPushButton->setImage("indicator", "camera.jpg");
+//    ui->daynNightPushButton->setImage("indicator", "indicator_enable_night_mode_off.jpg");
+//    ui->weatherPushButton->setImage("indicator", "indicator_enable_weather_mode_on.jpg");
+//    ui->speedPushButton->setImage("indicator", "indicator_enable_user_mode_on.jpg");
+    ui->wifiPushButton->setImage("indicator", "indicator_wifi_disconnected.jpg");
+    ui->gpsPushButton->setImage("indicator", "indicator_gps_off.jpg");
+
+        switch(object1["enforcement selection"].toInt())
+        {
+        case 1:
+        {
+            ui->enforcementPushButton->setImage("indicator", "indicator_mode_i.jpg");
+        }
+            break;
+        case 2:
+        {
+            ui->enforcementPushButton->setImage("indicator", "indicator_mode_a.jpg");
+        }
+            break;
+        case 3:
+        {
+            ui->enforcementPushButton->setImage("indicator", "indicator_mode_v.jpg");
+        }
+            break;
+        }
+
+        switch(object1["speed selection"].toInt())
+        {
+        case 1:
+        {
+            ui->speedPushButton->setImage("indicator", "indicator_enable_user_mode_on.jpg");
+        }
+            break;
+        case 2:
+        {
+            ui->speedPushButton->setImage("indicator", "indicator_enable_user_mode_off.jpg");
+        }
+            break;
+        }
+
+        switch(object2["weather selection"].toInt())
+        {
+        case 1:
+        {
+            ui->weatherPushButton->setImage("indicator", "indicator_enable_weather_mode_off.jpg");
+        }
+            break;
+        case 2:
+        {
+            ui->weatherPushButton->setImage("indicator", "indicator_enable_weather_mode_on.jpg");
+        }
+            break;
+        }
+
+        switch(object2["day&night selection"].toInt())
+        {
+        case 1:
+        {
+            ui->daynNightPushButton->setImage("indicator", "day1.jpg");
+        }
+            break;
+        case 2:
+        {
+            ui->daynNightPushButton->setImage("indicator", "day2.jpg");
+        }
+            break;
+        case 3:
+        {
+            ui->daynNightPushButton->setImage("indicator", "day3.jpg");
+        }
+            break;
+        case 4:
+        {
+            ui->daynNightPushButton->setImage("indicator", "night1.jpg");
+        }
+            break;
+        case 5:
+        {
+            ui->daynNightPushButton->setImage("indicator", "night2.jpg");
+        }
+            break;
+        case 6:
+        {
+            ui->daynNightPushButton->setImage("indicator", "night3.jpg");
+        }
+            break;
+        }
 }
 
 

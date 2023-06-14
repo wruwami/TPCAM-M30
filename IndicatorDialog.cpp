@@ -20,6 +20,7 @@
 #include "WidgetSize.h"
 #include "FileManager.h"
 #include "ConfigManager.h"
+#include "MainMenuWidget.h"
 
 IndicatorDialog::IndicatorDialog(QWidget *parent) :
     QDialog(parent),
@@ -205,13 +206,14 @@ void IndicatorDialog::on_speedSTPushButton_clicked()
 {
     ui->speedPushButton->setImage("indicator", "indicator_enable_user_mode_on.jpg");
     m_jsonObject1["speed selection"] = 1;
-
+    m_pMainMenuWidget->setIndicatorImage(m_pMainMenuWidget->m_pSpeedPushbutton, "indicator", "indicator_enable_user_mode_on.jpg");
 }
 
 void IndicatorDialog::on_speedLTPushButton_clicked()
 {
     ui->speedPushButton->setImage("indicator", "indicator_enable_user_mode_off.jpg");
     m_jsonObject1["speed selection"] = 2;
+    m_pMainMenuWidget->setIndicatorImage(m_pMainMenuWidget->m_pSpeedPushbutton, "indicator", "indicator_enable_user_mode_off.jpg");
 }
 
 void IndicatorDialog::on_enforcementPushButton_clicked()
@@ -242,19 +244,21 @@ void IndicatorDialog::on_enforcementIPushButton_clicked()
 {
     ui->enforcementPushButton->setImage("indicator", "indicator_mode_i.jpg");
     m_jsonObject1["enforcement selection"] = 1;
+    m_pMainMenuWidget->setIndicatorImage(m_pMainMenuWidget->m_pEnforcementPushbutton, "indicator", "indicator_mode_i.jpg");
 }
 
 void IndicatorDialog::on_enforcementAPushButton_clicked()
 {
     ui->enforcementPushButton->setImage("indicator", "indicator_mode_a.jpg");
     m_jsonObject1["enforcement selection"] = 2;
-
+    m_pMainMenuWidget->setIndicatorImage(m_pMainMenuWidget->m_pEnforcementPushbutton, "indicator", "indicator_mode_a.jpg");
 }
 
 void IndicatorDialog::on_enforcementVPushButton_clicked()
 {
     ui->enforcementPushButton->setImage("indicator", "indicator_mode_v.jpg");
     m_jsonObject1["enforcement selection"] = 3;
+    m_pMainMenuWidget->setIndicatorImage(m_pMainMenuWidget->m_pEnforcementPushbutton, "indicator", "indicator_mode_v.jpg");
 }
 
 void IndicatorDialog::on_weatherPushButton_clicked()
@@ -486,8 +490,9 @@ void IndicatorDialog::on_screenCapturePushButton_clicked()
 
 void IndicatorDialog::on_day1WidgetClicked()
 {    
-    ui->daynNightPushButton->setImage("indicator", "day1");
+    ui->daynNightPushButton->setImage("indicator", "day1.jpg");
     m_jsonObject2["day&night selection"] = 1;
+    m_pMainMenuWidget->setIndicatorImage(m_pMainMenuWidget->m_pDaynNightPushbutton, "indicator", "day1.jpg");
 
 
     QJsonObject object = m_jsonObject3["Day"].toObject()["Dark"].toObject();
@@ -503,8 +508,9 @@ void IndicatorDialog::on_day1WidgetClicked()
 
 void IndicatorDialog::on_day2WidgetClicked()
 {
-    ui->daynNightPushButton->setImage("indicator", "day2");
+    ui->daynNightPushButton->setImage("indicator", "day2.jpg");
     m_jsonObject2["day&night selection"] = 2;
+    m_pMainMenuWidget->setIndicatorImage(m_pMainMenuWidget->m_pDaynNightPushbutton, "indicator", "day2.jpg");
 
     QJsonObject object = m_jsonObject3["Day"].toObject()["Normal"].toObject();
     m_serialViscaManager.set_AE_shutter_priority();
@@ -519,8 +525,9 @@ void IndicatorDialog::on_day2WidgetClicked()
 
 void IndicatorDialog::on_day3WidgetClicked()
 {
-    ui->daynNightPushButton->setImage("indicator", "day3");
+    ui->daynNightPushButton->setImage("indicator", "day3.jpg");
     m_jsonObject2["day&night selection"] = 3;
+    m_pMainMenuWidget->setIndicatorImage(m_pMainMenuWidget->m_pDaynNightPushbutton, "indicator", "day3.jpg");
 
     QJsonObject object = m_jsonObject3["Day"].toObject()["Bright"].toObject();
     m_serialViscaManager.set_AE_shutter_priority();
@@ -535,8 +542,9 @@ void IndicatorDialog::on_day3WidgetClicked()
 
 void IndicatorDialog::on_night1WidgetClicked()
 {
-    ui->daynNightPushButton->setImage("indicator", "night1");
+    ui->daynNightPushButton->setImage("indicator", "night1.jpg");
     m_jsonObject2["day&night selection"] = 4;
+    m_pMainMenuWidget->setIndicatorImage(m_pMainMenuWidget->m_pDaynNightPushbutton, "indicator", "night1.jpg");
 
     QJsonObject object = m_jsonObject3["Night"].toObject()["Dark"].toObject();
     m_serialViscaManager.set_AE_shutter_priority();
@@ -551,8 +559,9 @@ void IndicatorDialog::on_night1WidgetClicked()
 
 void IndicatorDialog::on_night2WidgetClicked()
 {
-    ui->daynNightPushButton->setImage("indicator", "night2");
+    ui->daynNightPushButton->setImage("indicator", "night2.jpg");
     m_jsonObject2["day&night selection"] = 5;
+    m_pMainMenuWidget->setIndicatorImage(m_pMainMenuWidget->m_pDaynNightPushbutton, "indicator", "night2.jpg");
 
     QJsonObject object = m_jsonObject3["Night"].toObject()["Normal"].toObject();
     m_serialViscaManager.set_AE_shutter_priority();
@@ -567,8 +576,9 @@ void IndicatorDialog::on_night2WidgetClicked()
 
 void IndicatorDialog::on_night3WidgetClicked()
 {
-    ui->daynNightPushButton->setImage("indicator", "night3");
+    ui->daynNightPushButton->setImage("indicator", "night3.jpg");
     m_jsonObject2["day&night selection"] = 6;
+    m_pMainMenuWidget->setIndicatorImage(m_pMainMenuWidget->m_pDaynNightPushbutton, "indicator", "night3.jpg");
 
     QJsonObject object = m_jsonObject3["Night"].toObject()["Bright"].toObject();
     m_serialViscaManager.set_AE_shutter_priority();
@@ -585,6 +595,7 @@ void IndicatorDialog::on_clicked_sunny()
 {
     ui->weatherPushButton->setImage("indicator", "indicator_enable_weather_mode_off.jpg");
     m_jsonObject2["weather selection"] = 1;
+    m_pMainMenuWidget->setIndicatorImage(m_pMainMenuWidget->m_pWeatherPushbutton, "indicator", "indicator_enable_weather_mode_off.jpg");
 
     m_serialLaserManager.set_weather_mode(0);
 }
@@ -593,6 +604,7 @@ void IndicatorDialog::on_clicked_rainy()
 {
     ui->weatherPushButton->setImage("indicator", "indicator_enable_weather_mode_on.jpg");
     m_jsonObject2["weather selection"] = 2;
+    m_pMainMenuWidget->setIndicatorImage(m_pMainMenuWidget->m_pWeatherPushbutton, "indicator", "indicator_enable_weather_mode_on.jpg");
 
     m_serialLaserManager.set_weather_mode(1);
 }

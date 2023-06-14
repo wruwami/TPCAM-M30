@@ -71,7 +71,7 @@ MainWindow::MainWindow(QWidget *parent) :
     m_pMainMenuWidget->setMainMenuTitle(LoadString("IDS_LOGIN"));
     m_pIndicatorWidget = new IndicatorDialog;
     m_pIndicatorWidget->setModal(true);
-    m_pIndicatorWidget->setMainMenu(m_pMainMenuWidget);
+    m_pIndicatorWidget->SetMainMenu(m_pMainMenuWidget);
     m_pDateTimeWidget = new DateTimeWidget;
     m_pRemoteController = new RemoteController(this);
     m_pRemoteController->CreateThread();

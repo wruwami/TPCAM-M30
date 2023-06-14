@@ -74,50 +74,50 @@ SelfTestWidget::SelfTestWidget(QWidget *parent) :
     startTimer(1000);
     StartSelfTest();
 
-    while(1)
-    {
-        ui->dateTimeLabel->setText(GetDate(QDate::currentDate().toString("yyyyMMdd")) + " " + QTime::currentTime().toString("hh:mm:ss"));
-        m_nSecond++;
-        if (m_nSecond == 5)
-        {
-            if (m_nCamera == Status::Check)
-                m_nCamera = Status::Fail;
-            if (m_nLaser == Status::Check)
-                m_nLaser = Status::Fail;
+//    while(1)
+//    {
+//        ui->dateTimeLabel->setText(GetDate(QDate::currentDate().toString("yyyyMMdd")) + " " + QTime::currentTime().toString("hh:mm:ss"));
+//        m_nSecond++;
+//        if (m_nSecond == 5)
+//        {
+//            if (m_nCamera == Status::Check)
+//                m_nCamera = Status::Fail;
+//            if (m_nLaser == Status::Check)
+//                m_nLaser = Status::Fail;
 
-            break;
-        }
+//            break;
+//        }
 
-        //qDebug() << /
-        SerialPacket* serial_packet = m_serialLaserManager.getLaser_packet();//->g_ReceiveData.header;
-        MsgFormat ReceiveData = serial_packet->g_ReceiveData;
+//        //qDebug() << /
+//        SerialPacket* serial_packet = m_serialLaserManager.getLaser_packet();//->g_ReceiveData.header;
+//        MsgFormat ReceiveData = serial_packet->g_ReceiveData;
 
-//        qDebug() << ReceiveData.Header;
-//        qDebug() << ReceiveData.Msg;
-        if (ReceiveData.Header == 0X05)
-            m_nLaser = Status::Pass;
-        else if (ReceiveData.Header == 0X00)
-            m_nLaser = Status::Check;
-        else
-            m_nLaser = Status::Fail;
+////        qDebug() << ReceiveData.Header;
+////        qDebug() << ReceiveData.Msg;
+//        if (ReceiveData.Header == 0X05)
+//            m_nLaser = Status::Pass;
+//        else if (ReceiveData.Header == 0X00)
+//            m_nLaser = Status::Check;
+//        else
+//            m_nLaser = Status::Fail;
 
-        ViscaPacket* visca_packet = m_serialViscaManager.getVisca_packet();
-        unsigned char send_data = visca_packet->send_header_data[0];
-        //cnrk
-        visca_packet->send_header_data.remove(0, 1);
+//        ViscaPacket* visca_packet = m_serialViscaManager.getVisca_packet();
+//        unsigned char send_data = visca_packet->send_header_data[0];
+//        //cnrk
+//        visca_packet->send_header_data.remove(0, 1);
 
 
-        if (send_data == 0X02)
-            m_nCamera = Status::Pass;
-        else if (send_data == 0)
-            m_nCamera = Status::Check;
-        else
-            m_nCamera = Status::Fail;
+//        if (send_data == 0X02)
+//            m_nCamera = Status::Pass;
+//        else if (send_data == 0)
+//            m_nCamera = Status::Check;
+//        else
+//            m_nCamera = Status::Fail;
 
-        if (m_nCamera != Status::Check && m_nLaser != Status::Check && m_nBattery != Status::Check && m_nStorage != Status::Check)
-            break;
-        sleep(1);
-    }
+//        if (m_nCamera != Status::Check && m_nLaser != Status::Check && m_nBattery != Status::Check && m_nStorage != Status::Check)
+//            break;
+//        sleep(1);
+//    }
 }
 
 SelfTestWidget::~SelfTestWidget()
@@ -261,19 +261,45 @@ bool SelfTestWidget::StorageTest()
 void SelfTestWidget::timerEvent(QTimerEvent *event)
 {
     ui->dateTimeLabel->setText(GetDate(QDate::currentDate().toString("yyyyMMdd")) + " " + QTime::currentTime().toString("hh:mm:ss"));
-//    m_nSecond++;
+    m_nSecond++;
+    if (m_nSecond == 5)
+    {
+        if (m_nCamera == Status::Check)
+            m_nCamera = Status::Fail;
+        if (m_nLaser == Status::Check)
+            m_nLaser = Status::Fail;
+
+        close();
+    }
 
     //qDebug() << /
     SerialPacket* serial_packet = m_serialLaserManager.getLaser_packet();//->g_ReceiveData.header;
     MsgFormat ReceiveData = serial_packet->g_ReceiveData;
 
-    qDebug() << ReceiveData.Header;
-    qDebug() << ReceiveData.Msg;
+//        qDebug() << ReceiveData.Header;
+//        qDebug() << ReceiveData.Msg;
+    if (ReceiveData.Header == 0X05)
+        m_nLaser = Status::Pass;
+    else if (ReceiveData.Header == 0X00)
+        m_nLaser = Status::Check;
+    else
+        m_nLaser = Status::Fail;
 
     ViscaPacket* visca_packet = m_serialViscaManager.getVisca_packet();
-    qDebug() << visca_packet->g_RxBuf;
+    unsigned char send_data = visca_packet->send_header_data[0];
+    //cnrk
+    visca_packet->send_header_data.remove(0, 1);
+
+
+    if (send_data == 0X02)
+        m_nCamera = Status::Pass;
+    else if (send_data == 0)
+        m_nCamera = Status::Check;
+    else
+        m_nCamera = Status::Fail;
 
     if (m_nCamera != Status::Check && m_nLaser != Status::Check && m_nBattery != Status::Check && m_nStorage != Status::Check)
-        this->close();
+        close();
+//    sleep(1);
 
 }

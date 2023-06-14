@@ -13,6 +13,7 @@
 #include "ConfigManager.h"
 
 #include "HomeButtonWidget.h"
+#include "SerialGPSManager.h"
 
 MainMenuWidget::MainMenuWidget(QWidget *parent) :
     QWidget(parent),
@@ -53,6 +54,7 @@ MainMenuWidget::MainMenuWidget(QWidget *parent) :
     m_pHomePushButton = m_pHomeButtonWidget->m_pHomePushButton;
 
     m_pHomeTitleLabel->setText("Main Menu");
+
 
 
 #if 0
@@ -324,6 +326,10 @@ void MainMenuWidget::updateStretch()
 void MainMenuWidget::timerEvent(QTimerEvent *event)
 {
     ui->timeLabel->setText(QTime::currentTime().toString("hh:mm:ss"));
+    if (SerialGPSManager::GetInstance()->GetSatellitesInView() > 0)
+        ui->gpsPushButton->setImage("indicator", "indicator_gps_on.jpg");
+    else
+        ui->gpsPushButton->setImage("indicator", "indicator_gps_off.jpg");
 }
 
 

@@ -92,6 +92,8 @@ MainWindow::MainWindow(QWidget *parent) :
 //    SetWarningMode();
     startTimer(1000);
 
+
+
     m_p100msTimer = new QTimer();
     connect(m_p100msTimer, SIGNAL(timeout()), this, SLOT(OnTimer100msFunc()));
     m_p100msTimer->start(100);
@@ -586,6 +588,75 @@ void MainWindow::CheckLoginExpired()
 
 }
 
+
+#include <QDebug>
+
+void MainWindow::CheckPowerSavingTime()
+{
+    // power saveing time
+    ConfigManager config = ConfigManager("parameter_setting7.json");
+    QJsonObject object = config.GetConfig();
+    switch (object["power saving select"].toInt())
+    {
+    case 1:
+    {
+        m_nPowerSavingSecond = 0;
+    }
+        break;
+    case 2:
+    {
+        m_nPowerSavingSecond = 60 * 10;
+    }
+        break;
+    case 3:
+    {
+        m_nPowerSavingSecond = 60 * 20;
+    }
+        break;
+    case 4:
+    {
+        m_nPowerSavingSecond = 60 * 30;
+    }
+        break;
+    }
+
+    if (m_nCheckSecond == 10 && m_nPowerSavingSecond != 0)
+    {
+        SetPowerSavingMode(true);
+        m_bPowerSavingMode = true;
+        m_nCheckSecond = 0;
+//        m_nPowerOffSecond++;
+//        if ()
+        qDebug() << "power save on" << sec;
+    }
+    if (m_bPowerSavingMode)
+    {
+        m_nPowerOffSecond++;
+        if (m_nPowerOffSecond == 10)
+            qDebug() << "poweroff" << sec;
+//            system("systemctl poweroff -i");
+    }
+    else
+    {
+        m_nPowerOffSecond = 0;
+    }
+    m_nCheckSecond++;
+}
+
+void MainWindow::SetPowerSavingMode(bool bSet)
+{
+    if (bSet)
+    {
+        system("echo 0 > /sys/devices/platform/hud/display");
+        system("echo 1 > /sys/class/backlight/backlight/bl_power");
+    }
+    else
+    {
+        system("echo 0 > /sys/class/backlight/backlight/bl_power");
+        system("echo 1 > /sys/devices/platform/hud/display");
+    }
+}
+
 void MainWindow::doThirdAction()
 {
     this->OpenEnforcement();
@@ -891,6 +962,12 @@ void MainWindow::timerEvent(QTimerEvent *event)
 {
     SetWindowWarningMode();
 
+    CheckPowerSavingTime();
+
+    sec++;
+    qDebug() << "sec" << sec;
+//    m_nSecond++;
+
 //    CheckBatteryPercent();
 
 //    if (m_bLoginFail)
@@ -927,3 +1004,13 @@ void MainWindow::doSecondAction()
     m_pEnforcementWidget->m_pEnforcementComponentWidget->dzMinus();
 }
 
+void MainWindow::mousePressEvent(QMouseEvent *event)
+{
+    m_nCheckSecond = 0;
+    qDebug() << "press" << sec;
+    if (m_bPowerSavingMode == true)
+    {
+        SetPowerSavingMode(false);
+        m_bPowerSavingMode = false;
+    }
+}

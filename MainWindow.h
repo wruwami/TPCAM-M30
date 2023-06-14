@@ -60,6 +60,8 @@ private:
     void SelfTestFail(bool = false);
     void PowerOff();
     void CheckLoginExpired();
+    void CheckPowerSavingTime();
+    void SetPowerSavingMode(bool);
 private slots:
     void on_cameraPushButton_clicked();
     void on_daynNightPushButton_clicked();
@@ -110,12 +112,18 @@ private:
     QTimer* m_p100msTimer;
     QTimer* m_p500msTimer;
     bool m_bFlick = false;
-//    Language m_mLanguage = Language::English;
+    int m_nPowerSavingSecond = 0;
+    int m_nCheckSecond = 0;
+    bool m_bPowerSavingMode = false;
+    int m_nPowerOffSecond = 0;
+    int sec = 0;
+    //    Language m_mLanguage = Language::English;
 
     // QObject interface
 protected:
     void timerEvent(QTimerEvent *event);
     void paintEvent(QPaintEvent *event);
+    void mousePressEvent(QMouseEvent *event);
 protected slots:
     void doFirstAction();
     void doSecondAction();

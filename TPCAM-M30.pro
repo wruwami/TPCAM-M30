@@ -13,6 +13,7 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
+    Application.cpp \
     CustomTogglePushButton.cpp \
     FileManager.cpp \
     HUDManager.cpp \
@@ -30,6 +31,7 @@ SOURCES += main.cpp\
     NetworkManager.cpp \
     RemoteControlWorker.cpp \
     RemoteController.cpp \
+    ScreenSaver.cpp \
     SdcardManager.cpp \
     SelfTestDialog.cpp \
     SelfTestWidget.cpp \
@@ -104,6 +106,7 @@ SOURCES += main.cpp\
 
 
 HEADERS  += MainWindow.h \
+    Application.h \
     CustomTogglePushButton.h \
     FileManager.h \
     FontSize.h \
@@ -121,6 +124,7 @@ HEADERS  += MainWindow.h \
     NetworkManager.h \
     RemoteControlWorker.h \
     RemoteController.h \
+    ScreenSaver.h \
     SdcardManager.h \
     SelfTestDialog.h \
     SelfTestWidget.h \

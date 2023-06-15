@@ -4,7 +4,7 @@
 
 #include <QApplication>
 #include <QDebug>
-#include "screensaver.h"
+#include "ScreenSaver.h"
 class Application : public QApplication
 {
 public:

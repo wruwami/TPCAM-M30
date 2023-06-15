@@ -30,6 +30,7 @@ class RemoteController;
 class EnforcementWidget;
 class CustomLabel;
 class CustomPushButton;
+class screensaver;
 namespace Ui {
 class MainWindow;
 }
@@ -39,9 +40,10 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit MainWindow(QWidget *parent = 0);
+    explicit MainWindow(screensaver* screensaver, QWidget *parent = 0);
     ~MainWindow();
     friend class RemoteController;
+    void get(screensaver *f);
 private:
     void initializeMainMenuWidget();
     void initializeLoginWidget();
@@ -112,11 +114,12 @@ private:
     QTimer* m_p100msTimer;
     QTimer* m_p500msTimer;
     bool m_bFlick = false;
-    int m_nPowerSavingSecond = 0;
+    int m_nPowerSavingMinute = 0;
     int m_nCheckSecond = 0;
     bool m_bPowerSavingMode = false;
     int m_nPowerOffSecond = 0;
     int sec = 0;
+    screensaver *m_screensaver;
     //    Language m_mLanguage = Language::English;
 
     // QObject interface

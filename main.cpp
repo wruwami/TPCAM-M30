@@ -12,14 +12,15 @@
 #include "DateFormatManager.h"
 #include "thermal_printer.h"
 #include "SdcardManager.h"
+#include "Application.h"
 
 int main(int argc, char *argv[])
 {
-    QApplication a(argc, argv);
-    QApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
+    Application a(argc, argv);
+    Application::setAttribute(Qt::AA_EnableHighDpiScaling);
 
     QFont font("NanumGothic");
-    QApplication::setFont(font);
+    Application::setFont(font);
 
     QFile file(":/style/default.qss");
     file.open(QFile::ReadOnly);
@@ -40,7 +41,8 @@ int main(int argc, char *argv[])
     CreateWiFiReadThreadAndInitPrinter();
 
 
-    MainWindow w;
+    MainWindow w(a.send());
+//    w.get(a.send());
 //    w.show();
     w.setWindowFlags(Qt::Window);
     w.showFullScreen();

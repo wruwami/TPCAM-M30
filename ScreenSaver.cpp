@@ -1,26 +1,18 @@
-#include "screensaver.h"
+#include "ScreenSaver.h"
 #include <QApplication>
 #include <QDesktopWidget>
 screensaver::screensaver(QWidget *parent)
     : QWidget(parent)
 {
-    screenWidthM = qApp->desktop()->size().width();
-    screenHeightM = qApp->desktop()->size().height();
-    background=new QLabel(this);
-    background->setScaledContents (true);
-    //background->setPixmap(QPixmap(screensaverpicture));
-    background->setGeometry(0,0,screenWidthM,screenHeightM);
-    background->raise();
-    setpicture();
     backtimer=new QTimer(this);
     connect(backtimer,SIGNAL(timeout()),this,SLOT(screensaverstart()));
-    settime();
-    timestart();
+    powerofftimer = new QTimer(this);
+    connect(powerofftimer,SIGNAL(timeout()),this,SLOT(PowerOff()));
 }
 screensaver::~screensaver()
 {
     delete backtimer;
-    delete background;
+    delete powerofftimer;
 }
 void screensaver::timestart()
 {
@@ -34,24 +26,58 @@ void screensaver::timestop()
 {
     backtimer->stop();
 }
+
+void screensaver::Setstart(bool start)
+{
+    m_bStart = start;
+}
+
+bool screensaver::Getstart()
+{
+    return m_bStart;
+}
+
+void screensaver::PowerOffTimerStart()
+{
+    powerofftimer->start(10*60*1000);
+}
+
+void screensaver::PowerOffTimerStop()
+{
+    powerofftimer->stop();
+}
+
+void screensaver::PowerOff()
+{
+    system("systemctl poweroff -i");
+}
 void screensaver::settime(qint64 minute)
 {
     time=minute*60*1000;
 }
-void screensaver::setpicture(const QString &picturepath)
-{
-    background->setPixmap(QPixmap(picturepath));
-}
 void screensaver::screensaverstart()//change picture
 {
     timestop();
-    background->setWindowFlags (Qt::Window| Qt::FramelessWindowHint);
-    background->setCursor(Qt::BlankCursor);
-    background->showFullScreen();
+    SetPowerSavingMode(true);
+    PowerOffTimerStart();
 }
 void screensaver::screensaverstop()//change picture
 {
     timestart();
-    background->close();
+    SetPowerSavingMode(false);
+    PowerOffTimerStop();
 }
 
+void screensaver::SetPowerSavingMode(bool bSet)
+{
+    if (bSet)
+    {
+        system("echo 0 > /sys/devices/platform/hud/display");
+        system("echo 1 > /sys/class/backlight/backlight/bl_power");
+    }
+    else
+    {
+        system("echo 0 > /sys/class/backlight/backlight/bl_power");
+        system("echo 1 > /sys/devices/platform/hud/display");
+    }
+}

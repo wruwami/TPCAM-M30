@@ -9,21 +9,26 @@ class screensaver:public QWidget
     Q_OBJECT
 public:
     screensaver(QWidget *parent = 0);
-    ~screensaver();
+    virtual ~screensaver();
     bool timeisactive();
     void screensaverstop();
     void settime(qint64 minute=1);
-    void setpicture(const QString &picturepath=QString::fromUtf8 (":/images/timg1"));
-
-private:
-    QLabel *background;
-    QTimer *backtimer;
-    qint64  time;
-    int screenWidthM;
-    int screenHeightM;
-public slots:
     void timestart();
     void timestop();
+    void Setstart(bool);
+    bool Getstart();
+    void PowerOffTimerStart();
+    void PowerOffTimerStop();
+private:
+    void SetPowerSavingMode(bool bSet);
+private:
+    QTimer *backtimer;
+    QTimer *powerofftimer;
+
+    qint64  time;
+    bool m_bStart = false;
+public slots:
+    void PowerOff();
     void screensaverstart();
 };
 

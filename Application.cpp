@@ -1,5 +1,5 @@
-#include "application.h"
-#include "screensaver.h"
+#include "Application.h"
+#include "ScreenSaver.h"
 Application::Application(int &argc, char **argv):
     QApplication(argc,argv)
 {
@@ -7,18 +7,21 @@ Application::Application(int &argc, char **argv):
 }
 bool Application::notify(QObject *obj, QEvent *e)
 {
-    if(e->type() == QEvent::MouseMove||
-            e->type() == QEvent::KeyPress||
+    if(e->type() == QEvent::KeyPress||
             e->type() ==QEvent::MouseButtonPress )
     {
-        if(_screensaver->timeisactive())
+        if (_screensaver->Getstart())
         {
-            _screensaver->timestart();
+            if(_screensaver->timeisactive())
+            {
+                _screensaver->timestart();
+            }
+            else
+            {
+                _screensaver->screensaverstop();
+            }
         }
-        else
-        {
-            _screensaver->screensaverstop();
-        }
+
     }
     return QApplication::notify(obj,e);
 }

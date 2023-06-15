@@ -22,9 +22,9 @@ Setting6Widget::Setting6Widget(QWidget *parent) : QWidget(parent),
 
 //    ui->languageComboBox->addItems(LoadLangaugeList());
 
-    ui->ftpComboBox->addItem(LoadString("IDS_DISABLE"));
-    ui->ftpComboBox->addItem(LoadString("IDS_ENABLE_AUTO"));
-    ui->ftpComboBox->addItem(LoadString("IDS_ENABLE_MANUAL"));
+//    ui->ftpComboBox->addItem(LoadString("IDS_DISABLE"));
+//    ui->ftpComboBox->addItem(LoadString("IDS_ENABLE_AUTO"));
+//    ui->ftpComboBox->addItem(LoadString("IDS_ENABLE_MANUAL"));
 
 //    ui->languageComboBox->addItems(LoadLangaugeList());
     foreach (QJsonValue json, m_jsonObject["language items"].toArray())

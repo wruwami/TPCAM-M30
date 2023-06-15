@@ -43,7 +43,7 @@ private:
     LTC2943 ltc = LTC2943(15);
     SerialViscaManager m_serialViscaManager;
     SerialLaserManager m_serialLaserManager;
-
+    QTimer* m_Timer;
 
     // QObject interface
 protected:

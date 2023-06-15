@@ -26,7 +26,9 @@ public:
     void showIndicator(bool = true);
     void setBatteryPercentValue(int);
     void setBatteryCharge(bool);
-
+    void setIndicatorImage(CustomPushButton*, QString, QString);
+private:
+    void initImage();
 public:
     CustomPushButton* m_pHomePushButton;
 private:

@@ -80,3 +80,9 @@ QString FileManager::GetSDPath()
     QDir dir;
     return dir.absolutePath();
 }
+
+QString FileManager::GetUSBPath()
+{
+    QDir dir;
+    return dir.absolutePath();
+}

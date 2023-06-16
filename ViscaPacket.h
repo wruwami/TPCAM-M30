@@ -2,8 +2,10 @@
 //  Serial 송/수신 패킷 [Encode / Decode] 라이브러리
 //  ComLASER SW
 
+#include <QObject>
 #include <QByteArray>
 #include "SerialPacket.h"
+
 
 #ifndef ViscaPacketH
 #define ViscaPacketH
@@ -50,9 +52,9 @@ extern QString g_Optical_Zoom_Value_Wonwoo[];
 extern int g_Camera_VenderID;// = 0x0078;
 
 
-class ViscaPacket
+class ViscaPacket : public QObject
 {
-
+    Q_OBJECT
 public:
     ViscaPacket();
     virtual ~ViscaPacket();

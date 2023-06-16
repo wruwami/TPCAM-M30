@@ -621,7 +621,7 @@ void MainWindow::CheckPowerSavingTime()
         break;
     }
 
-    if (!m_nPowerSavingMinute)
+    if (m_nPowerSavingMinute)
     {
         m_screensaver->Setstart(true);
         m_screensaver->settime(m_nPowerSavingMinute);

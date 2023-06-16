@@ -27,6 +27,7 @@ private:
 
     qint64  time;
     bool m_bStart = false;
+    bool m_bPowerSavingMode = false;
 public slots:
     void PowerOff();
     void screensaverstart();

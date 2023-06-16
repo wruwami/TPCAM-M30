@@ -3,6 +3,7 @@
 #include "ViscaPacket.h"
 
 #include <QDebug>
+#include <QEventLoop>
 
 SerialViscaManager::SerialViscaManager()
 {
@@ -12,6 +13,10 @@ SerialViscaManager::SerialViscaManager()
     camera_con = 0;
 //    connectVisca();
     connect(serial_visca, SIGNAL(readyRead()), this, SLOT(receive_camera()));
+
+    connect(m_pTimerInquiryZoom, SIGNAL(timeout()), this, SLOT(get_inquiry_zoom()));
+    connect(m_pTimerInquiryFocus, SIGNAL(timeout()), this, SLOT(get_inquiry_focus()));
+    connect(m_pTimerInquiryIris, SIGNAL(timeout()), this, SLOT(get_inquiry_iris()));
 }
 
 QString SerialViscaManager::connectVisca()
@@ -45,16 +50,6 @@ void SerialViscaManager::close()
 ViscaPacket *SerialViscaManager::getVisca_packet() const
 {
     return visca_packet;
-}
-
-void SerialViscaManager::SetViscaValue(ViscaType type)
-{
-
-}
-
-void SerialViscaManager::SetViscaValue(ViscaType type, int value)
-{
-
 }
 
 void SerialViscaManager::receive_camera()
@@ -440,6 +435,9 @@ void SerialViscaManager::zoom(int currentIndex)
 
     m_zoom_pqrs = pqrs;
 
+    //feedback
+    m_pTimerInquiryZoom->start(500);
+
     QByteArray data;
     if(visca_packet)
         data= visca_packet->BlockCamMakePacket(header, msg, msgSize);
@@ -700,46 +698,48 @@ void SerialViscaManager::minus_dzoom()
 
 void SerialViscaManager::set_focus(QString a_pqrs)
 {
-     unsigned char header=0x81;
-     unsigned char msg[10];
-     unsigned char msgSize=7;
-     msg[0]=0x01;
-     msg[1]=0x04;
-     msg[2]=0x48;
-     msg[3]=0x00;
-     msg[4]=0x00;
-     msg[5]=0x00;
-     msg[6]=0x00;
-     int p=0,q=0,r=0,s=0;
-     //int index = ui->comboBox_Zoom->currentIndex();
+    unsigned char header=0x81;
+    unsigned char msg[10];
+    unsigned char msgSize=7;
+    msg[0]=0x01;
+    msg[1]=0x04;
+    msg[2]=0x48;
+    msg[3]=0x00;
+    msg[4]=0x00;
+    msg[5]=0x00;
+    msg[6]=0x00;
+    int p=0,q=0,r=0,s=0;
+    //int index = ui->comboBox_Zoom->currentIndex();
 
-     QString pqrs = a_pqrs;// g_Optical_Zoom_Value[index];
-     bool ok;
-     p = pqrs.mid(0,1).toInt(&ok, 16);
-     q = pqrs.mid(1,1).toInt(&ok, 16);
-     r = pqrs.mid(2,1).toInt(&ok, 16);
-     s = pqrs.mid(3,1).toInt(&ok, 16);
-     qDebug() << pqrs;
+    QString pqrs = a_pqrs;// g_Optical_Zoom_Value[index];
+    bool ok;
+    p = pqrs.mid(0,1).toInt(&ok, 16);
+    q = pqrs.mid(1,1).toInt(&ok, 16);
+    r = pqrs.mid(2,1).toInt(&ok, 16);
+    s = pqrs.mid(3,1).toInt(&ok, 16);
+    qDebug() << pqrs;
 
-     QString dd;
-     dd.sprintf("P%X, Q%X, R%X, S%X", p,q,r,s);
-     qDebug() << dd;
-     msg[3]=0x00 | p;
-     msg[4]=0x00 | q;
-     msg[5]=0x00 | r;
-     msg[6]=0x00 | s;
+    QString dd;
+    dd.sprintf("P%X, Q%X, R%X, S%X", p,q,r,s);
+    qDebug() << dd;
+    msg[3]=0x00 | p;
+    msg[4]=0x00 | q;
+    msg[5]=0x00 | r;
+    msg[6]=0x00 | s;
 
-     m_focus_pqrs = pqrs;
+    m_focus_pqrs = pqrs;
 
-     QByteArray data;
-     if(visca_packet)
-         data= visca_packet->BlockCamMakePacket(header, msg, msgSize);
+    //feedback
+    m_pTimerInquiryFocus->start(500);
 
-     qDebug() << data;
+    QByteArray data;
+    if(visca_packet)
+        data= visca_packet->BlockCamMakePacket(header, msg, msgSize);
 
-     if(serial_visca)
-         serial_visca->write(data);
-}
+    qDebug() << data;
+
+    if(serial_visca)
+        serial_visca->write(data);}
 
 void SerialViscaManager::plus_focus()
 {
@@ -1138,6 +1138,9 @@ void SerialViscaManager::set_iris(int currentIndex)
 
     m_iris_pq = pq;
 
+    //feedback
+    m_pTimerInquiryIris->start(500);
+
     QByteArray data;
     if(visca_packet)
         data= visca_packet->BlockCamMakePacket(header, msg, msgSize);
@@ -1532,3 +1535,74 @@ void SerialViscaManager::show_noiseReduction()
         serial_visca->write(data);
 }
 
+void SerialViscaManager::get_inquiry_zoom()
+{
+    m_pTimerInquiryZoom->stop();
+    QEventLoop loop;
+    connect(visca_packet, SIGNAL(sig_show_zoom()), &loop, SLOT(quit()));
+    show_zoomPosition();
+    loop.exec();
+
+    QString qstrgZoom_pqrs = QStringLiteral("%1").arg(visca_packet->m_qstrZoom_pqrs.toInt(nullptr, 16), 4, 16, QLatin1Char('0'));
+    qstrgZoom_pqrs = qstrgZoom_pqrs.toUpper();
+
+    QString qstrpqrs = m_zoom_pqrs;
+
+    if(qstrpqrs == qstrgZoom_pqrs )
+    {
+
+    }
+    else
+    {
+        emit sig_pb_zoom_clicked();
+    }
+}
+
+void SerialViscaManager::get_inquiry_focus()
+{
+    m_pTimerInquiryFocus->stop();
+    QEventLoop loop;
+    connect(visca_packet, SIGNAL(sig_show_focus()), &loop, SLOT(quit()));
+    show_focusPosition();
+    loop.exec();
+
+    QString qstrgFocus_pqrs = QStringLiteral("%1").arg(visca_packet->m_qstrFocus_pqrs.toInt(nullptr, 16), 4, 16, QLatin1Char('0'));
+
+    QString qstrpqrs = m_focus_pqrs;
+
+    qDebug() << qstrpqrs << ":" << qstrgFocus_pqrs;
+
+    if(qstrpqrs == qstrgFocus_pqrs )
+    {
+
+    }
+    else
+    {
+        emit sig_pb_focus_clicked();
+    }
+}
+
+void SerialViscaManager::get_inquiry_iris()
+{
+    m_pTimerInquiryIris->stop();
+    QEventLoop loop;
+    connect(visca_packet, SIGNAL(sig_show_iris()), &loop, SLOT(quit()));
+    read_iris();
+    loop.exec();
+
+    QString qstrgIris_pq = QStringLiteral("%1").arg(visca_packet->m_qstrIris_pqrs.toInt(nullptr, 16), 2, 16, QLatin1Char('0'));
+    qstrgIris_pq = qstrgIris_pq.toUpper();
+
+    QString qstrpq = m_iris_pq.mid(0, 2);
+
+    qDebug() << qstrpq << ":" << qstrgIris_pq;
+
+    if(qstrpq == qstrgIris_pq)
+    {
+
+    }
+    else
+    {
+        emit sig_pb_iris_clicked();
+    }
+}

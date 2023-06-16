@@ -84,7 +84,9 @@ public:
     unsigned char g_DZoomMode;
     unsigned char g_WBMode;
     unsigned char g_AEMode;
-
+    QString m_qstrIris_pqrs;
+    QString m_qstrFocus_pqrs;
+    QString m_qstrZoom_pqrs;
 
 public:
 
@@ -101,7 +103,10 @@ public:
 
     //cnrk
     void initTable();
-
+signals:
+    void sig_show_zoom();
+    void sig_show_focus();
+    void sig_show_iris();
 };
 
 

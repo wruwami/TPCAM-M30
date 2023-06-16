@@ -177,7 +177,7 @@ void Camera::updateFrame(cv::Mat *mat)
 					QImage::Format_RGB888);
 
 	pixmap->setPixmap( QPixmap::fromImage(qimg.rgbSwapped()) );
-    this->fitInView(pixmap, Qt::KeepAspectRatio);
+    this->fitInView(pixmap, Qt::IgnoreAspectRatio);
 }
 
 void Camera::updateFPS(float fps)

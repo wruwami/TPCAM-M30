@@ -57,12 +57,6 @@ IndicatorDialog::~IndicatorDialog()
     m_serialLaserManager.close();
     m_serialViscaManager.close();
 
-    m_configManager1.SetConfig(m_jsonObject1);
-    m_configManager1.SaveFile();
-
-    m_configManager2.SetConfig(m_jsonObject1);
-    m_configManager2.SaveFile();
-
 //    if (m_pIndicatorCameraFocusWidget != nullptr)
 //        delete m_pIndicatorCameraFocusWidget;
 
@@ -312,6 +306,12 @@ void IndicatorDialog::paintEvent(QPaintEvent *event)
 
 void IndicatorDialog::mousePressEvent(QMouseEvent *event)
 {
+    m_configManager1.SetConfig(m_jsonObject1);
+    m_configManager1.SaveFile();
+
+    m_configManager2.SetConfig(m_jsonObject2);
+    m_configManager2.SaveFile();
+
     accept();
 }
 

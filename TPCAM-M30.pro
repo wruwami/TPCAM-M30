@@ -67,6 +67,8 @@ SOURCES += main.cpp\
     CustomImageWidget.cpp \
     FileManagerSnapShotDialog.cpp \
     ViscaPacket.cpp \
+    camera.cpp \
+    capture_thread.cpp \
     filter.cpp \
     keyboard/key.cpp \
     keyboard/keyboard.cpp \
@@ -162,6 +164,8 @@ HEADERS  += MainWindow.h \
     ImageSize.h \
     FileManagerSnapShotDialog.h \
     ViscaPacket.h \
+    camera.h \
+    capture_thread.h \
     filter.h \
     keyboard/key.h \
     keyboard/keyboard.h \
@@ -259,7 +263,19 @@ RESOURCES += \
 
 DISTFILES +=
 
-unix:!macx: LIBS += -L/usr/local/lib/ -lhangul -lavformat -lswscale -lavformat -lavcodec -lavutil
+unix:!macx: LIBS += -L/usr/local/lib/ \
+        -lhangul \
+        -lavformat\
+        -lswscale\
+        -lavformat\
+        -lavcodec\
+        -lavutil\
+        -lopencv_core \
+        -lopencv_imgcodecs \
+        -lopencv_imgproc \
+        -lopencv_objdetect \
+        -lopencv_video \
+        -lopencv_videoio
 
 INCLUDEPATH += /usr/local/include
 DEPENDPATH += /usr/local/include

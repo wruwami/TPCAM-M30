@@ -40,7 +40,6 @@ public:
     CustomComboBox* m_pUserNameComboBox;
 private:
     QJsonObject m_jsonObject;
-    QJsonObject m_newJsonObject;
     ConfigManager m_config = ConfigManager("parameter_login.json");
     LightManager* m_pLightMager;
     QQueue<QString> m_queue;

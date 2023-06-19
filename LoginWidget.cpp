@@ -23,7 +23,6 @@ LoginWidget::LoginWidget(QWidget *parent) :
     ui->setupUi(this);
 
     m_jsonObject = m_config.GetConfig();
-    m_newJsonObject = m_jsonObject;
 
     setBackGroundColor(this, 0xf2f2f2);
     m_loginPushButton = ui->loginPushButton;
@@ -60,18 +59,21 @@ LoginWidget::LoginWidget(QWidget *parent) :
 
 LoginWidget::~LoginWidget()
 {
+    m_config.SetConfig(m_jsonObject);
+    m_config.SaveFile();
     if (m_pLightMager != nullptr)
     {
         delete m_pLightMager;
         m_pLightMager = nullptr;
     }
     delete m_loginPushButton;
+    delete m_dateTimePushButton;
     delete ui;
 }
 
 void LoginWidget::ItemPush(QString item)
 {
-    if (m_queue.size() < 6 )
+    if (m_queue.size() < 5 )
     {
         m_queue.push_back(item);
     }
@@ -109,10 +111,15 @@ void LoginWidget::on_userNamePushButton_clicked()
     {
         ItemPush(keyboardDialog.str());
     }
-
+    ui->userNameComboBox->clear();
     foreach( auto item , m_queue)
     {
-        qDebug() << item;
+        ui->userNameComboBox->addItem(item);
+    }
+
+    foreach(QJsonValue json, m_jsonObject["User Name items"].toArray())
+    {
+//        ui->userNameComboBox->addItem(json.toString());
     }
 } 
 

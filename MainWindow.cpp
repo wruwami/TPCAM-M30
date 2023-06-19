@@ -52,7 +52,7 @@ MainWindow::MainWindow(screensaver* screensaver, QWidget *parent) :
         QEventLoop loop;
         SelfTestWidget selfTestWidget;
         selfTestWidget.show();
-        connect(&selfTestWidget, SIGNAL(selftest_finished()), this, SLOT(quit()));
+        connect(&selfTestWidget, SIGNAL(selftest_finished()), &loop, SLOT(quit()));
         loop.exec();
 
         BaseDialog baseDialog(SelfTestWarningMessageWidgetType, selfTestWidget.m_nCamera, selfTestWidget.m_nLaser, selfTestWidget.m_nBattery, selfTestWidget.m_nStorage, Qt::AlignmentFlag::AlignCenter);
@@ -586,6 +586,9 @@ void MainWindow::CheckLoginExpired()
     QDateTime datetime;
     ;
     QDateTime current_datetime;
+
+    qDebug() << current_datetime.currentDateTime();
+    qDebug() << datetime.fromString(str, "yyyyMMdd");
 
     if (current_datetime.currentDateTime() > datetime.fromString(str, "yyyyMMdd"))
     {

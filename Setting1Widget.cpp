@@ -91,13 +91,41 @@ void Setting1Widget::SaveConfig()
 
 }
 
+void Setting1Widget::ItemPush(QString item)
+{
+    if (m_queue.size() < 5 )
+    {
+        m_queue.push_back(item);
+    }
+    else
+    {
+        m_queue.dequeue();
+        m_queue.push_back(item);
+    }
+
+}
+
 
 void Setting1Widget::on_locationPushButton_clicked()
 {
 //    BaseDialog baseDialog(Setting1LocationWidgetType, Qt::AlignmentFlag::AlignCenter, "", true);
 //    baseDialog.exec();
     KeyboardDialog keyboardDialog(GetLanguage());
-    keyboardDialog.exec();
+    if (keyboardDialog.exec() == QDialog::Accepted)
+    {
+        ItemPush(keyboardDialog.str());
+    }
+    ui->locationComboBox->clear();
+    QJsonArray array = m_jsonObject["location items"].toArray();
+    for(int i=0; i<array.count(); i++) {
+        array.removeAt(0);
+    }
+    foreach( auto item , m_queue)
+    {
+        ui->locationComboBox->addItem(item);
+        array.push_back(item);
+    }
+    m_jsonObject["location items"] = array;
 
 }
 

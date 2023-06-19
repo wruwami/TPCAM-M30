@@ -112,15 +112,16 @@ void LoginWidget::on_userNamePushButton_clicked()
         ItemPush(keyboardDialog.str());
     }
     ui->userNameComboBox->clear();
+    QJsonArray array = m_jsonObject["User Name items"].toArray();
+    for(int i=0; i<array.count(); i++) {
+        array.removeAt(0);
+    }
     foreach( auto item , m_queue)
     {
         ui->userNameComboBox->addItem(item);
+        array.push_back(item);
     }
-
-    foreach(QJsonValue json, m_jsonObject["User Name items"].toArray())
-    {
-//        ui->userNameComboBox->addItem(json.toString());
-    }
+    m_jsonObject["User Name items"] = array;
 } 
 
 //void LoginWidget::on_userNameComboBox_currentIndexChanged(const QString &arg)

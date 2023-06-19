@@ -3,7 +3,8 @@
 
 #include <QWidget>
 #include <QJsonObject>
-
+#include <QQueue>
+5
 #include "ConfigManager.h"
 
 namespace Ui {
@@ -18,6 +19,8 @@ public:
     explicit Setting1Widget(QWidget *parent = 0);
     ~Setting1Widget();
     void SaveConfig();
+private:
+    void ItemPush(QString);
 private slots:
     void on_locationPushButton_clicked();
 
@@ -42,6 +45,7 @@ private:
     QJsonObject m_jsonObject;
     QJsonObject m_newJsonObject;
     ConfigManager m_config = ConfigManager("parameter_setting1.json");
+    QQueue<QString> m_queue;
 private:
     Ui::Setting1Widget *ui;
 };

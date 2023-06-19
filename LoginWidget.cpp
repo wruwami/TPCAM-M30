@@ -49,6 +49,7 @@ LoginWidget::LoginWidget(QWidget *parent) :
     foreach(QJsonValue json, m_jsonObject["User Name items"].toArray())
     {
         ui->userNameComboBox->addItem(json.toString());
+        ItemPush(json.toString());
     }
     ui->userNameComboBox->setCurrentIndex(m_jsonObject["User Name Select"].toInt() - 1);
 
@@ -66,6 +67,19 @@ LoginWidget::~LoginWidget()
     }
     delete m_loginPushButton;
     delete ui;
+}
+
+void LoginWidget::ItemPush(QString item)
+{
+    if (m_queue.size() < 6 )
+    {
+        m_queue.push_back(item);
+    }
+    else
+    {
+        m_queue.dequeue();
+        m_queue.push_back(item);
+    }
 }
 
 void LoginWidget::on_loginPushButton_clicked()
@@ -90,10 +104,17 @@ void LoginWidget::on_lightPushButton_clicked()
 
 void LoginWidget::on_userNamePushButton_clicked()
 {
+    KeyboardDialog keyboardDialog(GetLanguage());
+    if (keyboardDialog.exec() == QDialog::Accepted)
+    {
+        ItemPush(keyboardDialog.str());
+    }
 
-    KeyboardDialog keyboardDialog(ui->userNameComboBox->currentText(), GetLanguage());
-    keyboardDialog.exec();
-}
+    foreach( auto item , m_queue)
+    {
+        qDebug() << item;
+    }
+} 
 
 //void LoginWidget::on_userNameComboBox_currentIndexChanged(const QString &arg)
 //{

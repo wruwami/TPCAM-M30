@@ -3,6 +3,8 @@
 
 #include <QWidget>
 #include <QJsonObject>
+#include <QQueue>
+
 #include "ConfigManager.h"
 
 class CustomPushButton;
@@ -19,7 +21,8 @@ class LoginWidget : public QWidget
 public:
     explicit LoginWidget(QWidget *parent = 0);
     ~LoginWidget();
-public:
+private:
+    void ItemPush(QString);
 //    QString m_userName;
 private slots:
     void on_loginPushButton_clicked();
@@ -40,6 +43,7 @@ private:
     QJsonObject m_newJsonObject;
     ConfigManager m_config = ConfigManager("parameter_login.json");
     LightManager* m_pLightMager;
+    QQueue<QString> m_queue;
 private:
     Ui::LoginWidget *ui;
 

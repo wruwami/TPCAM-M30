@@ -56,15 +56,7 @@ BaseDialog::BaseDialog(Dialog dialog, Qt::Alignment align, QString msg, bool isC
 
     switch (dialog)
     {
-    case Dialog::SelfTestWarningMessageWidgetType:
-    {
-        SelfTestWarningMessageWidget* selfTestWarningMessageWidget = new SelfTestWarningMessageWidget(m_isCamera, m_isLaser, m_isBattery, m_isStorage, this);
-        ui->verticalLayout->addWidget(selfTestWarningMessageWidget);
-        ui->titleLabel->setText(LoadString("IDS_WARNING_MESSAGE"));
-        ui->titleLabel->setAlignment(align);
-        setSize(1216, 694);
-    }
-        break;
+
     case Dialog::LoginExpiredDateWidgetType:
     {
         ui->verticalLayout->addWidget(new LoginExpiredDateWidget(this));
@@ -178,7 +170,7 @@ BaseDialog::BaseDialog(Dialog dialog, Qt::Alignment align, QString msg, bool isC
     }
         break;
     case Dialog::SearchBoxType:
-    {
+        {
         ui->verticalLayout->addWidget(new SearchBoxWidget(this));
         ui->titleLabel->setText(title_text);
         ui->titleLabel->setAlignment(align);

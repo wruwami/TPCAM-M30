@@ -562,6 +562,9 @@ void MainWindow::CheckLoginExpired()
 {
     ConfigManager configManager = ConfigManager("expired_date.txt");
     QString str = configManager.GetText();
+    if (str.isEmpty())
+        return;
+
     if (str.at(str.size() - 1) == '\n')
     {
         str.remove(str.size() - 1, 1);

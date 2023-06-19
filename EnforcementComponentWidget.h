@@ -9,7 +9,7 @@
 #include "ConfigManager.h"
 
 
-
+class Camera;
 class CustomPushButton;
 namespace Ui {
 class EnforcementComponentWidget;
@@ -31,6 +31,7 @@ private:
     void hide();
     void show();
     void setOutFrame(bool isSet);
+    void SetCamera();
 private:
     bool m_bHide = false;
     bool m_isSetOutLine = false;
@@ -41,6 +42,7 @@ private:
     std::vector<QString> m_ltvector = {"10~36", "30~60", "60~100", "100~160", "160~260", "260+"};
     int m_nStIndex = 2;
     int m_nLtIndex = 3;
+    Camera* m_pCamera;
 private slots:
     void on_hidePushButton_clicked();
     void doShartAction();

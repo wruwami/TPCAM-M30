@@ -7,8 +7,7 @@ Application::Application(int &argc, char **argv):
 }
 bool Application::notify(QObject *obj, QEvent *e)
 {
-    if(e->type() == QEvent::KeyPress||
-            e->type() ==QEvent::MouseButtonPress )
+    if(e->type() ==QEvent::MouseButtonPress )
     {
         if (_screensaver->Getstart())
         {

@@ -49,9 +49,11 @@ MainWindow::MainWindow(screensaver* screensaver, QWidget *parent) :
 //    if (selfTestDialog.exec() == QDialog::Rejected)
 //        m_bLoginFail = true;
     {
+        QEventLoop loop;
         SelfTestWidget selfTestWidget;
         selfTestWidget.show();
-
+        connect(&selfTestWidget, SIGNAL(selftest_finished()), this, SLOT(quit()));
+        loop.exec();
 
         BaseDialog baseDialog(SelfTestWarningMessageWidgetType, selfTestWidget.m_nCamera, selfTestWidget.m_nLaser, selfTestWidget.m_nBattery, selfTestWidget.m_nStorage, Qt::AlignmentFlag::AlignCenter);
     //    baseDialog.SetSelfTestResult();
@@ -88,6 +90,7 @@ MainWindow::MainWindow(screensaver* screensaver, QWidget *parent) :
     QObject::connect((QWidget*)m_pLoginWidget->m_pUserNameComboBox, SIGNAL(currentIndexChanged(QString)), this, SLOT(on_userNameChanged(QString)));
     QObject::connect((QWidget*)m_pMainMenuWidget->m_pHomePushButton, SIGNAL(clicked()), this, SLOT(on_mainMenuHomeClicked()));
 
+    BatteryInit();
 
     get(screensaver);
     CheckLoginExpired();
@@ -485,24 +488,24 @@ void MainWindow::CheckBatteryPercent()
 
     //
 
-//    if((ltc.m_filteredVolt >= 12.5) && (ltc.m_filteredCurrent >= 0.1) && (ltc.m_bACChangeFlag == true))
-//    {
-//        ltc.setChargeThresholdH(ltc.m_filteredAC*(0.2) + ltc.getACThresholdH()*(0.8) );
-//        ltc.m_bACChangeFlag = false;
-//    }
-//    else if((ltc.m_filteredVolt <= 9.5) && (ltc.m_filteredCurrent <= -0.1) && (ltc.m_bACChangeFlag == false))
-//    {
-//        int ACDiff = ltc.m_filteredAC-5000;
-//        ltc.setChargeThresholdH(ltc.getACThresholdH()-(ACDiff*0.2));
-//        ltc.m_bACChangeFlag = true;
-//        ltc.setRawAccumulatedCharge(5000);
-//    }
+    if((ltc.m_filteredVolt >= 12.5) && (ltc.m_filteredCurrent >= 0.1) && (ltc.m_bACChangeFlag == true))
+    {
+        ltc.setChargeThresholdH(ltc.m_filteredAC*(0.2) + ltc.getACThresholdH()*(0.8) );
+        ltc.m_bACChangeFlag = false;
+    }
+    else if((ltc.m_filteredVolt <= 9.5) && (ltc.m_filteredCurrent <= -0.1) && (ltc.m_bACChangeFlag == false))
+    {
+        int ACDiff = ltc.m_filteredAC-5000;
+        ltc.setChargeThresholdH(ltc.getACThresholdH()-(ACDiff*0.2));
+        ltc.m_bACChangeFlag = true;
+        ltc.setRawAccumulatedCharge(5000);
+    }
 
-//    if(ltc.m_filteredVolt <=9.4)
-//    {
-////        OS 자동 종료
-//        QProcess::startDetached("shutdown -h now");
-//    }
+    if(ltc.m_filteredVolt <=9.4)
+    {
+//        OS 자동 종료
+        QProcess::startDetached("shutdown -h now");
+    }
 
     // battery count
     int percent = ltc.m_filteredBat_persent/100;
@@ -621,7 +624,7 @@ void MainWindow::CheckPowerSavingTime()
         break;
     }
 
-    if (!m_nPowerSavingMinute)
+    if (m_nPowerSavingMinute)
     {
         m_screensaver->Setstart(true);
         m_screensaver->settime(m_nPowerSavingMinute);
@@ -668,6 +671,40 @@ void MainWindow::SetPowerSavingMode(bool bSet)
         system("echo 0 > /sys/class/backlight/backlight/bl_power");
         system("echo 1 > /sys/devices/platform/hud/display");
     }
+}
+
+void MainWindow::BatteryInit()
+{
+    if(ltc.readByteFromRegister(REG_B_CONTROL)!=236)//0x3C)
+    {
+        //AC최대값 레지스터, AC 최소값 레지스터에 값을 넣는다.
+        ltc.setChargeThresholds(35718, 15000);
+
+        //최대 전압 레지스터와 최소 전압 레지스터에 값을 넣는다.
+        ltc.setVoltageThresholds(12.5, 9.5);
+
+        //컨트롤 레지스터와 AC레지스터에 값을 넣어준다
+        //컨트롤 레지스터에 값을 넣어준다
+        ltc.setADCMode(ADC_MODE_AUTO);
+        ltc.startMeasurement();
+        ltc.configureALCC(ALCC_MODE_ALERT);
+        ltc.setPrescalerM(1024);
+
+        for(int i =0; i<5; i++)
+        {
+            //get raw values
+            ltc.getValues();
+
+            //moving average filter
+            ltc.filterValues();
+
+            //조절해야함
+            usleep(10000);
+        }
+
+        ltc.presetAC(ltc.m_filteredVolt*1000, ltc.getVoltageThresholdHigh()*1000, ltc.getVoltageThresholdLow()*1000);
+    }
+
 }
 
 void MainWindow::doThirdAction()
@@ -758,7 +795,6 @@ void MainWindow::OnTimer500msFunc()
 {
     CheckBatteryPercent();
 }
-
 
 void MainWindow::on_filemanagementClicked()
 {

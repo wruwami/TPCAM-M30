@@ -2,7 +2,7 @@
 #define BASEDIALOG_H
 
 #include <QDialog>
-
+#include "SelfTestWidget.h"
 #include "FileFormat.h"
 
 enum Dialog
@@ -35,7 +35,7 @@ class BaseDialog : public QDialog
 
 public:
     explicit BaseDialog(Dialog, Qt::Alignment = Qt::AlignmentFlag::AlignLeft, QString = "", bool = false, QString title_text = "", QWidget *parent = 0);
-    BaseDialog(Dialog, bool, bool, bool, bool, Qt::Alignment = Qt::AlignmentFlag::AlignLeft, QWidget *parent = 0);
+    BaseDialog(Dialog, Status, Status, Status, Status, Qt::Alignment = Qt::AlignmentFlag::AlignLeft, QWidget *parent = 0);
     virtual ~BaseDialog();
     void setAvFileFormatList(QList<AVFileFormat> avFileFormatList);
     void SetSelfTestResult(bool camera, bool laser, bool battery, bool storage);

@@ -4,12 +4,15 @@
 #include <QPainter>
 
 #include "StringLoader.h"
+#include "camera.h"
 
 EnforcementComponentWidget::EnforcementComponentWidget(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::EnforcementComponentWidget)
 {
     ui->setupUi(this);
+
+    SetCamera();
 
     ui->hidePushButton->setText(LoadString("IDS_HIDE"));
     ui->readyPushButton->setText(LoadString("IDS_READY"));
@@ -47,7 +50,6 @@ EnforcementComponentWidget::EnforcementComponentWidget(QWidget *parent) :
     ui->enforcementCountLabel->setSizePolicy(sp_retain);
     ui->enforcementDistanceSpeedLabel->setSizePolicy(sp_retain);
     ui->enforcementTimeLabel->setSizePolicy(sp_retain);
-
 }
 
 EnforcementComponentWidget::~EnforcementComponentWidget()
@@ -158,6 +160,15 @@ void EnforcementComponentWidget::show()
     ui->enforcementCountLabel->show();
     ui->enforcementDistanceSpeedLabel->show();
     ui->enforcementTimeLabel->show();
+}
+
+void EnforcementComponentWidget::SetCamera()
+{
+     m_pCamera = new Camera(this);
+     m_pCamera->setGeometry(this->geometry());
+     m_pCamera->lower();
+     m_pCamera->show();
+     m_pCamera->setmar
 }
 
 void EnforcementComponentWidget::paintEvent(QPaintEvent *event)

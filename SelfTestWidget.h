@@ -48,6 +48,8 @@ private:
     // QObject interface
 protected:
     void timerEvent(QTimerEvent *event);
+signals:
+    void selftest_finished();
 };
 
 #endif // SELFTESTWIDGET_H

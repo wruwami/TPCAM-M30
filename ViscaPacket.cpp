@@ -624,7 +624,8 @@ unsigned char	ViscaPacket::MsgDecoder()
         m_zoomPQRS = (g_ZoomPos.p << 12) | (g_ZoomPos.q <<8) | (g_ZoomPos.r << 4) | (g_ZoomPos.s <<0);
         info.sprintf("Zoom position(%X):%02X; %02X; %02X; %02X", m_zoomPQRS, g_ZoomPos.p, g_ZoomPos.q, g_ZoomPos.r, g_ZoomPos.s);
         qDebug() << info;
-
+        m_qstrZoom_pqrs = QString::number(m_zoomPQRS, 16);
+        emit sig_show_zoom();
         return 1;
     }
     else if(send_data == 0x06) //dzoom on / off
@@ -679,7 +680,8 @@ unsigned char	ViscaPacket::MsgDecoder()
         m_focusPQRS = (g_FocusPos.p << 12) | (g_FocusPos.q <<8) | (g_FocusPos.r << 4) | (g_FocusPos.s <<0);
         info.sprintf("Focus position(%X):%02X ;%02X; %02X; %02X", m_focusPQRS, g_FocusPos.p, g_FocusPos.q, g_FocusPos.r, g_FocusPos.s);
         qDebug() << info;
-
+        m_qstrFocus_pqrs = QString::number(m_focusPQRS, 16);
+        emit sig_show_focus();
         return 1;
     }
     else if(send_data == 0x35) //WB mode
@@ -714,7 +716,8 @@ unsigned char	ViscaPacket::MsgDecoder()
         m_iris = (g_IrisPos.p << 4) | (g_IrisPos.q <<0);
         info.sprintf("Iris Position(%02X)_ %02X; %02X",  m_iris, g_IrisPos.p, g_IrisPos.q);
         qDebug() << info;
-
+        m_qstrIris_pqrs = QString::number(m_iris, 16);
+        emit sig_show_iris();
         return 1;
     }
     else if(send_data == 0x4C) //Gain pos

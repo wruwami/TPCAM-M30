@@ -168,6 +168,7 @@ void EnforcementComponentWidget::SetCamera()
      m_pCamera->setGeometry(this->geometry());
      m_pCamera->lower();
      m_pCamera->show();
+     m_pCamera->setmar
 }
 
 void EnforcementComponentWidget::paintEvent(QPaintEvent *event)

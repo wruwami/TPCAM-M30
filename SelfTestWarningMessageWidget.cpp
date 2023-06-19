@@ -3,7 +3,7 @@
 
 #include "StringLoader.h"
 
-SelfTestWarningMessageWidget::SelfTestWarningMessageWidget(bool isCamera, bool isLaser, bool isBattery, bool isStorage, QDialog *parent) :
+SelfTestWarningMessageWidget::SelfTestWarningMessageWidget(Status isCamera, Status isLaser, Status isBattery, Status isStorage, QDialog *parent) :
     QWidget(parent),
     ui(new Ui::SelfTestWarningMessageWidget)
 {

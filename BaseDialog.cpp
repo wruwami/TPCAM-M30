@@ -195,7 +195,7 @@ BaseDialog::BaseDialog(Dialog dialog, Qt::Alignment align, QString msg, bool isC
     //    if (isClosebutton)
 }
 
-BaseDialog::BaseDialog(Dialog dialog, bool isCamera, bool isLaser, bool isBattery, bool isStorage, Qt::Alignment align, QWidget *parent) :
+BaseDialog::BaseDialog(Dialog dialog, Status isCamera, Status isLaser, Status isBattery, Status isStorage, Qt::Alignment align, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::BaseDialog)
 {

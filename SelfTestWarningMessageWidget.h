@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include <QDialog>
+#include "SelfTestWidget.h"
 
 namespace Ui {
 class SelfTestWarningMessageWidget;
@@ -13,7 +14,7 @@ class SelfTestWarningMessageWidget : public QWidget
     Q_OBJECT
 
 public:
-    explicit SelfTestWarningMessageWidget(bool, bool, bool, bool, QDialog *parent = 0);
+    explicit SelfTestWarningMessageWidget(Status, Status, Status, Status,QDialog *parent = 0);
     ~SelfTestWarningMessageWidget();
 
 private:

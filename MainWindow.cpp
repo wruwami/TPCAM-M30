@@ -190,7 +190,16 @@ void MainWindow::initializeLoginWidget()
     if (ui->verticalLayout->count() > 1)
     {
         QWidget* widget = ui->verticalLayout->itemAt(1)->widget();
-        removeseconditem(widget);
+        if (m_pDateTimeWidget == widget)
+        {
+            delete m_pDateTimeWidget;
+            m_pDateTimeWidget = nullptr;
+        }
+        else
+        {
+            removeseconditem(widget);
+        }
+
     }
     m_userName = "admin";
 
@@ -362,6 +371,8 @@ void MainWindow::on_dateTimeWidgetClicked()
 //    if (m_pDateTimeWidget == nullptr)
 
     m_pMainMenuWidget->setMainMenuTitle(LoadString("IDS_DATE_TIME"));
+    if (m_pDateTimeWidget == nullptr)
+        m_pDateTimeWidget = new DateTimeWidget;
     ui->verticalLayout->addWidget(m_pDateTimeWidget, 835);
     QObject::connect((QWidget*)m_pDateTimeWidget->m_pSavePushButton, SIGNAL(clicked()), this, SLOT(on_DateTimeSaveClicked()));
     QObject::connect((QWidget*)m_pDateTimeWidget->m_pCancelPushButton, SIGNAL(clicked()), this, SLOT(on_DateTimeCancelClicked()));

@@ -6,6 +6,7 @@
 
 #include "StringLoader.h"
 #include "BaseDialog.h"
+#include "KeyboardDialog.h"
 
 Setting1Widget::Setting1Widget(QWidget *parent) :
     QWidget(parent),
@@ -93,8 +94,11 @@ void Setting1Widget::SaveConfig()
 
 void Setting1Widget::on_locationPushButton_clicked()
 {
-    BaseDialog baseDialog(Setting1LocationWidgetType, Qt::AlignmentFlag::AlignCenter, "", true);
-    baseDialog.exec();
+//    BaseDialog baseDialog(Setting1LocationWidgetType, Qt::AlignmentFlag::AlignCenter, "", true);
+//    baseDialog.exec();
+    KeyboardDialog keyboardDialog(GetLanguage());
+    keyboardDialog.exec();
+
 }
 
 void Setting1Widget::on_speedLimit1LineEdit_textChanged(const QString &arg1)

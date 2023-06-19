@@ -170,7 +170,7 @@ BaseDialog::BaseDialog(Dialog dialog, Qt::Alignment align, QString msg, bool isC
     }
         break;
     case Dialog::SearchBoxType:
-        {
+    {
         ui->verticalLayout->addWidget(new SearchBoxWidget(this));
         ui->titleLabel->setText(title_text);
         ui->titleLabel->setAlignment(align);

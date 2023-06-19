@@ -162,12 +162,12 @@ void SelfTestDialog::StartSelfTest()
 
     }
 
-    BaseDialog baseDialog(SelfTestWarningMessageWidgetType, isCamera, isLaser, isBattery, isStorage, Qt::AlignmentFlag::AlignCenter);
-//    baseDialog.SetSelfTestResult();
-    if (baseDialog.exec() == QDialog::Accepted)
-        accept();
-    else
-        reject();
+//    BaseDialog baseDialog(SelfTestWarningMessageWidgetType, isCamera, isLaser, isBattery, isStorage, Qt::AlignmentFlag::AlignCenter);
+////    baseDialog.SetSelfTestResult();
+//    if (baseDialog.exec() == QDialog::Accepted)
+//        accept();
+//    else
+//        reject();
 
 }
 

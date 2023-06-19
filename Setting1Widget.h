@@ -4,7 +4,6 @@
 #include <QWidget>
 #include <QJsonObject>
 #include <QQueue>
-5
 #include "ConfigManager.h"
 
 namespace Ui {

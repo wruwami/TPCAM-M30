@@ -72,6 +72,7 @@ Setting1Widget::Setting1Widget(QWidget *parent) :
     foreach (QJsonValue json, m_jsonObject["location items"].toArray())
     {
         ui->locationComboBox->addItem(json.toString());
+        ItemPush(json.toString());
     }
 
     index = m_jsonObject["location selection"].toInt();
@@ -117,8 +118,8 @@ void Setting1Widget::on_locationPushButton_clicked()
     }
     ui->locationComboBox->clear();
     QJsonArray array = m_jsonObject["location items"].toArray();
-    for(int i=0; i<array.count(); i++) {
-        array.removeAt(0);
+    while(array.count()) {
+        array.pop_back();
     }
     foreach( auto item , m_queue)
     {
@@ -126,7 +127,7 @@ void Setting1Widget::on_locationPushButton_clicked()
         array.push_back(item);
     }
     m_jsonObject["location items"] = array;
-
+    m_newJsonObject["location items"] = m_jsonObject["location items"];
 }
 
 void Setting1Widget::on_speedLimit1LineEdit_textChanged(const QString &arg1)

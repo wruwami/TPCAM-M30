@@ -90,7 +90,8 @@ MainWindow::MainWindow(screensaver* screensaver, QWidget *parent) :
     QObject::connect((QWidget*)m_pLoginWidget->m_pUserNameComboBox, SIGNAL(currentIndexChanged(QString)), this, SLOT(on_userNameChanged(QString)));
     QObject::connect((QWidget*)m_pMainMenuWidget->m_pHomePushButton, SIGNAL(clicked()), this, SLOT(on_mainMenuHomeClicked()));
 
-    BatteryInit();
+//    BatteryInit();
+//    device use
 
     get(screensaver);
     CheckLoginExpired();
@@ -393,7 +394,7 @@ void MainWindow::OpenEnforcement()
     if (m_widgetType == Enforcement)
         return;
 
-    if ((m_widgetType != FileManager && m_widgetType != Setting))
+    if (m_widgetType != FileManager && m_widgetType != Setting && m_widgetType != MainMenu)
         return;
 
     m_widgetType = Enforcement;

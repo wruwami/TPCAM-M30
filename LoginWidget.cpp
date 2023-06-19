@@ -113,8 +113,9 @@ void LoginWidget::on_userNamePushButton_clicked()
     }
     ui->userNameComboBox->clear();
     QJsonArray array = m_jsonObject["User Name items"].toArray();
-    for(int i=0; i<array.count(); i++) {
-        array.removeAt(0);
+
+    while(array.count()) {
+        array.pop_back();
     }
     foreach( auto item , m_queue)
     {

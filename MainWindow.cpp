@@ -534,7 +534,7 @@ void MainWindow::SelfTestFail(bool show)
 {
     if (show)
     {
-        m_redAlertWidget = new QWidget;
+        m_redAlertWidget = new QWidget(this);
         m_redAlertWidget->setWindowFlags(Qt::FramelessWindowHint);
 //        widget->setWindowFlags(Qt::WA_TranslucentBackground);5
         m_redAlertWidget->setGeometry(this->geometry());

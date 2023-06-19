@@ -407,6 +407,11 @@ void MainWindow::OpenEnforcement()
             delete m_pEnforcementWidget;
             m_pEnforcementWidget = nullptr;
         }
+        else if (m_pMainMenuContentWidget == widget)
+        {
+            delete m_pMainMenuContentWidget;
+            m_pMainMenuContentWidget = nullptr;
+        }
         else
         {
             removeseconditem(widget);

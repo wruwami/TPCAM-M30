@@ -6,7 +6,7 @@
 
 SerialLaserManager::SerialLaserManager()
 {
-    m_pSerial = new QSerialPort(this);
+    m_pSerial = new QSerialPort;
     laser_packet = new SerialPacket;
 
     laser_con = 0;

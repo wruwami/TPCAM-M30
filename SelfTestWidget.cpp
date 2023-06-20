@@ -300,9 +300,7 @@ void SelfTestWidget::timerEvent(QTimerEvent *event)
     SerialPacket* serial_packet = m_serialLaserManager.getLaser_packet();//->g_ReceiveData.header;
     MsgFormat ReceiveData = serial_packet->g_ReceiveData;
 
-//        qDebug() << ReceiveData.Header;
-//        qDebug() << ReceiveData.Msg;
-    if (ReceiveData.Header == 0X05)
+    if (ReceiveData.Header == 0XE4)
         m_nLaser = Status::Pass;
     else if (ReceiveData.Header == 0X00)
         m_nLaser = Status::Check;
@@ -310,10 +308,7 @@ void SelfTestWidget::timerEvent(QTimerEvent *event)
         m_nLaser = Status::Fail;
 
     ViscaPacket* visca_packet = m_serialViscaManager.getVisca_packet();
-    unsigned char send_data = visca_packet->send_header_data[0];
-    //cnrk
-    visca_packet->send_header_data.remove(0, 1);
-
+    unsigned char send_data = visca_packet->send_data;
 
     if (send_data == 0X02)
         m_nCamera = Status::Pass;

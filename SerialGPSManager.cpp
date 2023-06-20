@@ -111,7 +111,7 @@ void SerialGPSManager::serial_received()
     }
     QStringList splitted = received.split(",");
     if (splitted.value(0) == "$GPRMC" || splitted.value(0) == "$GNRMC"){
-        qDebug() << received;
+//        qDebug() << received;
         // [Field 1] "hhmmss" - Time of fix UTC
         // [Field 2] Navigation receiver warning A = OK, V = warning
         // [Field 3] Latitude
@@ -155,7 +155,7 @@ void SerialGPSManager::serial_received()
         QString number;
         QString snr;
         int snr_ary[7];
-        qDebug() << received;
+//        qDebug() << received;
         if(splitted.value(3).contains("*", Qt::CaseInsensitive))
         {
             number ="";
@@ -178,13 +178,13 @@ void SerialGPSManager::serial_received()
         }
         m_nSatellitesInView = splitted.value(1).toUInt();
         m_sensitivity = splitted.value(7);
-        qDebug() << "Number of Message: "+splitted.value(1);
-        qDebug() << "Message Number: "+splitted.value(2);
-        qDebug() << "Satellites in View: "+splitted.value(3);
-        qDebug() << "1SNR(dBHz]: "+ splitted.value(7);
-        qDebug() << "2SNR(dBHz]: "+ splitted.value(7+4);
-        qDebug() << "3SNR(dBHz]: "+ splitted.value(7+4+4);
-        qDebug() << "4SNR(dBHz]: "+ splitted.value(7+4+4+4);
+//        qDebug() << "Number of Message: "+splitted.value(1);
+//        qDebug() << "Message Number: "+splitted.value(2);
+//        qDebug() << "Satellites in View: "+splitted.value(3);
+//        qDebug() << "1SNR(dBHz]: "+ splitted.value(7);
+//        qDebug() << "2SNR(dBHz]: "+ splitted.value(7+4);
+//        qDebug() << "3SNR(dBHz]: "+ splitted.value(7+4+4);
+//        qDebug() << "4SNR(dBHz]: "+ splitted.value(7+4+4+4);
         //(int)splitted[3].toInt();//Satellites Used(0~12)
     }
 

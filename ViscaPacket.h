@@ -65,7 +65,7 @@ public:
     unsigned short  g_RxLength;				//수신데이터 길이
 
     QByteArray send_header_data;
-
+    unsigned char send_data;
     int m_zoomPQRS;
     int m_focusPQRS;
     int m_gain;

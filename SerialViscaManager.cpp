@@ -7,7 +7,7 @@
 
 SerialViscaManager::SerialViscaManager()
 {
-    serial_visca = new QSerialPort(this);
+    serial_visca = new QSerialPort;
     visca_packet = new ViscaPacket;
 
     camera_con = 0;

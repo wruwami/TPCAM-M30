@@ -610,7 +610,7 @@ unsigned char	ViscaPacket::MsgDecoder()
     if(send_header_data.isEmpty())
         return 0;
 
-    unsigned char send_data = send_header_data[0];
+    send_data = send_header_data[0];
     //cnrk
     send_header_data.remove(0, 1);
     QString info;

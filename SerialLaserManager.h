@@ -40,7 +40,7 @@ private:
     QSerialPort* m_pSerial;
     SerialPacket *laser_packet;
     int laser_con;
-protected:
+protected slots:
     void serial_received();
 };
 

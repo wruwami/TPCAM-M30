@@ -2,6 +2,8 @@
 
 #include <QFile>
 #include <QTextStream>
+#include <QNetworkInterface>
+
 
 #include "ConfigManager.h"
 
@@ -87,7 +89,21 @@ void NetworkManager::SetWifiSSidnPW(QString ssid, QString pw)
           access-points: \n\
              \"%4\": \n\
              password: \"%5\" \n\
-").arg(gateway).arg(m_wifi_jsonObject["ip"].toString()).arg(GetSubNetMask(m_wifi_jsonObject["subnet mask"].toString())).arg(ssid).arg(pw));
+                        ").arg(gateway).arg(m_wifi_jsonObject["ip"].toString()).arg(GetSubNetMask(m_wifi_jsonObject["subnet mask"].toString())).arg(ssid).arg(pw));
+}
+
+QString NetworkManager::getMacAddress()
+{
+
+    foreach(QNetworkInterface netInterface, QNetworkInterface::allInterfaces())
+    {
+        // Return only the first non-loopback MAC Address
+        if (!(netInterface.flags() & QNetworkInterface::IsLoopBack))
+            return netInterface.hardwareAddress();
+    }
+    return QString();
+
+
 }
 
 void NetworkManager::SetWifiStaMode()

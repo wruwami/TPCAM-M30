@@ -22,7 +22,8 @@ public:
     explicit LoginWidget(QWidget *parent = 0);
     ~LoginWidget();
 private:
-    void ItemPush(QString);
+//    void ItemBackPush(QString);
+//    void ItemFrontPush(QString);
 //    QString m_userName;
 private slots:
     void on_loginPushButton_clicked();
@@ -34,6 +35,8 @@ private slots:
 
 //    void on_userNameComboBox_currentIndexChanged(const QString &arg);
 
+    void on_userNameComboBox_currentIndexChanged(int index);
+
 public:
     CustomPushButton* m_loginPushButton;
     CustomPushButton* m_dateTimePushButton;
@@ -42,7 +45,8 @@ private:
     QJsonObject m_jsonObject;
     ConfigManager m_config = ConfigManager("parameter_login.json");
     LightManager* m_pLightMager;
-    QQueue<QString> m_queue;
+//    QQueue<QString> m_queue;
+    bool m_bStart = true;
 private:
     Ui::LoginWidget *ui;
 

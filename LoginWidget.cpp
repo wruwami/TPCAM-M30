@@ -48,7 +48,7 @@ LoginWidget::LoginWidget(QWidget *parent) :
     foreach(QJsonValue json, m_jsonObject["User Name items"].toArray())
     {
         ui->userNameComboBox->addItem(json.toString());
-        ItemPush(json.toString());
+//        ItemBackPush(json.toString());
     }
     ui->userNameComboBox->setCurrentIndex(m_jsonObject["User Name Select"].toInt() - 1);
 
@@ -71,18 +71,31 @@ LoginWidget::~LoginWidget()
     delete ui;
 }
 
-void LoginWidget::ItemPush(QString item)
-{
-    if (m_queue.size() < 5 )
-    {
-        m_queue.push_back(item);
-    }
-    else
-    {
-        m_queue.dequeue();
-        m_queue.push_back(item);
-    }
-}
+//void LoginWidget::ItemBackPush(QString item)
+//{
+//    if (m_queue.size() < 5 )
+//    {
+//        m_queue.push_front(item);
+//    }
+//    else
+//    {
+//        m_queue.pop_back();
+//        m_queue.push_front(item);
+//    }
+//}
+
+//void LoginWidget::ItemFrontPush(QString item)
+//{
+//    if (m_queue.size() < 5 )
+//    {
+//        m_queue.push_front(item);
+//    }
+//    else
+//    {
+//        m_queue.pop_back();
+//        m_queue.push_front(item);
+//    }
+//}
 
 void LoginWidget::on_loginPushButton_clicked()
 {
@@ -106,26 +119,39 @@ void LoginWidget::on_lightPushButton_clicked()
 
 void LoginWidget::on_userNamePushButton_clicked()
 {
-    KeyboardDialog keyboardDialog(GetLanguage());
+    KeyboardDialog keyboardDialog(ui->userNameComboBox->currentText(), GetLanguage());
     if (keyboardDialog.exec() == QDialog::Accepted)
     {
-        ItemPush(keyboardDialog.str());
+        ui->userNameComboBox->removeItem(ui->userNameComboBox->currentIndex());
+        ui->userNameComboBox->insertItem(0, keyboardDialog.str());
+
+//        ItemBackPush(keyboardDialog.str());
+//        m_queue.removeAt(ui->userNameComboBox->currentIndex());
     }
-    ui->userNameComboBox->clear();
     QJsonArray array = m_jsonObject["User Name items"].toArray();
 
     while(array.count()) {
         array.pop_back();
     }
-    foreach( auto item , m_queue)
+    for (int i = 0 ; i < ui->userNameComboBox->count() ; i++)
     {
-        ui->userNameComboBox->addItem(item);
-        array.push_back(item);
+        array.push_back(ui->userNameComboBox->itemText(i));
     }
     m_jsonObject["User Name items"] = array;
+    m_jsonObject["User Name Select"] = ui->userNameComboBox->currentIndex() + 1;
+    ui->userNameComboBox->setCurrentIndex(0);
+
 } 
 
 //void LoginWidget::on_userNameComboBox_currentIndexChanged(const QString &arg)
 //{
 //    m_userName = arg;
 //}
+
+void LoginWidget::on_userNameComboBox_currentIndexChanged(int index)
+{
+    if (!m_bStart)
+        m_jsonObject["User Name Select"] = index + 1;
+    m_bStart = false;
+}
+

@@ -72,7 +72,6 @@ Setting1Widget::Setting1Widget(QWidget *parent) :
     foreach (QJsonValue json, m_jsonObject["location items"].toArray())
     {
         ui->locationComboBox->addItem(json.toString());
-        ItemPush(json.toString());
     }
 
     index = m_jsonObject["location selection"].toInt();
@@ -92,21 +91,6 @@ void Setting1Widget::SaveConfig()
 
 }
 
-void Setting1Widget::ItemPush(QString item)
-{
-    if (m_queue.size() < 5 )
-    {
-        m_queue.push_back(item);
-    }
-    else
-    {
-        m_queue.dequeue();
-        m_queue.push_back(item);
-    }
-
-}
-
-
 void Setting1Widget::on_locationPushButton_clicked()
 {
 //    BaseDialog baseDialog(Setting1LocationWidgetType, Qt::AlignmentFlag::AlignCenter, "", true);
@@ -114,20 +98,22 @@ void Setting1Widget::on_locationPushButton_clicked()
     KeyboardDialog keyboardDialog(GetLanguage());
     if (keyboardDialog.exec() == QDialog::Accepted)
     {
-        ItemPush(keyboardDialog.str());
+        ui->locationComboBox->removeItem(ui->locationComboBox->currentIndex());
+        ui->locationComboBox->insertItem(0, keyboardDialog.str());
     }
-    ui->locationComboBox->clear();
+
     QJsonArray array = m_jsonObject["location items"].toArray();
     while(array.count()) {
         array.pop_back();
     }
-    foreach( auto item , m_queue)
+    for (int i = 0 ; i < ui->locationComboBox->count() ; i++)
     {
-        ui->locationComboBox->addItem(item);
-        array.push_back(item);
+        array.push_back(ui->locationComboBox->itemText(i));
     }
     m_jsonObject["location items"] = array;
     m_newJsonObject["location items"] = m_jsonObject["location items"];
+
+    ui->locationComboBox->setCurrentIndex(0);
 }
 
 void Setting1Widget::on_speedLimit1LineEdit_textChanged(const QString &arg1)

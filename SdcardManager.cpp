@@ -36,22 +36,22 @@ SdcardManager::SdcardManager()
 //    qDebug() << "availableSize:" << m_storage.bytesAvailable()/1024/1024 << "MB";
 }
 
-int SdcardManager::GetSDAvailable()
+float SdcardManager::GetSDAvailable()
 {
     return m_sdStorage.bytesAvailable()/1024/1024;
 }
 
-int SdcardManager::GetSDTotal()
+float SdcardManager::GetSDTotal()
 {
     return m_sdStorage.bytesTotal()/1024/1024;
 }
 
-int SdcardManager::GeteMMCAvailable()
+float SdcardManager::GeteMMCAvailable()
 {
     return m_emmcStorage.bytesAvailable()/1024/1024;
 }
 
-int SdcardManager::GeteMMCTotal()
+float SdcardManager::GeteMMCTotal()
 {
     return m_emmcStorage.bytesTotal()/1024/1024;
 }

@@ -7,10 +7,10 @@ class SdcardManager
 {
 public:
     SdcardManager();
-    int GetSDAvailable();
-    int GetSDTotal();
-    int GeteMMCAvailable();
-    int GeteMMCTotal();
+    float GetSDAvailable();
+    float GetSDTotal();
+    float GeteMMCAvailable();
+    float GeteMMCTotal();
 
 private:
     QStorageInfo m_sdStorage;

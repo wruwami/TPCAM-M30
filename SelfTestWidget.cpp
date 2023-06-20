@@ -292,7 +292,7 @@ void SelfTestWidget::timerEvent(QTimerEvent *event)
         if (m_nLaser == Check)
             m_nLaser = Fail;
         emit selftest_finished();
-
+        close();
 //        close();
     }
 

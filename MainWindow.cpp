@@ -55,6 +55,11 @@ MainWindow::MainWindow(screensaver* screensaver, QWidget *parent) :
         connect(&selfTestWidget, SIGNAL(selftest_finished()), &loop, SLOT(quit()));
         loop.exec();
 
+        if (selfTestWidget.m_nCamera == Check)
+            selfTestWidget.m_nCamera = Fail;
+        if (selfTestWidget.m_nLaser == Check)
+            selfTestWidget.m_nLaser = Fail;
+
         BaseDialog baseDialog(SelfTestWarningMessageWidgetType, selfTestWidget.m_nCamera, selfTestWidget.m_nLaser, selfTestWidget.m_nBattery, selfTestWidget.m_nStorage, Qt::AlignmentFlag::AlignCenter);
         if (baseDialog.exec() == QDialog::Rejected)
             PowerOff();

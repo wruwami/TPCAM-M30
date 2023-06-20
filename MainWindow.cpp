@@ -56,7 +56,6 @@ MainWindow::MainWindow(screensaver* screensaver, QWidget *parent) :
         loop.exec();
 
         BaseDialog baseDialog(SelfTestWarningMessageWidgetType, selfTestWidget.m_nCamera, selfTestWidget.m_nLaser, selfTestWidget.m_nBattery, selfTestWidget.m_nStorage, Qt::AlignmentFlag::AlignCenter);
-    //    baseDialog.SetSelfTestResult();
         if (baseDialog.exec() == QDialog::Rejected)
             PowerOff();
 

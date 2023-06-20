@@ -188,6 +188,9 @@ void SelfTestWidget::StartSelfTest()
         m_nStorage = Fail;
     }
 
+//    m_Timer = new QTimer;
+//    m_Timer->start(5*1000);
+//    connect(m_Timer, SIGNAL())
 //    this->lower();
 
     if (SerialGPSManager::GetInstance()->GetSatellitesInView() != 0)
@@ -258,18 +261,39 @@ bool SelfTestWidget::StorageTest()
     return false;
 }
 
+Status SelfTestWidget::GetCamera()
+{
+    return m_nCamera;
+}
+
+Status SelfTestWidget::GetLaser()
+{
+    return m_nLaser;
+}
+
+Status SelfTestWidget::GetStorage()
+{
+    return m_nStorage;
+}
+
+Status SelfTestWidget::GetBattery()
+{
+    return m_nBattery;
+}
+
 void SelfTestWidget::timerEvent(QTimerEvent *event)
 {
     ui->dateTimeLabel->setText(GetDate(QDate::currentDate().toString("yyyyMMdd")) + " " + QTime::currentTime().toString("hh:mm:ss"));
     m_nSecond++;
     if (m_nSecond == 5)
     {
-        if (m_nCamera == Status::Check)
-            m_nCamera = Status::Fail;
-        if (m_nLaser == Status::Check)
-            m_nLaser = Status::Fail;
+        if (m_nCamera == Check)
+            m_nCamera = Fail;
+        if (m_nLaser == Check)
+            m_nLaser = Fail;
         emit selftest_finished();
-        close();
+
+//        close();
     }
 
     //qDebug() << /
@@ -301,7 +325,7 @@ void SelfTestWidget::timerEvent(QTimerEvent *event)
     if (m_nCamera != Status::Check && m_nLaser != Status::Check && m_nBattery != Status::Check && m_nStorage != Status::Check)
     {
         emit selftest_finished();
-        close();
+//        close();
 //    sleep(1);
     }
 }

@@ -2,6 +2,7 @@
 #include "ui_SelfTestWarningMessageWidget.h"
 
 #include "StringLoader.h"
+#include "SelfTestWidget.h"
 
 SelfTestWarningMessageWidget::SelfTestWarningMessageWidget(Status isCamera, Status isLaser, Status isBattery, Status isStorage, QDialog *parent) :
     QWidget(parent),
@@ -18,24 +19,24 @@ SelfTestWarningMessageWidget::SelfTestWarningMessageWidget(Status isCamera, Stat
     ui->laserLabel->setText(LoadString("IDS_LASER"));
     ui->batteryLabel->setText(LoadString("IDS_BATTERY"));
 
-    if (isCamera)
+    if (isCamera == Pass)
         ui->cameraValueLabel->setText(LoadString("IDS_PASS"));
-    else
+    else if (isCamera == Fail)
         ui->cameraValueLabel->setText(LoadString("IDS_FAIL"));
 
-    if (isLaser)
+    if (isLaser == Pass)
         ui->laserValueLabel->setText(LoadString("IDS_PASS"));
-    else
+    else if (isLaser == Fail)
         ui->laserValueLabel->setText(LoadString("IDS_FAIL"));
 
-    if (isBattery)
+    if (isBattery == Pass)
         ui->batteryValueLabel->setText(LoadString("IDS_PASS"));
-    else
+    else if (isBattery == Fail)
         ui->batteryValueLabel->setText(LoadString("IDS_FAIL"));
 
-    if (isStorage)
+    if (isStorage == Pass)
         ui->storageValueLabel->setText(LoadString("IDS_PASS"));
-    else
+    else if (isStorage == Fail)
         ui->storageValueLabel->setText(LoadString("IDS_FAIL"));
 
 

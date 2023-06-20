@@ -46,7 +46,6 @@ private:
     ConfigManager m_config = ConfigManager("parameter_login.json");
     LightManager* m_pLightMager;
 //    QQueue<QString> m_queue;
-    bool m_bStart = true;
 private:
     Ui::LoginWidget *ui;
 

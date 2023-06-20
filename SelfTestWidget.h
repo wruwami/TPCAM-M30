@@ -32,6 +32,10 @@ private:
     bool BatteryTest();
     bool StorageTest();
 public:
+    Status GetCamera();
+    Status GetLaser();
+    Status GetStorage();
+    Status GetBattery();
     Status m_nCamera = Check;
     Status m_nLaser = Check;
     Status m_nBattery = Check;

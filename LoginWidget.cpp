@@ -150,8 +150,6 @@ void LoginWidget::on_userNamePushButton_clicked()
 
 void LoginWidget::on_userNameComboBox_currentIndexChanged(int index)
 {
-    if (!m_bStart)
-        m_jsonObject["User Name Select"] = index + 1;
-    m_bStart = false;
+    m_jsonObject["User Name Select"] = index + 1;
 }
 

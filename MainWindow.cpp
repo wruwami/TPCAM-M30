@@ -60,10 +60,16 @@ MainWindow::MainWindow(screensaver* screensaver, QWidget *parent) :
         if (selfTestWidget.m_nLaser == Check)
             selfTestWidget.m_nLaser = Fail;
 
-        BaseDialog baseDialog(SelfTestWarningMessageWidgetType, selfTestWidget.m_nCamera, selfTestWidget.m_nLaser, selfTestWidget.m_nBattery, selfTestWidget.m_nStorage, Qt::AlignmentFlag::AlignCenter);
-        if (baseDialog.exec() == QDialog::Rejected)
-            PowerOff();
-
+        if (selfTestWidget.m_nCamera == Pass && selfTestWidget.m_nLaser == Pass && selfTestWidget.m_nStorage == Pass && selfTestWidget.m_nBattery == Pass)
+        {
+            BaseDialog baseDialog(SelfTestWarningMessageWidgetType, selfTestWidget.m_nCamera, selfTestWidget.m_nLaser, selfTestWidget.m_nBattery, selfTestWidget.m_nStorage, Qt::AlignmentFlag::AlignCenter);
+            if (baseDialog.exec() == QDialog::Rejected)
+                PowerOff();
+        }
+        else
+        {
+            m_bSelfTestFailed = true;
+        }
     }
 
     m_pMainMenuWidget = (MainMenuWidget*)ui->verticalLayout->itemAt(0)->widget();
@@ -1042,7 +1048,11 @@ void MainWindow::timerEvent(QTimerEvent *event)
 {
     SetWindowWarningMode();
 
-
+    if (m_bSelfTestFailed)
+    {
+//        SelfTestFail(m_bFlick);
+        m_bFlick = !m_bFlick;
+    }
 
 //    m_nSecond++;
 

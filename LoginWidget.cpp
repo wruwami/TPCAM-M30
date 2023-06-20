@@ -59,8 +59,7 @@ LoginWidget::LoginWidget(QWidget *parent) :
 
 LoginWidget::~LoginWidget()
 {
-    m_config.SetConfig(m_jsonObject);
-    m_config.SaveFile();
+
     if (m_pLightMager != nullptr)
     {
         delete m_pLightMager;
@@ -102,6 +101,8 @@ void LoginWidget::on_loginPushButton_clicked()
 //    m_parent->ui->verticalLayout_2->removeWidget(m_pLoginWidget);
 //    IndicatorWidget indicatorWidget;
 //    m_parent->ui->verticalLayout_2->addWidget(&indicatorWidget, 835);
+    m_config.SetConfig(m_jsonObject);
+    m_config.SaveFile();
     close();
 //    (MainWindow*)m_parent->
 //    ~LoginWidget();
@@ -122,7 +123,7 @@ void LoginWidget::on_userNamePushButton_clicked()
     KeyboardDialog keyboardDialog(ui->userNameComboBox->currentText(), GetLanguage());
     if (keyboardDialog.exec() == QDialog::Accepted)
     {
-        ui->userNameComboBox->removeItem(ui->userNameComboBox->currentIndex());
+        ui->userNameComboBox->removeItem(4);
         ui->userNameComboBox->insertItem(0, keyboardDialog.str());
 
 //        ItemBackPush(keyboardDialog.str());

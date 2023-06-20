@@ -121,6 +121,7 @@ private:
     int m_nPowerOffSecond = 0;
     int sec = 0;
     screensaver *m_screensaver;
+    bool m_bSelfTestFailed = false;
     //    Language m_mLanguage = Language::English;
 
     // QObject interface

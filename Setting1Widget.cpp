@@ -98,7 +98,7 @@ void Setting1Widget::on_locationPushButton_clicked()
     KeyboardDialog keyboardDialog(GetLanguage());
     if (keyboardDialog.exec() == QDialog::Accepted)
     {
-        ui->locationComboBox->removeItem(ui->locationComboBox->currentIndex());
+        ui->locationComboBox->removeItem(4);
         ui->locationComboBox->insertItem(0, keyboardDialog.str());
     }
 

@@ -158,9 +158,10 @@ void DateTimeWidget::on_savePushButton_clicked()
 
 #ifdef  Q_OS_LINUX
     QString string = m_dateTime.toString("yyyy-MM-dd hh:mm:ss");
-    QString dateTimeString ("date -s ");
-    string.remove(0, 1);
-    string.remove(string.size() - 1, 1);
+    QString dateTimeString ("date -s \"");
+
+//    string.remove(0, 1)\;
+//    string.remove(string.size() - 1, 1);
 //    dateTimeString.append("TZ : " + ui->timeZoneComboBox->currentText());
 
     if (isChecked)
@@ -171,7 +172,7 @@ void DateTimeWidget::on_savePushButton_clicked()
     {
         dateTimeString.append(string);
     }
-
+    dateTimeString.append("\"");
     int systemDateTimeStatus= system(dateTimeString.toStdString().c_str());
 
 
@@ -183,7 +184,7 @@ void DateTimeWidget::on_savePushButton_clicked()
     QString TimeZoneString ("timedatectl set-timezone ");
     TimeZoneString.append(ui->timeZoneComboBox->currentText());
 //    TimeZoneString.append("\"");
-    TimeZoneString.remove('\"');
+//    TimeZoneString.remove('\"');
     systemDateTimeStatus= system(TimeZoneString.toStdString().c_str());
     if (systemDateTimeStatus == -1)
     {

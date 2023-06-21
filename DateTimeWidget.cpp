@@ -183,17 +183,11 @@ void DateTimeWidget::on_savePushButton_clicked()
 
     QString TimeZoneString ("timedatectl set-timezone ");
     TimeZoneString.append(ui->timeZoneComboBox->currentText());
-//    TimeZoneString.append("\"");
-//    TimeZoneString.remove('\"');
     systemDateTimeStatus= system(TimeZoneString.toStdString().c_str());
     if (systemDateTimeStatus == -1)
     {
         qDebug() << "Failed to change time zone";
     }
-
-
-
-
 #endif
 }
 

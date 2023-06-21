@@ -163,6 +163,8 @@ void SettingWidget::on_savePushButton_clicked()
     networkManager.SetNetworkSetting();
 
     LcdBrightManager lcdBrightManager;
+
+
 }
 
 void SettingWidget::on_cancelPushButton_clicked()

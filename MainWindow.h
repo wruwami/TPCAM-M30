@@ -65,6 +65,7 @@ private:
     void CheckPowerSavingTime();
     void SetPowerSavingMode(bool);
     void BatteryInit();
+    void ChechMainMenuImage();
 private slots:
     void on_cameraPushButton_clicked();
     void on_daynNightPushButton_clicked();

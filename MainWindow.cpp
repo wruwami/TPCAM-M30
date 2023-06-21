@@ -743,6 +743,109 @@ void MainWindow::BatteryInit()
 
 }
 
+void MainWindow::ChechMainMenuImage()
+{
+    ConfigManager configManaer1 = ConfigManager("parameter_setting1.json");
+    ConfigManager configManaer2 = ConfigManager("parameter_setting2.json");
+
+    QJsonObject object1 = configManaer1.GetConfig();
+    QJsonObject object2 = configManaer2.GetConfig();
+
+    switch (object1["enforcement selection"].toInt())
+    {
+    case 1:
+    {
+        m_pMainMenuWidget->setIndicatorImage(m_pMainMenuWidget->m_pEnforcementPushbutton, "indicator", "indicator_mode_i.jpg");
+        m_pIndicatorWidget->setIndicatorImage(m_pIndicatorWidget->m_pEnforcementPushButton, "indicator", "indicator_mode_i.jpg");
+    }
+        break;
+    case 2:
+    {
+        m_pMainMenuWidget->setIndicatorImage(m_pMainMenuWidget->m_pEnforcementPushbutton, "indicator", "indicator_mode_a.jpg");
+        m_pIndicatorWidget->setIndicatorImage(m_pIndicatorWidget->m_pEnforcementPushButton, "indicator", "indicator_mode_a.jpg");
+    }
+        break;
+    case 3:
+    {
+        m_pMainMenuWidget->setIndicatorImage(m_pMainMenuWidget->m_pEnforcementPushbutton, "indicator", "indicator_mode_v.jpg");
+        m_pIndicatorWidget->setIndicatorImage(m_pIndicatorWidget->m_pEnforcementPushButton, "indicator", "indicator_mode_v.jpg");
+    }
+        break;
+    }
+
+    switch (object1["speed selection"].toInt())
+    {
+    case 1:
+    {
+        m_pMainMenuWidget->setIndicatorImage(m_pMainMenuWidget->m_pSpeedPushbutton, "indicator", "indicator_enable_user_mode_on.jpg");
+        m_pIndicatorWidget->setIndicatorImage(m_pIndicatorWidget->m_pSpeedModePushButton, "indicator", "indicator_enable_user_mode_on.jpg");
+    }
+
+        break;
+    case 2:
+    {
+        m_pMainMenuWidget->setIndicatorImage(m_pMainMenuWidget->m_pSpeedPushbutton, "indicator", "indicator_enable_user_mode_off.jpg");
+        m_pIndicatorWidget->setIndicatorImage(m_pIndicatorWidget->m_pSpeedModePushButton, "indicator", "indicator_enable_user_mode_off.jpg");
+    }
+        break;
+    }
+    switch (object2["day&night selection"].toInt())
+    {
+    case 1:
+    {
+        m_pMainMenuWidget->setIndicatorImage(m_pMainMenuWidget->m_pDaynNightPushbutton, "indicator", "day1.jpg");
+        m_pIndicatorWidget->setIndicatorImage(m_pIndicatorWidget->m_pDaynNightPushButton, "indicator", "day1.jpg");
+    }
+        break;
+    case 2:
+    {
+        m_pMainMenuWidget->setIndicatorImage(m_pMainMenuWidget->m_pDaynNightPushbutton, "indicator", "day2.jpg");
+        m_pIndicatorWidget->setIndicatorImage(m_pIndicatorWidget->m_pDaynNightPushButton, "indicator", "day2.jpg");
+    }
+        break;
+    case 3:
+    {
+        m_pMainMenuWidget->setIndicatorImage(m_pMainMenuWidget->m_pDaynNightPushbutton, "indicator", "day3.jpg");
+        m_pIndicatorWidget->setIndicatorImage(m_pIndicatorWidget->m_pDaynNightPushButton, "indicator", "day3.jpg");
+    }
+        break;
+    case 4:
+    {
+        m_pMainMenuWidget->setIndicatorImage(m_pMainMenuWidget->m_pDaynNightPushbutton, "indicator", "night1.jpg");
+        m_pIndicatorWidget->setIndicatorImage(m_pIndicatorWidget->m_pDaynNightPushButton, "indicator", "night1.jpg");
+    }
+        break;
+    case 5:
+    {
+        m_pMainMenuWidget->setIndicatorImage(m_pMainMenuWidget->m_pDaynNightPushbutton, "indicator", "night2.jpg");
+        m_pIndicatorWidget->setIndicatorImage(m_pIndicatorWidget->m_pDaynNightPushButton, "indicator", "night2.jpg");
+    }
+        break;
+    case 6:
+    {
+        m_pMainMenuWidget->setIndicatorImage(m_pMainMenuWidget->m_pDaynNightPushbutton, "indicator", "night3.jpg");
+        m_pIndicatorWidget->setIndicatorImage(m_pIndicatorWidget->m_pDaynNightPushButton, "indicator", "night3.jpg");
+    }
+        break;
+    }
+
+    switch (object2["weather selection"].toInt())
+    {
+    case 1:
+    {
+        m_pMainMenuWidget->setIndicatorImage(m_pMainMenuWidget->m_pWeatherPushbutton, "indicator", "indicator_enable_weather_mode_off.jpg");
+        m_pIndicatorWidget->setIndicatorImage(m_pIndicatorWidget->m_pWeatherPushButton, "indicator", "indicator_enable_weather_mode_off.jpg");
+    }
+        break;
+    case 2:
+    {
+        m_pMainMenuWidget->setIndicatorImage(m_pMainMenuWidget->m_pWeatherPushbutton, "indicator", "indicator_enable_weather_mode_on.jpg");
+        m_pIndicatorWidget->setIndicatorImage(m_pIndicatorWidget->m_pWeatherPushButton, "indicator", "indicator_enable_weather_mode_on.jpg");
+    }
+        break;
+    }
+}
+
 void MainWindow::doThirdAction()
 {
     this->OpenEnforcement();
@@ -953,7 +1056,11 @@ void MainWindow::on_SettingSaveClicked()
 {
     CheckPowerSavingTime();
 
+    ChechMainMenuImage();
+
     initializeMainMenuWidget();
+
+
 }
 
 void MainWindow::on_SettingCancelClicked()

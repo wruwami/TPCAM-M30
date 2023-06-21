@@ -26,9 +26,11 @@ public:
     bool GetGPSStatus();
     bool GetWifiStatus();
     void SetMainMenu(MainMenuWidget*);
+    void setIndicatorImage(CustomPushButton* pCustomButton, QString path_name, QString file_name);
 private:
     void clearSecondRow();
     void initlize();
+
 private slots:
     void on_cameraPushButton_clicked();
     void on_cameraExposeClicked();
@@ -67,6 +69,10 @@ private slots:
 public:
     CustomPushButton* m_pCameraFocusPushButton = nullptr;
     CustomPushButton* m_pCameraExposePushButton = nullptr;
+    CustomPushButton* m_pDaynNightPushButton = nullptr;
+    CustomPushButton* m_pEnforcementPushButton = nullptr;
+    CustomPushButton* m_pWeatherPushButton = nullptr;
+    CustomPushButton* m_pSpeedModePushButton = nullptr;
     bool m_bFocusExposeDisabled = true;
 private:
     Ui::IndicatorDialog *ui;

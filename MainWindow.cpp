@@ -60,14 +60,11 @@ MainWindow::MainWindow(screensaver* screensaver, QWidget *parent) :
         if (selfTestWidget.m_nLaser == Check)
             selfTestWidget.m_nLaser = Fail;
 
-        if (selfTestWidget.m_nCamera == Pass && selfTestWidget.m_nLaser == Pass && selfTestWidget.m_nStorage == Pass && selfTestWidget.m_nBattery == Pass)
+        if (!(selfTestWidget.m_nCamera == Pass && selfTestWidget.m_nLaser == Pass && selfTestWidget.m_nStorage == Pass && selfTestWidget.m_nBattery == Pass))
         {
-            BaseDialog baseDialog(SelfTestWarningMessageWidgetType, selfTestWidget.m_nCamera, selfTestWidget.m_nLaser, selfTestWidget.m_nBattery, selfTestWidget.m_nStorage, Qt::AlignmentFlag::AlignCenter);
+            BaseDialog baseDialog(SelfTestWarningMessageWidgetType, selfTestWidget.m_nCamera, selfTestWidget.m_nLaser, selfTestWidget.m_nBattery, selfTestWidget.m_nStorage, Qt::AlignmentFlag::AlignCenter, this);
             if (baseDialog.exec() == QDialog::Rejected)
                 PowerOff();
-        }
-        else
-        {
             m_bSelfTestFailed = true;
         }
     }
@@ -104,7 +101,7 @@ MainWindow::MainWindow(screensaver* screensaver, QWidget *parent) :
 //    device use
 
     get(screensaver);
-    CheckLoginExpired();
+
 
 //    SetWarningMode();
     startTimer(1000);
@@ -625,7 +622,8 @@ void MainWindow::CheckLoginExpired()
 
     if (current_datetime.currentDateTime() > datetime.fromString(str, "yyyyMMdd"))
     {
-        BaseDialog baseDialog(Dialog::LoginExpiredDateWidgetType, Qt::AlignmentFlag::AlignLeft, "", false, LoadString("IDS_EXPIRED_DATE"));
+        BaseDialog baseDialog(Dialog::LoginExpiredDateWidgetType, Qt::AlignmentFlag::AlignLeft, "", false, LoadString("IDS_EXPIRED_DATE"),this);
+        baseDialog.setModal(true);
         baseDialog.exec();
     }
 
@@ -935,6 +933,11 @@ void MainWindow::OnTimer500msFunc()
     CheckBatteryPercent();
 }
 
+void MainWindow::afterWindowShown()
+{
+    CheckLoginExpired();
+}
+
 void MainWindow::on_filemanagementClicked()
 {
 //    m_pIndicatorWidget->setFocusExposeDisabled(t);
@@ -1210,7 +1213,13 @@ void MainWindow::mousePressEvent(QMouseEvent *event)
 //    {
 //        SetPowerSavingMode(false);
 //        m_bPowerSavingMode = false;
-//    }
+    //    }
+}
+
+void MainWindow::showEvent(QShowEvent *event)
+{
+    QMainWindow::showEvent(event);
+    QMetaObject::invokeMethod(this, "afterWindowShown", Qt::ConnectionType::QueuedConnection);
 }
 
 void MainWindow::get(screensaver *f)

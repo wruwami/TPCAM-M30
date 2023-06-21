@@ -118,6 +118,50 @@ void LoginWidget::on_lightPushButton_clicked()
     m_pLightMager->SwapLight();
 }
 
+//void LoginWidget::CheckLoginExpired()
+//{
+//    ConfigManager configManager = ConfigManager("expired_date.txt");
+//    QString str = configManager.GetText();
+//    if (str.isEmpty())
+//        return;
+
+//    if (str.at(str.size() - 1) == '\n')
+//    {
+//        str.remove(str.size() - 1, 1);
+//    }
+////    QFile expired_file(GetPath("", SD) + "/" + ("expired_date.txt"));
+////    expired_file.open(QFile::ReadOnly);
+
+////    if (expired_file.isOpen())
+////    {
+////        expired_file.copy(GetPath("", eMMC) + "/" + expired_file.Text);
+////        expired_file.remove();
+//////        ui->expiredDateLabel->setText(LoadString("IDS_EXPIRED_DATE"));
+////    }
+////    else
+////    {
+
+////    }
+//////    expired_file.close();
+
+////    QByteArray ba = expired_file.readAll();
+////    QString str = QString(ba);
+//    QDateTime datetime;
+//    ;
+//    QDateTime current_datetime;
+
+//    qDebug() << current_datetime.currentDateTime();
+//    qDebug() << datetime.fromString(str, "yyyyMMdd");
+
+//    if (current_datetime.currentDateTime() > datetime.fromString(str, "yyyyMMdd"))
+//    {
+//        BaseDialog baseDialog(Dialog::LoginExpiredDateWidgetType, Qt::AlignmentFlag::AlignLeft, "", false, LoadString("IDS_EXPIRED_DATE"));
+//        baseDialog.exec();
+//    }
+
+//}
+
+
 void LoginWidget::on_userNamePushButton_clicked()
 {
     KeyboardDialog keyboardDialog(ui->userNameComboBox->currentText(), GetLanguage());

@@ -48,7 +48,7 @@ private:
     SerialViscaManager m_serialViscaManager;
     SerialLaserManager m_serialLaserManager;
     QTimer* m_Timer;
-
+    int m_id = 0;
     // QObject interface
 protected:
     void timerEvent(QTimerEvent *event);

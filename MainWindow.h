@@ -130,6 +130,7 @@ protected:
     void timerEvent(QTimerEvent *event);
     void paintEvent(QPaintEvent *event);
     void mousePressEvent(QMouseEvent *event);
+    void showEvent(QShowEvent* event);
 protected slots:
     void doFirstAction();
     void doSecondAction();
@@ -142,6 +143,8 @@ protected slots:
     void do9thAction();
     void OnTimer100msFunc();
     void OnTimer500msFunc();
+    void afterWindowShown();
+
 };
 
 #endif // MAINWINDOW_H

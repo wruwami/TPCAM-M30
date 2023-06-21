@@ -292,7 +292,7 @@ void SelfTestWidget::timerEvent(QTimerEvent *event)
         if (m_nLaser == Check)
             m_nLaser = Fail;
         emit selftest_finished();
-        close();
+        killTimer(m_id);
 //        close();
     }
 
@@ -320,7 +320,6 @@ void SelfTestWidget::timerEvent(QTimerEvent *event)
     if (m_nCamera != Status::Check && m_nLaser != Status::Check && m_nBattery != Status::Check && m_nStorage != Status::Check)
     {
         emit selftest_finished();
-        close();
-//    sleep(1);
+        killTimer(m_id);
     }
 }

@@ -34,8 +34,8 @@ BaseDialog::BaseDialog(Dialog dialog, Qt::Alignment align, QString msg, bool isC
     ui->setupUi(this);
     m_bIsCloseButton = isCloseButton;
 
-    this->setWindowFlags(Qt::FramelessWindowHint);
-//    this->setWindowFlags(Qt::CustomizeWindowHint);
+    this->setWindowFlags( Qt::Dialog | Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint);
+    this->setWindowModality(Qt::ApplicationModal);
 //    this->setStyleSheet("{border-width: 5px; border-style: solid; border-color: black; background-color : #d9d9d9;}");
 //    this->setAttribute(Qt::WA_StyledBackground);
 
@@ -193,7 +193,8 @@ BaseDialog::BaseDialog(Dialog dialog, Status isCamera, Status isLaser, Status is
 {
     ui->setupUi(this);
 
-    this->setWindowFlags(Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint);
+    this->setWindowFlags( Qt::Dialog | Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint);
+    this->setWindowModality(Qt::ApplicationModal);
 //    this->setWindowFlags(Qt::CustomizeWindowHint);
 //    this->setStyleSheet("{border-width: 5px; border-style: solid; border-color: black; background-color : #d9d9d9;}");
 //    this->setAttribute(Qt::WA_StyledBackground);
@@ -211,6 +212,7 @@ BaseDialog::BaseDialog(Dialog dialog, Status isCamera, Status isLaser, Status is
         ui->titleLabel->setText(LoadString("IDS_WARNING_MESSAGE"));
         ui->titleLabel->setAlignment(align);
         setSize(1216, 694);
+        this->setModal(true);
     }
         break;
 

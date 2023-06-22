@@ -1,9 +1,10 @@
 #include "AdminPWWidget.h"
 #include "ui_AdminPWWidget.h"
 
-#include "StringLoader.h"
-
 #include <QDialog>
+
+#include "StringLoader.h"
+#include "ConfigManager.h"
 
 AdminPWWidget::AdminPWWidget(QString msg, QWidget *parent) :
     QWidget(parent),
@@ -30,7 +31,11 @@ AdminPWWidget::~AdminPWWidget()
 
 void AdminPWWidget::on_okPushButton_clicked()
 {
-    m_pParent->accept();
+    ConfigManager config = ConfigManager("setting_password.json");
+    QJsonObject object = config.GetConfig();
+    if (object["password"].toString() == ui->lineEdit->GetString())
+        m_pParent->accept();
+
 }
 
 void AdminPWWidget::on_cancelPushButton_clicked()

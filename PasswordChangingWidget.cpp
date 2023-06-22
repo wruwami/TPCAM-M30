@@ -1,9 +1,10 @@
 #include "PasswordChangingWidget.h"
 #include "ui_PasswordChangingWidget.h"
 
-#include <QDialog>
-
 #include "StringLoader.h"
+#include "ConfigManager.h"
+
+#include <QDialog>
 
 PasswordChangingWidget::PasswordChangingWidget(QWidget *parent) :
     QWidget(parent),
@@ -28,6 +29,19 @@ PasswordChangingWidget::~PasswordChangingWidget()
 
 void PasswordChangingWidget::on_okPushButton_clicked()
 {
+    ConfigManager config = ConfigManager("setting_password.json");
+    QJsonObject object = config.GetConfig();
+    if (object["password"].toString() != ui->currentLineEdit->GetString())
+        return;
+
+    if (ui->newLineEdit->GetString().isEmpty() && (ui->currentLineEdit->GetString().isEmpty()))
+        return;
+
+    if (ui->newLineEdit->GetString() != ui->currentLineEdit->GetString())
+        return;
+
+    object["password"] = ui->newLineEdit->GetString();
+    config.SaveFile();
     m_pParent->accept();
 }
 

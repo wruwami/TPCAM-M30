@@ -146,8 +146,6 @@ MainWindow::~MainWindow()
 
 void MainWindow::initializeMainMenuWidget()
 {
-    m_pIndicatorWidget->m_bFocusExposeDisabled = true;
-
     m_pMainMenuWidget->show();
     if (m_userName == "admin-align")
     {
@@ -323,6 +321,7 @@ void MainWindow::on_gpsPushButton_clicked()
 
 void MainWindow::on_loginWidgetClicked()
 {
+    m_pIndicatorWidget->m_bFocusExposeDisabled = true;
     if (m_userName == "admin-align")
     {
         m_widgetType = Other;

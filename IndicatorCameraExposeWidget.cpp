@@ -15,6 +15,7 @@ IndicatorCameraExposeWidget::IndicatorCameraExposeWidget(QWidget *parent) :
 
 //    setGeometry(GetWidgetSizePos(QRect(0, 125, 1600, 960)));
     setGeometry(GetWidgetSizePos(QRect(0, 125, 1600, 835)));
+    setWindowOpacity(1);
 
     ui->showHidePushButton->setText(LoadString("IDS_HIDE"));
     ui->speedPushButton->setText(LoadString("IDS_SPEED"));

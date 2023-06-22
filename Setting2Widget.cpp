@@ -4,6 +4,8 @@
 #include <QJsonArray>
 
 #include "StringLoader.h"
+#include "LaserManager.h"
+#include "ViscaManager.h"
 
 Setting2Widget::Setting2Widget(QWidget *parent) :
     QWidget(parent),
@@ -83,6 +85,12 @@ void Setting2Widget::SaveConfig()
 {
     m_config.SetConfig(m_newJsonObject);
     m_config.SaveFile();
+
+    LaserManager laserManager;
+    laserManager.SetWeatherMode(m_newJsonObject["weather selection"].toInt());
+
+    ViscaManager viscaManager;
+    viscaManager.SetDayMode(m_newJsonObject["day&night selection"].toInt());
 }
 
 void Setting2Widget::on_antiJammingModeComboBox_currentIndexChanged(int index)

@@ -21,6 +21,7 @@ SOURCES += main.cpp\
     ImageConverter.cpp \
     IndicatorCameraFocusWidget.cpp \
     IndicatorDialog.cpp \
+    LaserManager.cpp \
     LcdBrightManager.cpp \
     LightManager.cpp \
     MainWindow.cpp \
@@ -66,6 +67,7 @@ SOURCES += main.cpp\
     CameraZoomFocusWidget.cpp \
     CustomImageWidget.cpp \
     FileManagerSnapShotDialog.cpp \
+    ViscaManager.cpp \
     ViscaPacket.cpp \
     camera.cpp \
     capture_thread.cpp \
@@ -117,6 +119,7 @@ HEADERS  += MainWindow.h \
     ImageConverter.h \
     IndicatorCameraFocusWidget.h \
     IndicatorDialog.h \
+    LaserManager.h \
     LcdBrightManager.h \
     LightManager.h \
     LoginWidget.h \
@@ -163,6 +166,7 @@ HEADERS  += MainWindow.h \
     CustomImageWidget.h \
     ImageSize.h \
     FileManagerSnapShotDialog.h \
+    ViscaManager.h \
     ViscaPacket.h \
     camera.h \
     capture_thread.h \

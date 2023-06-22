@@ -3,9 +3,7 @@
 
 #include <QDialog>
 
-#include "SerialViscaManager.h"
 #include "ConfigManager.h"
-#include "SerialLaserManager.h"
 
 class CustomPushButton;
 class IndicatorCameraExposeWidget;
@@ -93,8 +91,6 @@ private:
     CustomPushButton* m_pWifiPushButton;
     CustomPushButton* m_pBTPushButton;
     CustomPushButton* m_pEthernetPushButton;
-    SerialViscaManager m_serialViscaManager;
-    SerialLaserManager m_serialLaserManager;
     ConfigManager m_configManager1 = ConfigManager("parameter_setting1.json");
     ConfigManager m_configManager2 = ConfigManager("parameter_setting2.json");
     ConfigManager m_configManager3 = ConfigManager("exposure.json");

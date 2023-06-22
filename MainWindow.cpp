@@ -503,7 +503,6 @@ void MainWindow::OpenMainMenu()
 
 void MainWindow::CheckBatteryPercent()
 {
-
     //get raw values
     ltc.getValues();
 
@@ -519,10 +518,10 @@ void MainWindow::CheckBatteryPercent()
     }
     else if((ltc.m_filteredVolt <= 9.5) && (ltc.m_filteredCurrent <= -0.1) && (ltc.m_bACChangeFlag == false))
     {
-        int ACDiff = ltc.m_filteredAC-5000;
+        int ACDiff = ltc.m_filteredAC-15000;
         ltc.setChargeThresholdH(ltc.getACThresholdH()-(ACDiff*0.2));
         ltc.m_bACChangeFlag = true;
-        ltc.setRawAccumulatedCharge(5000);
+        ltc.setRawAccumulatedCharge(15000);
     }
 
     if(ltc.m_filteredVolt <=9.4)
@@ -544,6 +543,21 @@ void MainWindow::CheckBatteryCharge()
 
     //moving average filter
     ltc.filterValues();
+
+    //
+
+    if((ltc.m_filteredVolt >= 12.5) && (ltc.m_filteredCurrent >= 0.1) && (ltc.m_bACChangeFlag == true))
+    {
+        ltc.setChargeThresholdH(ltc.m_filteredAC*(0.2) + ltc.getACThresholdH()*(0.8) );
+        ltc.m_bACChangeFlag = false;
+    }
+    else if((ltc.m_filteredVolt <= 9.5) && (ltc.m_filteredCurrent <= -0.1) && (ltc.m_bACChangeFlag == false))
+    {
+        int ACDiff = ltc.m_filteredAC-15000;
+        ltc.setChargeThresholdH(ltc.getACThresholdH()-(ACDiff*0.2));
+        ltc.m_bACChangeFlag = true;
+        ltc.setRawAccumulatedCharge(15000);
+    }
 
     int current = ltc.m_filteredCurrent;
     if (current > 0)
@@ -709,7 +723,17 @@ void MainWindow::SetPowerSavingMode(bool bSet)
 
 void MainWindow::BatteryInit()
 {
+    //컨트롤 레지스터의 값을 읽어와서 정상값(236)과 비교한다
     if(ltc.readByteFromRegister(REG_B_CONTROL)!=236)//0x3C)
+    {
+        //컨트롤 레지스터에 값을 넣어준다
+        ltc.setADCMode(ADC_MODE_AUTO);
+        ltc.startMeasurement();
+        ltc.configureALCC(ALCC_MODE_ALERT);
+        ltc.setPrescalerM(1024);
+    }
+
+    if(ltc.readWordFromRegisters(REG_G_CHG_THR_L_MSB) != 15000)
     {
         //AC최대값 레지스터, AC 최소값 레지스터에 값을 넣는다.
         ltc.setChargeThresholds(35718, 15000);
@@ -738,7 +762,6 @@ void MainWindow::BatteryInit()
 
         ltc.presetAC(ltc.m_filteredVolt*1000, ltc.getVoltageThresholdHigh()*1000, ltc.getVoltageThresholdLow()*1000);
     }
-
 }
 
 void MainWindow::ChechMainMenuImage()

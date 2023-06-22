@@ -62,7 +62,7 @@ MainWindow::MainWindow(screensaver* screensaver, QWidget *parent) :
 
         if (!(selfTestWidget.m_nCamera == Pass && selfTestWidget.m_nLaser == Pass && selfTestWidget.m_nStorage == Pass && selfTestWidget.m_nBattery == Pass))
         {
-            BaseDialog baseDialog(SelfTestWarningMessageWidgetType, selfTestWidget.m_nCamera, selfTestWidget.m_nLaser, selfTestWidget.m_nBattery, selfTestWidget.m_nStorage, Qt::AlignmentFlag::AlignCenter, this);
+            BaseDialog baseDialog(SelfTestWarningMessageWidgetType, selfTestWidget.m_nCamera, selfTestWidget.m_nLaser, selfTestWidget.m_nBattery, selfTestWidget.m_nStorage, Qt::AlignmentFlag::AlignCenter);
             if (baseDialog.exec() == QDialog::Rejected)
                 PowerOff();
             m_bSelfTestFailed = true;
@@ -405,6 +405,7 @@ void MainWindow::on_enforcementClicked()
     ui->verticalLayout->addWidget(m_pEnforcementWidget, 835);
 
     m_pMainMenuWidget->setMainMenuImage("Main_menu", "home_big_n.bmp");
+    m_pMainMenuWidget->setTransparentBackGround();
 }
 
 void MainWindow::OpenEnforcement()
@@ -636,7 +637,7 @@ void MainWindow::CheckLoginExpired()
 
     if (current_datetime.currentDateTime() > datetime.fromString(str, "yyyyMMdd"))
     {
-        BaseDialog baseDialog(Dialog::LoginExpiredDateWidgetType, Qt::AlignmentFlag::AlignLeft, "", false, LoadString("IDS_EXPIRED_DATE"),this);
+        BaseDialog baseDialog(Dialog::LoginExpiredDateWidgetType, Qt::AlignmentFlag::AlignLeft, "", false, LoadString("IDS_EXPIRED_DATE"));
         baseDialog.setModal(true);
         baseDialog.exec();
     }
@@ -973,7 +974,7 @@ void MainWindow::on_filemanagementClicked()
     }
     ui->verticalLayout->removeItem(ui->verticalLayout->itemAt(1));
     FileManagerWidget* pFileManagerWidget = new FileManagerWidget;
-    ui->verticalLayout->addWidget(new FileManagerWidget, 835);
+    ui->verticalLayout->addWidget(pFileManagerWidget, 835);
 
     QObject::connect((QWidget*)pFileManagerWidget->m_pHomePushButton, SIGNAL(clicked()), this, SLOT(on_mainMenuHomeClicked()));
     m_pMainMenuWidget->setMainMenuImage("Main_menu", "home_big_n.bmp");

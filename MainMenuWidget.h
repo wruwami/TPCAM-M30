@@ -27,6 +27,7 @@ public:
     void setBatteryPercentValue(int);
     void setBatteryCharge(bool);
     void setIndicatorImage(CustomPushButton*, QString, QString);
+    void setTransparentBackGround();
 private:
     void initImage();
 public:

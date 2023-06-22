@@ -178,6 +178,11 @@ void MainMenuWidget::setIndicatorImage(CustomPushButton* pCustomButton, QString 
     pCustomButton->setImage(path_name, file_name);
 }
 
+void MainMenuWidget::setTransparentBackGround()
+{
+    this->setStyleSheet("background-color: rgba(255,255,255,0;}");
+}
+
 void MainMenuWidget::initImage()
 {
     ConfigManager config1 = ConfigManager("parameter_setting1.json");
@@ -332,40 +337,4 @@ void MainMenuWidget::timerEvent(QTimerEvent *event)
         ui->gpsPushButton->setImage("indicator", "indicator_gps_off.jpg");
 }
 
-
-//void MainMenuWidget::on_cameraPushButton_clicked()
-//{
-
-//}
-
-//void MainMenuWidget::on_daynNightPushButton_clicked()
-//{
-
-//}
-
-//void MainMenuWidget::on_weatherPushButton_clicked()
-//{
-
-//}
-
-//void MainMenuWidget::on_enforcementPushButton_clicked()
-//{
-
-//}
-
-//void MainMenuWidget::on_speedPushButton_clicked()
-//{
-
-//}
-
-//void MainMenuWidget::on_wifiPushButton_clicked()
-//{
-
-//}
-
-//void MainMenuWidget::on_gpsPushButton_clicked()
-//{
-
-//}
-
-
+//void MainMenuWidget::

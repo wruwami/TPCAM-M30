@@ -14,12 +14,15 @@ class CustomLineEdit : public QLineEdit
 public:
     explicit CustomLineEdit(QWidget *parent = 0);
     void SetMode(Mode nMode);
+    QString GetString();
+    QString GetNumber();
 signals:
 
 public slots:
 private:
     Mode m_nMode = KeyboardType;
-
+    QString m_strText;
+    QString m_strNum;
     // QWidget interface
 protected:
     void resizeEvent(QResizeEvent *event);

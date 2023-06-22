@@ -20,6 +20,16 @@ void CustomLineEdit::SetMode(Mode nMode)
     m_nMode = nMode;
 }
 
+QString CustomLineEdit::GetString()
+{
+    return m_strText;
+}
+
+QString CustomLineEdit::GetNumber()
+{
+    return m_strNum;
+}
+
 void CustomLineEdit::resizeEvent(QResizeEvent *event)
 {
     QFont font;
@@ -39,6 +49,7 @@ void CustomLineEdit::mousePressEvent(QMouseEvent *event)
         if (keyboardDialog.exec() == QDialog::Accepted)
         {
             this->setText(keyboardDialog.str());
+            m_strText = keyboardDialog.str();
         }
     }
         break;
@@ -48,6 +59,7 @@ void CustomLineEdit::mousePressEvent(QMouseEvent *event)
         if (keypadDialog.exec() == QDialog::Accepted)
         {
             this->setText(keypadDialog.str());
+            m_strNum = keypadDialog.str();
         }
 
     }

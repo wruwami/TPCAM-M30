@@ -2,8 +2,10 @@
 #include "ui_FactoryDefaultWidget.h"
 
 #include <QDialog>
+#include <QJsonObject>
 
 #include "StringLoader.h"
+#include "ConfigManager.h"
 
 FactoryDefaultWidget::FactoryDefaultWidget(QWidget *parent) :
     QWidget(parent),
@@ -26,7 +28,10 @@ FactoryDefaultWidget::~FactoryDefaultWidget()
 
 void FactoryDefaultWidget::on_okPushButton_clicked()
 {
-    m_pParent->accept();
+    ConfigManager config = ConfigManager("setting_password.json");
+    QJsonObject object = config.GetConfig();
+    if (object["password"].toString() == ui->lineEdit->GetString())
+        m_pParent->accept();
 }
 
 void FactoryDefaultWidget::on_cancelPushButton_clicked()

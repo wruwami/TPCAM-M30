@@ -575,3 +575,5 @@ void FileManagerWidget::on_nextPushButton_clicked()
         m_AVFileFormatIndex = m_avFileFormatList.size() - 5;
     setTableContent();
 }
+
+

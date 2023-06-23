@@ -503,6 +503,16 @@ void MainWindow::OpenMainMenu()
 
 void MainWindow::CheckBatteryPercent()
 {
+    // load setting_battery.json
+    ConfigManager config = ConfigManager("setting_battery.json");
+    QJsonObject object = config.GetConfig();
+
+    static double dPowerOffVoltage = object["PowerOffVoltage"].toDouble();
+    static double dVoltageThreasholdMax = object["VoltageThreasholdMax"].toDouble();
+    static double dVoltageThreasholdMin = object["VoltageThreasholdMin"].toDouble();
+    static int nChargeThreasholdMin = object["ChargeThreasholdMin"].toInt();
+    static double dIsChargingAmpere = object["IsChargingAmpere"].toDouble();
+
     //get raw values
     ltc.getValues();
 
@@ -511,20 +521,20 @@ void MainWindow::CheckBatteryPercent()
 
     //
 
-    if((ltc.m_filteredVolt >= 12.5) && (ltc.m_filteredCurrent >= 0.1) && (ltc.m_bACChangeFlag == true))
+    if((ltc.m_filteredVolt >= dVoltageThreasholdMax) && (ltc.m_filteredCurrent >= 0.1) && (ltc.m_bACChangeFlag == true))
     {
         ltc.setChargeThresholdH(ltc.m_filteredAC*(0.2) + ltc.getACThresholdH()*(0.8) );
         ltc.m_bACChangeFlag = false;
     }
-    else if((ltc.m_filteredVolt <= 9.5) && (ltc.m_filteredCurrent <= -0.1) && (ltc.m_bACChangeFlag == false))
+    else if((ltc.m_filteredVolt <= dVoltageThreasholdMin) && (ltc.m_filteredCurrent <= -0.1) && (ltc.m_bACChangeFlag == false))
     {
-        int ACDiff = ltc.m_filteredAC-15000;
+        int ACDiff = ltc.m_filteredAC-nChargeThreasholdMin;
         ltc.setChargeThresholdH(ltc.getACThresholdH()-(ACDiff*0.2));
         ltc.m_bACChangeFlag = true;
-        ltc.setRawAccumulatedCharge(15000);
+        ltc.setRawAccumulatedCharge(nChargeThreasholdMin);
     }
 
-    if(ltc.m_filteredVolt <=9.4)
+    if(ltc.m_filteredVolt <dPowerOffVoltage)
     {
 //        OS 자동 종료
         QProcess::startDetached("shutdown -h now");
@@ -538,6 +548,15 @@ void MainWindow::CheckBatteryPercent()
 
 void MainWindow::CheckBatteryCharge()
 {
+    // load setting_battery.json
+    ConfigManager config = ConfigManager("setting_battery.json");
+    QJsonObject object = config.GetConfig();
+
+    static double dPowerOffVoltage = object["PowerOffVoltage"].toDouble();
+    static double dVoltageThreasholdMax = object["VoltageThreasholdMax"].toDouble();
+    static double dVoltageThreasholdMin = object["VoltageThreasholdMin"].toDouble();
+    static int nChargeThreasholdMin = object["ChargeThreasholdMin"].toInt();
+    static double dIsChargingAmpere = object["IsChargingAmpere"].toDouble();
     //get raw values
     ltc.getValues();
 
@@ -546,21 +565,21 @@ void MainWindow::CheckBatteryCharge()
 
     //
 
-    if((ltc.m_filteredVolt >= 12.5) && (ltc.m_filteredCurrent >= 0.1) && (ltc.m_bACChangeFlag == true))
+    if((ltc.m_filteredVolt >= dVoltageThreasholdMax) && (ltc.m_filteredCurrent >= 0.1) && (ltc.m_bACChangeFlag == true))
     {
         ltc.setChargeThresholdH(ltc.m_filteredAC*(0.2) + ltc.getACThresholdH()*(0.8) );
         ltc.m_bACChangeFlag = false;
     }
-    else if((ltc.m_filteredVolt <= 9.5) && (ltc.m_filteredCurrent <= -0.1) && (ltc.m_bACChangeFlag == false))
+    else if((ltc.m_filteredVolt <= dVoltageThreasholdMin) && (ltc.m_filteredCurrent <= -0.1) && (ltc.m_bACChangeFlag == false))
     {
-        int ACDiff = ltc.m_filteredAC-15000;
+        int ACDiff = ltc.m_filteredAC-nChargeThreasholdMin;
         ltc.setChargeThresholdH(ltc.getACThresholdH()-(ACDiff*0.2));
         ltc.m_bACChangeFlag = true;
-        ltc.setRawAccumulatedCharge(15000);
+        ltc.setRawAccumulatedCharge(nChargeThreasholdMin);
     }
 
-    int current = ltc.m_filteredCurrent;
-    if (current > 0)
+    double current = ltc.m_filteredCurrent;
+    if (current >= dIsChargingAmpere)
         m_pMainMenuWidget->setBatteryCharge(true);
     else
         m_pMainMenuWidget->setBatteryCharge(false);
@@ -723,6 +742,15 @@ void MainWindow::SetPowerSavingMode(bool bSet)
 
 void MainWindow::BatteryInit()
 {
+    // load setting_battery.json
+    ConfigManager config = ConfigManager("setting_battery.json");
+    QJsonObject object = config.GetConfig();
+
+    double dVoltageThreasholdMax = object["VoltageThreasholdMax"].toDouble();
+    double dVoltageThreasholdMin = object["VoltageThreasholdMin"].toDouble();
+    int nChargeThreasholdMax = object["ChargeThreasholdMax"].toInt();
+    int nChargeThreasholdMin = object["ChargeThreasholdMin"].toInt();
+
     //컨트롤 레지스터의 값을 읽어와서 정상값(236)과 비교한다
     if(ltc.readByteFromRegister(REG_B_CONTROL)!=236)//0x3C)
     {
@@ -733,13 +761,13 @@ void MainWindow::BatteryInit()
         ltc.setPrescalerM(1024);
     }
 
-    if(ltc.readWordFromRegisters(REG_G_CHG_THR_L_MSB) != 15000)
+    if(ltc.readWordFromRegisters(REG_G_CHG_THR_L_MSB) != nChargeThreasholdMin)
     {
         //AC최대값 레지스터, AC 최소값 레지스터에 값을 넣는다.
-        ltc.setChargeThresholds(35718, 15000);
+        ltc.setChargeThresholds(nChargeThreasholdMax, nChargeThreasholdMin);
 
         //최대 전압 레지스터와 최소 전압 레지스터에 값을 넣는다.
-        ltc.setVoltageThresholds(12.5, 9.5);
+        ltc.setVoltageThresholds(dVoltageThreasholdMax, dVoltageThreasholdMin);
 
         //컨트롤 레지스터와 AC레지스터에 값을 넣어준다
         //컨트롤 레지스터에 값을 넣어준다
@@ -762,6 +790,7 @@ void MainWindow::BatteryInit()
 
         ltc.presetAC(ltc.m_filteredVolt*1000, ltc.getVoltageThresholdHigh()*1000, ltc.getVoltageThresholdLow()*1000);
     }
+
 }
 
 void MainWindow::ChechMainMenuImage()

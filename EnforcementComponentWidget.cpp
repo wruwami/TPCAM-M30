@@ -54,6 +54,11 @@ EnforcementComponentWidget::EnforcementComponentWidget(QWidget *parent) :
 
 EnforcementComponentWidget::~EnforcementComponentWidget()
 {
+    if (m_pCamera)
+    {
+        delete m_pCamera;
+        m_pCamera = nullptr;
+    }
     delete ui;
 }
 

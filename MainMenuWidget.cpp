@@ -178,9 +178,17 @@ void MainMenuWidget::setIndicatorImage(CustomPushButton* pCustomButton, QString 
     pCustomButton->setImage(path_name, file_name);
 }
 
-void MainMenuWidget::setTransparentBackGround()
+void MainMenuWidget::setTransparentBackGround(bool bTransParent)
 {
-    this->setStyleSheet("background-color: rgba(255,255,255,0;}");
+    if (bTransParent)
+    {
+//    this->setStyleSheet("background-color: rgba(255,255,255,0;}");
+        setAttribute(Qt::WA_TranslucentBackground);
+    }
+    else
+    {
+        setAttribute(Qt::WA_TranslucentBackground, false);
+    }
 }
 
 void MainMenuWidget::initImage()

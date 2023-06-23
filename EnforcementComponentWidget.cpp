@@ -5,6 +5,7 @@
 
 #include "StringLoader.h"
 #include "camera.h"
+#include "WidgetSize.h"
 
 EnforcementComponentWidget::EnforcementComponentWidget(QWidget *parent) :
     QWidget(parent),
@@ -170,7 +171,8 @@ void EnforcementComponentWidget::show()
 void EnforcementComponentWidget::SetCamera()
 {
      m_pCamera = new Camera(this);
-     m_pCamera->setGeometry(this->geometry());
+     m_pCamera->setGeometry(GetWidgetSizePos(QRect(0, 125, 1600, 960)));
+
      m_pCamera->lower();
      m_pCamera->show();
 }

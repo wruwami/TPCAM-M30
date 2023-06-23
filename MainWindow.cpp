@@ -404,7 +404,7 @@ void MainWindow::on_enforcementClicked()
     ui->verticalLayout->addWidget(m_pEnforcementWidget, 835);
 
     m_pMainMenuWidget->setMainMenuImage("Main_menu", "home_big_n.bmp");
-    m_pMainMenuWidget->setTransparentBackGround();
+    m_pMainMenuWidget->setTransparentBackGround(true);
 }
 
 void MainWindow::OpenEnforcement()

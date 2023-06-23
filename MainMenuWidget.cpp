@@ -183,11 +183,14 @@ void MainMenuWidget::setTransparentBackGround(bool bTransParent)
     if (bTransParent)
     {
 //    this->setStyleSheet("background-color: rgba(255,255,255,0;}");
-        setAttribute(Qt::WA_TranslucentBackground);
+//        setAttribute(Qt::WA_TranslucentBackground);
+//        setStyleSheet("background-color: rgba(0,0,0,0)");
+        setStyleSheet("background: transparent;");
     }
     else
     {
-        setAttribute(Qt::WA_TranslucentBackground, false);
+        setBackGroundColor(this, 0x000000);
+//        setAttribute(Qt::WA_TranslucentBackground, false);
     }
 }
 

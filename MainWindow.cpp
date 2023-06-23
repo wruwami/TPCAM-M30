@@ -1135,6 +1135,8 @@ void MainWindow::on_DateTimeCancelClicked()
 
 void MainWindow::on_mainMenuHomeClicked()
 {
+    if (m_widgetType == Enforcement)
+        m_pMainMenuWidget->setTransparentBackGround(false);
     showIndicator(true);
 
     QWidget* widget = ui->verticalLayout->itemAt(1)->widget();

@@ -13,7 +13,7 @@ EnforcementComponentWidget::EnforcementComponentWidget(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    SetCamera();
+//    SetCamera();
 
     ui->hidePushButton->setText(LoadString("IDS_HIDE"));
     ui->readyPushButton->setText(LoadString("IDS_READY"));
@@ -173,6 +173,7 @@ void EnforcementComponentWidget::SetCamera()
      m_pCamera = new Camera(this);
      m_pCamera->setGeometry(GetWidgetSizePos(QRect(0, 0, 1600, 960)));
 
+     qDebug() << m_pCamera->geometry();
      m_pCamera->lower();
      m_pCamera->show();
 }

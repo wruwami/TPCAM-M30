@@ -15,7 +15,7 @@ enum WidgetType
     Other,
 };
 
-
+class Camera;
 class IndicatorCameraExposeWidget;
 class IndicatorCameraFocusWidget;
 class CameraAlignWidget;
@@ -106,7 +106,7 @@ private:
     EnforcementWidget* m_pEnforcementWidget = nullptr;
     CustomLabel* m_pBatteryStatus;
     QToolButton* m_pBatteryPercent;
-
+    Camera* m_pCamera;
     LTC2943 ltc = LTC2943(15);
     WidgetType m_widgetType = Other;
     QString m_userName;

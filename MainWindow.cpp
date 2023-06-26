@@ -30,6 +30,7 @@
 #include "SelfTestWidget.h"
 #include "BaseDialog.h"
 #include "ScreenSaver.h"
+#include "camera.h"
 
 template <typename T>
 inline void removeSecondItem(T*& pointer) {
@@ -402,7 +403,10 @@ void MainWindow::on_enforcementClicked()
     if (m_pEnforcementWidget == nullptr)
         m_pEnforcementWidget = new EnforcementWidget;
     ui->verticalLayout->addWidget(m_pEnforcementWidget, 835);
-
+    m_pCamera = new Camera(this);
+    m_pCamera->setGeometry(GetWidgetSizePos(QRect(0, 0, 1600, 960)));
+    m_pCamera->lower();
+    m_pCamera->show();
     m_pMainMenuWidget->setMainMenuImage("Main_menu", "home_big_n.bmp");
     m_pMainMenuWidget->setTransparentBackGround(true);
 }

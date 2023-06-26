@@ -151,6 +151,7 @@ MainWindow::~MainWindow()
 void MainWindow::initializeMainMenuWidget()
 {
     m_pMainMenuWidget->show();
+
     if (m_userName == "admin-align")
     {
         m_widgetType = Other;
@@ -210,13 +211,13 @@ void MainWindow::initializeLoginWidget()
         }
 
     }
-    m_userName = "admin";
+
 
 //    if (m_pLoginWidget == nullptr)
         m_pLoginWidget = new LoginWidget;
 //    delete m_pDateTimeWidget;
 //    m_pDateTimeWidget = nullptr;
-
+    m_userName = m_pLoginWidget->m_pUserNameComboBox->currentText();
 //    ui->verticalLayout->removeItem(ui->verticalLayout->takeAt(1));
     ui->verticalLayout->addWidget(m_pLoginWidget, 835);
     m_pMainMenuWidget->setMainMenuTitle(LoadString("IDS_LOGIN"));
@@ -1134,6 +1135,7 @@ void MainWindow::on_camera_zoom_focus()
         m_pMainMenuAdminAlignWidget = nullptr;
     }
 
+    m_pMainMenuWidget->hideButton();
 
     delete m_pMainMenuAdminAlignWidget;
     m_pMainMenuAdminAlignWidget = nullptr;
@@ -1177,7 +1179,9 @@ void MainWindow::on_mainMenuHomeClicked()
         m_pMainMenuWidget->setTransparentBackGround(false);
     showIndicator(true);
 
-    QWidget* widget = ui->verticalLayout->itemAt(1)->widget();
+    QWidget* widget = nullptr;
+    if (ui->verticalLayout->count() > 1)
+        widget = ui->verticalLayout->itemAt(1)->widget();
 
     if (m_pCameraAlignWidget)
     {
@@ -1242,7 +1246,7 @@ void MainWindow::on_logo_clicked()
 
 void MainWindow::on_userNameChanged(QString arg)
 {
-    m_userName = arg;
+        m_userName = arg;
 }
 
 void MainWindow::on_DeviceIdSaveClicked()

@@ -4,6 +4,7 @@
 #include "StringLoader.h"
 
 #include "BaseDialog.h"
+#include "NetworkManager.h"
 
 Setting4APWidget::Setting4APWidget(QWidget *parent) :
     QWidget(parent),

@@ -92,14 +92,15 @@ void NetworkManager::SetWifiSSidnPW(QString ssid, QString pw)
                         ").arg(gateway).arg(m_wifi_jsonObject["ip"].toString()).arg(GetSubNetMask(m_wifi_jsonObject["subnet mask"].toString())).arg(ssid).arg(pw));
 }
 
-QString NetworkManager::getMacAddress()
+QString NetworkManager::getMacAddress(QString deviceName)
 {
 
     foreach(QNetworkInterface netInterface, QNetworkInterface::allInterfaces())
     {
         // Return only the first non-loopback MAC Address
         if (!(netInterface.flags() & QNetworkInterface::IsLoopBack))
-            return netInterface.hardwareAddress();
+            if (netInterface.name() == deviceName)
+                return netInterface.hardwareAddress();
     }
     return QString();
 

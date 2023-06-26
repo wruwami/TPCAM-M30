@@ -31,6 +31,17 @@ MainMenuWidget::MainMenuWidget(QWidget *parent) :
     sp_retain.setRetainSizeWhenHidden(true);
     setSizePolicy(sp_retain);
 
+    ui->cameraPushButton->setSizePolicy(sp_retain);
+    ui->daynNightPushButton->setSizePolicy(sp_retain);
+    ui->weatherPushButton->setSizePolicy(sp_retain);
+    ui->enforcementPushButton->setSizePolicy(sp_retain);
+    ui->speedPushButton->setSizePolicy(sp_retain);
+    ui->wifiPushButton->setSizePolicy(sp_retain);
+    ui->gpsPushButton->setSizePolicy(sp_retain);
+    ui->batteryPercentButton->setSizePolicy(sp_retain);
+    ui->batteryStatusLabel->setSizePolicy(sp_retain);
+    ui->stackedWidget->setSizePolicy(sp_retain);
+
     m_pCameraPushbutton = ui->cameraPushButton;
     m_pDaynNightPushbutton = ui->daynNightPushButton;
     m_pWeatherPushbutton = ui->weatherPushButton;
@@ -48,6 +59,7 @@ MainMenuWidget::MainMenuWidget(QWidget *parent) :
     ui->stackedWidget->addWidget(m_pHomeTitleLabel);
     ui->stackedWidget->addWidget(m_pHomeButtonWidget);
     m_pSpacerItem = new QSpacerItem(m_pCameraPushbutton->width(), m_pCameraPushbutton->height(), QSizePolicy::Expanding, QSizePolicy::Expanding);
+
 
 
 //    m_pMainMenuTitlePushButton = m_pHomeButtonWidget->m_pHomePushButton;
@@ -192,6 +204,17 @@ void MainMenuWidget::setTransparentBackGround(bool bTransParent)
         setBackGroundColor(this, 0x000000);
 //        setAttribute(Qt::WA_TranslucentBackground, false);
     }
+}
+
+void MainMenuWidget::hideButton()
+{
+    ui->cameraPushButton->hide();
+    ui->daynNightPushButton->hide();
+    ui->weatherPushButton->hide();
+    ui->enforcementPushButton->hide();
+    ui->speedPushButton->hide();
+    ui->wifiPushButton->hide();
+    ui->gpsPushButton->hide();
 }
 
 void MainMenuWidget::initImage()

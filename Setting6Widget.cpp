@@ -97,6 +97,21 @@ void Setting6Widget::on_bluetoothComboBox_currentIndexChanged(int index)
 void Setting6Widget::on_ftpComboBox_currentIndexChanged(int index)
 {
     m_newJsonObject["ftp select"] = index + 1;
+
+    if (index = 0)
+    {
+        ui->ftpAddressLineEdit->setDisabled(true);
+        ui->ftpPortLineEdit->setDisabled(true);
+        ui->userNameLineEdit->setDisabled(true);
+        ui->userPassLineEdit->setDisabled(true);
+    }
+    else
+    {
+        ui->ftpAddressLineEdit->setDisabled(false);
+        ui->ftpPortLineEdit->setDisabled(false);
+        ui->userNameLineEdit->setDisabled(false);
+        ui->userPassLineEdit->setDisabled(false);
+    }
 }
 
 void Setting6Widget::on_ftpAddressLineEdit_textChanged(const QString &arg1)

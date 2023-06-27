@@ -24,6 +24,7 @@
 #include "thermal_printer.h"
 #include "FileManager.h"
 #include "ImageConverter.h"
+#include "WidgetSize.h"
 
 enum Mode
 {
@@ -74,6 +75,9 @@ FileManagerWidget::FileManagerWidget(QWidget *parent) :
     ui->deletePushButton->setText(LoadString("IDS_DELETE"));
     ui->sharePushButton->setText(LoadString("IDS_SHARE"));
     ui->movePushButton->setText(LoadString("IDS_MOVE"));
+
+    ui->horizontalLayout_9->setMargin(GetWidthWidth(15));
+    ui->horizontalLayout_9->setSpacing(GetWidthWidth(30));
 
     m_pHomePushButton = ui->mainMenuPushButton;
 

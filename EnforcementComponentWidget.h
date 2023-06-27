@@ -21,7 +21,7 @@ class EnforcementComponentWidget : public QWidget
 
 public:
     explicit EnforcementComponentWidget(QWidget *parent = 0);
-    ~EnforcementComponentWidget();
+    virtual ~EnforcementComponentWidget();
     friend class RemoteController;
     void dzPlus();
     void dzMinus();

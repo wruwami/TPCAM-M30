@@ -30,6 +30,8 @@
 #include "SelfTestWidget.h"
 #include "BaseDialog.h"
 #include "ScreenSaver.h"
+#include "camera.h"
+#include "CustomComboBox.h"
 
 template <typename T>
 inline void removeSecondItem(T*& pointer) {
@@ -69,12 +71,14 @@ MainWindow::MainWindow(screensaver* screensaver, QWidget *parent) :
         }
     }
 
+
     m_pMainMenuWidget = (MainMenuWidget*)ui->verticalLayout->itemAt(0)->widget();
     m_pBatteryStatus = m_pMainMenuWidget->m_pBatteryChargingLabel;
     m_pBatteryPercent = m_pMainMenuWidget->m_pBatteryPercentButton;
 
     m_widgetType = Login;
     m_pLoginWidget = new LoginWidget;
+    m_userName = m_pLoginWidget->m_pUserNameComboBox->currentText();
 //    m_pMainMenuContentWidget = new MainMenuContentWidget;
     ui->verticalLayout->removeItem(ui->verticalLayout->itemAt(1));
     ui->verticalLayout->addWidget(m_pLoginWidget, 835);
@@ -147,6 +151,7 @@ MainWindow::~MainWindow()
 void MainWindow::initializeMainMenuWidget()
 {
     m_pMainMenuWidget->show();
+
     if (m_userName == "admin-align")
     {
         m_widgetType = Other;
@@ -206,13 +211,13 @@ void MainWindow::initializeLoginWidget()
         }
 
     }
-    m_userName = "admin";
+
 
 //    if (m_pLoginWidget == nullptr)
         m_pLoginWidget = new LoginWidget;
 //    delete m_pDateTimeWidget;
 //    m_pDateTimeWidget = nullptr;
-
+    m_userName = m_pLoginWidget->m_pUserNameComboBox->currentText();
 //    ui->verticalLayout->removeItem(ui->verticalLayout->takeAt(1));
     ui->verticalLayout->addWidget(m_pLoginWidget, 835);
     m_pMainMenuWidget->setMainMenuTitle(LoadString("IDS_LOGIN"));
@@ -402,9 +407,9 @@ void MainWindow::on_enforcementClicked()
     if (m_pEnforcementWidget == nullptr)
         m_pEnforcementWidget = new EnforcementWidget;
     ui->verticalLayout->addWidget(m_pEnforcementWidget, 835);
-
+    SetCamera();
     m_pMainMenuWidget->setMainMenuImage("Main_menu", "home_big_n.bmp");
-    m_pMainMenuWidget->setTransparentBackGround();
+    m_pMainMenuWidget->setTransparentBackGround(true);
 }
 
 void MainWindow::OpenEnforcement()
@@ -896,6 +901,15 @@ void MainWindow::ChechMainMenuImage()
     }
 }
 
+void MainWindow::SetCamera()
+{
+    if (!m_pCamera)
+        m_pCamera = new Camera(this);
+    m_pCamera->setGeometry(GetWidgetSizePos(QRect(0, 0, 1600, 960)));
+    m_pCamera->lower();
+    m_pCamera->show();
+}
+
 void MainWindow::doThirdAction()
 {
     this->OpenEnforcement();
@@ -1071,6 +1085,12 @@ void MainWindow::on_settingClicked()
 
 void MainWindow::on_device_id_clicked()
 {
+    if (m_pMainMenuAdminAlignWidget)
+    {
+        delete m_pMainMenuAdminAlignWidget;
+        m_pMainMenuAdminAlignWidget = nullptr;
+    }
+
     delete m_pMainMenuAdminAlignWidget;
     m_pMainMenuAdminAlignWidget = nullptr;
     ui->verticalLayout->removeItem(ui->verticalLayout->itemAt(1));
@@ -1084,24 +1104,44 @@ void MainWindow::on_device_id_clicked()
 
 void MainWindow::on_camera_align_clicked()
 {
+    if (m_pMainMenuAdminAlignWidget)
+    {
+        delete m_pMainMenuAdminAlignWidget;
+        m_pMainMenuAdminAlignWidget = nullptr;
+    }
+
+    SetCamera();
+
     m_pMainMenuWidget->hide();
     delete m_pMainMenuAdminAlignWidget;
     m_pMainMenuAdminAlignWidget = nullptr;
     ui->verticalLayout->removeItem(ui->verticalLayout->itemAt(1));
     if (m_pCameraAlignWidget == nullptr)
-        m_pCameraAlignWidget = new CameraAlignWidget;
-    ui->verticalLayout->addWidget(m_pCameraAlignWidget, 960);
+        m_pCameraAlignWidget = new CameraAlignWidget(this);
+    m_pCameraAlignWidget->setGeometry(GetWidgetSizePos(QRect(0, 0, 1600, 960)));
+    m_pCameraAlignWidget->raise();
+    m_pCameraAlignWidget->show();
+
+//    ui->verticalLayout->addWidget(m_pCameraAlignWidget, 960);
     QObject::connect((QWidget*)m_pCameraAlignWidget->m_pHomeButton, SIGNAL(clicked()), this, SLOT(on_mainMenuHomeClicked()));
 
 }
 
 void MainWindow::on_camera_zoom_focus()
 {
+    if (m_pMainMenuAdminAlignWidget)
+    {
+        delete m_pMainMenuAdminAlignWidget;
+        m_pMainMenuAdminAlignWidget = nullptr;
+    }
+
+    m_pMainMenuWidget->hideButton();
+
     delete m_pMainMenuAdminAlignWidget;
     m_pMainMenuAdminAlignWidget = nullptr;
     ui->verticalLayout->removeItem(ui->verticalLayout->itemAt(1));
     ui->verticalLayout->addWidget(new CameraZoomFocusWidget, 835);
-
+    SetCamera();
     m_pMainMenuWidget->setMainMenuImage("Main_menu", "home_big_n.bmp");
 
     showIndicator(false);
@@ -1135,9 +1175,26 @@ void MainWindow::on_DateTimeCancelClicked()
 
 void MainWindow::on_mainMenuHomeClicked()
 {
+    if (m_widgetType == Enforcement)
+        m_pMainMenuWidget->setTransparentBackGround(false);
     showIndicator(true);
 
-    QWidget* widget = ui->verticalLayout->itemAt(1)->widget();
+    QWidget* widget = nullptr;
+    if (ui->verticalLayout->count() > 1)
+        widget = ui->verticalLayout->itemAt(1)->widget();
+
+    if (m_pCameraAlignWidget)
+    {
+        delete m_pCameraAlignWidget;
+        m_pCameraAlignWidget = nullptr;
+    }
+
+    if (m_pCamera)
+    {
+        delete m_pCamera;
+        m_pCamera = nullptr;
+    }
+
     if (m_pEnforcementWidget == widget)
     {
         delete m_pEnforcementWidget;
@@ -1172,7 +1229,6 @@ void MainWindow::on_mainMenuHomeClicked()
 
 void MainWindow::on_logo_clicked()
 {
-
     if (m_pMainMenuAdminAlignWidget)
     {
         delete m_pMainMenuAdminAlignWidget;
@@ -1190,7 +1246,7 @@ void MainWindow::on_logo_clicked()
 
 void MainWindow::on_userNameChanged(QString arg)
 {
-    m_userName = arg;
+        m_userName = arg;
 }
 
 void MainWindow::on_DeviceIdSaveClicked()

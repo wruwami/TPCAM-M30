@@ -5,6 +5,7 @@
 
 #include "StringLoader.h"
 #include "camera.h"
+#include "WidgetSize.h"
 
 EnforcementComponentWidget::EnforcementComponentWidget(QWidget *parent) :
     QWidget(parent),
@@ -12,7 +13,7 @@ EnforcementComponentWidget::EnforcementComponentWidget(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    SetCamera();
+//    SetCamera();
 
     ui->hidePushButton->setText(LoadString("IDS_HIDE"));
     ui->readyPushButton->setText(LoadString("IDS_READY"));
@@ -54,6 +55,11 @@ EnforcementComponentWidget::EnforcementComponentWidget(QWidget *parent) :
 
 EnforcementComponentWidget::~EnforcementComponentWidget()
 {
+    if (m_pCamera)
+    {
+        delete m_pCamera;
+        m_pCamera = nullptr;
+    }
     delete ui;
 }
 
@@ -165,7 +171,9 @@ void EnforcementComponentWidget::show()
 void EnforcementComponentWidget::SetCamera()
 {
      m_pCamera = new Camera(this);
-     m_pCamera->setGeometry(this->geometry());
+     m_pCamera->setGeometry(GetWidgetSizePos(QRect(0, 0, 1600, 960)));
+
+     qDebug() << m_pCamera->geometry();
      m_pCamera->lower();
      m_pCamera->show();
 }

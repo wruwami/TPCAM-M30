@@ -15,7 +15,7 @@ enum WidgetType
     Other,
 };
 
-
+class Camera;
 class IndicatorCameraExposeWidget;
 class IndicatorCameraFocusWidget;
 class CameraAlignWidget;
@@ -66,6 +66,7 @@ private:
     void SetPowerSavingMode(bool);
     void BatteryInit();
     void ChechMainMenuImage();
+    void SetCamera();
 private slots:
     void on_cameraPushButton_clicked();
     void on_daynNightPushButton_clicked();
@@ -106,7 +107,7 @@ private:
     EnforcementWidget* m_pEnforcementWidget = nullptr;
     CustomLabel* m_pBatteryStatus;
     QToolButton* m_pBatteryPercent;
-
+    Camera* m_pCamera;
     LTC2943 ltc = LTC2943(15);
     WidgetType m_widgetType = Other;
     QString m_userName;

@@ -107,7 +107,7 @@ private:
     EnforcementWidget* m_pEnforcementWidget = nullptr;
     CustomLabel* m_pBatteryStatus;
     QToolButton* m_pBatteryPercent;
-    Camera* m_pCamera;
+    Camera* m_pCamera = nullptr;
     LTC2943 ltc = LTC2943(15);
     WidgetType m_widgetType = Other;
     QString m_userName;

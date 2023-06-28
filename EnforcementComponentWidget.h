@@ -42,7 +42,7 @@ private:
     std::vector<QString> m_ltvector = {"10~36", "30~60", "60~100", "100~160", "160~260", "260+"};
     int m_nStIndex = 2;
     int m_nLtIndex = 3;
-    Camera* m_pCamera;
+    Camera* m_pCamera = nullptr;
 private slots:
     void on_hidePushButton_clicked();
     void doShartAction();

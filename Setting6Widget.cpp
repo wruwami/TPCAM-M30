@@ -98,7 +98,7 @@ void Setting6Widget::on_ftpComboBox_currentIndexChanged(int index)
 {
     m_newJsonObject["ftp select"] = index + 1;
 
-    if (index = 0)
+    if (index == 0)
     {
         ui->ftpAddressLineEdit->setDisabled(true);
         ui->ftpPortLineEdit->setDisabled(true);

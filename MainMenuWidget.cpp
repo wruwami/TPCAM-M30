@@ -163,7 +163,7 @@ void MainMenuWidget::setBatteryPercentValue(int percent)
 
     QPixmap pixmap;
     pixmap.load(file_full_path);
-    qDebug() << pixmap.size();
+//    qDebug() << pixmap.size();
     //    QUrl url(file_full_path);
     //    url.set
     //

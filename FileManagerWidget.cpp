@@ -130,7 +130,7 @@ FileManagerWidget::FileManagerWidget(QWidget *parent) :
 //    ui->tableWidget->setGeometry(ui->gridLayout_2->itemAtPosition(1, 1)->geometry());
 //    ui->tableWidget->setColumnWidth(0, ui->gridLayout_2->itemAtPosition(1, 1)->geometry().width());
 //    ui->tableWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-    startTimer(1000);
+    startTimer(1000);5
 }
 
 FileManagerWidget::~FileManagerWidget()
@@ -310,7 +310,7 @@ void FileManagerWidget::on_searchPushButton_clicked()
 {
 //    QString title_text = m_currentAVFileFormat.date
 
-    SearchBoxDialog searchBoxDialog;
+    SearchBoxDialog searchBoxDialog(m_dateTime);
     if (searchBoxDialog.exec() == QDialog::Accepted)
     {
         int firstValue = searchBoxDialog.getFirstValue();
@@ -465,6 +465,7 @@ void FileManagerWidget::on_datePushButton_clicked()
 //        m_folder_path = fileManagerSnapShotDialog.strDate();
 //        QDir dirfolder_path
         QString date = fileManagerSnapShotDialog.strDate();
+        m_dateTime = date;
 //        int index = date.lastIndexOf('/');
 //        m_dateTime = date.mid(index + 1, date.size() - index - 1);
         ui->datePushButton->setText(date);

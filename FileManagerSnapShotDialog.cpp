@@ -4,6 +4,7 @@
 #include "qdir.h"
 #include "qdiriterator.h"
 #include <QListWidget>
+#include <QPainter>
 
 #include "StringLoader.h"
 #include "Color.h"
@@ -27,6 +28,8 @@ FileManagerSnapShotDialog::FileManagerSnapShotDialog(int nMode, QWidget *parent)
     ui->backPushButton->setText(LoadString("IDS_BACK"));
 
 //    ui->listWidget->setStyleSheet(QString("QListView::item { height: %0px; }").arg(ui->snapShotIconLabel->height()/64* 45));
+
+//    setStyleSheet("border: 5px solid black;");
 
     QDir dir;
 
@@ -106,6 +109,14 @@ void FileManagerSnapShotDialog::resizeEvent(QResizeEvent *event)
 {
     ui->listWidget->setStyleSheet(QString("QListView::item { height: %0px; }").arg(ui->snapShotIconLabel->height()/64* 45));
     ui->listWidget->setVerticalScrollBar(new CustomScrollbar(ui->listWidget->width() * 78 / 650));
+}
+
+void FileManagerSnapShotDialog::paintEvnet(QPaintEvent *event)
+{
+    QPainter painter(this);
+    painter.drawRect(rect().x(), rect().y(), width() - 2, height() - 2);
+//    rect();
+
 }
 
 //void FileManagerSnapShotDialog::on_listWidget_clicked(const QModelIndex &index)

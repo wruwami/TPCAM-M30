@@ -1,10 +1,12 @@
 #include "SearchBoxDialog.h"
 #include "ui_SearchBoxDialog.h"
 
+#include <QPainter>
+
 #include "StringLoader.h"
 #include "WidgetSize.h"
 
-SearchBoxDialog::SearchBoxDialog(QWidget *parent) :
+SearchBoxDialog::SearchBoxDialog(QString title, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::SearchBoxDialog)
 {
@@ -13,13 +15,15 @@ SearchBoxDialog::SearchBoxDialog(QWidget *parent) :
     this->setWindowFlags( Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint);
 
 
-
+    ui->titleLabel->setText(title);
     ui->searchTextLabel->setText(LoadString("IDS_SEARCH_TEXT"));
 
     ui->searchButton->setImage("file_manager", "file_management_search_search_button.bmp");
     ui->closePushButton->setText(LoadString("IDS_BACK"));
 
     resize(GetWidgetSize(QSize(1208, 702)));
+
+//    setStyleSheet("QWidget. {border: 5px solid black;}");
 
     connect(ui->closePushButton, &QAbstractButton::clicked, this, &QWidget::close);
 }
@@ -101,6 +105,13 @@ void SearchBoxDialog::on_checkBox_clicked()
 void SearchBoxDialog::on_checkBox_2_clicked()
 {
     ui->checkBox->setChecked(false);
+}
+
+void SearchBoxDialog::paintEvent(QPaintEvent *event)
+{
+    QPainter painter(this);
+    painter.drawRect(rect().x(), rect().y(), width() - 2, height() - 2);
+
 }
 
 int SearchBoxDialog::getSecondValue() const

@@ -13,6 +13,9 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true"/>
+  </property>
   <layout class="QVBoxLayout" name="verticalLayout_2" stretch="14,68">
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="347,130">
@@ -46,7 +49,7 @@
       </layout>
      </item>
      <item>
-      <layout class="QGridLayout" name="gridLayout" columnstretch="3,1,3,2,2">
+      <layout class="QGridLayout" name="gridLayout" rowstretch="1,1,1" columnstretch="3,1,3,2,2">
        <item row="2" column="2">
         <widget class="CustomPushButton" name="secondMinusButton">
          <property name="text">

@@ -12,7 +12,7 @@ class SearchBoxDialog : public QDialog
     Q_OBJECT
 
 public:
-    explicit SearchBoxDialog(QWidget *parent = 0);
+    explicit SearchBoxDialog(QString, QWidget *parent = 0);
     ~SearchBoxDialog();
     int getFirstValue() const;
     void setFirstValue(int value);
@@ -36,7 +36,8 @@ private:
     Ui::SearchBoxDialog *ui;
     int firstValue = 0;
     int secondValue = 60;
-
+protected:
+    void paintEvent(QPaintEvent *event);
 };
 
 #endif // SEARCHBOXDIALOG_H

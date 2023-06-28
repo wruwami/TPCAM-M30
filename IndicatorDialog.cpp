@@ -38,7 +38,7 @@ IndicatorDialog::IndicatorDialog(QWidget *parent) :
 //    setGraphicsEffect(qgoEffect);
 //    setAutoFillBackground(true);
 
-    setGeometry(GetWidgetSizePos(QRect(0, 125, 1600, 960)));
+    setGeometry(GetWidgetSizePos(QRect(0, 0, 1600, 960)));
 
     m_pDaynNightPushButton = ui->daynNightPushButton;
     m_pEnforcementPushButton = ui->enforcementPushButton;

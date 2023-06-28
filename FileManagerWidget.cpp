@@ -467,7 +467,7 @@ void FileManagerWidget::on_datePushButton_clicked()
         QString date = fileManagerSnapShotDialog.strDate();
 //        int index = date.lastIndexOf('/');
 //        m_dateTime = date.mid(index + 1, date.size() - index - 1);
-        ui->datePushButton->setText(m_dateTime);
+        ui->datePushButton->setText(date);
 
         QString path;
         switch (m_nMode)

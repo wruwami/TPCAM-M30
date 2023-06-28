@@ -2,6 +2,7 @@
 #include "ui_SearchBoxDialog.h"
 
 #include "StringLoader.h"
+#include "WidgetSize.h"
 
 SearchBoxDialog::SearchBoxDialog(QWidget *parent) :
     QDialog(parent),
@@ -9,9 +10,18 @@ SearchBoxDialog::SearchBoxDialog(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    ui->label->setText(LoadString("IDS_SEARCH_TEXT"));
+    this->setWindowFlags( Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint);
 
-    ui->searchButton->setImage("file_manager", "file_management_search_search_button.bmp");;
+
+
+    ui->searchTextLabel->setText(LoadString("IDS_SEARCH_TEXT"));
+
+    ui->searchButton->setImage("file_manager", "file_management_search_search_button.bmp");
+    ui->closePushButton->setText(LoadString("IDS_BACK"));
+
+    resize(GetWidgetSize(QSize(1208, 702)));
+
+    connect(ui->closePushButton, &QAbstractButton::clicked, this, &QWidget::close);
 }
 
 SearchBoxDialog::~SearchBoxDialog()

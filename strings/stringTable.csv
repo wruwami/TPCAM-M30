@@ -1,61 +1,61 @@
 ﻿Index,english,korean,portuguese,spanish,french,arabic
-IDS_DATE_TIME,Date/Time,날짜 시간,Data hora,Fecha y hora,Date/Heure,التاريخ / الوقت
-IDS_LIGHT,Light,빛,Leve,Luz,Lumière,ضوء
-IDS_DEVICE_ID,Device ID,장치 아이디,Identificador do dispositivo,Identificación del dispositivo,Reference de l'appareil,معرف الجهاز
+IDS_DATE_TIME,Date/Time,날짜/시간,Data/hora,Fecha y hora,Date/Heure,التاريخ / الوقت
+IDS_LIGHT,Light,조명,luz,Luz,Lumière,ضوء
+IDS_DEVICE_ID,Device ID,기기 아이디,ID de dispositivo,Identificación del dispositivo,Reference de l'appareil,معرف الجهاز
 IDS_USER_NAME,User Name,사용자 이름,Nome do usuário,Nombre de usuario,Nom d'utilisateur,اسم االمستخدم
 IDS_LOGIN,LOGIN,로그인,CONECTE-SE,ACCESO,CONNEXION,تسجيل الدخول
-IDS_I,I,나,EU,yo,je,أنا
-IDS_A,A,ㅏ,UMA,A,UNE,أ
-IDS_V,V,V,V,V,V,الخامس
-IDS_DATE,DATE,데이트,ENCONTRO,FECHA,DATE,تاريخ
-IDS_CONNECT,Connect,연결하다,Conectar,Conectar,Relier,يتصل
+IDS_I,I,I,I,I,I,I
+IDS_A,A,A,A,A,A,A
+IDS_V,V,V,V,V,V,V
+IDS_DATE,DATE,날짜,DATA,FECHA,DATE,تاريخ
+IDS_CONNECT,Connect,연결,Conectar,Conectar,Relier,يتصل
 IDS_PRINT,Print,인쇄,Impressão,Imprimir,Imprimer,مطبعة
-IDS_MOVE,Move,이동하다,Mover,Moverse,Se déplacer,يتحرك
-IDS_SEARCH,Search,찾다,Procurar,Búsqueda,Chercher,بحث
+IDS_MOVE,Move,전송,Mover,Moverse,Se déplacer,يتحرك
+IDS_SEARCH,Search,찾기,Procurar,Búsqueda,Chercher,بحث
 IDS_ZOOM,Zoom,줌,Ampliação,Zoom,Zoom,تكبير
 IDS_DELETE,Delete,삭제,Excluir,Borrar,Effacer,حذف
 IDS_SHARE,Share,공유,Compartilhado,Cuota,Partager,يشارك
 IDS_SAVE,SAVE,저장,SALVE ,AHORRAR,SAUVEGARDER,حفظ
 IDS_CANCEL,CANCEL,취소,CANCELAR,CANCELAR,ANNULER,إلغاء
 IDS_LOCATION,Location,위치,Localização,Localización,Lieu,موقع
-IDS_SPEED_LIMIT,Speed Limit,속도 제한,Limite de velocidade,Límite de velocidad,Limitation de vitesse,الحد الأقصى للسرعة
-IDS_CAPTURE_LIMIT,Capture Limit,캡처 제한,Limite de captura,Límite de captura,Limite de capture,حد الالتقاط
-IDS_ENFORCEMENT_MODE,Enforcement Mode,시행 모드,Modo de execução,Modo de cumplimiento,Mode d'application,وضع الإنفاذ
+IDS_SPEED_LIMIT,Speed Limit,규정 제한 속도,Limite de velocidade,Límite de velocidad,Limitation de vitesse,الحد الأقصى للسرعة
+IDS_CAPTURE_LIMIT,Capture Limit,실제 제한 속도,Limite de captura,Límite de captura,Limite de capture,حد الالتقاط
+IDS_ENFORCEMENT_MODE,Enforcement Mode,단속 모드,Modo de execução,Modo de cumplimiento,Mode d'application,وضع الإنفاذ
 IDS_SPEED_MODE,Speed Mode,속도 모드,Modo de velocidade,Modo de velocidad,Mode Vitesse,وضع السرعة
 IDS_ALL_IMAGE_VIDEO,All(Image+Video),전체(이미지+동영상),Todos(imagem+vídeo),Todo(Imagen+Video),Tout (Image+Vidéo),الكل (صورة + فيديو)
 IDS_AUTO_IMAGE,Auto(Image),자동(이미지),Auto(Imagem),Automático (Imagen),Auto(Image),تلقائي (صورة)
 IDS_VIDEO,Video,동영상,Vídeo,Video,Vidéo,فيديو
 IDS_LT,LT,LT,LT,LT,LT,LT
-IDS_ST,ST,성,ST,S T,ST,شارع
-IDS_RETICLE_SHAPE,Reticle Shape,레티클 모양,Forma de retículo,Forma de retícula,Forme du réticule,شكل شبكاني
+IDS_ST,ST,ST,ST,ST,ST,ST
+IDS_RETICLE_SHAPE,Reticle Shape,조준점 모양,Forma de retículo,Forma de retícula,Forme du réticule,شكل شبكاني
 IDS_WEATHER_MODE,Weather Mode,날씨 모드,Modo Meteorológico,Modo meteorológico,Mode météo,وضع الطقس
-IDS_DAYNIGHT,Day & Night,낮과 밤,Dia noite,día y noche,Jour Nuit,ليلا نهارا
+IDS_DAYNIGHT,Day & Night,낮 & 밤,Dia & noite,día y noche,Jour Nuit,ليلا نهارا
 IDS_BUZZER,Buzzer,버저,campainha,Zumbador,Avertisseur sonore,صفارة
-IDS_ANTI_JAMMING_MODE,Anti Jamming Mode,방해 전파 방지 모드,Modo anti-interferência,Modo antiinterferencias,Mode anti-brouillage,وضع مكافحة التشويش
-IDS_CROSS,Cross,가로 질러 가다,Cruz,Cruz,Traverser,تعبر
+IDS_ANTI_JAMMING_MODE,Anti Jamming Mode,안티-재밍 모드,Modo anti-interferência,Modo antiinterferencias,Mode anti-brouillage,وضع مكافحة التشويش
+IDS_CROSS,Cross,십자선,Cruz,Cruz,Traverser,تعبر
 IDS_DOT,Dot,점,Ponto,Punto,Point,نقطة
-IDS_ROUND,Round,둥근,Volta,Ronda,Rond,مستدير
-IDS_RECTANGLE,Rectangle,직사각형,Retângulo,Rectángulo,Rectangle,مستطيل
-IDS_SUNNY,Sunny,맑은,Ensolarado,Soleado,Ensoleillé,مشمس
-IDS_DAY_DARK,Day Dark,데이 다크,dia escuro,día oscuro,Jour sombre,يوم مظلم
-IDS_DAY_STANDARD,Day Standard,일 기준,Dia Padrão,Estándar de día,Norme de jour,معيار اليوم
-IDS_DAY_BRIGHT,Day Bright,밝은 날,dia brilhante,día brillante,Jour lumineux,يوم مشرق
-IDS_NIGHT_DARK,Night Dark,나이트 다크,noite escura,Noche oscura,Nuit sombre,ليلة مظلمة
-IDS_NIGHT_STANDARD,Night Standard,야간 표준,Padrão Noturno,Noche Estándar,Norme de nuit,ليلة قياسية
-IDS_NIGHT_BRIGHT,Night Bright,나이트 브라이트,noite brilhante,noche brillante,Nuit lumineuse,ليلة مشرقة
-IDS_ON,On,~에,Sobre,Sobre,Au,تشغيل
-IDS_OFF,Off,끄다,Desligado,Apagado,À l'arrêt,عن
+IDS_ROUND,Round,원형,Volta,Ronda,Rond,مستدير
+IDS_RECTANGLE,Rectangle,사각형,Retângulo,Rectángulo,Rectangle,مستطيل
+IDS_SUNNY,Sunny,맑음,Ensolarado,Soleado,Ensoleillé,مشمس
+IDS_DAY_DARK,Day Dark,주간 어둡게,Dia escuro,día oscuro,Jour sombre,يوم مظلم
+IDS_DAY_STANDARD,Day Standard,주간 표준,Dia Padrão,Estándar de día,Norme de jour,معيار اليوم
+IDS_DAY_BRIGHT,Day Bright,주간 밝게,Dia brilhante,día brillante,Jour lumineux,يوم مشرق
+IDS_NIGHT_DARK,Night Dark,야간 어둡게,Noite escura,Noche oscura,Nuit sombre,ليلة مظلمة
+IDS_NIGHT_STANDARD,Night Standard,야간 표준,Noturno Padrão,Noche Estándar,Norme de nuit,ليلة قياسية
+IDS_NIGHT_BRIGHT,Night Bright,야간 밝게,Noite brilhante,noche brillante,Nuit lumineuse,ليلة مشرقة
+IDS_ON,On,켬,Sobre,Sobre,Au,تشغيل
+IDS_OFF,Off,끔,Desligado,Apagado,À l'arrêt,عن
 IDS_LCD_BRIGHTNESS,LCD Brightness,LCD 밝기,Brilho do LCD,Brillo LCD,Luminosité de l'écran LCD,سطوع شاشة LCD
 IDS_UNIT,Unit,단위,Unidade,Unidad,Unité,وحدة
 IDS_DATE_FORMAT,Date format,날짜 형식,Formato de data,Formato de fecha,Format de date,صيغة التاريخ
 IDS_SHOW_INFO,Show Info,정보 표시,Mostrar informações,Mostrar información,Afficher les informations,تظهر المعلومات
-IDS_FACTORY_DEFAULT,Factory Default,공장 기본값,Padrão de fábrica,Predeterminado de fábrica,Défaut de fabrication,ضبط المصنع
+IDS_FACTORY_DEFAULT,Factory Default,공장 초기화,restauração de fábrica,Predeterminado de fábrica,Défaut de fabrication,ضبط المصنع
 IDS_ADMIN_PW,Admin P/W,관리자 비밀번호,Administrador P/W,Contraseña de administrador,Administrateur P/W,المسؤول P / W
-IDS_LEVEL1,Level1,레벨 1,Nível 1,Nivel 1,Niveau 1,المستوى 1
-IDS_LEVEL2,Level2,레벨 2,Nível 2,Nivel 2,Niveau 2,المستوي 2
+IDS_LEVEL1,Level1,레벨1,Nível 1,Nivel 1,Niveau 1,المستوى 1
+IDS_LEVEL2,Level2,레벨2,Nível 2,Nivel 2,Niveau 2,المستوي 2
 IDS_LEVEL3,Level3,레벨3,Nível 3,Nivel 3,Niveau 3,مستوى 3
-IDS_KM_PER_H,"km/h, m","km/h, m","km/h, m",kilómetros por hora,"km/h, m","كم / ساعة ، م"
-IDS_MPH_FT,"mph, ft","mph, 피트","mph, pés","mph, pies","mi/h, pi","ميل في الساعة ، قدم"
+IDS_KM_PER_H,"km/h, m","km/h, m","km/h, m","km/h, m","km/h, m","كم / ساعة ، م"
+IDS_MPH_FT,"mph, ft","mph, ft","mph, pés","mph, pies","mi/h, pi","ميل في الساعة ، قدم"
 IDS_YYYY_MM_DD,YYYY/MM/DD,YYYY/MM/DD,AAAA/MM/DD,AAAA/MM/DD,AAAA/MM/JJ,YYYY / MM / DD
 IDS_MM_DD_YYYY,MM/DD/YYYY,MM/DD/YYYY,MM/DD/AAAA,MM/DD/AAAA,MM/JJ/AAAA,MM / DD / YYYY
 IDS_DD_MM_YYYY,DD/MM/YYYY,DD/MM/YYYY,DD/MM/AAAA,DD/MM/AAAA,JJ/MM/AAAA,اليوم / الشهر / السنة
@@ -63,100 +63,100 @@ IDS_MAC_ADDRESS,Mac Address,맥 주소,Endereço MAC,Dirección MAC,Adresse Mac,
 IDS_WIFISSID_AND_FTP_ID,WiFi SSID & FTP ID,WiFi SSID 및 FTP ID,SSID de Wi-Fi e ID de FTP,WiFi SSID y FTP ID,SSID Wi-Fi et identifiant FTP,WiFi SSID ومعرف FTP
 IDS_IP,IP,IP,IP,IP,IP,IP
 IDS_SUBNET_MASK,Subnet Mask,서브넷 마스크,máscara de sub-rede,Máscara de subred,Masque de sous-réseau,قناع الشبكة الفرعية
-IDS_PRINTER,Printer,인쇄기,Impressora,Impresora,Imprimante,طابعة
-IDS_THERMAL_EAST,Thermal(East),열(동쪽),Térmica (Leste),Térmica (Este),Thermique (Est),حراري (شرق)
-IDS_THERMAL_WOOSIM,Thermal(Woosim),열(우심),Térmica (Woosim),Térmica (Woosim),Thermique(Woosim),حراري (ووسيم)
-IDS_BT_HP,BT(HP),비티(HP),BT(HP),BT (HP),BT(CV),BT (HP)
+IDS_PRINTER,Printer,프린터,Impressora,Impresora,Imprimante,طابعة
+IDS_THERMAL_EAST,Thermal(East),열전사(이스트),Térmica (East),Térmica (East),Thermique (East),حراري (شرق)
+IDS_THERMAL_WOOSIM,Thermal(Woosim),열전사(우심),Térmica (Woosim),Térmica (Woosim),Thermique(Woosim),حراري (ووسيم)
+IDS_BT_HP,BT(HP),BT(HP),BT(HP),BT (HP),BT(HP),BT (HP)
 IDS_DHCP,DHCP,DHCP,DHCP,DHCP,DHCP,DHCP
-IDS_MANUAL,Manual,설명서,Manual,Manual,Manuel,كتيب
+IDS_MANUAL,Manual,수동,Manual,Manual,Manuel,كتيب
 IDS_LANUAGE,Language,언어,Língua,Idioma,Langue,لغة
 IDS_BLUETOOTH,Bluetooth,블루투스,Bluetooth,Bluetooth,Bluetooth,بلوتوث
-IDS_FTP,FTP,FTP,FTP,FTP,FTP,بروتوكول نقل الملفات
-IDS_DISABLE,Disable,장애를 입히다,Desativar,Deshabilitar,Désactiver,إبطال
+IDS_FTP,FTP,FTP,FTP,FTP,FTP,FTP
+IDS_DISABLE,Disable,비활성화,Desativar,Deshabilitar,Désactiver,إبطال
 IDS_ENABLE_AUTO,Enable(Auto),활성화(자동),Ativar (Automático),Habilitar (automático),Activer (Auto),تمكين (تلقائي)
 IDS_ENABLE_MANUAL,Enable(Manual),활성화(수동),Ativar (Manual),Habilitar (Manual),Activer (Manuel),تمكين (يدوي)
 IDS_WIFI,WiFi,와이파이,Wi-fi,Wifi,Wifi,واي فاي
 IDS_NINE_AXIS_SENSOR,9 Axis Sensor,9축 센서,Sensor de 9 eixos,Sensor de 9 ejes,Capteur 9 axes,9 محور الاستشعار
 IDS_MIC_N_SPEAKER,MIC & Speaker,마이크 및 스피커,microfone e alto-falante,Micrófono y altavoz,MICRO et haut-parleur,ميكروفون ومكبر صوت
 IDS_POWER_SAVING_TIME,Power Saving Time,절전 시간,Tempo de economia de energia,Tiempo de ahorro de energía,Temps d'économie d'énergie,وقت توفير الطاقة
-IDS_SETTING,Setting,환경,Contexto,Ajuste,Paramètre,ضبط
-IDS_SENSITIVITY,Sensitivity:,감광도:,Sensibilidade:,Sensibilidad:,Sensibilité:,حساسية:
+IDS_SETTING,Setting,세팅,Contexto,Ajuste,Paramètre,ضبط
+IDS_SENSITIVITY,Sensitivity:,감도:,Sensibilidade:,Sensibilidad:,Sensibilité:,حساسية:
 IDS_TIME,Time:,시간:,Tempo:,Hora:,Temps:,وقت:
 IDS_LATITUDE,Latitude:,위도:,Latitude:,Latitud:,Latitude:,خط العرض:
 IDS_LONGITUDE,Longtitude:,경도:,Longitude:,Longitud:,Longitude :,خط الطول:
 IDS_NUMBER_OF_SATELLITES,Number of Satellites:,위성 수:,Número de satélites:,Número de satélites:,Nombre de Satellite :,عدد الأقمار الصناعية:
 IDS_INDICATOR_GPS,GPS,GPS,GPS,GPS,GPS,GPS
-IDS_HIDE,Hide,숨다,Esconder,Ocultar,Cacher,إخفاء
+IDS_HIDE,Hide,숨김,Esconder,Ocultar,Cacher,إخفاء
 IDS_SPEED,Speed,속도,Velocidade,Velocidad,Vitesse,سرعة
-IDS_AT,A.T,에,NO,EN,À,في
-IDS_OPT,OPT,고르다,OPTAR,OPTAR,OPTER,"يختار، يقرر"
-IDS_FOCUS_DOWN,F-,에프-,F-,F-,F-,F-
-IDS_FOCUS_UP,F+,에프+,F+,F+,Fa+,F +
-IDS_APPLY,Apply,적용하다,Aplicar,Solicitar,Appliquer,تطبيق
-IDS_EXPOSE,Expose,폭로하다,Expor,Exponer,Exposer,يفضح
-IDS_FOCUS,Focus,집중하다,Foco,Enfocar,Se concentrer,ركز
-IDS_TIMEZONE,Timezone,시간대,Fuso horário,Zona horaria,Fuseau horaire,وحدة زمنية
+IDS_AT,A.T,A.T,A.T,A.T,A.T,في
+IDS_OPT,OPT,OPT,OPT,OPT,OPT,"يختار، يقرر"
+IDS_FOCUS_DOWN,F-,F-,F-,F-,F-,F-
+IDS_FOCUS_UP,F+,F+,F+,F+,F+,F+
+IDS_APPLY,Apply,적용,Aplicar,Solicitar,Appliquer,تطبيق
+IDS_EXPOSE,Expose,노출,Expor,Exponer,Exposer,يفضح
+IDS_FOCUS,Focus,포커스,Foco,Enfocar,Se concentrer,ركز
+IDS_TIMEZONE,Timezone,타임존,Fuso horário,Zona horaria,Fuseau horaire,وحدة زمنية
 IDS_GPS_SYNC,GPS Sync,GPS 동기화,Sincronização GPS,Sincronización de GPS,Synchronisation GPS,مزامنة GPS
 IDS_SELFTEST_TITLE,[Self Test],[자가 진단],[Auto teste],[Autotest],[Auto-test],[اختبار ذاتي]
 IDS_CAMERA_TITLE,CAMERA,카메라,CÂMERA,CÁMARA,CAMÉRA,الة تصوير
-IDS_SELFTEST_CHECK,PASS,통과하다,PASSAR,APROBAR,PASSE,يمر
+IDS_SELFTEST_CHECK,PASS,통과,PASSAR,APROBAR,PASSE,يمر
 IDS_LASER_TITLE,LASER,레이저,LASER,LÁSER,LASER,الليزر
 IDS_BATTERY_TITLE,BATTERY,배터리,BATERIA,BATERÍA,BATTERIE,البطارية
-IDS_STORAGE_TITLE,STORAGE,저장,ARMAZENAR,ALMACENAMIENTO,ESPACE DE RANGEMENT,تخزين
+IDS_STORAGE_TITLE,STORAGE,저장소,ARMAZENAR,ALMACENAMIENTO,ESPACE DE RANGEMENT,تخزين
 IDS_EXPIRED_DATE,Expired date(service required after): 2022/12/11,만료일(이후 서비스 필요): 2022/12/11,Data expirada (serviço necessário após): 2022/12/11,Fecha de vencimiento (servicio requerido después): 2022/12/11,Date d'expiration (service requis après) : 2022/12/11,تاريخ انتهاء الصلاحية (الخدمة مطلوبة بعد): 2022/12/11
 IDS_VERSION,V1.0.0,V1.0.0,V1.0.0,V1.0.0,V1.0.0,V1.0.0
 IDS_MAIN_MENU,Main Menu,메인 메뉴,Menu principal,Menú principal,Menu principal,القائمة الرئيسية
 IDS_CAMERA_ZOOM_FOCUS,CAMERA ZOOM FOCUS,카메라 줌 포커스,FOCO DO ZOOM DA CÂMERA,ENFOQUE DEL ZOOM DE LA CÁMARA,MISE AU POINT DU ZOOM DE LA CAMÉRA,تركيز التكبير / التصغير بالكاميرا
 IDS_CAMERA_HUD_ALIGN,CAMERA HUD ALIGN,카메라 HUD 정렬,ALINHAMENTO DO HUD DA CÂMERA,ALINEACIÓN DEL HUD DE LA CÁMARA,ALIGNEMENT DU HUD DE LA CAMÉRA,محاذاة شاشة عرض الكاميرا
 IDS_OK,OK,확인,OK,DE ACUERDO,D'ACCORD,نعم
-IDS_HOME,Home,집,Lar,Casa,Domicile,بيت
-IDS_DEFAULT,Default,기본,Padrão,Defecto,Défaut,تقصير
-IDS_AUTO_TRIGGER,A.T,에,NO,EN,À,في
+IDS_HOME,Home,메인 메뉴,Lar,Casa,Domicile,بيت
+IDS_DEFAULT,Default,중심좌표,Padrão,Defecto,Défaut,تقصير
+IDS_AUTO_TRIGGER,A.T,A.T,A.T,A.T,A.T,A.T
 IDS_HUD,HUD,HUD,HUD,HUD,HUD,هود
-IDS_UP,Up,위로,Acima,Hasta,En haut,فوق
+IDS_UP,Up,위,Acima,Hasta,En haut,فوق
 IDS_LEFT,Left,왼쪽,Deixou,Izquierda,Gauche,اليسار
-IDS_RIGHT,Right,권리,Direita,Derecha,Droit,الصحيح
-IDS_DOWN,Down,아래에,Baixa,Abajo,Vers le bas,أسفل
+IDS_RIGHT,Right,오른쪽,Direita,Derecha,Droit,الصحيح
+IDS_DOWN,Down,아래,Baixa,Abajo,Vers le bas,أسفل
 IDS_ADMIN,Admin,관리자,Administrador,Administración,Administrateur,مسؤل
-IDS_CHANGE_SSID_AND_FTP,Change SSID & FTP ID to Device ID,SSID 및 FTP ID를 장치 ID로 변경,Altere SSID e ID de FTP para ID do dispositivo,Cambiar SSID e ID de FTP a ID de dispositivo,Changer le SSID et l'ID FTP en ID de périphérique,قم بتغيير SSID ومعرف FTP إلى معرف الجهاز
-IDS_STILL_IMAGE_AND_MOVIE_VIEWER,"""Still image and movie viewer If movie, the first frame shows""","""정지 이미지 및 동영상 뷰어 동영상인 경우 첫 번째 프레임이 표시됩니다.""","Imagem estática e visualizador de filme Se for um filme, o primeiro quadro é exibido","Imagen fija y visor de películas Si es una película, se muestra el primer cuadro","Visionneuse d'images fixes et de films Si film, la première image s'affiche","عارض الصور الثابتة والأفلام في حالة وجود فيلم ، يظهر الإطار الأول"
-IDS_SNAPSHOT,Snapshot,스냅 사진,Instantâneo,Instantánea,Instantané,لمحة
-IDS_BACK,Back,뒤쪽에,De volta,atrás,Arrière,خلف
+IDS_CHANGE_SSID_AND_FTP,Change SSID & FTP ID to Device ID,SSID 및 FTP ID를 기기 ID로 변경,Altere SSID e ID de FTP para ID do dispositivo,Cambiar SSID e ID de FTP a ID de dispositivo,Changer le SSID et l'ID FTP en ID de périphérique,قم بتغيير SSID ومعرف FTP إلى معرف الجهاز
+IDS_STILL_IMAGE_AND_MOVIE_VIEWER,"""Still image and movie viewer If movie, the first frame shows""","""이미지 및 동영상 뷰어 동영상인 경우 첫 번째 프레임이 표시됩니다.""","Imagem estática e visualizador de filme Se for um filme, o primeiro quadro é exibido","Imagen fija y visor de películas Si es una película, se muestra el primer cuadro","Visionneuse d'images fixes et de films Si film, la première image s'affiche","عارض الصور الثابتة والأفلام في حالة وجود فيلم ، يظهر الإطار الأول"
+IDS_SNAPSHOT,Snapshot,스냅샷,Instantâneo,Instantánea,Instantané,لمحة
+IDS_BACK,Back,뒤로,De volta,atrás,Arrière,خلف
 IDS_WARNING_MESSAGE,Warning message,경고 메시지,Mensagem de aviso,Mensaje de advertencia,Message d'alerte,رسالة تحذير
 IDS_CONTINUE_QUESTION,This unit does not work normally Do you continue using it?,이 기기가 정상적으로 작동하지 않습니다. 계속 사용하시겠습니까?,Esta unidade não funciona normalmente Você continua a usá-la?,Esta unidad no funciona con normalidad ¿Sigues usándola?,Cet appareil ne fonctionne pas normalement Continuez-vous à l'utiliser ?,هذه الوحدة لا تعمل بشكل طبيعي هل تستمر في استخدامها؟
 IDS_LASER,Laser,레이저,Laser,Láser,Laser,الليزر
-IDS_STORAGE,Storage,저장,Armazenar,Almacenamiento,Espace de rangement,تخزين
+IDS_STORAGE,Storage,저장소,Armazenar,Almacenamiento,Espace de rangement,تخزين
 IDS_BATTERY,Battery,배터리,Bateria,Batería,Batterie,بطارية
-IDS_FAIL,Fail,실패하다,Falhou,Fallar,Échouer,يفشل
-IDS_CONTINUE,Continue,계속하다,Continuar,Continuar,Continuer,يكمل
-IDS_POWER_OFF,Power off,전원 끄기,Desligar,Apagado,Éteindre,انقطاع التيار الكهربائي
+IDS_FAIL,FAIL,실패,Falhou,Fallar,Échouer,يفشل
+IDS_CONTINUE,Continue,계속,Continuar,Continuar,Continuer,يكمل
+IDS_POWER_OFF,Power off,전원 종료,Desligar,Apagado,Éteindre,انقطاع التيار الكهربائي
 IDS_CAMERA,Camera,카메라,Câmera,Cámara,Caméra,الة تصوير
-IDS_M,M,미디엄,M,METRO,M,م
+IDS_M,M,M,M,M,M,م
 IDS_DELETE_ALL_QUESTION,Do you want to delete all searched files?,검색된 파일을 모두 삭제하시겠습니까?,Deseja excluir todos os arquivos pesquisados?,¿Desea eliminar todos los archivos buscados?,Voulez-vous supprimer tous les fichiers recherchés ?,هل تريد حذف جميع الملفات التي تم البحث عنها؟
 IDS_FILEMANAGER_QUESTION_MESSAGE,Question Message,질문 메시지,Pergunta Mensagem,Mensaje de pregunta,Question Message,رسالة استفهام
 IDS_NOT_WORKING_NORMALLY,This unit does not work normally.,본 기기가 정상적으로 작동하지 않습니다.,Esta unidade não funciona normalmente.,Esta unidad no funciona normalmente.,Cet appareil ne fonctionne pas normalement.,هذه الوحدة لا تعمل بشكل طبيعي.
 IDS_FILEMANAGER_FILE_TRANSFER,FTP FILE TRANSFER,FTP 파일 전송,TRANSFERÊNCIA DE ARQUIVOS FTP,TRANSFERENCIA DE ARCHIVOS FTP,TRANSFERT DE FICHIERS FTP,نقل ملفات FTP
-IDS_SELFTEST_SUCCESS,PASS,통과하다,PASSAR,APROBAR,PASSE,يمر
+IDS_SELFTEST_SUCCESS,PASS,통과,PASSAR,APROBAR,PASSE,يمر
 IDS_GATEWAY,Gateway,게이트웨이,Porta de entrada,Puerta,passerelle,بوابة
-IDS_DNS_SERVER,DNS Server,DNS 서버,Servidor dns,Servidor DNS,Serveur dns,خادم DNS
+IDS_DNS_SERVER,DNS Server,DNS 서버,Servidor DNS,Servidor DNS,Serveur DNS,خادم DNS
 IDS_IP_ADDRESS,IP Address,IP 주소,Endereço de IP,Dirección IP,Adresse IP,عنوان IP
 IDS_PORT,port,포트,porta,puerto,Port,ميناء
 IDS_USER_PASS,PASSWORD,비밀번호,SENHA,CLAVE,LE MOT DE PASSE,كلمه السر
 IDS_FILTER_NAME,Filter Name,필터 이름,Nome do filtro,Nombre del filtro,Nom du filtre,اسم المرشح
 IDS_YES,yes,예,sim,si,oui,نعم
-IDS_NO,no,아니요,não,no,non,لا
+IDS_NO,no,아니오,não,no,non,لا
 IDS_BLUETOOTH_SEARCH_FILTER,Bluetooth Search Filter,블루투스 검색 필터,Filtro de Pesquisa Bluetooth,Filtro de búsqueda Bluetooth,Filtre de recherche Bluetooth,مرشح بحث بلوتوث
-IDS_READY,ready,준비가 된,pronto,Listo,prêt,جاهز
-IDS_DZ_PLUS,DZ+,DZ+,DZ+,DZ+,DZ+,DZ +
+IDS_READY,ready,준비,pronto,Listo,prêt,جاهز
+IDS_DZ_PLUS,DZ+,DZ+,DZ+,DZ+,DZ+,DZ+
 IDS_DZ_MINUS,DZ-,DZ-,DZ-,DZ-,DZ-,DZ-
-IDS_SAVE_IMAGE,Save Image,이미지를 저장,Salvar imagem,Guardar imagen,Enregistrer l'image,احفظ الصورة
-IDS_FOCUS_PLIS,F+,에프+,F+,F+,Fa+,F +
-IDS_FOCUS_MINUS,F-,에프-,F-,F-,F-,F-
-IDS_DAY,DAY,일,DIA,DÍA,JOURNÉE,يوم
-IDS_NIGHT,NIGHT,밤,NOITE,NOCHE,NUIT,ليل
-IDS_INIT,INIT,초기화,INICIAR,EN ESO,INIT,فيه
+IDS_SAVE_IMAGE,Save Image,이미지 저장,Salvar imagem,Guardar imagen,Enregistrer l'image,احفظ الصورة
+IDS_FOCUS_PLIS,F+,F+,F+,F+,F+,F+
+IDS_FOCUS_MINUS,F-,F-,F-,F-,F-,F-
+IDS_DAY,DAY,주간,DIA,DÍA,JOURNÉE,يوم
+IDS_NIGHT,NIGHT,야간,NOITE,NOCHE,NUIT,ليل
+IDS_INIT,INIT,초기화,INICIAR,INIT,INIT,فيه
 IDS_ZOOM_60_100,Z: 60 ~ 100m,Z: 60 ~ 100m,Z: 60 ~ 100m,Z: 60 ~ 100m,Z : 60 ~ 100 m,Z: 60 ~ 100 م
-IDS_PQRS_SAVE,pqrs SAVE,저장하다,pqrs SALVAR,pqrs GUARDAR,pqrs ENREGISTRER,pqrs حفظ
+IDS_PQRS_SAVE,pqrs SAVE,pqrs 저장,pqrs SALVAR,pqrs GUARDAR,pqrs ENREGISTRER,pqrs حفظ
 IDS_JPG_SAVE,JPG SAVE,JPG 저장,JPG SALVAR,JPG GUARDAR,ENREGISTREMENT JPG,حفظ JPG
 IDS_Z10,Z10,Z10,Z10,Z10,Z10,Z10
 IDS_Z30,Z30,Z30,Z30,Z30,Z30,Z30
@@ -164,36 +164,44 @@ IDS_Z60,Z60,Z60,Z60,Z60,Z60,Z60
 IDS_Z100,Z100,Z100,Z100,Z100,Z100,Z100
 IDS_Z160,Z160,Z160,Z160,Z160,Z160,Z160
 IDS_Z260,Z260,Z260,Z260,Z260,Z260,Z260
-IDS_PW,P/W,비밀번호,P/W,P/N,P/W,P / W
-IDS_HLC_ON,HLC ON,HLC 켜짐,HLC ON,CLS ENCENDIDO,HLC activé,HLC على
-IDS_DEFOG_OFF,DEFOG OFF,디포그 끄기,DEFOG OFF,DESEMPAÑADOR APAGADO,DÉSEMBUAGE DÉSACTIVÉ,DEFOG OFF
-IDS_DIS_OFF,DIS OFF,표시 꺼짐,DESLIGADO,DIS APAGADO,DIS OFF,إيقاف تشغيل DIS
-IDS_DNR_ON,DNR ON,DNR 켜짐,DNR LIGADO,DNR ACTIVADO,DNR activé,تشغيل DNR
+IDS_PW,P/W,비밀번호,P/W,P/N,P/W,P/W
+IDS_HLC_ON,HLC ON,HLC 켬,HLC ON,CLS ENCENDIDO,HLC activé,HLC على
+IDS_DEFOG_OFF,DEFOG OFF,DEFOG 끔,DEFOG OFF,DESEMPAÑADOR APAGADO,DÉSEMBUAGE DÉSACTIVÉ,DEFOG OFF
+IDS_DIS_OFF,DIS OFF,DIS 끔,DIS DESLIGADO,DIS APAGADO,DIS OFF,إيقاف تشغيل DIS
+IDS_DNR_ON,DNR ON,DNR 켬,DNR LIGADO,DNR ACTIVADO,DNR activé,تشغيل DNR
 IDS_10_MINUTE,10 minutes,10 분,10 minutos,10 minutos,10 minutes,10 دقائق
 IDS_20_MINUTE,20 minutes,20 분,20 minutos,20 minutos,20 minutes,20 دقيقة
 IDS_30_MINUTE,30 minutes,30 분,30 minutos,30 minutos,30 minutes,30 دقيقة
-IDS_ARE_U_SURE_FACTORY_DEFAILT,Are you sure to set the factory default?,공장 기본값을 설정하시겠습니까?,Tem certeza de definir o padrão de fábrica?,¿Estás seguro de establecer el valor predeterminado de fábrica?,Êtes-vous sûr de définir les paramètres d'usine par défaut ?,هل أنت متأكد من ضبط المصنع الافتراضي؟
-IDS_ARE_U_SURE_FACTORY_DEFAULT,Are you sure to set the factory default?,공장 기본값을 설정하시겠습니까?,Tem certeza de definir o padrão de fábrica?,¿Estás seguro de establecer el valor predeterminado de fábrica?,Êtes-vous sûr de définir les paramètres d'usine par défaut ?,هل أنت متأكد من ضبط المصنع الافتراضي؟
+IDS_ARE_U_SURE_FACTORY_DEFAILT,Are you sure to set the factory default?,공장 초기화를 실행하시겠습니까?,Tem certeza de definir o padrão de fábrica?,¿Estás seguro de establecer el valor predeterminado de fábrica?,Êtes-vous sûr de définir les paramètres d'usine par défaut ?,هل أنت متأكد من ضبط المصنع الافتراضي؟
+IDS_ARE_U_SURE_FACTORY_DEFAULT,Are you sure to set the factory default?,공장 초기화를 실행하시겠습니까?,Tem certeza de definir o padrão de fábrica?,¿Estás seguro de establecer el valor predeterminado de fábrica?,Êtes-vous sûr de définir les paramètres d'usine par défaut ?,هل أنت متأكد من ضبط المصنع الافتراضي؟
 IDS_PLEASE_INPUT_PW,"Please, input admin password.",관리자 비밀번호를 입력해주세요.,"Por favor, insira a senha do administrador.","Por favor, ingrese la contraseña de administrador.",Veuillez saisir le mot de passe administrateur.,"من فضلك ، أدخل كلمة مرور المسؤول."
-IDC_SNAPSHOT,Snapshot,스냅 사진,Instantâneo,Instantánea,Instantané,لمحة
-IDS_STILL_IMAGE_VIEWER,Still Image Viewer,스틸 이미지 뷰어,Visualizador de imagens fixas,Visor de imágenes fijas,Visionneuse d'images fixes,عارض الصور الثابتة
-IDS_QUIT,Quit,그만두다,Desistir,Dejar,Quitter,استقال
-IDS_ORIGIN,Origin,기원,Origem,Origen,Origine,أصل
-IDS_PLAY,Play,놀다,Jogar,Jugar,Jouer,يلعب
-IDS_PAUSE,Pause,정지시키다,Pausa,Pausa,Pause,وقفة
+IDC_SNAPSHOT,Snapshot,스냅샷,Instantâneo,Instantánea,Instantané,لمحة
+IDS_STILL_IMAGE_VIEWER,Still Image Viewer,이미지 뷰어,Visualizador de imagens fixas,Visor de imágenes fijas,Visionneuse d'images fixes,عارض الصور الثابتة
+IDS_QUIT,Quit,종료,Desistir,Dejar,Quitter,استقال
+IDS_ORIGIN,Origin,원본,Origem,Origen,Origine,أصل
+IDS_PLAY,Play,실행,Jogar,Jugar,Jouer,يلعب
+IDS_PAUSE,Pause,정지,Pausa,Pausa,Pause,وقفة
 IDS_PLEASE_INPUT_NETWORK_PASSWORD,"Please, input network password.",네트워크 비밀번호를 입력해주세요.,"Por favor, insira a senha da rede.","Por favor, ingrese la contraseña de la red.",Veuillez saisir le mot de passe du réseau.,"من فضلك ، أدخل كلمة مرور الشبكة."
-IDS_ALIGN,Align,맞추다,Alinhar,Alinear,Aligner,محاذاة
-IDS_MODE,Mode,방법,Modo,Modo,Mode,الوضع
-IDS_CAM,Cam,캠,câmera,Leva,Came,كام
+IDS_ALIGN,Align,얼라인,Alinhar,Alinear,Aligner,محاذاة
+IDS_MODE,Mode,모드,Modo,Modo,Mode,الوضع
+IDS_CAM,Cam,카메라,câmera,Leva,Came,كام
 IDS_SERIAL_NUMBER,Serial Number,일련 번호,Número de série,Número de serie,Numéro de série,رقم سري
 IDS_SYSTEM_INFO,System Info,시스템 정보,Informação do sistema,Información del sistema,Information système,معلومات النظام
 IDS_PRINT_ERROR1,Cannot connect a printer!!,프린터를 연결할 수 없습니다!!,Não é possível conectar uma impressora!!,¡¡No se puede conectar una impresora!!,Impossible de connecter une imprimante !!,لا يمكن توصيل طابعة !!
 IDS_PRINT_ERROR2,Please check settings for the printer,프린터 설정을 확인하십시오,Verifique as configurações da impressora,Compruebe la configuración de la impresora.,Veuillez vérifier les paramètres de l'imprimante,يرجى التحقق من إعدادات الطابعة
 IDS_FILEMANAGER_ERROR_MESSAGE,Error Message,에러 메시지,Mensagem de erro,Mensaje de error,Message d'erreur,رسالة خطأ
 IDS_PASSWORD_CHANGING,Password Changing,비밀번호 변경,Mudança de Senha,Cambio de contraseña,Changement de mot de passe,تغيير كلمة المرور
-IDS_CURRENT,Current,현재의,Atual,Actual,Actuel,حاضِر
-IDS_NEW,New,새로운,Novo,Nuevo,Nouveau,جديد
-IDS_CONFIRM,Confirm,확인하다,confirme,Confirmar,Confirmer,يتأكد
-IDS_SHOW,Show,보여주다,Mostrar,Show,Montrer,تبين
+IDS_CURRENT,Current,현재 비밀번호,Atual,Actual,Actuel,حاضِر
+IDS_NEW,New,새 비밀번호,Novo,Nuevo,Nouveau,جديد
+IDS_CONFIRM,Confirm,새 비밀번호 확인,confirme,Confirmar,Confirmer,يتأكد
+IDS_SHOW,Show,보임,Mostrar,Show,Montrer,تبين
 IDS_WIFI_SSID,wifi ssid & ftp ID,wifi ssid & ftp ID,wifi ssid & ftp ID,wifi ssid & ftp ID,wifi ssid & ftp ID,wifi ssid & ftp ID
 IDS_FTP_ID_PW,FTP ID/PW,FTP ID/PW,FTP ID/PW,FTP ID/PW,FTP ID/PW,FTP ID/PW
+IDS_PASS,PASS,PASS,PASSAR,APROBAR,PASSER,يمر
+IDS_CALIBRATION_SERVICE_REQUIRED,Calibration service required,교정 서비스 필요합니다,Serviço de calibração necessário,Servicio de calibración requerido,Service d'étalonnage requis,خدمة المعايرة مطلوبة
+IDS_LOGIN_EXPIRED_DATE,Expired Date,교정 유효기간 만료,Data expirada,Fecha de vencimiento,Date d'expiration,منتهي الصلاحية
+IDS_MANUAL_CAPTURE,Manual capture,메뉴얼 캡처,Captura manual,Captura manual,Capture manuelle,الالتقاط اليدوي
+IDS_SCREEN,Screen capture,스크린 캡처,Captura de tela,La captura de pantalla,Capture d'écran,تصوير الشاشة
+IDS_SEARCH_TEXT,Enter the minute interval to search,분단위로 검색하세요,Digite o intervalo de minutos para pesquisar,Ingrese el intervalo de minutos para buscar,Entrez l'intervalle de minutes à rechercher,أدخل الفاصل الزمني للبحث
+IDS_FTP_TRANSFER,FTP file transfering,FTP 파일 전송,Transferência de arquivo FTP,Transferencia de archivos FTP,Transfert de fichiers FTP,قل ملف FTP
+IDS_FILE_TRANSFER,USB File transfering,USB 파일 전송,Transferência de arquivo USB,Transferencia de archivos USB,Transfert de fichiers USB,قل ملف USB

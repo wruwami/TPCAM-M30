@@ -239,9 +239,21 @@ void EnforcementComponentWidget::hudInit()
 
 void EnforcementComponentWidget::laserInit()
 {
-//    SerialLaserManager serialLaserManager;
-//    serialLaserManager
+    ConfigManager config = ConfigManager("parameter_settings1.json");
+    QJsonObject object = config.GetConfig();
+    ConfigManager config2 = ConfigManager("parameter_settings2.json");
+    QJsonObject object2 = config2.GetConfig();
 
+    SerialLaserManager serialLaserManager;
+    serialLaserManager.set_weather_mode(object2["weather selection"].toInt());
+    serialLaserManager.set_AJamming_mode(object2["anti-jamming selection"].toInt());
+    serialLaserManager.set_buzzer_mode(object2["buzzer selection"].toInt());
+
+    serialLaserManager.set_detection_distance(object["speed_selection"].toInt());
+
+    ConfigManager config3 = ConfigManager("parameter_enforcement.json");
+    QJsonObject object3 = config3.GetConfig();
+    serialLaserManager.set_detection_area(object3["zoom index"].toDouble());
 }
 
 void EnforcementComponentWidget::paintEvent(QPaintEvent *event)

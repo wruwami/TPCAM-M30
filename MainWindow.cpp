@@ -71,7 +71,6 @@ MainWindow::MainWindow(screensaver* screensaver, QWidget *parent) :
         }
     }
 
-
     m_pMainMenuWidget = (MainMenuWidget*)ui->verticalLayout->itemAt(0)->widget();
     m_pBatteryStatus = m_pMainMenuWidget->m_pBatteryChargingLabel;
     m_pBatteryPercent = m_pMainMenuWidget->m_pBatteryPercentButton;

@@ -106,7 +106,8 @@ SOURCES += main.cpp\
     FileManagerFileTransferDialog.cpp \
     SearchBoxDialog.cpp \
     ltc2943.cpp \
-    thermal_printer.cpp
+    thermal_printer.cpp \
+    v4l2_thread.cpp
 
 
 HEADERS  += MainWindow.h \
@@ -207,7 +208,8 @@ HEADERS  += MainWindow.h \
     CustomZoomLabel.h \
     FileManagerFileTransferDialog.h \
     SearchBoxDialog.h \
-    thermal_printer.h
+    thermal_printer.h \
+    v4l2_thread.h
 
 FORMS    += MainWindow.ui \
     IndicatorCameraFocusWidget.ui \

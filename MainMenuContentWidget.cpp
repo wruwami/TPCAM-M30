@@ -7,12 +7,15 @@
 #include "FileManagerWidget.h"
 #include "EnforcementWidget.h"
 #include "FileManager.h"
+#include "Color.h"
 
 MainMenuContentWidget::MainMenuContentWidget(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::MainMenuContentWidget)
 {
     ui->setupUi(this);
+
+    setBackGroundColor(this, 0xffffff);
 
     m_pEnforcementButton = ui->enforcementPushButton;
     m_pFileManagertButton = ui->fileManagerPushButton;

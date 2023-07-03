@@ -4,12 +4,15 @@
 #include "qdir.h"
 
 #include "StringLoader.h"
+#include "Color.h"
 
 MainMenuAdminAlignWidget::MainMenuAdminAlignWidget(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::MainMenuAdminAlignWidget)
 {
     ui->setupUi(this);
+
+    setBackGroundColor(this, 0xffffff);
 
     m_pDeviceIdWidget = ui->deviceIDPushButton;
     m_pCameraAlignWidget = ui->cameraHUDAlignPushButton;

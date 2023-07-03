@@ -130,7 +130,7 @@ FileManagerWidget::FileManagerWidget(QWidget *parent) :
 //    ui->tableWidget->setGeometry(ui->gridLayout_2->itemAtPosition(1, 1)->geometry());
 //    ui->tableWidget->setColumnWidth(0, ui->gridLayout_2->itemAtPosition(1, 1)->geometry().width());
 //    ui->tableWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-    startTimer(1000);5
+    startTimer(1000);
 }
 
 FileManagerWidget::~FileManagerWidget()

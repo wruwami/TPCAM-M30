@@ -44,7 +44,7 @@ public:
 private:
     QJsonObject m_jsonObject;
     ConfigManager m_config = ConfigManager("parameter_login.json");
-    LightManager* m_pLightMager;
+    LightManager* m_pLightMager = nullptr;
 //    QQueue<QString> m_queue;
 private:
     Ui::LoginWidget *ui;

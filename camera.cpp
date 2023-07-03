@@ -73,10 +73,26 @@ Camera::Camera(QWidget *parent) :
 
 	setCamera(defaultCamera);
 
+	QFile intro("/sys/class/gpio/export");
+	intro.open(QIODevice::WriteOnly | QIODevice::Append | QIODevice::Text);
+	intro.write("154");
+	intro.close();
+
+	QFile intro2("/sys/class/gpio/gpio154/direction");
+	intro2.open(QIODevice::WriteOnly | QIODevice::Append | QIODevice::Text);
+	intro2.write("out");
+	intro2.close();
+
 	if (!setShmsink(SHM_NAME, SHM_DEV))
 	{
 		qDebug() << "gst shared memory sink start failed.";
 	}
+
+	m_v4l2Capturer.reset(new v4l2_thread());
+	m_v4l2Capturer->initV4l2();
+	m_v4l2Capturer->setUseFlash(true);
+	m_v4l2Capturer->setUseTargetCross(true);
+	m_v4l2Capturer->start();
 }
 
 Camera::~Camera()
@@ -199,38 +215,46 @@ void Camera::setViewerToShmsrc(QString qstrShmName, int nFramerate, int nViewerW
 	m_capturer.reset(new CaptureThread(QString(qstrViewerCommand), m_dataLock.data()));
 }
 
-QString Camera::GetFileName(bool bVideo, int idx, QString qstrDateTime, int nSpeed, int nSpeedLimit, int nCaptureSpeed, int nCaptureDistance
-	, int nEnforcementRange, float fLatitude, float fLongitude, QString qstrLocation, QString qstrUsername, QString qstrDeviceID)
+QString Camera::GetFileName(bool bVideo, int idx, QString qstrDateTime, int nSpeed, int nSpeedLimit, int nCaptureSpeed, int nCaptureDistance, int nEnforcementRange
+	, float fLatitude, float fLongitude, QString qstrLocation, QString qstrUsername, QString qstrDeviceID, int nTargetCrossX, int nTargetCrossY)
 {
-	QString qstrHead, qstrFileExtension;
+	QString qstrFilename;
 	if (bVideo)
 	{
-		qstrHead = "AV";
-		qstrFileExtension = "avi";
+		qstrFilename.sprintf("AV_%05d_%s_P%04d_%04d_%04d_%04d_NIN%02d_N%.6f_E%.6f_%s_%s_%s.avi"
+			, idx
+			, qstrDateTime.toStdString().c_str()
+			, nSpeed
+			, nSpeedLimit
+			, nCaptureSpeed
+			, nCaptureDistance
+			, nEnforcementRange
+			, fLatitude
+			, fLongitude
+			, qstrLocation.toStdString().c_str()
+			, qstrUsername.toStdString().c_str()
+			, qstrDeviceID.toStdString().c_str()
+		);
 	}
 	else
 	{
-		qstrHead = "AI";
-		qstrFileExtension = "jpg";
+		qstrFilename.sprintf("AI_%05d_%s_P%04d_%04d_%04d_%04d_NIN%02d_N%.6f_E%.6f_%s_%s_%s_%d_%d.jpg"
+			, idx
+			, qstrDateTime.toStdString().c_str()
+			, nSpeed
+			, nSpeedLimit
+			, nCaptureSpeed
+			, nCaptureDistance
+			, nEnforcementRange
+			, fLatitude
+			, fLongitude
+			, qstrLocation.toStdString().c_str()
+			, qstrUsername.toStdString().c_str()
+			, qstrDeviceID.toStdString().c_str()
+			, nTargetCrossX
+			, nTargetCrossY
+		);
 	}
-
-	QString qstrFilename;
-	qstrFilename.sprintf("%s_%05d_%s_P%04d_%04d_%04d_%04d_NIN%02d_N%.6f_E%.6f_%s_%s_%s_S.%s"
-		, qstrHead.toStdString().c_str()
-		, idx
-		, qstrDateTime.toStdString().c_str()
-		, nSpeed
-		, nSpeedLimit
-		, nCaptureSpeed
-		, nCaptureDistance
-		, nEnforcementRange
-		, fLatitude
-		, fLongitude
-		, qstrLocation.toStdString().c_str()
-		, qstrUsername.toStdString().c_str()
-		, qstrDeviceID.toStdString().c_str()
-		, qstrFileExtension.toStdString().c_str()
-	);
 
 	return qstrFilename;
 }
@@ -242,16 +266,19 @@ void Camera::saveVideoUseShmsrc(QString qstrVideoFilename, QString qstrPath, QSt
 	}
 
 	int nNumBuffer = nRecodeTime * nFramerate;
-	QString qstrTimestamp = (bTimestamp) ? "! clockoverlay valignment=bottom halignment=left font-desc=\"Sans, 12\" time-format=\"%F %X\"" : "";
+	/*QString qstrTimestamp = (bTimestamp) ? "! clockoverlay valignment=bottom halignment=left font-desc=\"Sans, 12\" time-format=\"%F %X\"" : "";
 	QString qstrTextoverlay = "";
 	if (bTextoverlay)
 	{
 		qstrTextoverlay.sprintf("! textoverlay text=\"%s\" valignment=bottom halignment=right font-desc=\"Sans, 12\"", qstrEnfoceInfo.toStdString().c_str());
 	}
-
 	QString strCommand = QString("gst-launch-1.0 shmsrc num-buffers=%1 do-timestamp=true socket-path=/tmp/foo name=%2 ! video/x-raw,format=NV12,width=%3,height=%4,framerate=%5/1 %6 %7 ! videoconvert ! jpegenc ! queue ! mux. alsasrc num-buffers=1024 ! audioconvert ! \'audio/x-raw,rate=44100,channels=2\' ! queue ! mux. avimux name=mux ! filesink location=%8%9"
 		).arg(QString::number(nNumBuffer), qstrShmName, QString::number(nVideoWidth), QString::number(nVideoHeight), QString::number(nFramerate), qstrTimestamp, qstrTextoverlay, qstrPath, qstrVideoFilename);
-	
+	*/
+
+	QString strCommand = QString("gst-launch-1.0 shmsrc num-buffers=%1 do-timestamp=true socket-path=/tmp/foo name=%2 ! video/x-raw,format=NV12,width=%3,height=%4,framerate=%5/1 ! queue ! videoconvert ! jpegenc ! avimux ! filesink location=%6%7"
+		).arg(QString::number(nNumBuffer), qstrShmName, QString::number(nVideoWidth), QString::number(nVideoHeight), QString::number(nFramerate), qstrPath, qstrVideoFilename);
+
 	std::thread thread_command(thread_CommandExcute, strCommand);
 	thread_command.detach();
 }
@@ -283,14 +310,14 @@ QString Camera::getTime()
 	auto millis = std::chrono::duration_cast<std::chrono::milliseconds>(duration) % 1000;
 
 	QString qstrTime;
-	qstrTime.sprintf("%04d%02d%02d_%02d%02d%02d%d"
+	qstrTime.sprintf("%04d%02d%02d_%02d%02d%02d%03d"
 		, tstruct.tm_year + 1900
 		, tstruct.tm_mon + 1
 		, tstruct.tm_mday
 		, tstruct.tm_hour
 		, tstruct.tm_min
 		, tstruct.tm_sec
-		, int(millis.count() / 100)
+		, millis.count()
 	);
 	return qstrTime;
 }
@@ -417,7 +444,6 @@ void Camera::imageSaved(int id, const QString &fileName)
 		close();
 }
 
-
 void Camera::closeEvent(QCloseEvent *event)
 {
 	if (m_isCapturingImage) {
@@ -427,38 +453,39 @@ void Camera::closeEvent(QCloseEvent *event)
 	} else {
 		event->accept();
 	}
-
 }
 
-
-void Camera::onSoftTrigClicked()
+void Camera::onSaveVideoClicked()
 {
 	int idx = 1;
-	int nSpeed = 66;
-	int nSpeedLimit = 10;
-	int nCaptureSpeed = 10;
-	int nCaptureDistance = 88;
+	int nSpeed = 96;
+	int nSpeedLimit = 80;
+	int nCaptureSpeed = 80;
+	int nCaptureDistance = 100;
 	int nEnfocementRange = 2;
 	float fLatitude = 37.3552f;
 	float fLongitude = 126.9661f;
 	QString qstrLocation = "Loc1";
 	QString qstrUsername = "User1";
 	QString qstrDeviceID = "M0000P";
+	int nTargetCrossX = 1000;
+	int nTargetCrossY = 500;
 
 	QString qstrCurTime = getTime();
-	qDebug() << "Current Time : " << qstrCurTime;
-	QString qstrFilename = GetFileName(true, idx, qstrCurTime, nSpeed, nSpeedLimit, nCaptureSpeed, nCaptureDistance, nEnfocementRange, fLatitude, fLongitude, qstrLocation, qstrUsername, qstrDeviceID);
-	qDebug() << "Filename : " << qstrFilename;
+	QString qstrFilename = GetFileName(true, idx, qstrCurTime.left(16), nSpeed, nSpeedLimit, nCaptureSpeed, nCaptureDistance, nEnfocementRange, fLatitude, fLongitude, qstrLocation, qstrUsername, qstrDeviceID, nTargetCrossX, nTargetCrossY);
 
 	QString qstrDatetimeDir = "/" + qstrCurTime.left(8) + "/" + qstrCurTime.left(11) + "/";
 	QString qstrPath = QCoreApplication::applicationDirPath() + qstrDatetimeDir;
-	qDebug() << "Path : " << qstrPath;
 
 	QString qstrEnforceInfo;
 	qstrEnforceInfo.sprintf("[%05d]C   %dkm/h,   %dm", idx, nSpeed, nCaptureDistance);
-
-	saveVideoUseShmsrc(qstrFilename, qstrPath, qstrEnforceInfo, SHM_NAME, true, true, 10, 30, 1920, 1080);
-
+	saveVideoUseShmsrc(qstrFilename, qstrPath, qstrEnforceInfo, SHM_NAME, true, true, 5, 30, RAW_IMAGE_WIDTH, RAW_IMAGE_HEIGHT);
+	
+	QString qstrDatetimeInfo = QString("%1/%2/%3 %4:%5:%6.%7").arg(qstrCurTime.left(4), qstrCurTime.mid(4, 2), qstrCurTime.mid(6, 2), qstrCurTime.mid(9, 2), qstrCurTime.mid(11, 2), qstrCurTime.mid(13, 2), qstrCurTime.right(3));
+	QString qstrLocInfo;
+	qstrLocInfo.sprintf("%s (%.6f, %.6f)", qstrLocation.toStdString().c_str(), fLatitude, fLongitude);
+	QString qstrFullPath = qstrPath + GetFileName(false, idx, qstrCurTime.left(16), nSpeed, nSpeedLimit, nCaptureSpeed, nCaptureDistance, nEnfocementRange, fLatitude, fLongitude, qstrLocation, qstrUsername, qstrDeviceID, nTargetCrossX, nTargetCrossY);
+	m_v4l2Capturer->imageGrab(qstrFullPath, qstrDatetimeInfo, qstrDeviceID, qstrUsername, qstrLocInfo, nSpeedLimit, nCaptureDistance, nSpeed, nTargetCrossX, nTargetCrossY);
 }
 
 int Camera::commandExcute(QString strCommand)
@@ -468,6 +495,7 @@ int Camera::commandExcute(QString strCommand)
 
 void Camera::onExitClicked()
 {
+	m_v4l2Capturer->setRunning(false);
 	m_capturer->setRunning(false);
 	disconnect(m_capturer.data(), &CaptureThread::frameCaptured, this, &Camera::updateFrame);
 	connect(m_capturer.data(), &CaptureThread::finished, m_capturer.data(), &CaptureThread::deleteLater);

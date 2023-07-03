@@ -24,7 +24,7 @@ LoginWidget::LoginWidget(QWidget *parent) :
 
     m_jsonObject = m_config.GetConfig();
 
-    setBackGroundColor(this, 0xf2f2f2);
+    setBackGroundColor(this, 0xffffff);
     m_loginPushButton = ui->loginPushButton;
     m_dateTimePushButton = ui->dateTimePushButton;
     m_pUserNameComboBox = ui->userNameComboBox;

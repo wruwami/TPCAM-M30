@@ -6,7 +6,8 @@
 enum Type
 {
     eMMC,
-    SD
+    SD,
+    USB,
 };
 
 class FileManager

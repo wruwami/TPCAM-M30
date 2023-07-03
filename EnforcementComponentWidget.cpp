@@ -2,10 +2,14 @@
 #include "ui_EnforcementComponentWidget.h"
 
 #include <QPainter>
+#include <QJsonArray>
 
 #include "StringLoader.h"
 #include "camera.h"
 #include "WidgetSize.h"
+#include "HUDManager.h"
+#include "SerialLaserManager.h"
+
 
 EnforcementComponentWidget::EnforcementComponentWidget(QWidget *parent) :
     QWidget(parent),
@@ -29,6 +33,7 @@ EnforcementComponentWidget::EnforcementComponentWidget(QWidget *parent) :
     ui->speedLabel->setDisabled(true);
 
     m_object = m_config.GetConfig();
+    m_object2 = m_config2.GetConfig();
     if (m_object["speed selection"].toInt() == 1)
         m_UserModeOn = true;
     else
@@ -51,6 +56,9 @@ EnforcementComponentWidget::EnforcementComponentWidget(QWidget *parent) :
     ui->enforcementCountLabel->setSizePolicy(sp_retain);
     ui->enforcementDistanceSpeedLabel->setSizePolicy(sp_retain);
     ui->enforcementTimeLabel->setSizePolicy(sp_retain);
+
+    camInit();
+    hudInit();
 }
 
 EnforcementComponentWidget::~EnforcementComponentWidget()
@@ -83,7 +91,6 @@ void EnforcementComponentWidget::dzPlus()
         }
     }
 }
-
 void EnforcementComponentWidget::dzMinus()
 {
     if (m_UserModeOn)
@@ -178,6 +185,65 @@ void EnforcementComponentWidget::SetCamera()
      m_pCamera->show();
 }
 
+void EnforcementComponentWidget::camInit()
+{
+    m_serialViscaManager.SetDayMode(m_object2["day&night selection"].toInt());
+
+    m_serialViscaManager.set_IRCorrection_standard();
+
+    m_serialViscaManager.set_manual_focus();
+    m_serialViscaManager.separate_zoom_mode();
+    m_serialViscaManager.dzoom(1);
+
+//    ConfigManager config = ConfigManager("parameter_enforcement.json");
+//    QJsonObject object = config.GetConfig();
+
+}
+
+void EnforcementComponentWidget::hudInit()
+{
+    HUDManager hudManager;
+
+    ConfigManager config = ConfigManager("parameter_setting2.json");
+    QJsonObject object = config.GetConfig();
+    switch (object["reticle selection"].toInt())
+    {
+    case 1:
+    {
+        hudManager.SetReticleShape(Dot);
+    }
+        break;
+    case 2:
+    {
+        hudManager.SetReticleShape(Cross);
+    }
+        break;
+    case 3:
+    {
+        hudManager.SetReticleShape(Round);
+    }
+        break;
+    case 4:
+    {
+        hudManager.SetReticleShape(Rectangle);
+    }
+        break;
+    }
+
+    ConfigManager config2 = ConfigManager("parameter_reticle.json");
+    QJsonObject object2 = config2.GetConfig();
+    QJsonArray array = object2["HUD reticle pos"].toArray();
+
+    //hudManager.SetReticleShape()
+}
+
+void EnforcementComponentWidget::laserInit()
+{
+//    SerialLaserManager serialLaserManager;
+//    serialLaserManager
+
+}
+
 void EnforcementComponentWidget::paintEvent(QPaintEvent *event)
 {
 //    QWidget::paintEvent(event);
@@ -186,6 +252,7 @@ void EnforcementComponentWidget::paintEvent(QPaintEvent *event)
     {
         QPainter painter(this);
     //    QStyleOptionFrame  option;
+
     //    option.initFrom(this);
     //    option.rect = ui->verticalLayout_2->geometry();
     //    option.lineWidth = 1;

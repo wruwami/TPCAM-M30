@@ -4,8 +4,6 @@
 #include <QJsonArray>
 
 #include "StringLoader.h"
-#include "LaserManager.h"
-#include "ViscaManager.h"
 
 Setting2Widget::Setting2Widget(QWidget *parent) :
     QWidget(parent),
@@ -86,35 +84,11 @@ void Setting2Widget::SaveConfig()
     m_config.SetConfig(m_newJsonObject);
     m_config.SaveFile();
 
-    LaserManager laserManager;
-    laserManager.SetWeatherMode(m_newJsonObject["weather selection"].toInt());
+//    SerialLaserManager laserManager;
+//    laserManager.set_weather_mode(m_newJsonObject["weather selection"].toInt());
 
-    ViscaManager viscaManager;
-    viscaManager.SetDayMode(m_newJsonObject["day&night selection"].toInt());
-
-    switch (m_newJsonObject["reticle selection"].toInt())
-    {
-    case 1:
-    {
-        m_hud.SetReticleShape(Dot);
-    }
-        break;
-    case 2:
-    {
-        m_hud.SetReticleShape(Cross);
-    }
-        break;
-    case 3:
-    {
-        m_hud.SetReticleShape(Round);
-    }
-        break;
-    case 4:
-    {
-        m_hud.SetReticleShape(Rectangle);
-    }
-        break;
-    }
+//    ViscaManager viscaManager;
+//    viscaManager.SetDayMode(m_newJsonObject["day&night selection"].toInt());
 }
 
 void Setting2Widget::on_antiJammingModeComboBox_currentIndexChanged(int index)

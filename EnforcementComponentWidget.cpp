@@ -59,6 +59,7 @@ EnforcementComponentWidget::EnforcementComponentWidget(QWidget *parent) :
 
     camInit();
     hudInit();
+    laserInit();
 }
 
 EnforcementComponentWidget::~EnforcementComponentWidget()
@@ -253,7 +254,157 @@ void EnforcementComponentWidget::laserInit()
 
     ConfigManager config3 = ConfigManager("parameter_enforcement.json");
     QJsonObject object3 = config3.GetConfig();
-    serialLaserManager.set_detection_area(object3["zoom index"].toDouble());
+
+    bool nUserModeOn = true;
+    if (object["speed selection"].toInt() == 2)
+        nUserModeOn = false;
+
+    int distance = 0, area = 0;
+    switch (object3["zoom index"].toInt())
+    {
+    case 1:
+    {
+        if (nUserModeOn)
+        {
+            distance = 20;
+            area = 3;
+        }
+        else
+        {
+            distance = 18;
+            area = 18;
+        }
+    }
+        break;
+    case 2:
+    {
+        if (nUserModeOn)
+        {
+            distance = 40;
+            area = 3;
+        }
+        else
+        {
+            distance = 48;
+            area = 12;
+        }
+
+    }
+        break;
+    case 3:
+    {
+        if (nUserModeOn)
+        {
+            distance = 60;
+            area = 3;
+        }
+        else
+        {
+            distance = 80;
+            area = 20;
+        }
+
+    }
+        break;
+    case 4:
+    {
+        if (nUserModeOn)
+        {
+            distance = 80;
+            area = 3;
+        }
+        else
+        {
+            distance = 130;
+            area = 30;
+        }
+
+    }
+        break;
+    case 5:
+    {
+        if (nUserModeOn)
+        {
+            distance = 100;
+            area = 3;
+        }
+        else
+        {
+            distance = 1580;
+            area = 1420;
+        }
+
+    }
+        break;
+    case 6:
+    {
+        if (nUserModeOn)
+        {
+            distance = 120;
+            area = 3;
+        }
+        else
+        {
+            distance = 1580;
+            area = 1420;
+        }
+
+    }
+        break;
+    case 7:
+    {
+        if (nUserModeOn)
+        {
+            distance = 140;
+            area = 3;
+        }
+        else
+        {
+            distance = 1580;
+            area = 1420;
+        }
+
+    }
+        break;
+    case 8:
+    {
+        if (nUserModeOn)
+        {
+            distance = 160;
+            area = 3;
+        }
+        else
+        {
+            distance = 1580;
+            area = 1420;
+        }
+
+    }
+        break;
+    case 9:
+    {
+        if (nUserModeOn)
+        {
+            distance = 180;
+            area = 3;
+        }
+        else
+        {
+            distance = 1580;
+            area = 1420;
+        }
+
+    }
+        break;
+    }
+
+    serialLaserManager.set_detection_area(distance);
+    serialLaserManager.set_detection_area(area);
+
+//    int dn = object["day&night selection"].toInt();
+//    if (dn > 0 && dn <=3)
+//        serialLaserManager.set_night_mode();
+    serialLaserManager.set_speed_measure_mode(1);
 }
 
 void EnforcementComponentWidget::paintEvent(QPaintEvent *event)

@@ -198,6 +198,79 @@ void IndicatorDialog::on_speedSTPushButton_clicked()
     ui->speedPushButton->setImage("indicator", "indicator_enable_user_mode_on.jpg");
     m_jsonObject1["speed selection"] = 1;
     m_pMainMenuWidget->setIndicatorImage(m_pMainMenuWidget->m_pSpeedPushbutton, "indicator", "indicator_enable_user_mode_on.jpg");
+
+    ConfigManager config = ConfigManager("parameter_enforcement.json");
+    QJsonObject object = config.GetConfig();
+
+    int distance = 0, area = 0;
+    switch (object["zoom index"].toInt())
+    {
+    case 1:
+    {
+            distance = 20;
+            area = 3;
+    }
+        break;
+    case 2:
+    {
+            distance = 40;
+            area = 3;
+
+    }
+        break;
+    case 3:
+    {
+            distance = 60;
+            area = 3;
+
+    }
+        break;
+    case 4:
+    {
+            distance = 80;
+            area = 3;
+
+    }
+        break;
+    case 5:
+    {
+            distance = 100;
+            area = 3;
+
+    }
+        break;
+    case 6:
+    {
+            distance = 120;
+            area = 3;
+
+    }
+        break;
+    case 7:
+    {
+            distance = 140;
+            area = 3;
+    }
+        break;
+    case 8:
+    {
+            distance = 160;
+            area = 3;
+
+    }
+        break;
+    case 9:
+    {
+            distance = 180;
+            area = 3;
+
+    }
+        break;
+    }
+    SerialLaserManager serialLaserManager;
+    serialLaserManager.set_detection_area(distance);
+    serialLaserManager.set_detection_area(area);
+
 }
 
 void IndicatorDialog::on_speedLTPushButton_clicked()
@@ -205,6 +278,75 @@ void IndicatorDialog::on_speedLTPushButton_clicked()
     ui->speedPushButton->setImage("indicator", "indicator_enable_user_mode_off.jpg");
     m_jsonObject1["speed selection"] = 2;
     m_pMainMenuWidget->setIndicatorImage(m_pMainMenuWidget->m_pSpeedPushbutton, "indicator", "indicator_enable_user_mode_off.jpg");
+
+    ConfigManager config = ConfigManager("parameter_enforcement.json");
+    QJsonObject object = config.GetConfig();
+
+    int distance = 0, area = 0;
+    switch (object["zoom index"].toInt())
+    {
+    case 1:
+    {
+        distance = 18;
+        area = 18;
+    }
+        break;
+    case 2:
+    {
+        distance = 49;
+        area = 12;
+
+    }
+        break;
+    case 3:
+    {
+        distance = 80;
+        area = 20;
+
+    }
+        break;
+    case 4:
+    {
+        distance = 130;
+        area = 30;
+
+    }
+        break;
+    case 5:
+    {
+        distance = 1580;
+        area = 1420;
+
+    }
+        break;
+    case 6:
+    {
+        distance = 1580;
+        area = 1420;
+    }
+        break;
+    case 7:
+    {
+        distance = 1580;
+        area = 1420;
+    }
+        break;
+    case 8:
+    {
+        distance = 1580;
+        area = 1420;
+    }
+        break;
+    case 9:
+    {
+        distance = 1580;
+        area = 1420;
+    }
+        break;
+    }
+    SerialLaserManager serialLaserManager;
+    serialLaserManager.set_detection_area(distance);
+    serialLaserManager.set_detection_area(area);
 }
 
 void IndicatorDialog::on_enforcementPushButton_clicked()
@@ -492,6 +634,14 @@ void IndicatorDialog::on_day1WidgetClicked()
     m_pMainMenuWidget->setIndicatorImage(m_pMainMenuWidget->m_pDaynNightPushbutton, "indicator", "day1.jpg");
 
     QJsonObject object = m_jsonObject3["Day"].toObject()["Dark"].toObject();
+     m_serialViscaManager.set_AE_shutter_priority();
+     m_serialViscaManager.set_iris(object["Iris"].toInt());
+     m_serialViscaManager.set_shutter_speed(object["Shutter"].toInt());
+     m_serialViscaManager.set_gain(object["Gain"].toInt());
+     m_serialViscaManager.set_noise_reduction_on("0");
+     object["DIS"].toBool() ? m_serialViscaManager.set_DIS_on() : m_serialViscaManager.set_DIS_off();
+     object["DEFOG"].toBool() ? m_serialViscaManager.set_defog_on() : m_serialViscaManager.set_defog_off();
+     object["HLC"].toBool() ? m_serialViscaManager.set_HLC_on() : m_serialViscaManager.set_HLC_off();
 //    ViscaManager viscaManager;
 //    viscaManager.SetDayMode(object);
 }
@@ -503,6 +653,14 @@ void IndicatorDialog::on_day2WidgetClicked()
     m_pMainMenuWidget->setIndicatorImage(m_pMainMenuWidget->m_pDaynNightPushbutton, "indicator", "day2.jpg");
 
     QJsonObject object = m_jsonObject3["Day"].toObject()["Normal"].toObject();
+    m_serialViscaManager.set_AE_shutter_priority();
+    m_serialViscaManager.set_iris(object["Iris"].toInt());
+    m_serialViscaManager.set_shutter_speed(object["Shutter"].toInt());
+    m_serialViscaManager.set_gain(object["Gain"].toInt());
+    m_serialViscaManager.set_noise_reduction_on("0");
+    object["DIS"].toBool() ? m_serialViscaManager.set_DIS_on() : m_serialViscaManager.set_DIS_off();
+    object["DEFOG"].toBool() ? m_serialViscaManager.set_defog_on() : m_serialViscaManager.set_defog_off();
+    object["HLC"].toBool() ? m_serialViscaManager.set_HLC_on() : m_serialViscaManager.set_HLC_off();
 //    ViscaManager viscaManager;
 //    viscaManager.SetDayMode(object);
 }
@@ -514,6 +672,14 @@ void IndicatorDialog::on_day3WidgetClicked()
     m_pMainMenuWidget->setIndicatorImage(m_pMainMenuWidget->m_pDaynNightPushbutton, "indicator", "day3.jpg");
 
     QJsonObject object = m_jsonObject3["Day"].toObject()["Bright"].toObject();
+    m_serialViscaManager.set_AE_shutter_priority();
+    m_serialViscaManager.set_iris(object["Iris"].toInt());
+    m_serialViscaManager.set_shutter_speed(object["Shutter"].toInt());
+    m_serialViscaManager.set_gain(object["Gain"].toInt());
+    m_serialViscaManager.set_noise_reduction_on("0");
+    object["DIS"].toBool() ? m_serialViscaManager.set_DIS_on() : m_serialViscaManager.set_DIS_off();
+    object["DEFOG"].toBool() ? m_serialViscaManager.set_defog_on() : m_serialViscaManager.set_defog_off();
+    object["HLC"].toBool() ? m_serialViscaManager.set_HLC_on() : m_serialViscaManager.set_HLC_off();
 //    ViscaManager viscaManager;
 //    viscaManager.SetDayMode(object);
 }
@@ -525,6 +691,14 @@ void IndicatorDialog::on_night1WidgetClicked()
     m_pMainMenuWidget->setIndicatorImage(m_pMainMenuWidget->m_pDaynNightPushbutton, "indicator", "night1.jpg");
 
     QJsonObject object = m_jsonObject3["Night"].toObject()["Dark"].toObject();
+    m_serialViscaManager.set_AE_shutter_priority();
+    m_serialViscaManager.set_iris(object["Iris"].toInt());
+    m_serialViscaManager.set_shutter_speed(object["Shutter"].toInt());
+    m_serialViscaManager.set_gain(object["Gain"].toInt());
+    m_serialViscaManager.set_noise_reduction_on("0");
+    object["DIS"].toBool() ? m_serialViscaManager.set_DIS_on() : m_serialViscaManager.set_DIS_off();
+    object["DEFOG"].toBool() ? m_serialViscaManager.set_defog_on() : m_serialViscaManager.set_defog_off();
+    object["HLC"].toBool() ? m_serialViscaManager.set_HLC_on() : m_serialViscaManager.set_HLC_off();
 //    ViscaManager viscaManager;
 //    viscaManager.SetDayMode(object);
 }
@@ -536,6 +710,14 @@ void IndicatorDialog::on_night2WidgetClicked()
     m_pMainMenuWidget->setIndicatorImage(m_pMainMenuWidget->m_pDaynNightPushbutton, "indicator", "night2.jpg");
 
     QJsonObject object = m_jsonObject3["Night"].toObject()["Normal"].toObject();
+    m_serialViscaManager.set_AE_shutter_priority();
+    m_serialViscaManager.set_iris(object["Iris"].toInt());
+    m_serialViscaManager.set_shutter_speed(object["Shutter"].toInt());
+    m_serialViscaManager.set_gain(object["Gain"].toInt());
+    m_serialViscaManager.set_noise_reduction_on("0");
+    object["DIS"].toBool() ? m_serialViscaManager.set_DIS_on() : m_serialViscaManager.set_DIS_off();
+    object["DEFOG"].toBool() ? m_serialViscaManager.set_defog_on() : m_serialViscaManager.set_defog_off();
+    object["HLC"].toBool() ? m_serialViscaManager.set_HLC_on() : m_serialViscaManager.set_HLC_off();
 //    ViscaManager viscaManager;
 //    viscaManager.SetDayMode(object);
 }
@@ -547,6 +729,14 @@ void IndicatorDialog::on_night3WidgetClicked()
     m_pMainMenuWidget->setIndicatorImage(m_pMainMenuWidget->m_pDaynNightPushbutton, "indicator", "night3.jpg");
 
     QJsonObject object = m_jsonObject3["Night"].toObject()["Bright"].toObject();
+    m_serialViscaManager.set_AE_shutter_priority();
+    m_serialViscaManager.set_iris(object["Iris"].toInt());
+    m_serialViscaManager.set_shutter_speed(object["Shutter"].toInt());
+    m_serialViscaManager.set_gain(object["Gain"].toInt());
+    m_serialViscaManager.set_noise_reduction_on("0");
+    object["DIS"].toBool() ? m_serialViscaManager.set_DIS_on() : m_serialViscaManager.set_DIS_off();
+    object["DEFOG"].toBool() ? m_serialViscaManager.set_defog_on() : m_serialViscaManager.set_defog_off();
+    object["HLC"].toBool() ? m_serialViscaManager.set_HLC_on() : m_serialViscaManager.set_HLC_off();
 //    ViscaManager viscaManager;
 //    viscaManager.SetDayMode(object);
 }

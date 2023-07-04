@@ -4,6 +4,8 @@
 #include <QDialog>
 
 #include "ConfigManager.h"
+#include "SerialViscaManager.h"
+#include "SerialLaserManager.h"
 
 class CustomPushButton;
 class IndicatorCameraExposeWidget;
@@ -98,6 +100,8 @@ private:
     QJsonObject m_jsonObject2;
     QJsonObject m_jsonObject3;
     MainMenuWidget* m_pMainMenuWidget;
+    SerialViscaManager m_serialViscaManager;
+    SerialLaserManager m_serialLaserManager;
     // QWidget interface
 protected:
     void paintEvent(QPaintEvent *event);

@@ -1,3 +1,4 @@
+
 #include "SelfTestWidget.h"
 #include "ui_SelfTestWidget.h"
 

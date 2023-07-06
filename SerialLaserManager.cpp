@@ -1,3 +1,4 @@
+
 #include "SerialLaserManager.h"
 
 #include <QSerialPort>

@@ -33,7 +33,6 @@ NetworkManager::NetworkManager()
     {
         SetWifiAPMode();
     }
-
 }
 
 NetworkManager::NetworkManager(QString ssid, QString pw)
@@ -48,7 +47,7 @@ NetworkManager::NetworkManager(QString ssid, QString pw)
     version: 2 \n\
     renderer: NetworkManager\n";
 
-     SetEtherNet();
+    SetEtherNet();
 
     SetWifiStaMode();
 

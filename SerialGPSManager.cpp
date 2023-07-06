@@ -136,6 +136,8 @@ void SerialGPSManager::serial_received()
         datum.K_variacao_magnetica_coord = splitted[11].toStdString()[0];
 
 
+        if (datum.B_warning == 'V')
+            return;
         QString time_format = "ddMMyyHHmmss";
         QString time = splitted[1].mid(0, splitted[1].indexOf("."));
         QString datetime = splitted[9] + time;

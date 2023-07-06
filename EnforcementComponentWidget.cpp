@@ -9,7 +9,7 @@
 #include "WidgetSize.h"
 #include "HUDManager.h"
 #include "SerialLaserManager.h"
-
+#include "SerialViscaManager.h"
 
 EnforcementComponentWidget::EnforcementComponentWidget(QWidget *parent) :
     QWidget(parent),
@@ -188,13 +188,14 @@ void EnforcementComponentWidget::SetCamera()
 
 void EnforcementComponentWidget::camInit()
 {
-    m_serialViscaManager.SetDayMode(m_object2["day&night selection"].toInt());
+    SerialViscaManager serialViscaManager;
+    serialViscaManager.SetDayMode(m_object2["day&night selection"].toInt());
 
-    m_serialViscaManager.set_IRCorrection_standard();
+    serialViscaManager.set_IRCorrection_standard();
 
-    m_serialViscaManager.set_manual_focus();
-    m_serialViscaManager.separate_zoom_mode();
-    m_serialViscaManager.dzoom(1);
+    serialViscaManager.set_manual_focus();
+    serialViscaManager.separate_zoom_mode();
+    serialViscaManager.dzoom(1);
 
 //    ConfigManager config = ConfigManager("parameter_enforcement.json");
 //    QJsonObject object = config.GetConfig();
@@ -401,9 +402,11 @@ void EnforcementComponentWidget::laserInit()
     serialLaserManager.set_detection_area(distance);
     serialLaserManager.set_detection_area(area);
 
-//    int dn = object["day&night selection"].toInt();
-//    if (dn > 0 && dn <=3)
-//        serialLaserManager.set_night_mode();
+    int dn = object["day&night selection"].toInt();
+    if (dn >= 0 && dn <=3)
+        serialLaserManager.set_night_mode(1);
+    else
+        serialLaserManager.set_night_mode(0);
     serialLaserManager.set_speed_measure_mode(1);
 }
 

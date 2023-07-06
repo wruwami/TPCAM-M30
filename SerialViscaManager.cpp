@@ -1662,8 +1662,8 @@ void SerialViscaManager::SetDayMode(int index)
         ret = object["Night"].toObject()["Bright"].toObject();
     }
         break;
-    }
-    set_AE_shutter_priority();
+    }    
+    set_AE_manual();
     set_iris(ret["Iris"].toInt());
     set_shutter_speed(ret["Shutter"].toInt());
     set_gain(ret["Gain"].toInt());
@@ -1671,5 +1671,5 @@ void SerialViscaManager::SetDayMode(int index)
     ret["DIS"].toBool() ? set_DIS_on() : set_DIS_off();
     ret["DEFOG"].toBool() ? set_defog_on() : set_defog_off();
     ret["HLC"].toBool() ? set_HLC_on() : set_HLC_off();
-
+    set_AE_shutter_priority();
 }

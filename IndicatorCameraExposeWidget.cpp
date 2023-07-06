@@ -3,6 +3,7 @@
 
 #include "StringLoader.h"
 #include "WidgetSize.h"
+#include "ConfigManager.h"
 
 IndicatorCameraExposeWidget::IndicatorCameraExposeWidget(QWidget *parent) :
     QDialog(parent),
@@ -13,8 +14,8 @@ IndicatorCameraExposeWidget::IndicatorCameraExposeWidget(QWidget *parent) :
     setWindowFlags(Qt::FramelessWindowHint);
     setAttribute(Qt::WA_TranslucentBackground);
 
-//    setGeometry(GetWidgetSizePos(QRect(0, 125, 1600, 960)));
-    setGeometry(GetWidgetSizePos(QRect(0, 125, 1600, 835)));
+    setGeometry(GetWidgetSizePos(QRect(0, 0, 1600, 960)));
+//    setGeometry(GetWidgetSizePos(QRect(0, 125, 1600, 835)));
     setWindowOpacity(1);
 
     ui->showHidePushButton->setText(LoadString("IDS_HIDE"));
@@ -22,31 +23,52 @@ IndicatorCameraExposeWidget::IndicatorCameraExposeWidget(QWidget *parent) :
     ui->hlcOnPushButton->setText(LoadString("IDS_HLC_ON"));
     ui->defogOffPushButton->setText(LoadString("IDS_DEFOG_OFF"));
     ui->disOffPushButton->setText(LoadString("IDS_DIS_OFF"));
-    ui->dnrOnPushButton->setText(LoadString("IDS_DNR_ON"));
+//    ui->dnrOnPushButton->setText(LoadString("IDS_DNR_ON"));
 
-    QStringList dayNights = {"Day1", "Day2", "Day3", "Night1", "Night2", "Night3"};
-    ui->daynNightComboBox->addItems(dayNights);
-    QStringList gains = {"0dB","7dB","12dB","17dB","22dB","27dB","31dB","36dB","41dB","46dB","51dB"};
-    ui->gainComboBox->addItems(gains);
-    QStringList Irises;
-    for (float i = 1.5; i <= 4.8; i+=0.165)
+    QStringList dayNights = {"IDS_DAY1", "IDS_DAY2", "IDS_DAY3", "IDS_NIGHT1", "IDS_NIGHT2", "IDS_NIGHT3"};
+    for (int i = 0; i < dayNights.size() ; i++)
     {
-        QString number;
-        number.sprintf("%.3f", i);
-        ui->irisComboBox->addItem("F" + number);
+        ui->daynNightComboBox->addItem(LoadString(dayNights[i].toStdString()));
     }
-    QStringList shutterSpeeds = {"4ms", "2ms", "1.5ms", "1ms", "0.5ms", "0.3ms", "0.2ms"};
-    ui->shutterSpeedComboBox->addItems(shutterSpeeds);
-    ui->applyPushButton->setText(LoadString("IDS_APPLY"));
+    ConfigManager gainCon = ConfigManager("Gain.json");
+    QJsonObject object = gainCon.GetConfig();
+//    int count = object["count"].toInt();
+    object.remove("count");
+//    for (int i = 0 ; i < count ; i++)
+//    {
+//        ui->gainComboBox->addItem(object.keys());
+//    }
 
-    m_serialViscaManager.connectVisca();
+    foreach (auto item, object.keys())
+    {
+        ui->gainComboBox->addItem(item, object.value(item));
+    }
+
+
+    ConfigManager irisCon = ConfigManager("Gain.json");
+    object = irisCon.GetConfig();
+    object.remove("count");
+    foreach (auto item, object.keys())
+    {
+        ui->gainComboBox->addItem(item, object.value(item));
+    }
+
+    ConfigManager shutterSpeedCon = ConfigManager("Gain.json");
+    object = shutterSpeedCon.GetConfig();
+    object.remove("count");
+    foreach (auto item, object.keys())
+    {
+        ui->gainComboBox->addItem(item, object.value(item));
+    }
+
+
+//    ui->shutterSpeedComboBox->addItems(shutterSpeeds);
+//    ui->applyPushButton->setText(LoadString("IDS_APPLY"));
 
 }
 
 IndicatorCameraExposeWidget::~IndicatorCameraExposeWidget()
 {
-    m_serialViscaManager.close();
-
     delete ui;
 }
 
@@ -141,5 +163,36 @@ void IndicatorCameraExposeWidget::on_dnrOnPushButton_clicked()
 //        m_serialViscaManager.set_HLC_off();
 //        ui->dnrOnPushButton->setText(LoadString("IDS_HLC_OFF"));
 //    }
+}
+
+
+void IndicatorCameraExposeWidget::on_daynNightComboBox_currentIndexChanged(int index)
+{
+    m_serialViscaManager.SetDayMode(index + 1);
+}
+
+
+void IndicatorCameraExposeWidget::on_gainComboBox_currentIndexChanged(int index)
+{
+//    ui->gainComboBox->itemData(index);
+//    m_serialViscaManager.set_gain()
+}
+
+
+void IndicatorCameraExposeWidget::on_irisComboBox_currentIndexChanged(int index)
+{
+
+}
+
+
+void IndicatorCameraExposeWidget::on_shutterSpeedComboBox_currentIndexChanged(int index)
+{
+
+}
+
+
+void IndicatorCameraExposeWidget::on_dnrComboBox_currentIndexChanged(int index)
+{
+
 }
 

@@ -7,7 +7,7 @@
 #include <list>
 #include <vector>
 #include "ConfigManager.h"
-#include "SerialViscaManager.h"
+
 
 
 class Camera;
@@ -49,7 +49,7 @@ private:
     int m_nStIndex = 2;
     int m_nLtIndex = 3;
     Camera* m_pCamera = nullptr;
-    SerialViscaManager m_serialViscaManager;
+
 private slots:
     void on_hidePushButton_clicked();
     void doShartAction();

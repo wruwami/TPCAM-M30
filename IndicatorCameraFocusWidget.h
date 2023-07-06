@@ -16,11 +16,12 @@ class IndicatorCameraFocusWidget : public QDialog
 public:
     explicit IndicatorCameraFocusWidget(QWidget *parent = nullptr);
     ~IndicatorCameraFocusWidget();
-
+private:
+    void hide();
+    void show();
 private:
     Ui::IndicatorCameraFocusWidget *ui;
     bool m_bHide = false;
-    SerialViscaManager m_serialViscaManager;
 
     // QWidget interface
 protected:
@@ -32,7 +33,7 @@ private slots:
     void on_onePushTriggerPushButton_clicked();
     void on_forcusDownPushButton_clicked();
     void on_forcusPlusPushButton_clicked();
-    void on_applyPushButton_clicked();
+//    void on_applyPushButton_clicked();
 };
 
 #endif // INDICATORCAMERAFOCUSWIDGET_H

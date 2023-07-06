@@ -10,6 +10,8 @@ class SerialLaserManager : public QObject
     Q_OBJECT
 public:
     SerialLaserManager();
+    virtual ~SerialLaserManager();
+
     QString connectLaser();
     void close();
 

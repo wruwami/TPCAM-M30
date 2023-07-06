@@ -143,7 +143,8 @@ v4l2_thread::v4l2_thread()
 	, m_bDeviceValid(false)
 	, m_nFrameCnt(0)
 {
-	g_matTargetCross = cv::imread("target.jpg", cv::IMREAD_COLOR);
+    QString targetFile = "images/enforcement/target.jpg";
+    g_matTargetCross = cv::imread(targetFile.toStdString(), cv::IMREAD_COLOR);
 	cv::resize(g_matTargetCross, g_matTargetCross, cv::Size(80,80));
 
     cv::hconcat(cv::Mat(INFO_HEIGHT, INFO_WIDTH - INFO_SPEED_WIDTH, CV_8UC3, cv::Scalar(16, 16, 16)), cv::Mat(INFO_HEIGHT, INFO_SPEED_WIDTH, CV_8UC3, cv::Scalar(0, 0, 104)), g_matEnfoceInfo);

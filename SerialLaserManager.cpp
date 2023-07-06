@@ -10,8 +10,13 @@ SerialLaserManager::SerialLaserManager()
     laser_packet = new SerialPacket;
 
     laser_con = 0;
-//    connectLaser();
+    connectLaser();
     connect(m_pSerial, SIGNAL(readyRead()), this, SLOT(serial_received()));
+}
+
+SerialLaserManager::~SerialLaserManager()
+{
+    close();
 }
 
 void SerialLaserManager::serial_received()

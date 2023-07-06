@@ -16,6 +16,13 @@ public:
     explicit CameraZoomFocusWidget(QWidget *parent = 0);
     ~CameraZoomFocusWidget();
 
+private slots:
+    void on_optPushButton_clicked();
+
+    void on_focusPlusPushButton_clicked();
+
+    void on_FocusMinusPushButton_clicked();
+
 private:
     Ui::CameraZoomFocusWidget *ui;
     SerialViscaManager m_serialViscaManager;

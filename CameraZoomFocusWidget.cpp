@@ -58,3 +58,21 @@ CameraZoomFocusWidget::~CameraZoomFocusWidget()
     m_serialViscaManager.close();
     delete ui;
 }
+
+void CameraZoomFocusWidget::on_optPushButton_clicked()
+{
+    m_serialViscaManager.set_AF_one_push_trigger();
+}
+
+
+void CameraZoomFocusWidget::on_focusPlusPushButton_clicked()
+{
+    m_serialViscaManager.plus_focus();
+}
+
+
+void CameraZoomFocusWidget::on_FocusMinusPushButton_clicked()
+{
+    m_serialViscaManager.minus_focus();
+}
+

@@ -4,6 +4,8 @@
 #include <QObject>
 #include <QElapsedTimer>
 #include <QTimer>
+#include <QJsonObject>
+
 
 class QSerialPort;
 class ViscaPacket;
@@ -12,6 +14,7 @@ class SerialViscaManager : public QObject
     Q_OBJECT
 public:
     SerialViscaManager();
+    virtual ~SerialViscaManager();
     QString connectVisca();
     void close();
 private:
@@ -51,7 +54,7 @@ public:
     void set_infrared_mode_off();
     void set_infrared_mode_auto();
 
-    void set_noise_reduction_on(QString p);
+    void set_noise_reduction_on(QString p); // DNR
 
     void set_defog_off();
     void set_defog_on();
@@ -114,6 +117,9 @@ public:
     void show_dzoomPosition();
     void show_dZoomMode();
     void show_noiseReduction();
+
+    void SetDayMode(int index);
+    void SetDayMode(QJsonObject object);
 
     ViscaPacket *getVisca_packet() const;
 signals:

@@ -21,8 +21,6 @@
 #include "FileManager.h"
 #include "ConfigManager.h"
 #include "MainMenuWidget.h"
-#include "ViscaManager.h"
-#include "LaserManager.h"
 
 IndicatorDialog::IndicatorDialog(QWidget *parent) :
     QDialog(parent),
@@ -494,8 +492,8 @@ void IndicatorDialog::on_day1WidgetClicked()
     m_pMainMenuWidget->setIndicatorImage(m_pMainMenuWidget->m_pDaynNightPushbutton, "indicator", "day1.jpg");
 
     QJsonObject object = m_jsonObject3["Day"].toObject()["Dark"].toObject();
-    ViscaManager viscaManager;
-    viscaManager.SetDayMode(object);
+//    ViscaManager viscaManager;
+//    viscaManager.SetDayMode(object);
 }
 
 void IndicatorDialog::on_day2WidgetClicked()
@@ -505,8 +503,8 @@ void IndicatorDialog::on_day2WidgetClicked()
     m_pMainMenuWidget->setIndicatorImage(m_pMainMenuWidget->m_pDaynNightPushbutton, "indicator", "day2.jpg");
 
     QJsonObject object = m_jsonObject3["Day"].toObject()["Normal"].toObject();
-    ViscaManager viscaManager;
-    viscaManager.SetDayMode(object);
+//    ViscaManager viscaManager;
+//    viscaManager.SetDayMode(object);
 }
 
 void IndicatorDialog::on_day3WidgetClicked()
@@ -516,8 +514,8 @@ void IndicatorDialog::on_day3WidgetClicked()
     m_pMainMenuWidget->setIndicatorImage(m_pMainMenuWidget->m_pDaynNightPushbutton, "indicator", "day3.jpg");
 
     QJsonObject object = m_jsonObject3["Day"].toObject()["Bright"].toObject();
-    ViscaManager viscaManager;
-    viscaManager.SetDayMode(object);
+//    ViscaManager viscaManager;
+//    viscaManager.SetDayMode(object);
 }
 
 void IndicatorDialog::on_night1WidgetClicked()
@@ -527,8 +525,8 @@ void IndicatorDialog::on_night1WidgetClicked()
     m_pMainMenuWidget->setIndicatorImage(m_pMainMenuWidget->m_pDaynNightPushbutton, "indicator", "night1.jpg");
 
     QJsonObject object = m_jsonObject3["Night"].toObject()["Dark"].toObject();
-    ViscaManager viscaManager;
-    viscaManager.SetDayMode(object);
+//    ViscaManager viscaManager;
+//    viscaManager.SetDayMode(object);
 }
 
 void IndicatorDialog::on_night2WidgetClicked()
@@ -538,8 +536,8 @@ void IndicatorDialog::on_night2WidgetClicked()
     m_pMainMenuWidget->setIndicatorImage(m_pMainMenuWidget->m_pDaynNightPushbutton, "indicator", "night2.jpg");
 
     QJsonObject object = m_jsonObject3["Night"].toObject()["Normal"].toObject();
-    ViscaManager viscaManager;
-    viscaManager.SetDayMode(object);
+//    ViscaManager viscaManager;
+//    viscaManager.SetDayMode(object);
 }
 
 void IndicatorDialog::on_night3WidgetClicked()
@@ -549,8 +547,8 @@ void IndicatorDialog::on_night3WidgetClicked()
     m_pMainMenuWidget->setIndicatorImage(m_pMainMenuWidget->m_pDaynNightPushbutton, "indicator", "night3.jpg");
 
     QJsonObject object = m_jsonObject3["Night"].toObject()["Bright"].toObject();
-    ViscaManager viscaManager;
-    viscaManager.SetDayMode(object);
+//    ViscaManager viscaManager;
+//    viscaManager.SetDayMode(object);
 }
 
 void IndicatorDialog::on_clicked_sunny()
@@ -559,8 +557,8 @@ void IndicatorDialog::on_clicked_sunny()
     m_jsonObject2["weather selection"] = 1;
     m_pMainMenuWidget->setIndicatorImage(m_pMainMenuWidget->m_pWeatherPushbutton, "indicator", "indicator_enable_weather_mode_off.jpg");
 
-    LaserManager laserManager;
-    laserManager.SetWeatherMode(0);
+    SerialLaserManager laserManager;
+    laserManager.set_weather_mode(0);
 }
 
 void IndicatorDialog::on_clicked_rainy()
@@ -569,8 +567,8 @@ void IndicatorDialog::on_clicked_rainy()
     m_jsonObject2["weather selection"] = 2;
     m_pMainMenuWidget->setIndicatorImage(m_pMainMenuWidget->m_pWeatherPushbutton, "indicator", "indicator_enable_weather_mode_on.jpg");
 
-    LaserManager laserManager;
-    laserManager.SetWeatherMode(0);
+    SerialLaserManager laserManager;
+    laserManager.set_weather_mode(1);
 }
 
 void IndicatorDialog::setIndicatorImage(CustomPushButton* pCustomButton, QString path_name, QString file_name)

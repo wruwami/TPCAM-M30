@@ -1,5 +1,5 @@
 {
-	"st mode m eter dist": [
+	"st mode meter dist": [
 		"S:20",
 		"S:40",
 		"S:60",
@@ -29,7 +29,7 @@
 		"S:800",
 		"S:860"
 	],
-	"lt mode meter dis t": [
+	"lt mode meter dist": [
 		"Z:10~36",
 		"Z:36~60",
 		"Z:60~100",

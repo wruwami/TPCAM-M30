@@ -1,11 +1,8 @@
 {
-	"Base" : "Percent",
-	"Gauge count": 4,
-	"Gauge" : [10, 25, 50, 75],
-	"Is charging mA" : 200,
-	"Power off - voltage" : 9.8
-	"Saving status interval sec" : 300,
-	"Saving status items" : "PVCG",
-	"Calibration Gain": 1.2,
-	"Calibration Offset": -10
+    "ChargeThreasholdMax": 35718,
+    "ChargeThreasholdMin": 15000,
+    "IsChargingAmpere": -0.2,
+    "PowerOffVoltage": 9.4,
+    "VoltageThreasholdMax": 12.5,
+    "VoltageThreasholdMin": 9.5
 }

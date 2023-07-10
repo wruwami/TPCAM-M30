@@ -1,8 +1,7 @@
 //------------------------------------------------------------------------------
-//  Serial ì†¡/ìˆ˜ì‹  íŒ¨í‚· [Encode / Decode] ë¼ì´ë¸ŒëŸ¬ë¦¬
+//  Serial ¼Û/¼ö½Å ÆĞÅ¶ [Encode / Decode] ¶óÀÌºê·¯¸®
 //  ComLASER SW
 
-#include <QObject>
 #include <QByteArray>
 #include "SerialPacket.h"
 
@@ -10,7 +9,7 @@
 #ifndef ViscaPacketH
 #define ViscaPacketH
 
-#define MAX_PACKET_BLOCK_DATA 17			//íŒ¨í‚·ì˜ ìµœëŒ€ ë°”ì´íŠ¸ í¬ê¸°
+#define MAX_PACKET_BLOCK_DATA 17			//ÆĞÅ¶ÀÇ ÃÖ´ë ¹ÙÀÌÆ® Å©±â
 
 //R:1
 #define RECEVIE_ACK         0x41
@@ -30,7 +29,8 @@ struct Position
 #define NUMBER_DZOOM_CNT            12
 #define NUMBER_IRIS_CNT             18
 #define NUMBER_SHUTTER_CNT          22
-#define NUMBER_GAIN_CNT             11
+#define NUMBER_GAIN_CNT_KTNC        16
+#define NUMBER_GAIN_CNT_WONWOO      11
 
 extern int g_Digital_Zoom_X_Asix_KTNC[];
 extern QString g_Digital_Zoom_Y_ASIX_KTNC[];
@@ -51,21 +51,22 @@ extern QString g_Optical_Zoom_Value_Wonwoo[];
 //cnrk
 extern int g_Camera_VenderID;// = 0x0078;
 
+extern QString g_qstrZoom_pqrs;
+extern QString g_qstrFocus_pqrs;
+extern QString g_qstrShutter_pq;
+extern QString g_qstrIris_pq;
+
 
 class ViscaPacket : public QObject
 {
     Q_OBJECT
 public:
-    ViscaPacket();
-    virtual ~ViscaPacket();
-    unsigned char g_TxBuf[MAX_PACKET_SIZE];				//ì†¡ì‹ í•  íŒ¨í‚·ì„ ì €ì¥í•˜ëŠ”ê³³
-    unsigned short g_TxLength;               //ì†¡ì‹ í•  íŒ¨í‚·ì˜ ê¸¸ì´ë¥¼ ì €ì¥
+    unsigned char g_TxBuf[MAX_PACKET_SIZE];				//¼Û½ÅÇÒ ÆĞÅ¶À» ÀúÀåÇÏ´Â°÷
+    unsigned short g_TxLength;               //¼Û½ÅÇÒ ÆĞÅ¶ÀÇ ±æÀÌ¸¦ ÀúÀå
 
-    unsigned char g_RxBuf[MAX_PACKET_SIZE];				//ìˆ˜ì‹  ë°ì´í„°
-    unsigned short  g_RxLength;				//ìˆ˜ì‹ ë°ì´í„° ê¸¸ì´
+    unsigned char g_RxBuf[MAX_PACKET_SIZE];				//¼ö½Å µ¥ÀÌÅÍ
+    unsigned short  g_RxLength;				//¼ö½Åµ¥ÀÌÅÍ ±æÀÌ
 
-    QByteArray send_header_data;
-    unsigned char send_data;
     int m_zoomPQRS;
     int m_focusPQRS;
     int m_gain;
@@ -85,10 +86,8 @@ public:
     unsigned char g_DZoomOnOff;
     unsigned char g_DZoomMode;
     unsigned char g_WBMode;
-    unsigned char g_AEMode;
-    QString m_qstrIris_pqrs;
-    QString m_qstrFocus_pqrs;
-    QString m_qstrZoom_pqrs;
+    unsigned char g_AEMode;    
+    unsigned char g_NRMode;
 
 public:
 
@@ -108,6 +107,7 @@ public:
 signals:
     void sig_show_zoom();
     void sig_show_focus();
+    void sig_show_shutter();
     void sig_show_iris();
 };
 

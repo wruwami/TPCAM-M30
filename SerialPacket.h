@@ -1,5 +1,5 @@
 //------------------------------------------------------------------------------
-//  Serial ì†¡/ìˆ˜ì‹  íŒ¨í‚· [Encode / Decode] ë¼ì´ë¸ŒëŸ¬ë¦¬
+//  Serial ¼Û/¼ö½Å ÆĞÅ¶ [Encode / Decode] ¶óÀÌºê·¯¸®
 //  ComLASER SW
 //
 //#include "..\compiler.h"
@@ -14,34 +14,34 @@
 //
 //  STX         : Start of text
 //  MSGL        : Message bytes + 1
-//  HEAD        : íŒ¨í‚·ì˜ í—¤ë”
-//  Messahortge 0   : ë©”ì„¸ì§€
-//  Message 1   : ë©”ì„¸ì§€
-//    .         : ë©”ì„¸ì§€
-//    .         : ë©”ì„¸ì§€
-//  Message n   : ë©”ì„¸ì§€
-//  Checksum    : íŒ¨í‚· ì œì–´ë¬¸ì (STX, DLE, ETX)ë¥¼ ì œì™¸í•œ ëª¨ë“  ë°”ì´íŠ¸ì˜ í•©
+//  HEAD        : ÆĞÅ¶ÀÇ Çì´õ
+//  Messahortge 0   : ¸Ş¼¼Áö
+//  Message 1   : ¸Ş¼¼Áö
+//    .         : ¸Ş¼¼Áö
+//    .         : ¸Ş¼¼Áö
+//  Message n   : ¸Ş¼¼Áö
+//  Checksum    : ÆĞÅ¶ Á¦¾î¹®ÀÚ (STX, DLE, ETX)¸¦ Á¦¿ÜÇÑ ¸ğµç ¹ÙÀÌÆ®ÀÇ ÇÕ
 //  ETX         : End of text
 //
 //
-//  DLE         : ë°ì´í„°ì¤‘ ì œì–´ë¬¸ìì™€ ë™ì¼í•œ ì½”ë“œ ì•ì— ì‚½ì…
+//  DLE         : µ¥ÀÌÅÍÁß Á¦¾î¹®ÀÚ¿Í µ¿ÀÏÇÑ ÄÚµå ¾Õ¿¡ »ğÀÔ
 
 
-#define MAX_PACKET_SIZE 			600          //íŒ¨í‚·ì˜ ìµœëŒ€ ë²„í¼
-#define MAX_PACKET_DATA 			200          //íŒ¨í‚·ì˜ ìµœëŒ€ ë°”ì´íŠ¸ í¬ê¸°
+#define MAX_PACKET_SIZE 			600          //ÆĞÅ¶ÀÇ ÃÖ´ë ¹öÆÛ
+#define MAX_PACKET_DATA 			200          //ÆĞÅ¶ÀÇ ÃÖ´ë ¹ÙÀÌÆ® Å©±â
 
-#define STX             			0x02        //íŒ¨í‚·ì˜ ì‹œì‘
-#define ETX             			0x03        //íŒ¨í‚·ì˜ ì¢…ë£Œ
-#define DLE            		 		0x10        //íŒ¨í‚· ì œì–´ë¬¸ì êµ¬ë¶„
+#define STX             			0x02        //ÆĞÅ¶ÀÇ ½ÃÀÛ
+#define ETX             			0x03        //ÆĞÅ¶ÀÇ Á¾·á
+#define DLE            		 		0x10        //ÆĞÅ¶ Á¦¾î¹®ÀÚ ±¸ºĞ
 
-#define ACK             			0x01        // ACK íŒ¨í‚·
-#define NACK            			0xFF        // NACK íŒ¨í‚·
+#define ACK             			0x01        // ACK ÆĞÅ¶
+#define NACK            			0xFF        // NACK ÆĞÅ¶
 
 //------------------------------------------------------------------------------
-// ì œì–´ë¶€ ìš”ì²­ : HEAD_REQ
-// ë ˆì´ì € ì‘ë‹µ : HEAD_RES
+// Á¦¾îºÎ ¿äÃ» : HEAD_REQ
+// ·¹ÀÌÀú ÀÀ´ä : HEAD_RES
 //
-//ë²„ì „ì •ë³´
+//¹öÀüÁ¤º¸
 #define HEAD_REQ_VER    			0x60
 
 //vs2 bottom point setting
@@ -50,114 +50,114 @@
 
 #define HEAD_RES_ALG   				0x33
 
-//ì°¨ì¢…êµ¬ë¶„ ì¹´ë©”ë¼ íŠ¸ë¦¬ê±° ë†’ì´
-#define HEAD_REQ_HEA    			0x64	//ë ˆì´ì €ì— ì…‹íŒ…
-#define HEAD_RES_HEA   				0x34	//ì œì–´ë¶€ë¡œ ì „ì†¡
+//Â÷Á¾±¸ºĞ Ä«¸Ş¶ó Æ®¸®°Å ³ôÀÌ 
+#define HEAD_REQ_HEA    			0x64	//·¹ÀÌÀú¿¡ ¼ÂÆÃ
+#define HEAD_RES_HEA   				0x34	//Á¦¾îºÎ·Î Àü¼Û
 
-//ì¼ë ¨ë²ˆí˜¸
-#define HEAD_REQ_ROM    			0x66 //ìš”êµ¬, ì…‹íŒ…
-#define HEAD_RES_ROM    			0x36 //í˜„ì¬ê°’ ë¦¬í„´
+//ÀÏ·Ã¹øÈ£
+#define HEAD_REQ_ROM    			0x66 //¿ä±¸, ¼ÂÆÃ
+#define HEAD_RES_ROM    			0x36 //ÇöÀç°ª ¸®ÅÏ
 
-//êµí†µ ë³€ìˆ˜ ê´€ë ¨ ë³€ìˆ˜
+//±³Åë º¯¼ö °ü·Ã º¯¼ö
 #define HEAD_REQ_CAM    			0x67
 #define HEAD_ACQ_CAM    			0x68
 #define HEAD_RES_CAM    			0x37
 
 //------------------------------------------------------------------------------
-// ì œì–´ë¶€ ì„¤ì • : HEAD_SET
-// ë ˆì´ì € ì‘ë‹µ : ACK/NACK
+// Á¦¾îºÎ ¼³Á¤ : HEAD_SET
+// ·¹ÀÌÀú ÀÀ´ä : ACK/NACK
 //
-//APD ì œì–´
+//APD Á¦¾î
 #define HEAD_SET_ACT    			0x90
 
 
-// ì˜¨ë„ì„¼ì„œ ì…‹íŒ… /ì „ì†¡
+// ¿Âµµ¼¾¼­ ¼ÂÆÃ /Àü¼Û
 #define HEAD_SET_ALG    			0x92
-#define HEAD_SET_LDV   	 			0x94
+#define HEAD_SET_LDV   	 			0x94 
 
-//íŠ¸ë¦¬ê·¸ ì‹œì‘
-#define HEAD_SET_TST   	 			0x99
+//Æ®¸®±× ½ÃÀÛ
+#define HEAD_SET_TST   	 			0x99  
 
-//íŠ¸ë¦¬ê·¸ ì¢…ë£Œ
-#define HEAD_SET_TED    			0x9A
+//Æ®¸®±× Á¾·á
+#define HEAD_SET_TED    			0x9A    
 
 //------------------------------------------------------------------------------
-// 2004. 2. 25ì¼ ì¶”ê°€íŒ¨í‚·
-#define HEAD_SET_LIN    			0xA4 //
+// 2004. 2. 25ÀÏ Ãß°¡ÆĞÅ¶
+#define HEAD_SET_LIN    			0xA4 // 
 
-#define HEAD_SET_SAM    			0xA5
+#define HEAD_SET_SAM    			0xA5 
 #define HEAD_NSY_TRG   	 			0x53
 
-#define HEAD_SET_LEV    			0xA6 //ê²½ê³„ì¹˜(0ë ˆë²¨) ì „ì•• ê°€ë³€ ì—¬ë¶€
+#define HEAD_SET_LEV    			0xA6 //°æ°èÄ¡(0·¹º§) Àü¾Ğ °¡º¯ ¿©ºÎ 
 
-#define HEAD_SET_DEB    			0xA7 //ê±°ë¦¬ ì „ì†¡ 8ë ˆë²¨
+#define HEAD_SET_DEB    			0xA7 //°Å¸® Àü¼Û 8·¹º§ 
 
 
 //------------------------------------------------------------------------------
-//
+// 
 
-#define HEAD_SET_RESET    			0xA1 //ì¥ë¹„ S/W Reset
+#define HEAD_SET_RESET    			0xA1 //Àåºñ S/W Reset
 #define HEAD_BOOTLOADER    			0xA2 //fw update
 
 
 //------------------------------------------------------------------------------
-// ë¹„ë™ê¸° í†µì‹  (ì œì–´ë¶€ -> ë ˆì´ì €) : HEAD_NSY
+// ºñµ¿±â Åë½Å (Á¦¾îºÎ -> ·¹ÀÌÀú) : HEAD_NSY
 //
-//ì°¨ì¢…êµ¬ë¶„ìš© íŠ¸ë¦¬ê±°
-#define HEAD_NSY_DIS   				0x50
+//Â÷Á¾±¸ºĞ¿ë Æ®¸®°Å
+#define HEAD_NSY_DIS   				0x50 
 
-//ì†ë„ ë° ê±°ë¦¬ ë°ì´í„° ì „ì†¡
+//¼Óµµ ¹× °Å¸® µ¥ÀÌÅÍ Àü¼Û
 #define HEAD_NSY_SPD   				0x51
 
-//ì†ë„ ë° ê±°ë¦¬ ë°ì´í„° ì „ì†¡ (ë§ˆì¼)
+//¼Óµµ ¹× °Å¸® µ¥ÀÌÅÍ Àü¼Û (¸¶ÀÏ)
 #define HEAD_MIL_SPD    			0x55
 
 
 //------------------------------------------------------------------------------
-// 2004. 11. 17ì¼ ì¶”ê°€íŒ¨í‚·
-#define HEAD_MESSAGE				0xF0	// ì‹œë¦¬ì–¼ë¡œ ë©”ì„¸ì§€ë¥¼ ì „ì†¡í•  ê²½ìš°
-#define HEAD_COMMAND				0xF1	// ì‹œë¦¬ì–¼ë¡œ ë©”ì„¸ì§€ë¥¼ ì…ë ¥ë°›ì„ ê²½ìš°
+// 2004. 11. 17ÀÏ Ãß°¡ÆĞÅ¶
+#define HEAD_MESSAGE				0xF0	// ½Ã¸®¾ó·Î ¸Ş¼¼Áö¸¦ Àü¼ÛÇÒ °æ¿ì
+#define HEAD_COMMAND				0xF1	// ½Ã¸®¾ó·Î ¸Ş¼¼Áö¸¦ ÀÔ·Â¹ŞÀ» °æ¿ì
 
 //------------------------------------------------------------------------------
 // vs2
-// 2005. 04. 14ì¼ ì¶”ê°€íŒ¨í‚·
+// 2005. 04. 14ÀÏ Ãß°¡ÆĞÅ¶ 
 // HEAD_DN : pc -> vs
 // HEAD_UP : vs -> pc
-#define HEAD_DN_SET_ALGORITHM		0x54	// ì‹œë¦¬ì–¼ë¡œ ì•Œê³ ë¦¬ì¦˜ ì‹œì‘/ì¢…ë£Œ
-#define HEAD_DN_ACK_SETTING			0x55	// ì‹œë¦¬ì–¼ë¡œ ì•Œê³ ë¦¬ì¦˜ í˜„ì¬ ì…‹íŒ…ê°’ ìš”ì²­
-#define HEAD_DN_SET_SETTING			0x56	// ì‹œë¦¬ì–¼ë¡œ ì•Œê³ ë¦¬ì¦˜ í˜„ì¬ ì…‹íŒ…ê°’ ì…‹íŒ…
-#define HEAD_UP_GET_SETTING			0x57	// ì‹œë¦¬ì–¼ë¡œ ì•Œê³ ë¦¬ì¦˜ í˜„ì¬ ì…‹íŒ…ê°’ ë³´ë‚´ê¸°
-#define HEAD_UP_RESULT    			0x58	// ì‹œë¦¬ì–¼ë¡œ ê²°ê³¼ ê°’ ì „ì†¡
-#define HEAD_DN_ACK_DISTANCE		0x59	// ì‹œë¦¬ì–¼ë¡œ ê±°ë¦¬ ì „ì†¡ ì‹œì‘/ì¢…ë£Œ
-#define HEAD_DN_ERROR_T   			0x5b	// ì‹œë¦¬ì–¼ë¡œ ì—ëŸ¬ ë¬¸í„±ì¹˜ ì „ì†¡
-#define HEAD_UP_ERROR_T   			0x5c	// ì‹œë¦¬ì–¼ë¡œ ì—ëŸ¬ ë¬¸í„±ì¹˜ ì „ì†¡
-#define HEAD_DN_ACK_ERROR_T			0x5d	// ì‹œë¦¬ì–¼ë¡œ ì—ëŸ¬ ë¬¸í„±ì¹˜ ìš”ì²­
-#define HEAD_AB_MODE_SEL 			0x5E	//ìš°ì²œì‹œ ì„¤ì • ë³€ê²½...ë°ê¸°/ì“°ê¸°
-#define HEAD_AB_MODE_SEL_SEND 		0x5F	//ìš°ì²œì‹œ ì„¤ì • ì „ã…‡ì†¡
+#define HEAD_DN_SET_ALGORITHM		0x54	// ½Ã¸®¾ó·Î ¾Ë°í¸®Áò ½ÃÀÛ/Á¾·á 
+#define HEAD_DN_ACK_SETTING			0x55	// ½Ã¸®¾ó·Î ¾Ë°í¸®Áò ÇöÀç ¼ÂÆÃ°ª ¿äÃ»
+#define HEAD_DN_SET_SETTING			0x56	// ½Ã¸®¾ó·Î ¾Ë°í¸®Áò ÇöÀç ¼ÂÆÃ°ª ¼ÂÆÃ
+#define HEAD_UP_GET_SETTING			0x57	// ½Ã¸®¾ó·Î ¾Ë°í¸®Áò ÇöÀç ¼ÂÆÃ°ª º¸³»±â
+#define HEAD_UP_RESULT    			0x58	// ½Ã¸®¾ó·Î °á°ú °ª Àü¼Û
+#define HEAD_DN_ACK_DISTANCE		0x59	// ½Ã¸®¾ó·Î °Å¸® Àü¼Û ½ÃÀÛ/Á¾·á
+#define HEAD_DN_ERROR_T   			0x5b	// ½Ã¸®¾ó·Î ¿¡·¯ ¹®ÅÎÄ¡ Àü¼Û
+#define HEAD_UP_ERROR_T   			0x5c	// ½Ã¸®¾ó·Î ¿¡·¯ ¹®ÅÎÄ¡ Àü¼Û
+#define HEAD_DN_ACK_ERROR_T			0x5d	// ½Ã¸®¾ó·Î ¿¡·¯ ¹®ÅÎÄ¡ ¿äÃ» 
+#define HEAD_AB_MODE_SEL 			0x5E	//¿ìÃµ½Ã ¼³Á¤ º¯°æ...’ş±â/¾²±â
+#define HEAD_AB_MODE_SEL_SEND 		0x5F	//¿ìÃµ½Ã ¼³Á¤ Àü¤·¼Û
 
-#define HEAD_UP_CAMERA_TRIGGER		0x70	// ì‹œë¦¬ì–¼ë¡œ ì¹´ë©”ë¼ íŠ¸ë¦¬ê±° ì „ì†¡
-#define HEAD_UN_SERIAL_BPS      	0x71	//ì‹œë¦¬ì–¼ í†µì‹  ì†ë„ ë‹¤ìš´
-#define HEAD_UP_SERIAL_OK       	0x72	//ì‹œë¦¬ì–¼ í†µì‹ ì—°ê²° ì „ì†¡
-#define HEAD_DN_SERIAL_OK       	0x73	//ì‹œë¦¬ì–¼ í†µì‹ ì—°ê²°
+#define HEAD_UP_CAMERA_TRIGGER		0x70	// ½Ã¸®¾ó·Î Ä«¸Ş¶ó Æ®¸®°Å Àü¼Û
+#define HEAD_UN_SERIAL_BPS      	0x71	//½Ã¸®¾ó Åë½Å ¼Óµµ ´Ù¿î
+#define HEAD_UP_SERIAL_OK       	0x72	//½Ã¸®¾ó Åë½Å¿¬°á Àü¼Û
+#define HEAD_DN_SERIAL_OK       	0x73	//½Ã¸®¾ó Åë½Å¿¬°á
 #define HEAD_UP_FAST_SPEED       	0x74	//[VS] fast speed
-#define HEAD_FAST_SPD     			0x74	//[CL] FAST  ì†ë„ ì¶œë ¥
-#define HEAD_APD_VOLT_APPLY       	0x75	//APD ì„¤ì •
-#define HEAD_APD_VOLT_SEND       	0x76	//APD ì„¤ì • ì „ì†¡
-#define HEAD_HW_BLANKING_APPLY      0x79	//ë¸”ë­í‚¹ ì„¤ì •
-#define HEAD_HW_BLANKING_SEND      	0x7a	//ë¸”ë­í‚¹ ì„¤ì • ì „ì†¡
-#define HEAD_DISTANC_FLAG_SEND     	0x7b	//ê±°ë¦¬ì „ì†¡ëª¨ë“œ ì„ íƒ
-#define HEAD_UP_DISTANCE     		0x7c	//ê±°ë¦¬ ì „ì†¡
-#define HEAD_LASER_POINTER_COMMAND	0x7f	// ë ˆì´ì € í¬ì¸í„° on/off
+#define HEAD_FAST_SPD     			0x74	//[CL] FAST  ¼Óµµ Ãâ·Â
+#define HEAD_APD_VOLT_APPLY       	0x75	//APD ¼³Á¤
+#define HEAD_APD_VOLT_SEND       	0x76	//APD ¼³Á¤ Àü¼Û
+#define HEAD_HW_BLANKING_APPLY      0x79	//ºí·©Å· ¼³Á¤
+#define HEAD_HW_BLANKING_SEND      	0x7a	//ºí·©Å· ¼³Á¤ Àü¼Û
+#define HEAD_DISTANC_FLAG_SEND     	0x7b	//°Å¸®Àü¼Û¸ğµå ¼±ÅÃ
+#define HEAD_UP_DISTANCE     		0x7c	//°Å¸® Àü¼Û
+#define HEAD_LASER_POINTER_COMMAND	0x7f	// ·¹ÀÌÀú Æ÷ÀÎÅÍ on/off  
 #define HEAD_LASER_POINTER_SEND		0x83	//	laser point on/off apply
 #define HEAD_APD_VOLT_COMMAND		0x80	//	APD Volt
 #define HEAD_OK_SIGNAL_COMMAND		0x81	//	Ok signal
-#define HEAD_VEHICLE_STATE_SEND		0x86	//	ì°¨ëŸ‰ì˜ ì‹œì‘ê³¼ ëì„ ì•Œë ¤ì¤€ë‹¤.(binary ìš©)
+#define HEAD_VEHICLE_STATE_SEND		0x86	//	Â÷·®ÀÇ ½ÃÀÛ°ú ³¡À» ¾Ë·ÁÁØ´Ù.(binary ¿ë)
 #define HEAD_DN_CFD_ONOFF_SEND		0x8d	//	cfd on/off write
 #define HEAD_DN_CLOOP_COMMAND		0x42	//  current loop trig
 #define HEAD_DN_APD_TEMP_COMMAND	0x43	//APD temp sensor send
-#define HEAD_VS_INPUT_FORMAT_SEND	0x4f	// input format(1- ë°”ì´ë„ˆë¦¬, 2- ì•„ìŠ¤í‚¤)
-#define HEAD_AD_REF_VOLT			0x88	//AD referance volt setting
-#define HEAD_AD_REF_VOLT_SEND		0x4b	// VS2 ë³€ìˆ˜ ì½ê¸°
+#define HEAD_VS_INPUT_FORMAT_SEND	0x4f	// input format(1- ¹ÙÀÌ³Ê¸®, 2- ¾Æ½ºÅ°)
+#define HEAD_AD_REF_VOLT			0x88	//AD referance volt setting    
+#define HEAD_AD_REF_VOLT_SEND		0x4b	// VS2 º¯¼ö ÀĞ±â
 #define HEAD_SIM_MODE    			0xA8 //
 #define HEAD_APD_SEL				0x61
 #define HEAD_APD_SEL_SEND			0x63
@@ -168,17 +168,17 @@
 
 //JAM
 #define HEAD_JAM_REQ				0x40	//JAM PC-->CL
-#define HEAD_JAM_SEND				0x41	//JAM CL-->PC
-#define HEAD_JAM_DETECT_SEND		0x69	//JAM DETECT CL-->PC
+#define HEAD_JAM_SEND				0x41	//JAM CL-->PC 
+#define HEAD_JAM_DETECT_SEND		0x69	//JAM DETECT CL-->PC 
 
-#define HEAD_BUZ_ONOFF				0x4D	//
+#define HEAD_BUZ_ONOFF				0x4D	// 
 
 
-#define HEAD_APDDROP_VOLT_REQUEST	0x8c	// APD  Drop ì „ì•• read
-#define HEAD_APDDROP_VOLT_SEND		0x46	// APD  Drop ì „ì•• write
+#define HEAD_APDDROP_VOLT_REQUEST	0x8c	// APD  Drop Àü¾Ğ read 
+#define HEAD_APDDROP_VOLT_SEND		0x46	// APD  Drop Àü¾Ğ write
 
-#define HEAD_PRF_MUL_REQ			0x47	// PRF *  ë°°ìˆ˜ read  PC-->CL
-#define HEAD_PRF_MUL_SEND			0x48	// PRF *  ë°°ìˆ˜ write  VS-->PC
+#define HEAD_PRF_MUL_REQ			0x47	// PRF *  ¹è¼ö read  PC-->CL
+#define HEAD_PRF_MUL_SEND			0x48	// PRF *  ¹è¼ö write  VS-->PC 
 
 #define CFD_DECODE(x)		(((x >> 2) & 0x03) | ((x >> 3) & 0x1c))
 
@@ -221,46 +221,46 @@ typedef	struct	_ST_LASER_PARAM
 }_ST_LASER_PARAM;
 extern _ST_LASER_PARAM		g_stLaserParam;
 
-class SerialPacket
+class SerialPacket : public QObject
 {
-
+    Q_OBJECT
 public:
-    unsigned char dleed, stxed;	//dle, stx í”Œë ˆê·¸
-    unsigned char g_RxBuf[MAX_PACKET_SIZE];				//ìˆ˜ì‹  ë°ì´í„°
-    unsigned short  g_RxLength;				//ìˆ˜ì‹ ë°ì´í„° ê¸¸ì´
-    struct MsgFormat g_ReceiveData;         //ìˆ˜ì‹ ëœ íŒ¨í‚·ì„ ë¶„ì„ ì €ì¥í•˜ëŠ”ê³³
-    unsigned char g_TxBuf[MAX_PACKET_SIZE];				//ì†¡ì‹ í•  íŒ¨í‚·ì„ ì €ì¥í•˜ëŠ”ê³³
-    unsigned short g_TxLength;               //ì†¡ì‹ í•  íŒ¨í‚·ì˜ ê¸¸ì´ë¥¼ ì €ì¥
-    unsigned char g_NPacketFlag;            //ì•„ìŠ¤í‚¤ íŒ¨í‚· ì „ì†¡ í”Œë ˆê·¸
+	unsigned char dleed, stxed;	//dle, stx ÇÃ·¹±×
+	unsigned char g_RxBuf[MAX_PACKET_SIZE];				//¼ö½Å µ¥ÀÌÅÍ
+	unsigned short  g_RxLength;				//¼ö½Åµ¥ÀÌÅÍ ±æÀÌ
+	struct MsgFormat g_ReceiveData;         //¼ö½ÅµÈ ÆĞÅ¶À» ºĞ¼® ÀúÀåÇÏ´Â°÷
+	unsigned char g_TxBuf[MAX_PACKET_SIZE];				//¼Û½ÅÇÒ ÆĞÅ¶À» ÀúÀåÇÏ´Â°÷
+	unsigned short g_TxLength;               //¼Û½ÅÇÒ ÆĞÅ¶ÀÇ ±æÀÌ¸¦ ÀúÀå
+	unsigned char g_NPacketFlag;            //¾Æ½ºÅ° ÆĞÅ¶ Àü¼Û ÇÃ·¹±×
 
-    unsigned short g_length;
+	unsigned short g_length;
 
     //cnrk
-    float m_fDistance = 0;
-    int m_nSpeed = 0;
-    int m_nSensitivity = 0;
-
+    bool m_bIsCaptureOnDisplay = false;
 
 public:
-    SerialPacket();
-    virtual ~SerialPacket();
-    void	    Init();
+	void	    Init();
     unsigned char CheckRcvMsg( unsigned char RxData );
     unsigned char MsgDecoder( void );
-    signed char ChkControlText( unsigned char d );
-    void EncodePacket( unsigned char TotalMsgLen,
-                    unsigned char Head,
-                    unsigned char *Msg,
+	signed char ChkControlText( unsigned char d );
+	void EncodePacket( unsigned char TotalMsgLen,
+					unsigned char Head,
+					unsigned char *Msg,
                     unsigned char Checksum,
                         QByteArray *send);
-    signed char ReceiveData( unsigned char RxData );
-    signed char ProlaserReceiveData( unsigned char RxData );
+	signed char ReceiveData( unsigned char RxData );
+	signed char ProlaserReceiveData( unsigned char RxData );
     QByteArray MakePacket( unsigned char Head, unsigned char *Msg, unsigned char MsgSize );
-    void AckPacket( void );
-    void NackPacket( void );
-    void SerialInformation(unsigned char info);
-    signed char ReceiveData_D( unsigned char RxData );
+	void AckPacket( void );
+	void NackPacket( void );
+	void SerialInformation(unsigned char info);
+	signed char ReceiveData_D( unsigned char RxData );
     void ParsingPacket(QListView *listView, QStandardItemModel *model);
+
+signals:
+    void sig_showCaptureSpeedDistance(float fSpeed, float fDistance);
+    void sig_showSpeedDistance(float fSpeed, float fDistance);
+    void sig_showDistance(float fDistance, int nSensitivity);
 };
 
 

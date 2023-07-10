@@ -19,6 +19,7 @@
 #include "SerialViscaManager.h"
 #include "SerialPacket.h"
 #include "ViscaPacket.h"
+#include "ConfigManager.h"
 
 SelfTestWidget::SelfTestWidget(QWidget *parent) :
     QWidget(parent),
@@ -242,7 +243,13 @@ bool SelfTestWidget::BatteryTest()
     //moving average filter
     ltc.filterValues();
 
-    if (ltc.m_filteredVolt > 9.4)
+    // load setting_battery.json
+    ConfigManager config = ConfigManager("setting_battery.json");
+    QJsonObject object = config.GetConfig();
+
+    double dPowerOffVoltage = object["PowerOffVoltage"].toDouble();
+
+    if (ltc.m_filteredVolt > dPowerOffVoltage)
         return true;
 
     return false;

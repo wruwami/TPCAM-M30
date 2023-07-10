@@ -1,5 +1,5 @@
 //------------------------------------------------------------------------------
-//  Serial ì†¡/ìˆ˜ì‹  íŒ¨í‚· [Encode / Decode] ë¼ì´ë¸ŒëŸ¬ë¦¬
+//  Serial ¼Û/¼ö½Å ÆĞÅ¶ [Encode / Decode] ¶óÀÌºê·¯¸®
 #include <stdio.h>
 #include <string.h>
 #include <QString>
@@ -148,7 +148,7 @@ QString g_Shutter_X_ASIX_KTNC[NUMBER_SHUTTER_CNT] =
     "1/1"
 };
 
-QString g_Gain_Y_ASIX_KTNC[NUMBER_GAIN_CNT]= //
+QString g_Gain_Y_ASIX_KTNC[NUMBER_GAIN_CNT_KTNC]= //
 {
     "00 (-3dB)",
     "01 (+0dB)",
@@ -160,7 +160,13 @@ QString g_Gain_Y_ASIX_KTNC[NUMBER_GAIN_CNT]= //
     "07 (+24dB)",
     "08 (+28dB)",
     "09 (+32dB)",
-    "0A (+36dB)"
+    "0A (+36dB)",
+    "0B (+40dB)",
+    "0C (+44dB)",
+    "0D (+48dB)",
+    "0E (+52dB)",
+    "0F (+58dB)",
+
 };
 #if 1 //wonwoo camera
 QString g_Optical_Zoom_Value_Wonwoo[NUMBER_OPTICAL_ZOOM_CNT]=
@@ -308,7 +314,7 @@ QString g_Shutter_X_ASIX_Wonwoo[NUMBER_SHUTTER_CNT] =
     "1/8   (125ms)",
 };
 
-QString g_Gain_Y_ASIX_Wonwoo[NUMBER_GAIN_CNT]= //
+QString g_Gain_Y_ASIX_Wonwoo[NUMBER_GAIN_CNT_WONWOO]= //
 {
     "00 (00dB)",
     "01 (08dB)",
@@ -325,11 +331,15 @@ QString g_Gain_Y_ASIX_Wonwoo[NUMBER_GAIN_CNT]= //
 #endif
 
 int g_Camera_VenderID = 0x0078;
+QByteArray send_header_data;
 
-
+QString g_qstrZoom_pqrs;
+QString g_qstrFocus_pqrs;
+QString g_qstrShutter_pq;
+QString g_qstrIris_pq;
 
 //------------------------------------------------------------------------------
-//  Private : ì†¡ì‹  íŒ¨í‚·ì˜ í˜•íƒœë¡œ ì¸ì½”ë”©
+//  Private : ¼Û½Å ÆĞÅ¶ÀÇ ÇüÅÂ·Î ÀÎÄÚµù
 //Head - 1xxx0kkk
 void ViscaPacket::BlockCamEncodePacket(unsigned char TotalMsgLen,
                    unsigned char Head,
@@ -338,22 +348,22 @@ void ViscaPacket::BlockCamEncodePacket(unsigned char TotalMsgLen,
 {
     unsigned char i;
 
-    // HEADER ì‚½ì…
+    // HEADER »ğÀÔ
     g_TxLength = 0;
     g_TxBuf[g_TxLength] = Head; send->push_back(g_TxBuf[g_TxLength]); g_TxLength++;
 
-    // Message ì‚½ì…
+    // Message »ğÀÔ
     for (i = 0; i < TotalMsgLen; i++)
     {
         g_TxBuf[g_TxLength] = Msg[i];send->push_back(g_TxBuf[g_TxLength]);  g_TxLength++;
     }
 
-    // Terminator ì‚½ì…
+    // Terminator »ğÀÔ
     g_TxBuf[g_TxLength] = 0xFF; send->push_back(g_TxBuf[g_TxLength]); g_TxLength++;
 
 }
 //------------------------------------------------------------------------------
-//  Public : ì‚¬ìš©ìê°€ ìƒˆë¡œìš´ ì†¡ì‹ í•  íŒ¨í‚·ì„ ë§Œë“ ë‹¤.
+//  Public : »ç¿ëÀÚ°¡ »õ·Î¿î ¼Û½ÅÇÒ ÆĞÅ¶À» ¸¸µç´Ù.
 //
 QByteArray ViscaPacket::BlockCamMakePacket( unsigned char Head, unsigned char *Msg, unsigned char MsgSize )
 {
@@ -427,16 +437,6 @@ QByteArray ViscaPacket::BlockCamMakePacket( unsigned char Head, unsigned char *M
 //			0x4A = Register error
 //			0x4B = Register mode setting error
 
-ViscaPacket::ViscaPacket()
-{
-    send_header_data.clear();
-}
-
-ViscaPacket::~ViscaPacket()
-{
-
-}
-
 unsigned char	ViscaPacket::CheckRcvMsg(unsigned char RxData)
 {
     static unsigned char RxLength = 0, stx=0, info_flag=0;
@@ -451,7 +451,7 @@ unsigned char	ViscaPacket::CheckRcvMsg(unsigned char RxData)
         return 0;
     }
 
-    if(RxData == 0xFF && stx==1) //íŒ¨í‚· ë
+    if(RxData == 0xFF && stx==1) //ÆĞÅ¶ ³¡
     {
         g_RxBuf[RxLength] = RxData;
         RxLength++;
@@ -477,7 +477,7 @@ unsigned char	ViscaPacket::CheckRcvMsg(unsigned char RxData)
         else //info_flag ==2
         {
             info_flag=0;
-            return 2;//ì‘ë‹µì¡°ê±´ COMPELETE_INQUIRES
+            return 2;//ÀÀ´äÁ¶°Ç COMPELETE_INQUIRES
         }
     }
     else
@@ -512,7 +512,7 @@ unsigned char	ViscaPacket::CheckRcvMsg(unsigned char RxData)
                 else if( (RxData) == COMPELETE_COMMAND)////complete(command)
                 {
                     info_flag=4;
-                }
+                }                
             }
             else
             {
@@ -600,17 +600,17 @@ unsigned char	ViscaPacket::CheckRcvMsg(unsigned char RxData)
 
 
 //------------------------------------------------------------------------------------
-//	ìˆ˜ì‹ ëœ í•˜ë‚˜ì˜ íŒ¨í‚·ì— ëŒ€í•˜ì—¬ ìœ íš¨ì„± ê²€ì‚¬
+//	¼ö½ÅµÈ ÇÏ³ªÀÇ ÆĞÅ¶¿¡ ´ëÇÏ¿© À¯È¿¼º °Ë»ç
 //	[Return Value]
-//		0 : ë¹„ì •ìƒ íŒ¨í‚·
-//		1 : ì •ìƒ íŒ¨í‚·
+//		0 : ºñÁ¤»ó ÆĞÅ¶
+//		1 : Á¤»ó ÆĞÅ¶
 //------------------------------------------------------------------------------------
-unsigned char	ViscaPacket::MsgDecoder()
+unsigned char	ViscaPacket::MsgDecoder( QListView *listView, QStandardItemModel *model)
 {
     if(send_header_data.isEmpty())
         return 0;
 
-    send_data = send_header_data[0];
+    unsigned char send_data = send_header_data[0];
     //cnrk
     send_header_data.remove(0, 1);
     QString info;
@@ -678,9 +678,11 @@ unsigned char	ViscaPacket::MsgDecoder()
         g_FocusPos.r = g_RxBuf[4];
         g_FocusPos.s = g_RxBuf[5];
         m_focusPQRS = (g_FocusPos.p << 12) | (g_FocusPos.q <<8) | (g_FocusPos.r << 4) | (g_FocusPos.s <<0);
-        info.sprintf("Focus position(%X):%02X ;%02X; %02X; %02X", m_focusPQRS, g_FocusPos.p, g_FocusPos.q, g_FocusPos.r, g_FocusPos.s);
+        info.sprintf("Focus position(%X):%02X ;%02X; %02X; %02X", m_focusPQRS, g_FocusPos.p, g_FocusPos.q, g_FocusPos.r, g_FocusPos.s);        
         qDebug() << info;
-        m_qstrFocus_pqrs = QString::number(m_focusPQRS, 16);
+        //feedback
+        g_qstrFocus_pqrs = QString::number(m_focusPQRS, 16);
+
         emit sig_show_focus();
         return 1;
     }
@@ -689,6 +691,14 @@ unsigned char	ViscaPacket::MsgDecoder()
         g_WBMode = g_RxBuf[2];
 
         info.sprintf("WB mode (00=AUTO, 01=In, 02=Out):%02X", g_WBMode);
+        qDebug() << info;
+        return 1;
+    }
+    else if(send_data == 0x53) //NR mode(noise reduction mode)
+    {
+        g_NRMode = g_RxBuf[2];
+
+        info.sprintf("NR mode (0p, p:0 to 5):%02X", g_NRMode);
         qDebug() << info;
         return 1;
     }
@@ -707,6 +717,11 @@ unsigned char	ViscaPacket::MsgDecoder()
         m_shutter = (g_ShutterPos.p << 4) | (g_ShutterPos.q <<0);
         info.sprintf("Shutter Position(%02X)_%02X; %02X", m_shutter, g_ShutterPos.p, g_ShutterPos.q);
         qDebug() << info;
+        //feedback
+        g_qstrShutter_pq = QString::number(m_shutter, 16);
+        model->appendRow(new QStandardItem(info));
+        listView->setModel(model);
+        emit sig_show_shutter();
         return 1;
     }
     else if(send_data == 0x4B) //iris pos
@@ -715,8 +730,9 @@ unsigned char	ViscaPacket::MsgDecoder()
         g_IrisPos.q = g_RxBuf[5];
         m_iris = (g_IrisPos.p << 4) | (g_IrisPos.q <<0);
         info.sprintf("Iris Position(%02X)_ %02X; %02X",  m_iris, g_IrisPos.p, g_IrisPos.q);
+        //feedback
+        g_qstrIris_pq = QString::number(m_iris, 16);
         qDebug() << info;
-        m_qstrIris_pqrs = QString::number(m_iris, 16);
         emit sig_show_iris();
         return 1;
     }
@@ -782,7 +798,7 @@ unsigned char	ViscaPacket::MsgDecoder()
     }
     else if (send_data == 0x3d) // Wide Dynamic mode?
     {
-        info.sprintf("WD : WD(0x02)/Off(0x03)/AutoOnOff(0x00)/RFix(0x01)/DverOpr(0x04) : %02X", g_RxBuf[2] );
+        info.sprintf("WD : WD(0x02)/Off(0x03)/AutoOnOff(0x00)/RFix(0x01)/DverOpr(0x04) : %02X", g_RxBuf[2] );        
         qDebug() << info;
         return 1;
     }
@@ -820,13 +836,13 @@ unsigned char	ViscaPacket::MsgDecoder()
 
 
 //------------------------------------------------------------------------------
-//  Public : ìˆ˜ì‹ ëœ íŒ¨í‚·ì„ ë¶„ì„í•œ í›„ ê²°ê³¼ë¥¼ ëŒë ¤ì¤€ë‹¤.
+//  Public : ¼ö½ÅµÈ ÆĞÅ¶À» ºĞ¼®ÇÑ ÈÄ °á°ú¸¦ µ¹·ÁÁØ´Ù.
 //
 //  [Return value]
-//    1 : í•˜ë‚˜ì˜ íŒ¨í‚·ì´ ìˆ˜ì‹ ë˜ì—ˆë‹¤.
-//    0 : í•˜ë‚˜ì˜ íŒ¨í‚· ìˆ˜ì‹ ì´ ì™„ë£Œë˜ì§€ ì•Šì•˜ë‹¤.
-//    ì „ì—­ë³€ìˆ˜ g_ReceiveData ì— í˜„ì¬ ìˆ˜ì‹ ëœ íŒ¨í‚· ì •ë³´ê°€ ì €ì¥ëœë‹¤.
-unsigned char ViscaPacket::ReceiveData( unsigned char RxData )
+//    1 : ÇÏ³ªÀÇ ÆĞÅ¶ÀÌ ¼ö½ÅµÇ¾ú´Ù.
+//    0 : ÇÏ³ªÀÇ ÆĞÅ¶ ¼ö½ÅÀÌ ¿Ï·áµÇÁö ¾Ê¾Ò´Ù.
+//    Àü¿ªº¯¼ö g_ReceiveData ¿¡ ÇöÀç ¼ö½ÅµÈ ÆĞÅ¶ Á¤º¸°¡ ÀúÀåµÈ´Ù.
+unsigned char ViscaPacket::ReceiveData( unsigned char RxData , QListView *listView, QStandardItemModel *model)
 {
     unsigned char result=0;
     result =  CheckRcvMsg( RxData );

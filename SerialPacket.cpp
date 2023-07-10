@@ -14,6 +14,15 @@ _ST_LASER_PARAM		g_stLaserParam;
 unsigned char	s_RxLength = 0;
 unsigned char	s_RxBuf[MAX_PACKET_SIZE];
 
+SerialPacket::SerialPacket()
+{
+    Init();
+}
+
+SerialPacket::~SerialPacket()
+{
+
+}
 
 void SerialPacket::Init()
 {
@@ -374,7 +383,7 @@ void	cbRcvLaserParam(const unsigned char* pBuf, int Sel)
 }
 
 
-void SerialPacket::ParsingPacket(QListView *listView, QStandardItemModel *model)
+void SerialPacket::ParsingPacket()
 {
 //    g_RxLength = 0;
 //    //pLog.SaveTexts("패킷의 Checksum과 계산한 Checksum이 다르다면-에러");
@@ -404,7 +413,6 @@ void SerialPacket::ParsingPacket(QListView *listView, QStandardItemModel *model)
                     strMsg.sprintf("%s SPD(%03d) : %.2fMPH, %.1fft", g_ReceiveData.Header==0xDB?"--------->Capture":"RT", VehicleID, fSpeed, fDist);
 
                 qDebug() << strMsg;
-                model->appendRow(new QStandardItem(strMsg));
 
                 m_bIsCaptureOnDisplay = true;
                 emit sig_showCaptureSpeedDistance(fSpeed, fDist);
@@ -431,7 +439,6 @@ void SerialPacket::ParsingPacket(QListView *listView, QStandardItemModel *model)
                     strMsg.sprintf("%s SPD(%03d) : %.2fMPH, %.1fft", g_ReceiveData.Header==0xDB?"--------->Capture":"RT", VehicleID, fSpeed, fDist);
 
                 qDebug() << strMsg;
-                model->appendRow(new QStandardItem(strMsg));
 
                 if(!m_bIsCaptureOnDisplay)
                     emit sig_showSpeedDistance(fSpeed, fDist);
@@ -460,7 +467,6 @@ void SerialPacket::ParsingPacket(QListView *listView, QStandardItemModel *model)
                 QString str;
                 str.sprintf("L%d_%.02fm(%dlv)", uLB, fDist, uCfd);
                 qDebug() << str;
-                model->appendRow(new QStandardItem(str));
 
                 if(!m_bIsCaptureOnDisplay)
                     emit sig_showDistance(fDist, uCfd);
@@ -592,139 +598,107 @@ void SerialPacket::ParsingPacket(QListView *listView, QStandardItemModel *model)
         case 0xE4:
             {                 
                 char	strBuf[31];
-                model->clear();
                 QString disp;
 
                 memset(strBuf, 0, 31);	memcpy(strBuf, g_ReceiveData.Msg + 0, 30);
                 disp.sprintf("Laser S/N : %s", strBuf);
-                model->appendRow(new QStandardItem(disp));
                 qDebug() << disp;
 
                 memset(strBuf, 0, 31);	memcpy(strBuf, g_ReceiveData.Msg + 30, 8);
                 disp.sprintf("F/W version : %s", strBuf);
                 qDebug() << disp;
-                model->appendRow(new QStandardItem(disp));
 
                 memset(strBuf, 0, 31);	memcpy(strBuf, g_ReceiveData.Msg + 38, 11);
                 disp.sprintf("F/W build date : %s", strBuf);
                 qDebug() << disp;
-                model->appendRow(new QStandardItem(disp));
 
                 memset(strBuf, 0, 31);	memcpy(strBuf, g_ReceiveData.Msg + 49, 5);
                 disp.sprintf("PLD version : %s", strBuf);
                 qDebug() << disp;
-                model->appendRow(new QStandardItem(disp));
 
                 memset(strBuf, 0, 31);	memcpy(strBuf, g_ReceiveData.Msg + 54, 5);
                 disp.sprintf("H/W version : %s", strBuf);
-                model->appendRow(new QStandardItem(disp));
 
                 disp.sprintf("Model Info :  %d", g_ReceiveData.Msg[59]);
                 qDebug() << disp;
-                 model->appendRow(new QStandardItem(disp));
 
                 disp.sprintf("PRF :  %d", g_ReceiveData.Msg[60]);
                 qDebug() << disp;
-                model->appendRow(new QStandardItem(disp));
 
                 disp.sprintf("Unit :  %d", g_ReceiveData.Msg[61]);
                 qDebug() << disp;
-                model->appendRow(new QStandardItem(disp));
 
                 disp.sprintf("Auto trigger :   %d", g_ReceiveData.Msg[62]);
                 qDebug() << disp;
-                model->appendRow(new QStandardItem(disp));
 
                 disp.sprintf("CFD:   %d", g_ReceiveData.Msg[63]);
                 qDebug() << disp;
-                model->appendRow(new QStandardItem(disp));
 
                 float dist_offset = (g_ReceiveData.Msg[64]?-1.0f:1.0f) * ( (g_ReceiveData.Msg[65]<<8) | g_ReceiveData.Msg[66]) * 0.01f;
                 disp.sprintf("Dist offset :  %0.1f", dist_offset);
                 qDebug() << disp;
-                model->appendRow(new QStandardItem(disp));
 
                 float speed_offset = (g_ReceiveData.Msg[67]?-1.0f:1.0f) * ( (g_ReceiveData.Msg[68]<<8) | g_ReceiveData.Msg[69]) * 0.01f;
                 disp.sprintf("Speed offset :  %0.1f", speed_offset);
                 qDebug() << disp;
-                model->appendRow(new QStandardItem(disp));
 
                 disp.sprintf("APD rated V : %dV", ((g_ReceiveData.Msg[70]<<8) | g_ReceiveData.Msg[71]));
                 qDebug() << disp;
-                model->appendRow(new QStandardItem(disp));
 
                 disp.sprintf("APD drop step : %d", g_ReceiveData.Msg[72] );
                 qDebug() << disp;
-                model->appendRow(new QStandardItem(disp));
 
                 disp.sprintf("APD drop value : %d", (signed char)g_ReceiveData.Msg[73] );
                 qDebug() << disp;
-                model->appendRow(new QStandardItem(disp));
+
 
                 disp.sprintf("APD control : %d", g_ReceiveData.Msg[74] );
                 qDebug() << disp;
-                model->appendRow(new QStandardItem(disp));
+
 
                 disp.sprintf("ADC ref V : %0.1f", ((g_ReceiveData.Msg[75]<<8) | g_ReceiveData.Msg[76]) * 0.01f);
                 qDebug() << disp;
-                model->appendRow(new QStandardItem(disp));
+
 
                 disp.sprintf(" APD threshold : %d", g_ReceiveData.Msg[77] );
                 qDebug() << disp;
-                model->appendRow(new QStandardItem(disp));
+
 
                 disp.sprintf("Private CFD level : %d", g_ReceiveData.Msg[78] );
                 qDebug() << disp;
-                model->appendRow(new QStandardItem(disp));
+
 
                 disp.sprintf("Weather mode :  %d", g_ReceiveData.Msg[79] );
                 qDebug() << disp;
-                model->appendRow(new QStandardItem(disp));
+
 
                 disp.sprintf("Blank coarse bit :  %d", g_ReceiveData.Msg[80] );
                 qDebug() << disp;
-                model->appendRow(new QStandardItem(disp));
+
 
                 disp.sprintf("Anti-jamming :  %d", g_ReceiveData.Msg[81] );
                 qDebug() << disp;
-                model->appendRow(new QStandardItem(disp));
+
 
                 disp.sprintf("Measurement mode :  %d", g_ReceiveData.Msg[82] );
                 qDebug() << disp;
-                model->appendRow(new QStandardItem(disp));
+
 
                 disp.sprintf("Speed limit :  %d", ((g_ReceiveData.Msg[83]<<8) | g_ReceiveData.Msg[84]));
                 qDebug() << disp;
-                model->appendRow(new QStandardItem(disp));
+
 
                 disp.sprintf("Detect distance :  %d", ((g_ReceiveData.Msg[85]<<8) | g_ReceiveData.Msg[86]));
                 qDebug() << disp;
-                model->appendRow(new QStandardItem(disp));
+
 
                 disp.sprintf("Detect distance margin :  %d", ((g_ReceiveData.Msg[87]<<8) | g_ReceiveData.Msg[88]));
                 qDebug() << disp;
-                model->appendRow(new QStandardItem(disp));
+
 
                 disp.sprintf("Night mode :  %d",g_ReceiveData.Msg[89]);
                 qDebug() << disp;
-                model->appendRow(new QStandardItem(disp));
 
-
-
-                int rowCnt = model->rowCount();
-                for(int i=0;i<rowCnt;i++)
-                {
-                    QBrush qBrush;
-                    if(0 == (i % 2))
-                    {
-                        qBrush = QBrush(QColor(212, 244, 250, 255));
-                        }
-                    else {
-                        qBrush = QBrush(QColor(246, 246, 246, 255));
-                        }
-                    model->setData(model->index(i, 0), qBrush, Qt::BackgroundColorRole);
-                }
-                listView->setModel(model);
 
             }break;
 

@@ -69,6 +69,8 @@ public:
     void zoom(int index);
     void plus_zoom();
     void minus_zoom();
+    void zoom_from_pqrs(QString pqrs_input);
+    void dzoom_from_pq(QString pq_input);
 
     void dzoom(int currentIndex);
     void plus_dzoom();

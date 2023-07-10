@@ -558,6 +558,95 @@ void SerialViscaManager::minus_zoom()
         serial_visca->write(data);
 }
 
+void SerialViscaManager::zoom_from_pqrs(QString pqrs_input)
+{
+    unsigned char header=0x81;
+    unsigned char msg[10];
+    unsigned char msgSize=7;
+    msg[0]=0x01;
+    msg[1]=0x04;
+    msg[2]=0x47;
+    msg[3]=0x00;
+    msg[4]=0x00;
+    msg[5]=0x00;
+    msg[6]=0x00;
+    int p=0,q=0,r=0,s=0;
+
+    QString pqrs = pqrs_input;
+
+
+    bool ok;
+    p = pqrs.mid(0,1).toInt(&ok, 16);
+    q = pqrs.mid(1,1).toInt(&ok, 16);
+    r = pqrs.mid(2,1).toInt(&ok, 16);
+    s = pqrs.mid(3,1).toInt(&ok, 16);
+    qDebug() << pqrs;
+
+    QString dd;
+    dd.sprintf("P%X, Q%X, R%X, S%X", p,q,r,s);
+    qDebug() << dd;
+    msg[3]=0x00 | p;
+    msg[4]=0x00 | q;
+    msg[5]=0x00 | r;
+    msg[6]=0x00 | s;
+
+    m_zoom_pqrs = pqrs;
+
+    //feedback
+    m_pTimerInquiryZoom->start(500);
+
+    QByteArray data;
+    if(visca_packet)
+        data= visca_packet->BlockCamMakePacket(header, msg, msgSize);
+
+    qDebug() << data;
+
+    if(serial_visca)
+        serial_visca->write(data);
+}
+
+void SerialViscaManager::dzoom_from_pq(QString pq_input)
+{
+    unsigned char header=0x81;
+    unsigned char msg[10];
+    unsigned char msgSize=7;
+    msg[0]=0x01;
+    msg[1]=0x04;
+    msg[2]=0x46;
+    msg[3]=0x00;
+    msg[4]=0x00;
+    msg[5]=0x00;
+    msg[6]=0x00;
+    int p=0,q=0;
+
+    QString pq = pq_input;
+
+    bool ok;
+    p = pq.mid(0,1).toInt(&ok, 16);
+    q = pq.mid(1,1).toInt(&ok, 16);
+
+    qDebug() << pq;
+
+    QString dd;
+    dd.sprintf("P%X, Q%X", p,q);
+    qDebug() << dd;
+    msg[3]=0x00 ;
+    msg[4]=0x00 ;
+    msg[5]=0x00 | p;
+    msg[6]=0x00 | q;
+
+    m_Dzoom_pqrs = pq;
+
+    QByteArray data;
+    if(visca_packet)
+        data= visca_packet->BlockCamMakePacket(header, msg, msgSize);
+
+    qDebug() << data;
+
+    if(serial_visca)
+        serial_visca->write(data);
+}
+
 void SerialViscaManager::dzoom(int currentIndex)
 {
     unsigned char header=0x81;
@@ -1597,7 +1686,7 @@ void SerialViscaManager::get_inquiry_iris()
     read_iris();
     loop.exec();
 
-    QString qstrgIris_pq = QStringLiteral("%1").arg(visca_packet->m_qstrIris_pqrs.toInt(nullptr, 16), 2, 16, QLatin1Char('0'));
+    QString qstrgIris_pq = QStringLiteral("%1").arg(visca_packet->m_qstrIris_pq.toInt(nullptr, 16), 2, 16, QLatin1Char('0'));
     qstrgIris_pq = qstrgIris_pq.toUpper();
 
     QString qstrpq = m_iris_pq.mid(0, 2);

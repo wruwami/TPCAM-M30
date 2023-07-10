@@ -333,11 +333,6 @@ QString g_Gain_Y_ASIX_Wonwoo[NUMBER_GAIN_CNT_WONWOO]= //
 int g_Camera_VenderID = 0x0078;
 QByteArray send_header_data;
 
-QString g_qstrZoom_pqrs;
-QString g_qstrFocus_pqrs;
-QString g_qstrShutter_pq;
-QString g_qstrIris_pq;
-
 //------------------------------------------------------------------------------
 //  Private : 송신 패킷의 형태로 인코딩
 //Head - 1xxx0kkk
@@ -605,12 +600,12 @@ unsigned char	ViscaPacket::CheckRcvMsg(unsigned char RxData)
 //		0 : 비정상 패킷
 //		1 : 정상 패킷
 //------------------------------------------------------------------------------------
-unsigned char	ViscaPacket::MsgDecoder( QListView *listView, QStandardItemModel *model)
+unsigned char	ViscaPacket::MsgDecoder()
 {
     if(send_header_data.isEmpty())
         return 0;
 
-    unsigned char send_data = send_header_data[0];
+    send_data = send_header_data[0];
     //cnrk
     send_header_data.remove(0, 1);
     QString info;
@@ -681,7 +676,7 @@ unsigned char	ViscaPacket::MsgDecoder( QListView *listView, QStandardItemModel *
         info.sprintf("Focus position(%X):%02X ;%02X; %02X; %02X", m_focusPQRS, g_FocusPos.p, g_FocusPos.q, g_FocusPos.r, g_FocusPos.s);        
         qDebug() << info;
         //feedback
-        g_qstrFocus_pqrs = QString::number(m_focusPQRS, 16);
+        m_qstrFocus_pqrs = QString::number(m_focusPQRS, 16);
 
         emit sig_show_focus();
         return 1;
@@ -718,9 +713,7 @@ unsigned char	ViscaPacket::MsgDecoder( QListView *listView, QStandardItemModel *
         info.sprintf("Shutter Position(%02X)_%02X; %02X", m_shutter, g_ShutterPos.p, g_ShutterPos.q);
         qDebug() << info;
         //feedback
-        g_qstrShutter_pq = QString::number(m_shutter, 16);
-        model->appendRow(new QStandardItem(info));
-        listView->setModel(model);
+        m_qstrShutter_pq = QString::number(m_shutter, 16);
         emit sig_show_shutter();
         return 1;
     }
@@ -731,7 +724,7 @@ unsigned char	ViscaPacket::MsgDecoder( QListView *listView, QStandardItemModel *
         m_iris = (g_IrisPos.p << 4) | (g_IrisPos.q <<0);
         info.sprintf("Iris Position(%02X)_ %02X; %02X",  m_iris, g_IrisPos.p, g_IrisPos.q);
         //feedback
-        g_qstrIris_pq = QString::number(m_iris, 16);
+        m_qstrIris_pq = QString::number(m_iris, 16);
         qDebug() << info;
         emit sig_show_iris();
         return 1;
@@ -842,7 +835,7 @@ unsigned char	ViscaPacket::MsgDecoder( QListView *listView, QStandardItemModel *
 //    1 : 하나의 패킷이 수신되었다.
 //    0 : 하나의 패킷 수신이 완료되지 않았다.
 //    전역변수 g_ReceiveData 에 현재 수신된 패킷 정보가 저장된다.
-unsigned char ViscaPacket::ReceiveData( unsigned char RxData , QListView *listView, QStandardItemModel *model)
+unsigned char ViscaPacket::ReceiveData( unsigned char RxData )
 {
     unsigned char result=0;
     result =  CheckRcvMsg( RxData );

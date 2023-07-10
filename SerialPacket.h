@@ -239,6 +239,8 @@ public:
     bool m_bIsCaptureOnDisplay = false;
 
 public:
+    SerialPacket();
+    virtual ~SerialPacket();
 	void	    Init();
     unsigned char CheckRcvMsg( unsigned char RxData );
     unsigned char MsgDecoder( void );
@@ -255,7 +257,7 @@ public:
 	void NackPacket( void );
 	void SerialInformation(unsigned char info);
 	signed char ReceiveData_D( unsigned char RxData );
-    void ParsingPacket(QListView *listView, QStandardItemModel *model);
+    void ParsingPacket();
 
 signals:
     void sig_showCaptureSpeedDistance(float fSpeed, float fDistance);

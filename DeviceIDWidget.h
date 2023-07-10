@@ -21,6 +21,8 @@ public:
 private slots:
     void on_inputPushButton_clicked();
 
+    void on_savePushButton_clicked();
+
 private:
     Ui::DeviceIDWidget *ui;
 };

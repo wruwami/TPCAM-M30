@@ -88,7 +88,6 @@ void Setting1Widget::SaveConfig()
 {
     m_config.SetConfig(m_newJsonObject);
     m_config.SaveFile();
-
 }
 
 void Setting1Widget::on_locationPushButton_clicked()

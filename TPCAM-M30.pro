@@ -40,6 +40,7 @@ SOURCES += main.cpp\
     SerialPacket.cpp \
     SerialViscaManager.cpp \
     Setting4APWidget.cpp \
+    SpeedUnitManager.cpp \
     StillImageViewerDialog.cpp \
     StringLoader.cpp \
     DateTimeWidget.cpp \
@@ -136,6 +137,7 @@ HEADERS  += MainWindow.h \
     SerialPacket.h \
     SerialViscaManager.h \
     Setting4APWidget.h \
+    SpeedUnitManager.h \
     StillImageViewerDialog.h \
     StringLoader.h \
     Color.h \

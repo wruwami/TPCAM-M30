@@ -10,6 +10,7 @@
 #include "HUDManager.h"
 #include "SerialLaserManager.h"
 #include "SerialViscaManager.h"
+#include "SpeedUnitManager.h"
 
 EnforcementComponentWidget::EnforcementComponentWidget(QWidget *parent) :
     QWidget(parent),
@@ -18,6 +19,10 @@ EnforcementComponentWidget::EnforcementComponentWidget(QWidget *parent) :
     ui->setupUi(this);
 
 //    SetCamera();
+
+    m_object = m_config.GetConfig();
+    m_object2 = m_config2.GetConfig();
+
 
     ui->hidePushButton->setText(LoadString("IDS_HIDE"));
     ui->readyPushButton->setText(LoadString("IDS_READY"));
@@ -29,11 +34,12 @@ EnforcementComponentWidget::EnforcementComponentWidget(QWidget *parent) :
     ui->truckPushButton->setImage("enforcement", "truck.jpg");
     ui->bikePushButton->setImage("enforcement", "bike.jpg");
 
-    ui->speedLabel->setText("SL: 100km/h\nT80km/h\nM60km/h");
+    QJsonArray ar = m_object["capture speed"].toArray();
+
+    ui->speedLabel->setText(QString("CS: %0%4\nT%2%4\nM%3%4").arg(ar[0].toString()).arg(ar[1].toString()).arg(ar[2].toString()).arg(SpeedUnitManager::GetInstance()->distance()));
     ui->speedLabel->setDisabled(true);
 
-    m_object = m_config.GetConfig();
-    m_object2 = m_config2.GetConfig();
+
     if (m_object["speed selection"].toInt() == 1)
         m_UserModeOn = true;
     else
@@ -451,3 +457,45 @@ void EnforcementComponentWidget::paintEvent(QPaintEvent *event)
         painter.drawLine(gap, this->geometry().height() - 2 * gap, this->geometry().width() - 2 * gap, this->geometry().height() - 2 * gap);
     }
 }
+
+void EnforcementComponentWidget::on_zoomRangePushButton_clicked()
+{
+    ConfigManager configmanager = ConfigManager("parameter_settings1.json");
+    QJsonObject object = configmanager.GetConfig();
+
+    if (object["speed selection"].toInt() == 1)
+    {
+
+    }
+    else
+    {
+
+    }
+
+}
+
+void EnforcementComponentWidget::on_readyPushButton_clicked()
+{
+    switch (m_nMode)
+    {
+    case Ready:
+    {
+        ui->readyPushButton->setText(LoadString("IDS_AT"));
+        m_nMode = AT;
+    }
+        break;
+    case AT:
+    {
+        ui->readyPushButton->setText(LoadString("IDS_Manual"));
+        m_nMode = Manual;
+    }
+        break;
+    case Manual:
+    {
+        ui->readyPushButton->setText(LoadString("IDS_Ready"));
+        m_nMode = Ready;
+    }
+        break;
+    }
+}
+

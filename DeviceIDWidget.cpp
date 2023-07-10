@@ -3,6 +3,7 @@
 
 #include "StringLoader.h"
 #include "KeyboardDialog.h"
+#include "ConfigManager.h"
 
 DeviceIDWidget::DeviceIDWidget(QWidget *parent) :
     QWidget(parent),
@@ -26,8 +27,17 @@ DeviceIDWidget::DeviceIDWidget(QWidget *parent) :
 
     ui->lineEdit->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
-    // 시연용
-    ui->lineEdit->setText("TP0002000");
+    ConfigManager config = ConfigManager("setting_device_ID.json");
+    QJsonObject object = config.GetConfig();
+    QJsonObject object2 = object["Device ID"].toObject();
+
+    QString Prefix = object2["Prefix"].toString();
+    QString SerialNum = object2["SerialNum"].toString();
+    QString Postfix = object2["Postfix"].toString();
+
+
+
+//    ui->lineEdit->setText("TP0002000");
 }
 
 DeviceIDWidget::~DeviceIDWidget()
@@ -43,3 +53,9 @@ void DeviceIDWidget::on_inputPushButton_clicked()
         ui->lineEdit->setText(keyboardDialog.str());
     }
 }
+
+void DeviceIDWidget::on_savePushButton_clicked()
+{
+
+}
+

@@ -5,6 +5,7 @@
 #include "StringLoader.h"
 
 #include "BaseDialog.h"
+#include "SpeedUnitManager.h"
 
 Setting3Widget::Setting3Widget(QWidget *parent) :
     QWidget(parent),
@@ -69,6 +70,10 @@ void Setting3Widget::SaveConfig()
     m_config.SetConfig(m_newJsonObject);
     m_config.SaveFile();
 
+    if (m_newJsonObject["unit_selection"].toInt())
+        SpeedUnitManager::GetInstance()->setDistance(meter);
+    else
+        SpeedUnitManager::GetInstance()->setDistance(feet);
 }
 
 void Setting3Widget::on_showInfoPushButton_clicked()

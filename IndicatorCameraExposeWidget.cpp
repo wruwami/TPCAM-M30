@@ -165,34 +165,36 @@ void IndicatorCameraExposeWidget::on_dnrOnPushButton_clicked()
 //    }
 }
 
-
 void IndicatorCameraExposeWidget::on_daynNightComboBox_currentIndexChanged(int index)
 {
     m_serialViscaManager.SetDayMode(index + 1);
+    if ( index >= 0 && index <= 3)
+        m_serialViscaManager.set_infrared_mode_off();
+    else if ( index >= 4 && index <= 6)
+        m_serialViscaManager.set_infrared_mode_on();
 }
 
 
 void IndicatorCameraExposeWidget::on_gainComboBox_currentIndexChanged(int index)
 {
-//    ui->gainComboBox->itemData(index);
-//    m_serialViscaManager.set_gain()
+    m_serialViscaManager.set_gain_from_pq(ui->gainComboBox->itemData(index).toString());
 }
 
 
 void IndicatorCameraExposeWidget::on_irisComboBox_currentIndexChanged(int index)
 {
-
+    m_serialViscaManager.set_iris_from_pq(ui->irisComboBox->itemData(index).toString());
 }
 
 
 void IndicatorCameraExposeWidget::on_shutterSpeedComboBox_currentIndexChanged(int index)
 {
-
+    m_serialViscaManager.set_shutter_speed_from_pq(ui->shutterSpeedComboBox->itemData(index).toString());
 }
 
 
 void IndicatorCameraExposeWidget::on_dnrComboBox_currentIndexChanged(int index)
 {
-
+    m_serialViscaManager.set_noise_reduction_on(QString::number(index));
 }
 

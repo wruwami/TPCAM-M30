@@ -1,5 +1,5 @@
-//------------------------------------------------------------------------------
-//  Serial ¼Û/¼ö½Å ÆĞÅ¶ [Encode / Decode] ¶óÀÌºê·¯¸®
+ï»¿//------------------------------------------------------------------------------
+//  Serial ì†¡/ìˆ˜ì‹  íŒ¨í‚· [Encode / Decode] ë¼ì´ë¸ŒëŸ¬ë¦¬
 #include <stdio.h>
 #include <string.h>
 #include <QString>
@@ -24,38 +24,38 @@ void SerialPacket::Init()
 	g_RxLength = 0;
 }
 //------------------------------------------------------------------------------------
-//	Á¤»ó À¯¹«¿¡ »ó°ü¾øÀÌ, ÇÏ³ªÀÇ ÆĞÅ¶ ¼ö½ÅÀÌ ¿Ï·áµÇ¾ú´ÂÁö ºĞ¼®
+//	ì •ìƒ ìœ ë¬´ì— ìƒê´€ì—†ì´, í•˜ë‚˜ì˜ íŒ¨í‚· ìˆ˜ì‹ ì´ ì™„ë£Œë˜ì—ˆëŠ”ì§€ ë¶„ì„
 //	[Return Value]
-//		1 : ÇÏ³ªÀÇ ÆĞÅ¶ ¼ö½Å ¿Ï·á
-//		0 : ÇÏ³ªÀÇ ÆĞÅ¶ÀÌ ¿Ï·áµÇÁö ¾ÊÀ½
+//		1 : í•˜ë‚˜ì˜ íŒ¨í‚· ìˆ˜ì‹  ì™„ë£Œ
+//		0 : í•˜ë‚˜ì˜ íŒ¨í‚·ì´ ì™„ë£Œë˜ì§€ ì•ŠìŒ
 //------------------------------------------------------------------------------------
 unsigned char	SerialPacket::CheckRcvMsg(unsigned char RxData)
 {
-    static	unsigned char	s_DLEed = 0, s_STXed = 0;	// DLE, STX ¼ö½Å¿©ºÎ ÀúÀå
-    static	unsigned char	s_RcvLen = 0;	// ¼ö½ÅµÈ ¹ÙÀÌÆ® ¼ö
-    unsigned char	IsPacket = 0;	// ÆĞÅ¶ ¼ö½Å ¿Ï·á ¿©ºÎ
+    static	unsigned char	s_DLEed = 0, s_STXed = 0;	// DLE, STX ìˆ˜ì‹ ì—¬ë¶€ ì €ì¥
+    static	unsigned char	s_RcvLen = 0;	// ìˆ˜ì‹ ëœ ë°”ì´íŠ¸ ìˆ˜
+    unsigned char	IsPacket = 0;	// íŒ¨í‚· ìˆ˜ì‹  ì™„ë£Œ ì—¬ë¶€
 
-    /* ¼ö½ÅµÈ ¹ÙÀÌÆ® ¼ö°¡ ÃÖ´ë ¹öÆÛ Å©±â¸¦ ÃÊ°úÇÏ¸é, Áß°£¿¡ ÆĞÅ¶ÀÌ ±úÁ³À» °¡´É¼ºÀÌ ³óÈÄÇÔ */
+    /* ìˆ˜ì‹ ëœ ë°”ì´íŠ¸ ìˆ˜ê°€ ìµœëŒ€ ë²„í¼ í¬ê¸°ë¥¼ ì´ˆê³¼í•˜ë©´, ì¤‘ê°„ì— íŒ¨í‚·ì´ ê¹¨ì¡Œì„ ê°€ëŠ¥ì„±ì´ ë†í›„í•¨ */
     if(s_RcvLen >= MAX_PACKET_SIZE )
     {
-        /* ¸ğµÎ Å¬¸®¾î ÇÏ°í, »õ·Ó°Ô ¼ö½Å */
+        /* ëª¨ë‘ í´ë¦¬ì–´ í•˜ê³ , ìƒˆë¡­ê²Œ ìˆ˜ì‹  */
         s_STXed = s_DLEed = 0;
         s_RcvLen = s_RxLength = 0;
     }
 
-    /* STX°¡ ¾Æ¹Ì ¼ö½ÅµÈ »óÅÂ */
+    /* STXê°€ ì•„ë¯¸ ìˆ˜ì‹ ëœ ìƒíƒœ */
     if(s_STXed == 1)
     {
-        if(s_DLEed == 1)	// ÀÌÀü µ¥ÀÌÅÍ°¡ DLE¿´´Ù¸é,
+        if(s_DLEed == 1)	// ì´ì „ ë°ì´í„°ê°€ DLEì˜€ë‹¤ë©´,
         {
             s_RxBuf[s_RcvLen++] = RxData;
             s_DLEed = 0;
         }
-        else if(RxData == DLE)	// ÀÌÀü µ¥ÀÌÅÍ°¡ DLE°¡ ¾Æ´Ñ »óÅÂ¿¡¼­, DLE µ¥ÀÌÅÍ ¼ö½Å
+        else if(RxData == DLE)	// ì´ì „ ë°ì´í„°ê°€ DLEê°€ ì•„ë‹Œ ìƒíƒœì—ì„œ, DLE ë°ì´í„° ìˆ˜ì‹ 
         {
             s_DLEed = 1;
         }
-        else if(RxData == ETX)	// ÀÌÀü µ¥ÀÌÅÍ°¡ DLE°¡ ¾Æ´Ñ »óÅÂ¿¡¼­, ETX ¼ö½Å
+        else if(RxData == ETX)	// ì´ì „ ë°ì´í„°ê°€ DLEê°€ ì•„ë‹Œ ìƒíƒœì—ì„œ, ETX ìˆ˜ì‹ 
         {
             IsPacket = 1;
         }
@@ -64,7 +64,7 @@ unsigned char	SerialPacket::CheckRcvMsg(unsigned char RxData)
             s_RxBuf[s_RcvLen++] = RxData;
         }
     }
-    /* STX°¡ ¼ö½ÅµÇÁö ¾ÊÀº »óÅÂ¿¡¼­, ÇöÀç ¼ö½ÅµÈ µ¥ÀÌÅÍ°¡ STX ¶ó¸é */
+    /* STXê°€ ìˆ˜ì‹ ë˜ì§€ ì•Šì€ ìƒíƒœì—ì„œ, í˜„ì¬ ìˆ˜ì‹ ëœ ë°ì´í„°ê°€ STX ë¼ë©´ */
     else if(RxData == STX)
     {
         s_STXed = 1;
@@ -72,11 +72,11 @@ unsigned char	SerialPacket::CheckRcvMsg(unsigned char RxData)
         s_RcvLen = s_RxLength = 0;
     }
 
-    /* ÇÏ³ªÀÇ ÆĞÅ¶ÀÌ ¼ö½Å ¿Ï·áµÈ °æ¿ì, */
+    /* í•˜ë‚˜ì˜ íŒ¨í‚·ì´ ìˆ˜ì‹  ì™„ë£Œëœ ê²½ìš°, */
     if(IsPacket == 1)
     {
         s_STXed = s_DLEed = 0;
-        s_RxLength = s_RcvLen;	// ÆĞÅ¶ Á¦¾î ¹®ÀÚ(STX, ETX, DLE)¸¦ Á¦¿ÜÇÑ µ¥ÀÌÅÍ °¹¼ö
+        s_RxLength = s_RcvLen;	// íŒ¨í‚· ì œì–´ ë¬¸ì(STX, ETX, DLE)ë¥¼ ì œì™¸í•œ ë°ì´í„° ê°¯ìˆ˜
         return 1;
     }
 
@@ -85,27 +85,27 @@ unsigned char	SerialPacket::CheckRcvMsg(unsigned char RxData)
 
 
 //------------------------------------------------------------------------------------
-//	¼ö½ÅµÈ ÇÏ³ªÀÇ ÆĞÅ¶¿¡ ´ëÇÏ¿© À¯È¿¼º °Ë»ç
+//	ìˆ˜ì‹ ëœ í•˜ë‚˜ì˜ íŒ¨í‚·ì— ëŒ€í•˜ì—¬ ìœ íš¨ì„± ê²€ì‚¬
 //	[Return Value]
-//		0 : ºñÁ¤»ó ÆĞÅ¶
-//		1 : Á¤»ó ÆĞÅ¶
+//		0 : ë¹„ì •ìƒ íŒ¨í‚·
+//		1 : ì •ìƒ íŒ¨í‚·
 //------------------------------------------------------------------------------------
 unsigned char	SerialPacket::MsgDecoder()
 {
     unsigned char	MsgLen, CheckSum, TestCheckSum, i;
 
-    MsgLen		= s_RxBuf[0];				// ¼ö½ÅµÈ ¸Ş¼¼Áö ±æÀÌ Á¤º¸
-    CheckSum	= s_RxBuf[s_RxLength-1];	// ¼ö½ÅµÈ CheckSum
+    MsgLen		= s_RxBuf[0];				// ìˆ˜ì‹ ëœ ë©”ì„¸ì§€ ê¸¸ì´ ì •ë³´
+    CheckSum	= s_RxBuf[s_RxLength-1];	// ìˆ˜ì‹ ëœ CheckSum
 
-    /* ¼ö½ÅµÈ ¸Ş¼¼Áö ±æÀÌÁ¤º¸¿Í ½ÇÁ¦ ¼ö½Å ÆĞÅ¶ÀÇ ±æÀÌ°¡ ÀÏÄ¡ÇÏ´ÂÁö Ã¼Å© */
-    /* ¿Ã¹Ù¸¥ ¸Ş¼¼Áö ±æÀÌ(MsgLen) = ÀüÃ¼ µ¥ÀÌÅÍ ¼ö - 2  <== ¿©±â¿¡¼­ -2´Â MsgLen, CheckSum µ¥ÀÌÅÍ¸¦ Á¦¿ÜÇÏ±â À§ÇÔ */
+    /* ìˆ˜ì‹ ëœ ë©”ì„¸ì§€ ê¸¸ì´ì •ë³´ì™€ ì‹¤ì œ ìˆ˜ì‹  íŒ¨í‚·ì˜ ê¸¸ì´ê°€ ì¼ì¹˜í•˜ëŠ”ì§€ ì²´í¬ */
+    /* ì˜¬ë°”ë¥¸ ë©”ì„¸ì§€ ê¸¸ì´(MsgLen) = ì „ì²´ ë°ì´í„° ìˆ˜ - 2  <== ì—¬ê¸°ì—ì„œ -2ëŠ” MsgLen, CheckSum ë°ì´í„°ë¥¼ ì œì™¸í•˜ê¸° ìœ„í•¨ */
     if( MsgLen != (s_RxLength - 2) )
     {
         return 0;
     }
 
-    /* CheckSum °Ë»ç */
-    /* CheckSum = MsgLenºÎÅÍ ¸¶Áö¸· Msg±îÁöÀÇ ÇÕ °á°úÀÇ LSB 8bit */
+    /* CheckSum ê²€ì‚¬ */
+    /* CheckSum = MsgLenë¶€í„° ë§ˆì§€ë§‰ Msgê¹Œì§€ì˜ í•© ê²°ê³¼ì˜ LSB 8bit */
     TestCheckSum = 0x00;
     for(i=0 ; i<(s_RxLength-1) ; i++)
     {
@@ -116,9 +116,9 @@ unsigned char	SerialPacket::MsgDecoder()
         return 0;
     }
 
-    /* ¿¡·¯(À¯È¿¼º) °Ë»ç¸¦ ¸ğµÎ Åë°úÇÏ¸é, ½ÇÁ¦ ÆÄ½ÌµÈ µ¥ÀÌÅÍ¸¦ g_ReceiveData¿¡ ÀúÀå */
+    /* ì—ëŸ¬(ìœ íš¨ì„±) ê²€ì‚¬ë¥¼ ëª¨ë‘ í†µê³¼í•˜ë©´, ì‹¤ì œ íŒŒì‹±ëœ ë°ì´í„°ë¥¼ g_ReceiveDataì— ì €ì¥ */
     g_ReceiveData.Header		= s_RxBuf[1];	// Header
-    g_ReceiveData.MsgLength	= MsgLen - 1;	// Header±îÁö Á¦¿ÜÇÑ ½ÇÁ¦ ¸Ş¼¼Áö(µ¥ÀÌÅ¸)¸¸ÀÇ ±æÀÌ
+    g_ReceiveData.MsgLength	= MsgLen - 1;	// Headerê¹Œì§€ ì œì™¸í•œ ì‹¤ì œ ë©”ì„¸ì§€(ë°ì´íƒ€)ë§Œì˜ ê¸¸ì´
     for(i=0 ; i<g_ReceiveData.MsgLength ; i++)
     {
         g_ReceiveData.Msg[i] = s_RxBuf[i+2];
@@ -129,12 +129,12 @@ unsigned char	SerialPacket::MsgDecoder()
 
 
 //------------------------------------------------------------------------------
-//  Public : ¼ö½ÅµÈ ÆĞÅ¶À» ºĞ¼®ÇÑ ÈÄ °á°ú¸¦ µ¹·ÁÁØ´Ù.
+//  Public : ìˆ˜ì‹ ëœ íŒ¨í‚·ì„ ë¶„ì„í•œ í›„ ê²°ê³¼ë¥¼ ëŒë ¤ì¤€ë‹¤.
 //
 //  [Return value]
-//    1 : ÇÏ³ªÀÇ ÆĞÅ¶ÀÌ ¼ö½ÅµÇ¾ú´Ù.
-//    0 : ÇÏ³ªÀÇ ÆĞÅ¶ ¼ö½ÅÀÌ ¿Ï·áµÇÁö ¾Ê¾Ò´Ù.
-//    Àü¿ªº¯¼ö g_ReceiveData ¿¡ ÇöÀç ¼ö½ÅµÈ ÆĞÅ¶ Á¤º¸°¡ ÀúÀåµÈ´Ù.
+//    1 : í•˜ë‚˜ì˜ íŒ¨í‚·ì´ ìˆ˜ì‹ ë˜ì—ˆë‹¤.
+//    0 : í•˜ë‚˜ì˜ íŒ¨í‚· ìˆ˜ì‹ ì´ ì™„ë£Œë˜ì§€ ì•Šì•˜ë‹¤.
+//    ì „ì—­ë³€ìˆ˜ g_ReceiveData ì— í˜„ì¬ ìˆ˜ì‹ ëœ íŒ¨í‚· ì •ë³´ê°€ ì €ì¥ëœë‹¤.
 //
 signed char SerialPacket::ReceiveData( unsigned char RxData )
 {
@@ -154,11 +154,11 @@ signed char SerialPacket::ReceiveData( unsigned char RxData )
 
 
 //------------------------------------------------------------------------------
-//  Private : Á¦¾î¹®ÀÚ¿Í µ¿ÀÏÇÑÁö °Ë»ç
+//  Private : ì œì–´ë¬¸ìì™€ ë™ì¼í•œì§€ ê²€ì‚¬
 //
 //  [Return value]
-//    1 : µ¥ÀÌÅÍ d °¡ Á¦¾î¹®ÀÚ¿Í µ¿ÀÏÇÏ´Ù.
-//    0 : µ¥ÀÌÅÍ d °¡ Á¦¾î¹®ÀÚ¿Í ´Ù¸£´Ù.
+//    1 : ë°ì´í„° d ê°€ ì œì–´ë¬¸ìì™€ ë™ì¼í•˜ë‹¤.
+//    0 : ë°ì´í„° d ê°€ ì œì–´ë¬¸ìì™€ ë‹¤ë¥´ë‹¤.
 //
 signed char SerialPacket::ChkControlText( unsigned char d )
 {
@@ -169,7 +169,7 @@ signed char SerialPacket::ChkControlText( unsigned char d )
 }
 
 //------------------------------------------------------------------------------
-//  Private : ¼Û½Å ÆĞÅ¶ÀÇ ÇüÅÂ·Î ÀÎÄÚµù
+//  Private : ì†¡ì‹  íŒ¨í‚·ì˜ í˜•íƒœë¡œ ì¸ì½”ë”©
 //
 void SerialPacket::EncodePacket( unsigned char TotalMsgLen,
                                 unsigned char Head,
@@ -179,12 +179,12 @@ void SerialPacket::EncodePacket( unsigned char TotalMsgLen,
 {
     unsigned char i;
 
-    // STX »ğÀÔ
+    // STX ì‚½ì…
     g_TxLength = 0;
     g_TxBuf[g_TxLength] = STX; send->push_back(g_TxBuf[g_TxLength]); g_TxLength++;
 
 
-    // MSGL »ğÀÔ
+    // MSGL ì‚½ì…
     if ( ChkControlText(TotalMsgLen) )
     {
         g_TxBuf[g_TxLength] = DLE; send->push_back(g_TxBuf[g_TxLength]); g_TxLength++;
@@ -193,7 +193,7 @@ void SerialPacket::EncodePacket( unsigned char TotalMsgLen,
     g_TxBuf[g_TxLength] = TotalMsgLen; send->push_back(g_TxBuf[g_TxLength]); g_TxLength++;
 
 
-    // HEAD »ğÀÔ
+    // HEAD ì‚½ì…
     if ( ChkControlText(Head) )
     {
         g_TxBuf[g_TxLength] = DLE; send->push_back(g_TxBuf[g_TxLength]); g_TxLength++;
@@ -202,7 +202,7 @@ void SerialPacket::EncodePacket( unsigned char TotalMsgLen,
     g_TxBuf[g_TxLength] = Head; send->push_back(g_TxBuf[g_TxLength]); g_TxLength++;
 
 
-    // Message »ğÀÔ
+    // Message ì‚½ì…
     for (i = 0; i < TotalMsgLen-1; i++)
     {
         if ( ChkControlText(Msg[i]) )
@@ -214,7 +214,7 @@ void SerialPacket::EncodePacket( unsigned char TotalMsgLen,
 
     }
 
-    // Checksum »ğÀÔ
+    // Checksum ì‚½ì…
     if ( ChkControlText(Checksum) )
     {
         g_TxBuf[g_TxLength] = DLE; send->push_back(g_TxBuf[g_TxLength]); g_TxLength++;
@@ -223,7 +223,7 @@ void SerialPacket::EncodePacket( unsigned char TotalMsgLen,
     g_TxBuf[g_TxLength] = Checksum; send->push_back(g_TxBuf[g_TxLength]); g_TxLength++;
 
 
-    // ETX »ğÀÔ
+    // ETX ì‚½ì…
     g_TxBuf[g_TxLength] = ETX;
     send->push_back(g_TxBuf[g_TxLength]);
     g_TxLength++;
@@ -244,7 +244,7 @@ void SerialPacket::EncodePacket( unsigned char TotalMsgLen,
 }
 
 //------------------------------------------------------------------------------
-//  Public : »ç¿ëÀÚ°¡ »õ·Î¿î ¼Û½ÅÇÒ ÆĞÅ¶À» ¸¸µç´Ù.
+//  Public : ì‚¬ìš©ìê°€ ìƒˆë¡œìš´ ì†¡ì‹ í•  íŒ¨í‚·ì„ ë§Œë“ ë‹¤.
 //
 QByteArray SerialPacket::MakePacket( unsigned char Head, unsigned char *Msg, unsigned char MsgSize )
 {
@@ -256,10 +256,10 @@ QByteArray SerialPacket::MakePacket( unsigned char Head, unsigned char *Msg, uns
 
     if ( MsgSize <= MAX_PACKET_DATA )
     {
-        // MSGLÀ» ±¸ÇÑ´Ù.
-        TotalMsgLen = MsgSize + 1;//¸Ş¼¼ÁöÀÇ °³¼ö + Çì´õ°³¼ö
+        // MSGLì„ êµ¬í•œë‹¤.
+        TotalMsgLen = MsgSize + 1;//ë©”ì„¸ì§€ì˜ ê°œìˆ˜ + í—¤ë”ê°œìˆ˜
 
-        // ChecksumÀ» ±¸ÇÑ´Ù.
+        // Checksumì„ êµ¬í•œë‹¤.
         Checksum = TotalMsgLen + Head;
         for (i = 0; i < MsgSize; i++)
         {
@@ -281,7 +281,7 @@ QByteArray SerialPacket::MakePacket( unsigned char Head, unsigned char *Msg, uns
 
 
 //------------------------------------------------------------------------------
-//  Public : ACK ÆĞÅ¶À» ¸¸µç´Ù.
+//  Public : ACK íŒ¨í‚·ì„ ë§Œë“ ë‹¤.
 //
 void SerialPacket::AckPacket( void )
 {
@@ -291,7 +291,7 @@ void SerialPacket::AckPacket( void )
 }
 
 //------------------------------------------------------------------------------
-//  Public : NACK ÆĞÅ¶À» ¸¸µç´Ù.
+//  Public : NACK íŒ¨í‚·ì„ ë§Œë“ ë‹¤.
 //
 void SerialPacket::NackPacket( void )
 {
@@ -306,7 +306,7 @@ void	cbRcvLaserParam(const unsigned char* pBuf, int Sel)
 
     switch(Sel)
     {
-        case 0:	// cl_para ±¸Á¶Ã¼
+        case 0:	// cl_para êµ¬ì¡°ì²´
         {
             const unsigned char	sign		= pBuf[30];		// Sign of Offset
             const float		LD1_Offset_sign		=	(sign & 0x02)?-0.01:0.01;
@@ -377,19 +377,19 @@ void	cbRcvLaserParam(const unsigned char* pBuf, int Sel)
 void SerialPacket::ParsingPacket(QListView *listView, QStandardItemModel *model)
 {
 //    g_RxLength = 0;
-//    //pLog.SaveTexts("ÆĞÅ¶ÀÇ Checksum°ú °è»êÇÑ ChecksumÀÌ ´Ù¸£´Ù¸é-¿¡·¯");
+//    //pLog.SaveTexts("íŒ¨í‚·ì˜ Checksumê³¼ ê³„ì‚°í•œ Checksumì´ ë‹¤ë¥´ë‹¤ë©´-ì—ëŸ¬");
 //    g_ReceiveData.Head =0;
 //    g_ReceiveData.MsgLength=0;
 //    memset(g_ReceiveData.Buffer, 0, sizeof(unsigned char)*MAX_PACKET_SIZE);
 
     switch(g_ReceiveData.Header)
     {
-        case 0xDB:	// HEAD_SND_SPD	: ÀÌ¹ÌÁö Ä¸ÃÄ ¼Óµµ ¼ö½Å
+        case 0xDB:	// HEAD_SND_SPD	: ì´ë¯¸ì§€ ìº¡ì³ ì†ë„ ìˆ˜ì‹ 
             {
-                unsigned char	Unit;			// ¼Óµµ ´ÜÀ§
-                unsigned char	VehicleID;		// Â÷·® ID
-                unsigned char	FrontView;		// Àü¸é ÀÎÁö ÈÄ¸éÀÎÁö
-                float			fSpeed, fDist;	// ¼Óµµ¿Í °ËÁöµÈ °Å¸®
+                unsigned char	Unit;			// ì†ë„ ë‹¨ìœ„
+                unsigned char	VehicleID;		// ì°¨ëŸ‰ ID
+                unsigned char	FrontView;		// ì „ë©´ ì¸ì§€ í›„ë©´ì¸ì§€
+                float			fSpeed, fDist;	// ì†ë„ì™€ ê²€ì§€ëœ ê±°ë¦¬
 
                 Unit			= g_ReceiveData.Msg[0];
                 VehicleID		= g_ReceiveData.Msg[1];
@@ -411,12 +411,12 @@ void SerialPacket::ParsingPacket(QListView *listView, QStandardItemModel *model)
 
 
             }break;
-        case 0xDC:	// HEAD_SND_REALTIME_SPD : ½Ç½Ã°£ ¼Óµµ ¼ö½Å
+        case 0xDC:	// HEAD_SND_REALTIME_SPD : ì‹¤ì‹œê°„ ì†ë„ ìˆ˜ì‹ 
             {
-                unsigned char	Unit;			// ¼Óµµ ´ÜÀ§
-                unsigned char	VehicleID;		// Â÷·® ID
-                unsigned char	FrontView;		// Àü¸é ÀÎÁö ÈÄ¸éÀÎÁö
-                float			fSpeed, fDist;	// ¼Óµµ¿Í °ËÁöµÈ °Å¸®
+                unsigned char	Unit;			// ì†ë„ ë‹¨ìœ„
+                unsigned char	VehicleID;		// ì°¨ëŸ‰ ID
+                unsigned char	FrontView;		// ì „ë©´ ì¸ì§€ í›„ë©´ì¸ì§€
+                float			fSpeed, fDist;	// ì†ë„ì™€ ê²€ì§€ëœ ê±°ë¦¬
 
                 Unit			= g_ReceiveData.Msg[0];
                 VehicleID		= g_ReceiveData.Msg[1];
@@ -438,12 +438,12 @@ void SerialPacket::ParsingPacket(QListView *listView, QStandardItemModel *model)
 
             }break;
 
-        case 0x7C:	// °Å¸® Á¤º¸ ¼ö½Å
+        case 0x7C:	// ê±°ë¦¬ ì •ë³´ ìˆ˜ì‹ 
             {
-                unsigned int	uDist;		// ÀÓ½Ã °Å¸®
-                float			fDist;		// ÃÖÁ¾ °Å¸® : ÀÓ½Ã °Å¸® * 0.01
-                unsigned char	uCfd, uLB;	// ·¹ÀÌÀú ¼ö½Å °¨µµ, ·¹ÀÌÀú ºö ¹øÈ£
-                unsigned char	uSeqNum;	// ½ÃÄö½º »ó¼ö(0, 1, 2, ....., 254, 255, 0, 1, ....)
+                unsigned int	uDist;		// ì„ì‹œ ê±°ë¦¬
+                float			fDist;		// ìµœì¢… ê±°ë¦¬ : ì„ì‹œ ê±°ë¦¬ * 0.01
+                unsigned char	uCfd, uLB;	// ë ˆì´ì € ìˆ˜ì‹  ê°ë„, ë ˆì´ì € ë¹” ë²ˆí˜¸
+                unsigned char	uSeqNum;	// ì‹œí€€ìŠ¤ ìƒìˆ˜(0, 1, 2, ....., 254, 255, 0, 1, ....)
 
 
                 uDist	 = (g_ReceiveData.Msg[0]<<16) | (g_ReceiveData.Msg[1]<<8) | (g_ReceiveData.Msg[2]);
@@ -468,13 +468,13 @@ void SerialPacket::ParsingPacket(QListView *listView, QStandardItemModel *model)
             }
             break;
 
-        case 0xD9:	// ¼¿ÇÁ Å×½ºÆ® °á°ú ¸®ÅÏ
+        case 0xD9:	// ì…€í”„ í…ŒìŠ¤íŠ¸ ê²°ê³¼ ë¦¬í„´
             {
                 QString	strMsg;
                 strMsg.sprintf("Result of Self Test = %s", g_ReceiveData.Msg[0]==0x01?"PASS":"FAIL");
             }break;
 
-        case 0x57:		// ·¹ÀÌÀú ÆÄ¶ó¸ŞÅ¸ ¼ö½Å
+        case 0x57:		// ë ˆì´ì € íŒŒë¼ë©”íƒ€ ìˆ˜ì‹ 
             {
                 cbRcvLaserParam((unsigned char*)(g_ReceiveData.Msg), 0);
             }
@@ -510,7 +510,7 @@ void SerialPacket::ParsingPacket(QListView *listView, QStandardItemModel *model)
             }
             break;
 
-        case 0xE5:	// Àü¿ø Á¤º¸ ¼ö½Å, BATT info
+        case 0xE5:	// ì „ì› ì •ë³´ ìˆ˜ì‹ , BATT info
             {
                 QString str;
                 str.sprintf("Src.Info : SRC(%s), LEV(%d)"	, g_ReceiveData.Msg[0]==1? "BATT" : "EXT_DC", g_ReceiveData.Msg[1]);
@@ -535,7 +535,7 @@ void SerialPacket::ParsingPacket(QListView *listView, QStandardItemModel *model)
             }
             break;
 
-        case 0xEC:		//  	µğ¹ö±× Á¤º¸ Àü¼Û (LCB ¡æ X2B)
+        case 0xEC:		//  	ë””ë²„ê·¸ ì •ë³´ ì „ì†¡ (LCB â†’ X2B)
             {
                 short	tmp		=	(g_ReceiveData.Msg[1])*256 + (g_ReceiveData.Msg[2]) - 273;
                 float	volt	=	((g_ReceiveData.Msg[3])*256 + (g_ReceiveData.Msg[4])) * 0.01;
@@ -548,7 +548,7 @@ void SerialPacket::ParsingPacket(QListView *listView, QStandardItemModel *model)
             }
             break;
 
-        case 0xF0:			//  	¸Ş½ÃÁö Çì´õ
+        case 0xF0:			//  	ë©”ì‹œì§€ í—¤ë”
             {
                   QString str;//, tstr;
                   str.sprintf("%s", g_ReceiveData.Msg);
@@ -558,17 +558,17 @@ void SerialPacket::ParsingPacket(QListView *listView, QStandardItemModel *model)
 //                str = g_ReceiveData.Msg;
 //                tstr = str.Left(g_ReceiveData.MsgLength);
 
-//                /* ·¹ÀÌÀú Á¤º¸ ÃßÃâ */
+//                /* ë ˆì´ì € ì •ë³´ ì¶”ì¶œ */
 //                CStringA t2str = str.Left(3);
 //                int		Idx = 0;
 //                char	szBuf[64]	= {0};
-//                if(t2str == _T("Bui"))	// ºôµå ³¯Â¥(0)
+//                if(t2str == _T("Bui"))	// ë¹Œë“œ ë‚ ì§œ(0)
 //                {
 //                    Idx	= tstr.Find(":");
 //                    qDebug() <<"%s", tstr.GetString()+Idx+2);
 //                    memcpy(g_stLaserParam.BuildDate, tstr.GetString()+Idx+2, g_ReceiveData.MsgLength-(Idx+2));
 //                }
-//                else if(t2str == _T("Ver"))	// ¹öÀü(1)
+//                else if(t2str == _T("Ver"))	// ë²„ì „(1)
 //                {
 //                    Idx	= tstr.Find(":");
 //                    qDebug() <<"%s", tstr.GetString()+Idx+2);
@@ -580,7 +580,7 @@ void SerialPacket::ParsingPacket(QListView *listView, QStandardItemModel *model)
 //                    qDebug() <<"%s", tstr.GetString()+Idx+2);
 //                    memcpy(g_stLaserParam.SN, tstr.GetString()+Idx+2, g_ReceiveData.MsgLength-(Idx+2));
 //                }
-//                else if(t2str == _T("PLD")) // PLD ¹öÀü(3)
+//                else if(t2str == _T("PLD")) // PLD ë²„ì „(3)
 //                {
 //                    Idx	= tstr.Find(":");
 //                    qDebug() <<"%s", tstr.GetString()+Idx+2);
@@ -728,7 +728,7 @@ void SerialPacket::ParsingPacket(QListView *listView, QStandardItemModel *model)
 
             }break;
 
-            /* TPCAM-H10 ½Ã¸®¾ó Ãâ·Â ¼³Á¤ */
+            /* TPCAM-H10 ì‹œë¦¬ì–¼ ì¶œë ¥ ì„¤ì • */
         case 0xDE:
             {
                 if(g_ReceiveData.Msg[0] == 0x02)

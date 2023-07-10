@@ -1,5 +1,5 @@
-//------------------------------------------------------------------------------
-//  Serial ¼Û/¼ö½Å ÆĞÅ¶ [Encode / Decode] ¶óÀÌºê·¯¸®
+ï»¿//------------------------------------------------------------------------------
+//  Serial ì†¡/ìˆ˜ì‹  íŒ¨í‚· [Encode / Decode] ë¼ì´ë¸ŒëŸ¬ë¦¬
 #include <stdio.h>
 #include <string.h>
 #include <QString>
@@ -339,7 +339,7 @@ QString g_qstrShutter_pq;
 QString g_qstrIris_pq;
 
 //------------------------------------------------------------------------------
-//  Private : ¼Û½Å ÆĞÅ¶ÀÇ ÇüÅÂ·Î ÀÎÄÚµù
+//  Private : ì†¡ì‹  íŒ¨í‚·ì˜ í˜•íƒœë¡œ ì¸ì½”ë”©
 //Head - 1xxx0kkk
 void ViscaPacket::BlockCamEncodePacket(unsigned char TotalMsgLen,
                    unsigned char Head,
@@ -348,22 +348,22 @@ void ViscaPacket::BlockCamEncodePacket(unsigned char TotalMsgLen,
 {
     unsigned char i;
 
-    // HEADER »ğÀÔ
+    // HEADER ì‚½ì…
     g_TxLength = 0;
     g_TxBuf[g_TxLength] = Head; send->push_back(g_TxBuf[g_TxLength]); g_TxLength++;
 
-    // Message »ğÀÔ
+    // Message ì‚½ì…
     for (i = 0; i < TotalMsgLen; i++)
     {
         g_TxBuf[g_TxLength] = Msg[i];send->push_back(g_TxBuf[g_TxLength]);  g_TxLength++;
     }
 
-    // Terminator »ğÀÔ
+    // Terminator ì‚½ì…
     g_TxBuf[g_TxLength] = 0xFF; send->push_back(g_TxBuf[g_TxLength]); g_TxLength++;
 
 }
 //------------------------------------------------------------------------------
-//  Public : »ç¿ëÀÚ°¡ »õ·Î¿î ¼Û½ÅÇÒ ÆĞÅ¶À» ¸¸µç´Ù.
+//  Public : ì‚¬ìš©ìê°€ ìƒˆë¡œìš´ ì†¡ì‹ í•  íŒ¨í‚·ì„ ë§Œë“ ë‹¤.
 //
 QByteArray ViscaPacket::BlockCamMakePacket( unsigned char Head, unsigned char *Msg, unsigned char MsgSize )
 {
@@ -451,7 +451,7 @@ unsigned char	ViscaPacket::CheckRcvMsg(unsigned char RxData)
         return 0;
     }
 
-    if(RxData == 0xFF && stx==1) //ÆĞÅ¶ ³¡
+    if(RxData == 0xFF && stx==1) //íŒ¨í‚· ë
     {
         g_RxBuf[RxLength] = RxData;
         RxLength++;
@@ -477,7 +477,7 @@ unsigned char	ViscaPacket::CheckRcvMsg(unsigned char RxData)
         else //info_flag ==2
         {
             info_flag=0;
-            return 2;//ÀÀ´äÁ¶°Ç COMPELETE_INQUIRES
+            return 2;//ì‘ë‹µì¡°ê±´ COMPELETE_INQUIRES
         }
     }
     else
@@ -600,10 +600,10 @@ unsigned char	ViscaPacket::CheckRcvMsg(unsigned char RxData)
 
 
 //------------------------------------------------------------------------------------
-//	¼ö½ÅµÈ ÇÏ³ªÀÇ ÆĞÅ¶¿¡ ´ëÇÏ¿© À¯È¿¼º °Ë»ç
+//	ìˆ˜ì‹ ëœ í•˜ë‚˜ì˜ íŒ¨í‚·ì— ëŒ€í•˜ì—¬ ìœ íš¨ì„± ê²€ì‚¬
 //	[Return Value]
-//		0 : ºñÁ¤»ó ÆĞÅ¶
-//		1 : Á¤»ó ÆĞÅ¶
+//		0 : ë¹„ì •ìƒ íŒ¨í‚·
+//		1 : ì •ìƒ íŒ¨í‚·
 //------------------------------------------------------------------------------------
 unsigned char	ViscaPacket::MsgDecoder( QListView *listView, QStandardItemModel *model)
 {
@@ -836,12 +836,12 @@ unsigned char	ViscaPacket::MsgDecoder( QListView *listView, QStandardItemModel *
 
 
 //------------------------------------------------------------------------------
-//  Public : ¼ö½ÅµÈ ÆĞÅ¶À» ºĞ¼®ÇÑ ÈÄ °á°ú¸¦ µ¹·ÁÁØ´Ù.
+//  Public : ìˆ˜ì‹ ëœ íŒ¨í‚·ì„ ë¶„ì„í•œ í›„ ê²°ê³¼ë¥¼ ëŒë ¤ì¤€ë‹¤.
 //
 //  [Return value]
-//    1 : ÇÏ³ªÀÇ ÆĞÅ¶ÀÌ ¼ö½ÅµÇ¾ú´Ù.
-//    0 : ÇÏ³ªÀÇ ÆĞÅ¶ ¼ö½ÅÀÌ ¿Ï·áµÇÁö ¾Ê¾Ò´Ù.
-//    Àü¿ªº¯¼ö g_ReceiveData ¿¡ ÇöÀç ¼ö½ÅµÈ ÆĞÅ¶ Á¤º¸°¡ ÀúÀåµÈ´Ù.
+//    1 : í•˜ë‚˜ì˜ íŒ¨í‚·ì´ ìˆ˜ì‹ ë˜ì—ˆë‹¤.
+//    0 : í•˜ë‚˜ì˜ íŒ¨í‚· ìˆ˜ì‹ ì´ ì™„ë£Œë˜ì§€ ì•Šì•˜ë‹¤.
+//    ì „ì—­ë³€ìˆ˜ g_ReceiveData ì— í˜„ì¬ ìˆ˜ì‹ ëœ íŒ¨í‚· ì •ë³´ê°€ ì €ì¥ëœë‹¤.
 unsigned char ViscaPacket::ReceiveData( unsigned char RxData , QListView *listView, QStandardItemModel *model)
 {
     unsigned char result=0;

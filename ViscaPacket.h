@@ -1,5 +1,5 @@
-//------------------------------------------------------------------------------
-//  Serial ¼Û/¼ö½Å ÆĞÅ¶ [Encode / Decode] ¶óÀÌºê·¯¸®
+ï»¿//------------------------------------------------------------------------------
+//  Serial ì†¡/ìˆ˜ì‹  íŒ¨í‚· [Encode / Decode] ë¼ì´ë¸ŒëŸ¬ë¦¬
 //  ComLASER SW
 
 #include <QByteArray>
@@ -9,7 +9,7 @@
 #ifndef ViscaPacketH
 #define ViscaPacketH
 
-#define MAX_PACKET_BLOCK_DATA 17			//ÆĞÅ¶ÀÇ ÃÖ´ë ¹ÙÀÌÆ® Å©±â
+#define MAX_PACKET_BLOCK_DATA 17			//íŒ¨í‚·ì˜ ìµœëŒ€ ë°”ì´íŠ¸ í¬ê¸°
 
 //R:1
 #define RECEVIE_ACK         0x41
@@ -61,11 +61,11 @@ class ViscaPacket : public QObject
 {
     Q_OBJECT
 public:
-    unsigned char g_TxBuf[MAX_PACKET_SIZE];				//¼Û½ÅÇÒ ÆĞÅ¶À» ÀúÀåÇÏ´Â°÷
-    unsigned short g_TxLength;               //¼Û½ÅÇÒ ÆĞÅ¶ÀÇ ±æÀÌ¸¦ ÀúÀå
+    unsigned char g_TxBuf[MAX_PACKET_SIZE];				//ì†¡ì‹ í•  íŒ¨í‚·ì„ ì €ì¥í•˜ëŠ”ê³³
+    unsigned short g_TxLength;               //ì†¡ì‹ í•  íŒ¨í‚·ì˜ ê¸¸ì´ë¥¼ ì €ì¥
 
-    unsigned char g_RxBuf[MAX_PACKET_SIZE];				//¼ö½Å µ¥ÀÌÅÍ
-    unsigned short  g_RxLength;				//¼ö½Åµ¥ÀÌÅÍ ±æÀÌ
+    unsigned char g_RxBuf[MAX_PACKET_SIZE];				//ìˆ˜ì‹  ë°ì´í„°
+    unsigned short  g_RxLength;				//ìˆ˜ì‹ ë°ì´í„° ê¸¸ì´
 
     int m_zoomPQRS;
     int m_focusPQRS;

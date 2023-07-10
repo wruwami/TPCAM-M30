@@ -1146,6 +1146,46 @@ void SerialViscaManager::set_shutter_speed(int currentIndex)
         serial_visca->write(data);
 }
 
+void SerialViscaManager::set_shutter_speed_from_pq(QString pq_input)
+{
+    unsigned char header=0x81;
+    unsigned char msg[10];
+    unsigned char msgSize=7;
+    msg[0]=0x01;
+    msg[1]=0x04;
+    msg[2]=0x4A;
+    msg[3]=0x00;
+    msg[4]=0x00;
+    msg[5]=0x00;
+    msg[6]=0x00;
+    int p=0,q=0;
+
+    QString pq = pq_input;
+    bool ok;
+    p = pq.mid(0,1).toInt(&ok, 16);
+    q = pq.mid(1,1).toInt(&ok, 16);
+
+    qDebug() << pq;
+
+    QString dd;
+    dd.sprintf("P%X, Q%X", p,q);
+    qDebug() << dd;
+
+    msg[5]=0x00 | p;
+    msg[6]=0x00 | q;
+
+    m_shutter_pq = pq;
+
+    QByteArray data;
+    if(visca_packet)
+        data= visca_packet->BlockCamMakePacket(header, msg, msgSize);
+
+    qDebug() << data;
+
+    if(serial_visca)
+        serial_visca->write(data);
+}
+
 void SerialViscaManager::set_gain(int currentIndex)
 {
     unsigned char header=0x81;
@@ -1170,6 +1210,46 @@ void SerialViscaManager::set_gain(int currentIndex)
     {
         pq =g_Gain_Y_ASIX_Wonwoo[index] ;
     }
+    bool ok;
+    p = pq.mid(0,1).toInt(&ok, 16);
+    q = pq.mid(1,1).toInt(&ok, 16);
+
+    qDebug() << pq;
+
+    QString dd;
+    dd.sprintf("P%X, Q%X", p,q);
+    qDebug() << dd;
+
+    msg[5]=0x00 | p;
+    msg[6]=0x00 | q;
+
+    m_gain_pq = pq;
+
+    QByteArray data;
+    if(visca_packet)
+        data= visca_packet->BlockCamMakePacket(header, msg, msgSize);
+
+    qDebug() << data;
+
+    if(serial_visca)
+        serial_visca->write(data);
+}
+
+void SerialViscaManager::set_gain_from_pq(QString pq_input)
+{
+    unsigned char header=0x81;
+    unsigned char msg[10];
+    unsigned char msgSize=7;
+    msg[0]=0x01;
+    msg[1]=0x04;
+    msg[2]=0x4C;
+    msg[3]=0x00;
+    msg[4]=0x00;
+    msg[5]=0x00;
+    msg[6]=0x00;
+    int p=0,q=0;
+
+    QString pq = pq_input;
     bool ok;
     p = pq.mid(0,1).toInt(&ok, 16);
     q = pq.mid(1,1).toInt(&ok, 16);
@@ -1236,6 +1316,47 @@ void SerialViscaManager::set_iris(int currentIndex)
 
     //feedback
     m_pTimerInquiryIris->start(500);
+
+    QByteArray data;
+    if(visca_packet)
+        data= visca_packet->BlockCamMakePacket(header, msg, msgSize);
+
+    qDebug() << data;
+
+    if(serial_visca)
+        serial_visca->write(data);
+}
+
+void SerialViscaManager::set_iris_from_pq(QString pq_input)
+{
+    unsigned char header=0x81;
+    unsigned char msg[10];
+    unsigned char msgSize=7;
+    msg[0]=0x01;
+    msg[1]=0x04;
+    msg[2]=0x4B;
+    msg[3]=0x00;
+    msg[4]=0x00;
+    msg[5]=0x00;
+    msg[6]=0x00;
+    int p=0,q=0;
+
+    QString pq = pq_input;
+
+    bool ok;
+    p = pq.mid(0,1).toInt(&ok, 16);
+    q = pq.mid(1,1).toInt(&ok, 16);
+
+    qDebug() << pq;
+
+    QString dd;
+    dd.sprintf("P%X, Q%X", p,q);
+    qDebug() << dd;
+
+    msg[5]=0x00 | p;
+    msg[6]=0x00 | q;
+
+    m_iris_pq = pq;
 
     QByteArray data;
     if(visca_packet)

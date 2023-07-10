@@ -102,12 +102,17 @@ void SerialLaserManager::start_laser()
 
 }
 
-void SerialLaserManager::request_distance()
+void SerialLaserManager::request_distance(bool bRequestOn)
 {
     unsigned char header=0x59;//거리전송 요청
     unsigned char msg[1];
     unsigned char msgSize=1;
-    msg[0]=1;
+
+    if(bRequestOn)
+        msg[0]=1;
+    else
+        msg[0]=0;
+
     QByteArray data;
     if(laser_packet)
         data= laser_packet->MakePacket(header, msg, msgSize);

@@ -16,7 +16,7 @@ public:
     void close();
 
     void start_laser();
-    void request_distance();
+    void request_distance(bool bRequestOn);
     void set_speed_measure_mode(unsigned char mode);
     void request_selftest();
     void set_weather_mode(unsigned char mode);

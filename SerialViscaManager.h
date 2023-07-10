@@ -93,8 +93,11 @@ public:
     void read_AE_mode();
 
     void set_shutter_speed(int currentIndex);
+    void set_shutter_speed_from_pq(QString pq_input);
     void set_gain(int currentIndex);
+    void set_gain_from_pq(QString pq_input);
     void set_iris(int currentIndex);
+    void set_iris_from_pq(QString pq_input);
 
     void read_shutter_speed();
     void read_gain();

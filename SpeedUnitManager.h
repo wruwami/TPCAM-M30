@@ -15,7 +15,7 @@ enum SpeedUnit{
 
 class SpeedUnitManager
 {
-    SpeedUnitManager() {}
+    SpeedUnitManager();
     SpeedUnitManager(const SpeedUnitManager& other);
     ~SpeedUnitManager() {}
     static SpeedUnitManager* instance;

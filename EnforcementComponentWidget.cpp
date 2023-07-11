@@ -10,7 +10,7 @@
 #include "HUDManager.h"
 #include "SerialLaserManager.h"
 #include "SerialViscaManager.h"
-#include "SpeedUnitManager.h"
+
 
 EnforcementComponentWidget::EnforcementComponentWidget(QWidget *parent) :
     QWidget(parent),
@@ -26,7 +26,7 @@ EnforcementComponentWidget::EnforcementComponentWidget(QWidget *parent) :
 
     ui->hidePushButton->setText(LoadString("IDS_HIDE"));
     ui->readyPushButton->setText(LoadString("IDS_READY"));
-    ui->zoomRangePushButton->setText("Z: 100~160 m");
+//    ui->zoomRangePushButton->setText("Z: 100~160 m");
     ui->dzPlusPushButton->setText(LoadString("IDS_DZ_PLUS"));
     ui->dzMinusPushButton->setText(LoadString("IDS_DZ_MINUS"));
 
@@ -44,6 +44,13 @@ EnforcementComponentWidget::EnforcementComponentWidget(QWidget *parent) :
         m_UserModeOn = true;
     else
         m_UserModeOn = false;
+
+    ConfigManager con = ConfigManager("parameter_setting3.json");
+    QJsonObject object = con.GetConfig();
+    if (object["unit selection"].toInt() == 1)
+        m_nDistance = meter;
+    else
+        m_nDistance = feet;
 
     QSizePolicy sp_retain = ui->hidePushButton->sizePolicy();
     sp_retain.setRetainSizeWhenHidden(true);
@@ -66,6 +73,45 @@ EnforcementComponentWidget::EnforcementComponentWidget(QWidget *parent) :
     camInit();
     hudInit();
     laserInit();
+
+    ConfigManager config = ConfigManager("zoom_level.json");
+    object = config.GetConfig();
+
+
+    ar = object["st mode meter dist"].toArray();
+    foreach(auto item, ar)
+    {
+        m_stmetervector.push_back(item.toString());
+    }
+    ar = object["st mode feet dist"].toArray();
+    foreach(auto item, ar)
+    {
+        m_stfeetvector.push_back(item.toString());
+    }
+    ar = object["lt mode meter dist"].toArray();
+    foreach(auto item, ar)
+    {
+        m_ltmetervector.push_back(item.toString());
+    }
+    ar = object["lt mode feet dist"].toArray();
+    foreach(auto item, ar)
+    {
+        m_ltfeetvector.push_back(item.toString());
+    }
+    if (m_UserModeOn)
+    {
+        if (m_nDistance == meter)
+            ui->zoomRangePushButton->setText(QString("(%1 %2)").arg(m_stmetervector[m_nStIndex]).arg(SpeedUnitManager::GetInstance()->distance()));
+        else
+            ui->zoomRangePushButton->setText(QString("(%1 %2)").arg(m_stfeetvector[m_nStIndex]).arg(SpeedUnitManager::GetInstance()->distance()));
+    }
+    else
+    {
+        if (m_nDistance == meter)
+            ui->zoomRangePushButton->setText(QString("(%1 %2)").arg(m_ltmetervector[m_nLtIndex]).arg(SpeedUnitManager::GetInstance()->distance()));
+        else
+            ui->zoomRangePushButton->setText(QString("(%1 %2)").arg(m_ltfeetvector[m_nLtIndex]).arg(SpeedUnitManager::GetInstance()->distance()));
+    }
 }
 
 EnforcementComponentWidget::~EnforcementComponentWidget()
@@ -82,19 +128,51 @@ void EnforcementComponentWidget::dzPlus()
 {
     if (m_UserModeOn)
     {
-        if (m_nStIndex < m_stvector.size())
+        if (m_nDistance == meter)
         {
-            m_nStIndex++;
-            ui->zoomRangePushButton->setText(QString("(Z: %1 m)").arg(m_stvector[m_nStIndex]));
+            if (m_nStIndex < m_stmetervector.size() - 1)
+            {
+                m_nStIndex++;
+                ui->zoomRangePushButton->setText(QString("(%1 %2)").arg(m_stmetervector[m_nStIndex]).arg(SpeedUnitManager::GetInstance()->distance()));
+                SerialViscaManager serialViscaManager;
+                serialViscaManager.dzoom(m_nStIndex);
+            }
         }
+        else
+        {
+            if (m_nStIndex < m_stfeetvector.size() - 1)
+            {
+                m_nStIndex++;
+                ui->zoomRangePushButton->setText(QString("(%1 %2)").arg(m_stfeetvector[m_nStIndex]).arg(SpeedUnitManager::GetInstance()->distance()));
+                SerialViscaManager serialViscaManager;
+                serialViscaManager.dzoom(m_nStIndex);
+            }
 
+        }
     }
     else
     {
-        if (m_nLtIndex < m_ltvector.size())
+        if (m_nDistance == meter)
         {
-            m_nLtIndex++;
-            ui->zoomRangePushButton->setText(QString("(Z: %1 m)").arg(m_ltvector[m_nLtIndex]));
+            if (m_nLtIndex < m_ltmetervector.size() - 1)
+            {
+                m_nLtIndex++;
+                ui->zoomRangePushButton->setText(QString("(%1 %2)").arg(m_ltmetervector[m_nLtIndex]).arg(SpeedUnitManager::GetInstance()->distance()));
+                SerialViscaManager serialViscaManager;
+                serialViscaManager.dzoom(m_nLtIndex);
+            }
+
+        }
+        else
+        {
+            if (m_nLtIndex < m_ltfeetvector.size() - 1)
+            {
+                m_nLtIndex++;
+                ui->zoomRangePushButton->setText(QString("(%1 %2)").arg(m_ltfeetvector[m_nLtIndex]).arg(SpeedUnitManager::GetInstance()->distance()));
+                SerialViscaManager serialViscaManager;
+                serialViscaManager.dzoom(m_nLtIndex);
+            }
+
         }
     }
 }
@@ -105,7 +183,9 @@ void EnforcementComponentWidget::dzMinus()
         if (m_nStIndex != 0)
         {
             m_nStIndex--;
-            ui->zoomRangePushButton->setText(QString("(Z: %1 m)").arg(m_stvector[m_nStIndex]));
+            ui->zoomRangePushButton->setText(QString("(%1 %2)").arg(m_stmetervector[m_nStIndex]).arg(SpeedUnitManager::GetInstance()->distance()));
+            SerialViscaManager serialViscaManager;
+            serialViscaManager.dzoom(m_nStIndex);
         }
     }
     else
@@ -113,7 +193,9 @@ void EnforcementComponentWidget::dzMinus()
         if (m_nLtIndex != 0)
         {
             m_nLtIndex--;
-            ui->zoomRangePushButton->setText(QString("(Z: %1 m)").arg(m_ltvector[m_nLtIndex]));
+            ui->zoomRangePushButton->setText(QString("(%1 %2)").arg(m_ltmetervector[m_nLtIndex]).arg(SpeedUnitManager::GetInstance()->distance()));
+            SerialViscaManager serialViscaManager;
+            serialViscaManager.dzoom(m_nLtIndex);
         }
     }
 
@@ -460,17 +542,18 @@ void EnforcementComponentWidget::paintEvent(QPaintEvent *event)
 
 void EnforcementComponentWidget::on_zoomRangePushButton_clicked()
 {
-    ConfigManager configmanager = ConfigManager("parameter_settings1.json");
-    QJsonObject object = configmanager.GetConfig();
+    dzPlus();
+//    ConfigManager configmanager = ConfigManager("parameter_settings1.json");
+//    QJsonObject object = configmanager.GetConfig();
 
-    if (object["speed selection"].toInt() == 1)
-    {
+//    if (object["speed selection"].toInt() == 1)
+//    {
 
-    }
-    else
-    {
+//    }
+//    else
+//    {
 
-    }
+//    }
 
 }
 
@@ -497,5 +580,17 @@ void EnforcementComponentWidget::on_readyPushButton_clicked()
     }
         break;
     }
+}
+
+
+void EnforcementComponentWidget::on_dzPlusPushButton_clicked()
+{
+    dzPlus();
+}
+
+
+void EnforcementComponentWidget::on_dzMinusPushButton_clicked()
+{
+    dzMinus();
 }
 

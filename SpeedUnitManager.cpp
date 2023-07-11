@@ -1,6 +1,25 @@
 #include "SpeedUnitManager.h"
 
+#include "ConfigManager.h"
+
 SpeedUnitManager* SpeedUnitManager::instance = nullptr;
+
+SpeedUnitManager::SpeedUnitManager()
+{
+    ConfigManager config = ConfigManager("parameter_settings3.json");
+    QJsonObject object = config.GetConfig();
+    if (object["unit selection"].toInt() == 1)
+    {
+        m_distance = meter;
+        m_speedUnit = Km;
+    }
+    else
+    {
+        m_distance = feet;
+        m_speedUnit = mile;
+    }
+
+}
 
 QString SpeedUnitManager::distance() const
 {

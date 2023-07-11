@@ -7,6 +7,7 @@
 #include <list>
 #include <vector>
 #include "ConfigManager.h"
+#include "SpeedUnitManager.h"
 
 enum Mode{
     Ready,
@@ -49,18 +50,26 @@ private:
     QJsonObject m_object2;
     QJsonObject m_object3;
     bool m_UserModeOn;
-    std::vector<QString> m_stvector = {"60", "80", "100", "120", "140", "160", "180", "200", "220", "240", "260"};
-    std::vector<QString> m_ltvector = {"10~36", "30~60", "60~100", "100~160", "160~260", "260+"};
+    std::vector<QString> m_stmetervector;// = {"60", "80", "100", "120", "140", "160", "180", "200", "220", "240", "260"};
+    std::vector<QString> m_ltmetervector;// = {"10~36", "30~60", "60~100", "100~160", "160~260", "260+"};
+    std::vector<QString> m_stfeetvector;// = {"60", "80", "100", "120", "140", "160", "180", "200", "220", "240", "260"};
+    std::vector<QString> m_ltfeetvector;// = {"10~36", "30~60", "60~100", "100~160", "160~260", "260+"};
+
     int m_nStIndex = 2;
     int m_nLtIndex = 3;
     Camera* m_pCamera = nullptr;
     Mode m_nMode = Ready;
+    Distance m_nDistance = meter;
 private slots:
     void on_hidePushButton_clicked();
     void doShartAction();
     void on_zoomRangePushButton_clicked();
 
     void on_readyPushButton_clicked();
+
+    void on_dzPlusPushButton_clicked();
+
+    void on_dzMinusPushButton_clicked();
 
 protected:
     void paintEvent(QPaintEvent *event);

@@ -71,9 +71,15 @@ void Setting3Widget::SaveConfig()
     m_config.SaveFile();
 
     if (m_newJsonObject["unit_selection"].toInt())
+    {
+        SpeedUnitManager::GetInstance()->setSpeedUnit(Km);
         SpeedUnitManager::GetInstance()->setDistance(meter);
+    }
     else
+    {
+        SpeedUnitManager::GetInstance()->setSpeedUnit(mile);
         SpeedUnitManager::GetInstance()->setDistance(feet);
+    }
 }
 
 void Setting3Widget::on_showInfoPushButton_clicked()

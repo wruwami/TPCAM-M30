@@ -182,7 +182,7 @@ void MainWindow::initializeMainMenuWidget()
         ui->verticalLayout->removeItem(ui->verticalLayout->takeAt(1));
         if (m_pMainMenuContentWidget == nullptr)
             m_pMainMenuContentWidget = new MainMenuContentWidget;
-        m_pMainMenuWidget->setMainMenuTitle(LoadString("IDS_MAIN_MENU"));
+        m_pMainMenuWidget->setMainMenuImage("Main_menu", "home_big_n.bmp");
         ui->verticalLayout->addWidget(m_pMainMenuContentWidget, 835);
         QObject::connect((QWidget*)m_pMainMenuContentWidget->m_pEnforcementButton, SIGNAL(clicked()), this, SLOT(on_enforcementClicked()));
         QObject::connect((QWidget*)m_pMainMenuContentWidget->m_pFileManagertButton, SIGNAL(clicked()), this, SLOT(on_filemanagementClicked()));
@@ -406,9 +406,10 @@ void MainWindow::on_enforcementClicked()
     if (m_pEnforcementWidget == nullptr)
         m_pEnforcementWidget = new EnforcementWidget;
     ui->verticalLayout->addWidget(m_pEnforcementWidget, 835);
-    SetCamera();
     m_pMainMenuWidget->setMainMenuImage("Main_menu", "home_big_n.bmp");
     m_pMainMenuWidget->setTransparentBackGround(true);
+    SetCamera();
+
 }
 
 void MainWindow::OpenEnforcement()

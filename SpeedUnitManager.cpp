@@ -6,7 +6,7 @@ SpeedUnitManager* SpeedUnitManager::instance = nullptr;
 
 SpeedUnitManager::SpeedUnitManager()
 {
-    ConfigManager config = ConfigManager("parameter_settings3.json");
+    ConfigManager config = ConfigManager("parameter_setting3.json");
     QJsonObject object = config.GetConfig();
     if (object["unit selection"].toInt() == 1)
     {

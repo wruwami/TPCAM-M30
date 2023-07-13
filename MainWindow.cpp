@@ -32,6 +32,7 @@
 #include "ScreenSaver.h"
 #include "camera.h"
 #include "CustomComboBox.h"
+#include "SerialLaserManager.h"
 
 template <typename T>
 inline void removeSecondItem(T*& pointer) {
@@ -88,6 +89,7 @@ MainWindow::MainWindow(screensaver* screensaver, QWidget *parent) :
     m_pDateTimeWidget = new DateTimeWidget;
     m_pRemoteController = new RemoteController(this);
     m_pRemoteController->CreateThread();
+    m_pSerialLaserManager = new SerialLaserManager;
 
     QSizePolicy sp_retain = ui->widget_2->sizePolicy();
     sp_retain.setRetainSizeWhenHidden(true);
@@ -121,6 +123,8 @@ MainWindow::MainWindow(screensaver* screensaver, QWidget *parent) :
 
 MainWindow::~MainWindow()
 {
+    delete m_pSerialLaserManager;
+
     delete m_screensaver;
 //    if (m_pLoginWidget != nullptr)
 //        delete m_pLoginWidget;
@@ -414,6 +418,8 @@ void MainWindow::on_enforcementClicked()
     ui->verticalLayout->addWidget(m_pEnforcementWidget, 835);
     m_pMainMenuWidget->setMainMenuImage("Main_menu", "home_big_n.bmp");
     m_pMainMenuWidget->setTransparentBackGround(true);
+    m_pEnforcementWidget->m_pEnforcementComponentWidget->setPSerialLaserManager(m_pSerialLaserManager);
+    m_pIndicatorWidget->setPSerialLaserManager(m_pSerialLaserManager);
     connect(m_pIndicatorWidget->m_pIndicatorCameraFocusWidget->m_pAutoTriggerPushButton, SIGNAL(clicked()), m_pEnforcementWidget->m_pEnforcementComponentWidget, SLOT(on_readyPushButton_clicked()));
     connect(m_pEnforcementWidget->m_pEnforcementComponentWidget->m_pReadyButton, SIGNAL(clicked()), m_pIndicatorWidget->m_pIndicatorCameraFocusWidget, SLOT(on_autoTriggerPushButton_clicked()));
     SetCamera();
@@ -470,6 +476,8 @@ void MainWindow::OpenEnforcement()
     if (m_pEnforcementWidget == nullptr)
         m_pEnforcementWidget = new EnforcementWidget;
     ui->verticalLayout->addWidget(m_pEnforcementWidget, 835);
+    m_pEnforcementWidget->m_pEnforcementComponentWidget->setPSerialLaserManager(m_pSerialLaserManager);
+    m_pIndicatorWidget->setPSerialLaserManager(m_pSerialLaserManager);
     connect(m_pIndicatorWidget->m_pIndicatorCameraFocusWidget->m_pAutoTriggerPushButton, SIGNAL(clicked()), m_pEnforcementWidget->m_pEnforcementComponentWidget, SLOT(on_readyPushButton_clicked()));
     connect(m_pEnforcementWidget->m_pEnforcementComponentWidget->m_pReadyButton, SIGNAL(clicked()), m_pIndicatorWidget->m_pIndicatorCameraFocusWidget, SLOT(on_autoTriggerPushButton_clicked()));
 

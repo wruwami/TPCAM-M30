@@ -45,6 +45,8 @@ private:
 public:
     SerialLaserManager* m_pSerialLaserManager = nullptr;
     CustomPushButton* m_pReadyButton;
+    void setPSerialLaserManager(SerialLaserManager *newPSerialLaserManager);
+
 private:
     bool m_bHide = false;
     bool m_isSetOutLine = false;

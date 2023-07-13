@@ -509,6 +509,12 @@ void EnforcementComponentWidget::laserInit()
     m_pSerialLaserManager->set_speed_measure_mode(1);
 }
 
+void EnforcementComponentWidget::setPSerialLaserManager(SerialLaserManager *newPSerialLaserManager)
+{
+    if (m_pSerialLaserManager == nullptr)
+        m_pSerialLaserManager = newPSerialLaserManager;
+}
+
 void EnforcementComponentWidget::paintEvent(QPaintEvent *event)
 {
 //    QWidget::paintEvent(event);

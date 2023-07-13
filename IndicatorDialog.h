@@ -4,7 +4,6 @@
 #include <QDialog>
 
 #include "ConfigManager.h"
-#include "SerialViscaManager.h"
 #include "SerialLaserManager.h"
 #include "IndicatorCameraFocusWidget.h"
 
@@ -77,6 +76,8 @@ public:
     bool m_bFocusExposeDisabled = true;
     bool m_bEnforcement = false;
     IndicatorCameraFocusWidget* m_pIndicatorCameraFocusWidget;
+    void setPSerialLaserManager(SerialLaserManager *newPSerialLaserManager);
+
 private:
     Ui::IndicatorDialog *ui;
     CustomPushButton* m_pDay1PushButton;
@@ -103,7 +104,7 @@ private:
     QJsonObject m_jsonObject2;
     QJsonObject m_jsonObject3;
     MainMenuWidget* m_pMainMenuWidget;
-    SerialViscaManager* m_pSerialViscaManager;
+    SerialLaserManager* m_pSerialLaserManager = nullptr;
 //    SerialLaserManager* m_pSerialLaserManager;
     // QWidget interface
 protected:

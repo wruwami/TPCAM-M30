@@ -31,6 +31,7 @@ class EnforcementWidget;
 class CustomLabel;
 class CustomPushButton;
 class screensaver;
+class SerialLaserManager;
 namespace Ui {
 class MainWindow;
 }
@@ -124,6 +125,7 @@ private:
     int sec = 0;
     screensaver *m_screensaver;
     bool m_bSelfTestFailed = false;
+    SerialLaserManager* m_pSerialLaserManager = nullptr;
     //    Language m_mLanguage = Language::English;
 
     // QObject interface

@@ -26,6 +26,7 @@ IndicatorCameraFocusWidget::IndicatorCameraFocusWidget(QWidget *parent) :
     ui->forcusPlusPushButton->setText(LoadString("IDS_FOCUS_UP"));
 
     ui->focusLineEdit->SetMode(KeypadType);
+    m_pAutoTriggerPushButton = ui->autoTriggerPushButton;
 //    ui->applyPushButton->setText(LoadString("IDS_APPLY"));
 
 }
@@ -82,7 +83,27 @@ void IndicatorCameraFocusWidget::on_speedPushButton_clicked()
 
 void IndicatorCameraFocusWidget::on_autoTriggerPushButton_clicked()
 {
-
+    switch (m_nMode)
+    {
+    case Focus_Ready:
+    {
+        ui->autoTriggerPushButton->setText(LoadString("IDS_AT"));
+        m_nMode = Focus_AT;
+    }
+        break;
+    case Focus_AT:
+    {
+        ui->autoTriggerPushButton->setText(LoadString("IDS_Manual"));
+        m_nMode = Focus_Manual;
+    }
+        break;
+    case Focus_Manual:
+    {
+        ui->autoTriggerPushButton->setText(LoadString("IDS_Ready"));
+        m_nMode = Focus_Ready;
+    }
+        break;
+    }
 }
 
 

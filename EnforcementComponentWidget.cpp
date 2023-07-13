@@ -34,6 +34,8 @@ EnforcementComponentWidget::EnforcementComponentWidget(QWidget *parent) :
     ui->truckPushButton->setImage("enforcement", "truck.jpg");
     ui->bikePushButton->setImage("enforcement", "bike.jpg");
 
+    m_pReadyButton = ui->readyPushButton;
+
     QJsonArray ar = m_object["capture speed"].toArray();
 
     ui->speedLabel->setText(QString("CS: %0%4\nT%2%4\nM%3%4").arg(ar[0].toString()).arg(ar[1].toString()).arg(ar[2].toString()).arg(SpeedUnitManager::GetInstance()->distance()));
@@ -112,6 +114,8 @@ EnforcementComponentWidget::EnforcementComponentWidget(QWidget *parent) :
         else
             ui->zoomRangePushButton->setText(QString("(%1 %2)").arg(m_ltfeetvector[m_nLtIndex]).arg(SpeedUnitManager::GetInstance()->distance()));
     }
+
+//    connect(m_p)
 }
 
 EnforcementComponentWidget::~EnforcementComponentWidget()
@@ -121,6 +125,12 @@ EnforcementComponentWidget::~EnforcementComponentWidget()
         delete m_pCamera;
         m_pCamera = nullptr;
     }
+    if (m_pSerialLaserManager)
+    {
+        delete m_pSerialLaserManager;
+        m_pSerialLaserManager = nullptr;
+    }
+
     delete ui;
 }
 
@@ -329,17 +339,18 @@ void EnforcementComponentWidget::hudInit()
 
 void EnforcementComponentWidget::laserInit()
 {
+     if (m_pSerialLaserManager == nullptr)
+        m_pSerialLaserManager = new SerialLaserManager;
     ConfigManager config = ConfigManager("parameter_settings1.json");
     QJsonObject object = config.GetConfig();
     ConfigManager config2 = ConfigManager("parameter_settings2.json");
     QJsonObject object2 = config2.GetConfig();
 
-    SerialLaserManager serialLaserManager;
-    serialLaserManager.set_weather_mode(object2["weather selection"].toInt());
-    serialLaserManager.set_AJamming_mode(object2["anti-jamming selection"].toInt());
-    serialLaserManager.set_buzzer_mode(object2["buzzer selection"].toInt());
+    m_pSerialLaserManager->set_weather_mode(object2["weather selection"].toInt());
+    m_pSerialLaserManager->set_AJamming_mode(object2["anti-jamming selection"].toInt());
+    m_pSerialLaserManager->set_buzzer_mode(object2["buzzer selection"].toInt());
 
-    serialLaserManager.set_detection_distance(object["speed_selection"].toInt());
+    m_pSerialLaserManager->set_detection_distance(object["speed_selection"].toInt());
 
     ConfigManager config3 = ConfigManager("parameter_enforcement.json");
     QJsonObject object3 = config3.GetConfig();
@@ -487,15 +498,15 @@ void EnforcementComponentWidget::laserInit()
         break;
     }
 
-    serialLaserManager.set_detection_area(distance);
-    serialLaserManager.set_detection_area(area);
+    m_pSerialLaserManager->set_detection_area(distance);
+    m_pSerialLaserManager->set_detection_area(area);
 
     int dn = object["day&night selection"].toInt();
     if (dn >= 0 && dn <=3)
-        serialLaserManager.set_night_mode(1);
+        m_pSerialLaserManager->set_night_mode(1);
     else
-        serialLaserManager.set_night_mode(0);
-    serialLaserManager.set_speed_measure_mode(1);
+        m_pSerialLaserManager->set_night_mode(0);
+    m_pSerialLaserManager->set_speed_measure_mode(1);
 }
 
 void EnforcementComponentWidget::paintEvent(QPaintEvent *event)

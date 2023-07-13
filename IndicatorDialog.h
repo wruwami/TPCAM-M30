@@ -6,6 +6,7 @@
 #include "ConfigManager.h"
 #include "SerialViscaManager.h"
 #include "SerialLaserManager.h"
+#include "IndicatorCameraFocusWidget.h"
 
 class CustomPushButton;
 class IndicatorCameraExposeWidget;
@@ -74,6 +75,8 @@ public:
     CustomPushButton* m_pWeatherPushButton = nullptr;
     CustomPushButton* m_pSpeedModePushButton = nullptr;
     bool m_bFocusExposeDisabled = true;
+    bool m_bEnforcement = false;
+    IndicatorCameraFocusWidget* m_pIndicatorCameraFocusWidget;
 private:
     Ui::IndicatorDialog *ui;
     CustomPushButton* m_pDay1PushButton;
@@ -100,8 +103,8 @@ private:
     QJsonObject m_jsonObject2;
     QJsonObject m_jsonObject3;
     MainMenuWidget* m_pMainMenuWidget;
-    SerialViscaManager m_serialViscaManager;
-    SerialLaserManager m_serialLaserManager;
+    SerialViscaManager* m_pSerialViscaManager;
+//    SerialLaserManager* m_pSerialLaserManager;
     // QWidget interface
 protected:
     void paintEvent(QPaintEvent *event);

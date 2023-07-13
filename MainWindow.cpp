@@ -196,6 +196,8 @@ void MainWindow::initializeLoginWidget()
 {
     m_widgetType = Login;
     m_pIndicatorWidget->m_bFocusExposeDisabled = true;
+    m_pIndicatorWidget->m_bEnforcement = false;
+
     if (ui->verticalLayout->count() > 1)
     {
         QWidget* widget = ui->verticalLayout->itemAt(1)->widget();
@@ -247,6 +249,7 @@ void MainWindow::finalize()
 void MainWindow::open_indicator_widget()
 {
     m_pIndicatorWidget->show();
+
 
 //    QObject::connect((QWidget*)m_pIndicatorWidget->m_pCameraPushButton, SIGNAL(clicked()), this, SLOT(on_cameraClicked()));
 }
@@ -326,6 +329,7 @@ void MainWindow::on_gpsPushButton_clicked()
 void MainWindow::on_loginWidgetClicked()
 {
     m_pIndicatorWidget->m_bFocusExposeDisabled = true;
+    m_pIndicatorWidget->m_bEnforcement = false;
     if (m_userName == "admin-align")
     {
         m_widgetType = Other;
@@ -392,6 +396,8 @@ void MainWindow::on_enforcementClicked()
 {
     m_widgetType = Enforcement;
     m_pIndicatorWidget->m_bFocusExposeDisabled = false;
+    m_pIndicatorWidget->m_bEnforcement = true;
+
 
     if (m_pMainMenuContentWidget)
     {
@@ -408,8 +414,9 @@ void MainWindow::on_enforcementClicked()
     ui->verticalLayout->addWidget(m_pEnforcementWidget, 835);
     m_pMainMenuWidget->setMainMenuImage("Main_menu", "home_big_n.bmp");
     m_pMainMenuWidget->setTransparentBackGround(true);
+    connect(m_pIndicatorWidget->m_pIndicatorCameraFocusWidget->m_pAutoTriggerPushButton, SIGNAL(clicked()), m_pEnforcementWidget->m_pEnforcementComponentWidget, SLOT(on_readyPushButton_clicked()));
+    connect(m_pEnforcementWidget->m_pEnforcementComponentWidget->m_pReadyButton, SIGNAL(clicked()), m_pIndicatorWidget->m_pIndicatorCameraFocusWidget, SLOT(on_autoTriggerPushButton_clicked()));
     SetCamera();
-
 }
 
 void MainWindow::OpenEnforcement()
@@ -422,6 +429,7 @@ void MainWindow::OpenEnforcement()
 
     m_widgetType = Enforcement;
     m_pIndicatorWidget->m_bFocusExposeDisabled = false;
+    m_pIndicatorWidget->m_bEnforcement = true;
     if (ui->verticalLayout->count() > 1)
     {
         QWidget* widget = ui->verticalLayout->itemAt(1)->widget();
@@ -462,6 +470,9 @@ void MainWindow::OpenEnforcement()
     if (m_pEnforcementWidget == nullptr)
         m_pEnforcementWidget = new EnforcementWidget;
     ui->verticalLayout->addWidget(m_pEnforcementWidget, 835);
+    connect(m_pIndicatorWidget->m_pIndicatorCameraFocusWidget->m_pAutoTriggerPushButton, SIGNAL(clicked()), m_pEnforcementWidget->m_pEnforcementComponentWidget, SLOT(on_readyPushButton_clicked()));
+    connect(m_pEnforcementWidget->m_pEnforcementComponentWidget->m_pReadyButton, SIGNAL(clicked()), m_pIndicatorWidget->m_pIndicatorCameraFocusWidget, SLOT(on_autoTriggerPushButton_clicked()));
+
     m_pMainMenuWidget->setMainMenuImage("Main_menu", "home_big_n.bmp");
 }
 

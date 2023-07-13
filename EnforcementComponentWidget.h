@@ -15,6 +15,7 @@ enum Mode{
     Manual,
 };
 
+class SerialLaserManager;
 class Camera;
 class CustomPushButton;
 namespace Ui {
@@ -41,6 +42,9 @@ private:
     void camInit();
     void hudInit();
     void laserInit();
+public:
+    SerialLaserManager* m_pSerialLaserManager = nullptr;
+    CustomPushButton* m_pReadyButton;
 private:
     bool m_bHide = false;
     bool m_isSetOutLine = false;

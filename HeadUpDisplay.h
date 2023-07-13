@@ -1,7 +1,8 @@
 #ifndef CHEADUPDISPLAY_H
 #define CHEADUPDISPLAY_H
 
-#include <Qbject>
+#include <QObject>
+#include <QTimer>
 
 class CHeadUpDisplay : public QObject
 {

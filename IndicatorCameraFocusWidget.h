@@ -5,6 +5,13 @@
 
 #include "SerialViscaManager.h"
 
+enum EnforcementMode {
+    Focus_Ready,
+    Focus_AT,
+    Focus_Manual,
+};
+
+class CustomPushButton;
 namespace Ui {
 class IndicatorCameraFocusWidget;
 }
@@ -19,9 +26,12 @@ public:
 private:
     void hide();
     void show();
+public:
+    CustomPushButton* m_pAutoTriggerPushButton;
 private:
     Ui::IndicatorCameraFocusWidget *ui;
     bool m_bHide = false;
+    EnforcementMode m_nMode = Focus_Ready;
 
     // QWidget interface
 protected:

@@ -101,6 +101,40 @@ Camera::~Camera()
 	m_pProcess->close();
 	delete m_pProcess;
 	m_pProcess = nullptr;
+
+    if (m_capturer) {
+
+        if (m_capturer->isRunning()) {
+
+            m_capturer->setRunning(false);
+
+            m_capturer->exit();
+
+            m_capturer->wait(100);
+
+        }
+
+        if (m_capturer->isRunning())
+
+            m_capturer->terminate();
+
+    }
+
+    if (m_v4l2Capturer) {
+
+        if (m_v4l2Capturer->isRunning()) {
+
+            m_v4l2Capturer->setRunning(false);
+
+            m_v4l2Capturer->exit();
+
+            m_v4l2Capturer->wait(100);
+
+        }
+
+        if (m_v4l2Capturer->isRunning())
+            m_v4l2Capturer->terminate();
+    }
 }
 
 QCameraInfo Camera::initlayout()

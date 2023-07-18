@@ -2,6 +2,9 @@
 #define SERIALLASERMANAGER_H
 
 #include <QObject>
+#include <QTimer>
+
+#include "HeadUpDisplay.h"
 
 class QSerialPort;
 class SerialPacket;
@@ -36,12 +39,15 @@ public:
 
     void show_camera_version();
     void show_camera_model();
-    SerialPacket *getLaser_packet() const;
+    SerialPacket *getLaser_packet();
 
 private:
     QSerialPort* m_pSerial;
     SerialPacket *laser_packet;
     int laser_con;
+    CHeadUpDisplay hud;
+    QTimer* m_pTimerCaptureSpeed = new QTimer(this);
+
 protected slots:
     void serial_received();
 };

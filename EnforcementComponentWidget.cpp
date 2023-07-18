@@ -2,7 +2,6 @@
 #include "ui_EnforcementComponentWidget.h"
 
 #include <QPainter>
-#include <QJsonArray>
 
 #include "StringLoader.h"
 #include "camera.h"
@@ -10,6 +9,7 @@
 #include "HUDManager.h"
 #include "SerialLaserManager.h"
 #include "SerialViscaManager.h"
+#include "SerialPacket.h"
 
 
 EnforcementComponentWidget::EnforcementComponentWidget(QWidget *parent) :
@@ -36,9 +36,9 @@ EnforcementComponentWidget::EnforcementComponentWidget(QWidget *parent) :
 
     m_pReadyButton = ui->readyPushButton;
 
-    QJsonArray ar = m_object["capture speed"].toArray();
+    m_captureSpeed = m_object["capture speed"].toArray();
 
-    ui->speedLabel->setText(QString("CS: %0%4\nT%2%4\nM%3%4").arg(ar[0].toString()).arg(ar[1].toString()).arg(ar[2].toString()).arg(SpeedUnitManager::GetInstance()->distance()));
+    ui->speedLabel->setText(QString("CS: %0%4\nT%2%4\nM%3%4").arg(m_captureSpeed[0].toString()).arg(m_captureSpeed[1].toString()).arg(m_captureSpeed[2].toString()).arg(SpeedUnitManager::GetInstance()->distance()));
     ui->speedLabel->setDisabled(true);
 
 
@@ -80,23 +80,23 @@ EnforcementComponentWidget::EnforcementComponentWidget(QWidget *parent) :
     object = config.GetConfig();
 
 
-    ar = object["st mode meter dist"].toArray();
-    foreach(auto item, ar)
+    m_captureSpeed = object["st mode meter dist"].toArray();
+    foreach(auto item, m_captureSpeed)
     {
         m_stmetervector.push_back(item.toString());
     }
-    ar = object["st mode feet dist"].toArray();
-    foreach(auto item, ar)
+    m_captureSpeed = object["st mode feet dist"].toArray();
+    foreach(auto item, m_captureSpeed)
     {
         m_stfeetvector.push_back(item.toString());
     }
-    ar = object["lt mode meter dist"].toArray();
-    foreach(auto item, ar)
+    m_captureSpeed = object["lt mode meter dist"].toArray();
+    foreach(auto item, m_captureSpeed)
     {
         m_ltmetervector.push_back(item.toString());
     }
-    ar = object["lt mode feet dist"].toArray();
-    foreach(auto item, ar)
+    m_captureSpeed = object["lt mode feet dist"].toArray();
+    foreach(auto item, m_captureSpeed)
     {
         m_ltfeetvector.push_back(item.toString());
     }
@@ -115,6 +115,7 @@ EnforcementComponentWidget::EnforcementComponentWidget(QWidget *parent) :
             ui->zoomRangePushButton->setText(QString("(%1 %2)").arg(m_ltfeetvector[m_nLtIndex]).arg(SpeedUnitManager::GetInstance()->distance()));
     }
 
+//    m_pSerialLaserManager->getLaser_packet();
 //    connect(m_p)
 }
 
@@ -125,12 +126,6 @@ EnforcementComponentWidget::~EnforcementComponentWidget()
         delete m_pCamera;
         m_pCamera = nullptr;
     }
-    if (m_pSerialLaserManager)
-    {
-        delete m_pSerialLaserManager;
-        m_pSerialLaserManager = nullptr;
-    }
-
     delete ui;
 }
 
@@ -509,6 +504,68 @@ void EnforcementComponentWidget::laserInit()
     m_pSerialLaserManager->set_speed_measure_mode(1);
 }
 
+void EnforcementComponentWidget::doATMode()
+{
+    SerialPacket* laser_packet = m_pSerialLaserManager->getLaser_packet();
+    connect(laser_packet, SIGNAL(sig_showCaptureSpeedDistance(float,float)), this, SLOT(on_showCaptureSpeedDistance(float,float)));
+    connect(laser_packet, SIGNAL(sig_showSpeedDistance(float,float)), this, SLOT(on_showSpeedDistance(float,float)));
+    connect(laser_packet, SIGNAL(sig_showDistance(float,int)), this, SLOT(on_showCaptureSpeedDistance(float,int)));
+}
+
+void EnforcementComponentWidget::doManualMode()
+{
+
+}
+
+void EnforcementComponentWidget::doReadyMode()
+{
+
+}
+
+int EnforcementComponentWidget::GetCaptureSpeedLimit()
+{
+    switch (m_nVehicleMode)
+    {
+    case Normal:
+    {
+        return m_captureSpeed.at(0).toInt();
+    }
+        break;
+    case Truck:
+    {
+        return m_captureSpeed.at(1).toInt();
+    }
+        break;
+    case MotoCycle:
+    {
+        return m_captureSpeed.at(2).toInt();
+    }
+        break;
+    }
+}
+
+void EnforcementComponentWidget::displayScreenOverSpeed(float fSpeed, float fDistance)
+{
+    // 화면에 속도 및 거리, REC 표시 출력
+    displaySpeedDistance(fSpeed, fDistance);
+
+//    빨간색 테두리 표시 등
+//        이미지 또는 동영상을 설정대로 저장
+    //썸네일 표시 처리, 썸네일 위에 단속 정보 표시 처리 출력
+
+}
+
+void EnforcementComponentWidget::displayHUDnOverSpeed(float fSpeed, float fDistance)
+{
+    sprintf("%d", fDistance)/;
+    ui->distanceLabel->setText(fDistance);
+}
+
+void EnforcementComponentWidget::displaySpeedDistance(float fSpeed, float fDistance)
+{
+
+}
+
 void EnforcementComponentWidget::setPSerialLaserManager(SerialLaserManager *newPSerialLaserManager)
 {
     if (m_pSerialLaserManager == nullptr)
@@ -582,18 +639,21 @@ void EnforcementComponentWidget::on_readyPushButton_clicked()
     {
         ui->readyPushButton->setText(LoadString("IDS_AT"));
         m_nMode = AT;
+        doATMode();
     }
         break;
     case AT:
     {
         ui->readyPushButton->setText(LoadString("IDS_Manual"));
         m_nMode = Manual;
+        doManualMode();
     }
         break;
     case Manual:
     {
         ui->readyPushButton->setText(LoadString("IDS_Ready"));
         m_nMode = Ready;
+        doReadyMode();
     }
         break;
     }
@@ -609,5 +669,23 @@ void EnforcementComponentWidget::on_dzPlusPushButton_clicked()
 void EnforcementComponentWidget::on_dzMinusPushButton_clicked()
 {
     dzMinus();
+}
+
+void EnforcementComponentWidget::on_showCaptureSpeedDistance(float fSpeed, float fDistance)
+{
+    if (fSpeed > GetCaptureSpeedLimit())
+    {
+
+    }
+}
+
+void EnforcementComponentWidget::on_showSpeedDistance(float fSpeed, float fDistance)
+{
+
+}
+
+void EnforcementComponentWidget::on_showDistance(float fDistance, int nSensitivity)
+{
+
 }
 

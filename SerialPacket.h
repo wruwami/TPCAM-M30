@@ -3,12 +3,16 @@
 //  ComLASER SW
 //
 //#include "..\compiler.h"
-#include <QByteArray>
-#include <QListView>
-#include <QStandardItemModel>
+
 
 #ifndef SerialPacketH
 #define SerialPacketH
+
+#include <QByteArray>
+#include <QListView>
+#include <QStandardItemModel>
+#include <QObject>
+
 //------------------------------------------------------------------------------
 //  [Packet format]
 //
@@ -239,9 +243,9 @@ public:
     bool m_bIsCaptureOnDisplay = false;
 
 public:
-    SerialPacket();
+    explicit SerialPacket(QObject *parent = nullptr);
     virtual ~SerialPacket();
-	void	    Init();
+    void	    Init();
     unsigned char CheckRcvMsg( unsigned char RxData );
     unsigned char MsgDecoder( void );
 	signed char ChkControlText( unsigned char d );

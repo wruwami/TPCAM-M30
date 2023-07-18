@@ -156,7 +156,15 @@ v4l2_thread::v4l2_thread()
 
 v4l2_thread::~v4l2_thread()
 {
-	g_bSave = false;
+    g_bSave = false;
+}
+
+void v4l2_thread::setRunning(bool run)
+{
+    if (!run)
+        g_bSave = false;
+
+    running = run;
 }
 
 void v4l2_thread::run()

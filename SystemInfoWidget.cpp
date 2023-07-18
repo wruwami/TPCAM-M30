@@ -35,5 +35,4 @@ void SystemInfoWidget::paintEvent(QPaintEvent *event)
     painter.drawLine(0, height()/5 * 2, width(), height()/5*2);
     painter.drawLine(0, height()/5 * 3, width(), height()/5*3);
     painter.drawLine(0, height()/5 * 4, width(), height()/5*4);
-
 }

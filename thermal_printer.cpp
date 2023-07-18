@@ -982,7 +982,7 @@ int connect_with_timeout(int sock, struct sockaddr_in res, unsigned long timeout
     {
         if (errno != EINPROGRESS)
         {
-            //fprintf(stdout, "Error : connect() error\n");
+            fprintf(stdout, "Error : connect() error\n");
             return -1;
         }
     }

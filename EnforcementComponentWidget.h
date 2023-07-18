@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include <QJsonObject>
+#include <QJsonArray>
 #include <QQueue>
 #include <list>
 #include <vector>
@@ -13,6 +14,12 @@ enum Mode{
     Ready,
     AT,
     Manual,
+};
+
+enum VehicleMode{
+    Normal,
+    Truck,
+    MotoCycle,
 };
 
 class SerialLaserManager;
@@ -42,6 +49,15 @@ private:
     void camInit();
     void hudInit();
     void laserInit();
+
+    void doATMode();
+    void doManualMode();
+    void doReadyMode();
+    int GetCaptureSpeedLimit();
+
+    void displayScreenOverSpeed(float fSpeed, float fDistance);
+    void displayHUDnOverSpeed(float fSpeed, float fDistance);
+    void displaySpeedDistance(float, float);
 public:
     SerialLaserManager* m_pSerialLaserManager = nullptr;
     CustomPushButton* m_pReadyButton;
@@ -66,7 +82,10 @@ private:
     Camera* m_pCamera = nullptr;
     Mode m_nMode = Ready;
     Distance m_nDistance = meter;
-private slots:
+    int VehicleCount = 0;
+    QJsonArray m_captureSpeed;
+    VehicleMode m_nVehicleMode = Normal;
+protected slots:
     void on_hidePushButton_clicked();
     void doShartAction();
     void on_zoomRangePushButton_clicked();
@@ -76,7 +95,9 @@ private slots:
     void on_dzPlusPushButton_clicked();
 
     void on_dzMinusPushButton_clicked();
-
+    void on_showCaptureSpeedDistance(float, float);
+    void on_showSpeedDistance(float, float);
+    void on_showDistance(float, int);
 protected:
     void paintEvent(QPaintEvent *event);
 

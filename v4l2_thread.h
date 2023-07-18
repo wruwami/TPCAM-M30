@@ -110,7 +110,7 @@ public:
     v4l2_thread();
     ~v4l2_thread() override;
 
-	void setRunning(bool run) { running = run; }
+    void setRunning(bool run);
 
 private:
 	bool running;

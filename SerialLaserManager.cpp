@@ -13,6 +13,13 @@ SerialLaserManager::SerialLaserManager()
     laser_con = 0;
     connectLaser();
     connect(m_pSerial, SIGNAL(readyRead()), this, SLOT(serial_received()));
+
+    connect(laser_packet, SIGNAL(sig_showSpeedDistance(float,float)), &hud, SLOT(showSpeedDistanceSensitivity(float, float)));
+    connect(laser_packet, SIGNAL(sig_showDistance(float,int)), &hud, SLOT(showDistanceSensitivity(float, int)));
+    connect(laser_packet, SIGNAL(sig_showCaptureSpeedDistance(float,float)), &hud, SLOT(showCaptureSpeedDistance(float, float)));
+    connect(laser_packet, SIGNAL(sig_showCaptureSpeedDistance(float, float)), this, SLOT(startCaptureSpeedTimer()));
+    connect(m_pTimerCaptureSpeed, SIGNAL(timeout()), this, SLOT(set_IsCSOnDisplay_false()));
+
 }
 
 SerialLaserManager::~SerialLaserManager()
@@ -351,7 +358,7 @@ void SerialLaserManager::stop_laser()
         m_pSerial->write(data);
 }
 
-SerialPacket *SerialLaserManager::getLaser_packet() const
+SerialPacket *SerialLaserManager::getLaser_packet()
 {
     return laser_packet;
 }

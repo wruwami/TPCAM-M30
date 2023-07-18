@@ -14,7 +14,8 @@ _ST_LASER_PARAM		g_stLaserParam;
 unsigned char	s_RxLength = 0;
 unsigned char	s_RxBuf[MAX_PACKET_SIZE];
 
-SerialPacket::SerialPacket()
+SerialPacket::SerialPacket(QObject *parent)
+    : QObject{parent}
 {
     Init();
 }

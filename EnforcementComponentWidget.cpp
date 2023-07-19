@@ -76,7 +76,7 @@ EnforcementComponentWidget::EnforcementComponentWidget(QWidget *parent) :
 
     camInit();
     hudInit();
-    laserInit();
+//    laserInit();
 
     ConfigManager config = ConfigManager("zoom_level.json");
     object = config.GetConfig();
@@ -336,8 +336,8 @@ void EnforcementComponentWidget::hudInit()
 
 void EnforcementComponentWidget::laserInit()
 {
-     if (m_pSerialLaserManager == nullptr)
-        m_pSerialLaserManager = new SerialLaserManager;
+//     if (m_pSerialLaserManager == nullptr)
+//        m_pSerialLaserManager = new SerialLaserManager;
     ConfigManager config = ConfigManager("parameter_settings1.json");
     QJsonObject object = config.GetConfig();
     ConfigManager config2 = ConfigManager("parameter_settings2.json");

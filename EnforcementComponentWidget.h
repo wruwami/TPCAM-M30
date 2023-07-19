@@ -40,6 +40,7 @@ public:
     void dzPlus();
     void dzMinus();
     void SaveImage();
+    void laserInit();
 
 private:
     void hide();
@@ -48,7 +49,6 @@ private:
     void SetCamera();
     void camInit();
     void hudInit();
-    void laserInit();
 
     void doATMode();
     void doManualMode();

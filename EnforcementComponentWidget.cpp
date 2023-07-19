@@ -593,6 +593,13 @@ void EnforcementComponentWidget::displayHudSpeedDistance(bool nDisplay, bool nSp
     hudManager.ShowDistanceUnit(nUnit);
 }
 
+void EnforcementComponentWidget::displayHudDistance(bool nDisplay, bool nUnit)
+{
+    HUDManager hudManager;
+    hudManager.ShowDistance(nDisplay);
+    hudManager.ShowDistanceUnit(nUnit);
+}
+
 void EnforcementComponentWidget::setPSerialLaserManager(SerialLaserManager *newPSerialLaserManager)
 {
     if (m_pSerialLaserManager == nullptr)
@@ -718,7 +725,10 @@ void EnforcementComponentWidget::on_showCaptureSpeedDistance(float fSpeed, float
     else if (fSpeed < GetCaptureSpeedLimit())
     {
 //        화면에 속도 및 거리 출력
+        displaySpeedDistance(fSpeed, fDistance, Qt::white, false);
+
 //        HUD에 속도 및 거리 출력
+        displayHudSpeedDistance(true, true, false, true);
 //        로그 저장
     }
 }
@@ -728,6 +738,7 @@ void EnforcementComponentWidget::on_showSpeedDistance(float fSpeed, float fDista
 //    화면에 속도 및 거리 출력
     displaySpeedDistance(fSpeed, fDistance, Qt::white, false);
 //        HUD에 속도 및 거리 출력
+    displayHudSpeedDistance(true, true, false, true);
 //        로그 저장
 
 }
@@ -737,6 +748,7 @@ void EnforcementComponentWidget::on_showDistance(float fDistance, int nSensitivi
 //    화면에 거리 출력
     displayDistance(fDistance);
 //	HUD에 거리 출력
+    displayHudDistance(true, true);
 //    로그 저장
 
 }

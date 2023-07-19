@@ -63,6 +63,7 @@ private:
     void displayThumbnail(float, float);
 
     void displayHudSpeedDistance(bool, bool, bool, bool);
+    void displayHudDistance(bool, bool);
 public:
     SerialLaserManager* m_pSerialLaserManager = nullptr;
     CustomPushButton* m_pReadyButton;

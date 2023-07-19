@@ -717,6 +717,8 @@ void IndicatorDialog::on_night1WidgetClicked()
     object["DIS"].toBool() ? serialViscaManager.set_DIS_on() : serialViscaManager.set_DIS_off();
     object["DEFOG"].toBool() ? serialViscaManager.set_defog_on() : serialViscaManager.set_defog_off();
     object["HLC"].toBool() ? serialViscaManager.set_HLC_on() : serialViscaManager.set_HLC_off();
+
+    emit sig_Night();
 //    ViscaManager viscaManager;
 //    viscaManager.SetDayMode(object);
 }
@@ -739,6 +741,8 @@ void IndicatorDialog::on_night2WidgetClicked()
     object["DIS"].toBool() ? serialViscaManager.set_DIS_on() : serialViscaManager.set_DIS_off();
     object["DEFOG"].toBool() ? serialViscaManager.set_defog_on() : serialViscaManager.set_defog_off();
     object["HLC"].toBool() ? serialViscaManager.set_HLC_on() : serialViscaManager.set_HLC_off();
+
+    emit sig_Night();
 //    ViscaManager viscaManager;
 //    viscaManager.SetDayMode(object);
 }
@@ -761,6 +765,8 @@ void IndicatorDialog::on_night3WidgetClicked()
     object["DIS"].toBool() ? serialViscaManager.set_DIS_on() : serialViscaManager.set_DIS_off();
     object["DEFOG"].toBool() ? serialViscaManager.set_defog_on() : serialViscaManager.set_defog_off();
     object["HLC"].toBool() ? serialViscaManager.set_HLC_on() : serialViscaManager.set_HLC_off();
+
+    emit sig_Night();
 //    ViscaManager viscaManager;
 //    viscaManager.SetDayMode(object);
 }

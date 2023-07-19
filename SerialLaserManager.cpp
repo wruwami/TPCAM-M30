@@ -24,6 +24,8 @@ SerialLaserManager::SerialLaserManager()
 
 SerialLaserManager::~SerialLaserManager()
 {
+    delete m_pSerial;
+    delete laser_packet;
     close();
 }
 
@@ -41,7 +43,7 @@ void SerialLaserManager::serial_received()
             byte_data = data[i];
             if(laser_packet->ReceiveData(byte_data)==1)
             {
-//                laser_packet->ParsingPacket(listview_laser, model_laser);
+                laser_packet->ParsingPacket();
 //                listview_laser->scrollToBottom();
                 //추가
 //                hud.showSpeedDistance(laser_packet->m_nSpeed , laser_packet->m_fDistance);

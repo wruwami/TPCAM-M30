@@ -30,6 +30,7 @@ public:
 private:
     void clearSecondRow();
     void initlize();
+    bool isExistSecondWidget();
 
 private slots:
     void on_cameraPushButton_clicked();
@@ -107,6 +108,8 @@ private:
     SerialLaserManager* m_pSerialLaserManager = nullptr;
 //    SerialLaserManager* m_pSerialLaserManager;
     // QWidget interface
+signals:
+    void sig_Night();
 protected:
     void paintEvent(QPaintEvent *event);
     void mousePressEvent(QMouseEvent *event);

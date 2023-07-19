@@ -199,7 +199,9 @@ void MainWindow::initializeMainMenuWidget()
 void MainWindow::initializeLoginWidget()
 {
     m_widgetType = Login;
+    m_pIndicatorWidget->setFocusExposeDisabled(true);
     m_pIndicatorWidget->m_bFocusExposeDisabled = true;
+
     m_pIndicatorWidget->m_bEnforcement = false;
 
     if (ui->verticalLayout->count() > 1)
@@ -332,6 +334,7 @@ void MainWindow::on_gpsPushButton_clicked()
 
 void MainWindow::on_loginWidgetClicked()
 {
+    m_pIndicatorWidget->setFocusExposeDisabled(true);
     m_pIndicatorWidget->m_bFocusExposeDisabled = true;
     m_pIndicatorWidget->m_bEnforcement = false;
     if (m_userName == "admin-align")
@@ -399,6 +402,7 @@ void MainWindow::on_dateTimeWidgetClicked()
 void MainWindow::on_enforcementClicked()
 {
     m_widgetType = Enforcement;
+    m_pIndicatorWidget->setFocusExposeDisabled(false);
     m_pIndicatorWidget->m_bFocusExposeDisabled = false;
     m_pIndicatorWidget->m_bEnforcement = true;
 
@@ -422,6 +426,7 @@ void MainWindow::on_enforcementClicked()
     m_pIndicatorWidget->setPSerialLaserManager(m_pSerialLaserManager);
     connect(m_pIndicatorWidget->m_pIndicatorCameraFocusWidget->m_pAutoTriggerPushButton, SIGNAL(clicked()), m_pEnforcementWidget->m_pEnforcementComponentWidget, SLOT(on_readyPushButton_clicked()));
     connect(m_pEnforcementWidget->m_pEnforcementComponentWidget->m_pReadyButton, SIGNAL(clicked()), m_pIndicatorWidget->m_pIndicatorCameraFocusWidget, SLOT(on_autoTriggerPushButton_clicked()));
+    connect(m_pIndicatorWidget, SIGNAL(sig_Night()), m_pEnforcementWidget->m_pEnforcementComponentWidget, SLOT(on_Night()));
     SetCamera();
 }
 
@@ -434,6 +439,7 @@ void MainWindow::OpenEnforcement()
         return;
 
     m_widgetType = Enforcement;
+    m_pIndicatorWidget->setFocusExposeDisabled(false);
     m_pIndicatorWidget->m_bFocusExposeDisabled = false;
     m_pIndicatorWidget->m_bEnforcement = true;
     if (ui->verticalLayout->count() > 1)
@@ -480,6 +486,7 @@ void MainWindow::OpenEnforcement()
     m_pIndicatorWidget->setPSerialLaserManager(m_pSerialLaserManager);
     connect(m_pIndicatorWidget->m_pIndicatorCameraFocusWidget->m_pAutoTriggerPushButton, SIGNAL(clicked()), m_pEnforcementWidget->m_pEnforcementComponentWidget, SLOT(on_readyPushButton_clicked()));
     connect(m_pEnforcementWidget->m_pEnforcementComponentWidget->m_pReadyButton, SIGNAL(clicked()), m_pIndicatorWidget->m_pIndicatorCameraFocusWidget, SLOT(on_autoTriggerPushButton_clicked()));
+    connect(m_pIndicatorWidget, SIGNAL(sig_Night()), m_pEnforcementWidget->m_pEnforcementComponentWidget, SLOT(on_Night()));
 
     m_pMainMenuWidget->setMainMenuImage("Main_menu", "home_big_n.bmp");
 }

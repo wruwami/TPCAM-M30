@@ -68,6 +68,7 @@ public:
     SerialLaserManager* m_pSerialLaserManager = nullptr;
     CustomPushButton* m_pReadyButton;
     void setPSerialLaserManager(SerialLaserManager *newPSerialLaserManager);
+    bool m_bNight = false;
 
 private:
     bool m_bHide = false;
@@ -105,6 +106,7 @@ protected slots:
     void on_showCaptureSpeedDistance(float, float);
     void on_showSpeedDistance(float, float);
     void on_showDistance(float, int);
+    void on_Night();
 protected:
     void paintEvent(QPaintEvent *event);
 

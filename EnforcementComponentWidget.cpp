@@ -707,6 +707,15 @@ void EnforcementComponentWidget::on_dzMinusPushButton_clicked()
 
 void EnforcementComponentWidget::on_showCaptureSpeedDistance(float fSpeed, float fDistance)
 {
+    if (m_bNight)
+    {
+        m_pSerialLaserManager->stop_laser();
+        m_pSerialLaserManager->start_laser();
+        m_pSerialLaserManager->request_distance(true);
+        m_bNight = false;
+        return;
+    }
+
     if (fSpeed >= GetCaptureSpeedLimit())
     {
         // 화면에 속도 및 거리, REC 표시 출력
@@ -751,5 +760,10 @@ void EnforcementComponentWidget::on_showDistance(float fDistance, int nSensitivi
     displayHudDistance(true, true);
 //    로그 저장
 
+}
+
+void EnforcementComponentWidget::on_Night()
+{
+    m_bNight = true;
 }
 

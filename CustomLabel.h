@@ -14,6 +14,7 @@ public:
     void setImage(QString path_name, QString file_name);
     void setImage(QString path_name, QString file_name, QSize size);
     void setZoom(double factor, QRect rect);
+    void setColor(QColor);
 private:
     QPixmap scaleImage(double factor);
 private:

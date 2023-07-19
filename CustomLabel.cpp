@@ -91,7 +91,13 @@ void CustomLabel::setZoom(double factor, QRect rect)
         pixmap = scaleImage(factor).copy(0, 0, width, height);
     this->setPixmap(pixmap);
 //    this->setPixmap(m_fitpixmap.scaled(factor * m_fitpixmap.size()));
-//    this->resize(factor * m_fitpixmap.size());
+    //    this->resize(factor * m_fitpixmap.size());
+}
+
+void CustomLabel::setColor(QColor color)
+{
+    QPalette palette(color);
+    this->setPalette(palette);
 }
 
 QPixmap CustomLabel::scaleImage(double factor)
@@ -111,3 +117,4 @@ void CustomLabel::resizeEvent(QResizeEvent *event)
         font.setPointSizeF(FontSize::Minimum);
     this->setFont(font); //설정된 폰트를 위젯에 적용
 }
+

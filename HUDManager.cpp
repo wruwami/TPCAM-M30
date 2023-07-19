@@ -1,5 +1,7 @@
 #include "HUDManager.h"
 
+#include "SpeedUnitManager.h"
+
 HUDManager::HUDManager()
 {
 
@@ -12,4 +14,35 @@ HUDManager::HUDManager()
 void HUDManager::SetReticleShape(Shape shape)
 {
     m_hud.writeNumberToFile("pointer_shape", shape);
+}
+
+void HUDManager::ShowSpeed(bool nSpeed, bool nRec)
+{
+    if (nRec)
+        m_hud.writeNumberToFile("speed", 2);
+    else if (nSpeed)
+        m_hud.writeNumberToFile("speed", 1);
+    else
+        m_hud.writeNumberToFile("speed", 0);
+}
+
+void HUDManager::ShowDistance(bool nShow)
+{
+    if (nShow)
+        m_hud.writeNumberToFile("distance", 1);
+    else
+        m_hud.writeNumberToFile("distance", 0);
+}
+
+void HUDManager::ShowDistanceUnit(bool nShow)
+{
+    Distance distance = distanceValue();
+    if (nShow && distance == meter)
+        m_hud.writeNumberToFile("distance_sensitivity_unit", 2);
+    else if (!nShow && distance == meter)
+        m_hud.writeNumberToFile("distance_sensitivity_unit", 0);
+    else if (nShow && distance == feet)
+        m_hud.writeNumberToFile("distance_sensitivity_unit", 3);
+    else if (!nShow && distance == feet)
+        m_hud.writeNumberToFile("distance_sensitivity_unit", 1);
 }

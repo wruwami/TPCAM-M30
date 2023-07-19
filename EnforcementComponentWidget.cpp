@@ -2,6 +2,7 @@
 #include "ui_EnforcementComponentWidget.h"
 
 #include <QPainter>
+#include <QTime>
 
 #include "StringLoader.h"
 #include "camera.h"
@@ -10,6 +11,7 @@
 #include "SerialLaserManager.h"
 #include "SerialViscaManager.h"
 #include "SerialPacket.h"
+#include "SpeedUnitManager.h"
 
 
 EnforcementComponentWidget::EnforcementComponentWidget(QWidget *parent) :
@@ -38,8 +40,8 @@ EnforcementComponentWidget::EnforcementComponentWidget(QWidget *parent) :
 
     m_captureSpeed = m_object["capture speed"].toArray();
 
-    ui->speedLabel->setText(QString("CS: %0%4\nT%2%4\nM%3%4").arg(m_captureSpeed[0].toString()).arg(m_captureSpeed[1].toString()).arg(m_captureSpeed[2].toString()).arg(SpeedUnitManager::GetInstance()->distance()));
-    ui->speedLabel->setDisabled(true);
+    ui->speedLimitLabel->setText(QString("CS: %0%4\nT%2%4\nM%3%4").arg(m_captureSpeed[0].toString()).arg(m_captureSpeed[1].toString()).arg(m_captureSpeed[2].toString()).arg(SpeedUnitManager::GetInstance()->distance()));
+    ui->speedLimitLabel->setDisabled(true);
 
 
     if (m_object["speed selection"].toInt() == 1)
@@ -66,7 +68,7 @@ EnforcementComponentWidget::EnforcementComponentWidget(QWidget *parent) :
     ui->truckPushButton->setSizePolicy(sp_retain);
     ui->bikePushButton->setSizePolicy(sp_retain);
 
-    ui->speedLabel->setSizePolicy(sp_retain);
+    ui->speedLimitLabel->setSizePolicy(sp_retain);
 
     ui->enforcementCountLabel->setSizePolicy(sp_retain);
     ui->enforcementDistanceSpeedLabel->setSizePolicy(sp_retain);
@@ -243,7 +245,7 @@ void EnforcementComponentWidget::hide()
     ui->truckPushButton->hide();
     ui->bikePushButton->hide();
 
-    ui->speedLabel->hide();
+    ui->speedLimitLabel->hide();
 
     ui->enforcementCountLabel->hide();
     ui->enforcementDistanceSpeedLabel->hide();
@@ -262,7 +264,7 @@ void EnforcementComponentWidget::show()
     ui->truckPushButton->show();
     ui->bikePushButton->show();
 
-    ui->speedLabel->show();
+    ui->speedLimitLabel->show();
 
     ui->enforcementCountLabel->show();
     ui->enforcementDistanceSpeedLabel->show();
@@ -544,26 +546,51 @@ int EnforcementComponentWidget::GetCaptureSpeedLimit()
     }
 }
 
-void EnforcementComponentWidget::displayScreenOverSpeed(float fSpeed, float fDistance)
+void EnforcementComponentWidget::displaySpeedDistance(float fSpeed, float fDistance, QColor color, bool nRec)
 {
-    // 화면에 속도 및 거리, REC 표시 출력
-    displaySpeedDistance(fSpeed, fDistance);
+    ui->distanceLabel->setColor(color);
+    ui->distanceLabel->setText(QString::number(fDistance, 'f', 1) + distance());
+    // REC
+    ui->speedLabel->setText(QString::number(fSpeed)+speedUnit());
+//    if (nRec)
+    //        ui->speedLabel->setText()
+}
 
-//    빨간색 테두리 표시 등
-//        이미지 또는 동영상을 설정대로 저장
-    //썸네일 표시 처리, 썸네일 위에 단속 정보 표시 처리 출력
+void EnforcementComponentWidget::displayDistance(float fDistance)
+{
+    ui->distanceLabel->setText(QString::number(fDistance, 'f', 1) + distance());
+}
+
+void EnforcementComponentWidget::displayRedOutline(bool nOn)
+{
+    if (nOn)
+    {
+        m_isSetOutLine = true;
+    }
+    else
+    {
+        m_isSetOutLine = false;
+    }
+}
+
+void EnforcementComponentWidget::ImageVideoSave()
+{
 
 }
 
-void EnforcementComponentWidget::displayHUDnOverSpeed(float fSpeed, float fDistance)
+void EnforcementComponentWidget::displayThumbnail(float fSpeed, float fDistance)
 {
-    sprintf("%d", fDistance)/;
-    ui->distanceLabel->setText(fDistance);
+    ui->enforcementCountLabel->setText(QString::number(m_nCrackDownIndex++));
+    ui->enforcementTimeLabel->setText(QTime::currentTime().toString("hh:mm:ss"));
+    ui->enforcementDistanceSpeedLabel->setText(QString::number(fSpeed) + distance() + ", " + QString::number(fDistance) + speedUnit());
 }
 
-void EnforcementComponentWidget::displaySpeedDistance(float fSpeed, float fDistance)
+void EnforcementComponentWidget::displayHudSpeedDistance(bool nDisplay, bool nSpeed, bool nRec, bool nUnit)
 {
-
+    HUDManager hudManager;
+    hudManager.ShowSpeed(nSpeed, nRec);
+    hudManager.ShowDistance(nDisplay);
+    hudManager.ShowDistanceUnit(nUnit);
 }
 
 void EnforcementComponentWidget::setPSerialLaserManager(SerialLaserManager *newPSerialLaserManager)
@@ -673,19 +700,44 @@ void EnforcementComponentWidget::on_dzMinusPushButton_clicked()
 
 void EnforcementComponentWidget::on_showCaptureSpeedDistance(float fSpeed, float fDistance)
 {
-    if (fSpeed > GetCaptureSpeedLimit())
+    if (fSpeed >= GetCaptureSpeedLimit())
     {
+        // 화면에 속도 및 거리, REC 표시 출력
+        displaySpeedDistance(fSpeed, fDistance, Qt::red, true);
 
+        // HUD에 속도 및 거리, REC 표시 출력
+        displayHudSpeedDistance(true, true, true, true);
+    //    빨간색 테두리 표시 등
+        displayRedOutline(true);
+    //        이미지 또는 동영상을 설정대로 저장
+        ImageVideoSave();
+        //썸네일 표시 처리, 썸네일 위에 단속 정보 표시 처리 출력
+        displayThumbnail(fSpeed, fDistance);
+        sleep(1);
+    }
+    else if (fSpeed < GetCaptureSpeedLimit())
+    {
+//        화면에 속도 및 거리 출력
+//        HUD에 속도 및 거리 출력
+//        로그 저장
     }
 }
 
 void EnforcementComponentWidget::on_showSpeedDistance(float fSpeed, float fDistance)
 {
+//    화면에 속도 및 거리 출력
+    displaySpeedDistance(fSpeed, fDistance, Qt::white, false);
+//        HUD에 속도 및 거리 출력
+//        로그 저장
 
 }
 
 void EnforcementComponentWidget::on_showDistance(float fDistance, int nSensitivity)
 {
+//    화면에 거리 출력
+    displayDistance(fDistance);
+//	HUD에 거리 출력
+//    로그 저장
 
 }
 

@@ -158,7 +158,7 @@
         </widget>
        </item>
        <item row="2" column="0" colspan="2">
-        <widget class="CustomLabel" name="speedLabel">
+        <widget class="CustomLabel" name="speedLimitLabel">
          <property name="styleSheet">
           <string notr="true">QLabel {
     background-color: white;
@@ -183,14 +183,14 @@ QLabel:disabled {
       </layout>
      </item>
      <item row="3" column="1">
-      <widget class="QLabel" name="distanceLabel">
+      <widget class="CustomLabel" name="distanceLabel">
        <property name="text">
         <string/>
        </property>
       </widget>
      </item>
      <item row="1" column="2">
-      <widget class="QLabel" name="speedLabel_2">
+      <widget class="CustomLabel" name="speedLabel">
        <property name="text">
         <string/>
        </property>

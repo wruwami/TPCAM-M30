@@ -55,9 +55,14 @@ private:
     void doReadyMode();
     int GetCaptureSpeedLimit();
 
-    void displayScreenOverSpeed(float fSpeed, float fDistance);
-    void displayHUDnOverSpeed(float fSpeed, float fDistance);
-    void displaySpeedDistance(float, float);
+    void displaySpeedDistance(float, float, QColor = Qt::white, bool = false);
+
+    void displayDistance(float);
+    void displayRedOutline(bool);
+    void ImageVideoSave();
+    void displayThumbnail(float, float);
+
+    void displayHudSpeedDistance(bool, bool, bool, bool);
 public:
     SerialLaserManager* m_pSerialLaserManager = nullptr;
     CustomPushButton* m_pReadyButton;
@@ -85,6 +90,7 @@ private:
     int VehicleCount = 0;
     QJsonArray m_captureSpeed;
     VehicleMode m_nVehicleMode = Normal;
+    int m_nCrackDownIndex = 0;
 protected slots:
     void on_hidePushButton_clicked();
     void doShartAction();

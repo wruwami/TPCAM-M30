@@ -26,15 +26,48 @@ public:
         return instance;
     }
 
-    QString distance() const;
+    QString distance();
+    Distance distanceValue();
     void setDistance(Distance newDistance);
 
-    QString speedUnit() const;
+    SpeedUnit speedUnitValue();
+    QString speedUnit();
     void setSpeedUnit(SpeedUnit newSpeedUnit);
 
 private:
     Distance m_distance = meter;
     SpeedUnit m_speedUnit = Km;
 };
+
+static QString distance()
+{
+    return SpeedUnitManager::GetInstance()->distance();
+}
+
+static void setDistance(Distance newDistance)
+{
+    SpeedUnitManager::GetInstance()->setDistance(newDistance);
+}
+
+static QString speedUnit()
+{
+    return SpeedUnitManager::GetInstance()->speedUnit();
+}
+
+static void setSpeedUnit(SpeedUnit newSpeedUnit)
+{
+    SpeedUnitManager::GetInstance()->setSpeedUnit(newSpeedUnit);
+}
+
+static Distance distanceValue()
+{
+    return SpeedUnitManager::GetInstance()->distanceValue();
+}
+
+static SpeedUnit speedUnitValue()
+{
+    return SpeedUnitManager::GetInstance()->speedUnitValue();
+}
+
 
 #endif // SPEEDUNITMANAGER_H

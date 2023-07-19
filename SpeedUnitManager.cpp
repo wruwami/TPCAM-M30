@@ -21,11 +21,16 @@ SpeedUnitManager::SpeedUnitManager()
 
 }
 
-QString SpeedUnitManager::distance() const
+QString SpeedUnitManager::distance()
 {
     if (m_distance == meter)
         return "m";
     return "ft";
+}
+
+Distance SpeedUnitManager::distanceValue()
+{
+    return m_distance;
 }
 
 void SpeedUnitManager::setDistance(Distance newDistance)
@@ -33,7 +38,12 @@ void SpeedUnitManager::setDistance(Distance newDistance)
     m_distance = newDistance;
 }
 
-QString SpeedUnitManager::speedUnit() const
+SpeedUnit SpeedUnitManager::speedUnitValue()
+{
+    return m_speedUnit;
+}
+
+QString SpeedUnitManager::speedUnit()
 {
     if (m_speedUnit == Km)
         return "km/h";

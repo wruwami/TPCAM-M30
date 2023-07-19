@@ -3,6 +3,7 @@
 
 #include "HeadUpDisplay.h"
 
+
 enum Shape
 {
     Dot = 0,
@@ -17,6 +18,9 @@ class HUDManager
 public:
     HUDManager();
     void SetReticleShape(Shape);
+    void ShowSpeed(bool, bool);
+    void ShowDistance(bool);
+    void ShowDistanceUnit(bool);
 private:
     CHeadUpDisplay m_hud;
 };

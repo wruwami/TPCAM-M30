@@ -69,7 +69,7 @@ public:
     CustomPushButton* m_pReadyButton;
     void setPSerialLaserManager(SerialLaserManager *newPSerialLaserManager);
     bool m_bNight = false;
-
+    bool m_bVirtualMode = false;
 private:
     bool m_bHide = false;
     bool m_isSetOutLine = false;
@@ -93,6 +93,7 @@ private:
     QJsonArray m_captureSpeed;
     VehicleMode m_nVehicleMode = Normal;
     int m_nCrackDownIndex = 0;
+
 protected slots:
     void on_hidePushButton_clicked();
     void doShartAction();

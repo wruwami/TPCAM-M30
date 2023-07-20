@@ -428,6 +428,10 @@ void MainWindow::on_enforcementClicked()
     connect(m_pIndicatorWidget->m_pIndicatorCameraFocusWidget->m_pAutoTriggerPushButton, SIGNAL(clicked()), m_pEnforcementWidget->m_pEnforcementComponentWidget, SLOT(on_readyPushButton_clicked()));
     connect(m_pEnforcementWidget->m_pEnforcementComponentWidget->m_pReadyButton, SIGNAL(clicked()), m_pIndicatorWidget->m_pIndicatorCameraFocusWidget, SLOT(on_autoTriggerPushButton_clicked()));
     connect(m_pIndicatorWidget, SIGNAL(sig_Night()), m_pEnforcementWidget->m_pEnforcementComponentWidget, SLOT(on_Night()));
+    if (m_userName == "admin-test")
+        m_pEnforcementWidget->m_pEnforcementComponentWidget->m_bVirtualMode = true;
+    else
+        m_pEnforcementWidget->m_pEnforcementComponentWidget->m_bVirtualMode = false;
     SetCamera();
 }
 
@@ -489,6 +493,10 @@ void MainWindow::OpenEnforcement()
     connect(m_pIndicatorWidget->m_pIndicatorCameraFocusWidget->m_pAutoTriggerPushButton, SIGNAL(clicked()), m_pEnforcementWidget->m_pEnforcementComponentWidget, SLOT(on_readyPushButton_clicked()));
     connect(m_pEnforcementWidget->m_pEnforcementComponentWidget->m_pReadyButton, SIGNAL(clicked()), m_pIndicatorWidget->m_pIndicatorCameraFocusWidget, SLOT(on_autoTriggerPushButton_clicked()));
     connect(m_pIndicatorWidget, SIGNAL(sig_Night()), m_pEnforcementWidget->m_pEnforcementComponentWidget, SLOT(on_Night()));
+    if (m_userName == "admin-test")
+        m_pEnforcementWidget->m_pEnforcementComponentWidget->m_bVirtualMode = true;
+    else
+        m_pEnforcementWidget->m_pEnforcementComponentWidget->m_bVirtualMode = false;
 
     m_pMainMenuWidget->setMainMenuImage("Main_menu", "home_big_n.bmp");
 }

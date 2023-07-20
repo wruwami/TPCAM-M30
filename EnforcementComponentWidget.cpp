@@ -509,6 +509,10 @@ void EnforcementComponentWidget::laserInit()
 void EnforcementComponentWidget::doATMode()
 {
     SerialPacket* laser_packet = m_pSerialLaserManager->getLaser_packet();
+    m_pSerialLaserManager->start_laser();
+    m_pSerialLaserManager->request_distance(true);
+    if (m_bVirtualMode)
+        m_pSerialLaserManager->start_virtualSpeed();
     connect(laser_packet, SIGNAL(sig_showCaptureSpeedDistance(float,float)), this, SLOT(on_showCaptureSpeedDistance(float,float)));
     connect(laser_packet, SIGNAL(sig_showSpeedDistance(float,float)), this, SLOT(on_showSpeedDistance(float,float)));
     connect(laser_packet, SIGNAL(sig_showDistance(float,int)), this, SLOT(on_showDistance(float, int)));

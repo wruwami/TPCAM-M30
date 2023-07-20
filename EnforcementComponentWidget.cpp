@@ -511,7 +511,7 @@ void EnforcementComponentWidget::doATMode()
     SerialPacket* laser_packet = m_pSerialLaserManager->getLaser_packet();
     connect(laser_packet, SIGNAL(sig_showCaptureSpeedDistance(float,float)), this, SLOT(on_showCaptureSpeedDistance(float,float)));
     connect(laser_packet, SIGNAL(sig_showSpeedDistance(float,float)), this, SLOT(on_showSpeedDistance(float,float)));
-    connect(laser_packet, SIGNAL(sig_showDistance(float,int)), this, SLOT(on_showCaptureSpeedDistance(float,int)));
+    connect(laser_packet, SIGNAL(sig_showDistance(float,int)), this, SLOT(on_showDistance(float, int)));
 }
 
 void EnforcementComponentWidget::doManualMode()

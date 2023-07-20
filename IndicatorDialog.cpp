@@ -282,7 +282,7 @@ void IndicatorDialog::on_speedLTPushButton_clicked()
     m_jsonObject1["speed selection"] = 2;
     m_pMainMenuWidget->setIndicatorImage(m_pMainMenuWidget->m_pSpeedPushbutton, "indicator", "indicator_enable_user_mode_off.jpg");
 
-    emit sig_STMode();
+    emit sig_LTMode();
 
 //    if (!m_bEnforcement)
 //        return;

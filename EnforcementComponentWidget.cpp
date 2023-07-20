@@ -105,16 +105,16 @@ EnforcementComponentWidget::EnforcementComponentWidget(QWidget *parent) :
     if (m_UserModeOn)
     {
         if (m_nDistance == meter)
-            ui->zoomRangePushButton->setText(QString("(%1 %2)").arg(m_stmetervector[m_nStIndex]).arg(SpeedUnitManager::GetInstance()->distance()));
+            ui->zoomRangePushButton->setText(QString("%1%2").arg(m_stmetervector[m_nStIndex]).arg(SpeedUnitManager::GetInstance()->distance()));
         else
-            ui->zoomRangePushButton->setText(QString("(%1 %2)").arg(m_stfeetvector[m_nStIndex]).arg(SpeedUnitManager::GetInstance()->distance()));
+            ui->zoomRangePushButton->setText(QString("%1%2").arg(m_stfeetvector[m_nStIndex]).arg(SpeedUnitManager::GetInstance()->distance()));
     }
     else
     {
         if (m_nDistance == meter)
-            ui->zoomRangePushButton->setText(QString("(%1 %2)").arg(m_ltmetervector[m_nLtIndex]).arg(SpeedUnitManager::GetInstance()->distance()));
+            ui->zoomRangePushButton->setText(QString("%1%2").arg(m_ltmetervector[m_nLtIndex]).arg(SpeedUnitManager::GetInstance()->distance()));
         else
-            ui->zoomRangePushButton->setText(QString("(%1 %2)").arg(m_ltfeetvector[m_nLtIndex]).arg(SpeedUnitManager::GetInstance()->distance()));
+            ui->zoomRangePushButton->setText(QString("%1%2").arg(m_ltfeetvector[m_nLtIndex]).arg(SpeedUnitManager::GetInstance()->distance()));
     }
 
 //    switch (m_nMode)
@@ -658,6 +658,10 @@ void EnforcementComponentWidget::zoomRange()
     int zoom_index = 0;
     if (m_UserModeOn)
     {
+        m_nStIndex++;
+        if (m_nStIndex == m_stmetervector.size())
+            m_nStIndex = 0;
+
         zoom_index = m_nStIndex;
         if (distanceValue() == meter)
         {
@@ -667,12 +671,14 @@ void EnforcementComponentWidget::zoomRange()
         {
             ui->zoomRangePushButton->setText(m_stfeetvector[m_nStIndex]+"ft");
         }
-        m_nStIndex++;
-        if (m_nStIndex == m_stmetervector.size())
-            m_nStIndex = 0;
+
     }
     else
     {
+        m_nLtIndex++;
+        if (m_nLtIndex == m_ltmetervector.size())
+            m_nLtIndex = 0;
+
         zoom_index = m_nLtIndex;
         if (distanceValue() == meter)
         {
@@ -683,9 +689,7 @@ void EnforcementComponentWidget::zoomRange()
         {
             ui->zoomRangePushButton->setText(m_ltfeetvector[m_nLtIndex]+"ft");
         }
-        m_nLtIndex++;
-        if (m_nLtIndex == m_stmetervector.size())
-            m_nLtIndex = 0;
+
     }
 
     SetLaserDetectionAreaDistance(zoom_index);
@@ -871,7 +875,7 @@ void EnforcementComponentWidget::on_STMode()
 
 void EnforcementComponentWidget::on_LTMode()
 {
-    m_UserModeOn = true;
+    m_UserModeOn = false;
     zoomRange();
 }
 

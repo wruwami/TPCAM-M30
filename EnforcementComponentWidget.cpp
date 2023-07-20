@@ -117,31 +117,31 @@ EnforcementComponentWidget::EnforcementComponentWidget(QWidget *parent) :
             ui->zoomRangePushButton->setText(QString("(%1 %2)").arg(m_ltfeetvector[m_nLtIndex]).arg(SpeedUnitManager::GetInstance()->distance()));
     }
 
-    switch (m_nMode)
-    {
-    case Ready:
-    {
-        ui->readyPushButton->setText(LoadString("IDS_Ready"));
-        m_nMode = Ready;
-        doReadyMode();
-    }
-        break;
-    case AT:
-    {
-        ui->readyPushButton->setText(LoadString("IDS_AT"));
-        m_nMode = AT;
-        doATMode();
+//    switch (m_nMode)
+//    {
+//    case Ready:
+//    {
+//        ui->readyPushButton->setText(LoadString("IDS_Ready"));
+//        m_nMode = Ready;
+//        doReadyMode();
+//    }
+//        break;
+//    case AT:
+//    {
+//        ui->readyPushButton->setText(LoadString("IDS_AT"));
+//        m_nMode = AT;
+//        doATMode();
 
-    }
-        break;
-    case Manual:
-    {
-        ui->readyPushButton->setText(LoadString("IDS_Manual"));
-        m_nMode = Manual;
-        doManualMode();
-    }
-        break;
-    }
+//    }
+//        break;
+//    case Manual:
+//    {
+//        ui->readyPushButton->setText(LoadString("IDS_Manual"));
+//        m_nMode = Manual;
+//        doManualMode();
+//    }
+//        break;
+//    }
 //    m_pSerialLaserManager->getLaser_packet();
 //    connect(m_p)
 }
@@ -536,7 +536,6 @@ void EnforcementComponentWidget::doATMode()
     m_pSerialLaserManager->stop_laser();
     m_pSerialLaserManager->request_distance(false);
 
-
     SerialPacket* laser_packet = m_pSerialLaserManager->getLaser_packet();
     m_pSerialLaserManager->start_laser();
     m_pSerialLaserManager->request_distance(true);
@@ -549,6 +548,7 @@ void EnforcementComponentWidget::doATMode()
 
 void EnforcementComponentWidget::doManualMode()
 {
+    doATMode();
 }
 
 void EnforcementComponentWidget::doReadyMode()

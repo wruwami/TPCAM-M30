@@ -590,6 +590,7 @@ void EnforcementComponentWidget::displaySpeedDistance(float fSpeed, float fDista
     ui->distanceLabel->setColor(color);
     ui->distanceLabel->setText(QString::number(fDistance, 'f', 1) + distance());
     // REC
+    ui->speedLabel->setColor(color);
     ui->speedLabel->setText(QString::number(fSpeed)+speedUnit());
 //    if (nRec)
     //        ui->speedLabel->setText()

@@ -377,16 +377,12 @@ void EnforcementComponentWidget::laserInit()
     ConfigManager config3 = ConfigManager("parameter_enforcement.json");
     QJsonObject object3 = config3.GetConfig();
 
-    bool nUserModeOn = true;
-    if (object["speed selection"].toInt() == 2)
-        nUserModeOn = false;
-
     int distance = 0, area = 0;
     switch (object3["zoom index"].toInt())
     {
     case 1:
     {
-        if (nUserModeOn)
+        if (m_UserModeOn)
         {
             distance = 20;
             area = 3;
@@ -400,7 +396,7 @@ void EnforcementComponentWidget::laserInit()
         break;
     case 2:
     {
-        if (nUserModeOn)
+        if (m_UserModeOn)
         {
             distance = 40;
             area = 3;
@@ -415,7 +411,7 @@ void EnforcementComponentWidget::laserInit()
         break;
     case 3:
     {
-        if (nUserModeOn)
+        if (m_UserModeOn)
         {
             distance = 60;
             area = 3;
@@ -430,7 +426,7 @@ void EnforcementComponentWidget::laserInit()
         break;
     case 4:
     {
-        if (nUserModeOn)
+        if (m_UserModeOn)
         {
             distance = 80;
             area = 3;
@@ -445,7 +441,7 @@ void EnforcementComponentWidget::laserInit()
         break;
     case 5:
     {
-        if (nUserModeOn)
+        if (m_UserModeOn)
         {
             distance = 100;
             area = 3;
@@ -460,7 +456,7 @@ void EnforcementComponentWidget::laserInit()
         break;
     case 6:
     {
-        if (nUserModeOn)
+        if (m_UserModeOn)
         {
             distance = 120;
             area = 3;
@@ -475,7 +471,7 @@ void EnforcementComponentWidget::laserInit()
         break;
     case 7:
     {
-        if (nUserModeOn)
+        if (m_UserModeOn)
         {
             distance = 140;
             area = 3;
@@ -490,7 +486,7 @@ void EnforcementComponentWidget::laserInit()
         break;
     case 8:
     {
-        if (nUserModeOn)
+        if (m_UserModeOn)
         {
             distance = 160;
             area = 3;
@@ -505,7 +501,7 @@ void EnforcementComponentWidget::laserInit()
         break;
     case 9:
     {
-        if (nUserModeOn)
+        if (m_UserModeOn)
         {
             distance = 180;
             area = 3;

@@ -76,7 +76,7 @@ EnforcementComponentWidget::EnforcementComponentWidget(QWidget *parent) :
 
     camInit();
     hudInit();
-    laserInit();
+//    laserInit();
 
     ConfigManager config = ConfigManager("zoom_level.json");
     object = config.GetConfig();

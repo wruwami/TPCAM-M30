@@ -424,7 +424,7 @@ void MainWindow::on_enforcementClicked()
     m_pMainMenuWidget->setTransparentBackGround(true);
     m_pEnforcementWidget->m_pEnforcementComponentWidget->setPSerialLaserManager(m_pSerialLaserManager);
     m_pIndicatorWidget->setPSerialLaserManager(m_pSerialLaserManager);
-//    m_pEnforcementWidget->m_pEnforcementComponentWidget->laserInit();
+    m_pEnforcementWidget->m_pEnforcementComponentWidget->laserInit();
     connect(m_pIndicatorWidget->m_pIndicatorCameraFocusWidget->m_pAutoTriggerPushButton, SIGNAL(clicked()), m_pEnforcementWidget->m_pEnforcementComponentWidget, SLOT(on_readyPushButton_clicked()));
     connect(m_pEnforcementWidget->m_pEnforcementComponentWidget->m_pReadyButton, SIGNAL(clicked()), m_pIndicatorWidget->m_pIndicatorCameraFocusWidget, SLOT(on_autoTriggerPushButton_clicked()));
     connect(m_pIndicatorWidget, SIGNAL(sig_Night()), m_pEnforcementWidget->m_pEnforcementComponentWidget, SLOT(on_Night()));
@@ -489,7 +489,7 @@ void MainWindow::OpenEnforcement()
     ui->verticalLayout->addWidget(m_pEnforcementWidget, 835);
     m_pEnforcementWidget->m_pEnforcementComponentWidget->setPSerialLaserManager(m_pSerialLaserManager);
     m_pIndicatorWidget->setPSerialLaserManager(m_pSerialLaserManager);
-//    m_pEnforcementWidget->m_pEnforcementComponentWidget->laserInit();
+    m_pEnforcementWidget->m_pEnforcementComponentWidget->laserInit();
     connect(m_pIndicatorWidget->m_pIndicatorCameraFocusWidget->m_pAutoTriggerPushButton, SIGNAL(clicked()), m_pEnforcementWidget->m_pEnforcementComponentWidget, SLOT(on_readyPushButton_clicked()));
     connect(m_pEnforcementWidget->m_pEnforcementComponentWidget->m_pReadyButton, SIGNAL(clicked()), m_pIndicatorWidget->m_pIndicatorCameraFocusWidget, SLOT(on_autoTriggerPushButton_clicked()));
     connect(m_pIndicatorWidget, SIGNAL(sig_Night()), m_pEnforcementWidget->m_pEnforcementComponentWidget, SLOT(on_Night()));

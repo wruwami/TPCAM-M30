@@ -74,6 +74,9 @@ public:
     CustomPushButton* m_pEnforcementPushButton = nullptr;
     CustomPushButton* m_pWeatherPushButton = nullptr;
     CustomPushButton* m_pSpeedModePushButton = nullptr;
+    CustomPushButton* m_pSTPushButton = nullptr;
+    CustomPushButton* m_pLTPushButton = nullptr;
+
     bool m_bFocusExposeDisabled = true;
     bool m_bEnforcement = false;
     IndicatorCameraFocusWidget* m_pIndicatorCameraFocusWidget;
@@ -93,8 +96,6 @@ private:
     CustomPushButton* m_pImagePushButton;
     CustomPushButton* m_pImageVideoPushButton;
     CustomPushButton* m_pVideoPushButton;
-    CustomPushButton* m_pSTPushButton;
-    CustomPushButton* m_pLTPushButton;
     CustomPushButton* m_pWifiPushButton;
     CustomPushButton* m_pBTPushButton;
     CustomPushButton* m_pEthernetPushButton;
@@ -110,6 +111,8 @@ private:
     // QWidget interface
 signals:
     void sig_Night();
+    void sig_STMode();
+    void sig_LTMode();
 protected:
     void paintEvent(QPaintEvent *event);
     void mousePressEvent(QMouseEvent *event);

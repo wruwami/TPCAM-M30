@@ -233,6 +233,11 @@ void MainWindow::initializeLoginWidget()
     QObject::connect((QWidget*)m_pLoginWidget->m_loginPushButton, SIGNAL(clicked()), this, SLOT(on_loginWidgetClicked()));
     QObject::connect((QWidget*)m_pLoginWidget->m_dateTimePushButton, SIGNAL(clicked()), this, SLOT(on_dateTimeWidgetClicked()));
     QObject::connect((QWidget*)m_pLoginWidget->m_pUserNameComboBox, SIGNAL(currentIndexChanged(QString)), this, SLOT(on_userNameChanged(QString)));
+    disconnect(m_pIndicatorWidget->m_pIndicatorCameraFocusWidget->m_pAutoTriggerPushButton, SIGNAL(clicked()), m_pEnforcementWidget->m_pEnforcementComponentWidget, SLOT(on_readyPushButton_clicked()));
+    disconnect(m_pEnforcementWidget->m_pEnforcementComponentWidget->m_pReadyButton, SIGNAL(clicked()), m_pIndicatorWidget->m_pIndicatorCameraFocusWidget, SLOT(on_autoTriggerPushButton_clicked()));
+    disconnect(m_pIndicatorWidget, SIGNAL(sig_Night()), m_pEnforcementWidget->m_pEnforcementComponentWidget, SLOT(on_Night()));
+    disconnect(m_pIndicatorWidget, SIGNAL(sig_STMode()), m_pEnforcementWidget->m_pEnforcementComponentWidget, SLOT(on_STMode()));
+    disconnect(m_pIndicatorWidget, SIGNAL(sig_LTMode()), m_pEnforcementWidget->m_pEnforcementComponentWidget, SLOT(on_LTMode()));
 }
 
 void MainWindow::finalize()
@@ -374,6 +379,11 @@ void MainWindow::on_loginWidgetClicked()
         QObject::connect((QWidget*)m_pMainMenuContentWidget->m_pSettingButton, SIGNAL(clicked()), this, SLOT(on_settingClicked()));
         QObject::connect((QWidget*)m_pMainMenuContentWidget->m_pLogoButton, SIGNAL(clicked()), this, SLOT(on_logo_clicked()));
     }
+    disconnect(m_pIndicatorWidget->m_pIndicatorCameraFocusWidget->m_pAutoTriggerPushButton, SIGNAL(clicked()), m_pEnforcementWidget->m_pEnforcementComponentWidget, SLOT(on_readyPushButton_clicked()));
+    disconnect(m_pEnforcementWidget->m_pEnforcementComponentWidget->m_pReadyButton, SIGNAL(clicked()), m_pIndicatorWidget->m_pIndicatorCameraFocusWidget, SLOT(on_autoTriggerPushButton_clicked()));
+    disconnect(m_pIndicatorWidget, SIGNAL(sig_Night()), m_pEnforcementWidget->m_pEnforcementComponentWidget, SLOT(on_Night()));
+    disconnect(m_pIndicatorWidget, SIGNAL(sig_STMode()), m_pEnforcementWidget->m_pEnforcementComponentWidget, SLOT(on_STMode()));
+    disconnect(m_pIndicatorWidget, SIGNAL(sig_LTMode()), m_pEnforcementWidget->m_pEnforcementComponentWidget, SLOT(on_LTMode()));
 }
 
 void MainWindow::on_dateTimeWidgetClicked()
@@ -428,6 +438,8 @@ void MainWindow::on_enforcementClicked()
     connect(m_pIndicatorWidget->m_pIndicatorCameraFocusWidget->m_pAutoTriggerPushButton, SIGNAL(clicked()), m_pEnforcementWidget->m_pEnforcementComponentWidget, SLOT(on_readyPushButton_clicked()));
     connect(m_pEnforcementWidget->m_pEnforcementComponentWidget->m_pReadyButton, SIGNAL(clicked()), m_pIndicatorWidget->m_pIndicatorCameraFocusWidget, SLOT(on_autoTriggerPushButton_clicked()));
     connect(m_pIndicatorWidget, SIGNAL(sig_Night()), m_pEnforcementWidget->m_pEnforcementComponentWidget, SLOT(on_Night()));
+    connect(m_pIndicatorWidget, SIGNAL(sig_STMode()), m_pEnforcementWidget->m_pEnforcementComponentWidget, SLOT(on_STMode()));
+    connect(m_pIndicatorWidget, SIGNAL(sig_LTMode()), m_pEnforcementWidget->m_pEnforcementComponentWidget, SLOT(on_LTMode()));
     if (m_userName == "admin-test")
         m_pEnforcementWidget->m_pEnforcementComponentWidget->m_bVirtualMode = true;
     else
@@ -493,6 +505,8 @@ void MainWindow::OpenEnforcement()
     connect(m_pIndicatorWidget->m_pIndicatorCameraFocusWidget->m_pAutoTriggerPushButton, SIGNAL(clicked()), m_pEnforcementWidget->m_pEnforcementComponentWidget, SLOT(on_readyPushButton_clicked()));
     connect(m_pEnforcementWidget->m_pEnforcementComponentWidget->m_pReadyButton, SIGNAL(clicked()), m_pIndicatorWidget->m_pIndicatorCameraFocusWidget, SLOT(on_autoTriggerPushButton_clicked()));
     connect(m_pIndicatorWidget, SIGNAL(sig_Night()), m_pEnforcementWidget->m_pEnforcementComponentWidget, SLOT(on_Night()));
+    connect(m_pIndicatorWidget, SIGNAL(sig_STMode()), m_pEnforcementWidget->m_pEnforcementComponentWidget, SLOT(on_STMode()));
+    connect(m_pIndicatorWidget, SIGNAL(sig_LTMode()), m_pEnforcementWidget->m_pEnforcementComponentWidget, SLOT(on_LTMode()));
     if (m_userName == "admin-test")
         m_pEnforcementWidget->m_pEnforcementComponentWidget->m_bVirtualMode = true;
     else

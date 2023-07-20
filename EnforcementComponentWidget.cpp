@@ -158,78 +158,81 @@ EnforcementComponentWidget::~EnforcementComponentWidget()
 
 void EnforcementComponentWidget::dzPlus()
 {
-    if (m_UserModeOn)
-    {
-        if (m_nDistance == meter)
-        {
-            if (m_nStIndex < m_stmetervector.size() - 1)
-            {
-                m_nStIndex++;
-                ui->zoomRangePushButton->setText(QString("(%1 %2)").arg(m_stmetervector[m_nStIndex]).arg(SpeedUnitManager::GetInstance()->distance()));
-                SerialViscaManager serialViscaManager;
-                serialViscaManager.dzoom(m_nStIndex);
-            }
-        }
-        else
-        {
-            if (m_nStIndex < m_stfeetvector.size() - 1)
-            {
-                m_nStIndex++;
-                ui->zoomRangePushButton->setText(QString("(%1 %2)").arg(m_stfeetvector[m_nStIndex]).arg(SpeedUnitManager::GetInstance()->distance()));
-                SerialViscaManager serialViscaManager;
-                serialViscaManager.dzoom(m_nStIndex);
-            }
+    SerialViscaManager serialViscaManager;
+    serialViscaManager.plus_dzoom();
+//    if (m_UserModeOn)
+//    {
+//        if (m_nDistance == meter)
+//        {
+//            if (m_nStIndex < m_stmetervector.size() - 1)
+//            {
+//                m_nStIndex++;
+//                ui->zoomRangePushButton->setText(QString("(%1 %2)").arg(m_stmetervector[m_nStIndex]).arg(SpeedUnitManager::GetInstance()->distance()));
+//                SerialViscaManager serialViscaManager;
+//                serialViscaManager.dzoom(m_nStIndex);
+//            }
+//        }
+//        else
+//        {
+//            if (m_nStIndex < m_stfeetvector.size() - 1)
+//            {
+//                m_nStIndex++;
+//                ui->zoomRangePushButton->setText(QString("(%1 %2)").arg(m_stfeetvector[m_nStIndex]).arg(SpeedUnitManager::GetInstance()->distance()));
+//                SerialViscaManager serialViscaManager;
+//                serialViscaManager.dzoom(m_nStIndex);
+//            }
 
-        }
-    }
-    else
-    {
-        if (m_nDistance == meter)
-        {
-            if (m_nLtIndex < m_ltmetervector.size() - 1)
-            {
-                m_nLtIndex++;
-                ui->zoomRangePushButton->setText(QString("(%1 %2)").arg(m_ltmetervector[m_nLtIndex]).arg(SpeedUnitManager::GetInstance()->distance()));
-                SerialViscaManager serialViscaManager;
-                serialViscaManager.dzoom(m_nLtIndex);
-            }
+//        }
+//    }
+//    else
+//    {
+//        if (m_nDistance == meter)
+//        {
+//            if (m_nLtIndex < m_ltmetervector.size() - 1)
+//            {
+//                m_nLtIndex++;
+//                ui->zoomRangePushButton->setText(QString("(%1 %2)").arg(m_ltmetervector[m_nLtIndex]).arg(SpeedUnitManager::GetInstance()->distance()));
+//                SerialViscaManager serialViscaManager;
+//                serialViscaManager.dzoom(m_nLtIndex);
+//            }
 
-        }
-        else
-        {
-            if (m_nLtIndex < m_ltfeetvector.size() - 1)
-            {
-                m_nLtIndex++;
-                ui->zoomRangePushButton->setText(QString("(%1 %2)").arg(m_ltfeetvector[m_nLtIndex]).arg(SpeedUnitManager::GetInstance()->distance()));
-                SerialViscaManager serialViscaManager;
-                serialViscaManager.dzoom(m_nLtIndex);
-            }
+//        }
+//        else
+//        {
+//            if (m_nLtIndex < m_ltfeetvector.size() - 1)
+//            {
+//                m_nLtIndex++;
+//                ui->zoomRangePushButton->setText(QString("(%1 %2)").arg(m_ltfeetvector[m_nLtIndex]).arg(SpeedUnitManager::GetInstance()->distance()));
+//                SerialViscaManager serialViscaManager;
+//                serialViscaManager.dzoom(m_nLtIndex);
+//            }
 
-        }
-    }
+//        }
+//    }
 }
 void EnforcementComponentWidget::dzMinus()
 {
-    if (m_UserModeOn)
-    {
-        if (m_nStIndex != 0)
-        {
-            m_nStIndex--;
-            ui->zoomRangePushButton->setText(QString("(%1 %2)").arg(m_stmetervector[m_nStIndex]).arg(SpeedUnitManager::GetInstance()->distance()));
-            SerialViscaManager serialViscaManager;
-            serialViscaManager.dzoom(m_nStIndex);
-        }
-    }
-    else
-    {
-        if (m_nLtIndex != 0)
-        {
-            m_nLtIndex--;
-            ui->zoomRangePushButton->setText(QString("(%1 %2)").arg(m_ltmetervector[m_nLtIndex]).arg(SpeedUnitManager::GetInstance()->distance()));
-            SerialViscaManager serialViscaManager;
-            serialViscaManager.dzoom(m_nLtIndex);
-        }
-    }
+    SerialViscaManager serialViscaManager;
+    serialViscaManager.minus_dzoom();//    if (m_UserModeOn)
+//    {
+//        if (m_nStIndex != 0)
+//        {
+//            m_nStIndex--;
+//            ui->zoomRangePushButton->setText(QString("(%1 %2)").arg(m_stmetervector[m_nStIndex]).arg(SpeedUnitManager::GetInstance()->distance()));
+//            SerialViscaManager serialViscaManager;
+//            serialViscaManager.dzoom(m_nStIndex);
+//        }
+//    }
+//    else
+//    {
+//        if (m_nLtIndex != 0)
+//        {
+//            m_nLtIndex--;
+//            ui->zoomRangePushButton->setText(QString("(%1 %2)").arg(m_ltmetervector[m_nLtIndex]).arg(SpeedUnitManager::GetInstance()->distance()));
+//            SerialViscaManager serialViscaManager;
+//            serialViscaManager.dzoom(m_nLtIndex);
+//        }
+//    }
 
 }
 
@@ -378,7 +381,136 @@ void EnforcementComponentWidget::laserInit()
     QJsonObject object3 = config3.GetConfig();
 
     int distance = 0, area = 0;
-    switch (object3["zoom index"].toInt())
+    int zoom_index = object3["zoom index"].toInt();
+
+    SetLaserDetectionAreaDistance(zoom_index);
+
+    int dn = object["day&night selection"].toInt();
+    if (dn >= 0 && dn <=3)
+        m_pSerialLaserManager->set_night_mode(1);
+    else
+        m_pSerialLaserManager->set_night_mode(0);
+    m_pSerialLaserManager->set_speed_measure_mode(1);
+}
+
+void EnforcementComponentWidget::doATMode()
+{
+    m_pSerialLaserManager->stop_laser();
+    m_pSerialLaserManager->request_distance(false);
+
+    SerialPacket* laser_packet = m_pSerialLaserManager->getLaser_packet();
+    m_pSerialLaserManager->start_laser();
+    m_pSerialLaserManager->request_distance(true);
+    if (m_bVirtualMode)
+        m_pSerialLaserManager->start_virtualSpeed();
+    connect(laser_packet, SIGNAL(sig_showCaptureSpeedDistance(float,float)), this, SLOT(on_showCaptureSpeedDistance(float,float)));
+    connect(laser_packet, SIGNAL(sig_showSpeedDistance(float,float)), this, SLOT(on_showSpeedDistance(float,float)));
+    connect(laser_packet, SIGNAL(sig_showDistance(float,int)), this, SLOT(on_showDistance(float, int)));
+}
+
+void EnforcementComponentWidget::doManualMode()
+{
+    doATMode();
+}
+
+void EnforcementComponentWidget::doReadyMode()
+{
+    SerialPacket* laser_packet = m_pSerialLaserManager->getLaser_packet();
+
+    m_pSerialLaserManager->stop_laser();
+    m_pSerialLaserManager->request_distance(false);
+    disconnect(laser_packet, SIGNAL(sig_showCaptureSpeedDistance(float,float)), this, SLOT(on_showCaptureSpeedDistance(float,float)));
+    disconnect(laser_packet, SIGNAL(sig_showSpeedDistance(float,float)), this, SLOT(on_showSpeedDistance(float,float)));
+    disconnect(laser_packet, SIGNAL(sig_showDistance(float,int)), this, SLOT(on_showDistance(float, int)));
+
+}
+
+int EnforcementComponentWidget::GetCaptureSpeedLimit()
+{
+    switch (m_nVehicleMode)
+    {
+    case Normal:
+    {
+        return m_captureSpeed.at(0).toInt();
+    }
+        break;
+    case Truck:
+    {
+        return m_captureSpeed.at(1).toInt();
+    }
+        break;
+    case MotoCycle:
+    {
+        return m_captureSpeed.at(2).toInt();
+    }
+        break;
+    }
+}
+
+void EnforcementComponentWidget::displaySpeedDistance(float fSpeed, float fDistance, QColor color, bool nRec)
+{
+    ui->distanceLabel->setColor(color);
+    ui->distanceLabel->setText(QString::number(fDistance, 'f', 1) + distance());
+    // REC
+    ui->speedLabel->setColor(color);
+    ui->speedLabel->setText(QString::number(fSpeed)+speedUnit());
+//    if (nRec)
+    //        ui->speedLabel->setText()
+}
+
+void EnforcementComponentWidget::displayDistance(float fDistance)
+{
+    ui->distanceLabel->setColor(Qt::white);
+    ui->distanceLabel->setText(QString::number(fDistance, 'f', 1) + distance());
+}
+
+void EnforcementComponentWidget::displayRedOutline(bool nOn)
+{
+    if (nOn)
+    {
+        m_isSetOutLine = true;
+    }
+    else
+    {
+        m_isSetOutLine = false;
+    }
+}
+
+void EnforcementComponentWidget::ImageVideoSave()
+{
+
+}
+
+void EnforcementComponentWidget::displayThumbnail(float fSpeed, float fDistance)
+{
+    ui->enforcementCountLabel->setText(QString::number(m_nCrackDownIndex++));
+    ui->enforcementTimeLabel->setText(QTime::currentTime().toString("hh:mm:ss"));
+    ui->enforcementDistanceSpeedLabel->setText(QString::number(fSpeed) + distance() + ", " + QString::number(fDistance) + speedUnit());
+
+    QPixmap pixmap;
+    pixmap.grabWidget(m_pCamera);
+    ui->thumbnailLabel->setPixmap(pixmap);
+}
+
+void EnforcementComponentWidget::displayHudSpeedDistance(bool nDisplay, bool nSpeed, bool nRec, bool nUnit)
+{
+    HUDManager hudManager;
+    hudManager.ShowSpeed(nSpeed, nRec);
+    hudManager.ShowDistance(nDisplay);
+    hudManager.ShowDistanceUnit(nUnit);
+}
+
+void EnforcementComponentWidget::displayHudDistance(bool nDisplay, bool nUnit)
+{
+    HUDManager hudManager;
+    hudManager.ShowDistance(nDisplay);
+    hudManager.ShowDistanceUnit(nUnit);
+}
+
+void EnforcementComponentWidget::SetLaserDetectionAreaDistance(int zoom_index)
+{
+    int distance = 0, area = 0;
+    switch (zoom_index)
     {
     case 1:
     {
@@ -516,129 +648,63 @@ void EnforcementComponentWidget::laserInit()
         break;
     }
 
-    m_pSerialLaserManager->set_detection_area(distance);
+    m_pSerialLaserManager->set_detection_distance(distance);
     m_pSerialLaserManager->set_detection_area(area);
 
-    int dn = object["day&night selection"].toInt();
-    if (dn >= 0 && dn <=3)
-        m_pSerialLaserManager->set_night_mode(1);
-    else
-        m_pSerialLaserManager->set_night_mode(0);
-    m_pSerialLaserManager->set_speed_measure_mode(1);
 }
 
-void EnforcementComponentWidget::doATMode()
+void EnforcementComponentWidget::zoomRange()
 {
-    m_pSerialLaserManager->stop_laser();
-    m_pSerialLaserManager->request_distance(false);
-
-    SerialPacket* laser_packet = m_pSerialLaserManager->getLaser_packet();
-    m_pSerialLaserManager->start_laser();
-    m_pSerialLaserManager->request_distance(true);
-    if (m_bVirtualMode)
-        m_pSerialLaserManager->start_virtualSpeed();
-    connect(laser_packet, SIGNAL(sig_showCaptureSpeedDistance(float,float)), this, SLOT(on_showCaptureSpeedDistance(float,float)));
-    connect(laser_packet, SIGNAL(sig_showSpeedDistance(float,float)), this, SLOT(on_showSpeedDistance(float,float)));
-    connect(laser_packet, SIGNAL(sig_showDistance(float,int)), this, SLOT(on_showDistance(float, int)));
-}
-
-void EnforcementComponentWidget::doManualMode()
-{
-    doATMode();
-}
-
-void EnforcementComponentWidget::doReadyMode()
-{
-    SerialPacket* laser_packet = m_pSerialLaserManager->getLaser_packet();
-
-    m_pSerialLaserManager->stop_laser();
-    m_pSerialLaserManager->request_distance(false);
-    disconnect(laser_packet, SIGNAL(sig_showCaptureSpeedDistance(float,float)), this, SLOT(on_showCaptureSpeedDistance(float,float)));
-    disconnect(laser_packet, SIGNAL(sig_showSpeedDistance(float,float)), this, SLOT(on_showSpeedDistance(float,float)));
-    disconnect(laser_packet, SIGNAL(sig_showDistance(float,int)), this, SLOT(on_showDistance(float, int)));
-
-}
-
-int EnforcementComponentWidget::GetCaptureSpeedLimit()
-{
-    switch (m_nVehicleMode)
+    int zoom_index = 0;
+    if (m_UserModeOn)
     {
-    case Normal:
-    {
-        return m_captureSpeed.at(0).toInt();
-    }
-        break;
-    case Truck:
-    {
-        return m_captureSpeed.at(1).toInt();
-    }
-        break;
-    case MotoCycle:
-    {
-        return m_captureSpeed.at(2).toInt();
-    }
-        break;
-    }
-}
-
-void EnforcementComponentWidget::displaySpeedDistance(float fSpeed, float fDistance, QColor color, bool nRec)
-{
-    ui->distanceLabel->setColor(color);
-    ui->distanceLabel->setText(QString::number(fDistance, 'f', 1) + distance());
-    // REC
-    ui->speedLabel->setColor(color);
-    ui->speedLabel->setText(QString::number(fSpeed)+speedUnit());
-//    if (nRec)
-    //        ui->speedLabel->setText()
-}
-
-void EnforcementComponentWidget::displayDistance(float fDistance)
-{
-    ui->distanceLabel->setColor(Qt::white);
-    ui->distanceLabel->setText(QString::number(fDistance, 'f', 1) + distance());
-}
-
-void EnforcementComponentWidget::displayRedOutline(bool nOn)
-{
-    if (nOn)
-    {
-        m_isSetOutLine = true;
+        zoom_index = m_nStIndex;
+        if (distanceValue() == meter)
+        {
+            ui->zoomRangePushButton->setText(m_stmetervector[m_nStIndex]+"m");
+        }
+        else
+        {
+            ui->zoomRangePushButton->setText(m_stfeetvector[m_nStIndex]+"ft");
+        }
+        m_nStIndex++;
+        if (m_nStIndex == m_stmetervector.size())
+            m_nStIndex = 0;
     }
     else
     {
-        m_isSetOutLine = false;
+        zoom_index = m_nLtIndex;
+        if (distanceValue() == meter)
+        {
+            ui->zoomRangePushButton->setText(m_ltmetervector[m_nLtIndex]+"m");
+
+        }
+        else
+        {
+            ui->zoomRangePushButton->setText(m_ltfeetvector[m_nLtIndex]+"ft");
+        }
+        m_nLtIndex++;
+        if (m_nLtIndex == m_stmetervector.size())
+            m_nLtIndex = 0;
     }
-}
 
-void EnforcementComponentWidget::ImageVideoSave()
-{
+    SetLaserDetectionAreaDistance(zoom_index);
 
-}
 
-void EnforcementComponentWidget::displayThumbnail(float fSpeed, float fDistance)
-{
-    ui->enforcementCountLabel->setText(QString::number(m_nCrackDownIndex++));
-    ui->enforcementTimeLabel->setText(QTime::currentTime().toString("hh:mm:ss"));
-    ui->enforcementDistanceSpeedLabel->setText(QString::number(fSpeed) + distance() + ", " + QString::number(fDistance) + speedUnit());
 
-    QPixmap pixmap;
-    pixmap.grabWidget(m_pCamera);
-    ui->thumbnailLabel->setPixmap(pixmap);
-}
 
-void EnforcementComponentWidget::displayHudSpeedDistance(bool nDisplay, bool nSpeed, bool nRec, bool nUnit)
-{
-    HUDManager hudManager;
-    hudManager.ShowSpeed(nSpeed, nRec);
-    hudManager.ShowDistance(nDisplay);
-    hudManager.ShowDistanceUnit(nUnit);
-}
+//    ConfigManager configmanager = ConfigManager("parameter_settings1.json");
+//    QJsonObject object = configmanager.GetConfig();
 
-void EnforcementComponentWidget::displayHudDistance(bool nDisplay, bool nUnit)
-{
-    HUDManager hudManager;
-    hudManager.ShowDistance(nDisplay);
-    hudManager.ShowDistanceUnit(nUnit);
+//    if (object["speed selection"].toInt() == 1)
+//    {
+
+//    }
+//    else
+//    {
+
+//    }
+
 }
 
 void EnforcementComponentWidget::setPSerialLaserManager(SerialLaserManager *newPSerialLaserManager)
@@ -691,18 +757,7 @@ void EnforcementComponentWidget::paintEvent(QPaintEvent *event)
 
 void EnforcementComponentWidget::on_zoomRangePushButton_clicked()
 {
-    dzPlus();
-//    ConfigManager configmanager = ConfigManager("parameter_settings1.json");
-//    QJsonObject object = configmanager.GetConfig();
-
-//    if (object["speed selection"].toInt() == 1)
-//    {
-
-//    }
-//    else
-//    {
-
-//    }
+    zoomRange();
 
 }
 
@@ -806,5 +861,17 @@ void EnforcementComponentWidget::on_showDistance(float fDistance, int nSensitivi
 void EnforcementComponentWidget::on_Night()
 {
     m_bNight = true;
+}
+
+void EnforcementComponentWidget::on_STMode()
+{
+    m_UserModeOn = true;
+    zoomRange();
+}
+
+void EnforcementComponentWidget::on_LTMode()
+{
+    m_UserModeOn = true;
+    zoomRange();
 }
 

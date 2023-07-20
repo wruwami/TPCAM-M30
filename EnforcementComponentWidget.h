@@ -64,6 +64,8 @@ private:
 
     void displayHudSpeedDistance(bool, bool, bool, bool);
     void displayHudDistance(bool, bool);
+    void SetLaserDetectionAreaDistance(int);
+    void zoomRange();
 public:
     SerialLaserManager* m_pSerialLaserManager = nullptr;
     CustomPushButton* m_pReadyButton;
@@ -108,6 +110,8 @@ protected slots:
     void on_showSpeedDistance(float, float);
     void on_showDistance(float, int);
     void on_Night();
+    void on_STMode();
+    void on_LTMode();
 protected:
     void paintEvent(QPaintEvent *event);
 

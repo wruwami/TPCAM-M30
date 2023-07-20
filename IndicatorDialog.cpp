@@ -193,7 +193,6 @@ void IndicatorDialog::on_speedPushButton_clicked()
 
     connect(m_pSTPushButton, SIGNAL(clicked()), this, SLOT(on_speedSTPushButton_clicked()));
     connect(m_pLTPushButton, SIGNAL(clicked()), this, SLOT(on_speedLTPushButton_clicked()));
-
 }
 
 void IndicatorDialog::on_speedSTPushButton_clicked()
@@ -202,78 +201,79 @@ void IndicatorDialog::on_speedSTPushButton_clicked()
     m_jsonObject1["speed selection"] = 1;
     m_pMainMenuWidget->setIndicatorImage(m_pMainMenuWidget->m_pSpeedPushbutton, "indicator", "indicator_enable_user_mode_on.jpg");
 
-    if (!m_bEnforcement)
-        return;
+    emit sig_STMode();
+//    if (!m_bEnforcement)
+//        return;
 
-    ConfigManager config = ConfigManager("parameter_enforcement.json");
-    QJsonObject object = config.GetConfig();
-    int distance = 0, area = 0;
-    switch (object["zoom index"].toInt())
-    {
-    case 1:
-    {
-            distance = 20;
-            area = 3;
-    }
-        break;
-    case 2:
-    {
-            distance = 40;
-            area = 3;
+//    ConfigManager config = ConfigManager("parameter_enforcement.json");
+//    QJsonObject object = config.GetConfig();
+//    int distance = 0, area = 0;
+//    switch (object["zoom index"].toInt())
+//    {
+//    case 1:
+//    {
+//            distance = 20;
+//            area = 3;
+//    }
+//        break;
+//    case 2:
+//    {
+//            distance = 40;
+//            area = 3;
 
-    }
-        break;
-    case 3:
-    {
-            distance = 60;
-            area = 3;
+//    }
+//        break;
+//    case 3:
+//    {
+//            distance = 60;
+//            area = 3;
 
-    }
-        break;
-    case 4:
-    {
-            distance = 80;
-            area = 3;
+//    }
+//        break;
+//    case 4:
+//    {
+//            distance = 80;
+//            area = 3;
 
-    }
-        break;
-    case 5:
-    {
-            distance = 100;
-            area = 3;
+//    }
+//        break;
+//    case 5:
+//    {
+//            distance = 100;
+//            area = 3;
 
-    }
-        break;
-    case 6:
-    {
-            distance = 120;
-            area = 3;
+//    }
+//        break;
+//    case 6:
+//    {
+//            distance = 120;
+//            area = 3;
 
-    }
-        break;
-    case 7:
-    {
-            distance = 140;
-            area = 3;
-    }
-        break;
-    case 8:
-    {
-            distance = 160;
-            area = 3;
+//    }
+//        break;
+//    case 7:
+//    {
+//            distance = 140;
+//            area = 3;
+//    }
+//        break;
+//    case 8:
+//    {
+//            distance = 160;
+//            area = 3;
 
-    }
-        break;
-    case 9:
-    {
-            distance = 180;
-            area = 3;
+//    }
+//        break;
+//    case 9:
+//    {
+//            distance = 180;
+//            area = 3;
 
-    }
-        break;
-    }
-    m_pSerialLaserManager->set_detection_area(distance);
-    m_pSerialLaserManager->set_detection_area(area);
+//    }
+//        break;
+//    }
+//    m_pSerialLaserManager->set_detection_distance(distance);
+//    m_pSerialLaserManager->set_detection_area(area);
 }
 
 void IndicatorDialog::on_speedLTPushButton_clicked()
@@ -282,75 +282,77 @@ void IndicatorDialog::on_speedLTPushButton_clicked()
     m_jsonObject1["speed selection"] = 2;
     m_pMainMenuWidget->setIndicatorImage(m_pMainMenuWidget->m_pSpeedPushbutton, "indicator", "indicator_enable_user_mode_off.jpg");
 
-    if (!m_bEnforcement)
-        return;
-    ConfigManager config = ConfigManager("parameter_enforcement.json");
-    QJsonObject object = config.GetConfig();
+    emit sig_STMode();
 
-    int distance = 0, area = 0;
-    switch (object["zoom index"].toInt())
-    {
-    case 1:
-    {
-        distance = 18;
-        area = 18;
-    }
-        break;
-    case 2:
-    {
-        distance = 49;
-        area = 12;
+//    if (!m_bEnforcement)
+//        return;
+//    ConfigManager config = ConfigManager("parameter_enforcement.json");
+//    QJsonObject object = config.GetConfig();
 
-    }
-        break;
-    case 3:
-    {
-        distance = 80;
-        area = 20;
+//    int distance = 0, area = 0;
+//    switch (object["zoom index"].toInt())
+//    {
+//    case 1:
+//    {
+//        distance = 18;
+//        area = 18;
+//    }
+//        break;
+//    case 2:
+//    {
+//        distance = 49;
+//        area = 12;
 
-    }
-        break;
-    case 4:
-    {
-        distance = 130;
-        area = 30;
+//    }
+//        break;
+//    case 3:
+//    {
+//        distance = 80;
+//        area = 20;
 
-    }
-        break;
-    case 5:
-    {
-        distance = 1580;
-        area = 1420;
+//    }
+//        break;
+//    case 4:
+//    {
+//        distance = 130;
+//        area = 30;
 
-    }
-        break;
-    case 6:
-    {
-        distance = 1580;
-        area = 1420;
-    }
-        break;
-    case 7:
-    {
-        distance = 1580;
-        area = 1420;
-    }
-        break;
-    case 8:
-    {
-        distance = 1580;
-        area = 1420;
-    }
-        break;
-    case 9:
-    {
-        distance = 1580;
-        area = 1420;
-    }
-        break;
-    }
-    m_pSerialLaserManager->set_detection_area(distance);
-    m_pSerialLaserManager->set_detection_area(area);
+//    }
+//        break;
+//    case 5:
+//    {
+//        distance = 1580;
+//        area = 1420;
+
+//    }
+//        break;
+//    case 6:
+//    {
+//        distance = 1580;
+//        area = 1420;
+//    }
+//        break;
+//    case 7:
+//    {
+//        distance = 1580;
+//        area = 1420;
+//    }
+//        break;
+//    case 8:
+//    {
+//        distance = 1580;
+//        area = 1420;
+//    }
+//        break;
+//    case 9:
+//    {
+//        distance = 1580;
+//        area = 1420;
+//    }
+//        break;
+//    }
+//    m_pSerialLaserManager->set_detection_distance(distance);
+//    m_pSerialLaserManager->set_detection_area(area);
 }
 
 void IndicatorDialog::on_enforcementPushButton_clicked()
@@ -432,6 +434,11 @@ void IndicatorDialog::on_cameraFocusClicked()
     this->hide();
 
     m_pIndicatorCameraFocusWidget->exec();
+    if (m_pIndicatorCameraFocusWidget != nullptr)
+    {
+        delete m_pIndicatorCameraFocusWidget;
+        m_pIndicatorCameraFocusWidget = nullptr;
+    }
 }
 
 void IndicatorDialog::paintEvent(QPaintEvent *event)

@@ -558,6 +558,7 @@ void EnforcementComponentWidget::displaySpeedDistance(float fSpeed, float fDista
 
 void EnforcementComponentWidget::displayDistance(float fDistance)
 {
+    ui->distanceLabel->setColor(Qt::white);
     ui->distanceLabel->setText(QString::number(fDistance, 'f', 1) + distance());
 }
 

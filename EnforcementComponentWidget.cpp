@@ -40,7 +40,7 @@ EnforcementComponentWidget::EnforcementComponentWidget(QWidget *parent) :
 
     m_captureSpeed = m_object["capture speed"].toArray();
 
-    ui->speedLimitLabel->setText(QString("CS: %0%4\nT%2%4\nM%3%4").arg(m_captureSpeed[0].toString()).arg(m_captureSpeed[1].toString()).arg(m_captureSpeed[2].toString()).arg(SpeedUnitManager::GetInstance()->distance()));
+    ui->speedLimitLabel->setText(QString("CS: %0%4\nT%2%4\nM%3%4").arg(QString::number(m_captureSpeed[0].toInt())).arg(QString::number(m_captureSpeed[1].toInt())).arg(QString::number(m_captureSpeed[2].toInt())).arg(speedUnit()));
     ui->speedLimitLabel->setDisabled(true);
 
 

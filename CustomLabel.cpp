@@ -96,8 +96,15 @@ void CustomLabel::setZoom(double factor, QRect rect)
 
 void CustomLabel::setColor(QColor color)
 {
-    QPalette palette(color);
-    this->setPalette(palette);
+    if ( color == Qt::red)
+    {
+        this->setStyleSheet("QLabel { color : red; }");
+
+    }
+    else if (color == Qt::white)
+    {
+        this->setStyleSheet("QLabel { color : white; }");
+    }
 }
 
 QPixmap CustomLabel::scaleImage(double factor)

@@ -67,14 +67,13 @@ private:
     void displayHudDistance(bool, bool);
     void SetLaserDetectionAreaDistance(int);
     void zoomRange();
+    void initRec();
 public:
     SerialLaserManager* m_pSerialLaserManager = nullptr;
     CustomPushButton* m_pReadyButton;
     void setPSerialLaserManager(SerialLaserManager *newPSerialLaserManager);
     bool m_bNight = false;
     bool m_bVirtualMode = false;
-    int nCrackDownIndex() const;
-    void setNCrackDownIndex(int newNCrackDownIndex);
 
 private:
     bool m_bHide = false;
@@ -98,8 +97,8 @@ private:
     int VehicleCount = 0;
     QJsonArray m_captureSpeed;
     VehicleMode m_nVehicleMode = Normal;
-    int m_nCrackDownIndex = 0;
-
+    bool m_bTruckChecked = false;
+    bool m_bBikeChecked = false;
 protected slots:
     void on_hidePushButton_clicked();
     void doShartAction();
@@ -118,6 +117,12 @@ protected slots:
     void on_LTMode();
 protected:
     void paintEvent(QPaintEvent *event);
+
+private slots:
+
+    void on_bikePushButton_toggled(bool checked);
+
+    void on_truckPushButton_toggled(bool checked);
 
 private:
     Ui::EnforcementComponentWidget *ui;

@@ -14,6 +14,7 @@
 #include "SpeedUnitManager.h"
 #include "WidgetSize.h"
 
+extern int g_nCrackDownIndex;
 
 EnforcementComponentWidget::EnforcementComponentWidget(QWidget *parent) :
     QWidget(parent),
@@ -25,7 +26,6 @@ EnforcementComponentWidget::EnforcementComponentWidget(QWidget *parent) :
 
     m_object = m_config.GetConfig();
     m_object2 = m_config2.GetConfig();
-
 
     ui->hidePushButton->setText(LoadString("IDS_HIDE"));
     ui->readyPushButton->setText(LoadString("IDS_READY"));
@@ -78,6 +78,7 @@ EnforcementComponentWidget::EnforcementComponentWidget(QWidget *parent) :
     camInit();
     hudInit();
 //    laserInit();
+    initRec();
 
     ConfigManager config = ConfigManager("zoom_level.json");
     object = config.GetConfig();
@@ -464,13 +465,13 @@ void EnforcementComponentWidget::displaySpeedDistance(float fSpeed, float fDista
     ui->speedLabel->setText(QString::number(fSpeed)+speedUnit());
     if (nRec)
     {
-        ui->recLabel->setColor(color);
-//        ui->recLabel->setImage();
-        ui->recLabel->setText("IDS_REC");
+        ui->recLabel->show();
+        ui->recIconLabel->show();
     }
     else
     {
-        ui->recLabel->setText("");
+        ui->recLabel->hide();
+        ui->recIconLabel->hide();
     }
 }
 
@@ -494,12 +495,30 @@ void EnforcementComponentWidget::displayRedOutline(bool nOn)
 
 void EnforcementComponentWidget::ImageVideoSave()
 {
+    QJsonObject object = m_config.GetConfig();
+    switch(object["enforcement selection"].toInt())
+    {
+    case 1:
+    {
 
+    }
+        break;
+    case 2:
+    {
+
+    }
+        break;
+    case 3:
+    {
+
+    }
+        break;
+    }
 }
 
 void EnforcementComponentWidget::displayThumbnail(float fSpeed, float fDistance)
 {
-    ui->enforcementCountLabel->setText(QString::number(++m_nCrackDownIndex));
+    ui->enforcementCountLabel->setText(QString::number(++g_nCrackDownIndex));
     ui->enforcementTimeLabel->setText(QTime::currentTime().toString("hh:mm:ss"));
     ui->enforcementDistanceSpeedLabel->setText(QString::number(fSpeed) + distance() + ", " + QString::number(fDistance) + speedUnit());
 
@@ -708,20 +727,18 @@ void EnforcementComponentWidget::zoomRange()
     SetLaserDetectionAreaDistance(zoom_index);
 }
 
+void EnforcementComponentWidget::initRec()
+{
+    ui->recLabel->setColor(Qt::red);
+    ui->recLabel->setText("IDS_REC");
+    ui->recIconLabel->setImage("enforcement", "redcircle.png");
+
+}
+
 void EnforcementComponentWidget::setPSerialLaserManager(SerialLaserManager *newPSerialLaserManager)
 {
     if (m_pSerialLaserManager == nullptr)
         m_pSerialLaserManager = newPSerialLaserManager;
-}
-
-int EnforcementComponentWidget::nCrackDownIndex() const
-{
-    return m_nCrackDownIndex;
-}
-
-void EnforcementComponentWidget::setNCrackDownIndex(int newNCrackDownIndex)
-{
-    m_nCrackDownIndex = newNCrackDownIndex;
 }
 
 void EnforcementComponentWidget::paintEvent(QPaintEvent *event)
@@ -890,5 +907,17 @@ void EnforcementComponentWidget::on_LTMode()
 {
     m_UserModeOn = false;
     zoomRange();
+}
+
+void EnforcementComponentWidget::on_bikePushButton_toggled(bool checked)
+{
+    m_bBikeChecked = true;
+}
+
+
+void EnforcementComponentWidget::on_truckPushButton_toggled(bool checked)
+{
+    ui->bikePushButton->click();
+    m_bTruckChecked = true;
 }
 

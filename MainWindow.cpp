@@ -42,6 +42,8 @@ inline void removeSecondItem(T*& pointer) {
   }
 }
 
+int g_nCrackDownIndex = 0;
+
 MainWindow::MainWindow(screensaver* screensaver, QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)

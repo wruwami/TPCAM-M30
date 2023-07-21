@@ -26,6 +26,8 @@ CameraAlignWidget::CameraAlignWidget(QWidget *parent) :
     ui->hudPushButton->setCheckable(true);
     ui->cameraPushButton->setCheckable(true);
 
+    ui->hudPushButton->setDown(true);
+
     m_pHomeButton = ui->homePushButton;
 }
 
@@ -36,12 +38,19 @@ CameraAlignWidget::~CameraAlignWidget()
 
 void CameraAlignWidget::on_hudPushButton_clicked()
 {
-
+    ui->cameraPushButton->setDown(m_bCameraChecked);
+    m_bCameraChecked = !m_bCameraChecked;
+    m_bHUDChecked = !m_bHUDChecked;
+    ui->hudPushButton->setDown(m_bHUDChecked);
 }
 
 
 void CameraAlignWidget::on_cameraPushButton_clicked()
 {
+    ui->hudPushButton->setDown(m_bHUDChecked);
+    m_bHUDChecked = !m_bCameraChecked;
+    m_bCameraChecked = !m_bCameraChecked;
+    ui->cameraPushButton->setDown(m_bCameraChecked);
 
 }
 

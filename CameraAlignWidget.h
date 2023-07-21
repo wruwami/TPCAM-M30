@@ -17,7 +17,7 @@ public:
     ~CameraAlignWidget();
 public:
     CustomPushButton* m_pHomeButton;
-    bool m_bHUDChecked = false;
+    bool m_bHUDChecked = true;
     bool m_bCameraChecked = false;
 private slots:
     void on_hudPushButton_clicked();

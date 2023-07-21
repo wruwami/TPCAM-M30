@@ -23,6 +23,9 @@ CameraAlignWidget::CameraAlignWidget(QWidget *parent) :
     ui->cancelPushButton->setText(LoadString("IDS_CANCEL"));
     ui->cameraPushButton->setText(LoadString("IDS_CAMERA"));
 
+    ui->hudPushButton->setCheckable(true);
+    ui->cameraPushButton->setCheckable(true);
+
     m_pHomeButton = ui->homePushButton;
 }
 
@@ -30,3 +33,15 @@ CameraAlignWidget::~CameraAlignWidget()
 {
     delete ui;
 }
+
+void CameraAlignWidget::on_hudPushButton_clicked()
+{
+
+}
+
+
+void CameraAlignWidget::on_cameraPushButton_clicked()
+{
+
+}
+

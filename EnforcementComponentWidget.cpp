@@ -35,7 +35,9 @@ EnforcementComponentWidget::EnforcementComponentWidget(QWidget *parent) :
 
     ui->saveImagePushButton->setText(LoadString("IDS_SAVE_IMAGE"));
     ui->truckPushButton->setImage("enforcement", "truck.jpg");
+    ui->truckPushButton->setCheckable(true);
     ui->bikePushButton->setImage("enforcement", "bike.jpg");
+    ui->bikePushButton->setCheckable(true);
 
     m_pReadyButton = ui->readyPushButton;
 
@@ -732,8 +734,22 @@ void EnforcementComponentWidget::initRec()
     ui->recLabel->setColor(Qt::red);
     ui->recLabel->setText("IDS_REC");
     ui->recIconLabel->setImage("enforcement", "redcircle.png");
-
+    ui->recLabel->hide();
+    ui->recIconLabel->hide();
 }
+
+void EnforcementComponentWidget::setVehicleMode()
+{
+    if (m_bTruckChecked && m_bBikeChecked)
+        m_nVehicleMode = Normal;
+    else if (m_bTruckChecked && !m_bBikeChecked)
+        m_nVehicleMode = Truck;
+    else if (!m_bTruckChecked && m_bBikeChecked)
+        m_nVehicleMode = MotoCycle;
+    return;
+//        assert();
+}
+
 
 void EnforcementComponentWidget::setPSerialLaserManager(SerialLaserManager *newPSerialLaserManager)
 {
@@ -909,15 +925,115 @@ void EnforcementComponentWidget::on_LTMode()
     zoomRange();
 }
 
-void EnforcementComponentWidget::on_bikePushButton_toggled(bool checked)
+
+//void EnforcementComponentWidget::on_truckPushButton_toggled(bool checked)
+//{
+//    if (ui->bikePushButton->isDown())
+//    {
+//        ui->bikePushButton->setDown(false);
+//        //        m_bBikeChecked = !m_bBikeChecked;
+//    }
+//    ui->truckPushButton->setChecked()
+//    ui->truckPushButton->setDown(checked);
+//    //if (ui->truckPushButton->isDown())
+////{
+//////        m_bTruckChecked = !m_bTruckChecked;
+////    ui->truckPushButton->setDown(false);
+////}
+////else
+////{
+////    ui->truckPushButton->setDown(true);
+////}
+////    if (ui->bikePushButton->isChecked())
+////    {
+////        ui->bikePushButton->setDown(false);
+//////        m_bTruckChecked = false;
+////    }
+
+////    ui->truckPushButton->setDown(checked);
+////    m_bTruckChecked = true;
+
+//}
+
+
+//void EnforcementComponentWidget::on_bikePushButton_toggled(bool checked)
+//{
+//    if (ui->truckPushButton->isDown())
+//    {
+//        ui->truckPushButton->setDown(false);
+////        m_bTruckChecked = !m_bTruckChecked;
+//    }
+//    ui->bikePushButton->setDown(checked);
+////    if (ui->bikePushButton->isDown())
+////    {
+////        ui->bikePushButton->setDown(false);
+////    }
+////    else
+////    {
+////        ui->bikePushButton->setDown(true);
+////    }
+////    if (ui->truckPushButton->isChecked())
+////    {
+////        ui->truckPushButton->setDown(false);
+////    }
+////    ui->bikePushButton->setDown(checked);
+////    m_bBikeChecked = true;
+
+//}
+
+
+void EnforcementComponentWidget::on_truckPushButton_clicked()
 {
-    m_bBikeChecked = true;
+//    if (ui->bikePushButton->isDown())
+//    {
+//        ui->bikePushButton->setDown(false);
+////        m_bBikeChecked = !m_bBikeChecked;
+//    }
+//    if (ui->truckPushButton->isDown())
+//    {
+////        m_bTruckChecked = !m_bTruckChecked;
+//        ui->truckPushButton->setDown(false);
+//    }
+//    else
+//    {
+//        ui->truckPushButton->setDown(true);
+//    }
+    if (m_bBikeChecked)
+    {
+        ui->bikePushButton->setDown(false);
+        m_bBikeChecked = !m_bBikeChecked;
+    }
+    if (m_bTruckChecked)
+    {
+        m_bTruckChecked = !m_bTruckChecked;
+        ui->truckPushButton->setDown(false);
+    }
+    else
+    {
+        m_bTruckChecked = !m_bTruckChecked;
+        ui->truckPushButton->setDown(true);
+    }
+    setVehicleMode();
 }
 
 
-void EnforcementComponentWidget::on_truckPushButton_toggled(bool checked)
+void EnforcementComponentWidget::on_bikePushButton_clicked()
 {
-    ui->bikePushButton->click();
-    m_bTruckChecked = true;
+    if (m_bTruckChecked)
+    {
+        ui->truckPushButton->setDown(false);
+        m_bTruckChecked = !m_bTruckChecked;
+    }
+    if (m_bBikeChecked)
+    {
+        m_bBikeChecked = !m_bBikeChecked;
+        ui->bikePushButton->setDown(false);
+    }
+    else
+    {
+        m_bBikeChecked = !m_bBikeChecked;
+        ui->bikePushButton->setDown(true);
+    }
+    setVehicleMode();
 }
 

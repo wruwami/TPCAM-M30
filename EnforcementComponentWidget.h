@@ -68,6 +68,7 @@ private:
     void SetLaserDetectionAreaDistance(int);
     void zoomRange();
     void initRec();
+    void setVehicleMode();
 public:
     SerialLaserManager* m_pSerialLaserManager = nullptr;
     CustomPushButton* m_pReadyButton;
@@ -120,9 +121,13 @@ protected:
 
 private slots:
 
-    void on_bikePushButton_toggled(bool checked);
+//    void on_truckPushButton_toggled(bool checked);
 
-    void on_truckPushButton_toggled(bool checked);
+//    void on_bikePushButton_toggled(bool checked);
+
+    void on_truckPushButton_clicked();
+
+    void on_bikePushButton_clicked();
 
 private:
     Ui::EnforcementComponentWidget *ui;

@@ -12,6 +12,7 @@
 #include "SerialViscaManager.h"
 #include "SerialPacket.h"
 #include "SpeedUnitManager.h"
+#include "WidgetSize.h"
 
 
 EnforcementComponentWidget::EnforcementComponentWidget(QWidget *parent) :
@@ -380,16 +381,15 @@ void EnforcementComponentWidget::laserInit()
     ConfigManager config3 = ConfigManager("parameter_enforcement.json");
     QJsonObject object3 = config3.GetConfig();
 
-    int distance = 0, area = 0;
     int zoom_index = object3["zoom index"].toInt();
 
     SetLaserDetectionAreaDistance(zoom_index);
 
     int dn = object["day&night selection"].toInt();
     if (dn >= 0 && dn <=3)
-        m_pSerialLaserManager->set_night_mode(1);
-    else
         m_pSerialLaserManager->set_night_mode(0);
+    else
+        m_pSerialLaserManager->set_night_mode(1);
     m_pSerialLaserManager->set_speed_measure_mode(1);
 }
 
@@ -419,6 +419,9 @@ void EnforcementComponentWidget::doReadyMode()
 
     m_pSerialLaserManager->stop_laser();
     m_pSerialLaserManager->request_distance(false);
+
+    displayRedOutline(false);
+
     disconnect(laser_packet, SIGNAL(sig_showCaptureSpeedDistance(float,float)), this, SLOT(on_showCaptureSpeedDistance(float,float)));
     disconnect(laser_packet, SIGNAL(sig_showSpeedDistance(float,float)), this, SLOT(on_showSpeedDistance(float,float)));
     disconnect(laser_packet, SIGNAL(sig_showDistance(float,int)), this, SLOT(on_showDistance(float, int)));
@@ -447,6 +450,11 @@ int EnforcementComponentWidget::GetCaptureSpeedLimit()
     }
 }
 
+void EnforcementComponentWidget::initStyle()
+{
+
+}
+
 void EnforcementComponentWidget::displaySpeedDistance(float fSpeed, float fDistance, QColor color, bool nRec)
 {
     ui->distanceLabel->setColor(color);
@@ -454,8 +462,16 @@ void EnforcementComponentWidget::displaySpeedDistance(float fSpeed, float fDista
     // REC
     ui->speedLabel->setColor(color);
     ui->speedLabel->setText(QString::number(fSpeed)+speedUnit());
-//    if (nRec)
-    //        ui->speedLabel->setText()
+    if (nRec)
+    {
+        ui->recLabel->setColor(color);
+//        ui->recLabel->setImage();
+        ui->recLabel->setText("IDS_REC");
+    }
+    else
+    {
+        ui->recLabel->setText("");
+    }
 }
 
 void EnforcementComponentWidget::displayDistance(float fDistance)
@@ -483,13 +499,13 @@ void EnforcementComponentWidget::ImageVideoSave()
 
 void EnforcementComponentWidget::displayThumbnail(float fSpeed, float fDistance)
 {
-    ui->enforcementCountLabel->setText(QString::number(m_nCrackDownIndex++));
+    ui->enforcementCountLabel->setText(QString::number(++m_nCrackDownIndex));
     ui->enforcementTimeLabel->setText(QTime::currentTime().toString("hh:mm:ss"));
     ui->enforcementDistanceSpeedLabel->setText(QString::number(fSpeed) + distance() + ", " + QString::number(fDistance) + speedUnit());
 
-    QPixmap pixmap;
-    pixmap.grabWidget(m_pCamera);
-    ui->thumbnailLabel->setPixmap(pixmap);
+//    QPixmap pixmap;
+//    pixmap.grabWidget(m_pCamera);
+    ui->thumbnailLabel->setPixmap(m_pCamera->grab());
 }
 
 void EnforcementComponentWidget::displayHudSpeedDistance(bool nDisplay, bool nSpeed, bool nRec, bool nUnit)
@@ -650,7 +666,6 @@ void EnforcementComponentWidget::SetLaserDetectionAreaDistance(int zoom_index)
 
     m_pSerialLaserManager->set_detection_distance(distance);
     m_pSerialLaserManager->set_detection_area(area);
-
 }
 
 void EnforcementComponentWidget::zoomRange()
@@ -665,13 +680,12 @@ void EnforcementComponentWidget::zoomRange()
         zoom_index = m_nStIndex;
         if (distanceValue() == meter)
         {
-            ui->zoomRangePushButton->setText(m_stmetervector[m_nStIndex]+"m");
+            ui->zoomRangePushButton->setText(m_stmetervector[m_nStIndex]+distance());
         }
         else
         {
-            ui->zoomRangePushButton->setText(m_stfeetvector[m_nStIndex]+"ft");
+            ui->zoomRangePushButton->setText(m_stfeetvector[m_nStIndex]+distance());
         }
-
     }
     else
     {
@@ -682,39 +696,32 @@ void EnforcementComponentWidget::zoomRange()
         zoom_index = m_nLtIndex;
         if (distanceValue() == meter)
         {
-            ui->zoomRangePushButton->setText(m_ltmetervector[m_nLtIndex]+"m");
-
+            ui->zoomRangePushButton->setText(m_ltmetervector[m_nLtIndex]+distance());
         }
         else
         {
-            ui->zoomRangePushButton->setText(m_ltfeetvector[m_nLtIndex]+"ft");
+            ui->zoomRangePushButton->setText(m_ltfeetvector[m_nLtIndex]+distance());
         }
 
     }
 
     SetLaserDetectionAreaDistance(zoom_index);
-
-
-
-
-//    ConfigManager configmanager = ConfigManager("parameter_settings1.json");
-//    QJsonObject object = configmanager.GetConfig();
-
-//    if (object["speed selection"].toInt() == 1)
-//    {
-
-//    }
-//    else
-//    {
-
-//    }
-
 }
 
 void EnforcementComponentWidget::setPSerialLaserManager(SerialLaserManager *newPSerialLaserManager)
 {
     if (m_pSerialLaserManager == nullptr)
         m_pSerialLaserManager = newPSerialLaserManager;
+}
+
+int EnforcementComponentWidget::nCrackDownIndex() const
+{
+    return m_nCrackDownIndex;
+}
+
+void EnforcementComponentWidget::setNCrackDownIndex(int newNCrackDownIndex)
+{
+    m_nCrackDownIndex = newNCrackDownIndex;
 }
 
 void EnforcementComponentWidget::paintEvent(QPaintEvent *event)
@@ -752,10 +759,10 @@ void EnforcementComponentWidget::paintEvent(QPaintEvent *event)
         Pen.setStyle(Qt::SolidLine);
         Pen.setWidth(10);
         painter.setPen(Pen);
-        painter.drawLine(gap, gap, this->geometry().width() - 2 * gap, gap);
-        painter.drawLine(gap, gap, gap, this->geometry().height());
-        painter.drawLine(this->geometry().width() - gap, gap, this->geometry().width() - 2 * gap, this->geometry().height() - 2 * gap);
-        painter.drawLine(gap, this->geometry().height() - 2 * gap, this->geometry().width() - 2 * gap, this->geometry().height() - 2 * gap);
+        painter.drawLine(gap, gap, getScreenWidth() - 2 * gap, gap);
+        painter.drawLine(gap, gap, gap, getScreenHeight());
+        painter.drawLine(getScreenWidth() - gap, gap, getScreenWidth() - 2 * gap, getScreenHeight() - 2 * gap);
+        painter.drawLine(gap, getScreenHeight() - 2 * gap, getScreenWidth() - 2 * gap, getScreenHeight() - 2 * gap);
     }
 }
 
@@ -838,6 +845,8 @@ void EnforcementComponentWidget::on_showCaptureSpeedDistance(float fSpeed, float
 
 //        HUD에 속도 및 거리 출력
         displayHudSpeedDistance(true, true, false, true);
+
+        displayRedOutline(false);
 //        로그 저장
     }
 }
@@ -848,6 +857,8 @@ void EnforcementComponentWidget::on_showSpeedDistance(float fSpeed, float fDista
     displaySpeedDistance(fSpeed, fDistance, Qt::white, false);
 //        HUD에 속도 및 거리 출력
     displayHudSpeedDistance(true, true, false, true);
+
+    displayRedOutline(false);
 //        로그 저장
 
 }
@@ -858,6 +869,8 @@ void EnforcementComponentWidget::on_showDistance(float fDistance, int nSensitivi
     displayDistance(fDistance);
 //	HUD에 거리 출력
     displayHudDistance(true, true);
+
+    displayRedOutline(false);
 //    로그 저장
 
 }

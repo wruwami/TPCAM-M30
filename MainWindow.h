@@ -126,6 +126,7 @@ private:
     screensaver *m_screensaver;
     bool m_bSelfTestFailed = false;
     SerialLaserManager* m_pSerialLaserManager = nullptr;
+    int m_nCrackDownCount;
     //    Language m_mLanguage = Language::English;
 
     // QObject interface

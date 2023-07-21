@@ -54,6 +54,7 @@ private:
     void doManualMode();
     void doReadyMode();
     int GetCaptureSpeedLimit();
+    void initStyle();
 
     void displaySpeedDistance(float, float, QColor = Qt::white, bool = false);
 
@@ -72,6 +73,9 @@ public:
     void setPSerialLaserManager(SerialLaserManager *newPSerialLaserManager);
     bool m_bNight = false;
     bool m_bVirtualMode = false;
+    int nCrackDownIndex() const;
+    void setNCrackDownIndex(int newNCrackDownIndex);
+
 private:
     bool m_bHide = false;
     bool m_isSetOutLine = false;
@@ -86,8 +90,8 @@ private:
     std::vector<QString> m_stfeetvector;// = {"60", "80", "100", "120", "140", "160", "180", "200", "220", "240", "260"};
     std::vector<QString> m_ltfeetvector;// = {"10~36", "30~60", "60~100", "100~160", "160~260", "260+"};
 
-    int m_nStIndex = 2;
-    int m_nLtIndex = 3;
+    size_t m_nStIndex = 2;
+    size_t m_nLtIndex = 3;
     Camera* m_pCamera = nullptr;
     Mode m_nMode = Ready;
     Distance m_nDistance = meter;

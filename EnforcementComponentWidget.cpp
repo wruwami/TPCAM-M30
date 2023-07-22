@@ -43,7 +43,7 @@ EnforcementComponentWidget::EnforcementComponentWidget(QWidget *parent) :
 
     m_captureSpeed = m_object["capture speed"].toArray();
 
-    ui->speedLimitLabel->setText(QString("CS: %0%4\nT%2%4\nM%3%4").arg(QString::number(m_captureSpeed[0].toInt())).arg(QString::number(m_captureSpeed[1].toInt())).arg(QString::number(m_captureSpeed[2].toInt())).arg(speedUnit()));
+    ui->speedLimitLabel->setText(QString("CS: %0%4\nT: %2%4\nM: %3%4").arg(QString::number(m_captureSpeed[0].toInt())).arg(QString::number(m_captureSpeed[1].toInt())).arg(QString::number(m_captureSpeed[2].toInt())).arg(speedUnit()));
     ui->speedLimitLabel->setDisabled(true);
 
 
@@ -437,17 +437,17 @@ int EnforcementComponentWidget::GetCaptureSpeedLimit()
     {
     case Normal:
     {
-        return m_captureSpeed.at(0).toInt();
+        return getSpeedValue(m_captureSpeed.at(0).toInt());
     }
         break;
     case Truck:
     {
-        return m_captureSpeed.at(1).toInt();
+        return getSpeedValue(m_captureSpeed.at(1).toInt());
     }
         break;
     case MotoCycle:
     {
-        return m_captureSpeed.at(2).toInt();
+        return getSpeedValue(m_captureSpeed.at(2).toInt());
     }
         break;
     }
@@ -461,10 +461,10 @@ void EnforcementComponentWidget::initStyle()
 void EnforcementComponentWidget::displaySpeedDistance(float fSpeed, float fDistance, QColor color, bool nRec)
 {
     ui->distanceLabel->setColor(color);
-    ui->distanceLabel->setText(QString::number(fDistance, 'f', 1) + distance());
+    ui->distanceLabel->setText(QString::number(getDistanceValue(fDistance), 'f', 1) + distance());
     // REC
     ui->speedLabel->setColor(color);
-    ui->speedLabel->setText(QString::number(fSpeed)+speedUnit());
+    ui->speedLabel->setText(QString::number(getSpeedValue(fSpeed))+speedUnit());
     if (nRec)
     {
         ui->recLabel->show();
@@ -480,7 +480,7 @@ void EnforcementComponentWidget::displaySpeedDistance(float fSpeed, float fDista
 void EnforcementComponentWidget::displayDistance(float fDistance)
 {
     ui->distanceLabel->setColor(Qt::white);
-    ui->distanceLabel->setText(QString::number(fDistance, 'f', 1) + distance());
+    ui->distanceLabel->setText(QString::number(getDistanceValue(fDistance), 'f', 1) + distance());
 }
 
 void EnforcementComponentWidget::displayRedOutline(bool nOn)
@@ -522,7 +522,7 @@ void EnforcementComponentWidget::displayThumbnail(float fSpeed, float fDistance)
 {
     ui->enforcementCountLabel->setText(QString::number(++g_nCrackDownIndex));
     ui->enforcementTimeLabel->setText(QTime::currentTime().toString("hh:mm:ss"));
-    ui->enforcementDistanceSpeedLabel->setText(QString::number(fSpeed) + distance() + ", " + QString::number(fDistance) + speedUnit());
+    ui->enforcementDistanceSpeedLabel->setText(QString::number(getSpeedValue(fSpeed)) + distance() + ", " + QString::number(getDistanceValue(fDistance)) + speedUnit());
 
 //    QPixmap pixmap;
 //    pixmap.grabWidget(m_pCamera);
@@ -728,6 +728,11 @@ void EnforcementComponentWidget::zoomRange()
 
     SetLaserDetectionAreaDistance(zoom_index);
 }
+
+//void EnforcementComponentWidget::unitInit()
+//{
+
+//}
 
 void EnforcementComponentWidget::initRec()
 {

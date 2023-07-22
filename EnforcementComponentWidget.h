@@ -67,6 +67,7 @@ private:
     void displayHudDistance(bool, bool);
     void SetLaserDetectionAreaDistance(int);
     void zoomRange();
+    void unitInit();
     void initRec();
     void setVehicleMode();
 public:

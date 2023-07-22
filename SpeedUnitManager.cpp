@@ -55,12 +55,15 @@ void SpeedUnitManager::setSpeedUnit(SpeedUnit newSpeedUnit)
     m_speedUnit = newSpeedUnit;
 }
 
-float SpeedUnitManager::getSpeedUnitFromKmhToMph(float Kmh)
+float SpeedUnitManager::getSpeedValue(float Kmh)
 {
+    if (m_speedUnit == Km)
+        return Kmh;
     return Kmh * 1.609;
 }
 
-float SpeedUnitManager::getDistanceFromFeetToMeter(float feet)
+float SpeedUnitManager::getDistanceValue(float feet)
 {
+    if (m_distance == meter)
     return feet * 3.28;
 }

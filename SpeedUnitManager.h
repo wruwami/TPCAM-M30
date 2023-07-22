@@ -33,8 +33,8 @@ public:
     SpeedUnit speedUnitValue();
     QString speedUnit();
     void setSpeedUnit(SpeedUnit newSpeedUnit);
-    float getSpeedUnitFromKmhToMph(float);
-    float getDistanceFromFeetToMeter(float);
+    float getSpeedValue(float);
+    float getDistanceValue(float);
 
 private:
     Distance m_distance = meter;
@@ -71,13 +71,13 @@ static SpeedUnit speedUnitValue()
     return SpeedUnitManager::GetInstance()->speedUnitValue();
 }
 
-static float getSpeedUnitFromKmhToMph(float Kmh)
+static float getSpeedValue(float Kmh)
 {
-    return SpeedUnitManager::GetInstance()->getSpeedUnitFromKmhToMph(Kmh);
+    return SpeedUnitManager::GetInstance()->getSpeedValue(Kmh);
 }
-static float getDistanceFromFeetToMeter(float feet)
+static float getDistanceValue(float feet)
 {
-    return SpeedUnitManager::GetInstance()->getDistanceFromFeetToMeter(feet);
+    return SpeedUnitManager::GetInstance()->getDistanceValue(feet);
 }
 
 

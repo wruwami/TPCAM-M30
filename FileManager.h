@@ -10,6 +10,41 @@ enum Type
     USB,
 };
 
+enum PrefixType
+{
+    AI,
+    AV,
+    VV,
+    SC,
+    SR,
+};
+
+typedef struct _ST_ENFORCEMENT_INFO
+{
+    int nCaptureSpeed;
+    int nSpeedLimit;
+    int nCaptureSpeedLimit;
+    int nDistance;
+    QString strMode;
+//    QString strLatitude;
+//    QString strLongitude;
+//    QString strLocation;
+//    QString strUserID;
+//    QString strDeviceId;
+//    QString strUnit = "S";
+
+    void operator=(_ST_ENFORCEMENT_INFO& enforceInfo)
+    {
+        this->nCaptureSpeed = enforceInfo.nCaptureSpeed;
+        this->nSpeedLimit = enforceInfo.nSpeedLimit;
+        this->nCaptureSpeedLimit = enforceInfo.nCaptureSpeedLimit;
+        this->nDistance = enforceInfo.nDistance;
+        this->strMode = enforceInfo.strMode;
+//        QString strUnit = "S";
+    }
+}stEnforcementInfo;
+
+
 class FileManager
 {
 private:
@@ -26,10 +61,15 @@ public:
     QString GetPath(QString name,Type type);
     QString GetSubPath(QString name,Type type);
     QString AddFile(QString path_name, QString file_name);
-    QString GetFile(QString name);
+    QString GetFileName(PrefixType prefix);
+    QString GetFileName(PrefixType prefix, stEnforcementInfo enforceInfo);
+
     QString GeteMMCPath();
     QString GetSDPath();
     QString GetUSBPath();
+
+//private:
+//    QString GetDeviceID(QJsonObject);
 };
 
 static QString GetPath(QString name, Type type)
@@ -44,9 +84,9 @@ static QString GetSubPath(QString name, Type type)
 {
     return FileManager::GetInstance()->GetSubPath(name, type);
 }
-static QString GetFile(QString name)
+static QString GetFileName(PrefixType prefix)
 {
-    return FileManager::GetInstance()->GetFile(name);
+    return FileManager::GetInstance()->GetFileName(prefix);
 }
 static QString GeteMMCPath()
 {

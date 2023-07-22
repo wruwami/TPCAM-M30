@@ -45,43 +45,43 @@
 
 typedef struct _ST_ENFORCE_INFO
 {
-	bool	bImageSave;
-	QString qstrFullPath;
-	QString qstrDatetime;
-	QString qstrDeviceID;
-	QString qstrUsername;
-	QString qstrLocation;
-	int		nSpeedLimit;
-	int		nCaptureDistance;
-	int		nSpeed;
-	int		nTargetCrossX;
-	int		nTargetCrossY;
-	/*_ST_ENFORCE_INFO()
-	{
-		this->bImageSave = false;
-		this->qstrFullPath = "";
-		this->qstrDatetime = "";
-		this->qstrDeviceID = "";
-		this->qstrUsername = "";
-		this->qstrLocation = "";
-		this->nSpeedLimit = 0;
-		this->nCaptureDistance = 0;
-		this->nSpeed = nSpeed;
-	}*/
-	void operator=(_ST_ENFORCE_INFO& enforceInfo)
-	{
-		this->bImageSave = enforceInfo.bImageSave;
-		this->qstrFullPath = enforceInfo.qstrFullPath;
-		this->qstrDatetime = enforceInfo.qstrDatetime;
-		this->qstrDeviceID = enforceInfo.qstrDeviceID;
-		this->qstrUsername = enforceInfo.qstrUsername;
-		this->qstrLocation = enforceInfo.qstrLocation;
-		this->nSpeedLimit = enforceInfo.nSpeedLimit;
-		this->nCaptureDistance = enforceInfo.nCaptureDistance;
-		this->nSpeed = enforceInfo.nSpeed;
-		this->nTargetCrossX = enforceInfo.nTargetCrossX;
-		this->nTargetCrossY = enforceInfo.nTargetCrossY;
-	}
+    bool	bImageSave;
+    QString qstrFullPath;
+    QString qstrDatetime;
+    QString qstrDeviceID;
+    QString qstrUsername;
+    QString qstrLocation;
+    int		nSpeedLimit;
+    int		nCaptureDistance;
+    int		nSpeed;
+    int		nTargetCrossX;
+    int		nTargetCrossY;
+    /*_ST_ENFORCE_INFO()
+    {
+        this->bImageSave = false;
+        this->qstrFullPath = "";
+        this->qstrDatetime = "";
+        this->qstrDeviceID = "";
+        this->qstrUsername = "";
+        this->qstrLocation = "";
+        this->nSpeedLimit = 0;
+        this->nCaptureDistance = 0;
+        this->nSpeed = nSpeed;
+    }*/
+    void operator=(_ST_ENFORCE_INFO& enforceInfo)
+    {
+        this->bImageSave = enforceInfo.bImageSave;
+        this->qstrFullPath = enforceInfo.qstrFullPath;
+        this->qstrDatetime = enforceInfo.qstrDatetime;
+        this->qstrDeviceID = enforceInfo.qstrDeviceID;
+        this->qstrUsername = enforceInfo.qstrUsername;
+        this->qstrLocation = enforceInfo.qstrLocation;
+        this->nSpeedLimit = enforceInfo.nSpeedLimit;
+        this->nCaptureDistance = enforceInfo.nCaptureDistance;
+        this->nSpeed = enforceInfo.nSpeed;
+        this->nTargetCrossX = enforceInfo.nTargetCrossX;
+        this->nTargetCrossY = enforceInfo.nTargetCrossY;
+    }
 }stEnforceInfo;
 
 struct buffer

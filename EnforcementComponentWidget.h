@@ -130,6 +130,8 @@ private slots:
 
     void on_bikePushButton_clicked();
 
+    void on_saveImagePushButton_clicked();
+
 private:
     Ui::EnforcementComponentWidget *ui;
 };

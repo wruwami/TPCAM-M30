@@ -1042,3 +1042,9 @@ void EnforcementComponentWidget::on_bikePushButton_clicked()
     setVehicleMode();
 }
 
+
+void EnforcementComponentWidget::on_saveImagePushButton_clicked()
+{
+
+}
+

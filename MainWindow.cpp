@@ -1004,7 +1004,7 @@ void MainWindow::doStarAction()
 void MainWindow::doZeroAction()
 {
     QPixmap pixmap = QPixmap::grabWindow(this->winId());
-    QString filename = GetSubPath("manual_capture", SD) + "/" + GetFile("SC");
+    QString filename = GetSubPath("manual_capture", SD) + "/" + GetFileName(SC);
     pixmap.save(filename, 0, 100);
 }
 
@@ -1028,7 +1028,7 @@ void MainWindow::do9thAction()
     {
         QString cmd;
         QString resolution = "800x480";
-        QString file_name = GetSubPath("manual_capture", SD) + "/" + GetFile("SR");
+        QString file_name = GetSubPath("manual_capture", SD) + "/" + GetFileName(SR);
         cmd = QString("ffmpeg -hwaccel opencl -y -f x11grab -framerate 10 -video_size %1 -i :0.0+0,0 -c:v libx264 -pix_fmt yuv420p -qp 0 -preset ultrafast %2 &").arg(resolution).arg(file_name);
         system(cmd.toStdString().c_str());
     }

@@ -9,6 +9,7 @@
 #include <vector>
 #include "ConfigManager.h"
 #include "SpeedUnitManager.h"
+#include "camera.h"
 
 enum Mode{
     Ready,
@@ -39,7 +40,8 @@ public:
     friend class RemoteController;
     void dzPlus();
     void dzMinus();
-    void SaveImage();
+    void SaveImageVideo();
+    void SaveImageVideo(EnforcementSaveType);
     void laserInit();
 
 private:
@@ -60,7 +62,6 @@ private:
 
     void displayDistance(float);
     void displayRedOutline(bool);
-    void ImageVideoSave();
     void displayThumbnail(float, float);
 
     void displayHudSpeedDistance(bool, bool, bool, bool);

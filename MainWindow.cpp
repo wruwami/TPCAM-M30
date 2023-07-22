@@ -993,7 +993,7 @@ void MainWindow::doSharpAction()
     if (m_widgetType != Enforcement)
         return;
 
-    m_pEnforcementWidget->m_pEnforcementComponentWidget->SaveImage();
+    m_pEnforcementWidget->m_pEnforcementComponentWidget->SaveImageVideo(Image);
 }
 
 void MainWindow::doStarAction()

@@ -5,7 +5,6 @@
 #include <QTime>
 
 #include "StringLoader.h"
-#include "camera.h"
 #include "WidgetSize.h"
 #include "HUDManager.h"
 #include "SerialLaserManager.h"
@@ -13,6 +12,7 @@
 #include "SerialPacket.h"
 #include "SpeedUnitManager.h"
 #include "WidgetSize.h"
+
 
 extern int g_nCrackDownIndex;
 
@@ -240,9 +240,33 @@ void EnforcementComponentWidget::dzMinus()
 
 }
 
-void EnforcementComponentWidget::SaveImage()
+void EnforcementComponentWidget::SaveImageVideo()
 {
+    QJsonObject object = m_config.GetConfig();
+    switch(object["enforcement selection"].toInt())
+    {
+    case 1:
+    {
+        m_pCamera->SaveVideoImage(Image);
 
+    }
+        break;
+    case 2:
+    {
+        m_pCamera->SaveVideoImage(All);
+    }
+        break;
+    case 3:
+    {
+        m_pCamera->SaveVideoImage(Video);
+    }
+        break;
+    }
+}
+
+void EnforcementComponentWidget::SaveImageVideo(EnforcementSaveType type)
+{
+    m_pCamera->SaveVideoImage(type);
 }
 
 void EnforcementComponentWidget::on_hidePushButton_clicked()
@@ -492,29 +516,6 @@ void EnforcementComponentWidget::displayRedOutline(bool nOn)
     else
     {
         m_isSetOutLine = false;
-    }
-}
-
-void EnforcementComponentWidget::ImageVideoSave()
-{
-    QJsonObject object = m_config.GetConfig();
-    switch(object["enforcement selection"].toInt())
-    {
-    case 1:
-    {
-
-    }
-        break;
-    case 2:
-    {
-
-    }
-        break;
-    case 3:
-    {
-
-    }
-        break;
     }
 }
 
@@ -871,7 +872,7 @@ void EnforcementComponentWidget::on_showCaptureSpeedDistance(float fSpeed, float
     //    빨간색 테두리 표시 등
         displayRedOutline(true);
     //        이미지 또는 동영상을 설정대로 저장
-        ImageVideoSave();
+        SaveImageVideo();
         //썸네일 표시 처리, 썸네일 위에 단속 정보 표시 처리 출력
         displayThumbnail(fSpeed, fDistance);
         sleep(1);

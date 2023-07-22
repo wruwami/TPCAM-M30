@@ -54,7 +54,7 @@ public:
 	bool setShmsink(QString qstrShmName, QString qstrDevice);
 	void setViewerToShmsrc(QString qstrShmName = "/tmp/shm", int nFramerate = 30, int nViewerWidth = 800, int nViewerHeight = 480);
     QString GetFileName(bool bVideo, int idx, QString strDateTime, int nSpeed = 0, int nSpeedLimit = 0, int nCaptureSpeed = 0, int nCaptureDistance = 0, int nEnforcementRange = 0, float fLatitude = 0.f, float fLongitude = 0.f, QString strLocation = "Loc1", QString strUsername = "User", QString strDeviceID = "M0000P");
-	void saveVideoUseShmsrc(QString qstrVideoFilename, QString qstrPath = "", QString qstrEnfoceInfo = "", QString shmName = "/tmp/shm", bool bTimestamp = true, bool bTextoverlay = true, int nRecodeTime = 10, int nFramerate = 30, int nVideoWidth = 1920, int nVideoHeight = 1080);
+    void saveVideoUseShmsrc(QString qstrVideoFilename, QString qstrPath = "", QString shmName = "/tmp/shm", int nRecodeTime = 10, int nFramerate = 30, int nVideoWidth = 1920, int nVideoHeight = 1080);
 	void mkDirs(QString dir_path);
 	QString getTime();
     void SaveVideoImage(EnforcementSaveType);

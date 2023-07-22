@@ -290,7 +290,7 @@ QString Camera::GetFileName(bool bVideo, int idx, QString qstrDateTime, int nSpe
 
 	return qstrFilename;
 }
-void Camera::saveVideoUseShmsrc(QString qstrVideoFilename, QString qstrPath, QString qstrEnfoceInfo, QString qstrShmName, bool bTimestamp, bool bTextoverlay, int nRecodeTime, int nFramerate, int nVideoWidth, int nVideoHeight)
+void Camera::saveVideoUseShmsrc(QString qstrVideoFilename, QString qstrPath, QString qstrShmName, int nRecodeTime, int nFramerate, int nVideoWidth, int nVideoHeight)
 {
 	if (qstrPath != "")
 	{
@@ -511,9 +511,7 @@ void Camera::SaveVideoImage(EnforcementSaveType mode)
 
     if (mode == Video || mode == All)
     {
-        QString qstrEnforceInfo;
-        qstrEnforceInfo.sprintf("[%05d]C   %dkm/h,   %dm", idx, nSpeed, nCaptureDistance);
-        saveVideoUseShmsrc(qstrFilename, qstrPath, qstrEnforceInfo, SHM_NAME, true, true, 5, 30, RAW_IMAGE_WIDTH, RAW_IMAGE_HEIGHT);
+        saveVideoUseShmsrc(qstrFilename, qstrPath, SHM_NAME, 5, 30, RAW_IMAGE_WIDTH, RAW_IMAGE_HEIGHT);
     }
     else if (mode == Image || mode == All)
     {

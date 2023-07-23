@@ -243,22 +243,25 @@ void EnforcementComponentWidget::dzMinus()
 void EnforcementComponentWidget::SaveImageVideo()
 {
     QJsonObject object = m_config.GetConfig();
+    stEnforcementInfo enforceInfo;
+    //
+
     switch(object["enforcement selection"].toInt())
     {
     case 1:
     {
-        m_pCamera->SaveVideoImage(Image);
+        m_pCamera->SaveVideoImage(Image, enforceInfo);
 
     }
         break;
     case 2:
     {
-        m_pCamera->SaveVideoImage(All);
+        m_pCamera->SaveVideoImage(All, enforceInfo);
     }
         break;
     case 3:
     {
-        m_pCamera->SaveVideoImage(Video);
+        m_pCamera->SaveVideoImage(Video, enforceInfo);
     }
         break;
     }
@@ -266,7 +269,9 @@ void EnforcementComponentWidget::SaveImageVideo()
 
 void EnforcementComponentWidget::SaveImageVideo(EnforcementSaveType type)
 {
-    m_pCamera->SaveVideoImage(type);
+    stEnforcementInfo enforceInfo;
+    //
+    m_pCamera->SaveVideoImage(type, enforceInfo);
 }
 
 void EnforcementComponentWidget::on_hidePushButton_clicked()
@@ -753,7 +758,67 @@ void EnforcementComponentWidget::setVehicleMode()
     else if (!m_bTruckChecked && m_bBikeChecked)
         m_nVehicleMode = MotoCycle;
     return;
-//        assert();
+    //        assert();
+}
+
+QString EnforcementComponentWidget::GetMode()
+{
+    QString mode;
+    if (m_UserModeOn)
+        mode.append("U");
+    else
+        mode.append("N");
+
+    ConfigManager config = ConfigManager("parameter_setting1.json");
+    QJsonObject object = config.GetConfig();
+    switch(object["enforcement selection"].toInt())
+    {
+    case 1:
+    {
+        mode.append("I");
+    }
+        break;
+    case 2:
+    {
+        mode.append("A");
+    }
+        break;
+    case 3:
+    {
+        mode.append("V");
+    }
+        break;
+    }
+
+    switch(m_nVehicleMode)
+    {
+    case Normal:
+    {
+        mode.append("N");
+    }
+        break;
+    case Truck:
+    {
+        mode.append("T");
+    }
+        break;
+    case MotoCycle:
+    {
+        mode.append("M");
+    }
+        break;
+    }
+
+    if (m_UserModeOn)
+    {
+        mode.append(QString("%1").arg(QString::number(m_nStIndex), 2));
+    }
+    else
+    {
+        mode.append(QString("%1").arg(QString::number(m_nLtIndex), 2));
+    }
+
+    return mode;
 }
 
 
@@ -1046,6 +1111,7 @@ void EnforcementComponentWidget::on_bikePushButton_clicked()
 
 void EnforcementComponentWidget::on_saveImagePushButton_clicked()
 {
-
+    stEnforcementInfo enforceInfo;
+    m_pCamera->SaveVideoImage(Image, enforceInfo);
 }
 

@@ -487,7 +487,7 @@ void Camera::closeEvent(QCloseEvent *event)
 	}
 }
 
-void Camera::SaveVideoImage(EnforcementSaveType mode)
+void Camera::SaveVideoImage(EnforcementSaveType mode, stEnforcementInfo enforceInfo)
 {
 	int idx = 1;
 	int nSpeed = 96;

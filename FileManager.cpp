@@ -92,6 +92,12 @@ QString FileManager::GetFileName(PrefixType prefix, stEnforcementInfo enforceInf
         strPrefix = "VV";
     }
         break;
+    default:
+    {
+
+    }
+    break;
+
     }
 //    int nCaptureSpeed;
 //    int nSpeedLimit;

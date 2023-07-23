@@ -10,6 +10,7 @@
 #include "ConfigManager.h"
 #include "SpeedUnitManager.h"
 #include "camera.h"
+#include "FileManager.h"
 
 enum Mode{
     Ready,
@@ -71,6 +72,7 @@ private:
     void unitInit();
     void initRec();
     void setVehicleMode();
+    QString GetMode();
 public:
     SerialLaserManager* m_pSerialLaserManager = nullptr;
     CustomPushButton* m_pReadyButton;

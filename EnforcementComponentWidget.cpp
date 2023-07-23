@@ -152,11 +152,11 @@ EnforcementComponentWidget::EnforcementComponentWidget(QWidget *parent) :
 
 EnforcementComponentWidget::~EnforcementComponentWidget()
 {
-    if (m_pCamera)
-    {
-        delete m_pCamera;
-        m_pCamera = nullptr;
-    }
+//    if (m_pCamera)
+//    {
+//        delete m_pCamera;
+//        m_pCamera = nullptr;
+//    }
     delete ui;
 }
 
@@ -545,9 +545,10 @@ void EnforcementComponentWidget::displayThumbnail(float fSpeed, float fDistance)
     ui->enforcementTimeLabel->setText(QTime::currentTime().toString("hh:mm:ss"));
     ui->enforcementDistanceSpeedLabel->setText(QString::number(getSpeedValue(fSpeed)) + distance() + ", " + QString::number(getDistanceValue(fDistance)) + speedUnit());
 
-//    QPixmap pixmap;
+    QPixmap pixmap = m_pCamera->grab();
+
 //    pixmap.grabWidget(m_pCamera);
-    ui->thumbnailLabel->setPixmap(m_pCamera->grab());
+    ui->thumbnailLabel->setPixmap(pixmap.scaled(ui->thumbnailLabel->width(), ui->thumbnailLabel->height(), Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
 }
 
 void EnforcementComponentWidget::displayHudSpeedDistance(bool nDisplay, bool nSpeed, bool nRec, bool nUnit)

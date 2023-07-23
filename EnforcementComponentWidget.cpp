@@ -878,11 +878,13 @@ void EnforcementComponentWidget::paintEvent(QPaintEvent *event)
         QPen Pen(Qt::red);
         Pen.setStyle(Qt::SolidLine);
         Pen.setWidth(10);
+
         painter.setPen(Pen);
-        painter.drawLine(gap, gap, getScreenWidth() - 2 * gap, gap);
-        painter.drawLine(gap, gap, gap, getScreenHeight());
-        painter.drawLine(getScreenWidth() - gap, gap, getScreenWidth() - 2 * gap, getScreenHeight() - 2 * gap);
-        painter.drawLine(gap, getScreenHeight() - 2 * gap, getScreenWidth() - 2 * gap, getScreenHeight() - 2 * gap);
+        painter.drawRect(GetMainWindowRect());
+//        painter.drawLine(gap, gap, getScreenWidth() - 2 * gap, gap);
+//        painter.drawLine(gap, gap, gap, getScreenHeight());
+//        painter.drawLine(getScreenWidth() - gap, gap, getScreenWidth() - 2 * gap, getScreenHeight() - 2 * gap);
+//        painter.drawLine(gap, getScreenHeight() - 2 * gap, getScreenWidth() - 2 * gap, getScreenHeight() - 2 * gap);
     }
 }
 

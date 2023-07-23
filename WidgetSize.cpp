@@ -78,6 +78,16 @@ int WidgetSize::GetWidgetWidth(int width)
     return width * m_rec.width()/ Width;
 }
 
+QRect WidgetSize::GetMainWindowRect()
+{
+    return m_mainWindowRect;
+}
+
+void WidgetSize::SetMainWindowRect(QRect rect)
+{
+    m_mainWindowRect = rect;
+}
+
 QPoint WidgetSize::GetWidgetPos(QPoint pos)
 {
     return QPoint(pos.x() * m_rec.width() / Width , pos.y() * m_rec.height()/ Height );

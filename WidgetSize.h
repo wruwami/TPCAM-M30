@@ -59,8 +59,11 @@ public:
     int GetFontSize(int fontsize);
     int GetWidgetHeight(int height);
     int GetWidgetWidth(int width);
+    QRect GetMainWindowRect();
+    void SetMainWindowRect(QRect rect);
 private:
     QRect m_rec;
+    QRect m_mainWindowRect;
 };
 
 static QSize GetWidgetSize(QSize size)
@@ -101,5 +104,13 @@ static int GetWidthHeight(int height)
 static int GetWidthWidth(int width)
 {
     return WidgetSize::GetInstance()->GetWidgetWidth(width);
+}
+static QRect GetMainWindowRect()
+{
+    return WidgetSize::GetInstance()->GetMainWindowRect();
+}
+static void SetMainWindowRect(QRect rect)
+{
+    return WidgetSize::GetInstance()->SetMainWindowRect(rect);
 }
 #endif // WIDGETSIZE_H

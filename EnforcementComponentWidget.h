@@ -42,9 +42,11 @@ public:
     void dzPlus();
     void dzMinus();
     void SaveImageVideo();
-    void SaveImageVideo(EnforcementSaveType);
+//    void SaveImageVideo(EnforcementSaveType);
+    void SaveImage();
+    void SaveVideo();
     void laserInit();
-
+    void SetCamera(Camera* camera);
 private:
     void hide();
     void show();

@@ -447,6 +447,7 @@ void MainWindow::on_enforcementClicked()
     else
         m_pEnforcementWidget->m_pEnforcementComponentWidget->m_bVirtualMode = false;
     SetCamera();
+    m_pEnforcementWidget->m_pEnforcementComponentWidget->SetCamera(m_pCamera);
 }
 
 void MainWindow::OpenEnforcement()
@@ -515,6 +516,8 @@ void MainWindow::OpenEnforcement()
         m_pEnforcementWidget->m_pEnforcementComponentWidget->m_bVirtualMode = false;
 
     m_pMainMenuWidget->setMainMenuImage("Main_menu", "home_big_n.bmp");
+    SetCamera();
+    m_pEnforcementWidget->m_pEnforcementComponentWidget->SetCamera(m_pCamera);
 }
 
 void MainWindow::OpenMainMenu()
@@ -993,7 +996,7 @@ void MainWindow::doSharpAction()
     if (m_widgetType != Enforcement)
         return;
 
-    m_pEnforcementWidget->m_pEnforcementComponentWidget->SaveImageVideo(Image);
+    m_pEnforcementWidget->m_pEnforcementComponentWidget->SaveImage();
 }
 
 void MainWindow::doStarAction()

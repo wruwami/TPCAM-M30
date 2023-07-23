@@ -3,6 +3,7 @@
 
 #include <QWidget>
 
+class Camera;
 class CustomPushButton;
 namespace Ui {
 class CameraAlignWidget;
@@ -15,6 +16,7 @@ class CameraAlignWidget : public QWidget
 public:
     explicit CameraAlignWidget(QWidget *parent = 0);
     ~CameraAlignWidget();
+    void SetCamera(Camera* caemera);
 public:
     CustomPushButton* m_pHomeButton;
     bool m_bHUDChecked = true;
@@ -26,6 +28,7 @@ private slots:
 
 private:
     Ui::CameraAlignWidget *ui;
+    Camera* m_pCamera;
 };
 
 #endif // CAMERAALIGNWIDGET_H

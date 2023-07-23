@@ -4,6 +4,7 @@
 #include <QWidget>
 #include "SerialViscaManager.h"
 
+class Camera;
 namespace Ui {
 class CameraZoomFocusWidget;
 }
@@ -15,6 +16,7 @@ class CameraZoomFocusWidget : public QWidget
 public:
     explicit CameraZoomFocusWidget(QWidget *parent = 0);
     ~CameraZoomFocusWidget();
+    void SetCamera(Camera* camera);
 
 private slots:
     void on_optPushButton_clicked();
@@ -26,6 +28,7 @@ private slots:
 private:
     Ui::CameraZoomFocusWidget *ui;
     SerialViscaManager m_serialViscaManager;
+    Camera* m_pCamera;
 };
 
 #endif // CAMERAZOOMFOCUSWIDGET_H

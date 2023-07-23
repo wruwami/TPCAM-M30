@@ -250,29 +250,38 @@ void EnforcementComponentWidget::SaveImageVideo()
     {
     case 1:
     {
-        m_pCamera->SaveVideoImage(Image, enforceInfo);
+        m_pCamera->SaveImage(enforceInfo);
 
     }
         break;
     case 2:
     {
-        m_pCamera->SaveVideoImage(All, enforceInfo);
+        m_pCamera->SaveImage(enforceInfo);
+        m_pCamera->SaveVideo(enforceInfo);
     }
         break;
     case 3:
     {
-        m_pCamera->SaveVideoImage(Video, enforceInfo);
+        m_pCamera->SaveVideo(enforceInfo);
     }
         break;
     }
 }
 
-void EnforcementComponentWidget::SaveImageVideo(EnforcementSaveType type)
+void EnforcementComponentWidget::SaveVideo()
 {
     stEnforcementInfo enforceInfo;
     //
-    m_pCamera->SaveVideoImage(type, enforceInfo);
+    m_pCamera->SaveVideo(enforceInfo);
 }
+
+void EnforcementComponentWidget::SaveImage()
+{
+    stEnforcementInfo enforceInfo;
+    //
+    m_pCamera->SaveImage(enforceInfo);
+}
+
 
 void EnforcementComponentWidget::on_hidePushButton_clicked()
 {
@@ -423,6 +432,12 @@ void EnforcementComponentWidget::laserInit()
     else
         m_pSerialLaserManager->set_night_mode(1);
     m_pSerialLaserManager->set_speed_measure_mode(1);
+}
+
+void EnforcementComponentWidget::SetCamera(Camera *camera)
+{
+    if (camera != nullptr)
+        m_pCamera = camera;
 }
 
 void EnforcementComponentWidget::doATMode()
@@ -1112,6 +1127,6 @@ void EnforcementComponentWidget::on_bikePushButton_clicked()
 void EnforcementComponentWidget::on_saveImagePushButton_clicked()
 {
     stEnforcementInfo enforceInfo;
-    m_pCamera->SaveVideoImage(Image, enforceInfo);
+    m_pCamera->SaveImage(enforceInfo);
 }
 

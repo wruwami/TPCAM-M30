@@ -36,6 +36,12 @@ CameraAlignWidget::~CameraAlignWidget()
     delete ui;
 }
 
+void CameraAlignWidget::SetCamera(Camera *camera)
+{
+    if (camera != nullptr)
+        m_pCamera = camera;
+}
+
 void CameraAlignWidget::on_hudPushButton_clicked()
 {
     ui->cameraPushButton->setDown(m_bCameraChecked);

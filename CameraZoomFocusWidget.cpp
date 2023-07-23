@@ -59,6 +59,12 @@ CameraZoomFocusWidget::~CameraZoomFocusWidget()
     delete ui;
 }
 
+void CameraZoomFocusWidget::SetCamera(Camera *camera)
+{
+    if (camera != nullptr)
+        m_pCamera;
+}
+
 void CameraZoomFocusWidget::on_optPushButton_clicked()
 {
     m_serialViscaManager.set_AF_one_push_trigger();

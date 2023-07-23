@@ -487,7 +487,7 @@ void Camera::closeEvent(QCloseEvent *event)
 	}
 }
 
-void Camera::SaveVideoImage(EnforcementSaveType mode, stEnforcementInfo enforceInfo)
+void Camera::SaveVideo(stEnforcementInfo enforceInfo)
 {
 	int idx = 1;
 	int nSpeed = 96;
@@ -509,20 +509,40 @@ void Camera::SaveVideoImage(EnforcementSaveType mode, stEnforcementInfo enforceI
 	QString qstrDatetimeDir = "/" + qstrCurTime.left(8) + "/" + qstrCurTime.left(11) + "/";
 	QString qstrPath = QCoreApplication::applicationDirPath() + qstrDatetimeDir;
 
-    if (mode == Video || mode == All)
-    {
-        saveVideoUseShmsrc(qstrFilename, qstrPath, SHM_NAME, 5, 30, RAW_IMAGE_WIDTH, RAW_IMAGE_HEIGHT);
-    }
-    else if (mode == Image || mode == All)
-    {
-        QString qstrDatetimeInfo = QString("%1/%2/%3 %4:%5:%6.%7").arg(qstrCurTime.left(4), qstrCurTime.mid(4, 2), qstrCurTime.mid(6, 2), qstrCurTime.mid(9, 2), qstrCurTime.mid(11, 2), qstrCurTime.mid(13, 2), qstrCurTime.right(3));
-        QString qstrLocInfo;
-        qstrLocInfo.sprintf("%s (%.6f, %.6f)", qstrLocation.toStdString().c_str(), fLatitude, fLongitude);
-        QString qstrFullPath = qstrPath + GetFileName(false, idx, qstrCurTime.left(16), nSpeed, nSpeedLimit, nCaptureSpeed, nCaptureDistance, nEnfocementRange, fLatitude, fLongitude, qstrLocation, qstrUsername, qstrDeviceID);
-        m_v4l2Capturer->imageGrab(qstrFullPath, qstrDatetimeInfo, qstrDeviceID, qstrUsername, qstrLocInfo, nSpeedLimit, nCaptureDistance, nSpeed, nTargetCrossX, nTargetCrossY);
-    }
+    saveVideoUseShmsrc(qstrFilename, qstrPath, SHM_NAME, 5, 30, RAW_IMAGE_WIDTH, RAW_IMAGE_HEIGHT);
+
 
 }
+
+void Camera::SaveImage(stEnforcementInfo enforceInfo)
+{
+    int idx = 1;
+    int nSpeed = 96;
+    int nSpeedLimit = 80;
+    int nCaptureSpeed = 80;
+    int nCaptureDistance = 100;
+    int nEnfocementRange = 2;
+    float fLatitude = 37.3552f;
+    float fLongitude = 126.9661f;
+    QString qstrLocation = "Loc1";
+    QString qstrUsername = "User1";
+    QString qstrDeviceID = "M0000P";
+    int nTargetCrossX = 1000;
+    int nTargetCrossY = 500;
+
+    QString qstrCurTime = getTime();
+    QString qstrFilename = GetFileName(true, idx, qstrCurTime.left(16), nSpeed, nSpeedLimit, nCaptureSpeed, nCaptureDistance, nEnfocementRange, fLatitude, fLongitude, qstrLocation, qstrUsername, qstrDeviceID);
+
+    QString qstrDatetimeDir = "/" + qstrCurTime.left(8) + "/" + qstrCurTime.left(11) + "/";
+    QString qstrPath = QCoreApplication::applicationDirPath() + qstrDatetimeDir;
+
+    QString qstrDatetimeInfo = QString("%1/%2/%3 %4:%5:%6.%7").arg(qstrCurTime.left(4), qstrCurTime.mid(4, 2), qstrCurTime.mid(6, 2), qstrCurTime.mid(9, 2), qstrCurTime.mid(11, 2), qstrCurTime.mid(13, 2), qstrCurTime.right(3));
+    QString qstrLocInfo;
+    qstrLocInfo.sprintf("%s (%.6f, %.6f)", qstrLocation.toStdString().c_str(), fLatitude, fLongitude);
+    QString qstrFullPath = qstrPath + GetFileName(false, idx, qstrCurTime.left(16), nSpeed, nSpeedLimit, nCaptureSpeed, nCaptureDistance, nEnfocementRange, fLatitude, fLongitude, qstrLocation, qstrUsername, qstrDeviceID);
+    m_v4l2Capturer->imageGrab(qstrFullPath, qstrDatetimeInfo, qstrDeviceID, qstrUsername, qstrLocInfo, nSpeedLimit, nCaptureDistance, nSpeed, nTargetCrossX, nTargetCrossY);
+}
+
 
 int Camera::commandExcute(QString strCommand)
 {

@@ -58,7 +58,8 @@ public:
     void saveVideoUseShmsrc(QString qstrVideoFilename, QString qstrPath = "", QString shmName = "/tmp/shm", int nRecodeTime = 10, int nFramerate = 30, int nVideoWidth = 1920, int nVideoHeight = 1080);
 	void mkDirs(QString dir_path);
 	QString getTime();
-    void SaveVideoImage(EnforcementSaveType, stEnforcementInfo);
+    void SaveVideo(stEnforcementInfo);
+    void SaveImage(stEnforcementInfo);
 
 	
 protected:

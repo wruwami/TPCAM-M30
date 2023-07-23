@@ -543,7 +543,7 @@ void EnforcementComponentWidget::displayThumbnail(float fSpeed, float fDistance)
 {
     ui->enforcementCountLabel->setText(QString::number(++g_nCrackDownIndex));
     ui->enforcementTimeLabel->setText(QTime::currentTime().toString("hh:mm:ss"));
-    ui->enforcementDistanceSpeedLabel->setText(QString::number(getSpeedValue(fSpeed)) + distance() + ", " + QString::number(getDistanceValue(fDistance)) + speedUnit());
+    ui->enforcementDistanceSpeedLabel->setText(QString::number(getDistanceValue(fSpeed)) + distance() + ", " + QString::number(getSpeedValue(fDistance)) + speedUnit());
 
     QPixmap pixmap = m_pCamera->grab();
 

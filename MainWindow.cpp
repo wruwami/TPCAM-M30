@@ -1222,8 +1222,6 @@ void MainWindow::on_SettingSaveClicked()
     ChechMainMenuImage();
 
     initializeMainMenuWidget();
-
-
 }
 
 void MainWindow::on_SettingCancelClicked()

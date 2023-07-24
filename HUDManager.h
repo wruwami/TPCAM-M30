@@ -21,6 +21,9 @@ public:
     void ShowSpeed(bool, bool);
     void ShowDistance(bool);
     void ShowDistanceUnit(bool);
+    void SetPointX(int);
+    void SetPointY(int);
+    void HUDInit();
 private:
     CHeadUpDisplay m_hud;
 };

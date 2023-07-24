@@ -46,3 +46,18 @@ void HUDManager::ShowDistanceUnit(bool nShow)
     else if (!nShow && distance == feet)
         m_hud.writeNumberToFile("distance_sensitivity_unit", 1);
 }
+
+void HUDManager::SetPointX(int value)
+{
+    m_hud.writeNumberToFile("pointer_x", value);
+}
+
+void HUDManager::SetPointY(int value)
+{
+    m_hud.writeNumberToFile("pointer_y", value);
+}
+
+void HUDManager::HUDInit()
+{
+    m_hud.writeNumberToFile("clear_content", 1);
+}

@@ -500,6 +500,7 @@ void MainWindow::OpenEnforcement()
 //        m_pLoginWidget = nullptr;
 //    }
 //    initializeMainMenuWidget();
+    m_pMainMenuWidget->setTransparentBackGround(true);
     ui->verticalLayout->removeItem(ui->verticalLayout->itemAt(1));
     if (m_pEnforcementWidget == nullptr)
         m_pEnforcementWidget = new EnforcementWidget;
@@ -1220,6 +1221,7 @@ void MainWindow::on_camera_zoom_focus()
     }
 
     m_pMainMenuWidget->hideButton();
+    m_pMainMenuWidget->setTransparentBackGround(true);
 
     delete m_pMainMenuAdminAlignWidget;
     m_pMainMenuAdminAlignWidget = nullptr;

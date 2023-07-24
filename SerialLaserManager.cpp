@@ -24,9 +24,10 @@ SerialLaserManager::SerialLaserManager()
 
 SerialLaserManager::~SerialLaserManager()
 {
+    close();
     delete m_pSerial;
     delete laser_packet;
-    close();
+
 }
 
 void SerialLaserManager::serial_received()

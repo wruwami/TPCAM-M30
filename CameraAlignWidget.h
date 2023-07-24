@@ -23,6 +23,7 @@ enum DefaultLaserValue {
 
 class Camera;
 class CustomPushButton;
+class SerialLaserManager;
 namespace Ui {
 class CameraAlignWidget;
 }
@@ -49,6 +50,7 @@ private:
     QPoint m_HUDPoint;
     QPoint m_LaserPoint;
     AlignMode m_nMode = HUD;
+    SerialLaserManager* m_pSerialLaserManager = nullptr;
 private slots:
     void on_hudPushButton_clicked();
 
@@ -67,6 +69,7 @@ private slots:
     void on_upPushButton_clicked();
 
     void on_autoTriggerPushButton_toggled(bool checked);
+    void on_showDistance(float,int);
 
 private:
     Ui::CameraAlignWidget *ui;

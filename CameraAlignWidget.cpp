@@ -7,6 +7,9 @@
 
 #include "CustomPushButton.h"
 #include "HUDManager.h"
+#include "SerialLaserManager.h"
+#include "SerialPacket.h"
+#include "SpeedUnitManager.h"
 
 CameraAlignWidget::CameraAlignWidget(QWidget *parent) :
     QWidget(parent),
@@ -26,9 +29,9 @@ CameraAlignWidget::CameraAlignWidget(QWidget *parent) :
     ui->cancelPushButton->setText(LoadString("IDS_CANCEL"));
     ui->cameraPushButton->setText(LoadString("IDS_CAMERA"));
 
-    ui->hudPushButton->setCheckable(true);
-    ui->cameraPushButton->setCheckable(true);
-    ui->autoTriggerPushButton->setCheckable(true);
+//    ui->hudPushButton->setCheckable(true);
+//    ui->cameraPushButton->setCheckable(true);
+//    ui->autoTriggerPushButton->setCheckable(true);
 
     ui->hudPushButton->setDown(true);
 
@@ -162,5 +165,33 @@ void CameraAlignWidget::on_upPushButton_clicked()
 void CameraAlignWidget::on_autoTriggerPushButton_toggled(bool checked)
 {
     ui->autoTriggerPushButton->setDown(checked);
+    if (checked)
+    {
+        if (m_pSerialLaserManager == nullptr)
+            m_pSerialLaserManager = new SerialLaserManager;
+        m_pSerialLaserManager->start_laser();
+        m_pSerialLaserManager->request_distance(true);
+
+        SerialPacket* laser_packet = m_pSerialLaserManager->getLaser_packet();
+        connect(laser_packet, SIGNAL(sig_showDistance(float,int)), this, SLOT(on_showDistance(float,int)));
+    }
+    else
+    {
+        SerialPacket* laser_packet = m_pSerialLaserManager->getLaser_packet();
+        disconnect(laser_packet, SIGNAL(sig_showDistance(float,int)), this, SLOT(on_showDistance(float,int)));
+
+        m_pSerialLaserManager->stop_laser();
+        m_pSerialLaserManager->request_distance(false);
+        if (m_pSerialLaserManager != nullptr)
+        {
+            delete m_pSerialLaserManager;
+            m_pSerialLaserManager = nullptr;
+        }
+    }
+}
+
+void CameraAlignWidget::on_showDistance(float fDistance, int nSensitivity)
+{
+    ui->speedSensitivitylabel->setText(QString::number(getDistanceValue(fDistance), 'f', 1) + distance() + "(" + QString::number(nSensitivity)+ ")");
 }
 

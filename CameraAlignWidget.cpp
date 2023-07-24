@@ -29,9 +29,9 @@ CameraAlignWidget::CameraAlignWidget(QWidget *parent) :
     ui->cancelPushButton->setText(LoadString("IDS_CANCEL"));
     ui->cameraPushButton->setText(LoadString("IDS_CAMERA"));
 
-//    ui->hudPushButton->setCheckable(true);
-//    ui->cameraPushButton->setCheckable(true);
-//    ui->autoTriggerPushButton->setCheckable(true);
+    ui->hudPushButton->setCheckable(true);
+    ui->cameraPushButton->setCheckable(true);
+    ui->autoTriggerPushButton->setCheckable(true);
 
     ui->hudPushButton->setDown(true);
 
@@ -88,9 +88,11 @@ void CameraAlignWidget::on_hudPushButton_clicked()
 {
     if (m_bCameraChecked)
     {
-        ui->cameraPushButton->setDown(false);
+        ui->cameraPushButton->setStyleSheet("border-color: blue;");
+        ui->hudPushButton->setStyleSheet("border-color: red;");
+//        ui->cameraPushButton->setDown(false);
         m_bCameraChecked = false;
-        ui->hudPushButton->setDown(true);
+//        ui->hudPushButton->setDown(true);
         m_bHUDChecked = true;
         SetHudMode();
     }
@@ -101,9 +103,10 @@ void CameraAlignWidget::on_cameraPushButton_clicked()
 {
     if (m_bHUDChecked)
     {
-        ui->hudPushButton->setDown(false);
+        ui->cameraPushButton->setStyleSheet("border-color: red;");
+        ui->hudPushButton->setStyleSheet("border-color: blue;");
         m_bHUDChecked = false;
-        ui->cameraPushButton->setDown(true);
+//        ui->cameraPushButton->setDown(true);
         m_bCameraChecked = true;
         SetLaserMode();
     }
@@ -164,9 +167,11 @@ void CameraAlignWidget::on_upPushButton_clicked()
 
 void CameraAlignWidget::on_autoTriggerPushButton_toggled(bool checked)
 {
-    ui->autoTriggerPushButton->setDown(checked);
+//    ui->autoTriggerPushButton->setDown(checked);
+//    ui->autoTriggerPushButton->setChecked(checked);
     if (checked)
     {
+        ui->autoTriggerPushButton->setStyleSheet("border-color: blue;");
         if (m_pSerialLaserManager == nullptr)
             m_pSerialLaserManager = new SerialLaserManager;
         m_pSerialLaserManager->start_laser();
@@ -177,6 +182,7 @@ void CameraAlignWidget::on_autoTriggerPushButton_toggled(bool checked)
     }
     else
     {
+        ui->autoTriggerPushButton->setStyleSheet("border-color: red;");
         SerialPacket* laser_packet = m_pSerialLaserManager->getLaser_packet();
         disconnect(laser_packet, SIGNAL(sig_showDistance(float,int)), this, SLOT(on_showDistance(float,int)));
 
@@ -192,6 +198,6 @@ void CameraAlignWidget::on_autoTriggerPushButton_toggled(bool checked)
 
 void CameraAlignWidget::on_showDistance(float fDistance, int nSensitivity)
 {
-    ui->speedSensitivitylabel->setText(QString::number(getDistanceValue(fDistance), 'f', 1) + distance() + "(" + QString::number(nSensitivity)+ ")");
+    ui->speedSensitivitylabel->setText(QString::number(getDistanceValue(fDistance), 'f', 1) + distanceValue() + "(" + QString::number(nSensitivity)+ ")");
 }
 

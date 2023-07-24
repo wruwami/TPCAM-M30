@@ -41,7 +41,7 @@ private:
     SpeedUnit m_speedUnit = Km;
 };
 
-static QString distance()
+static QString distanceValue()
 {
     return SpeedUnitManager::GetInstance()->distance();
 }
@@ -51,7 +51,7 @@ static void setDistance(Distance newDistance)
     SpeedUnitManager::GetInstance()->setDistance(newDistance);
 }
 
-static QString speedUnit()
+static QString speedUnitValue()
 {
     return SpeedUnitManager::GetInstance()->speedUnit();
 }
@@ -61,12 +61,12 @@ static void setSpeedUnit(SpeedUnit newSpeedUnit)
     SpeedUnitManager::GetInstance()->setSpeedUnit(newSpeedUnit);
 }
 
-static Distance distanceValue()
+static Distance distance()
 {
     return SpeedUnitManager::GetInstance()->distanceValue();
 }
 
-static SpeedUnit speedUnitValue()
+static SpeedUnit speedUnit()
 {
     return SpeedUnitManager::GetInstance()->speedUnitValue();
 }

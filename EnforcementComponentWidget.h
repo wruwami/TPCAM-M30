@@ -100,7 +100,6 @@ private:
     size_t m_nLtIndex = 3;
     Camera* m_pCamera = nullptr;
     Mode m_nMode = Ready;
-    Distance m_nDistance = meter;
     int VehicleCount = 0;
     QJsonArray m_captureSpeed;
     VehicleMode m_nVehicleMode = Normal;

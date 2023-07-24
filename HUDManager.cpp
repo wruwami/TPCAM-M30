@@ -36,14 +36,13 @@ void HUDManager::ShowDistance(bool nShow)
 
 void HUDManager::ShowDistanceUnit(bool nShow)
 {
-    Distance distance = distanceValue();
-    if (nShow && distance == meter)
+    if (nShow && distance() == meter)
         m_hud.writeNumberToFile("distance_sensitivity_unit", 2);
-    else if (!nShow && distance == meter)
+    else if (!nShow && distance() == meter)
         m_hud.writeNumberToFile("distance_sensitivity_unit", 0);
-    else if (nShow && distance == feet)
+    else if (nShow && distance() == feet)
         m_hud.writeNumberToFile("distance_sensitivity_unit", 3);
-    else if (!nShow && distance == feet)
+    else if (!nShow && distance() == feet)
         m_hud.writeNumberToFile("distance_sensitivity_unit", 1);
 }
 

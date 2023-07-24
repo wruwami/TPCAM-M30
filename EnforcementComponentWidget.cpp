@@ -43,7 +43,7 @@ EnforcementComponentWidget::EnforcementComponentWidget(QWidget *parent) :
 
     m_captureSpeed = m_object["capture speed"].toArray();
 
-    ui->speedLimitLabel->setText(QString("CS: %0%4\nT: %2%4\nM: %3%4").arg(QString::number(m_captureSpeed[0].toInt())).arg(QString::number(m_captureSpeed[1].toInt())).arg(QString::number(m_captureSpeed[2].toInt())).arg(speedUnit()));
+    ui->speedLimitLabel->setText(QString("CS: %0%4\nT: %2%4\nM: %3%4").arg(QString::number(m_captureSpeed[0].toInt())).arg(QString::number(m_captureSpeed[1].toInt())).arg(QString::number(m_captureSpeed[2].toInt())).arg(speedUnitValue()));
     ui->speedLimitLabel->setDisabled(true);
 
 
@@ -54,10 +54,6 @@ EnforcementComponentWidget::EnforcementComponentWidget(QWidget *parent) :
 
     ConfigManager con = ConfigManager("parameter_setting3.json");
     QJsonObject object = con.GetConfig();
-    if (object["unit selection"].toInt() == 1)
-        m_nDistance = meter;
-    else
-        m_nDistance = feet;
 
     QSizePolicy sp_retain = ui->hidePushButton->sizePolicy();
     sp_retain.setRetainSizeWhenHidden(true);
@@ -108,14 +104,14 @@ EnforcementComponentWidget::EnforcementComponentWidget(QWidget *parent) :
     }
     if (m_UserModeOn)
     {
-        if (m_nDistance == meter)
+        if (distance() == meter)
             ui->zoomRangePushButton->setText(QString("%1%2").arg(m_stmetervector[m_nStIndex]).arg(SpeedUnitManager::GetInstance()->distance()));
         else
             ui->zoomRangePushButton->setText(QString("%1%2").arg(m_stfeetvector[m_nStIndex]).arg(SpeedUnitManager::GetInstance()->distance()));
     }
     else
     {
-        if (m_nDistance == meter)
+        if (distance() == meter)
             ui->zoomRangePushButton->setText(QString("%1%2").arg(m_ltmetervector[m_nLtIndex]).arg(SpeedUnitManager::GetInstance()->distance()));
         else
             ui->zoomRangePushButton->setText(QString("%1%2").arg(m_ltfeetvector[m_nLtIndex]).arg(SpeedUnitManager::GetInstance()->distance()));
@@ -505,10 +501,10 @@ void EnforcementComponentWidget::initStyle()
 void EnforcementComponentWidget::displaySpeedDistance(float fSpeed, float fDistance, QColor color, bool nRec)
 {
     ui->distanceLabel->setColor(color);
-    ui->distanceLabel->setText(QString::number(getDistanceValue(fDistance), 'f', 1) + distance());
+    ui->distanceLabel->setText(QString::number(getDistanceValue(fDistance), 'f', 1) + distanceValue());
     // REC
     ui->speedLabel->setColor(color);
-    ui->speedLabel->setText(QString::number(getSpeedValue(fSpeed))+speedUnit());
+    ui->speedLabel->setText(QString::number(getSpeedValue(fSpeed))+speedUnitValue());
     if (nRec)
     {
         ui->recLabel->show();
@@ -524,7 +520,7 @@ void EnforcementComponentWidget::displaySpeedDistance(float fSpeed, float fDista
 void EnforcementComponentWidget::displayDistance(float fDistance)
 {
     ui->distanceLabel->setColor(Qt::white);
-    ui->distanceLabel->setText(QString::number(getDistanceValue(fDistance), 'f', 1) + distance());
+    ui->distanceLabel->setText(QString::number(getDistanceValue(fDistance), 'f', 1) + distanceValue());
 }
 
 void EnforcementComponentWidget::displayRedOutline(bool nOn)
@@ -543,7 +539,7 @@ void EnforcementComponentWidget::displayThumbnail(float fSpeed, float fDistance)
 {
     ui->enforcementCountLabel->setText(QString::number(++g_nCrackDownIndex));
     ui->enforcementTimeLabel->setText(QTime::currentTime().toString("hh:mm:ss"));
-    ui->enforcementDistanceSpeedLabel->setText(QString::number(getDistanceValue(fSpeed)) + distance() + ", " + QString::number(getSpeedValue(fDistance)) + speedUnit());
+    ui->enforcementDistanceSpeedLabel->setText(QString::number(getDistanceValue(fSpeed)) + distanceValue() + ", " + QString::number(getSpeedValue(fDistance)) + speedUnitValue());
 
     QPixmap pixmap = m_pCamera->grab();
 
@@ -721,13 +717,13 @@ void EnforcementComponentWidget::zoomRange()
             m_nStIndex = 0;
 
         zoom_index = m_nStIndex;
-        if (distanceValue() == meter)
+        if (distance() == meter)
         {
-            ui->zoomRangePushButton->setText(m_stmetervector[m_nStIndex]+distance());
+            ui->zoomRangePushButton->setText(m_stmetervector[m_nStIndex]+distanceValue());
         }
         else
         {
-            ui->zoomRangePushButton->setText(m_stfeetvector[m_nStIndex]+distance());
+            ui->zoomRangePushButton->setText(m_stfeetvector[m_nStIndex]+distanceValue());
         }
     }
     else
@@ -737,13 +733,13 @@ void EnforcementComponentWidget::zoomRange()
             m_nLtIndex = 0;
 
         zoom_index = m_nLtIndex;
-        if (distanceValue() == meter)
+        if (distance() == meter)
         {
-            ui->zoomRangePushButton->setText(m_ltmetervector[m_nLtIndex]+distance());
+            ui->zoomRangePushButton->setText(m_ltmetervector[m_nLtIndex]+distanceValue());
         }
         else
         {
-            ui->zoomRangePushButton->setText(m_ltfeetvector[m_nLtIndex]+distance());
+            ui->zoomRangePushButton->setText(m_ltfeetvector[m_nLtIndex]+distanceValue());
         }
 
     }

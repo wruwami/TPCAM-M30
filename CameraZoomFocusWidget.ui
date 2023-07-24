@@ -53,16 +53,9 @@
      <item row="5" column="0">
       <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="4,1,1">
        <item>
-        <widget class="CustomLabel" name="zoomRangeLabel">
-         <property name="styleSheet">
-          <string notr="true">QLabel {
-	background-color : white;
-	color: black;
-	border: solid 1px black;
-}</string>
-         </property>
+        <widget class="QPushButton" name="zoomRangePushButton">
          <property name="text">
-          <string>TextLabel</string>
+          <string>PushButton</string>
          </property>
         </widget>
        </item>
@@ -192,7 +185,7 @@
       </widget>
      </item>
      <item row="5" column="1">
-      <widget class="QLabel" name="label">
+      <widget class="CustomLabel" name="speedSensitivitylabel">
        <property name="text">
         <string>TextLabel</string>
        </property>

@@ -351,3 +351,15 @@ void CameraZoomFocusWidget::on_showDistance(float fDistance, int nSensitivity)
     ui->speedSensitivitylabel->setText(QString::number(getDistanceValue(fDistance), 'f', 1) + distanceValue() + "(" + QString::number(nSensitivity)+ ")");
 }
 
+
+void CameraZoomFocusWidget::on_jpgSavePushButton_clicked()
+{
+
+}
+
+
+void CameraZoomFocusWidget::on_pgrsSavePushButton_clicked()
+{
+
+}
+

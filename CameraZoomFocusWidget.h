@@ -41,6 +41,10 @@ private slots:
     void on_dzMinusPushButton_clicked();
 
     void on_showDistance(float,int);
+    void on_jpgSavePushButton_clicked();
+
+    void on_pgrsSavePushButton_clicked();
+
 private:
     Ui::CameraZoomFocusWidget *ui;
     SerialViscaManager m_serialViscaManager;

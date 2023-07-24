@@ -75,9 +75,9 @@ static float getSpeedValue(float Kmh)
 {
     return SpeedUnitManager::GetInstance()->getSpeedValue(Kmh);
 }
-static float getDistanceValue(float feet)
+static float getDistanceValue(float meter)
 {
-    return SpeedUnitManager::GetInstance()->getDistanceValue(feet);
+    return SpeedUnitManager::GetInstance()->getDistanceValue(meter);
 }
 
 

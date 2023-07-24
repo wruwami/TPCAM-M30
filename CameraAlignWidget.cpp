@@ -59,7 +59,7 @@ void CameraAlignWidget::SetHudMode()
 
 void CameraAlignWidget::SetLaserMode()
 {
-    ui->hudLabel->setText(LoadString("IDS_HUD") +"[" +QString("%1").arg(QString::number(m_LaserPoint.x()), 2) + "," + QString("%1").arg(QString::number(m_LaserPoint.y()), 2) + "]");
+    ui->hudLabel->setText(LoadString("IDS_LASER") +"[" +QString("%1").arg(QString::number(m_LaserPoint.x()), 2) + "," + QString("%1").arg(QString::number(m_LaserPoint.y()), 2) + "]");
 }
 
 void CameraAlignWidget::SetDirection(int x, int y)
@@ -71,30 +71,40 @@ void CameraAlignWidget::SetDirection(int x, int y)
         m_HUDPoint.setY(m_HUDPoint.y() + y);
         hud.SetPointX(m_HUDPoint.x());
         hud.SetPointX(m_HUDPoint.y());
+        SetHudMode();
     }
     else
     {
         m_LaserPoint.setX(m_LaserPoint.x() + x);
         m_LaserPoint.setY(m_LaserPoint.y() + y);
-
+        SetLaserMode();
     }
 }
 
 void CameraAlignWidget::on_hudPushButton_clicked()
 {
-    ui->cameraPushButton->setDown(m_bCameraChecked);
-    m_bCameraChecked = !m_bCameraChecked;
-    m_bHUDChecked = !m_bHUDChecked;
-    ui->hudPushButton->setDown(m_bHUDChecked);
+    if (m_bCameraChecked)
+    {
+        ui->cameraPushButton->setDown(false);
+        m_bCameraChecked = false;
+        ui->hudPushButton->setDown(true);
+        m_bHUDChecked = true;
+        SetHudMode();
+    }
 }
 
 
 void CameraAlignWidget::on_cameraPushButton_clicked()
 {
-    ui->hudPushButton->setDown(m_bHUDChecked);
-    m_bHUDChecked = !m_bCameraChecked;
-    m_bCameraChecked = !m_bCameraChecked;
-    ui->cameraPushButton->setDown(m_bCameraChecked);
+    if (m_bHUDChecked)
+    {
+        ui->hudPushButton->setDown(false);
+        m_bHUDChecked = false;
+        ui->cameraPushButton->setDown(true);
+        m_bCameraChecked = true;
+        SetLaserMode();
+    }
+
 }
 
 

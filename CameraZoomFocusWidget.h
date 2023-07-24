@@ -25,6 +25,12 @@ private slots:
 
     void on_FocusMinusPushButton_clicked();
 
+    void on_autoTriggerPushButton_clicked();
+
+    void on_dayComboBox_currentIndexChanged(int index);
+
+    void on_initPushButton_clicked();
+
 private:
     Ui::CameraZoomFocusWidget *ui;
     SerialViscaManager m_serialViscaManager;

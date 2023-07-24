@@ -62,7 +62,7 @@ CameraZoomFocusWidget::~CameraZoomFocusWidget()
 void CameraZoomFocusWidget::SetCamera(Camera *camera)
 {
     if (camera != nullptr)
-        m_pCamera;
+        m_pCamera = camera;
 }
 
 void CameraZoomFocusWidget::on_optPushButton_clicked()
@@ -80,5 +80,23 @@ void CameraZoomFocusWidget::on_focusPlusPushButton_clicked()
 void CameraZoomFocusWidget::on_FocusMinusPushButton_clicked()
 {
     m_serialViscaManager.minus_focus();
+}
+
+
+void CameraZoomFocusWidget::on_autoTriggerPushButton_clicked()
+{
+
+}
+
+
+void CameraZoomFocusWidget::on_dayComboBox_currentIndexChanged(int index)
+{
+
+}
+
+
+void CameraZoomFocusWidget::on_initPushButton_clicked()
+{
+
 }
 

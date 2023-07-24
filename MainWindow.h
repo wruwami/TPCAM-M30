@@ -12,6 +12,7 @@ enum WidgetType
     Enforcement,
     FileManager,
     MainMenu,
+    CameraAlign,
     Other,
 };
 

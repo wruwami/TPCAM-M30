@@ -73,7 +73,7 @@ MainWindow::MainWindow(screensaver* screensaver, QWidget *parent) :
             m_bSelfTestFailed = true;
         }
     }
-    SetMainWindowRect(this->rect());
+    SetMainWindowRect(centralWidget()->rect());
     m_pMainMenuWidget = (MainMenuWidget*)ui->verticalLayout->itemAt(0)->widget();
     m_pBatteryStatus = m_pMainMenuWidget->m_pBatteryChargingLabel;
     m_pBatteryPercent = m_pMainMenuWidget->m_pBatteryPercentButton;
@@ -1159,23 +1159,36 @@ void MainWindow::on_device_id_clicked()
 
 void MainWindow::on_camera_align_clicked()
 {
+    m_widgetType = CameraAlign;
     if (m_pMainMenuAdminAlignWidget)
     {
         delete m_pMainMenuAdminAlignWidget;
         m_pMainMenuAdminAlignWidget = nullptr;
     }
 
-    SetCamera();
+    m_p100msTimer->stop();
+    m_p500msTimer->stop();
 
-    m_pMainMenuWidget->hide();
+//    SetCamera();
+
+//    m_pMainMenuWidget->hide();
+    delete m_pMainMenuWidget;
+    m_pMainMenuWidget = nullptr;
+    ui->verticalLayout->removeItem(ui->verticalLayout->itemAt(0));
     delete m_pMainMenuAdminAlignWidget;
     m_pMainMenuAdminAlignWidget = nullptr;
+//    ui->verticalLayout->setStretch(0, 0);
     ui->verticalLayout->removeItem(ui->verticalLayout->itemAt(1));
+
     if (m_pCameraAlignWidget == nullptr)
         m_pCameraAlignWidget = new CameraAlignWidget(this);
-    m_pCameraAlignWidget->setGeometry(GetWidgetSizePos(QRect(0, 0, 1600, 960)));
-    m_pCameraAlignWidget->raise();
-    m_pCameraAlignWidget->show();
+    ui->verticalLayout->addWidget(m_pCameraAlignWidget, 960);
+    SetCamera();
+
+//    ui->verticalLayout->r
+//    m_pCameraAlignWidget->setGeometry(GetWidgetSizePos(QRect(0, 0, 1600, 960)));
+//    m_pCameraAlignWidget->raise();
+//    m_pCameraAlignWidget->show();
 
 //    ui->verticalLayout->addWidget(m_pCameraAlignWidget, 960);
     QObject::connect((QWidget*)m_pCameraAlignWidget->m_pHomeButton, SIGNAL(clicked()), this, SLOT(on_mainMenuHomeClicked()));
@@ -1230,6 +1243,19 @@ void MainWindow::on_DateTimeCancelClicked()
 
 void MainWindow::on_mainMenuHomeClicked()
 {
+    if (m_pCamera != nullptr)
+    {
+        delete m_pCamera;
+        m_pCamera = nullptr;
+    }
+
+    if (m_widgetType == CameraAlign)
+    {
+        m_pMainMenuWidget = new MainMenuWidget;
+        ui->verticalLayout->addWidget(m_pMainMenuWidget, 125);
+        m_p100msTimer->start(100);
+        m_p500msTimer->start(500);
+    }
     if (m_widgetType == Enforcement)
         m_pMainMenuWidget->setTransparentBackGround(false);
     showIndicator(true);

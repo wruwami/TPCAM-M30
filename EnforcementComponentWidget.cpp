@@ -880,7 +880,7 @@ void EnforcementComponentWidget::paintEvent(QPaintEvent *event)
         Pen.setWidth(10);
 
         painter.setPen(Pen);
-        painter.drawRect(GetMainWindowRect());
+        painter.drawRect(GetWidgetSizePos(QRect(0, 0, 1600, 960)));
 //        painter.drawLine(gap, gap, getScreenWidth() - 2 * gap, gap);
 //        painter.drawLine(gap, gap, gap, getScreenHeight());
 //        painter.drawLine(getScreenWidth() - gap, gap, getScreenWidth() - 2 * gap, getScreenHeight() - 2 * gap);

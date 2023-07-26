@@ -133,12 +133,13 @@ signals:
     void sig_pb_shutter_clicked();
     void sig_pb_iris_clicked();
 
+
 public slots:
     void receive_camera();
     void get_inquiry_zoom();
     void get_inquiry_focus();
     void get_inquiry_iris();
-
+    void on_show_dzoom(QString);
 };
 
 #endif // SERIALVISCAMANAGER_H

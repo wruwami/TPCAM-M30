@@ -157,6 +157,12 @@ void MainWindow::initializeMainMenuWidget()
 {
     m_pMainMenuWidget->show();
 
+    if (m_pCamera != nullptr)
+    {
+        delete m_pCamera;
+        m_pCamera = nullptr;
+    }
+
     if (m_userName == "admin-align")
     {
         m_widgetType = Other;
@@ -1228,8 +1234,10 @@ void MainWindow::on_camera_zoom_focus()
     delete m_pMainMenuAdminAlignWidget;
     m_pMainMenuAdminAlignWidget = nullptr;
     ui->verticalLayout->removeItem(ui->verticalLayout->itemAt(1));
-    ui->verticalLayout->addWidget(new CameraZoomFocusWidget, 835);
+    CameraZoomFocusWidget* pCameraZoonFocusWidget = new CameraZoomFocusWidget;
+    ui->verticalLayout->addWidget(pCameraZoonFocusWidget, 835);
     SetCamera();
+    pCameraZoonFocusWidget->SetCamera(m_pCamera);
     m_pMainMenuWidget->setMainMenuImage("Main_menu", "home_big_n.bmp");
 
     showIndicator(false);

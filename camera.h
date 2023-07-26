@@ -60,6 +60,7 @@ public:
 	QString getTime();
     void SaveVideo(stEnforcementInfo);
     void SaveImage(stEnforcementInfo);
+    void SaveImage(QString);
 
 	
 protected:

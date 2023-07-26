@@ -620,7 +620,7 @@ unsigned char	ViscaPacket::MsgDecoder()
         info.sprintf("Zoom position(%X):%02X; %02X; %02X; %02X", m_zoomPQRS, g_ZoomPos.p, g_ZoomPos.q, g_ZoomPos.r, g_ZoomPos.s);
         qDebug() << info;
         m_qstrZoom_pqrs = QString::number(m_zoomPQRS, 16);
-        emit sig_show_zoom();
+        emit sig_show_zoom(m_qstrZoom_pqrs);
         return 1;
     }
     else if(send_data == 0x06) //dzoom on / off
@@ -652,7 +652,9 @@ unsigned char	ViscaPacket::MsgDecoder()
         g_DZoomPos.q = g_RxBuf[5];
         m_DZoom =(g_DZoomPos.p << 4) | (g_DZoomPos.q << 0);
         info.sprintf("DZoom pos (%02X)_%02X; %02X", m_DZoom, g_DZoomPos.p, g_DZoomPos.q);
+        m_qstrDZoom_pqrs = QString::number(m_DZoom, 16);
         qDebug() << info;
+        emit sig_show_dzoom(m_qstrDZoom_pqrs);
         return 2;
     }
     else if(send_data == 0x38) //focus mode
@@ -678,7 +680,7 @@ unsigned char	ViscaPacket::MsgDecoder()
         //feedback
         m_qstrFocus_pqrs = QString::number(m_focusPQRS, 16);
 
-        emit sig_show_focus();
+        emit sig_show_focus(m_qstrFocus_pqrs);
         return 1;
     }
     else if(send_data == 0x35) //WB mode

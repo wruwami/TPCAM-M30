@@ -8,7 +8,6 @@
 #include "WidgetSize.h"
 #include "HUDManager.h"
 #include "SerialLaserManager.h"
-#include "SerialViscaManager.h"
 #include "SerialPacket.h"
 #include "SpeedUnitManager.h"
 #include "WidgetSize.h"
@@ -158,8 +157,7 @@ EnforcementComponentWidget::~EnforcementComponentWidget()
 
 void EnforcementComponentWidget::dzPlus()
 {
-    SerialViscaManager serialViscaManager;
-    serialViscaManager.plus_dzoom();
+    m_pSerialViscaManager.plus_dzoom();
 //    if (m_UserModeOn)
 //    {
 //        if (m_nDistance == meter)
@@ -212,8 +210,7 @@ void EnforcementComponentWidget::dzPlus()
 }
 void EnforcementComponentWidget::dzMinus()
 {
-    SerialViscaManager serialViscaManager;
-    serialViscaManager.minus_dzoom();//    if (m_UserModeOn)
+    m_pSerialViscaManager.minus_dzoom();//    if (m_UserModeOn)
 //    {
 //        if (m_nStIndex != 0)
 //        {
@@ -349,14 +346,13 @@ void EnforcementComponentWidget::SetCamera()
 
 void EnforcementComponentWidget::camInit()
 {
-    SerialViscaManager serialViscaManager;
-    serialViscaManager.SetDayMode(m_object2["day&night selection"].toInt());
+    m_pSerialViscaManager.SetDayMode(m_object2["day&night selection"].toInt());
 
-    serialViscaManager.set_IRCorrection_standard();
+    m_pSerialViscaManager.set_IRCorrection_standard();
 
-    serialViscaManager.set_manual_focus();
-    serialViscaManager.separate_zoom_mode();
-    serialViscaManager.dzoom(1);
+    m_pSerialViscaManager.set_manual_focus();
+    m_pSerialViscaManager.separate_zoom_mode();
+    m_pSerialViscaManager.dzoom(1);
 
 //    ConfigManager config = ConfigManager("parameter_enforcement.json");
 //    QJsonObject object = config.GetConfig();

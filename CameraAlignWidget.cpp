@@ -36,6 +36,8 @@ CameraAlignWidget::CameraAlignWidget(QWidget *parent) :
     ui->hudPushButton->setDown(true);
 
     m_pHomeButton = ui->homePushButton;
+    m_pSaveButton = ui->savePushButton;
+    m_pCancelButton = ui->cancelPushButton;
 
     m_object = m_configManager.GetConfig();
     QJsonArray ar = m_object["HUD reticle pos"].toArray();
@@ -169,7 +171,7 @@ void CameraAlignWidget::on_autoTriggerPushButton_toggled(bool checked)
 {
 //    ui->autoTriggerPushButton->setDown(checked);
 //    ui->autoTriggerPushButton->setChecked(checked);
-    if (checked)
+    if (!checked)
     {
         ui->autoTriggerPushButton->setStyleSheet("border-color: blue;");
         if (m_pSerialLaserManager == nullptr)
@@ -200,4 +202,3 @@ void CameraAlignWidget::on_showDistance(float fDistance, int nSensitivity)
 {
     ui->speedSensitivitylabel->setText(QString::number(getDistanceValue(fDistance), 'f', 1) + distanceValue() + "(" + QString::number(nSensitivity)+ ")");
 }
-

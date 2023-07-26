@@ -42,6 +42,8 @@ private:
     void SetDirection(int, int);
 public:
     CustomPushButton* m_pHomeButton;
+    CustomPushButton* m_pSaveButton;
+    CustomPushButton* m_pCancelButton;
 private:
     bool m_bHUDChecked = true;
     bool m_bCameraChecked = false;

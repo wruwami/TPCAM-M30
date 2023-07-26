@@ -16,19 +16,19 @@ class CameraZoomFocusWidget : public QWidget
 
 public:
     explicit CameraZoomFocusWidget(QWidget *parent = 0);
-    ~CameraZoomFocusWidget();
+    virtual ~CameraZoomFocusWidget();
     void SetCamera(Camera* camera);
 private:
     void ZoomRange();
     void SetLaserDetectionAreaDistance(int zoom_index);
+    void setTableInit();
+    void setFocusEditJsonInit();
 private slots:
     void on_optPushButton_clicked();
 
     void on_focusPlusPushButton_clicked();
 
     void on_FocusMinusPushButton_clicked();
-
-    void on_autoTriggerPushButton_clicked();
 
     void on_dayComboBox_currentIndexChanged(int index);
 
@@ -45,6 +45,8 @@ private slots:
 
     void on_pgrsSavePushButton_clicked();
 
+    void on_autoTriggerPushButton_toggled(bool checked);
+
 private:
     Ui::CameraZoomFocusWidget *ui;
     SerialViscaManager m_serialViscaManager;
@@ -57,7 +59,7 @@ private:
     std::vector<QString> m_ltmetervector;// = {"10~36", "30~60", "60~100", "100~160", "160~260", "260+"};
     std::vector<QString> m_stfeetvector;// = {"60", "80", "100", "120", "140", "160", "180", "200", "220", "240", "260"};
     std::vector<QString> m_ltfeetvector;// = {"10~36", "30~60", "60~100", "100~160", "160~260", "260+"};
-
+    bool m_bATChecked;
 };
 
 #endif // CAMERAZOOMFOCUSWIDGET_H

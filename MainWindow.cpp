@@ -515,6 +515,7 @@ void MainWindow::OpenEnforcement()
     connect(m_pIndicatorWidget, SIGNAL(sig_Night()), m_pEnforcementWidget->m_pEnforcementComponentWidget, SLOT(on_Night()));
     connect(m_pIndicatorWidget, SIGNAL(sig_STMode()), m_pEnforcementWidget->m_pEnforcementComponentWidget, SLOT(on_STMode()));
     connect(m_pIndicatorWidget, SIGNAL(sig_LTMode()), m_pEnforcementWidget->m_pEnforcementComponentWidget, SLOT(on_LTMode()));
+    disconnect(m_pIndicatorWidget, SIGNAL(sig_LTMode()), m_pEnforcementWidget->m_pEnforcementComponentWidget, SLOT(on_LTMode()));
     if (m_userName == "admin-test")
         m_pEnforcementWidget->m_pEnforcementComponentWidget->m_bVirtualMode = true;
     else
@@ -1203,7 +1204,8 @@ void MainWindow::on_camera_align_clicked()
 
 //    ui->verticalLayout->addWidget(m_pCameraAlignWidget, 960);
     QObject::connect((QWidget*)m_pCameraAlignWidget->m_pHomeButton, SIGNAL(clicked()), this, SLOT(on_mainMenuHomeClicked()));
-
+    QObject::connect((QWidget*)m_pCameraAlignWidget->m_pSaveButton, SIGNAL(clicked()), this, SLOT(on_mainMenuHomeClicked()));
+    QObject::connect((QWidget*)m_pCameraAlignWidget->m_pCancelButton, SIGNAL(clicked()), this, SLOT(on_mainMenuHomeClicked()));
 }
 
 void MainWindow::on_camera_zoom_focus()

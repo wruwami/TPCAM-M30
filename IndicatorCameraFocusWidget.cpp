@@ -109,22 +109,20 @@ void IndicatorCameraFocusWidget::on_autoTriggerPushButton_clicked()
 
 void IndicatorCameraFocusWidget::on_onePushTriggerPushButton_clicked()
 {
-    SerialViscaManager serialViscaManager;
-    serialViscaManager.set_AF_one_push_trigger();
+
+    m_pserialViscaManager.set_AF_one_push_trigger();
 }
 
 
 void IndicatorCameraFocusWidget::on_forcusDownPushButton_clicked()
 {
-    SerialViscaManager serialViscaManager;
-    serialViscaManager.minus_focus();
+    m_pserialViscaManager.minus_focus();
 }
 
 
 void IndicatorCameraFocusWidget::on_forcusPlusPushButton_clicked()
 {
-    SerialViscaManager serialViscaManager;
-    serialViscaManager.plus_focus();
+    m_pserialViscaManager.plus_focus();
 }
 
 

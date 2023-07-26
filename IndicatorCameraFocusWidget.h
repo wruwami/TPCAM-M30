@@ -32,7 +32,7 @@ private:
     Ui::IndicatorCameraFocusWidget *ui;
     bool m_bHide = false;
     EnforcementMode m_nMode = Focus_Ready;
-
+    SerialViscaManager m_pserialViscaManager;
     // QWidget interface
 protected:
     void mousePressEvent(QMouseEvent *event);

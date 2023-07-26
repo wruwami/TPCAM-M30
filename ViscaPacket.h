@@ -73,6 +73,7 @@ public:
     int m_iris;
     int m_DZoom;
 
+    QString m_qstrDZoom_pqrs;
     QString m_qstrZoom_pqrs;
     QString m_qstrFocus_pqrs;
     QString m_qstrShutter_pq;
@@ -109,10 +110,13 @@ public:
     //cnrk
     void initTable();
 signals:
-    void sig_show_zoom();
-    void sig_show_focus();
+    void sig_show_zoom(QString);
+    void sig_show_focus(QString);
+    void sig_show_dzoom(QString);
     void sig_show_shutter();
     void sig_show_iris();
+
+//    void sig_show
 };
 
 

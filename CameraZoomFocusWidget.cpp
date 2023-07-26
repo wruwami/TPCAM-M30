@@ -80,12 +80,10 @@ CameraZoomFocusWidget::CameraZoomFocusWidget(QWidget *parent) :
     ui->tableWidget->setHorizontalHeaderLabels(rowHeaders);
 
     QStringList columnHeaders;
-    columnHeaders.append(LoadString("IDS_Z10"));
-    columnHeaders.append(LoadString("IDS_Z30"));
-    columnHeaders.append(LoadString("IDS_Z60"));
-    columnHeaders.append(LoadString("IDS_Z100"));
-    columnHeaders.append(LoadString("IDS_Z160"));
-    columnHeaders.append(LoadString("IDS_Z260"));
+    foreach (auto item, m_ltmetervector)
+    {
+        columnHeaders.append(item);
+    }
     ui->tableWidget->setVerticalHeaderLabels(columnHeaders);
 
     m_serialViscaManager.connectVisca();
@@ -93,11 +91,13 @@ CameraZoomFocusWidget::CameraZoomFocusWidget(QWidget *parent) :
     if (m_pSerialLaserManager == nullptr)
         m_pSerialLaserManager = new SerialLaserManager;
 
+    m_serialViscaManager.show_dzoomPosition();
     connect(m_pSerialLaserManager->getLaser_packet(), SIGNAL(sig_showDistance(float,int)), this, SLOT(on_showDistance(float,int)));
 }
 
 CameraZoomFocusWidget::~CameraZoomFocusWidget()
 {
+    delete m_pSerialLaserManager;
     m_serialViscaManager.close();
     delete ui;
 }
@@ -165,22 +165,23 @@ void CameraZoomFocusWidget::on_FocusMinusPushButton_clicked()
     m_serialViscaManager.minus_focus();
 }
 
-
-void CameraZoomFocusWidget::on_autoTriggerPushButton_clicked()
-{
-
-}
-
-
 void CameraZoomFocusWidget::on_dayComboBox_currentIndexChanged(int index)
 {
-
+    if (index == 0)
+    {
+        m_serialViscaManager.set_infrared_mode_off();
+    }
+    else
+    {
+        m_serialViscaManager.set_infrared_mode_on();
+    }
 }
 
 
 void CameraZoomFocusWidget::on_initPushButton_clicked()
 {
-
+    setTableInit();
+    setFocusEditJsonInit();
 }
 
 void CameraZoomFocusWidget::SetLaserDetectionAreaDistance(int zoom_index)
@@ -329,6 +330,21 @@ void CameraZoomFocusWidget::SetLaserDetectionAreaDistance(int zoom_index)
     m_pSerialLaserManager->set_detection_area(area);
 }
 
+void CameraZoomFocusWidget::setTableInit()
+{
+
+}
+
+void CameraZoomFocusWidget::setFocusEditJsonInit()
+{
+    ConfigManager config = ConfigManager("focus_edit.json");
+    QJsonObject object = config.GetConfig();
+    QJsonArray ar = {0, 0, 0, 0, 0, 0};
+    object["lt day focus edit"] = ar;
+    object["lt night focus edit"] = ar;
+    config.SaveFile();
+}
+
 void CameraZoomFocusWidget::on_zoomRangePushButton_clicked()
 {
     ZoomRange();
@@ -361,5 +377,37 @@ void CameraZoomFocusWidget::on_jpgSavePushButton_clicked()
 void CameraZoomFocusWidget::on_pgrsSavePushButton_clicked()
 {
 
+}
+
+
+void CameraZoomFocusWidget::on_autoTriggerPushButton_toggled(bool checked)
+{
+    m_bATChecked = checked;
+    if (!checked)
+    {
+        ui->autoTriggerPushButton->setStyleSheet("border-color: blue;");
+        if (m_pSerialLaserManager == nullptr)
+            m_pSerialLaserManager = new SerialLaserManager;
+        m_pSerialLaserManager->start_laser();
+        m_pSerialLaserManager->request_distance(true);
+
+        SerialPacket* laser_packet = m_pSerialLaserManager->getLaser_packet();
+        connect(laser_packet, SIGNAL(sig_showDistance(float,int)), this, SLOT(on_showDistance(float,int)));
+    }
+    else
+    {
+        ui->autoTriggerPushButton->setStyleSheet("border-color: red;");
+        SerialPacket* laser_packet = m_pSerialLaserManager->getLaser_packet();
+        disconnect(laser_packet, SIGNAL(sig_showDistance(float,int)), this, SLOT(on_showDistance(float,int)));
+
+        m_pSerialLaserManager->stop_laser();
+        m_pSerialLaserManager->request_distance(false);
+        if (m_pSerialLaserManager != nullptr)
+        {
+            delete m_pSerialLaserManager;
+            m_pSerialLaserManager = nullptr;
+        }
+
+    }
 }
 

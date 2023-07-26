@@ -11,6 +11,7 @@
 #include "SpeedUnitManager.h"
 #include "camera.h"
 #include "FileManager.h"
+#include "SerialViscaManager.h"
 
 enum Mode{
     Ready,
@@ -105,6 +106,7 @@ private:
     VehicleMode m_nVehicleMode = Normal;
     bool m_bTruckChecked = false;
     bool m_bBikeChecked = false;
+    SerialViscaManager m_pSerialViscaManager;
 protected slots:
     void on_hidePushButton_clicked();
     void doShartAction();

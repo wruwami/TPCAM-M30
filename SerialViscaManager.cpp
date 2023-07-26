@@ -23,6 +23,8 @@ SerialViscaManager::SerialViscaManager()
 
 SerialViscaManager::~SerialViscaManager()
 {
+    delete visca_packet; delete serial_visca;
+
     close();
 }
 

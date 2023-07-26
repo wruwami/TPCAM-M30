@@ -53,7 +53,7 @@
      <item row="5" column="0">
       <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="4,1,1">
        <item>
-        <widget class="QPushButton" name="zoomRangePushButton">
+        <widget class="CustomPushButton" name="zoomRangePushButton">
          <property name="text">
           <string>PushButton</string>
          </property>
@@ -91,7 +91,7 @@
 }</string>
        </property>
        <property name="text">
-        <string>TextLabel</string>
+        <string/>
        </property>
       </widget>
      </item>
@@ -162,7 +162,7 @@
 }</string>
        </property>
        <property name="text">
-        <string>TextLabel</string>
+        <string/>
        </property>
       </widget>
      </item>
@@ -187,7 +187,7 @@
      <item row="5" column="1">
       <widget class="CustomLabel" name="speedSensitivitylabel">
        <property name="text">
-        <string>TextLabel</string>
+        <string/>
        </property>
       </widget>
      </item>

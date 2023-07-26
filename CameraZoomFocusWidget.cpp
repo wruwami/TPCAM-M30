@@ -94,6 +94,8 @@ CameraZoomFocusWidget::CameraZoomFocusWidget(QWidget *parent) :
     connect(m_serialViscaManager.getVisca_packet(), SIGNAL(sig_show_dzoom(QString)), this, SLOT(on_show_dzoom(QString)));
     connect(m_serialViscaManager.getVisca_packet(), SIGNAL(sig_show_zoom(QString)), this, SLOT(on_show_zoom(QString)));
     connect(m_serialViscaManager.getVisca_packet(), SIGNAL(sig_show_focus(QString)), this, SLOT(on_show_focus(QString)));
+
+    SendViscaValue();
 }
 
 CameraZoomFocusWidget::~CameraZoomFocusWidget()
@@ -175,6 +177,8 @@ void CameraZoomFocusWidget::on_dayComboBox_currentIndexChanged(int index)
         ui->pgrsSavePushButton->setDisabled(false);
     else
         ui->pgrsSavePushButton->setDisabled(true);
+
+    SendViscaValue();
 }
 
 void CameraZoomFocusWidget::on_initPushButton_clicked()
@@ -468,9 +472,17 @@ void CameraZoomFocusWidget::SetLtValue(int index, QJsonArray& ar, QJsonArray& ar
     }
 }
 
+void CameraZoomFocusWidget::SendViscaValue()
+{
+    m_serialViscaManager.show_dzoomPosition();
+    m_serialViscaManager.show_zoomPosition();
+    m_serialViscaManager.show_focusPosition();
+}
+
 void CameraZoomFocusWidget::on_zoomRangePushButton_clicked()
 {
     ZoomRange();
+    SendViscaValue();
 }
 
 

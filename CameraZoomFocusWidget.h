@@ -31,6 +31,7 @@ private:
     void ModifyFocusEditJson(int, int, int = 1);
     void SaveFocusJson();
     void SetLtValue(int index, QJsonArray& ar, QJsonArray& ar2);
+    void SendViscaValue();
 private:
     ConfigManager m_configManager = ConfigManager("exposure.json");
     ConfigManager m_coofigManager2 = ConfigManager("focus_edit.json");

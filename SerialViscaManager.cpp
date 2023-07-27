@@ -20,6 +20,9 @@ SerialViscaManager::SerialViscaManager()
     connect(m_pTimerInquiryFocus, SIGNAL(timeout()), this, SLOT(get_inquiry_focus()));
     connect(m_pTimerInquiryIris, SIGNAL(timeout()), this, SLOT(get_inquiry_iris()));
     connect(visca_packet, SIGNAL(sig_show_dzoom(QString)), this, SLOT(on_show_dzoom(QString)));
+    connect(visca_packet, SIGNAL(sig_show_focus(QString)), this, SLOT(on_show_focus(QString)));
+    this->show_dzoomPosition();
+//    this->show_focusPosition();
 }
 
 SerialViscaManager::~SerialViscaManager()
@@ -1831,6 +1834,11 @@ void SerialViscaManager::get_inquiry_iris()
 void SerialViscaManager::on_show_dzoom(QString zoom)
 {
     m_Dzoom_pqrs = zoom;
+}
+
+void SerialViscaManager::on_show_focus(QString focus)
+{
+    m_focus_pqrs = focus;
 }
 
 void SerialViscaManager::SetDayMode(QJsonObject object)

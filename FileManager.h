@@ -17,6 +17,7 @@ enum PrefixType
     VV,
     SC,
     SR,
+    MC,
 };
 
 typedef struct _ST_ENFORCEMENT_INFO

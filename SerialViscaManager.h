@@ -79,6 +79,8 @@ public:
     void set_focus(QString a_pqrs);
     void plus_focus();
     void minus_focus();
+    void focus_from_pqrs(QString pqrs_input);
+
 
     void separate_zoom_mode();
     void combine_zoom_mode();
@@ -140,6 +142,7 @@ public slots:
     void get_inquiry_focus();
     void get_inquiry_iris();
     void on_show_dzoom(QString);
+    void on_show_focus(QString);
 };
 
 #endif // SERIALVISCAMANAGER_H

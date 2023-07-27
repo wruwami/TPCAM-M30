@@ -200,6 +200,7 @@ void IndicatorDialog::on_speedSTPushButton_clicked()
     ui->speedPushButton->setImage("indicator", "indicator_enable_user_mode_on.jpg");
     m_jsonObject1["speed selection"] = 1;
     m_pMainMenuWidget->setIndicatorImage(m_pMainMenuWidget->m_pSpeedPushbutton, "indicator", "indicator_enable_user_mode_on.jpg");
+    m_nUserMode = true;
 
     emit sig_STMode();
 //    if (!m_bEnforcement)
@@ -281,7 +282,7 @@ void IndicatorDialog::on_speedLTPushButton_clicked()
     ui->speedPushButton->setImage("indicator", "indicator_enable_user_mode_off.jpg");
     m_jsonObject1["speed selection"] = 2;
     m_pMainMenuWidget->setIndicatorImage(m_pMainMenuWidget->m_pSpeedPushbutton, "indicator", "indicator_enable_user_mode_off.jpg");
-
+    m_nUserMode = false;
     emit sig_LTMode();
 
 //    if (!m_bEnforcement)
@@ -500,6 +501,8 @@ void IndicatorDialog::initlize()
     m_jsonObject1 = m_configManager1.GetConfig();
     m_jsonObject2 = m_configManager2.GetConfig();
     m_jsonObject3 = m_configManager3.GetConfig();
+    m_jsonObject4 = m_configManager4.GetConfig();
+
 
     switch(m_jsonObject1["enforcement selection"].toInt())
     {
@@ -658,6 +661,9 @@ void IndicatorDialog::on_day1WidgetClicked()
      object["DIS"].toBool() ? serialViscaManager.set_DIS_on() : serialViscaManager.set_DIS_off();
      object["DEFOG"].toBool() ? serialViscaManager.set_defog_on() : serialViscaManager.set_defog_off();
      object["HLC"].toBool() ? serialViscaManager.set_HLC_on() : serialViscaManager.set_HLC_off();
+
+
+//     m_jsonObject4[""]
 //    ViscaManager viscaManager;
 //    viscaManager.SetDayMode(object);
 }
@@ -680,6 +686,8 @@ void IndicatorDialog::on_day2WidgetClicked()
     object["DIS"].toBool() ? serialViscaManager.set_DIS_on() : serialViscaManager.set_DIS_off();
     object["DEFOG"].toBool() ? serialViscaManager.set_defog_on() : serialViscaManager.set_defog_off();
     object["HLC"].toBool() ? serialViscaManager.set_HLC_on() : serialViscaManager.set_HLC_off();
+
+
 //    ViscaManager viscaManager;
 //    viscaManager.SetDayMode(object);
 }
@@ -702,8 +710,6 @@ void IndicatorDialog::on_day3WidgetClicked()
     object["DIS"].toBool() ? serialViscaManager.set_DIS_on() : serialViscaManager.set_DIS_off();
     object["DEFOG"].toBool() ? serialViscaManager.set_defog_on() : serialViscaManager.set_defog_off();
     object["HLC"].toBool() ? serialViscaManager.set_HLC_on() : serialViscaManager.set_HLC_off();
-//    ViscaManager viscaManager;
-//    viscaManager.SetDayMode(object);
 }
 
 void IndicatorDialog::on_night1WidgetClicked()
@@ -798,7 +804,7 @@ void IndicatorDialog::on_clicked_rainy()
 
     if (!m_bEnforcement)
         return;
-    m_pSerialLaserManager->set_weather_mode(0);
+    m_pSerialLaserManager->set_weather_mode(1);
 }
 
 void IndicatorDialog::setIndicatorImage(CustomPushButton* pCustomButton, QString path_name, QString file_name)

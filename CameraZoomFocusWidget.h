@@ -21,6 +21,8 @@ public:
     explicit CameraZoomFocusWidget(QWidget *parent = 0);
     virtual ~CameraZoomFocusWidget();
     void SetCamera(Camera* camera);
+    void setPSerialLaserManager(SerialLaserManager *newPSerialLaserManager);
+
 private:
     void ZoomRange();
     void SetLaserDetectionAreaDistance(int zoom_index);

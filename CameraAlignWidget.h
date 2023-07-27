@@ -44,6 +44,8 @@ public:
     CustomPushButton* m_pHomeButton;
     CustomPushButton* m_pSaveButton;
     CustomPushButton* m_pCancelButton;
+    void setPSerialLaserManager(SerialLaserManager *newPSerialLaserManager);
+
 private:
     bool m_bHUDChecked = true;
     bool m_bCameraChecked = false;

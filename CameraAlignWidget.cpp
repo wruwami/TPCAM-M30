@@ -86,6 +86,11 @@ void CameraAlignWidget::SetDirection(int x, int y)
     }
 }
 
+void CameraAlignWidget::setPSerialLaserManager(SerialLaserManager *newPSerialLaserManager)
+{
+    m_pSerialLaserManager = newPSerialLaserManager;
+}
+
 void CameraAlignWidget::on_hudPushButton_clicked()
 {
     if (m_bCameraChecked)
@@ -174,8 +179,6 @@ void CameraAlignWidget::on_autoTriggerPushButton_toggled(bool checked)
     if (!checked)
     {
         ui->autoTriggerPushButton->setStyleSheet("border-color: blue;");
-        if (m_pSerialLaserManager == nullptr)
-            m_pSerialLaserManager = new SerialLaserManager;
         m_pSerialLaserManager->start_laser();
         m_pSerialLaserManager->request_distance(true);
 
@@ -190,11 +193,6 @@ void CameraAlignWidget::on_autoTriggerPushButton_toggled(bool checked)
 
         m_pSerialLaserManager->stop_laser();
         m_pSerialLaserManager->request_distance(false);
-        if (m_pSerialLaserManager != nullptr)
-        {
-            delete m_pSerialLaserManager;
-            m_pSerialLaserManager = nullptr;
-        }
     }
 }
 

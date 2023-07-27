@@ -347,12 +347,18 @@ void EnforcementComponentWidget::SetCamera()
 void EnforcementComponentWidget::camInit()
 {
     m_pSerialViscaManager.SetDayMode(m_object2["day&night selection"].toInt());
-
+    if (m_object2["day&night selection"].toInt() > 0 && m_object2["day&night selection"].toInt() < 4)
+        m_pSerialViscaManager.set_infrared_mode_off();
+    else
+        m_pSerialViscaManager.set_infrared_mode_on();
     m_pSerialViscaManager.set_IRCorrection_standard();
 
     m_pSerialViscaManager.set_manual_focus();
+//    m_pSerialViscaManager.set_AE_mode2e();
     m_pSerialViscaManager.separate_zoom_mode();
-    m_pSerialViscaManager.dzoom(1);
+
+//    Config
+    m_pSerialViscaManager.dzoom_from_pq("00");
 
 //    ConfigManager config = ConfigManager("parameter_enforcement.json");
 //    QJsonObject object = config.GetConfig();

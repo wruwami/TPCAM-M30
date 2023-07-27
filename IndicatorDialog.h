@@ -102,11 +102,14 @@ private:
     ConfigManager m_configManager1 = ConfigManager("parameter_setting1.json");
     ConfigManager m_configManager2 = ConfigManager("parameter_setting2.json");
     ConfigManager m_configManager3 = ConfigManager("exposure.json");
+    ConfigManager m_configManager4 = ConfigManager("focus.json");
     QJsonObject m_jsonObject1;
     QJsonObject m_jsonObject2;
     QJsonObject m_jsonObject3;
+    QJsonObject m_jsonObject4;
     MainMenuWidget* m_pMainMenuWidget;
     SerialLaserManager* m_pSerialLaserManager = nullptr;
+    bool m_nUserMode = true;
 //    SerialLaserManager* m_pSerialLaserManager;
     // QWidget interface
 signals:

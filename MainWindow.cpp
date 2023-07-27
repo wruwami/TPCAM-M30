@@ -433,8 +433,6 @@ void MainWindow::on_enforcementClicked()
 //    QWidget* widget = ui->verticalLayout->itemAt(1)->widget();
 //    delete widget;
 //    widget = nullptr;
-    if (m_pSerialLaserManager == nullptr)
-        m_pSerialLaserManager = new SerialLaserManager;
 
     ui->verticalLayout->removeItem(ui->verticalLayout->itemAt(1));
     if (m_pEnforcementWidget == nullptr)
@@ -511,8 +509,6 @@ void MainWindow::OpenEnforcement()
     if (m_pEnforcementWidget == nullptr)
         m_pEnforcementWidget = new EnforcementWidget;
     ui->verticalLayout->addWidget(m_pEnforcementWidget, 835);
-    if (m_pSerialLaserManager == nullptr)
-        m_pSerialLaserManager = new SerialLaserManager;
     m_pEnforcementWidget->m_pEnforcementComponentWidget->setPSerialLaserManager(m_pSerialLaserManager);
     m_pIndicatorWidget->setPSerialLaserManager(m_pSerialLaserManager);
     m_pEnforcementWidget->m_pEnforcementComponentWidget->laserInit();
@@ -1181,12 +1177,6 @@ void MainWindow::on_camera_align_clicked()
     m_p100msTimer->stop();
     m_p500msTimer->stop();
 
-    if (m_pSerialLaserManager != nullptr)
-    {
-        delete m_pSerialLaserManager;
-        m_pSerialLaserManager = nullptr;
-    }
-
 //    SetCamera();
 
 //    m_pMainMenuWidget->hide();
@@ -1200,6 +1190,7 @@ void MainWindow::on_camera_align_clicked()
 
     if (m_pCameraAlignWidget == nullptr)
         m_pCameraAlignWidget = new CameraAlignWidget(this);
+    m_pCameraAlignWidget->setPSerialLaserManager(m_pSerialLaserManager);
     ui->verticalLayout->addWidget(m_pCameraAlignWidget, 960);
     SetCamera();
 
@@ -1222,11 +1213,6 @@ void MainWindow::on_camera_zoom_focus()
         m_pMainMenuAdminAlignWidget = nullptr;
     }
 
-    if (m_pSerialLaserManager != nullptr)
-    {
-        delete m_pSerialLaserManager;
-        m_pSerialLaserManager = nullptr;
-    }
 
     m_pMainMenuWidget->hideButton();
     m_pMainMenuWidget->setTransparentBackGround(true);

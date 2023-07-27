@@ -100,6 +100,10 @@ CameraZoomFocusWidget::CameraZoomFocusWidget(QWidget *parent) :
 
 CameraZoomFocusWidget::~CameraZoomFocusWidget()
 {
+    disconnect(m_serialViscaManager.getVisca_packet(), SIGNAL(sig_show_dzoom(QString)), this, SLOT(on_show_dzoom(QString)));
+    disconnect(m_serialViscaManager.getVisca_packet(), SIGNAL(sig_show_zoom(QString)), this, SLOT(on_show_zoom(QString)));
+    disconnect(m_serialViscaManager.getVisca_packet(), SIGNAL(sig_show_focus(QString)), this, SLOT(on_show_focus(QString)));
+
     delete m_pSerialLaserManager;
     m_serialViscaManager.close();
     delete ui;
@@ -109,6 +113,11 @@ void CameraZoomFocusWidget::SetCamera(Camera *camera)
 {
     if (camera != nullptr)
         m_pCamera = camera;
+}
+
+void CameraZoomFocusWidget::setPSerialLaserManager(SerialLaserManager *newPSerialLaserManager)
+{
+    m_pSerialLaserManager = newPSerialLaserManager;
 }
 
 void CameraZoomFocusWidget::ZoomRange()

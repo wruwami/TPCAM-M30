@@ -351,6 +351,7 @@ void EnforcementComponentWidget::camInit()
         m_pSerialViscaManager.set_infrared_mode_off();
     else
         m_pSerialViscaManager.set_infrared_mode_on();
+
     m_pSerialViscaManager.set_IRCorrection_standard();
 
     m_pSerialViscaManager.set_manual_focus();

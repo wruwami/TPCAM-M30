@@ -127,6 +127,8 @@ public:
 
     void SetDayMode(int index);
     void SetDayMode(QJsonObject object);
+    void SetFocus(int index);
+    void SetZoom(int index);
 
     ViscaPacket *getVisca_packet() const;
 signals:

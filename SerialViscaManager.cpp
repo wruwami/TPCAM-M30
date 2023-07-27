@@ -4,6 +4,7 @@
 
 #include <QDebug>
 #include <QEventLoop>
+#include <QJsonArray>
 
 #include "ConfigManager.h"
 
@@ -1851,6 +1852,61 @@ void SerialViscaManager::SetDayMode(QJsonObject object)
     object["DIS"].toBool() ? set_DIS_on() : set_DIS_off();
     object["DEFOG"].toBool() ? set_defog_on() : set_defog_off();
     object["HLC"].toBool() ? set_HLC_on() : set_HLC_off();
+}
+
+void SerialViscaManager::SetFocus(int index)
+{
+    QJsonObject object = ConfigManager("parameter_settings1.json").GetConfig();
+    int userMode = object["speed selection"].toInt();
+
+    object = ConfigManager("parameter_settings2.json").GetConfig();
+    int daynight = object["day&night selection"].toInt();
+    object = ConfigManager("focus.json").GetConfig();
+    QJsonArray ar;
+    if (daynight > 0 && daynight < 4)
+    {
+        if (userMode == 1)
+        {
+            ar = object["st day focus"].toArray();
+            this->set_focus(ar[index].toString());
+        }
+        else
+        {
+            ar = object["lt day focus"].toArray();
+            this->set_focus(ar[index].toString());
+        }
+    }
+    else
+    {
+        if (userMode == 1)
+        {
+            ar = object["st night focus"].toArray();
+            this->set_focus(ar[index].toString());
+        }
+        else
+        {
+            ar = object["lt night focus"].toArray();
+            this->set_focus(ar[index].toString());
+        }
+    }
+}
+
+void SerialViscaManager::SetZoom(int index)
+{
+    QJsonObject object = ConfigManager("parameter_settings1.json").GetConfig();
+    int userMode = object["speed selection"].toInt();
+    object = ConfigManager("zoom.json").GetConfig();
+    QString magnification;
+    if (userMode == 1)
+    {
+        magnification = object["st zoom"].toArray()[index].toString();
+    }
+    else
+    {
+        magnification = object["lt zoom"].toArray()[index].toString();
+    }
+    object = ConfigManager("camera_zoom_mag.json").GetConfig();
+    this->zoom_from_pqrs(object.value(magnification).toString());
 }
 
 void SerialViscaManager::SetDayMode(int index)

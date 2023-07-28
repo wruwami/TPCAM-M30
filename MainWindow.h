@@ -96,6 +96,7 @@ private slots:
     void on_DeviceIdSaveClicked();
     void on_DeviceIdCancelClicked();
     void on_datetimeChecked();
+    void on_ShowRedOutLine(bool);
 private:
     Ui::MainWindow *ui;
     DateTimeWidget* m_pDateTimeWidget = nullptr;
@@ -129,6 +130,7 @@ private:
     SerialLaserManager* m_pSerialLaserManager = nullptr;
     int m_nCrackDownCount;
     //    Language m_mLanguage = Language::English;
+    bool m_bRedLine = false;
 
     // QObject interface
 protected:

@@ -91,6 +91,7 @@ public:
 
     void set_AE_shutter_priority();
     void set_AE_manual();
+    void set_AE_Mode(QString p);
 
     void read_AE_mode();
 

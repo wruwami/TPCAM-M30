@@ -1086,6 +1086,26 @@ void SerialViscaManager::set_AE_manual()
         serial_visca->write(data);
 }
 
+void SerialViscaManager::set_AE_Mode(QString p)
+{
+    unsigned char header=0x81;
+    unsigned char msg[10];
+    unsigned char msgSize=4;
+    msg[0]=0x01;
+    msg[1]=0x04;
+    msg[2]=0x39;
+    msg[3]=p.toInt(nullptr, 16);
+
+    QByteArray data;
+    if(visca_packet)
+        data= visca_packet->BlockCamMakePacket(header, msg, msgSize);
+
+    qDebug() << data;
+
+    if(serial_visca)
+        serial_visca->write(data);
+}
+
 void SerialViscaManager::read_AE_mode()
 {
     unsigned char header=0x81;
@@ -1844,11 +1864,11 @@ void SerialViscaManager::on_show_focus(QString focus)
 
 void SerialViscaManager::SetDayMode(QJsonObject object)
 {
-    set_AE_shutter_priority();
     set_iris(object["Iris"].toInt());
     set_shutter_speed(object["Shutter"].toInt());
     set_gain(object["Gain"].toInt());
     set_noise_reduction_on(object["DNR"].toString());
+    set_AE_Mode(object["priority"].toString());
     object["DIS"].toBool() ? set_DIS_on() : set_DIS_off();
     object["DEFOG"].toBool() ? set_defog_on() : set_defog_off();
     object["HLC"].toBool() ? set_HLC_on() : set_HLC_off();
@@ -1946,13 +1966,14 @@ void SerialViscaManager::SetDayMode(int index)
     }
         break;
     }    
-    set_AE_manual();
+
     set_iris(ret["Iris"].toInt());
     set_shutter_speed(ret["Shutter"].toInt());
     set_gain(ret["Gain"].toInt());
     set_noise_reduction_on(object["DNR"].toString());
+    set_AE_Mode(object["priority"].toString());
     ret["DIS"].toBool() ? set_DIS_on() : set_DIS_off();
     ret["DEFOG"].toBool() ? set_defog_on() : set_defog_off();
     ret["HLC"].toBool() ? set_HLC_on() : set_HLC_off();
-    set_AE_shutter_priority();
+//    set_AE_shutter_priority();
 }

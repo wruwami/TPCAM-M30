@@ -53,8 +53,7 @@ private:
     void show();
     void setOutFrame(bool isSet);
     void SetCamera();
-    void ca
-    mInit();
+    void camInit();
     void hudInit();
 
     void doATMode();
@@ -86,7 +85,7 @@ public:
 
 private:
     bool m_bHide = false;
-    bool m_isSetOutLine = false;
+//    bool m_isSetOutLine = false;
     ConfigManager m_config = ConfigManager("parameter_setting1.json");
     ConfigManager m_config2 = ConfigManager("parameter_setting2.json");
     QJsonObject m_object;
@@ -98,8 +97,7 @@ private:
     std::vector<QString> m_stfeetvector;// = {"60", "80", "100", "120", "140", "160", "180", "200", "220", "240", "260"};
     std::vector<QString> m_ltfeetvector;// = {"10~36", "30~60", "60~100", "100~160", "160~260", "260+"};
 
-    size_t m_nStIndex = 2;
-    size_t m_nLtIndex = 3;
+    size_t m_nIndex = 2;
     Camera* m_pCamera = nullptr;
     Mode m_nMode = Ready;
     int VehicleCount = 0;
@@ -129,6 +127,7 @@ protected:
 
 private slots:
 
+
 //    void on_truckPushButton_toggled(bool checked);
 
 //    void on_bikePushButton_toggled(bool checked);
@@ -138,6 +137,8 @@ private slots:
     void on_bikePushButton_clicked();
 
     void on_saveImagePushButton_clicked();
+signals:
+    void ShowRedOutLine(bool);
 
 private:
     Ui::EnforcementComponentWidget *ui;

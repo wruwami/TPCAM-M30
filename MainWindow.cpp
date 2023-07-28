@@ -33,6 +33,7 @@
 #include "camera.h"
 #include "CustomComboBox.h"
 #include "SerialLaserManager.h"
+#include "EnforcementComponentWidget.h"
 
 template <typename T>
 inline void removeSecondItem(T*& pointer) {
@@ -448,6 +449,7 @@ void MainWindow::on_enforcementClicked()
     connect(m_pIndicatorWidget, SIGNAL(sig_Night()), m_pEnforcementWidget->m_pEnforcementComponentWidget, SLOT(on_Night()));
     connect(m_pIndicatorWidget, SIGNAL(sig_STMode()), m_pEnforcementWidget->m_pEnforcementComponentWidget, SLOT(on_STMode()));
     connect(m_pIndicatorWidget, SIGNAL(sig_LTMode()), m_pEnforcementWidget->m_pEnforcementComponentWidget, SLOT(on_LTMode()));
+    connect(m_pEnforcementWidget->m_pEnforcementComponentWidget, SIGNAL(ShowRedOutLine(bool)), this, SLOT(on_ShowRedOutLine(bool)));
     if (m_userName == "admin-test")
         m_pEnforcementWidget->m_pEnforcementComponentWidget->m_bVirtualMode = true;
     else
@@ -1358,6 +1360,11 @@ void MainWindow::on_datetimeChecked()
         m_pDateTimeWidget->SetGPSUTCDateTime(SerialGPSManager::GetInstance()->GetDateTime());
 }
 
+void MainWindow::on_ShowRedOutLine(bool bOn)
+{
+    m_bRedLine = bOn;
+}
+
 void MainWindow::timerEvent(QTimerEvent *event)
 {
     SetWindowWarningMode();
@@ -1385,8 +1392,24 @@ void MainWindow::paintEvent(QPaintEvent *event)
 {
 //    setAttribute(Qt::WA_NoSystemBackground);
 //    setAttribute(Qt::WA_TransparentForMouseEvents);
-//    QPainter painter(this);
+    QPainter painter(this);
     //    painter.fillRect(rect(), QBrush(QColor(255, 0, 0, 128)));
+
+    if (m_bRedLine)
+    {
+        QPen Pen(Qt::red);
+        Pen.setStyle(Qt::SolidLine);
+        Pen.setWidth(10);
+
+        painter.setPen(Pen);
+        painter.drawRect(this->geometry());
+
+    }
+//    painter.drawLine(gap, gap, getScreenWidth() - 2 * gap, gap);
+//    painter.drawLine(gap, gap, gap, getScreenHeight());
+//    painter.drawLine(getScreenWidth() - gap, gap, getScreenWidth() - 2 * gap, getScreenHeight() - 2 * gap);
+//    painter.drawLine(gap, getScreenHeight() - 2 * gap, getScreenWidth() - 2 * gap, getScreenHeight() - 2 * gap);
+
 }
 
 void MainWindow::doFirstAction()

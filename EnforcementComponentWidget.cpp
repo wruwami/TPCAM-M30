@@ -104,16 +104,18 @@ EnforcementComponentWidget::EnforcementComponentWidget(QWidget *parent) :
     if (m_UserModeOn)
     {
         if (distance() == meter)
-            ui->zoomRangePushButton->setText(QString("%1%2").arg(m_stmetervector[m_nStIndex]).arg(SpeedUnitManager::GetInstance()->distance()));
+            ui->zoomRangePushButton->setText(QString("%1%2").arg(m_stmetervector[m_nIndex]).arg(SpeedUnitManager::GetInstance()->distance()));
         else
-            ui->zoomRangePushButton->setText(QString("%1%2").arg(m_stfeetvector[m_nStIndex]).arg(SpeedUnitManager::GetInstance()->distance()));
+            ui->zoomRangePushButton->setText(QString("%1%2").arg(m_stfeetvector[m_nIndex]).arg(SpeedUnitManager::GetInstance()->distance()));
     }
     else
     {
+        if (m_nIndex > 5)
+            m_nIndex = 5;
         if (distance() == meter)
-            ui->zoomRangePushButton->setText(QString("%1%2").arg(m_ltmetervector[m_nLtIndex]).arg(SpeedUnitManager::GetInstance()->distance()));
+            ui->zoomRangePushButton->setText(QString("%1%2").arg(m_ltmetervector[m_nIndex]).arg(SpeedUnitManager::GetInstance()->distance()));
         else
-            ui->zoomRangePushButton->setText(QString("%1%2").arg(m_ltfeetvector[m_nLtIndex]).arg(SpeedUnitManager::GetInstance()->distance()));
+            ui->zoomRangePushButton->setText(QString("%1%2").arg(m_ltfeetvector[m_nIndex]).arg(SpeedUnitManager::GetInstance()->distance()));
     }
 
 //    switch (m_nMode)
@@ -147,6 +149,7 @@ EnforcementComponentWidget::EnforcementComponentWidget(QWidget *parent) :
 
 EnforcementComponentWidget::~EnforcementComponentWidget()
 {
+    emit ShowRedOutLine(false);
 //    if (m_pCamera)
 //    {
 //        delete m_pCamera;
@@ -298,7 +301,6 @@ void EnforcementComponentWidget::doShartAction()
 
 void EnforcementComponentWidget::hide()
 {
-    m_isSetOutLine = true;
     ui->readyPushButton->hide();
     ui->zoomRangePushButton->hide();
     ui->dzPlusPushButton->hide();
@@ -317,7 +319,6 @@ void EnforcementComponentWidget::hide()
 
 void EnforcementComponentWidget::show()
 {
-    m_isSetOutLine = false;
     ui->readyPushButton->show();
     ui->zoomRangePushButton->show();
     ui->dzPlusPushButton->show();
@@ -346,19 +347,28 @@ void EnforcementComponentWidget::SetCamera()
 
 void EnforcementComponentWidget::camInit()
 {
+    m_pSerialViscaManager.set_IRCorrection_standard();
+    m_pSerialViscaManager.set_AE_Mode("03");
+
     m_pSerialViscaManager.SetDayMode(m_object2["day&night selection"].toInt());
     if (m_object2["day&night selection"].toInt() > 0 && m_object2["day&night selection"].toInt() < 4)
         m_pSerialViscaManager.set_infrared_mode_off();
     else
         m_pSerialViscaManager.set_infrared_mode_on();
 
-    m_pSerialViscaManager.set_IRCorrection_standard();
+
 
     m_pSerialViscaManager.set_manual_focus();
 //    m_pSerialViscaManager.set_AE_mode2e();
     m_pSerialViscaManager.separate_zoom_mode();
 
 //    Config
+    QJsonObject object = ConfigManager("parameter_enforcement.json").GetConfig();
+    m_nIndex = object["zoom_index"].toInt();
+    m_pSerialViscaManager.SetZoom(m_nIndex);
+    m_pSerialViscaManager.SetFocus(m_nIndex);
+
+
     m_pSerialViscaManager.dzoom_from_pq("00");
 
 //    ConfigManager config = ConfigManager("parameter_enforcement.json");
@@ -399,6 +409,11 @@ void EnforcementComponentWidget::hudInit()
     ConfigManager config2 = ConfigManager("parameter_reticle.json");
     QJsonObject object2 = config2.GetConfig();
     QJsonArray array = object2["HUD reticle pos"].toArray();
+    hudManager.SetPointX(array[0].toInt());
+    hudManager.SetPointY(array[1].toInt());
+
+    hudManager.ShowDistanceUnit(true);
+
 
     //hudManager.SetReticleShape()
 }
@@ -530,11 +545,11 @@ void EnforcementComponentWidget::displayRedOutline(bool nOn)
 {
     if (nOn)
     {
-        m_isSetOutLine = true;
+        emit ShowRedOutLine(true);
     }
     else
     {
-        m_isSetOutLine = false;
+        emit ShowRedOutLine(false);
     }
 }
 
@@ -715,34 +730,34 @@ void EnforcementComponentWidget::zoomRange()
     int zoom_index = 0;
     if (m_UserModeOn)
     {
-        m_nStIndex++;
-        if (m_nStIndex == m_stmetervector.size())
-            m_nStIndex = 0;
+        m_nIndex++;
+        if (m_nIndex == m_stmetervector.size())
+            m_nIndex = 0;
 
-        zoom_index = m_nStIndex;
+        zoom_index = m_nIndex;
         if (distance() == meter)
         {
-            ui->zoomRangePushButton->setText(m_stmetervector[m_nStIndex]+distanceValue());
+            ui->zoomRangePushButton->setText(m_stmetervector[m_nIndex]+distanceValue());
         }
         else
         {
-            ui->zoomRangePushButton->setText(m_stfeetvector[m_nStIndex]+distanceValue());
+            ui->zoomRangePushButton->setText(m_stfeetvector[m_nIndex]+distanceValue());
         }
     }
     else
     {
-        m_nLtIndex++;
-        if (m_nLtIndex == m_ltmetervector.size())
-            m_nLtIndex = 0;
+        m_nIndex++;
+        if (m_nIndex == m_ltmetervector.size())
+            m_nIndex = 0;
 
-        zoom_index = m_nLtIndex;
+        zoom_index = m_nIndex;
         if (distance() == meter)
         {
-            ui->zoomRangePushButton->setText(m_ltmetervector[m_nLtIndex]+distanceValue());
+            ui->zoomRangePushButton->setText(m_ltmetervector[m_nIndex]+distanceValue());
         }
         else
         {
-            ui->zoomRangePushButton->setText(m_ltfeetvector[m_nLtIndex]+distanceValue());
+            ui->zoomRangePushButton->setText(m_ltfeetvector[m_nIndex]+distanceValue());
         }
 
     }
@@ -826,11 +841,11 @@ QString EnforcementComponentWidget::GetMode()
 
     if (m_UserModeOn)
     {
-        mode.append(QString("%1").arg(QString::number(m_nStIndex), 2));
+        mode.append(QString("%1").arg(QString::number(m_nIndex), 2));
     }
     else
     {
-        mode.append(QString("%1").arg(QString::number(m_nLtIndex), 2));
+        mode.append(QString("%1").arg(QString::number(m_nIndex), 2));
     }
 
     return mode;
@@ -847,9 +862,7 @@ void EnforcementComponentWidget::paintEvent(QPaintEvent *event)
 {
 //    QWidget::paintEvent(event);
 
-    if (m_isSetOutLine)
-    {
-        QPainter painter(this);
+//        QPainter painter(this);
     //    QStyleOptionFrame  option;
 
     //    option.initFrom(this);
@@ -874,17 +887,17 @@ void EnforcementComponentWidget::paintEvent(QPaintEvent *event)
 
         int gap = 3;
 
-        QPen Pen(Qt::red);
-        Pen.setStyle(Qt::SolidLine);
-        Pen.setWidth(10);
+//        QPen Pen(Qt::red);
+//        Pen.setStyle(Qt::SolidLine);
+//        Pen.setWidth(10);
 
-        painter.setPen(Pen);
-        painter.drawRect(GetWidgetSizePos(QRect(0, 0, 1600, 960)));
+//        painter.setPen(Pen);
+//        painter.drawRect(GetWidgetSizePos(QRect(0, 0, 1600, 960)));
 //        painter.drawLine(gap, gap, getScreenWidth() - 2 * gap, gap);
 //        painter.drawLine(gap, gap, gap, getScreenHeight());
 //        painter.drawLine(getScreenWidth() - gap, gap, getScreenWidth() - 2 * gap, getScreenHeight() - 2 * gap);
 //        painter.drawLine(gap, getScreenHeight() - 2 * gap, getScreenWidth() - 2 * gap, getScreenHeight() - 2 * gap);
-    }
+
 }
 
 void EnforcementComponentWidget::on_zoomRangePushButton_clicked()

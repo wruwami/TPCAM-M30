@@ -69,6 +69,7 @@ private:
     void BatteryInit();
     void ChechMainMenuImage();
     void SetCamera();
+    void SetRedLine();
 private slots:
     void on_cameraPushButton_clicked();
     void on_daynNightPushButton_clicked();

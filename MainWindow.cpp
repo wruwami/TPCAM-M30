@@ -975,6 +975,20 @@ void MainWindow::SetCamera()
     m_pCamera->show();
 }
 
+void MainWindow::SetRedLine()
+{
+//    QPainter painter(this);
+//    QPen Pen(Qt::red);
+//    Pen.setStyle(Qt::SolidLine);
+//    Pen.setWidth(10);
+
+//    painter.setPen(Pen);
+//    painter.drawRect(GetWidgetSizePos(QRect(0, 0, 1600, 960)));
+
+    this->setStyleSheet("QMainWindow{border: 1px solid red;}");
+}
+
+
 void MainWindow::doThirdAction()
 {
     this->OpenEnforcement();
@@ -1362,6 +1376,14 @@ void MainWindow::on_datetimeChecked()
 
 void MainWindow::on_ShowRedOutLine(bool bOn)
 {
+    if (bOn)
+    {
+        this->setStyleSheet("QMainWindow{border: 1px solid red;}");
+    }
+    else
+    {
+        this->setStyleSheet("QMainWindow{border: none;}");
+    }
     m_bRedLine = bOn;
 }
 

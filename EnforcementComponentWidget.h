@@ -53,7 +53,8 @@ private:
     void show();
     void setOutFrame(bool isSet);
     void SetCamera();
-    void camInit();
+    void ca
+    mInit();
     void hudInit();
 
     void doATMode();

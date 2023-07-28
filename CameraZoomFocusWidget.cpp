@@ -83,10 +83,10 @@ CameraZoomFocusWidget::CameraZoomFocusWidget(QWidget *parent) :
 
     setTableInit();
 
-    m_serialViscaManager.connectVisca();
+//    m_serialViscaManager.connectVisca();
 
-    if (m_pSerialLaserManager == nullptr)
-        m_pSerialLaserManager = new SerialLaserManager;
+//    if (m_pSerialLaserManager == nullptr)
+//        m_pSerialLaserManager = new SerialLaserManager;
 
     m_serialViscaManager.show_dzoomPosition();
     connect(m_pSerialLaserManager->getLaser_packet(), SIGNAL(sig_showDistance(float,int)), this, SLOT(on_showDistance(float,int)));
@@ -544,8 +544,6 @@ void CameraZoomFocusWidget::on_autoTriggerPushButton_toggled(bool checked)
     if (!checked)
     {
         ui->autoTriggerPushButton->setStyleSheet("border-color: blue;");
-        if (m_pSerialLaserManager == nullptr)
-            m_pSerialLaserManager = new SerialLaserManager;
         m_pSerialLaserManager->start_laser();
         m_pSerialLaserManager->request_distance(true);
 
@@ -560,11 +558,6 @@ void CameraZoomFocusWidget::on_autoTriggerPushButton_toggled(bool checked)
 
         m_pSerialLaserManager->stop_laser();
         m_pSerialLaserManager->request_distance(false);
-        if (m_pSerialLaserManager != nullptr)
-        {
-            delete m_pSerialLaserManager;
-            m_pSerialLaserManager = nullptr;
-        }
 
     }
 }

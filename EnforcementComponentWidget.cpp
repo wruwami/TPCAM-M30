@@ -530,11 +530,20 @@ void EnforcementComponentWidget::displaySpeedDistance(float fSpeed, float fDista
     }
     else
     {
-        ui->recLabel->hide();
-        ui->recIconLabel->hide();
-    }
-    QTimer::singleShot(500, this, SLOT(StopDisPlayRec()));
+        if (m_nEnforcementMode == V)
+        {
+            ui->recLabel->show();
+            ui->recIconLabel->show();
+        }
+        else
+        {
+            ui->recLabel->hide();
+            ui->recIconLabel->hide();
+        }
 
+    }
+    if (m_nEnforcementMode != V)
+        QTimer::singleShot(500, this, SLOT(StopDisPlayRec()));
 }
 
 void EnforcementComponentWidget::displayDistance(float fDistance)
@@ -776,8 +785,11 @@ void EnforcementComponentWidget::initRec()
     ui->recLabel->setColor(Qt::red);
     ui->recLabel->setText("IDS_REC");
     ui->recIconLabel->setImage("enforcement", "redcircle.png");
-    ui->recLabel->hide();
-    ui->recIconLabel->hide();
+    if (m_nEnforcementMode == V)
+    {
+        ui->recLabel->hide();
+        ui->recIconLabel->hide();
+    }
 }
 
 void EnforcementComponentWidget::setVehicleMode()
@@ -1031,6 +1043,27 @@ void EnforcementComponentWidget::on_LTMode()
 {
     m_UserModeOn = false;
     zoomRange();
+}
+
+void EnforcementComponentWidget::on_EnforceModeI()
+{
+    m_nEnforcementMode = I;
+    ui->recLabel->hide();
+    ui->recIconLabel->hide();
+}
+
+void EnforcementComponentWidget::on_EnforceModeA()
+{
+    m_nEnforcementMode = A;
+    ui->recLabel->hide();
+    ui->recIconLabel->hide();
+}
+
+void EnforcementComponentWidget::on_EnforceModeV()
+{
+    m_nEnforcementMode = V;
+    ui->recLabel->show();
+    ui->recIconLabel->show();
 }
 
 

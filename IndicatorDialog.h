@@ -116,6 +116,9 @@ signals:
     void sig_Night();
     void sig_STMode();
     void sig_LTMode();
+    void sig_EnforcementModeI();
+    void sig_EnforcementModeV();
+    void sig_EnforcementModeA();
 protected:
     void paintEvent(QPaintEvent *event);
     void mousePressEvent(QMouseEvent *event);

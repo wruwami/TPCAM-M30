@@ -584,5 +584,34 @@ void Camera::onExitClicked()
 	m_capturer->setRunning(false);
 	disconnect(m_capturer.data(), &CaptureThread::frameCaptured, this, &Camera::updateFrame);
 	connect(m_capturer.data(), &CaptureThread::finished, m_capturer.data(), &CaptureThread::deleteLater);
-	qApp->exit(0);
+    qApp->exit(0);
 }
+
+void Camera::paintEvent(QPaintEvent *event)
+{
+    QPainter painter(this);
+
+    int crossWidth = 5;
+    int crossLength = 10;
+
+    QPen Pen(Qt::white);
+    Pen.setStyle(Qt::SolidLine);
+    Pen.setWidth(crossWidth);
+
+    int x, y, x2, y2;
+    x = this->geometry().x() / 2 - crossLength;
+    x2 = this->geometry().x() / 2 + crossLength;
+    y = this->geometry().y() / 2;
+    y2 = this->geometry().y() / 2;
+    painter.setPen(Pen);
+//    painter.drawLine()
+//    painter.drawRect(GetWidgetSizePos(QRect(0, 0, 1600, 960)));
+    painter.drawLine(x , y, x2, y2);
+    x = this->geometry().x() / 2;
+    x2 = this->geometry().x() / 2;
+    y = this->geometry().y() / 2 - crossLength;
+    y2 = this->geometry().y() / 2 + crossLength;
+    painter.drawLine(x , y, x2, y2);
+
+}
+

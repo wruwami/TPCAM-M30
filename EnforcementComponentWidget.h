@@ -26,6 +26,12 @@ enum VehicleMode{
     MotoCycle,
 };
 
+enum EnforcementMode{
+    V,
+    I,
+    A,
+};
+
 class SerialLaserManager;
 class Camera;
 class CustomPushButton;
@@ -109,6 +115,7 @@ private:
     SerialViscaManager m_pSerialViscaManager;
     int VehicleLastId = -1;
     HUDManager m_hudManager;
+    EnforcementMode m_nEnforcementMode;
 protected slots:
     void on_hidePushButton_clicked();
     void doShartAction();
@@ -125,6 +132,9 @@ protected slots:
     void on_Night();
     void on_STMode();
     void on_LTMode();
+    void on_EnforceModeI();
+    void on_EnforceModeA();
+    void on_EnforceModeV();
 protected:
     void paintEvent(QPaintEvent *event);
 

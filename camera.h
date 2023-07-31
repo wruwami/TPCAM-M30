@@ -145,6 +145,9 @@ private:
 
 	QProcess* m_pProcess;
 	QString m_qstrCurTime;
+    QPoint m_crossPos;
+protected:
+    void paintEvent(QPaintEvent *event);
 };
 
 #endif  /* __CAMERA_H__ */

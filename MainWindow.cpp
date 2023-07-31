@@ -449,6 +449,9 @@ void MainWindow::on_enforcementClicked()
     connect(m_pIndicatorWidget, SIGNAL(sig_Night()), m_pEnforcementWidget->m_pEnforcementComponentWidget, SLOT(on_Night()));
     connect(m_pIndicatorWidget, SIGNAL(sig_STMode()), m_pEnforcementWidget->m_pEnforcementComponentWidget, SLOT(on_STMode()));
     connect(m_pIndicatorWidget, SIGNAL(sig_LTMode()), m_pEnforcementWidget->m_pEnforcementComponentWidget, SLOT(on_LTMode()));
+    connect(m_pIndicatorWidget, SIGNAL(sig_EnforcementModeV()), m_pEnforcementWidget->m_pEnforcementComponentWidget, SLOT(on_EnforceModeI()));
+    connect(m_pIndicatorWidget, SIGNAL(sig_EnforcementModeA()), m_pEnforcementWidget->m_pEnforcementComponentWidget, SLOT(on_EnforceModeA()));
+    connect(m_pIndicatorWidget, SIGNAL(sig_EnforcementModeI()), m_pEnforcementWidget->m_pEnforcementComponentWidget, SLOT(on_EnforceModeV()));
     connect(m_pEnforcementWidget->m_pEnforcementComponentWidget, SIGNAL(ShowRedOutLine(bool)), this, SLOT(on_ShowRedOutLine(bool)));
     if (m_userName == "admin-test")
         m_pEnforcementWidget->m_pEnforcementComponentWidget->m_bVirtualMode = true;
@@ -519,7 +522,10 @@ void MainWindow::OpenEnforcement()
     connect(m_pIndicatorWidget, SIGNAL(sig_Night()), m_pEnforcementWidget->m_pEnforcementComponentWidget, SLOT(on_Night()));
     connect(m_pIndicatorWidget, SIGNAL(sig_STMode()), m_pEnforcementWidget->m_pEnforcementComponentWidget, SLOT(on_STMode()));
     connect(m_pIndicatorWidget, SIGNAL(sig_LTMode()), m_pEnforcementWidget->m_pEnforcementComponentWidget, SLOT(on_LTMode()));
-    disconnect(m_pIndicatorWidget, SIGNAL(sig_LTMode()), m_pEnforcementWidget->m_pEnforcementComponentWidget, SLOT(on_LTMode()));
+    connect(m_pIndicatorWidget, SIGNAL(sig_EnforcementModeV()), m_pEnforcementWidget->m_pEnforcementComponentWidget, SLOT(on_EnforcementModeV()));
+    connect(m_pIndicatorWidget, SIGNAL(sig_EnforcementModeA()), m_pEnforcementWidget->m_pEnforcementComponentWidget, SLOT(on_EnforcementModeA()));
+    connect(m_pIndicatorWidget, SIGNAL(sig_EnforcementModeI()), m_pEnforcementWidget->m_pEnforcementComponentWidget, SLOT(on_EnforcementModeI()));
+//    disconnect(m_pIndicatorWidget, SIGNAL(sig_LTMode()), m_pEnforcementWidget->m_pEnforcementComponentWidget, SLOT(on_LTMode()));
     if (m_userName == "admin-test")
         m_pEnforcementWidget->m_pEnforcementComponentWidget->m_bVirtualMode = true;
     else

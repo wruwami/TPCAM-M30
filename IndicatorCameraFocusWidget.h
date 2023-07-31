@@ -5,7 +5,7 @@
 
 #include "SerialViscaManager.h"
 
-enum EnforcementMode {
+enum FocusMode {
     Focus_Ready,
     Focus_AT,
     Focus_Manual,
@@ -31,7 +31,7 @@ public:
 private:
     Ui::IndicatorCameraFocusWidget *ui;
     bool m_bHide = false;
-    EnforcementMode m_nMode = Focus_Ready;
+    FocusMode m_nMode = Focus_Ready;
     SerialViscaManager m_pserialViscaManager;
     QString m_FocusValue;
     // QWidget interface

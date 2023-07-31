@@ -33,6 +33,7 @@ private:
     bool m_bHide = false;
     EnforcementMode m_nMode = Focus_Ready;
     SerialViscaManager m_pserialViscaManager;
+    QString m_FocusValue;
     // QWidget interface
 protected:
     void mousePressEvent(QMouseEvent *event);
@@ -43,6 +44,7 @@ private slots:
     void on_onePushTriggerPushButton_clicked();
     void on_forcusDownPushButton_clicked();
     void on_forcusPlusPushButton_clicked();
+    void on_show_focus(QString);
 //    void on_applyPushButton_clicked();
 };
 

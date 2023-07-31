@@ -71,10 +71,16 @@ CameraZoomFocusWidget::CameraZoomFocusWidget(QWidget *parent) :
     ui->tableWidget->setHorizontalHeaderLabels(rowHeaders);
 
     QStringList columnHeaders;
-    foreach (auto item, m_ltmetervector)
-    {
-        columnHeaders.append(item);
-    }
+//    foreach (auto item, m_ltmetervector)
+//    {
+//        columnHeaders.append(item);
+//    }
+    columnHeaders.append(LoadString("IDS_Z10_36"));
+    columnHeaders.append(LoadString("IDS_Z36_60"));
+    columnHeaders.append(LoadString("IDS_Z60_100"));
+    columnHeaders.append(LoadString("IDS_Z100_160"));
+    columnHeaders.append(LoadString("IDS_Z160"));
+    columnHeaders.append(LoadString("IDS_Z260"));
     ui->tableWidget->setVerticalHeaderLabels(columnHeaders);
     ui->pgrsSavePushButton->setDisabled(true);
 

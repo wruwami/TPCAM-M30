@@ -79,7 +79,7 @@ public:
     void set_focus(QString a_pqrs);
     void plus_focus();
     void minus_focus();
-    void focus_from_pqrs(QString pqrs_input);
+//    void focus_from_pqrs(QString pqrs_input);
 
 
     void separate_zoom_mode();

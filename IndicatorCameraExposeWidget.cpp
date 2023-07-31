@@ -149,22 +149,6 @@ void IndicatorCameraExposeWidget::on_disOffPushButton_clicked()
     }
 }
 
-
-void IndicatorCameraExposeWidget::on_dnrOnPushButton_clicked()
-{
-//    m_bDNR = !m_bDNR;
-//    if (m_bDNR)
-//    {
-//        m_serialViscaManager.set_`;
-//        ui->dnrOnPushButton->setText(LoadString("IDS_HLC_ON"));
-//    }
-//    else
-//    {
-//        m_serialViscaManager.set_HLC_off();
-//        ui->dnrOnPushButton->setText(LoadString("IDS_HLC_OFF"));
-//    }
-}
-
 void IndicatorCameraExposeWidget::on_daynNightComboBox_currentIndexChanged(int index)
 {
     m_serialViscaManager.SetDayMode(index + 1);
@@ -197,4 +181,6 @@ void IndicatorCameraExposeWidget::on_dnrComboBox_currentIndexChanged(int index)
 {
     m_serialViscaManager.set_noise_reduction_on(QString::number(index));
 }
+
+
 

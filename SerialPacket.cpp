@@ -416,7 +416,7 @@ void SerialPacket::ParsingPacket()
                 qDebug() << strMsg;
 
                 m_bIsCaptureOnDisplay = true;
-                emit sig_showCaptureSpeedDistance(fSpeed, fDist);
+                emit sig_showCaptureSpeedDistance(fSpeed, fDist, VehicleID);
 
 
             }break;

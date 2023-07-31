@@ -6,7 +6,6 @@
 
 #include "StringLoader.h"
 #include "WidgetSize.h"
-#include "HUDManager.h"
 #include "SerialLaserManager.h"
 #include "SerialPacket.h"
 #include "SpeedUnitManager.h"
@@ -378,7 +377,6 @@ void EnforcementComponentWidget::camInit()
 
 void EnforcementComponentWidget::hudInit()
 {
-    HUDManager hudManager;
 
     ConfigManager config = ConfigManager("parameter_setting2.json");
     QJsonObject object = config.GetConfig();
@@ -386,22 +384,22 @@ void EnforcementComponentWidget::hudInit()
     {
     case 1:
     {
-        hudManager.SetReticleShape(Dot);
+        m_hudManager.SetReticleShape(Dot);
     }
         break;
     case 2:
     {
-        hudManager.SetReticleShape(Cross);
+        m_hudManager.SetReticleShape(Cross);
     }
         break;
     case 3:
     {
-        hudManager.SetReticleShape(Round);
+        m_hudManager.SetReticleShape(Round);
     }
         break;
     case 4:
     {
-        hudManager.SetReticleShape(Rectangle);
+        m_hudManager.SetReticleShape(Rectangle);
     }
         break;
     }
@@ -409,10 +407,10 @@ void EnforcementComponentWidget::hudInit()
     ConfigManager config2 = ConfigManager("parameter_reticle.json");
     QJsonObject object2 = config2.GetConfig();
     QJsonArray array = object2["HUD reticle pos"].toArray();
-    hudManager.SetPointX(array[0].toInt());
-    hudManager.SetPointY(array[1].toInt());
+    m_hudManager.SetPointX(array[0].toInt());
+    m_hudManager.SetPointY(array[1].toInt());
 
-    hudManager.ShowDistanceUnit(true);
+    m_hudManager.ShowDistanceUnit(true);
 
 
     //hudManager.SetReticleShape()
@@ -464,7 +462,7 @@ void EnforcementComponentWidget::doATMode()
     m_pSerialLaserManager->request_distance(true);
     if (m_bVirtualMode)
         m_pSerialLaserManager->start_virtualSpeed();
-    connect(laser_packet, SIGNAL(sig_showCaptureSpeedDistance(float,float)), this, SLOT(on_showCaptureSpeedDistance(float,float)));
+    connect(laser_packet, SIGNAL(sig_showCaptureSpeedDistance(float,float, int)), this, SLOT(on_showCaptureSpeedDistance(float,float, int)));
     connect(laser_packet, SIGNAL(sig_showSpeedDistance(float,float)), this, SLOT(on_showSpeedDistance(float,float)));
     connect(laser_packet, SIGNAL(sig_showDistance(float,int)), this, SLOT(on_showDistance(float, int)));
 }
@@ -485,7 +483,7 @@ void EnforcementComponentWidget::doReadyMode()
 
     displayRedOutline(false);
 
-    disconnect(laser_packet, SIGNAL(sig_showCaptureSpeedDistance(float,float)), this, SLOT(on_showCaptureSpeedDistance(float,float)));
+    disconnect(laser_packet, SIGNAL(sig_showCaptureSpeedDistance(float,float, int)), this, SLOT(on_showCaptureSpeedDistance(float,float, int)));
     disconnect(laser_packet, SIGNAL(sig_showSpeedDistance(float,float)), this, SLOT(on_showSpeedDistance(float,float)));
     disconnect(laser_packet, SIGNAL(sig_showDistance(float,int)), this, SLOT(on_showDistance(float, int)));
 
@@ -535,6 +533,8 @@ void EnforcementComponentWidget::displaySpeedDistance(float fSpeed, float fDista
         ui->recLabel->hide();
         ui->recIconLabel->hide();
     }
+    QTimer::singleShot(500, this, SLOT(StopDisPlayRec()));
+
 }
 
 void EnforcementComponentWidget::displayDistance(float fDistance)
@@ -569,17 +569,16 @@ void EnforcementComponentWidget::displayThumbnail(float fSpeed, float fDistance)
 
 void EnforcementComponentWidget::displayHudSpeedDistance(bool nDisplay, bool nSpeed, bool nRec, bool nUnit)
 {
-    HUDManager hudManager;
-    hudManager.ShowSpeed(nSpeed, nRec);
-    hudManager.ShowDistance(nDisplay);
-    hudManager.ShowDistanceUnit(nUnit);
+    m_hudManager.ShowSpeed(nSpeed, nRec);
+    QTimer::singleShot(500, this, SLOT(StopHUDRec()));
+    m_hudManager.ShowDistance(nDisplay);
+    m_hudManager.ShowDistanceUnit(nUnit);
 }
 
 void EnforcementComponentWidget::displayHudDistance(bool nDisplay, bool nUnit)
 {
-    HUDManager hudManager;
-    hudManager.ShowDistance(nDisplay);
-    hudManager.ShowDistanceUnit(nUnit);
+    m_hudManager.ShowDistance(nDisplay);
+    m_hudManager.ShowDistanceUnit(nUnit);
 }
 
 void EnforcementComponentWidget::SetLaserDetectionAreaDistance(int zoom_index)
@@ -948,7 +947,7 @@ void EnforcementComponentWidget::on_dzMinusPushButton_clicked()
     dzMinus();
 }
 
-void EnforcementComponentWidget::on_showCaptureSpeedDistance(float fSpeed, float fDistance)
+void EnforcementComponentWidget::on_showCaptureSpeedDistance(float fSpeed, float fDistance, int VehicleId)
 {
     if (m_bNight)
     {
@@ -961,18 +960,24 @@ void EnforcementComponentWidget::on_showCaptureSpeedDistance(float fSpeed, float
 
     if (fSpeed >= GetCaptureSpeedLimit())
     {
-        // 화면에 속도 및 거리, REC 표시 출력
-        displaySpeedDistance(fSpeed, fDistance, Qt::red, true);
+        if (VehicleLastId != VehicleId)
+        {
+            VehicleLastId = VehicleId;
+            // 화면에 속도 및 거리, REC 표시 출력
+            displaySpeedDistance(fSpeed, fDistance, Qt::red, true);
 
-        // HUD에 속도 및 거리, REC 표시 출력
-        displayHudSpeedDistance(true, true, true, true);
-    //    빨간색 테두리 표시 등
-        displayRedOutline(true);
-    //        이미지 또는 동영상을 설정대로 저장
-        SaveImageVideo();
-        //썸네일 표시 처리, 썸네일 위에 단속 정보 표시 처리 출력
-        displayThumbnail(fSpeed, fDistance);
-        sleep(1);
+            // HUD에 속도 및 거리, REC 표시 출력
+            displayHudSpeedDistance(true, true, true, true);
+        //    빨간색 테두리 표시 등
+            displayRedOutline(true);
+            QTimer::singleShot(500, this, SLOT(StopDisPlayRedLine()));
+
+        //        이미지 또는 동영상을 설정대로 저장
+            SaveImageVideo();
+            //썸네일 표시 처리, 썸네일 위에 단속 정보 표시 처리 출력
+            displayThumbnail(fSpeed, fDistance);
+            sleep(1);
+        }
     }
     else if (fSpeed < GetCaptureSpeedLimit())
     {
@@ -1103,18 +1108,20 @@ void EnforcementComponentWidget::on_truckPushButton_clicked()
 //    }
     if (m_bBikeChecked)
     {
-        ui->bikePushButton->setDown(false);
+//        ui->bikePushButton->setDown(false);
+        ui->bikePushButton->setStyleSheet("border-color: blue;");
         m_bBikeChecked = !m_bBikeChecked;
     }
     if (m_bTruckChecked)
     {
         m_bTruckChecked = !m_bTruckChecked;
-        ui->truckPushButton->setDown(false);
+        ui->truckPushButton->setStyleSheet("border-color: blue;");
     }
     else
     {
         m_bTruckChecked = !m_bTruckChecked;
-        ui->truckPushButton->setDown(true);
+//        ui->truckPushButton->setDown(true);
+        ui->truckPushButton->setStyleSheet("border-color: red;");
     }
     setVehicleMode();
 }
@@ -1124,18 +1131,18 @@ void EnforcementComponentWidget::on_bikePushButton_clicked()
 {
     if (m_bTruckChecked)
     {
-        ui->truckPushButton->setDown(false);
+        ui->truckPushButton->setStyleSheet("border-color: blue;");
         m_bTruckChecked = !m_bTruckChecked;
     }
     if (m_bBikeChecked)
     {
         m_bBikeChecked = !m_bBikeChecked;
-        ui->bikePushButton->setDown(false);
+        ui->bikePushButton->setStyleSheet("border-color: blue;");
     }
     else
     {
         m_bBikeChecked = !m_bBikeChecked;
-        ui->bikePushButton->setDown(true);
+        ui->bikePushButton->setStyleSheet("border-color: red;");
     }
     setVehicleMode();
 }
@@ -1145,5 +1152,21 @@ void EnforcementComponentWidget::on_saveImagePushButton_clicked()
 {
     stEnforcementInfo enforceInfo;
     m_pCamera->SaveImage(enforceInfo);
+}
+
+void EnforcementComponentWidget::StopHUDRec()
+{
+    m_hudManager.ShowSpeed(true, false);
+}
+
+void EnforcementComponentWidget::StopDisPlayRec()
+{
+    ui->recLabel->hide();
+    ui->recIconLabel->hide();
+}
+
+void EnforcementComponentWidget::StopDisPlayRedLine()
+{
+    displayRedOutline(false);
 }
 

@@ -12,6 +12,7 @@
 #include "camera.h"
 #include "FileManager.h"
 #include "SerialViscaManager.h"
+#include "HUDManager.h"
 
 enum Mode{
     Ready,
@@ -106,6 +107,8 @@ private:
     bool m_bTruckChecked = false;
     bool m_bBikeChecked = false;
     SerialViscaManager m_pSerialViscaManager;
+    int VehicleLastId = -1;
+    HUDManager m_hudManager;
 protected slots:
     void on_hidePushButton_clicked();
     void doShartAction();
@@ -116,7 +119,7 @@ protected slots:
     void on_dzPlusPushButton_clicked();
 
     void on_dzMinusPushButton_clicked();
-    void on_showCaptureSpeedDistance(float, float);
+    void on_showCaptureSpeedDistance(float, float, int);
     void on_showSpeedDistance(float, float);
     void on_showDistance(float, int);
     void on_Night();
@@ -137,6 +140,9 @@ private slots:
     void on_bikePushButton_clicked();
 
     void on_saveImagePushButton_clicked();
+    void StopHUDRec();
+    void StopDisPlayRec();
+    void StopDisPlayRedLine();
 signals:
     void ShowRedOutLine(bool);
 

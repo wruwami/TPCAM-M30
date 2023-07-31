@@ -99,7 +99,7 @@ void CHeadUpDisplay::showSpeedDistanceSensitivity(float fSpeed, float distance)
     m_DistanceTimer.start(200);
 }
 
-void CHeadUpDisplay::showCaptureSpeedDistance(float fSpeed, float distance)
+void CHeadUpDisplay::showCaptureSpeedDistance(float fSpeed, float distance, int VehicleId)
 {
     if(m_bSensitivityOn)
     {

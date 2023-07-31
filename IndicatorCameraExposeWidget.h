@@ -36,7 +36,6 @@ private slots:
     void on_hlcOnPushButton_clicked();
     void on_defogOffPushButton_clicked();
     void on_disOffPushButton_clicked();
-    void on_dnrOnPushButton_clicked();
     void on_daynNightComboBox_currentIndexChanged(int index);
     void on_gainComboBox_currentIndexChanged(int index);
     void on_irisComboBox_currentIndexChanged(int index);

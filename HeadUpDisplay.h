@@ -16,7 +16,7 @@ public:
 public slots:
     void showDistanceSensitivity(float fDistance, int nSensitivity);
     void showSpeedDistanceSensitivity(float fSpeed, float distance);
-    void showCaptureSpeedDistance(float fSpeed, float distance);
+    void showCaptureSpeedDistance(float fSpeed, float distance, int);
     void hideSpeed();
     void hideDistance();
 

@@ -510,8 +510,6 @@ void Camera::SaveVideo(stEnforcementInfo enforceInfo)
 	QString qstrPath = QCoreApplication::applicationDirPath() + qstrDatetimeDir;
 
     saveVideoUseShmsrc(qstrFilename, qstrPath, SHM_NAME, 5, 30, RAW_IMAGE_WIDTH, RAW_IMAGE_HEIGHT);
-
-
 }
 
 void Camera::SaveImage(stEnforcementInfo enforceInfo)
@@ -587,31 +585,31 @@ void Camera::onExitClicked()
     qApp->exit(0);
 }
 
-void Camera::paintEvent(QPaintEvent *event)
-{
-    QPainter painter(this);
+//void Camera::paintEvent(QPaintEvent *event)
+//{
+//    QPainter painter(this);
 
-    int crossWidth = 5;
-    int crossLength = 10;
+//    int crossWidth = 5;
+//    int crossLength = 10;
 
-    QPen Pen(Qt::white);
-    Pen.setStyle(Qt::SolidLine);
-    Pen.setWidth(crossWidth);
+//    QPen Pen(Qt::white);
+//    Pen.setStyle(Qt::SolidLine);
+//    Pen.setWidth(crossWidth);
 
-    int x, y, x2, y2;
-    x = this->geometry().x() / 2 - crossLength;
-    x2 = this->geometry().x() / 2 + crossLength;
-    y = this->geometry().y() / 2;
-    y2 = this->geometry().y() / 2;
-    painter.setPen(Pen);
-//    painter.drawLine()
-//    painter.drawRect(GetWidgetSizePos(QRect(0, 0, 1600, 960)));
-    painter.drawLine(x , y, x2, y2);
-    x = this->geometry().x() / 2;
-    x2 = this->geometry().x() / 2;
-    y = this->geometry().y() / 2 - crossLength;
-    y2 = this->geometry().y() / 2 + crossLength;
-    painter.drawLine(x , y, x2, y2);
+//    int x, y, x2, y2;
+//    x = this->geometry().x() / 2 - crossLength;
+//    x2 = this->geometry().x() / 2 + crossLength;
+//    y = this->geometry().y() / 2;
+//    y2 = this->geometry().y() / 2;
+//    painter.setPen(Pen);
+////    painter.drawLine()
+////    painter.drawRect(GetWidgetSizePos(QRect(0, 0, 1600, 960)));
+//    painter.drawLine(x , y, x2, y2);
+//    x = this->geometry().x() / 2;
+//    x2 = this->geometry().x() / 2;
+//    y = this->geometry().y() / 2 - crossLength;
+//    y2 = this->geometry().y() / 2 + crossLength;
+//    painter.drawLine(x , y, x2, y2);
 
-}
+//}
 

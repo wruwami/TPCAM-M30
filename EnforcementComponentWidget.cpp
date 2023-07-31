@@ -431,7 +431,6 @@ void EnforcementComponentWidget::laserInit()
     m_pSerialLaserManager->set_AJamming_mode(object2["anti-jamming selection"].toInt());
     m_pSerialLaserManager->set_buzzer_mode(object2["buzzer selection"].toInt());
 
-    m_pSerialLaserManager->set_detection_distance(object["speed_selection"].toInt());
 
     ConfigManager config3 = ConfigManager("parameter_enforcement.json");
     QJsonObject object3 = config3.GetConfig();
@@ -456,6 +455,7 @@ void EnforcementComponentWidget::SetCamera(Camera *camera)
 
 void EnforcementComponentWidget::doATMode()
 {
+    emit ShowRedOutLine(true);
     m_pSerialLaserManager->stop_laser();
     m_pSerialLaserManager->request_distance(false);
 
@@ -471,6 +471,8 @@ void EnforcementComponentWidget::doATMode()
 
 void EnforcementComponentWidget::doManualMode()
 {
+    emit ShowRedOutLine(false);
+
     doATMode();
 }
 

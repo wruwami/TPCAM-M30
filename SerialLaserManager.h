@@ -40,7 +40,7 @@ public:
     void show_camera_version();
     void show_camera_model();
     SerialPacket *getLaser_packet();
-
+    void SetLaserDetectionAreaDistance(int, bool);
 private:
     QSerialPort* m_pSerial;
     SerialPacket *laser_packet;

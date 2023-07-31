@@ -365,3 +365,149 @@ SerialPacket *SerialLaserManager::getLaser_packet()
 {
     return laser_packet;
 }
+
+void SerialLaserManager::SetLaserDetectionAreaDistance(int zoom_index, bool UserModeOn)
+{
+    int distance = 0, area = 0;
+    switch (zoom_index)
+    {
+    case 1:
+    {
+        if (UserModeOn)
+        {
+            distance = 20;
+            area = 3;
+        }
+        else
+        {
+            distance = 18;
+            area = 18;
+        }
+    }
+        break;
+    case 2:
+    {
+        if (UserModeOn)
+        {
+            distance = 40;
+            area = 3;
+        }
+        else
+        {
+            distance = 48;
+            area = 12;
+        }
+
+    }
+        break;
+    case 3:
+    {
+        if (UserModeOn)
+        {
+            distance = 60;
+            area = 3;
+        }
+        else
+        {
+            distance = 80;
+            area = 20;
+        }
+
+    }
+        break;
+    case 4:
+    {
+        if (UserModeOn)
+        {
+            distance = 80;
+            area = 3;
+        }
+        else
+        {
+            distance = 130;
+            area = 30;
+        }
+
+    }
+        break;
+    case 5:
+    {
+        if (UserModeOn)
+        {
+            distance = 100;
+            area = 3;
+        }
+        else
+        {
+            distance = 1580;
+            area = 1420;
+        }
+
+    }
+        break;
+    case 6:
+    {
+        if (UserModeOn)
+        {
+            distance = 120;
+            area = 3;
+        }
+        else
+        {
+            distance = 1580;
+            area = 1420;
+        }
+
+    }
+        break;
+    case 7:
+    {
+        if (UserModeOn)
+        {
+            distance = 140;
+            area = 3;
+        }
+        else
+        {
+            distance = 1580;
+            area = 1420;
+        }
+
+    }
+        break;
+    case 8:
+    {
+        if (UserModeOn)
+        {
+            distance = 160;
+            area = 3;
+        }
+        else
+        {
+            distance = 1580;
+            area = 1420;
+        }
+
+    }
+        break;
+    case 9:
+    {
+        if (UserModeOn)
+        {
+            distance = 180;
+            area = 3;
+        }
+        else
+        {
+            distance = 1580;
+            area = 1420;
+        }
+
+    }
+        break;
+    }
+
+    this->set_detection_distance(distance);
+    this->set_detection_area(area);
+
+}

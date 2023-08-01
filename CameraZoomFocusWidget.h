@@ -37,8 +37,10 @@ private:
 private:
     ConfigManager m_configManager = ConfigManager("exposure.json");
     ConfigManager m_coofigManager2 = ConfigManager("focus_edit.json");
+    ConfigManager m_coofigManager3 = ConfigManager("focus.json");
     QJsonObject m_object;
     QJsonObject m_object2;
+    QJsonObject m_object3;
     QString m_strFocus;
     QString m_strDZoom;
 private slots:
@@ -67,6 +69,9 @@ private slots:
     void on_show_dzoom(QString);
     void on_show_zoom(QString);
     void on_show_focus(QString);
+
+
+    void on_autoTriggerPushButton_clicked(bool checked);
 
 private:
     Ui::CameraZoomFocusWidget *ui;

@@ -1244,6 +1244,7 @@ void MainWindow::on_camera_zoom_focus()
     ui->verticalLayout->removeItem(ui->verticalLayout->itemAt(1));
     CameraZoomFocusWidget* pCameraZoonFocusWidget = new CameraZoomFocusWidget;
     ui->verticalLayout->addWidget(pCameraZoonFocusWidget, 835);
+    pCameraZoonFocusWidget->setPSerialLaserManager(m_pSerialLaserManager);
     SetCamera();
     pCameraZoonFocusWidget->SetCamera(m_pCamera);
     m_pMainMenuWidget->setMainMenuImage("Main_menu", "home_big_n.bmp");

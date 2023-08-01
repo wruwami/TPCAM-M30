@@ -109,7 +109,7 @@ CameraZoomFocusWidget::~CameraZoomFocusWidget()
     disconnect(m_serialViscaManager.getVisca_packet(), SIGNAL(sig_show_zoom(QString)), this, SLOT(on_show_zoom(QString)));
     disconnect(m_serialViscaManager.getVisca_packet(), SIGNAL(sig_show_focus(QString)), this, SLOT(on_show_focus(QString)));
 
-    delete m_pSerialLaserManager;
+//    delete m_pSerialLaserManager;
     m_serialViscaManager.close();
     delete ui;
 }

@@ -485,6 +485,8 @@ void IndicatorDialog::on_pushButton_clicked()
 
 void IndicatorDialog::on_screenRecordingPushButton_clicked()
 {
+    accept();
+
     char buff[256];
     memset(buff, 0, 256);
     FILE* fp = popen("pidof ffmpeg", "r");
@@ -515,6 +517,8 @@ void IndicatorDialog::on_screenRecordingPushButton_clicked()
 
 void IndicatorDialog::on_screenCapturePushButton_clicked()
 {
+    accept();
+
     QPixmap pixmap = QPixmap::grabWindow(this->winId());
     QString filename = GetSubPath("manual_capture", SD) + "/" + GetFileName(SC);
     pixmap.save(filename, 0, 100);

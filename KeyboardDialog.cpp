@@ -69,7 +69,7 @@ KeyboardDialog::KeyboardDialog(QString lang, QWidget *parent) :
 {
     ui->setupUi(this);
 
-    setWindowFlags(Qt::FramelessWindowHint);
+    setWindowFlags(Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint);
     setGeometry(GetWidgetSizePos(QRect(0, 125, 1600, 835)));
 
     ui->okPushButton->setText(LoadString("IDS_OK"));
@@ -133,7 +133,7 @@ KeyboardDialog::KeyboardDialog(QString str, QString lang, QWidget *parent) :
     ui->setupUi(this);
 
     ui->lineEdit->setText(str);
-    setWindowFlags(Qt::FramelessWindowHint);
+    setWindowFlags(Qt::FramelessWindowHint| Qt::WindowStaysOnTopHint);
     setGeometry(GetWidgetSizePos(QRect(0, 125, 1600, 835)));
 
     ui->okPushButton->setText(LoadString("IDS_OK"));

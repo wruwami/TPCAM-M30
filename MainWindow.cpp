@@ -134,7 +134,7 @@ MainWindow::~MainWindow()
 //    if (m_pMainMenuContentWidget != nullptr)
 //        delete m_pMainMenuContentWidget;
 
-//    if (m_pIndicatorWidget)
+//    if (m_pIndicatorWidget)+
 //    {
 //        m_pIndicatorWidget->close();
 //        delete m_pIndicatorWidget;

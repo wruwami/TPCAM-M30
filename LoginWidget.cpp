@@ -45,7 +45,12 @@ LoginWidget::LoginWidget(QWidget *parent) :
     ui->deviceIDLineEdit->setDisabled(true);
     ui->deviceIDLineEdit->setText(m_jsonObject["Device ID"].toString());
 
-    foreach(QJsonValue json, m_jsonObject["User Name items"].toArray())
+    int index = m_jsonObject["User Name Select"].toInt() - 1;
+    QJsonArray ar = m_jsonObject["User Name items"].toArray();
+    ui->userNameComboBox->addItem(ar[index].toString());
+    ar.removeAt(index);
+
+    foreach(QJsonValue json, ar)
     {
         ui->userNameComboBox->addItem(json.toString());
 //        ItemBackPush(json.toString());
@@ -101,6 +106,7 @@ void LoginWidget::on_loginPushButton_clicked()
 //    m_parent->ui->verticalLayout_2->removeWidget(m_pLoginWidget);
 //    IndicatorWidget indicatorWidget;
 //    m_parent->ui->verticalLayout_2->addWidget(&indicatorWidget, 835);
+
     m_config.SetConfig(m_jsonObject);
     m_config.SaveFile();
     close();
@@ -167,8 +173,11 @@ void LoginWidget::on_userNamePushButton_clicked()
     KeyboardDialog keyboardDialog(ui->userNameComboBox->currentText(), GetLanguage());
     if (keyboardDialog.exec() == QDialog::Accepted)
     {
-        ui->userNameComboBox->removeItem(4);
-        ui->userNameComboBox->insertItem(0, keyboardDialog.str());
+        if (keyboardDialog.str() != "admin_test" && keyboardDialog.str() != "admin_align" && keyboardDialog.str() != "admin_vsg" && keyboardDialog.str() != "admin_save")
+        {
+            ui->userNameComboBox->removeItem(4);
+            ui->userNameComboBox->insertItem(0, keyboardDialog.str());
+        }
 
 //        ItemBackPush(keyboardDialog.str());
 //        m_queue.removeAt(ui->userNameComboBox->currentIndex());

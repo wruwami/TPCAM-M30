@@ -210,7 +210,7 @@ void SerialLaserManager::set_unit(unsigned char unit)
 
 void SerialLaserManager::set_buzzer_mode(unsigned char mode)
 {
-    unsigned char header=0xD6;//Set buzzer mode
+    unsigned char header=0x4E;//Set buzzer on/off(0=off, 1=on)
     unsigned char msg[1];
     unsigned char msgSize=1;
     msg[0]=mode;

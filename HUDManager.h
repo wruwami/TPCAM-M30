@@ -21,6 +21,7 @@ public:
     void ShowSpeed(bool, bool);
     void ShowDistance(bool);
     void ShowDistanceUnit(bool);
+    void ShowSpeedUnit(bool);
     void SetPointX(int);
     void SetPointY(int);
     void HUDInit();

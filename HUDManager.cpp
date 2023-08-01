@@ -46,6 +46,22 @@ void HUDManager::ShowDistanceUnit(bool nShow)
         m_hud.writeNumberToFile("distance_sensitivity_unit", 1);
 }
 
+void HUDManager::ShowSpeedUnit(bool nShow)
+{
+    if (!nShow)
+        m_hud.writeNumberToFile("speed", 0);
+    else if (speedUnit() == Km)
+    {
+        m_hud.writeNumberToFile("speed", 1);
+        m_hud.writeNumberToFile("speed_unit", 0);
+    }
+    else if (speedUnit() == mile)
+    {
+        m_hud.writeNumberToFile("speed", 1);
+        m_hud.writeNumberToFile("speed_unit", 1);
+    }
+}
+
 void HUDManager::SetPointX(int value)
 {
     m_hud.writeNumberToFile("pointer_x", value);

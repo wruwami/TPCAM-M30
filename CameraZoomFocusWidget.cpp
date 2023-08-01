@@ -39,6 +39,8 @@ CameraZoomFocusWidget::CameraZoomFocusWidget(QWidget *parent) :
     ui->pgrsSavePushButton->setText(LoadString("IDS_PQRS_SAVE"));
     ui->jpgSavePushButton->setText(LoadString("IDS_JPG_SAVE"));
 
+    ui->autoTriggerPushButton->setEnabled(true);
+
     ConfigManager con = ConfigManager("parameter_setting1.json");
     QJsonObject object = con.GetConfig();
 
@@ -59,6 +61,8 @@ CameraZoomFocusWidget::CameraZoomFocusWidget(QWidget *parent) :
     m_captureSpeed = object2["lt mode feet dist"].toArray();
 
     m_object2 = m_coofigManager2.GetConfig();
+    m_object3 = m_coofigManager3.GetConfig();
+
 
 //    ui->tableWidget->setColumnWidth(0, ui->pgrsSavePushButton->width() / 2);
 //    ui->tableWidget->setColumnWidth(1, ui->pgrsSavePushButton->width() * 1.5);
@@ -136,10 +140,7 @@ void CameraZoomFocusWidget::ZoomRange()
         m_nLtIndex = 0;
 
     zoom_index = m_nLtIndex;
-    if (distance() == meter)
-    {
-        ui->zoomRangePushButton->setText(m_ltmetervector[m_nLtIndex]+distanceValue());
-    }
+    ui->zoomRangePushButton->setText(m_ltmetervector[m_nLtIndex]+distanceValue());
 
     SetLaserDetectionAreaDistance(zoom_index);
 
@@ -180,11 +181,11 @@ void CameraZoomFocusWidget::on_dayComboBox_currentIndexChanged(int index)
         m_serialViscaManager.set_infrared_mode_on();
         object = m_object["Night"].toObject()["Normal"].toObject();
     }
-    m_serialViscaManager.set_AE_shutter_priority();
     m_serialViscaManager.set_iris(object["Iris"].toInt());
     m_serialViscaManager.set_shutter_speed(object["Shutter"].toInt());
     m_serialViscaManager.set_gain(object["Gain"].toInt());
-    m_serialViscaManager.set_noise_reduction_on("0");
+    m_serialViscaManager.set_noise_reduction_on(object["DNR"].toString());
+    m_serialViscaManager.set_AE_Mode(object["priority"].toString());
     object["DIS"].toBool() ? m_serialViscaManager.set_DIS_on() : m_serialViscaManager.set_DIS_off();
     object["DEFOG"].toBool() ? m_serialViscaManager.set_defog_on() : m_serialViscaManager.set_defog_off();
     object["HLC"].toBool() ? m_serialViscaManager.set_HLC_on() : m_serialViscaManager.set_HLC_off();
@@ -351,19 +352,20 @@ void CameraZoomFocusWidget::SetLaserDetectionAreaDistance(int zoom_index)
 
 void CameraZoomFocusWidget::setTableInit()
 {
-    QJsonArray ar = m_object2["lt day focus edit"].toArray();
+    QJsonArray ar = m_object3["lt day focus"].toArray();
     for (int i = 0; i < ar.size(); i++ )
     {
         QTableWidgetItem item(ar[i].toString());
         ui->tableWidget->setItem(i, 0, &item);
     }
 
-    ar = m_object2["lt night focus edit"].toArray();
+    ar = m_object3["lt night focus"].toArray();
     for (int i = 0; i < ar.size(); i++ )
     {
         QTableWidgetItem item(ar[i].toString());
         ui->tableWidget->setItem(i, 1, &item);
     }
+
 }
 
 void CameraZoomFocusWidget::setFocusEditJsonInit()
@@ -587,5 +589,26 @@ void CameraZoomFocusWidget::on_show_dzoom(QString dzoom)
 {
 //    ui->focusLabel->setText("DZ:"+dzoom);
     m_strDZoom = dzoom;
+}
+
+
+void CameraZoomFocusWidget::on_autoTriggerPushButton_clicked(bool checked)
+{
+    if (checked)
+    {
+        ui->autoTriggerPushButton->setStyleSheet("border-color: red;");
+        m_pSerialLaserManager->start_laser();
+        m_pSerialLaserManager->request_distance(true);
+
+    }
+    else
+    {
+        ui->autoTriggerPushButton->setStyleSheet("border-color: blue;");
+        m_pSerialLaserManager->stop_laser();
+        m_pSerialLaserManager->request_distance(false);
+    }
+
+//    SerialPacket* laser_packet = m_pSerialLaserManager->getLaser_packet();
+
 }
 

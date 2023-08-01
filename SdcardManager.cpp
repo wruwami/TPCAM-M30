@@ -22,13 +22,13 @@ SdcardManager::SdcardManager()
         }
     }
 
-    foreach (auto sdStorage, QStorageInfo::mountedVolumes())
-    {
-        qDebug() << "displayName : " + sdStorage.displayName();
-        qDebug() << "name : " + sdStorage.name();
-        qDebug() << "fileSystemType : " + sdStorage.fileSystemType();
-        qDebug() << "device : " + sdStorage.device();
-    }
+//    foreach (auto sdStorage, QStorageInfo::mountedVolumes())
+//    {
+//        qDebug() << "displayName : " + sdStorage.displayName();
+//        qDebug() << "name : " + sdStorage.name();
+//        qDebug() << "fileSystemType : " + sdStorage.fileSystemType();
+//        qDebug() << "device : " + sdStorage.device();
+//    }
 
 //    qDebug() << "name:" << m_storage.name();
 //    qDebug() << "fileSystemType:" << m_storage.fileSystemType();

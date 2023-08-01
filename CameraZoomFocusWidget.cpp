@@ -547,29 +547,29 @@ void CameraZoomFocusWidget::on_pgrsSavePushButton_clicked()
 }
 
 
-void CameraZoomFocusWidget::on_autoTriggerPushButton_toggled(bool checked)
-{
-    m_bATChecked = checked;
-    if (!checked)
-    {
-        ui->autoTriggerPushButton->setStyleSheet("border-color: blue;");
-        m_pSerialLaserManager->start_laser();
-        m_pSerialLaserManager->request_distance(true);
+//void CameraZoomFocusWidget::on_autoTriggerPushButton_toggled(bool checked)
+//{
+//    m_bATChecked = checked;
+//    if (!checked)
+//    {
+//        ui->autoTriggerPushButton->setStyleSheet("border-color: blue;");
+//        m_pSerialLaserManager->start_laser();
+//        m_pSerialLaserManager->request_distance(true);
 
-        SerialPacket* laser_packet = m_pSerialLaserManager->getLaser_packet();
-        connect(laser_packet, SIGNAL(sig_showDistance(float,int)), this, SLOT(on_showDistance(float,int)));
-    }
-    else
-    {
-        ui->autoTriggerPushButton->setStyleSheet("border-color: red;");
-        SerialPacket* laser_packet = m_pSerialLaserManager->getLaser_packet();
-        disconnect(laser_packet, SIGNAL(sig_showDistance(float,int)), this, SLOT(on_showDistance(float,int)));
+//        SerialPacket* laser_packet = m_pSerialLaserManager->getLaser_packet();
+//        connect(laser_packet, SIGNAL(sig_showDistance(float,int)), this, SLOT(on_showDistance(float,int)));
+//    }
+//    else
+//    {
+//        ui->autoTriggerPushButton->setStyleSheet("border-color: red;");
+//        SerialPacket* laser_packet = m_pSerialLaserManager->getLaser_packet();
+//        disconnect(laser_packet, SIGNAL(sig_showDistance(float,int)), this, SLOT(on_showDistance(float,int)));
 
-        m_pSerialLaserManager->stop_laser();
-        m_pSerialLaserManager->request_distance(false);
+//        m_pSerialLaserManager->stop_laser();
+//        m_pSerialLaserManager->request_distance(false);
 
-    }
-}
+//    }
+//}
 
 void CameraZoomFocusWidget::on_show_zoom(QString zoom)
 {

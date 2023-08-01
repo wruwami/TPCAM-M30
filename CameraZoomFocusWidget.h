@@ -65,7 +65,7 @@ private slots:
 
     void on_pgrsSavePushButton_clicked();
 
-    void on_autoTriggerPushButton_toggled(bool checked);
+//    void on_autoTriggerPushButton_toggled(bool checked);
     void on_show_dzoom(QString);
     void on_show_zoom(QString);
     void on_show_focus(QString);

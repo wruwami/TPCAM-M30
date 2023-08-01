@@ -71,6 +71,11 @@ void CameraAlignWidget::SetDirection(int x, int y)
 {
     if (m_nMode == HUD)
     {
+        if ((m_HUDPoint.x() + x) > 12 || (m_HUDPoint.x() + x) < 0)
+            return;
+        if ((m_HUDPoint.y() + y) > 12 || (m_HUDPoint.y() + y) < 0)
+            return;
+
         HUDManager hud;
         m_HUDPoint.setX(m_HUDPoint.x() + x);
         m_HUDPoint.setY(m_HUDPoint.y() + y);
@@ -80,6 +85,10 @@ void CameraAlignWidget::SetDirection(int x, int y)
     }
     else
     {
+        if ((m_LaserPoint.x() + x) > 1920 || (m_LaserPoint.x() + x) < 0)
+            return;
+        if ((m_LaserPoint.y() + y) > 1080 || (m_LaserPoint.y() + y) < 0)
+            return;
         m_LaserPoint.setX(m_LaserPoint.x() + x);
         m_LaserPoint.setY(m_LaserPoint.y() + y);
         SetLaserMode();

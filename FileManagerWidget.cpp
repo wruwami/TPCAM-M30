@@ -97,8 +97,6 @@ FileManagerWidget::FileManagerWidget(QWidget *parent) :
 //    int width = ((getScreenWidth() - 15) / 21 * 9);//ui->percentPushButton->width() + ui->connectPushButton->width() + ui->printPushButton->width();
 ////    int width = ui->horizontalLayout->itemAt(0)->geometry().width();
 
-
-
     QHeaderView *verticalHeader = ui->tableWidget->verticalHeader();
     verticalHeader->setSectionResizeMode(QHeaderView::Stretch);
 

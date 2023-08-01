@@ -12,12 +12,15 @@
 #include "ConfigManager.h"
 #include "FileManager.h"
 #include "StringLoader.h"
+#include "WidgetSize.h"
 
 FileManagerFileTransferDialog::FileManagerFileTransferDialog(QList<AVFileFormat> avFileFormatList, TransType type, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::FileManagerFileTransferDialog)
 {
     ui->setupUi(this);
+
+    this->setFixedSize(GetWidgetSize(QSize(800, 704)));
 
     this->setWindowFlags(Qt::FramelessWindowHint);
 

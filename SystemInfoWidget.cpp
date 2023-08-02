@@ -3,8 +3,17 @@
 
 #include <QPainter>
 #include <QPen>
+#include <QJsonArray>
 
 #include "StringLoader.h"
+#include "ConfigManager.h"
+#include "SpeedUnitManager.h"
+#include "SerialLaserManager.h"
+#include "SerialViscaManager.h"
+#include "ViscaPacket.h"
+#include "SerialPacket.h"
+
+extern SerialLaserManager* g_pSerialLaserManager;
 
 SystemInfoWidget::SystemInfoWidget(QWidget *parent) :
     QWidget(parent),
@@ -17,6 +26,80 @@ SystemInfoWidget::SystemInfoWidget(QWidget *parent) :
     ui->camLabel->setText(LoadString("IDS_CAM"));
     ui->laserLabel->setText(LoadString("IDS_LASER"));
     ui->serialNumberLabel->setText(LoadString("IDS_SERIAL_NUMBER"));
+
+    QJsonObject object = ConfigManager("setting_reticle.json").GetConfig();
+    QJsonArray ar = object["HUD reticle pos"].toArray();
+    QJsonArray ar2 = object["Camera reticle pos"].toArray();
+    ui->alignValueLabel->setText(QString("H%1, %2, C%3, %4").arg(ar[0].toInt()).arg(ar[1].toInt()).arg(ar2[0].toInt()).arg(ar2[1].toInt()));
+    object = ConfigManager("parameter_setting1.json").GetConfig();
+    QString enforcement;
+    switch (object["enforcement selection"].toInt())
+    {
+    case 1:
+    {
+        enforcement = "I";
+    }
+        break;
+    case 2:
+    {
+        enforcement = "A";
+    }
+        break;
+    case 3:
+    {
+        enforcement = "V";
+    }
+        break;
+    }
+    QString mode;
+    switch (object["speed selection"].toInt())
+    {
+    case 1:
+    {
+        mode = "ST";
+    }
+        break;
+    case 2:
+    {
+        mode = "LT";
+    }
+    }
+    QString zoom_level;
+    object = ConfigManager("parameter_enforcement.json").GetConfig();
+    int zoom_index = object["zoom_index"].toInt();
+    object = ConfigManager("zoom_level.json").GetConfig();
+    if (mode == "ST")
+    {
+        if (distance() == meter)
+        {
+            zoom_level = object["st mode meter dist"].toArray()[zoom_index].toString();
+        }
+        else
+        {
+            zoom_level = object["st mode feet dist"].toArray()[zoom_index].toString();
+        }
+    }
+    else
+    {
+        if (distance() == meter)
+        {
+            zoom_level = object["lt mode meter dist"].toArray()[zoom_index].toString();
+        }
+        else
+        {
+            zoom_level = object["lt mode feet dist"].toArray()[zoom_index].toString();
+        }
+
+    }
+    zoom_level = zoom_level.mid(2);
+    ui->modeValueLabel->setText(QString("%1(%2, %30").arg(enforcement).arg(mode).arg(zoom_level));
+
+    m_pSerialViscaManager = new SerialViscaManager;
+
+    connect(m_pSerialViscaManager->getVisca_packet(), SIGNAL(sig_show_version(int, int)), this, SLOT(on_cam_version(int, int)));
+    connect(g_pSerialLaserManager->getLaser_packet(), SIGNAL(sig_show_version(int, int)), this, SLOT(on_laser_version(int, int)));
+    m_pSerialViscaManager->show_camera_version();
+    g_pSerialLaserManager->show_camera_version();
 }
 
 SystemInfoWidget::~SystemInfoWidget()
@@ -35,4 +118,14 @@ void SystemInfoWidget::paintEvent(QPaintEvent *event)
     painter.drawLine(0, height()/5 * 2, width(), height()/5*2);
     painter.drawLine(0, height()/5 * 3, width(), height()/5*3);
     painter.drawLine(0, height()/5 * 4, width(), height()/5*4);
+}
+
+void SystemInfoWidget::on_cam_version(int vendor, int version)
+{
+
+}
+
+void SystemInfoWidget::on_laser_version(int vendor, int version)
+{
+
 }

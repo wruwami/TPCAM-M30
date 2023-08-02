@@ -811,6 +811,7 @@ unsigned char	ViscaPacket::MsgDecoder()
         //cnrk
         g_Camera_VenderID = (g_RxBuf[2]<<8) | (g_RxBuf[3]);
 
+        emit sig_show_version(g_Camera_VenderID, g_RxBuf[6]<<8 | g_RxBuf[7]);
         return 1;
     }
     else if ( send_data == 0x37) // Model Information

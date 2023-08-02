@@ -7,6 +7,8 @@
 #include "BaseDialog.h"
 #include "SpeedUnitManager.h"
 
+#include "CustomPushButton.h"
+
 Setting3Widget::Setting3Widget(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::Setting3Widget)
@@ -57,7 +59,7 @@ Setting3Widget::Setting3Widget(QWidget *parent) :
     index = m_jsonObject["date format selection"].toInt() - 1;
     ui->dateFormatComboBox->setCurrentIndex(index);
 
-
+    m_pSystemInfoButton = ui->showInfoPushButton;
 }
 
 Setting3Widget::~Setting3Widget()

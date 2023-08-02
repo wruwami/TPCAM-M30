@@ -59,6 +59,7 @@ SettingWidget::SettingWidget(QWidget *parent) :
     clearStyleSheet();
     ui->setting1PushButton->setStyleSheet("QPushButton{ color : black; background-color :white; border-style: solid; border-width: 1px; border-color : red;}");
 
+    m_pSetting3SystemButton = m_pSetting3Widget->m_pSystemInfoButton;
 }
 
 SettingWidget::~SettingWidget()

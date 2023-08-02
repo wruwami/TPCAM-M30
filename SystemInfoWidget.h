@@ -3,6 +3,7 @@
 
 #include <QWidget>
 
+class SerialViscaManager;
 namespace Ui {
 class SystemInfoWidget;
 }
@@ -17,10 +18,17 @@ public:
 
 private:
     Ui::SystemInfoWidget *ui;
+    SerialViscaManager* m_pSerialViscaManager = nullptr;
     // QWidget interface
 protected:
     void paintEvent(QPaintEvent *event);
+signals:
+    void sig_cam_version();
+    void sig_laser_version();
 
+protected slots:
+    void on_cam_version(int, int);
+    void on_laser_version(int, int);
 };
 
 #endif // SYSTEMINFOWIDGET_H

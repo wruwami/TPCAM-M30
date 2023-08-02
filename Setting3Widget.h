@@ -6,6 +6,7 @@
 
 #include "ConfigManager.h"
 
+class CustomPushButton;
 namespace Ui {
 class Setting3Widget;
 }
@@ -29,6 +30,8 @@ private slots:
     void on_unitComboBox_currentIndexChanged(int index);
 
     void on_dateFormatComboBox_currentIndexChanged(int index);
+public:
+    CustomPushButton* m_pSystemInfoButton;
 private:
     QJsonObject m_jsonObject;
     QJsonObject m_newJsonObject;

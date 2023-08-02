@@ -152,7 +152,7 @@ protected slots:
     void OnTimer100msFunc();
     void OnTimer500msFunc();
     void afterWindowShown();
-
+    void on_SystemInfoClicked();
 };
 
 #endif // MAINWINDOW_H

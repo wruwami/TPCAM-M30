@@ -29,10 +29,11 @@ private:
 public:
     QWidget* m_pSavePushButton;
     QWidget* m_pCancelPushButton;
+    QWidget* m_pSetting3SystemButton;
+    Setting3Widget* m_pSetting3Widget;
 private:
     Setting1Widget* m_pSetting1Widget;
     Setting2Widget* m_pSetting2Widget;
-    Setting3Widget* m_pSetting3Widget;
     Setting4APWidget* m_pSetting4APWidget;
     Setting4STAWidget* m_pSetting4StaWidget;
     Setting5Widget* m_pSetting5Widget;

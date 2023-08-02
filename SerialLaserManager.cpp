@@ -361,6 +361,16 @@ void SerialLaserManager::stop_laser()
         m_pSerial->write(data);
 }
 
+void SerialLaserManager::show_camera_version()
+{
+
+}
+
+void SerialLaserManager::show_camera_model()
+{
+
+}
+
 SerialPacket *SerialLaserManager::getLaser_packet()
 {
     return laser_packet;

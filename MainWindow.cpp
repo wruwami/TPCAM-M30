@@ -44,6 +44,7 @@ inline void removeSecondItem(T*& pointer) {
 }
 
 int g_nCrackDownIndex = 0;
+SerialLaserManager* g_pSerialLaserManager = nullptr;
 
 MainWindow::MainWindow(screensaver* screensaver, QWidget *parent) :
     QMainWindow(parent),
@@ -93,7 +94,7 @@ MainWindow::MainWindow(screensaver* screensaver, QWidget *parent) :
     m_pRemoteController = new RemoteController(this);
     m_pRemoteController->CreateThread();
     m_pSerialLaserManager = new SerialLaserManager;
-
+    g_pSerialLaserManager = m_pSerialLaserManager;
     QSizePolicy sp_retain = ui->widget_2->sizePolicy();
     sp_retain.setRetainSizeWhenHidden(true);
     ui->widget->setSizePolicy(sp_retain);
@@ -126,7 +127,12 @@ MainWindow::MainWindow(screensaver* screensaver, QWidget *parent) :
 
 MainWindow::~MainWindow()
 {
-    delete m_pSerialLaserManager;
+    if (m_pSerialLaserManager)
+    {
+        delete m_pSerialLaserManager;
+        m_pSerialLaserManager = nullptr;
+    }
+
 
     delete m_screensaver;
 //    if (m_pLoginWidget != nullptr)
@@ -1089,6 +1095,11 @@ void MainWindow::afterWindowShown()
     CheckLoginExpired();
 }
 
+void MainWindow::on_SystemInfoClicked()
+{
+
+}
+
 void MainWindow::on_filemanagementClicked()
 {
 //    m_pIndicatorWidget->setFocusExposeDisabled(t);
@@ -1158,7 +1169,7 @@ void MainWindow::on_settingClicked()
 
     QObject::connect((QWidget*)pSettingWidget->m_pSavePushButton, SIGNAL(clicked()), this, SLOT(on_SettingSaveClicked()));
     QObject::connect((QWidget*)pSettingWidget->m_pCancelPushButton, SIGNAL(clicked()), this, SLOT(on_SettingCancelClicked()));
-
+    QObject::connect((QWidget*)pSettingWidget->m_pSetting3Widget, SIGNAL(clicked()), this, SLOT(on_SystemInfoClicked()));
 
     m_pMainMenuWidget->setMainMenuTitle(LoadString("IDS_SETTING"));
 }

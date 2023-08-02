@@ -115,7 +115,7 @@ signals:
     void sig_show_dzoom(QString);
     void sig_show_shutter();
     void sig_show_iris();
-
+    void sig_show_version(int, int);
 //    void sig_show
 };
 

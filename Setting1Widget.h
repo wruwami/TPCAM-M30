@@ -18,6 +18,8 @@ public:
     explicit Setting1Widget(QWidget *parent = 0);
     ~Setting1Widget();
     void SaveConfig();
+private:
+    bool CheckComboxBoxItem(QString str);
 private slots:
     void on_locationPushButton_clicked();
 
@@ -42,6 +44,7 @@ private:
     QJsonObject m_jsonObject;
     QJsonObject m_newJsonObject;
     ConfigManager m_config = ConfigManager("parameter_setting1.json");
+    int m_nLocationIndex = 0;
 private:
     Ui::Setting1Widget *ui;
 };

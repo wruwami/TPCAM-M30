@@ -86,6 +86,13 @@ Setting1Widget::~Setting1Widget()
 
 void Setting1Widget::SaveConfig()
 {
+    QJsonArray ar = m_jsonObject["location items"].toArray();
+    QJsonValue jv = ar[m_nLocationIndex];
+    ar.removeAt(m_nLocationIndex);
+    ar.insert(0, jv);
+    m_newJsonObject["location selection"] = 1;
+    m_newJsonObject["location items"] = ar;
+
     m_config.SetConfig(m_newJsonObject);
     m_config.SaveFile();
 }
@@ -97,8 +104,11 @@ void Setting1Widget::on_locationPushButton_clicked()
     KeyboardDialog keyboardDialog(GetLanguage());
     if (keyboardDialog.exec() == QDialog::Accepted)
     {
-        ui->locationComboBox->removeItem(4);
-        ui->locationComboBox->insertItem(0, keyboardDialog.str());
+        if (CheckComboxBoxItem(keyboardDialog.str()))
+        {
+            ui->locationComboBox->removeItem(4);
+            ui->locationComboBox->insertItem(0, keyboardDialog.str());
+        }
     }
 
     QJsonArray array = m_jsonObject["location items"].toArray();
@@ -183,7 +193,7 @@ void Setting1Widget::on_captureSpeedLimit3LineEdit_textChanged(const QString &ar
 
 void Setting1Widget::on_locationComboBox_currentIndexChanged(int index)
 {
-    m_newJsonObject["location selection"] = index + 1;
+    m_nLocationIndex = index;
 }
 
 void Setting1Widget::on_enforcementModeComboBox_currentIndexChanged(int index)
@@ -194,4 +204,19 @@ void Setting1Widget::on_enforcementModeComboBox_currentIndexChanged(int index)
 void Setting1Widget::on_speedModeComboBox_currentIndexChanged(int index)
 {
     m_newJsonObject["speed selection"] = index + 1;
+}
+
+bool Setting1Widget::CheckComboxBoxItem(QString str)
+{
+    for (int i = 0 ; i < ui->locationComboBox->count() ; i++)
+    {
+        if ( str  == ui->locationComboBox->itemText(i))
+            return false;
+    }
+
+    return true;
+//    foreach(auto item, ui->userNameComboBox)
+//    {
+
+//    }
 }

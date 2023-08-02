@@ -19,21 +19,21 @@
      <item row="2" column="1">
       <widget class="QLabel" name="camValueLabel">
        <property name="text">
-        <string>v4.5.6</string>
+        <string/>
        </property>
       </widget>
      </item>
      <item row="3" column="1">
       <widget class="QLabel" name="laserValueLabel">
        <property name="text">
-        <string>v3.8.2a</string>
+        <string/>
        </property>
       </widget>
      </item>
      <item row="4" column="1">
       <widget class="QLabel" name="serialNumberValueLabel">
        <property name="text">
-        <string>TPCAM-M30-</string>
+        <string/>
        </property>
       </widget>
      </item>
@@ -75,14 +75,14 @@
      <item row="0" column="1">
       <widget class="QLabel" name="alignValueLabel">
        <property name="text">
-        <string>H6, 6, C104, 96</string>
+        <string/>
        </property>
       </widget>
      </item>
      <item row="1" column="1">
       <widget class="QLabel" name="modeValueLabel">
        <property name="text">
-        <string>A(ST, 60m)</string>
+        <string/>
        </property>
       </widget>
      </item>

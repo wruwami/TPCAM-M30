@@ -40,6 +40,7 @@ int main(int argc, char *argv[])
 
     CreateWiFiReadThreadAndInitPrinter();
 
+    system("timedatectl set-ntp 0");
 
     MainWindow w(a.send());
 //    w.get(a.send());

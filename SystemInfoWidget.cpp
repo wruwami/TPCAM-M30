@@ -93,11 +93,20 @@ SystemInfoWidget::SystemInfoWidget(QWidget *parent) :
     }
     zoom_level = zoom_level.mid(2);
     ui->modeValueLabel->setText(QString("%1(%2, %30").arg(enforcement).arg(mode).arg(zoom_level));
+    object = ConfigManager("setting_device_ID.json").GetConfig();
+    QJsonObject object2 = object["Device ID"].toObject();
+    QString SerialNum;
+    if (object2["Prefix"].toString() != "null" && object2["Prefix"].toString().isEmpty())
+        SerialNum.append(object2["Prefix"].toString() + "_" + object2["SerialNum"].toString());
+    if (object2["Postfix"].toString() != "null" && object2["Postfix"].toString().isEmpty())
+        SerialNum.append("_" + object2["Postfix"].toString());
+
+    ui->serialNumberValueLabel->setText(SerialNum);
 
     m_pSerialViscaManager = new SerialViscaManager;
 
     connect(m_pSerialViscaManager->getVisca_packet(), SIGNAL(sig_show_version(int, int)), this, SLOT(on_cam_version(int, int)));
-    connect(g_pSerialLaserManager->getLaser_packet(), SIGNAL(sig_show_version(int, int)), this, SLOT(on_laser_version(int, int)));
+    connect(g_pSerialLaserManager->getLaser_packet(), SIGNAL(sig_showVersion(QString)), this, SLOT(on_laser_version(QString)));
     m_pSerialViscaManager->show_camera_version();
     g_pSerialLaserManager->show_camera_version();
 }
@@ -122,10 +131,18 @@ void SystemInfoWidget::paintEvent(QPaintEvent *event)
 
 void SystemInfoWidget::on_cam_version(int vendor, int version)
 {
+    QString strVendor;
+    if (vendor == 0x78)
+        strVendor = "K";
+    else if (vendor == 0x20)
+        strVendor = "W";
 
+    QString strVersion = QString::number(version, 16);
+
+    ui->camValueLabel->setText(QString("v%1(%2)").arg(strVersion).arg(strVendor));
 }
 
-void SystemInfoWidget::on_laser_version(int vendor, int version)
+void SystemInfoWidget::on_laser_version(QString version)
 {
-
+    ui->laserValueLabel->setText(version);
 }

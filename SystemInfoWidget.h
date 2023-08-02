@@ -28,7 +28,7 @@ signals:
 
 protected slots:
     void on_cam_version(int, int);
-    void on_laser_version(int, int);
+    void on_laser_version(QString);
 };
 
 #endif // SYSTEMINFOWIDGET_H

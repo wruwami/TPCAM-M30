@@ -607,6 +607,7 @@ void SerialPacket::ParsingPacket()
 
                 memset(strBuf, 0, 31);	memcpy(strBuf, g_ReceiveData.Msg + 30, 8);
                 disp.sprintf("F/W version : %s", strBuf);
+                emit sig_showVersion(QString(strBuf));
                 qDebug() << disp;
 
                 memset(strBuf, 0, 31);	memcpy(strBuf, g_ReceiveData.Msg + 38, 11);

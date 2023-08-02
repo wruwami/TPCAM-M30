@@ -267,6 +267,7 @@ signals:
     void sig_showCaptureSpeedDistance(float fSpeed, float fDistance, int VehicleID);
     void sig_showSpeedDistance(float fSpeed, float fDistance);
     void sig_showDistance(float fDistance, int nSensitivity);
+    void sig_showVersion(QString);
 };
 
 

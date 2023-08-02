@@ -103,16 +103,22 @@ SystemInfoWidget::SystemInfoWidget(QWidget *parent) :
 
     ui->serialNumberValueLabel->setText(SerialNum);
 
-    m_pSerialViscaManager = new SerialViscaManager;
+//    m_SerialViscaManager = new SerialViscaManager;
 
-    connect(m_pSerialViscaManager->getVisca_packet(), SIGNAL(sig_show_version(int, int)), this, SLOT(on_cam_version(int, int)));
+    connect(m_SerialViscaManager.getVisca_packet(), SIGNAL(sig_show_version(int, int)), this, SLOT(on_cam_version(int, int)));
     connect(g_pSerialLaserManager->getLaser_packet(), SIGNAL(sig_showVersion(QString)), this, SLOT(on_laser_version(QString)));
-    m_pSerialViscaManager->show_camera_version();
+    m_SerialViscaManager.show_camera_version();
     g_pSerialLaserManager->show_laser_info();
 }
 
 SystemInfoWidget::~SystemInfoWidget()
 {
+//    if (m_SerialViscaManager != nullptr)
+//    {
+//        delete m_SerialViscaManager;
+//        m_SerialViscaManager = nullptr;
+//    }
+
     delete ui;
 }
 

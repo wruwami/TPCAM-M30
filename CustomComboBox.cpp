@@ -54,9 +54,15 @@ CustomComboBox::CustomComboBox(QWidget *parent) : QComboBox(parent)
     QString styleSheet = QString::fromLatin1(file.readAll());
 
     setStyleSheet(styleSheet);
-
-
+//    this->setEditable(true);
 }
+
+//void CustomComboBox::setText(QString text)
+//{
+//   QLineEdit *displayedText = this->lineEdit();
+//   displayedText->setText(text);
+//   displayedText->setReadOnly(true);
+//}
 
 void CustomComboBox::resizeEvent(QResizeEvent *event)
 {

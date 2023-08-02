@@ -25,6 +25,7 @@ private:
 //    void ItemBackPush(QString);
 //    void ItemFrontPush(QString);
 //    QString m_userName;
+    bool CheckComboxBoxItem(QString);
 private slots:
     void on_loginPushButton_clicked();
     void on_dateTimePushButton_clicked();
@@ -45,6 +46,8 @@ private:
     QJsonObject m_jsonObject;
     ConfigManager m_config = ConfigManager("parameter_login.json");
     LightManager* m_pLightMager = nullptr;
+    QString m_StrKeyboard;
+    int m_nIndex = 0;
 //    QQueue<QString> m_queue;
 private:
     Ui::LoginWidget *ui;

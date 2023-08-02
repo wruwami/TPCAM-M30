@@ -350,10 +350,6 @@ void EnforcementComponentWidget::camInit()
     m_pSerialViscaManager.set_AE_Mode("03");
 
     m_pSerialViscaManager.SetDayMode(m_object2["day&night selection"].toInt());
-    if (m_object2["day&night selection"].toInt() > 0 && m_object2["day&night selection"].toInt() < 4)
-        m_pSerialViscaManager.set_infrared_mode_off();
-    else
-        m_pSerialViscaManager.set_infrared_mode_on();
 
 
 

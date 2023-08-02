@@ -1862,7 +1862,7 @@ void SerialViscaManager::on_show_focus(QString focus)
     m_focus_pqrs = focus;
 }
 
-void SerialViscaManager::SetDayMode(QJsonObject object)
+void SerialViscaManager::SetDayMode(QJsonObject object, bool bDay)
 {
     set_iris(object["Iris"].toInt());
     set_shutter_speed(object["Shutter"].toInt());
@@ -1872,6 +1872,17 @@ void SerialViscaManager::SetDayMode(QJsonObject object)
     object["DIS"].toBool() ? set_DIS_on() : set_DIS_off();
     object["DEFOG"].toBool() ? set_defog_on() : set_defog_off();
     object["HLC"].toBool() ? set_HLC_on() : set_HLC_off();
+
+    if (bDay)
+        set_infrared_mode_off();
+    else
+        set_infrared_mode_on();
+
+//    object.keys()
+//    if (object > 0 && index < 4)
+//        set_infrared_mode_off();
+//    else
+//        set_infrared_mode_on();
 }
 
 void SerialViscaManager::SetFocus(int index)
@@ -1976,4 +1987,8 @@ void SerialViscaManager::SetDayMode(int index)
     ret["DEFOG"].toBool() ? set_defog_on() : set_defog_off();
     ret["HLC"].toBool() ? set_HLC_on() : set_HLC_off();
 //    set_AE_shutter_priority();
+    if (index > 0 && index < 4)
+        set_infrared_mode_off();
+    else
+        set_infrared_mode_on();
 }

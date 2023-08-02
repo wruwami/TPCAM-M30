@@ -2,6 +2,7 @@
 
 #include <QSerialPort>
 #include <QDebug>
+#include <math.h>
 
 struct gprmc_data
 {
@@ -142,8 +143,8 @@ void SerialGPSManager::serial_received()
         QString time = splitted[1].mid(0, splitted[1].indexOf("."));
         QString datetime = splitted[9] + time;
         m_DateTime = QDateTime::fromString(datetime, time_format);
-        m_Latitude = splitted[4] + splitted[3];
-        m_Longitude = splitted[6] + splitted[5];
+        m_Latitude = splitted[4] + changeMinuteToDegree(splitted[3]);
+        m_Longitude = splitted[6] + changeMinuteToDegree(splitted[5]);
         //TTFF 계산
 
         if((m_nTTFFFlag == 0) && (splitted[2] == "A"))
@@ -190,4 +191,17 @@ void SerialGPSManager::serial_received()
         //(int)splitted[3].toInt();//Satellites Used(0~12)
     }
 
+}
+
+QString SerialGPSManager::changeMinuteToDegree(QString Minute)
+{
+    QString Degree;
+    int nDegree;
+    double dDegree;
+
+    nDegree = Minute.toDouble()/100;
+    dDegree = fmod(Minute.toDouble(), 100) / 60.0;
+
+    Degree = QString::number(nDegree+dDegree);
+    return Degree;
 }

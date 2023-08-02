@@ -45,17 +45,17 @@ LoginWidget::LoginWidget(QWidget *parent) :
     ui->deviceIDLineEdit->setDisabled(true);
     ui->deviceIDLineEdit->setText(m_jsonObject["Device ID"].toString());
 
-    int index = m_jsonObject["User Name Select"].toInt() - 1;
+    int index = 0;
     QJsonArray ar = m_jsonObject["User Name items"].toArray();
-    ui->userNameComboBox->addItem(ar[index].toString());
-    ar.removeAt(index);
+//    ui->userNameComboBox->addItem(ar[index].toString());
+//    ar.removeAt(index);
 
     foreach(QJsonValue json, ar)
     {
         ui->userNameComboBox->addItem(json.toString());
 //        ItemBackPush(json.toString());
     }
-    ui->userNameComboBox->setCurrentIndex(m_jsonObject["User Name Select"].toInt() - 1);
+    ui->userNameComboBox->setCurrentIndex(index);
 
     m_pLightMager = new LightManager;
 
@@ -73,6 +73,21 @@ LoginWidget::~LoginWidget()
     delete m_loginPushButton;
     delete m_dateTimePushButton;
     delete ui;
+}
+
+bool LoginWidget::CheckComboxBoxItem(QString str)
+{
+    for (int i = 0 ; i < ui->userNameComboBox->count() ; i++)
+    {
+        if ( str  == ui->userNameComboBox->itemText(i))
+            return false;
+    }
+
+    return true;
+//    foreach(auto item, ui->userNameComboBox)
+//    {
+
+//    }
 }
 
 //void LoginWidget::ItemBackPush(QString item)
@@ -103,12 +118,21 @@ LoginWidget::~LoginWidget()
 
 void LoginWidget::on_loginPushButton_clicked()
 {
+    QJsonArray ar = m_jsonObject["User Name items"].toArray();
+    QJsonValue jv = ar[m_nIndex];
+    ar.removeAt(m_nIndex);
+    ar.insert(0, jv);
+    m_jsonObject["User Name Select"] = 0;
+    m_jsonObject["User Name items"] = ar;
 //    m_parent->ui->verticalLayout_2->removeWidget(m_pLoginWidget);
 //    IndicatorWidget indicatorWidget;
 //    m_parent->ui->verticalLayout_2->addWidget(&indicatorWidget, 835);
 
-    m_config.SetConfig(m_jsonObject);
-    m_config.SaveFile();
+    if (m_StrKeyboard != "admin_test" && m_StrKeyboard != "admin_align" && m_StrKeyboard != "admin_vsg" && m_StrKeyboard != "admin_save")
+    {
+        m_config.SetConfig(m_jsonObject);
+        m_config.SaveFile();
+    }
     close();
 //    (MainWindow*)m_parent->
 //    ~LoginWidget();
@@ -173,7 +197,10 @@ void LoginWidget::on_userNamePushButton_clicked()
     KeyboardDialog keyboardDialog(ui->userNameComboBox->currentText(), GetLanguage());
     if (keyboardDialog.exec() == QDialog::Accepted)
     {
-        if (keyboardDialog.str() != "admin_test" && keyboardDialog.str() != "admin_align" && keyboardDialog.str() != "admin_vsg" && keyboardDialog.str() != "admin_save")
+//        if (ui->userNameComboBox->item)
+        m_StrKeyboard = keyboardDialog.str();
+
+        if (CheckComboxBoxItem(m_StrKeyboard))
         {
             ui->userNameComboBox->removeItem(4);
             ui->userNameComboBox->insertItem(0, keyboardDialog.str());
@@ -192,7 +219,7 @@ void LoginWidget::on_userNamePushButton_clicked()
         array.push_back(ui->userNameComboBox->itemText(i));
     }
     m_jsonObject["User Name items"] = array;
-    m_jsonObject["User Name Select"] = ui->userNameComboBox->currentIndex() + 1;
+//    m_jsonObject["User Name Select"] = ui->userNameComboBox->currentIndex() + 1;
     ui->userNameComboBox->setCurrentIndex(0);
 
 } 
@@ -204,6 +231,6 @@ void LoginWidget::on_userNamePushButton_clicked()
 
 void LoginWidget::on_userNameComboBox_currentIndexChanged(int index)
 {
-    m_jsonObject["User Name Select"] = index + 1;
+    m_nIndex = index;
 }
 

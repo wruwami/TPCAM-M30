@@ -8,7 +8,7 @@ class CustomComboBox : public QComboBox
     Q_OBJECT
 public:
     explicit CustomComboBox(QWidget *parent = 0);
-
+//    void setText(QString text);
 signals:
 
 public slots:

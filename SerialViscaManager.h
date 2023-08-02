@@ -127,7 +127,7 @@ public:
     void show_noiseReduction();
 
     void SetDayMode(int index);
-    void SetDayMode(QJsonObject object);
+    void SetDayMode(QJsonObject object, bool bDay);
     void SetFocus(int index);
     void SetZoom(int index);
 

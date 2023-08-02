@@ -102,8 +102,6 @@ QString NetworkManager::getMacAddress(QString deviceName)
                 return netInterface.hardwareAddress();
     }
     return QString();
-
-
 }
 
 void NetworkManager::SetWifiStaMode()

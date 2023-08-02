@@ -29,6 +29,7 @@ public:
     QString GetLatitude();
     QString GetLongitude();
     QString GetSensitivity();
+    QString changeMinuteToDegree(QString Minute);
 private:
     int con = 0;
     int m_nTTFF=0;

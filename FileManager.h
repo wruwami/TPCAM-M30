@@ -20,6 +20,18 @@ enum PrefixType
     MC,
 };
 
+enum SDPath {
+    ATEXT,
+    AUTO,
+    FACTORY,
+    LASER_LOG,
+    MANUAL_CAPTURE,
+    SCREEN,
+    SNAPSHOT,
+    SYSTEM_LOG,
+    VIDEO,
+};
+
 typedef struct _ST_ENFORCEMENT_INFO
 {
     int nCaptureSpeed;
@@ -61,6 +73,7 @@ public:
     }
     QString GetPath(QString name,Type type);
     QString GetSubPath(QString name,Type type);
+    QString GetSDPath(SDPath);
     QString AddFile(QString path_name, QString file_name);
     QString GetFileName(PrefixType prefix);
     QString GetFileName(PrefixType prefix, stEnforcementInfo enforceInfo);
@@ -102,6 +115,11 @@ static QString GetSDPath()
 static QString GetUSBPath()
 {
     return FileManager::GetInstance()->GetUSBPath();
+}
+
+static QString GETSDPATH(SDPath sdPath)
+{
+    return FileManager::GetInstance()->GetSDPath(sdPath);
 }
 
 #endif // FILEMANAGER_H

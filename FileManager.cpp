@@ -57,6 +57,79 @@ QString FileManager::GetSubPath(QString name,Type type)
     return dir.absolutePath();
 }
 
+QString FileManager::GetSDPath(SDPath sdPath)
+{
+    QString path = GetSDPath();
+    switch (sdPath)
+    {
+        case ATEXT:
+    {
+
+    }
+        break;
+    {
+        case AUTO:
+    {
+
+    }
+        break;
+        case :
+    {
+
+    }
+        break;
+        case :
+    {
+
+    }
+        break;
+        case :
+    {
+
+    }
+        break;
+        case :
+    {
+
+    }
+        break;
+        case :
+    {
+
+    }
+        break;
+        case :
+    {
+
+    }
+        break;
+        case :
+    {
+
+    }
+        break;
+        case :
+    {
+
+    }
+        break;
+        case :
+    {
+
+    }
+        break;
+
+    FACTORY,
+    LASER_LOG,
+    MANUAL_CAPTURE,
+    SCREEN,
+    SNAPSHOT,
+    SYSTEM_LOG,
+    VIDEO,
+:
+    }
+}
+
 
 QString FileManager::AddFile(QString path_name, QString file_name)
 {
@@ -141,8 +214,6 @@ QString FileManager::GetFileName(PrefixType prefix, stEnforcementInfo enforceInf
             .arg("S");
 
     return ret;
-
-
 }
 
 QString FileManager::GeteMMCPath()

@@ -14,7 +14,8 @@ class FactoryDefaultWidget : public QWidget
 public:
     explicit FactoryDefaultWidget(QWidget *parent = 0);
     ~FactoryDefaultWidget();
-
+private:
+    void MoveFactorySetting();
 private slots:
     void on_okPushButton_clicked();
 

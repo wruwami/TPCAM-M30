@@ -6,6 +6,7 @@
 
 #include "StringLoader.h"
 #include "ConfigManager.h"
+#include "FileManager.h"
 
 FactoryDefaultWidget::FactoryDefaultWidget(QWidget *parent) :
     QWidget(parent),
@@ -26,12 +27,20 @@ FactoryDefaultWidget::~FactoryDefaultWidget()
     delete ui;
 }
 
+void FactoryDefaultWidget::MoveFactorySetting()
+{
+
+}
+
 void FactoryDefaultWidget::on_okPushButton_clicked()
 {
     ConfigManager config = ConfigManager("setting_password.json");
     QJsonObject object = config.GetConfig();
     if (object["password"].toString() == ui->lineEdit->GetString())
+    {
+        MoveFactorySetting();
         m_pParent->accept();
+    }
 }
 
 void FactoryDefaultWidget::on_cancelPushButton_clicked()

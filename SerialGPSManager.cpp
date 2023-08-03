@@ -143,6 +143,8 @@ void SerialGPSManager::serial_received()
         QString time = splitted[1].mid(0, splitted[1].indexOf("."));
         QString datetime = splitted[9] + time;
         m_DateTime = QDateTime::fromString(datetime, time_format);
+        m_DateTime = m_DateTime.addYears(100);
+
         m_Latitude = splitted[4] + changeMinuteToDegree(splitted[3]);
         m_Longitude = splitted[6] + changeMinuteToDegree(splitted[5]);
         //TTFF 계산

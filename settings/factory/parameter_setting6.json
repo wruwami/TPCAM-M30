@@ -1,0 +1,29 @@
+{
+	"language select": 1,
+	"language items": [
+		"english",
+		"french",
+		"arabic",
+		"portuguese",
+		"spanish",
+		"korean"
+	],
+	"bluetooth select": 1,
+	"bluetooth items": [
+		"com_test1",
+		" ",
+		" ",
+		" ",
+		" "
+	],
+	"ftp select": 1,
+	"ftp items": [
+		"disable",
+		"Manual",
+		"Auto"
+	],
+	"ftp server( dns )": "ftp://comlaser.",
+	"ftp port": 6000,
+	"ftp user name": "comlaser",
+	"ftp password": "comlaser"
+}

@@ -3,6 +3,7 @@
 
 #include <QDialog>
 #include <QJsonObject>
+#include "qdir.h"
 
 #include "StringLoader.h"
 #include "ConfigManager.h"
@@ -29,6 +30,7 @@ FactoryDefaultWidget::~FactoryDefaultWidget()
 
 void FactoryDefaultWidget::MoveFactorySetting()
 {
+//    QDir dir = GeteMMCPath()
 
 }
 

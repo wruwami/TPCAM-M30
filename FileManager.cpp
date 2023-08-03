@@ -8,7 +8,7 @@
 #include "SerialGPSManager.h"
 #include "ConfigManager.h"
 
-#define DEFAULT_FILE_PATH   "files"
+#define DEFAULT_FILE_PATH   "/files/"
 
 FileManager* FileManager::instance = nullptr;
 
@@ -17,15 +17,15 @@ QString FileManager::GetPath(QString name,Type type)
     QDir dir;
     if (type == eMMC)
     {
-        dir = GeteMMCPath() + "/" + DEFAULT_FILE_PATH + "/" + name;
+        dir = GeteMMCPath() + name;
         if (!dir.exists())
-            dir.mkdir(GeteMMCPath() + "/" + DEFAULT_FILE_PATH + "/" + name);
-        return GeteMMCPath() + "/" + DEFAULT_FILE_PATH + "/" + name;
+            dir.mkdir(GeteMMCPath() + name);
+        return GeteMMCPath() + name;
     }
-    dir = GetSDPath() + "/" + DEFAULT_FILE_PATH + "/" + name;
+    dir = GetSDPath() + name;
     if (!dir.exists())
-        dir.mkdir(GetSDPath() + "/" + DEFAULT_FILE_PATH + "/" + name);
-    return GetSDPath() + "/" + DEFAULT_FILE_PATH + "/" + name;
+        dir.mkdir(GetSDPath() + name);
+    return GetSDPath() + name;
 }
 
 QString FileManager::GetSubPath(QString name,Type type)
@@ -35,24 +35,24 @@ QString FileManager::GetSubPath(QString name,Type type)
 
     if (type == eMMC)
     {
-        dir = GeteMMCPath() + "/" + DEFAULT_FILE_PATH + "/" + name;
+        dir = GeteMMCPath() + name;
         if (!dir.exists())
-            dir.mkdir(GeteMMCPath() + "/" + DEFAULT_FILE_PATH + "/" + name);
-        dir = GeteMMCPath() + "/" + DEFAULT_FILE_PATH + "/" + name + "/" + datetime.toString("yyyyMMdd_hh");
+            dir.mkdir(GeteMMCPath() + name);
+        dir = GeteMMCPath() + name + "/" + datetime.toString("yyyyMMdd_hh");
     }
     else
     {
-        dir = GetSDPath() + "/" + DEFAULT_FILE_PATH + "/" + name;
+        dir = GetSDPath() + name;
         if (!dir.exists())
-            dir.mkdir(GetSDPath() + "/" + DEFAULT_FILE_PATH + "/" + name);
-        dir = GetSDPath() + "/" + DEFAULT_FILE_PATH + "/" + name + "/" + datetime.toString("yyyyMMdd_hh");
-    }   //    QDir dir(GetFirstPath() + "/" + DEFAULT_FILE_PATH + "/" + name + "/");
+            dir.mkdir(GetSDPath() + name);
+        dir = GetSDPath() + name + "/" + datetime.toString("yyyyMMdd_hh");
+    }   //    QDir dir(GetFirstPath() + name + "/");
     if (!dir.exists())
     {
         if (type == eMMC)
-            dir.mkdir(GeteMMCPath() + "/" + DEFAULT_FILE_PATH + "/" + name + "/" + datetime.toString("yyyyMMdd_hh"));
+            dir.mkdir(GeteMMCPath() + name + "/" + datetime.toString("yyyyMMdd_hh"));
         else
-            dir.mkdir(GetSDPath() + "/" + DEFAULT_FILE_PATH + "/" + name + "/" + datetime.toString("yyyyMMdd_hh"));
+            dir.mkdir(GetSDPath() + name + "/" + datetime.toString("yyyyMMdd_hh"));
     }
     return dir.absolutePath();
 }
@@ -73,63 +73,44 @@ QString FileManager::GetSDPath(SDPath sdPath)
 
     }
         break;
-        case :
+        case FACTORY:
     {
 
     }
         break;
-        case :
+        case LASER_LOG:
     {
 
     }
         break;
-        case :
+        case MANUAL_CAPTURE:
     {
 
     }
         break;
-        case :
+        case SCREEN:
     {
 
     }
         break;
-        case :
+        case SNAPSHOT:
     {
 
     }
         break;
-        case :
+        case SYSTEM_LOG:
     {
 
     }
         break;
-        case :
+        case VIDEO:
     {
 
     }
         break;
-        case :
-    {
-
-    }
-        break;
-        case :
-    {
-
-    }
-        break;
-
-    FACTORY,
-    LASER_LOG,
-    MANUAL_CAPTURE,
-    SCREEN,
-    SNAPSHOT,
-    SYSTEM_LOG,
-    VIDEO,
-:
     }
 }
-
+}
 
 QString FileManager::AddFile(QString path_name, QString file_name)
 {
@@ -219,7 +200,7 @@ QString FileManager::GetFileName(PrefixType prefix, stEnforcementInfo enforceInf
 QString FileManager::GeteMMCPath()
 {
     QDir dir;
-    return dir.absolutePath();
+    return dir.absolutePath() + DEFAULT_FILE_PATH;
 }
 
 QString FileManager::GetSDPath()

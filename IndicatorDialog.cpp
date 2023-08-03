@@ -46,7 +46,7 @@ IndicatorDialog::IndicatorDialog(QWidget *parent) :
 
 
     ui->screenRecordingPushButton->setVisible(true);
-    m_pIndicatorCameraFocusWidget = new IndicatorCameraFocusWidget;
+//    \IndicatorCameraFocusWidget = new IndicatorCameraFocusWidget;
 //    ui->onPushButton->setVisible(false);
 //    ui->offPushButton->setVisible(false);
 
@@ -61,7 +61,7 @@ IndicatorDialog::~IndicatorDialog()
 
 //    if (m_pIndicatorCameraExposeWidget != nullptr)
 //        delete m_pIndicatorCameraExposeWidget;
-    delete m_pIndicatorCameraFocusWidget;
+//    delete \IndicatorCameraFocusWidget;
 
     delete ui;
 }
@@ -315,12 +315,8 @@ void IndicatorDialog::on_cameraFocusClicked()
 {
     this->hide();
 
-    m_pIndicatorCameraFocusWidget->exec();
-    if (m_pIndicatorCameraFocusWidget != nullptr)
-    {
-        delete m_pIndicatorCameraFocusWidget;
-        m_pIndicatorCameraFocusWidget = nullptr;
-    }
+    IndicatorCameraFocusWidget indicatorCameraFocusWidget;
+    indicatorCameraFocusWidget.exec();
 }
 
 void IndicatorDialog::paintEvent(QPaintEvent *event)

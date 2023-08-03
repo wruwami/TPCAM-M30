@@ -79,7 +79,6 @@ public:
 
     bool m_bFocusExposeDisabled = true;
     bool m_bEnforcement = false;
-    IndicatorCameraFocusWidget* m_pIndicatorCameraFocusWidget;
     void setPSerialLaserManager(SerialLaserManager *newPSerialLaserManager);
 
 private:

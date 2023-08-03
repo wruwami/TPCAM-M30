@@ -217,22 +217,12 @@ void SelfTestWidget::StartSelfTest()
 
 bool SelfTestWidget::CameraTest()
 {
-    if (m_serialViscaManager.connectVisca() == "Connect")
-    {
-        m_serialViscaManager.show_camera_model();
-        return true;
-    }
-    return false;
+    m_serialViscaManager.show_camera_model();
 }
 
 bool SelfTestWidget::LaserTest()
 {
-    if (m_serialLaserManager.connectLaser() == "Connect")
-    {
-        m_serialLaserManager.show_laser_info();
-        return true;
-    }
-    return false;
+    m_serialLaserManager.show_laser_info();
 }
 
 bool SelfTestWidget::BatteryTest()

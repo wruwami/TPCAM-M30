@@ -144,8 +144,15 @@ void SystemInfoWidget::on_cam_version(int vendor, int version)
         strVendor = "W";
 
     QString strVersion = QString::number(version, 16);
+    QString strVersion2;
+    for (int i = 0 ; i < strVersion.length() ; i++)
+    {
+        if (i == strVersion.length() - 1)
+            strVersion2 = strVersion[i];
+        strVersion2 = strVersion[i] + ".";
+    }
 
-    ui->camValueLabel->setText(QString("v%1(%2)").arg(strVersion).arg(strVendor));
+    ui->camValueLabel->setText(QString("v%1(%2)").arg(strVersion2).arg(strVendor));
 }
 
 void SystemInfoWidget::on_laser_version(QString version)

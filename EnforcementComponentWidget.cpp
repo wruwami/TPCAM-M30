@@ -10,7 +10,7 @@
 #include "SerialPacket.h"
 #include "SpeedUnitManager.h"
 #include "WidgetSize.h"
-
+#include "SerialViscaManager.h"
 
 extern int g_nCrackDownIndex;
 
@@ -159,7 +159,8 @@ EnforcementComponentWidget::~EnforcementComponentWidget()
 
 void EnforcementComponentWidget::dzPlus()
 {
-    m_pSerialViscaManager.plus_dzoom();
+    SerialViscaManager serialViscaManager;
+    serialViscaManager.plus_dzoom();
 //    if (m_UserModeOn)
 //    {
 //        if (m_nDistance == meter)
@@ -212,7 +213,8 @@ void EnforcementComponentWidget::dzPlus()
 }
 void EnforcementComponentWidget::dzMinus()
 {
-    m_pSerialViscaManager.minus_dzoom();//    if (m_UserModeOn)
+    SerialViscaManager serialViscaManager;
+    serialViscaManager.minus_dzoom();//    if (m_UserModeOn)
 //    {
 //        if (m_nStIndex != 0)
 //        {
@@ -346,25 +348,26 @@ void EnforcementComponentWidget::SetCamera()
 
 void EnforcementComponentWidget::camInit()
 {
-    m_pSerialViscaManager.set_IRCorrection_standard();
-    m_pSerialViscaManager.set_AE_Mode("03");
+    SerialViscaManager serialViscaManager;
+    serialViscaManager.set_IRCorrection_standard();
+    serialViscaManager.set_AE_Mode("03");
 
-    m_pSerialViscaManager.SetDayMode(m_object2["day&night selection"].toInt());
+    serialViscaManager.SetDayMode(m_object2["day&night selection"].toInt());
 
 
 
-    m_pSerialViscaManager.set_manual_focus();
+    serialViscaManager.set_manual_focus();
 //    m_pSerialViscaManager.set_AE_mode2e();
-    m_pSerialViscaManager.separate_zoom_mode();
+    serialViscaManager.separate_zoom_mode();
 
 //    Config
     QJsonObject object = ConfigManager("parameter_enforcement.json").GetConfig();
     m_nIndex = object["zoom_index"].toInt();
-    m_pSerialViscaManager.SetZoom(m_nIndex);
-    m_pSerialViscaManager.SetFocus(m_nIndex);
+    serialViscaManager.SetZoom(m_nIndex);
+    serialViscaManager.SetFocus(m_nIndex);
 
 
-    m_pSerialViscaManager.dzoom_from_pq("00");
+    serialViscaManager.dzoom_from_pq("00");
 
 //    ConfigManager config = ConfigManager("parameter_enforcement.json");
 //    QJsonObject object = config.GetConfig();

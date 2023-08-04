@@ -46,7 +46,6 @@ IndicatorDialog::IndicatorDialog(QWidget *parent) :
 
 
     ui->screenRecordingPushButton->setVisible(true);
-//    \IndicatorCameraFocusWidget = new IndicatorCameraFocusWidget;
 //    ui->onPushButton->setVisible(false);
 //    ui->offPushButton->setVisible(false);
 
@@ -61,8 +60,6 @@ IndicatorDialog::~IndicatorDialog()
 
 //    if (m_pIndicatorCameraExposeWidget != nullptr)
 //        delete m_pIndicatorCameraExposeWidget;
-//    delete \IndicatorCameraFocusWidget;
-
     delete ui;
 }
 

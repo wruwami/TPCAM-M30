@@ -11,7 +11,6 @@
 #include "SpeedUnitManager.h"
 #include "camera.h"
 #include "FileManager.h"
-#include "SerialViscaManager.h"
 #include "HUDManager.h"
 
 enum Mode{
@@ -112,7 +111,7 @@ private:
     VehicleMode m_nVehicleMode = Normal;
     bool m_bTruckChecked = false;
     bool m_bBikeChecked = false;
-    SerialViscaManager m_pSerialViscaManager;
+
     int VehicleLastId = -1;
     HUDManager m_hudManager;
     EnforcementMode m_nEnforcementMode;

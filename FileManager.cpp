@@ -128,26 +128,31 @@ QString FileManager::GetFileName(PrefixType prefix)
 QString FileManager::GetFileName(PrefixType prefix, stEnforcementInfo enforceInfo)
 {
     QString strPrefix;
+    QString extention;
     switch(prefix)
     {
     case AI:
     {
         strPrefix = "AI";
+        extention = "jpg";
     }
         break;
     case AV:
     {
         strPrefix = "AV";
+        extention = "avi";
     }
         break;
     case VV:
     {
         strPrefix = "VV";
+        extention = "avi";
     }
         break;
     case MC:
     {
         strPrefix = "MC";
+        extention = "jpg";
     }
         break;
 
@@ -230,25 +235,51 @@ QString FileManager::GetFileName(PrefixType prefix, stEnforcementInfo enforceInf
         break;
     }
     QString strZoomIndex;
-    strZoomIndex.sprintf("02%", enforceInfo.zoom_index);
+    strZoomIndex.sprintf("%02d", enforceInfo.zoom_index);
     mode.append(strZoomIndex);
 
     int index = 0; // index
-    QString ret = QString("%1_%2_%3_%4_%5_%6_%7_%8_%9_%10_%11_%12_%13_%14_%15").arg(strPrefix) \
-            .arg((QString::number(index)), 5) \
-            .arg(datetime.toString("yyyyMMdd")) \
-            .arg(datetime.toString("hhmmss") + QString::number(datetime.time().msec())[0]) \
-            .arg(captureSpeed, 5) \
-            .arg(QString::number(enforceInfo.nSpeedLimit), 4) \
-            .arg(QString::number(enforceInfo.nCaptureSpeedLimit), 4) \
-            .arg(QString::number(enforceInfo.nDistance), 4) \
-            .arg(mode) \
-            .arg(SerialGPSManager::GetInstance()->GetLatitude()) \
-            .arg(SerialGPSManager::GetInstance()->GetLongitude()) \
-            .arg(Location) \
-            .arg(deviceID) \
-            .arg(userID) \
-            .arg("S");
+    QString ret;
+    ret.sprintf("%s_%05d_%s_%s_%s%04d_%04d_%04d_%04d_%s_%s_%s_%s_%s_%s_S.%s"
+                            ,strPrefix.toStdString().c_str()
+                            ,index
+                            ,datetime.toString("yyyyMMdd").toStdString().c_str()
+                            ,QString(datetime.toString("hhmmss") + QString::number(datetime.time().msec())[0]).toStdString().c_str()
+                            ,captureSpeed.toStdString().c_str()
+                            ,enforceInfo.nCaptureSpeed
+                            ,enforceInfo.nSpeedLimit
+                            ,enforceInfo.nCaptureSpeedLimit
+                            ,enforceInfo.nDistance
+                            ,mode.toStdString().c_str()
+                            ,(SerialGPSManager::GetInstance()->GetLatitude()).toStdString().c_str()
+                            ,(SerialGPSManager::GetInstance()->GetLongitude()).toStdString().c_str()
+                            ,(Location).toStdString().c_str()
+                            ,(deviceID).toStdString().c_str()
+                            ,(userID).toStdString().c_str()
+                            ,extention.toStdString().c_str());
+
+
+
+
+
+
+
+//            QString("%1_%2_%3_%4_%5_%6_%7_%8_%9_%10_%11_%12_%13_%14_%15") \
+//            .arg(strPrefix) \
+//            .arg((QString::number(index)), 5) \
+//            .arg(datetime.toString("yyyyMMdd")) \
+//            .arg(datetime.toString("hhmmss") + QString::number(datetime.time().msec())[0]) \
+//            .arg(captureSpeed, 5) \
+//            .arg(QString::number(enforceInfo.nSpeedLimit), 4) \
+//            .arg(QString::number(enforceInfo.nCaptureSpeedLimit), 4) \
+//            .arg(QString::number(enforceInfo.nDistance), 4) \
+//            .arg(mode) \
+//            .arg(SerialGPSManager::GetInstance()->GetLatitude()) \
+//            .arg(SerialGPSManager::GetInstance()->GetLongitude()) \
+//            .arg(Location) \
+//            .arg(deviceID) \
+//            .arg(userID) \
+//            .arg("S");
 
     return ret;
 }

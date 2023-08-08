@@ -122,7 +122,7 @@ void LoginWidget::on_loginPushButton_clicked()
     QJsonValue jv = ar[m_nIndex];
     ar.removeAt(m_nIndex);
     ar.insert(0, jv);
-    m_jsonObject["User Name Select"] = 0;
+    m_jsonObject["User Name Select"] = 1;
     m_jsonObject["User Name items"] = ar;
 //    m_parent->ui->verticalLayout_2->removeWidget(m_pLoginWidget);
 //    IndicatorWidget indicatorWidget;

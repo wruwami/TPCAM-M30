@@ -14,6 +14,8 @@
 
 extern int g_nCrackDownIndex;
 
+#define DEBUG_MODE 1
+
 EnforcementComponentWidget::EnforcementComponentWidget(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::EnforcementComponentWidget)
@@ -50,6 +52,25 @@ EnforcementComponentWidget::EnforcementComponentWidget(QWidget *parent) :
         m_UserModeOn = true;
     else
         m_UserModeOn = false;
+
+    switch(m_object["enforcement selection"].toInt())
+    {
+    case 1:
+    {
+        m_nEnforcementMode = I;
+    }
+        break;
+    case 2:
+    {
+        m_nEnforcementMode = A;
+    }
+        break;
+    case 3:
+    {
+        m_nEnforcementMode = V;
+    }
+        break;
+    }
 
     m_nZoomIndex = ConfigManager("parameter_enforcement.json").GetConfig()["zoom index"].toInt();
 
@@ -120,6 +141,9 @@ EnforcementComponentWidget::EnforcementComponentWidget(QWidget *parent) :
             ui->zoomRangePushButton->setText(QString("%1%2").arg(m_ltfeetvector[m_nZoomIndex]).arg(SpeedUnitManager::GetInstance()->distance()));
     }
 
+#if DEBUG_MODE
+    SaveImageVideo();
+#endif
 //    switch (m_nMode)
 //    {
 //    case Ready:

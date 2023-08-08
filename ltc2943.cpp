@@ -471,7 +471,7 @@ uint16_t LTC2943::getPersent(uint16_t AC)
 
     if(ACT_Persent!=0)  ACT_Persent = AC_data/ACT_Persent;
     else {
-        qDebug() << "devider is 0";
+//        qDebug() << "devider is 0";
         return ACT_Persent;
     }
 

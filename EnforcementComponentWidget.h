@@ -115,8 +115,8 @@ private:
     bool m_bBikeChecked = false;
 
     int VehicleLastId = -1;
-    float m_fSpeed;
-    float m_fDistance;
+    float m_fSpeed = 0;
+    float m_fDistance = 0;
 
     HUDManager m_hudManager;
     EnforcementMode m_nEnforcementMode;

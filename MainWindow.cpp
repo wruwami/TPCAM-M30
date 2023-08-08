@@ -1396,7 +1396,7 @@ void MainWindow::on_ShowRedOutLine(bool bOn)
 {
     if (bOn)
     {
-        this->setStyleSheet("QMainWindow{border: 1px solid red;}");
+        this->setStyleSheet("QMainWindow{border: 3px solid red;}");
     }
     else
     {

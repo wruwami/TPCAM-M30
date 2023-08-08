@@ -14,7 +14,7 @@
 
 extern int g_nCrackDownIndex;
 
-#define DEBUG_MODE 1
+#define DEBUG_MODE 0
 
 EnforcementComponentWidget::EnforcementComponentWidget(QWidget *parent) :
     QWidget(parent),

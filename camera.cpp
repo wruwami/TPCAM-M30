@@ -28,6 +28,7 @@
 #include "FileManager.h"
 #include "ConfigManager.h"
 #include <QJsonArray>
+#include "SerialGPSManager.h"
 
 #define FONT_SIZE 				12
 
@@ -491,39 +492,23 @@ void Camera::closeEvent(QCloseEvent *event)
 
 void Camera::SaveVideo(PrefixType prefix, stEnforcementInfo enforceInfo, SDPath sdPath)
 {
-	int idx = 1;
-	int nSpeed = 96;
-	int nSpeedLimit = 80;
-	int nCaptureSpeed = 80;
-	int nCaptureDistance = 100;
-	int nEnfocementRange = 2;
-	float fLatitude = 37.3552f;
-	float fLongitude = 126.9661f;
-	QString qstrLocation = "Loc1";
-	QString qstrUsername = "User1";
-	QString qstrDeviceID = "M0000P";
-    int nTargetCrossX = 1000;
-    int nTargetCrossY = 500;
-
-//    if (prefix == )
-//video_mode.json
-    //image_video_mode.json
+    int recording_time;
+    if (prefix == AV)
+    {
+        recording_time = ConfigManager("image_video_mode.json").GetConfig()["video recording second"].toInt();
+    }
+    else
+    {
+        recording_time = ConfigManager("video_mode.json").GetConfig()["recoding minute"].toInt() * 60;
+    }
     QString qstrFilename = GetFileName(prefix, enforceInfo);
     QString qstrPath = GETSDPATH(sdPath);
 
-    saveVideoUseShmsrc(qstrFilename, qstrPath, SHM_NAME, 5, 30, RAW_IMAGE_WIDTH, RAW_IMAGE_HEIGHT);
+    saveVideoUseShmsrc(qstrFilename, qstrPath, SHM_NAME, recording_time, 30, RAW_IMAGE_WIDTH, RAW_IMAGE_HEIGHT);
 }
 
 void Camera::SaveImage(PrefixType prefix, stEnforcementInfo enforceInfo, SDPath sdPath)
 {
-    int idx = 1;
-    int nSpeed = 96;
-    int nSpeedLimit = 80;
-    int nCaptureSpeed = 80;
-    int nCaptureDistance = 100;
-    int nEnfocementRange = 2;
-    float fLatitude = 37.3552f;
-    float fLongitude = 126.9661f;
     QJsonObject object = ConfigManager("parameter_setting1.json").GetConfig();
     QString qstrLocation = object["location items"].toArray()[0].toString();
     QString qstrUsername = ConfigManager("parameter_login.json").GetConfig()["User Name items"].toArray()[0].toString();
@@ -542,9 +527,9 @@ void Camera::SaveImage(PrefixType prefix, stEnforcementInfo enforceInfo, SDPath 
 
     QString qstrDatetimeInfo = QString("%1/%2/%3 %4:%5:%6.%7").arg(qstrCurTime.left(4), qstrCurTime.mid(4, 2), qstrCurTime.mid(6, 2), qstrCurTime.mid(9, 2), qstrCurTime.mid(11, 2), qstrCurTime.mid(13, 2), qstrCurTime.right(3));
     QString qstrLocInfo;
-    qstrLocInfo.sprintf("%s (%.6f, %.6f)", qstrLocation.toStdString().c_str(), fLatitude, fLongitude);
-    QString qstrFullPath = GETSDPATH(sdPath) + GetFileName(AI, enforceInfo);
-    m_v4l2Capturer->imageGrab(qstrFullPath, qstrDatetimeInfo, qstrDeviceID, qstrUsername, qstrLocInfo, nSpeedLimit, nCaptureDistance, nSpeed, nTargetCrossX, nTargetCrossY);
+    qstrLocInfo.sprintf("%s (%.6f, %.6f)", qstrLocation.toStdString().c_str(), GetLatitude(), GetLongitude());
+    QString qstrFullPath = GETSDPATH(sdPath) + "/" + GetFileName(prefix, enforceInfo);
+    m_v4l2Capturer->imageGrab(qstrFullPath, qstrDatetimeInfo, qstrDeviceID, qstrUsername, qstrLocInfo, enforceInfo.nSpeedLimit, enforceInfo.nDistance, enforceInfo.nCaptureSpeed, nTargetCrossX, nTargetCrossY);
 }
 
 //void Camera::SaveImage(PrefixType prifix, stEnforcementInfo enforceInfo)

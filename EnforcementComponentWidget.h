@@ -20,15 +20,15 @@ enum Mode{
 };
 
 enum VehicleMode{
-    Normal,
-    Truck,
-    MotoCycle,
+    Normal = 0,
+    Truck = 1,
+    MotoCycle = 2,
 };
 
 enum EnforcementMode{
-    V,
-    I,
-    A,
+    I = 0,
+    A = 1,
+    V = 2,
 };
 
 class SerialLaserManager;
@@ -103,16 +103,21 @@ private:
     std::vector<QString> m_stfeetvector;// = {"60", "80", "100", "120", "140", "160", "180", "200", "220", "240", "260"};
     std::vector<QString> m_ltfeetvector;// = {"10~36", "30~60", "60~100", "100~160", "160~260", "260+"};
 
-    size_t m_nIndex = 2;
+    size_t m_nZoomIndex;
     Camera* m_pCamera = nullptr;
     Mode m_nMode = Ready;
     int VehicleCount = 0;
     QJsonArray m_captureSpeed;
+    QJsonArray m_SpeedLimit;
+
     VehicleMode m_nVehicleMode = Normal;
     bool m_bTruckChecked = false;
     bool m_bBikeChecked = false;
 
     int VehicleLastId = -1;
+    float m_fSpeed;
+    float m_fDistance;
+
     HUDManager m_hudManager;
     EnforcementMode m_nEnforcementMode;
 protected slots:

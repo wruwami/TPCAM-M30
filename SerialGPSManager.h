@@ -47,4 +47,14 @@ protected slots:
     void serial_received();
 };
 
+static QString GetLatitude()
+{
+    return SerialGPSManager::GetInstance()->GetLatitude();
+}
+static QString GetLongitude()
+{
+    return SerialGPSManager::GetInstance()->GetLongitude();
+}
+
+
 #endif // SERIALGPSMANAGER_H

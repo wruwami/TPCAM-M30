@@ -182,7 +182,56 @@ QString FileManager::GetFileName(PrefixType prefix, stEnforcementInfo enforceInf
     else
         captureSpeed = "M" + QString::number(enforceInfo.nCaptureSpeed);
 
-    QString mode = "a";
+    QString mode;
+    if (enforceInfo.bUserMode)
+    {
+        mode.append("U");
+    }
+    else
+    {
+        mode.append("N");
+    }
+
+    switch (enforceInfo.enforceMode)
+    {
+    case 0:
+    {
+        mode.append("I");
+    }
+        break;
+    case 1:
+    {
+        mode.append("A");
+    }
+        break;
+    case 2:
+    {
+        mode.append("V");
+    }
+        break;
+    }
+
+    switch (enforceInfo.vehicle)
+    {
+    case 0:
+    {
+        mode.append("N");
+    }
+        break;
+    case 1:
+    {
+        mode.append("T");
+    }
+        break;
+    case 2:
+    {
+        mode.append("M");
+    }
+        break;
+    }
+    QString strZoomIndex;
+    strZoomIndex.sprintf("02%", enforceInfo.zoom_index);
+    mode.append(strZoomIndex);
 
     int index = 0; // index
     QString ret = QString("%1_%2_%3_%4_%5_%6_%7_%8_%9_%10_%11_%12_%13_%14_%15").arg(strPrefix) \

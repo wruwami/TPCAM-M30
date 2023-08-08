@@ -44,11 +44,14 @@ EnforcementComponentWidget::EnforcementComponentWidget(QWidget *parent) :
     ui->speedLimitLabel->setText(QString("CS: %0%4\nT: %2%4\nM: %3%4").arg(QString::number(m_captureSpeed[0].toInt())).arg(QString::number(m_captureSpeed[1].toInt())).arg(QString::number(m_captureSpeed[2].toInt())).arg(speedUnitValue()));
     ui->speedLimitLabel->setDisabled(true);
 
+    m_SpeedLimit = m_object["speed limit"].toArray();
 
     if (m_object["speed selection"].toInt() == 1)
         m_UserModeOn = true;
     else
         m_UserModeOn = false;
+
+    m_nZoomIndex = ConfigManager("parameter_enforcement.json").GetConfig()["zoom index"].toInt();
 
     ConfigManager con = ConfigManager("parameter_setting3.json");
     QJsonObject object = con.GetConfig();
@@ -103,18 +106,18 @@ EnforcementComponentWidget::EnforcementComponentWidget(QWidget *parent) :
     if (m_UserModeOn)
     {
         if (distance() == meter)
-            ui->zoomRangePushButton->setText(QString("%1%2").arg(m_stmetervector[m_nIndex]).arg(SpeedUnitManager::GetInstance()->distance()));
+            ui->zoomRangePushButton->setText(QString("%1%2").arg(m_stmetervector[m_nZoomIndex]).arg(SpeedUnitManager::GetInstance()->distance()));
         else
-            ui->zoomRangePushButton->setText(QString("%1%2").arg(m_stfeetvector[m_nIndex]).arg(SpeedUnitManager::GetInstance()->distance()));
+            ui->zoomRangePushButton->setText(QString("%1%2").arg(m_stfeetvector[m_nZoomIndex]).arg(SpeedUnitManager::GetInstance()->distance()));
     }
     else
     {
-        if (m_nIndex > 5)
-            m_nIndex = 5;
+        if (m_nZoomIndex > 5)
+            m_nZoomIndex = 5;
         if (distance() == meter)
-            ui->zoomRangePushButton->setText(QString("%1%2").arg(m_ltmetervector[m_nIndex]).arg(SpeedUnitManager::GetInstance()->distance()));
+            ui->zoomRangePushButton->setText(QString("%1%2").arg(m_ltmetervector[m_nZoomIndex]).arg(SpeedUnitManager::GetInstance()->distance()));
         else
-            ui->zoomRangePushButton->setText(QString("%1%2").arg(m_ltfeetvector[m_nIndex]).arg(SpeedUnitManager::GetInstance()->distance()));
+            ui->zoomRangePushButton->setText(QString("%1%2").arg(m_ltfeetvector[m_nZoomIndex]).arg(SpeedUnitManager::GetInstance()->distance()));
     }
 
 //    switch (m_nMode)
@@ -241,7 +244,15 @@ void EnforcementComponentWidget::SaveImageVideo()
 {
     QJsonObject object = m_config.GetConfig();
     stEnforcementInfo enforceInfo;
-    //
+    enforceInfo.nCaptureSpeed = (int)m_fSpeed;
+    enforceInfo.nSpeedLimit = m_SpeedLimit[m_nVehicleMode].toInt();
+    enforceInfo.nCaptureSpeedLimit = m_captureSpeed[m_nVehicleMode].toInt();
+    enforceInfo.nDistance = (int)m_fDistance;
+    enforceInfo.bUserMode = m_UserModeOn;
+    enforceInfo.enforceMode = m_nEnforcementMode;
+    enforceInfo.vehicle = m_nVehicleMode;
+    enforceInfo.zoom_index = m_nZoomIndex;
+
 
     switch(object["enforcement selection"].toInt())
     {
@@ -275,6 +286,14 @@ void EnforcementComponentWidget::SaveImageVideo()
 void EnforcementComponentWidget::SaveImage()
 {
     stEnforcementInfo enforceInfo;
+    enforceInfo.nCaptureSpeed = (int)m_fSpeed;
+    enforceInfo.nSpeedLimit = m_SpeedLimit[m_nVehicleMode].toInt();
+    enforceInfo.nCaptureSpeedLimit = m_captureSpeed[m_nVehicleMode].toInt();
+    enforceInfo.nDistance = (int)m_fDistance;
+    enforceInfo.bUserMode = m_UserModeOn;
+    enforceInfo.enforceMode = m_nEnforcementMode;
+    enforceInfo.vehicle = m_nVehicleMode;
+    enforceInfo.zoom_index = m_nZoomIndex;
     QPixmap pixmap = m_pCamera->grab();
     pixmap.save(GETSDPATH(MANUAL_CAPTURE) + GetFileName(MC, enforceInfo));
 //    m_pCamera->SaveImage(enforceInfo, MANUAL_CAPTURE);
@@ -363,9 +382,9 @@ void EnforcementComponentWidget::camInit()
 
 //    Config
     QJsonObject object = ConfigManager("parameter_enforcement.json").GetConfig();
-    m_nIndex = object["zoom_index"].toInt();
-    serialViscaManager.SetZoom(m_nIndex);
-    serialViscaManager.SetFocus(m_nIndex);
+    m_nZoomIndex = object["zoom_index"].toInt();
+    serialViscaManager.SetZoom(m_nZoomIndex);
+    serialViscaManager.SetFocus(m_nZoomIndex);
 
 
     serialViscaManager.dzoom_from_pq("00");
@@ -740,34 +759,34 @@ void EnforcementComponentWidget::zoomRange()
     int zoom_index = 0;
     if (m_UserModeOn)
     {
-        m_nIndex++;
-        if (m_nIndex == m_stmetervector.size())
-            m_nIndex = 0;
+        m_nZoomIndex++;
+        if (m_nZoomIndex == m_stmetervector.size())
+            m_nZoomIndex = 0;
 
-        zoom_index = m_nIndex;
+        zoom_index = m_nZoomIndex;
         if (distance() == meter)
         {
-            ui->zoomRangePushButton->setText(m_stmetervector[m_nIndex]+distanceValue());
+            ui->zoomRangePushButton->setText(m_stmetervector[m_nZoomIndex]+distanceValue());
         }
         else
         {
-            ui->zoomRangePushButton->setText(m_stfeetvector[m_nIndex]+distanceValue());
+            ui->zoomRangePushButton->setText(m_stfeetvector[m_nZoomIndex]+distanceValue());
         }
     }
     else
     {
-        m_nIndex++;
-        if (m_nIndex == m_ltmetervector.size())
-            m_nIndex = 0;
+        m_nZoomIndex++;
+        if (m_nZoomIndex == m_ltmetervector.size())
+            m_nZoomIndex = 0;
 
-        zoom_index = m_nIndex;
+        zoom_index = m_nZoomIndex;
         if (distance() == meter)
         {
-            ui->zoomRangePushButton->setText(m_ltmetervector[m_nIndex]+distanceValue());
+            ui->zoomRangePushButton->setText(m_ltmetervector[m_nZoomIndex]+distanceValue());
         }
         else
         {
-            ui->zoomRangePushButton->setText(m_ltfeetvector[m_nIndex]+distanceValue());
+            ui->zoomRangePushButton->setText(m_ltfeetvector[m_nZoomIndex]+distanceValue());
         }
 
     }
@@ -858,11 +877,11 @@ QString EnforcementComponentWidget::GetMode()
 
     if (m_UserModeOn)
     {
-        mode.append(QString("%1").arg(QString::number(m_nIndex), 2));
+        mode.append(QString("%1").arg(QString::number(m_nZoomIndex), 2));
     }
     else
     {
-        mode.append(QString("%1").arg(QString::number(m_nIndex), 2));
+        mode.append(QString("%1").arg(QString::number(m_nZoomIndex), 2));
     }
 
     return mode;
@@ -974,6 +993,10 @@ void EnforcementComponentWidget::on_showCaptureSpeedDistance(float fSpeed, float
         return;
     }
 
+    m_fSpeed = fSpeed;
+    m_fDistance = fDistance;
+
+
     if (fSpeed >= GetCaptureSpeedLimit())
     {
         if (VehicleLastId != VehicleId)
@@ -1010,6 +1033,9 @@ void EnforcementComponentWidget::on_showCaptureSpeedDistance(float fSpeed, float
 
 void EnforcementComponentWidget::on_showSpeedDistance(float fSpeed, float fDistance)
 {
+    m_fSpeed = fSpeed;
+    m_fDistance = fDistance;
+
 //    화면에 속도 및 거리 출력
     displaySpeedDistance(fSpeed, fDistance, Qt::white, false);
 //        HUD에 속도 및 거리 출력
@@ -1022,6 +1048,8 @@ void EnforcementComponentWidget::on_showSpeedDistance(float fSpeed, float fDista
 
 void EnforcementComponentWidget::on_showDistance(float fDistance, int nSensitivity)
 {
+    m_fDistance = fDistance;
+
 //    화면에 거리 출력
     displayDistance(fDistance);
 //	HUD에 거리 출력
@@ -1188,6 +1216,14 @@ void EnforcementComponentWidget::on_bikePushButton_clicked()
 void EnforcementComponentWidget::on_saveImagePushButton_clicked()
 {
     stEnforcementInfo enforceInfo;
+    enforceInfo.nCaptureSpeed = (int)m_fSpeed;
+    enforceInfo.nSpeedLimit = m_SpeedLimit[m_nVehicleMode].toInt();
+    enforceInfo.nCaptureSpeedLimit = m_captureSpeed[m_nVehicleMode].toInt();
+    enforceInfo.nDistance = (int)m_fDistance;
+    enforceInfo.bUserMode = m_UserModeOn;
+    enforceInfo.enforceMode = m_nEnforcementMode;
+    enforceInfo.vehicle = m_nVehicleMode;
+    enforceInfo.zoom_index = m_nZoomIndex;
 //    m_pCamera->SaveImage(enforceInfo, MANUAL_CAPTURE);
     QPixmap pixmap = m_pCamera->grab();
     pixmap.save(GETSDPATH(MANUAL_CAPTURE) + GetFileName(MC, enforceInfo));

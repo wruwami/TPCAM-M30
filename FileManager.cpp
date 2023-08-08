@@ -59,53 +59,52 @@ QString FileManager::GetSubPath(QString name,Type type)
 
 QString FileManager::GetSDPath(SDPath sdPath)
 {
-    QString path = GetSDPath();
     switch (sdPath)
     {
         case ATEXT:
     {
-
+        return MakeSDPath("atext");
     }
         break;
     {
         case AUTO:
     {
-
+        return MakeSDPath("auto");
     }
         break;
         case FACTORY:
     {
-
+        return MakeSDPath("factory");
     }
         break;
         case LASER_LOG:
     {
-
+        return MakeSDPath("laser_log");
     }
         break;
         case MANUAL_CAPTURE:
     {
-
+        return MakeSDPath("manual_capture");
     }
         break;
         case SCREEN:
     {
-
+        return MakeSDPath("screen");
     }
         break;
         case SNAPSHOT:
     {
-
+        return MakeSDPath("snapshot");
     }
         break;
         case SYSTEM_LOG:
     {
-
+        return MakeSDPath("system_log");
     }
         break;
         case VIDEO:
     {
-
+        return MakeSDPath("video");
     }
         break;
     }
@@ -119,11 +118,11 @@ QString FileManager::AddFile(QString path_name, QString file_name)
 
 QString FileManager::GetFileName(PrefixType prefix)
 {
-    QTime time = time.currentTime();
+    QDateTime datetime = datetime.currentDateTime();
     if (prefix == SC)
-        return "SC " + time.toString("mmss") + ".png";
+        return "SC " + datetime.toString("yyyymmdd_hhmmss") + ".jpg";
     else
-        return "SR " + time.toString("mmss") + ".mkv";
+        return "SR " + datetime.toString("yyyymmdd_hhmmss") + ".avi";
 }
 
 QString FileManager::GetFileName(PrefixType prefix, stEnforcementInfo enforceInfo)
@@ -146,6 +145,12 @@ QString FileManager::GetFileName(PrefixType prefix, stEnforcementInfo enforceInf
         strPrefix = "VV";
     }
         break;
+    case MC:
+    {
+        strPrefix = "MC";
+    }
+        break;
+
     default:
     {
 
@@ -177,6 +182,8 @@ QString FileManager::GetFileName(PrefixType prefix, stEnforcementInfo enforceInf
     else
         captureSpeed = "M" + QString::number(enforceInfo.nCaptureSpeed);
 
+    QString mode = "a";
+
     int index = 0; // index
     QString ret = QString("%1_%2_%3_%4_%5_%6_%7_%8_%9_%10_%11_%12_%13_%14_%15").arg(strPrefix) \
             .arg((QString::number(index)), 5) \
@@ -186,7 +193,7 @@ QString FileManager::GetFileName(PrefixType prefix, stEnforcementInfo enforceInf
             .arg(QString::number(enforceInfo.nSpeedLimit), 4) \
             .arg(QString::number(enforceInfo.nCaptureSpeedLimit), 4) \
             .arg(QString::number(enforceInfo.nDistance), 4) \
-            .arg(enforceInfo.strMode) \
+            .arg(mode) \
             .arg(SerialGPSManager::GetInstance()->GetLatitude()) \
             .arg(SerialGPSManager::GetInstance()->GetLongitude()) \
             .arg(Location) \
@@ -205,6 +212,7 @@ QString FileManager::GeteMMCPath()
 
 QString FileManager::GetSDPath()
 {
+    // sdcard root path
     QDir dir;
     return dir.absolutePath();
 }
@@ -212,6 +220,27 @@ QString FileManager::GetSDPath()
 QString FileManager::GetUSBPath()
 {
     QDir dir;
+    return dir.absolutePath();
+}
+
+QString FileManager::MakeSDPath(QString path)
+{
+    QDir dir(GetSDPath() + "/" + path);
+    if (!dir.exists())
+    {
+        dir.mkdir(GetSDPath() + "/" + path);
+    }
+
+    if (path == "laser_log" || path == "system_log")
+        return dir.absolutePath();
+
+    QDateTime datetime = datetime.currentDateTime();
+    dir = GetSDPath() + "/" + path + "/" + datetime.toString("yyyyMMddhh");
+    if (!dir.exists())
+    {
+        dir.mkdir(GetSDPath() + "/" + path + "/" + datetime.toString("yyyyMMddhh"));
+    }
+
     return dir.absolutePath();
 }
 

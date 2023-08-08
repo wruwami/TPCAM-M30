@@ -38,7 +38,11 @@ typedef struct _ST_ENFORCEMENT_INFO
     int nSpeedLimit;
     int nCaptureSpeedLimit;
     int nDistance;
-    QString strMode;
+    bool bUserMode;
+    int enforceMode; //0 : I, 1 : A, 2: V
+    int vehicle; //0 : normal , 1 : truck, 2: motocycle
+    int zoom_index;
+//    QString strMode;
 //    QString strLatitude;
 //    QString strLongitude;
 //    QString strLocation;
@@ -52,8 +56,10 @@ typedef struct _ST_ENFORCEMENT_INFO
         this->nSpeedLimit = enforceInfo.nSpeedLimit;
         this->nCaptureSpeedLimit = enforceInfo.nCaptureSpeedLimit;
         this->nDistance = enforceInfo.nDistance;
-        this->strMode = enforceInfo.strMode;
-//        QString strUnit = "S";
+        this->bUserMode = enforceInfo.bUserMode;
+        this->enforceMode = enforceInfo.enforceMode; //0 : I, 1 : A, 2: V
+        this->vehicle = enforceInfo.vehicle; //0 : normal , 1 : truck, 2: motocycle
+        this->zoom_index = enforceInfo.zoom_index;
     }
 }stEnforcementInfo;
 
@@ -81,6 +87,8 @@ public:
     QString GeteMMCPath();
     QString GetSDPath();
     QString GetUSBPath();
+private:
+    QString MakeSDPath(QString);
 
 //private:
 //    QString GetDeviceID(QJsonObject);
@@ -101,6 +109,10 @@ static QString GetSubPath(QString name, Type type)
 static QString GetFileName(PrefixType prefix)
 {
     return FileManager::GetInstance()->GetFileName(prefix);
+}
+static QString GetFileName(PrefixType prefix, stEnforcementInfo enforceInfo)
+{
+    return FileManager::GetInstance()->GetFileName(prefix, enforceInfo);
 }
 static QString GeteMMCPath()
 {

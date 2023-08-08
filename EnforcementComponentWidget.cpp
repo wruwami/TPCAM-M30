@@ -247,36 +247,37 @@ void EnforcementComponentWidget::SaveImageVideo()
     {
     case 1:
     {
-        m_pCamera->SaveImage(enforceInfo);
+        m_pCamera->SaveImage(AI, enforceInfo, SNAPSHOT);
 
     }
         break;
     case 2:
     {
-        m_pCamera->SaveImage(enforceInfo);
-        m_pCamera->SaveVideo(enforceInfo);
+        m_pCamera->SaveImage(AI, enforceInfo, SNAPSHOT);
+        m_pCamera->SaveVideo(AV, enforceInfo, AUTO);
     }
         break;
     case 3:
     {
-        m_pCamera->SaveVideo(enforceInfo);
+        m_pCamera->SaveVideo(VV, enforceInfo, VIDEO);
     }
         break;
     }
 }
 
-void EnforcementComponentWidget::SaveVideo()
-{
-    stEnforcementInfo enforceInfo;
-    //
-    m_pCamera->SaveVideo(enforceInfo);
-}
+//void EnforcementComponentWidget::SaveVideo()
+//{
+//    stEnforcementInfo enforceInfo;
+//    //
+//    m_pCamera->SaveVideo(enforceInfo);
+//}
 
 void EnforcementComponentWidget::SaveImage()
 {
     stEnforcementInfo enforceInfo;
-    //
-    m_pCamera->SaveImage(enforceInfo);
+    QPixmap pixmap = m_pCamera->grab();
+    pixmap.save(GETSDPATH(MANUAL_CAPTURE) + GetFileName(MC, enforceInfo));
+//    m_pCamera->SaveImage(enforceInfo, MANUAL_CAPTURE);
 }
 
 
@@ -295,10 +296,10 @@ void EnforcementComponentWidget::on_hidePushButton_clicked()
     }
 }
 
-void EnforcementComponentWidget::doShartAction()
-{
+//void EnforcementComponentWidget::doShartAction()
+//{
 
-}
+//}
 
 void EnforcementComponentWidget::hide()
 {
@@ -771,6 +772,10 @@ void EnforcementComponentWidget::zoomRange()
 
     }
 
+    SerialViscaManager serialViscaManager;
+    serialViscaManager.SetZoom(zoom_index);
+    serialViscaManager.SetFocus(zoom_index);
+
     SetLaserDetectionAreaDistance(zoom_index);
 }
 
@@ -1183,7 +1188,9 @@ void EnforcementComponentWidget::on_bikePushButton_clicked()
 void EnforcementComponentWidget::on_saveImagePushButton_clicked()
 {
     stEnforcementInfo enforceInfo;
-    m_pCamera->SaveImage(enforceInfo);
+//    m_pCamera->SaveImage(enforceInfo, MANUAL_CAPTURE);
+    QPixmap pixmap = m_pCamera->grab();
+    pixmap.save(GETSDPATH(MANUAL_CAPTURE) + GetFileName(MC, enforceInfo));
 }
 
 void EnforcementComponentWidget::StopHUDRec()

@@ -389,7 +389,9 @@ void CameraZoomFocusWidget::SaveJpg()
 {
     QString filename = GetSubPath("manual_capture", SD) + "/" + GetFileName(SC);
 
-    m_pCamera->SaveImage(filename);
+    QPixmap pixmap = m_pCamera->grab();
+    pixmap.save(filename);
+//    m_pCamera->SaveImage(filename);
 }
 
 void CameraZoomFocusWidget::ModifyFocusEditJson(int x, int y, int value)

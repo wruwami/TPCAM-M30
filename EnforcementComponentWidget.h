@@ -51,7 +51,7 @@ public:
     void SaveImageVideo();
 //    void SaveImageVideo(EnforcementSaveType);
     void SaveImage();
-    void SaveVideo();
+//    void SaveVideo();
     void laserInit();
     void SetCamera(Camera* camera);
 private:
@@ -117,7 +117,7 @@ private:
     EnforcementMode m_nEnforcementMode;
 protected slots:
     void on_hidePushButton_clicked();
-    void doShartAction();
+//    void doShartAction();
     void on_zoomRangePushButton_clicked();
 
     void on_readyPushButton_clicked();

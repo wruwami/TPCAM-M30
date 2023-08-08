@@ -191,8 +191,11 @@ QLabel:disabled {
      </item>
      <item row="2" column="0">
       <widget class="CustomLabel" name="thumbnailLabel">
+       <property name="styleSheet">
+        <string notr="true">border : solid, white, 1px</string>
+       </property>
        <property name="text">
-        <string>TextLabel</string>
+        <string/>
        </property>
       </widget>
      </item>

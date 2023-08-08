@@ -4,6 +4,7 @@
 #include <QString>
 #include <QJsonDocument>
 #include <QJsonObject>
+#include <QJsonArray>
 
 class ConfigManager
 {

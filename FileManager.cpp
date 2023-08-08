@@ -12,6 +12,8 @@
 
 FileManager* FileManager::instance = nullptr;
 
+extern int g_nCrackDownIndex;
+
 QString FileManager::GetPath(QString name,Type type)
 {
     QDir dir;
@@ -238,7 +240,7 @@ QString FileManager::GetFileName(PrefixType prefix, stEnforcementInfo enforceInf
     strZoomIndex.sprintf("%02d", enforceInfo.zoom_index);
     mode.append(strZoomIndex);
 
-    int index = 0; // index
+    int index = g_nCrackDownIndex; // index
     QString ret;
     ret.sprintf("%s_%05d_%s_%s_%s%04d_%04d_%04d_%04d_%s_%s_%s_%s_%s_%s_S.%s"
                             ,strPrefix.toStdString().c_str()

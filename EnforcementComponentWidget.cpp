@@ -609,7 +609,7 @@ void EnforcementComponentWidget::displayRedOutline(bool nOn)
 
 void EnforcementComponentWidget::displayThumbnail(float fSpeed, float fDistance)
 {
-    ui->enforcementCountLabel->setText(QString::number(++g_nCrackDownIndex));
+    ui->enforcementCountLabel->setText(QString::number(g_nCrackDownIndex++));
     ui->enforcementTimeLabel->setText(QTime::currentTime().toString("hh:mm:ss"));
     ui->enforcementDistanceSpeedLabel->setText(QString::number(getDistanceValue(fSpeed)) + distanceValue() + ", " + QString::number(getSpeedValue(fDistance)) + speedUnitValue());
 
@@ -1103,6 +1103,8 @@ void EnforcementComponentWidget::on_LTMode()
 
 void EnforcementComponentWidget::on_EnforceModeI()
 {
+    if (m_nEnforcementMode != I)
+        g_nCrackDownIndex = 1;
     m_nEnforcementMode = I;
     ui->recLabel->hide();
     ui->recIconLabel->hide();
@@ -1110,6 +1112,8 @@ void EnforcementComponentWidget::on_EnforceModeI()
 
 void EnforcementComponentWidget::on_EnforceModeA()
 {
+    if (m_nEnforcementMode != A)
+        g_nCrackDownIndex = 1;
     m_nEnforcementMode = A;
     ui->recLabel->hide();
     ui->recIconLabel->hide();
@@ -1117,6 +1121,8 @@ void EnforcementComponentWidget::on_EnforceModeA()
 
 void EnforcementComponentWidget::on_EnforceModeV()
 {
+    if (m_nEnforcementMode != V)
+        g_nCrackDownIndex = 1;
     m_nEnforcementMode = V;
     ui->recLabel->show();
     ui->recIconLabel->show();

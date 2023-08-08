@@ -8,6 +8,8 @@
 #include "BaseDialog.h"
 #include "KeyboardDialog.h"
 
+extern int g_nCrackDownIndex;
+
 Setting1Widget::Setting1Widget(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::Setting1Widget)
@@ -92,6 +94,9 @@ void Setting1Widget::SaveConfig()
     ar.insert(0, jv);
     m_newJsonObject["location selection"] = 1;
     m_newJsonObject["location items"] = ar;
+
+    if (m_newJsonObject["enforcement selection"].toInt() != m_jsonObject["enforcement selection"].toInt())
+        g_nCrackDownIndex = 1;
 
     m_config.SetConfig(m_newJsonObject);
     m_config.SaveFile();

@@ -43,7 +43,7 @@ inline void removeSecondItem(T*& pointer) {
   }
 }
 
-int g_nCrackDownIndex = 0;
+int g_nCrackDownIndex = 1;
 SerialLaserManager* g_pSerialLaserManager = nullptr;
 
 MainWindow::MainWindow(screensaver* screensaver, QWidget *parent) :

@@ -1040,12 +1040,18 @@ void EnforcementComponentWidget::on_showCaptureSpeedDistance(float fSpeed, float
             displayHudSpeedDistance(true, true, true, true);
         //    빨간색 테두리 표시 등
             displayRedOutline(true);
-            QTimer::singleShot(1000, this, SLOT(StopDisPlayRedLine()));
 
         //        이미지 또는 동영상을 설정대로 저장
             SaveImageVideo();
             //썸네일 표시 처리, 썸네일 위에 단속 정보 표시 처리 출력
             displayThumbnail(fSpeed, fDistance);
+
+            SerialPacket* laser_packet = m_pSerialLaserManager->getLaser_packet();
+            disconnect(laser_packet, SIGNAL(sig_showCaptureSpeedDistance(float,float, int)), this, SLOT(on_showCaptureSpeedDistance(float,float, int)));
+            disconnect(laser_packet, SIGNAL(sig_showSpeedDistance(float,float)), this, SLOT(on_showSpeedDistance(float,float)));
+            disconnect(laser_packet, SIGNAL(sig_showDistance(float,int)), this, SLOT(on_showDistance(float, int)));
+            QTimer::singleShot(1000, this, SLOT(StopDisPlayRedLine()));
+
             sleep(1);
         }
     }
@@ -1057,7 +1063,7 @@ void EnforcementComponentWidget::on_showCaptureSpeedDistance(float fSpeed, float
 //        HUD에 속도 및 거리 출력
         displayHudSpeedDistance(true, true, false, true);
 
-//        displayRedOutline(false);
+        displayRedOutline(false);
 //        로그 저장
     }
 }
@@ -1072,7 +1078,7 @@ void EnforcementComponentWidget::on_showSpeedDistance(float fSpeed, float fDista
 //        HUD에 속도 및 거리 출력
     displayHudSpeedDistance(true, true, false, true);
 
-//    displayRedOutline(false);
+    displayRedOutline(false);
 //        로그 저장
 
 }
@@ -1086,7 +1092,7 @@ void EnforcementComponentWidget::on_showDistance(float fDistance, int nSensitivi
 //	HUD에 거리 출력
     displayHudDistance(true, true);
 
-//    displayRedOutline(false);
+    displayRedOutline(false);
 //    로그 저장
 
 }
@@ -1279,6 +1285,11 @@ void EnforcementComponentWidget::StopDisPlayRec()
 
 void EnforcementComponentWidget::StopDisPlayRedLine()
 {
-    displayRedOutline(false);
+    SerialPacket* laser_packet = m_pSerialLaserManager->getLaser_packet();
+    connect(laser_packet, SIGNAL(sig_showCaptureSpeedDistance(float,float, int)), this, SLOT(on_showCaptureSpeedDistance(float,float, int)));
+    connect(laser_packet, SIGNAL(sig_showSpeedDistance(float,float)), this, SLOT(on_showSpeedDistance(float,float)));
+    connect(laser_packet, SIGNAL(sig_showDistance(float,int)), this, SLOT(on_showDistance(float, int)));
+
+
 }
 

@@ -17,7 +17,7 @@ SerialLaserManager::SerialLaserManager()
     connect(laser_packet, SIGNAL(sig_showSpeedDistance(float,float)), &hud, SLOT(showSpeedDistanceSensitivity(float, float)));
     connect(laser_packet, SIGNAL(sig_showDistance(float,int)), &hud, SLOT(showDistanceSensitivity(float, int)));
     connect(laser_packet, SIGNAL(sig_showCaptureSpeedDistance(float,float, int)), &hud, SLOT(showCaptureSpeedDistance(float, float, int)));
-    connect(laser_packet, SIGNAL(sig_showCaptureSpeedDistance(float, float, int)), this, SLOT(startCaptureSpeedTimer()));
+//    connect(laser_packet, SIGNAL(sig_showCaptureSpeedDistance(float, float, int)), this, SLOT(startCaptureSpeedTimer()));
     connect(m_pTimerCaptureSpeed, SIGNAL(timeout()), this, SLOT(set_IsCSOnDisplay_false()));
 
 }

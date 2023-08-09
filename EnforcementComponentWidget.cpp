@@ -104,23 +104,24 @@ EnforcementComponentWidget::EnforcementComponentWidget(QWidget *parent) :
     object = config.GetConfig();
 
 
-    m_captureSpeed = object["st mode meter dist"].toArray();
-    foreach(auto item, m_captureSpeed)
+    QJsonArray ar;
+    ar = object["st mode meter dist"].toArray();
+    foreach(auto item, ar)
     {
         m_stmetervector.push_back(item.toString());
     }
-    m_captureSpeed = object["st mode feet dist"].toArray();
-    foreach(auto item, m_captureSpeed)
+    ar = object["st mode feet dist"].toArray();
+    foreach(auto item, ar)
     {
         m_stfeetvector.push_back(item.toString());
     }
-    m_captureSpeed = object["lt mode meter dist"].toArray();
-    foreach(auto item, m_captureSpeed)
+    ar = object["lt mode meter dist"].toArray();
+    foreach(auto item, ar)
     {
         m_ltmetervector.push_back(item.toString());
     }
-    m_captureSpeed = object["lt mode feet dist"].toArray();
-    foreach(auto item, m_captureSpeed)
+    ar = object["lt mode feet dist"].toArray();
+    foreach(auto item, ar)
     {
         m_ltfeetvector.push_back(item.toString());
     }

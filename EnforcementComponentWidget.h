@@ -120,6 +120,7 @@ private:
 
     HUDManager m_hudManager;
     EnforcementMode m_nEnforcementMode;
+    bool m_bRedLine = false;
 protected slots:
     void on_hidePushButton_clicked();
 //    void doShartAction();

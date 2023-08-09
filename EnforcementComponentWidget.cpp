@@ -599,11 +599,12 @@ void EnforcementComponentWidget::displayRedOutline(bool nOn)
 {
     if (nOn)
     {
-        this->
+        m_bRedLine = true;
         emit ShowRedOutLine(true);
     }
     else
     {
+        m_bRedLine = false;
         emit ShowRedOutLine(false);
     }
 }
@@ -923,7 +924,7 @@ void EnforcementComponentWidget::paintEvent(QPaintEvent *event)
 {
 //    QWidget::paintEvent(event);
 
-//        QPainter painter(this);
+        QPainter painter(this);
     //    QStyleOptionFrame  option;
 
     //    option.initFrom(this);
@@ -946,19 +947,23 @@ void EnforcementComponentWidget::paintEvent(QPaintEvent *event)
     //    option3.frameShape = QFrame::HLine;
     //    style()->drawPrimitive(QStyle::PE_Frame,  &option3,  &painter,  this);
 
-        int gap = 3;
+        if (m_bRedLine)
+        {
+            int gap = 3;
 
-//        QPen Pen(Qt::red);
-//        Pen.setStyle(Qt::SolidLine);
-//        Pen.setWidth(10);
+            QPen Pen(Qt::red);
+            Pen.setStyle(Qt::SolidLine);
+            Pen.setWidth(10);
 
-//        painter.setPen(Pen);
-//        painter.drawRect(GetWidgetSizePos(QRect(0, 0, 1600, 960)));
-//        painter.drawLine(gap, gap, getScreenWidth() - 2 * gap, gap);
-//        painter.drawLine(gap, gap, gap, getScreenHeight());
-//        painter.drawLine(getScreenWidth() - gap, gap, getScreenWidth() - 2 * gap, getScreenHeight() - 2 * gap);
-//        painter.drawLine(gap, getScreenHeight() - 2 * gap, getScreenWidth() - 2 * gap, getScreenHeight() - 2 * gap);
+            painter.setPen(Pen);
+    //        painter.drawRect(GetWidgetSizePos(QRect(0, 0, 1600, 960)));
+//            painter.drawLine(gap, gap, width() - 2 * gap, gap);
+            painter.drawLine(gap, gap, gap, height());
+            painter.drawLine(width() - gap, gap, width() - 2 * gap, height() - 2 * gap);
+            painter.drawLine(gap, height() - 2 * gap, width() - 2 * gap, height() - 2 * gap);
 
+
+        }
 }
 
 void EnforcementComponentWidget::on_zoomRangePushButton_clicked()

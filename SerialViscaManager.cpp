@@ -28,10 +28,10 @@ SerialViscaManager::SerialViscaManager()
 
 SerialViscaManager::~SerialViscaManager()
 {
+    close();
+
     delete visca_packet;
     delete serial_visca;
-
-    close();
 }
 
 QString SerialViscaManager::connectVisca()

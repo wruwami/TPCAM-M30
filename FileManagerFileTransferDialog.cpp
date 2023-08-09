@@ -89,6 +89,7 @@ void FileManagerFileTransferDialog::TransferFTP()
         url.setPort(jsonObject["ftp port"].toInt());
         url.setUserName(jsonObject["ftp user name"].toString());
         url.setPassword(jsonObject["ftp password"].toString());
+        url.setPath();
 
         QString file_path(avFormat.file_path);
         int index = file_path.lastIndexOf('/');

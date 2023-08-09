@@ -29,6 +29,7 @@ public:
     void setIndicatorImage(CustomPushButton*, QString, QString);
     void setTransparentBackGround(bool);
     void hideButton();
+    void setRedLine(bool);
 private:
     void initImage();
 public:
@@ -38,6 +39,7 @@ private:
     CustomLabel* m_pHomeTitleLabel;
     HomeButtonWidget* m_pHomeButtonWidget;
     QSpacerItem* m_pSpacerItem;
+    bool m_bRedLine = false;
 public:
     CustomPushButton* m_pCameraPushbutton;
     CustomPushButton* m_pDaynNightPushbutton;
@@ -54,6 +56,7 @@ public:
     // QObject interface
 protected:
     void timerEvent(QTimerEvent *event);
+    void paintEvent(QPaintEvent *event);
 //private slots:
 //    void on_cameraPushButton_clicked();
 //    void on_daynNightPushButton_clicked();

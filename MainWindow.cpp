@@ -1396,11 +1396,13 @@ void MainWindow::on_ShowRedOutLine(bool bOn)
 {
     if (bOn)
     {
-        this->setStyleSheet("QMainWindow{border: 3px solid red;}");
+        m_pMainMenuWidget->setRedLine(true);
+//        ui->centralWidget->setStyleSheet("{border: 3px solid red;}");
     }
     else
     {
-        this->setStyleSheet("QMainWindow{border: none;}");
+        m_pMainMenuWidget->setRedLine(false);
+//        this->setStyleSheet("QMainWindow{border: none;}");
     }
     m_bRedLine = bOn;
 }

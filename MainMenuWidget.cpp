@@ -6,6 +6,7 @@
 #include <QSpacerItem>
 #include "qdir.h"
 #include <QDebug>
+#include <QPainter>
 
 #include "Color.h"
 #include "IndicatorDialog.h"
@@ -217,6 +218,11 @@ void MainMenuWidget::hideButton()
     ui->gpsPushButton->hide();
 }
 
+void MainMenuWidget::setRedLine(bool bRedLine)
+{
+    m_bRedLine = bRedLine;
+}
+
 void MainMenuWidget::initImage()
 {
     ConfigManager config1 = ConfigManager("parameter_setting1.json");
@@ -369,6 +375,29 @@ void MainMenuWidget::timerEvent(QTimerEvent *event)
         ui->gpsPushButton->setImage("indicator", "indicator_gps_on.jpg");
     else
         ui->gpsPushButton->setImage("indicator", "indicator_gps_off.jpg");
+}
+
+void MainMenuWidget::paintEvent(QPaintEvent *event)
+{
+    QPainter painter(this);
+
+    if (m_bRedLine)
+    {
+        int gap = 3;
+
+        QPen Pen(Qt::red);
+        Pen.setStyle(Qt::SolidLine);
+        Pen.setWidth(10);
+
+        painter.setPen(Pen);
+//        painter.drawRect(GetWidgetSizePos(QRect(0, 0, 1600, 960)));
+        painter.drawLine(gap, gap, width() - 2 * gap, gap);
+        painter.drawLine(gap, gap, gap, height());
+        painter.drawLine(width() - gap, gap, width() - 2 * gap, height() - 2 * gap);
+//        painter.drawLine(gap, height() - 2 * gap, width() - 2 * gap, height() - 2 * gap);
+
+
+    }
 }
 
 //void MainMenuWidget::

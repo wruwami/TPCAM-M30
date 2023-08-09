@@ -94,6 +94,9 @@ EnforcementComponentWidget::EnforcementComponentWidget(QWidget *parent) :
     ui->enforcementCountLabel->setSizePolicy(sp_retain);
     ui->enforcementDistanceSpeedLabel->setSizePolicy(sp_retain);
     ui->enforcementTimeLabel->setSizePolicy(sp_retain);
+    ui->recIconLabel->setSizePolicy(sp_retain);
+    ui->recLabel->setSizePolicy(sp_retain);
+    ui->speedLabel->setSizePolicy(sp_retain);
 
     camInit();
     hudInit();
@@ -587,8 +590,8 @@ void EnforcementComponentWidget::displaySpeedDistance(float fSpeed, float fDista
         }
 
     }
-    if (m_nEnforcementMode != V)
-        QTimer::singleShot(500, this, SLOT(StopDisPlayRec()));
+//    if (m_nEnforcementMode != V)
+//        QTimer::singleShot(500, this, SLOT(StopDisPlayRec()));
 }
 
 void EnforcementComponentWidget::displayDistance(float fDistance)

@@ -950,7 +950,7 @@ void EnforcementComponentWidget::paintEvent(QPaintEvent *event)
 
         if (m_bRedLine)
         {
-            int gap = 3;
+            int gap = 0;
 
             QPen Pen(Qt::red);
             Pen.setStyle(Qt::SolidLine);
@@ -960,8 +960,8 @@ void EnforcementComponentWidget::paintEvent(QPaintEvent *event)
     //        painter.drawRect(GetWidgetSizePos(QRect(0, 0, 1600, 960)));
 //            painter.drawLine(gap, gap, width() - 2 * gap, gap);
             painter.drawLine(gap, gap, gap, height());
-            painter.drawLine(width() - gap, gap, width() - 2 * gap, height() - 2 * gap);
-            painter.drawLine(gap, height() - 2 * gap, width() - 2 * gap, height() - 2 * gap);
+            painter.drawLine(width() - gap, gap, width(), height());
+            painter.drawLine(gap, height(), width(), height());
 
 
         }
@@ -1028,7 +1028,7 @@ void EnforcementComponentWidget::on_showCaptureSpeedDistance(float fSpeed, float
     m_fDistance = fDistance;
 
 
-    if (fSpeed >= GetCaptureSpeedLimit())
+    if (-fSpeed >= GetCaptureSpeedLimit())
     {
         if (VehicleLastId != VehicleId)
         {
@@ -1040,6 +1040,7 @@ void EnforcementComponentWidget::on_showCaptureSpeedDistance(float fSpeed, float
             displayHudSpeedDistance(true, true, true, true);
         //    빨간색 테두리 표시 등
             displayRedOutline(true);
+//
 
         //        이미지 또는 동영상을 설정대로 저장
             SaveImageVideo();
@@ -1092,7 +1093,7 @@ void EnforcementComponentWidget::on_showDistance(float fDistance, int nSensitivi
 //	HUD에 거리 출력
     displayHudDistance(true, true);
 
-    displayRedOutline(false);
+//    displayRedOutline(false);
 //    로그 저장
 
 }

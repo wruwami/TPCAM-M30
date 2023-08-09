@@ -383,7 +383,7 @@ void MainMenuWidget::paintEvent(QPaintEvent *event)
 
     if (m_bRedLine)
     {
-        int gap = 3;
+        int gap = 0;
 
         QPen Pen(Qt::red);
         Pen.setStyle(Qt::SolidLine);
@@ -391,9 +391,9 @@ void MainMenuWidget::paintEvent(QPaintEvent *event)
 
         painter.setPen(Pen);
 //        painter.drawRect(GetWidgetSizePos(QRect(0, 0, 1600, 960)));
-        painter.drawLine(gap, gap, width() - 2 * gap, gap);
+        painter.drawLine(gap, gap, width(), gap);
         painter.drawLine(gap, gap, gap, height());
-        painter.drawLine(width() - gap, gap, width() - 2 * gap, height() - 2 * gap);
+        painter.drawLine(width() - gap, gap, width(), height());
 //        painter.drawLine(gap, height() - 2 * gap, width() - 2 * gap, height() - 2 * gap);
 
 

@@ -1088,6 +1088,10 @@ void MainWindow::OnTimer100msFunc()
 void MainWindow::OnTimer500msFunc()
 {
     CheckBatteryPercent();
+
+    QTime time = time.currentTime();
+    if (time.hour() == 0)
+        g_nCrackDownIndex = 1;
 }
 
 void MainWindow::afterWindowShown()
@@ -1417,6 +1421,8 @@ void MainWindow::timerEvent(QTimerEvent *event)
         m_bFlick = !m_bFlick;
     }
 
+//    QTime time;
+//    time.
 //    m_nSecond++;
 
 //    CheckBatteryPercent();

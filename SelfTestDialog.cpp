@@ -174,22 +174,17 @@ void SelfTestDialog::StartSelfTest()
 bool SelfTestDialog::CameraTest()
 {
     SerialViscaManager serialViscaManager;
-    if (serialViscaManager.connectVisca() == "Connect")
-    {
-        serialViscaManager.close();
-        return true;
-    }
     return false;
 }
 
 bool SelfTestDialog::LaserTest()
 {
     SerialLaserManager serialLaserManager;
-    if (serialLaserManager.connectLaser() == "Connect")
-    {
-        serialLaserManager.close();
-        return true;
-    }
+//    if (serialLaserManager.connectLaser() == "Connect")
+//    {
+//        serialLaserManager.close();
+//        return true;
+//    }
 
     return false;
 }

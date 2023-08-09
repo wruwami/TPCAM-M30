@@ -319,7 +319,7 @@ void EnforcementComponentWidget::SaveImage()
     enforceInfo.vehicle = m_nVehicleMode;
     enforceInfo.zoom_index = m_nZoomIndex;
     QPixmap pixmap = m_pCamera->grab();
-    pixmap.save(GETSDPATH(MANUAL_CAPTURE) + GetFileName(MC, enforceInfo));
+    pixmap.save(GETSDPATH(MANUAL_CAPTURE) + "/" +GetFileName(MC, enforceInfo));
 //    m_pCamera->SaveImage(enforceInfo, MANUAL_CAPTURE);
 }
 
@@ -599,6 +599,7 @@ void EnforcementComponentWidget::displayRedOutline(bool nOn)
 {
     if (nOn)
     {
+        this->
         emit ShowRedOutLine(true);
     }
     else
@@ -1256,7 +1257,7 @@ void EnforcementComponentWidget::on_saveImagePushButton_clicked()
     enforceInfo.zoom_index = m_nZoomIndex;
 //    m_pCamera->SaveImage(enforceInfo, MANUAL_CAPTURE);
     QPixmap pixmap = m_pCamera->grab();
-    pixmap.save(GETSDPATH(MANUAL_CAPTURE) + GetFileName(MC, enforceInfo));
+    pixmap.save(GETSDPATH(MANUAL_CAPTURE) + "/" +GetFileName(MC, enforceInfo));
 }
 
 void EnforcementComponentWidget::StopHUDRec()

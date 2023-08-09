@@ -15,9 +15,10 @@ class SerialViscaManager : public QObject
 public:
     SerialViscaManager();
     virtual ~SerialViscaManager();
+private:
     QString connectVisca();
     void close();
-private:
+
     QSerialPort* serial_visca;
     ViscaPacket *visca_packet;
     int camera_con;

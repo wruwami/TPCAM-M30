@@ -14,10 +14,10 @@ class SerialLaserManager : public QObject
 public:
     SerialLaserManager();
     virtual ~SerialLaserManager();
-
+private:
     QString connectLaser();
     void close();
-
+public:
     void start_laser();
     void request_distance(bool bRequestOn);
     void set_speed_measure_mode(unsigned char mode);

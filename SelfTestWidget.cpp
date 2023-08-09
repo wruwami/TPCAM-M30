@@ -124,8 +124,8 @@ SelfTestWidget::SelfTestWidget(QWidget *parent) :
 
 SelfTestWidget::~SelfTestWidget()
 {
-    m_serialLaserManager.close();
-    m_serialViscaManager.close();
+//    m_serialLaserManager.close();
+//    m_serialViscaManager.close();
 //    killTimer()
     delete ui;
 }

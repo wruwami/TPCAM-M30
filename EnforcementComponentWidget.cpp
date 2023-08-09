@@ -1040,7 +1040,7 @@ void EnforcementComponentWidget::on_showCaptureSpeedDistance(float fSpeed, float
             displayHudSpeedDistance(true, true, true, true);
         //    빨간색 테두리 표시 등
             displayRedOutline(true);
-            QTimer::singleShot(500, this, SLOT(StopDisPlayRedLine()));
+            QTimer::singleShot(1000, this, SLOT(StopDisPlayRedLine()));
 
         //        이미지 또는 동영상을 설정대로 저장
             SaveImageVideo();
@@ -1057,7 +1057,7 @@ void EnforcementComponentWidget::on_showCaptureSpeedDistance(float fSpeed, float
 //        HUD에 속도 및 거리 출력
         displayHudSpeedDistance(true, true, false, true);
 
-        displayRedOutline(false);
+//        displayRedOutline(false);
 //        로그 저장
     }
 }
@@ -1072,7 +1072,7 @@ void EnforcementComponentWidget::on_showSpeedDistance(float fSpeed, float fDista
 //        HUD에 속도 및 거리 출력
     displayHudSpeedDistance(true, true, false, true);
 
-    displayRedOutline(false);
+//    displayRedOutline(false);
 //        로그 저장
 
 }
@@ -1086,7 +1086,7 @@ void EnforcementComponentWidget::on_showDistance(float fDistance, int nSensitivi
 //	HUD에 거리 출력
     displayHudDistance(true, true);
 
-    displayRedOutline(false);
+//    displayRedOutline(false);
 //    로그 저장
 
 }

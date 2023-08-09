@@ -22,7 +22,6 @@ EnforcementWidget::EnforcementWidget(QWidget *parent) :
     setLayout(layout);
 
 
-
 }
 
 EnforcementWidget::~EnforcementWidget()

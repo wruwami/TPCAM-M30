@@ -835,10 +835,13 @@ void EnforcementComponentWidget::initRec()
     ui->recLabel->setColor(Qt::red);
     ui->recLabel->setText("IDS_REC");
     ui->recIconLabel->setImage("enforcement", "redcircle.png");
+    ui->recLabel->hide();
+    ui->recIconLabel->hide();
+
     if (m_nEnforcementMode == V)
     {
-        ui->recLabel->hide();
-        ui->recIconLabel->hide();
+        ui->recLabel->show();
+        ui->recIconLabel->show();
     }
 }
 

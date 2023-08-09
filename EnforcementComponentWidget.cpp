@@ -175,7 +175,8 @@ EnforcementComponentWidget::EnforcementComponentWidget(QWidget *parent) :
 
 EnforcementComponentWidget::~EnforcementComponentWidget()
 {
-    emit ShowRedOutLine(false);
+    displayRedOutline(false);
+//    emit ShowRedOutLine(false);
 //    if (m_pCamera)
 //    {
 //        delete m_pCamera;
@@ -496,7 +497,7 @@ void EnforcementComponentWidget::SetCamera(Camera *camera)
 
 void EnforcementComponentWidget::doATMode()
 {
-    emit ShowRedOutLine(true);
+//    emit ShowRedOutLine(true);
     m_pSerialLaserManager->stop_laser();
     m_pSerialLaserManager->request_distance(false);
 
@@ -512,7 +513,7 @@ void EnforcementComponentWidget::doATMode()
 
 void EnforcementComponentWidget::doManualMode()
 {
-    emit ShowRedOutLine(false);
+    displayRedOutline(false);
 
     doATMode();
 }
@@ -814,7 +815,6 @@ void EnforcementComponentWidget::zoomRange()
         {
             ui->zoomRangePushButton->setText(m_ltfeetvector[m_nZoomIndex]+distanceValue());
         }
-
     }
 
     SerialViscaManager serialViscaManager;

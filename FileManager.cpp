@@ -260,28 +260,7 @@ QString FileManager::GetFileName(PrefixType prefix, stEnforcementInfo enforceInf
                             ,(userID).toStdString().c_str()
                             ,extention.toStdString().c_str());
 
-
-
-
-
-
-
-//            QString("%1_%2_%3_%4_%5_%6_%7_%8_%9_%10_%11_%12_%13_%14_%15") \
-//            .arg(strPrefix) \
-//            .arg((QString::number(index)), 5) \
-//            .arg(datetime.toString("yyyyMMdd")) \
-//            .arg(datetime.toString("hhmmss") + QString::number(datetime.time().msec())[0]) \
-//            .arg(captureSpeed, 5) \
-//            .arg(QString::number(enforceInfo.nSpeedLimit), 4) \
-//            .arg(QString::number(enforceInfo.nCaptureSpeedLimit), 4) \
-//            .arg(QString::number(enforceInfo.nDistance), 4) \
-//            .arg(mode) \
-//            .arg(SerialGPSManager::GetInstance()->GetLatitude()) \
-//            .arg(SerialGPSManager::GetInstance()->GetLongitude()) \
-//            .arg(Location) \
-//            .arg(deviceID) \
-//            .arg(userID) \
-//            .arg("S");
+    ret.replace(" ", "");
 
     return ret;
 }

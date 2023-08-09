@@ -19,6 +19,7 @@ EnforcementWidget::EnforcementWidget(QWidget *parent) :
     QVBoxLayout* layout = new QVBoxLayout;
     m_pEnforcementComponentWidget = new EnforcementComponentWidget;
     layout->addWidget(m_pEnforcementComponentWidget);
+    layout->setMargin(0);
     setLayout(layout);
 
 

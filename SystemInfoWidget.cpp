@@ -14,6 +14,7 @@
 #include "SerialPacket.h"
 
 extern SerialLaserManager* g_pSerialLaserManager;
+extern SerialViscaManager* g_pSerialViscaManager;
 
 SystemInfoWidget::SystemInfoWidget(QWidget *parent) :
     QWidget(parent),
@@ -105,9 +106,9 @@ SystemInfoWidget::SystemInfoWidget(QWidget *parent) :
 
 //    m_SerialViscaManager = new SerialViscaManager;
 
-    connect(m_SerialViscaManager.getVisca_packet(), SIGNAL(sig_show_version(int, int)), this, SLOT(on_cam_version(int, int)));
+    connect(g_pSerialViscaManager->getVisca_packet(), SIGNAL(sig_show_version(int, int)), this, SLOT(on_cam_version(int, int)));
     connect(g_pSerialLaserManager->getLaser_packet(), SIGNAL(sig_showVersion(QString)), this, SLOT(on_laser_version(QString)));
-    m_SerialViscaManager.show_camera_version();
+    g_pSerialViscaManager->show_camera_version();
     g_pSerialLaserManager->show_laser_info();
 }
 

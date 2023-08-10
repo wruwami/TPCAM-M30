@@ -2,7 +2,6 @@
 #define SYSTEMINFOWIDGET_H
 
 #include <QWidget>
-#include "SerialViscaManager.h"
 
 class SerialViscaManager;
 namespace Ui {
@@ -19,7 +18,6 @@ public:
 
 private:
     Ui::SystemInfoWidget *ui;
-    SerialViscaManager m_SerialViscaManager;
     // QWidget interface
 protected:
     void paintEvent(QPaintEvent *event);

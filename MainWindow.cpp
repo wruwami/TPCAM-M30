@@ -45,6 +45,7 @@ inline void removeSecondItem(T*& pointer) {
 
 int g_nCrackDownIndex = 1;
 SerialLaserManager* g_pSerialLaserManager = nullptr;
+SerialViscaManager* g_pSerialViscaManager = nullptr;
 
 MainWindow::MainWindow(screensaver* screensaver, QWidget *parent) :
     QMainWindow(parent),
@@ -97,6 +98,8 @@ MainWindow::MainWindow(screensaver* screensaver, QWidget *parent) :
     m_pSerialLaserManager = new SerialLaserManager;
     m_pSerialViscaManager = new SerialViscaManager;
     g_pSerialLaserManager = m_pSerialLaserManager;
+    g_pSerialViscaManager = m_pSerialViscaManager;
+
     QSizePolicy sp_retain = ui->widget_2->sizePolicy();
     sp_retain.setRetainSizeWhenHidden(true);
     ui->widget->setSizePolicy(sp_retain);

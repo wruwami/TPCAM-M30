@@ -413,7 +413,7 @@ void SerialPacket::ParsingPacket()
                 else	// Feet:MPH
                     strMsg.sprintf("%s SPD(%03d) : %.2fMPH, %.1fft", g_ReceiveData.Header==0xDB?"--------->Capture":"RT", VehicleID, fSpeed, fDist);
 
-                qDebug() << strMsg;
+//                qDebug() << strMsg;
 
                 m_bIsCaptureOnDisplay = true;
                 emit sig_showCaptureSpeedDistance(fSpeed, fDist, VehicleID);
@@ -439,7 +439,7 @@ void SerialPacket::ParsingPacket()
                 else	// Feet:MPH
                     strMsg.sprintf("%s SPD(%03d) : %.2fMPH, %.1fft", g_ReceiveData.Header==0xDB?"--------->Capture":"RT", VehicleID, fSpeed, fDist);
 
-                qDebug() << strMsg;
+//                qDebug() << strMsg;
 
                 if(!m_bIsCaptureOnDisplay)
                     emit sig_showSpeedDistance(fSpeed, fDist);
@@ -467,7 +467,7 @@ void SerialPacket::ParsingPacket()
 
                 QString str;
                 str.sprintf("L%d_%.02fm(%dlv)", uLB, fDist, uCfd);
-                qDebug() << str;
+//                qDebug() << str;
 
                 if(!m_bIsCaptureOnDisplay)
                     emit sig_showDistance(fDist, uCfd);

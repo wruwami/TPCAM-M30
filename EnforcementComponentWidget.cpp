@@ -11,6 +11,7 @@
 #include "SpeedUnitManager.h"
 #include "WidgetSize.h"
 #include "SerialViscaManager.h"
+#include "SdcardManager.h"
 
 extern int g_nCrackDownIndex;
 
@@ -144,6 +145,8 @@ EnforcementComponentWidget::EnforcementComponentWidget(QWidget *parent) :
         else
             ui->zoomRangePushButton->setText(QString("%1%2").arg(m_ltfeetvector[m_nZoomIndex]).arg(SpeedUnitManager::GetInstance()->distance()));
     }
+
+    startTimer(1000);
     m_pSerialLaserManager->show_laser_info();
 #if DEBUG_MODE
     SaveImageVideo();
@@ -473,9 +476,20 @@ void EnforcementComponentWidget::laserInit()
     ConfigManager config2 = ConfigManager("parameter_settings2.json");
     QJsonObject object2 = config2.GetConfig();
 
-    m_pSerialLaserManager->set_weather_mode(object2["weather selection"].toInt());
-    m_pSerialLaserManager->set_AJamming_mode(object2["anti-jamming selection"].toInt());
-    m_pSerialLaserManager->set_buzzer_mode(object2["buzzer selection"].toInt());
+    if (object2["weather selection"].toInt() == 1)
+        m_pSerialLaserManager->set_weather_mode(1);
+    else
+        m_pSerialLaserManager->set_weather_mode(0);
+
+    if (object2["anti-jamming selection"].toInt() == 1)
+        m_pSerialLaserManager->set_AJamming_mode(1);
+    else
+        m_pSerialLaserManager->set_AJamming_mode(0);
+
+    if (object2["buzzer selection"].toInt() == 1)
+        m_pSerialLaserManager->set_buzzer_mode(1);
+    else
+        m_pSerialLaserManager->set_buzzer_mode(0);
 
 
     ConfigManager config3 = ConfigManager("parameter_enforcement.json");
@@ -971,6 +985,11 @@ void EnforcementComponentWidget::paintEvent(QPaintEvent *event)
 
 
         }
+}
+
+void EnforcementComponentWidget::timerEvent(QTimerEvent *event)
+{
+
 }
 
 void EnforcementComponentWidget::on_zoomRangePushButton_clicked()

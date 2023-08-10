@@ -141,8 +141,8 @@ void SerialGPSManager::serial_received()
             return;
         QString time_format = "ddMMyyHHmmss";
         QString time = splitted[1].mid(0, splitted[1].indexOf("."));
-        QString datetime = splitted[9] + time;
-        m_DateTime = QDateTime::fromString(datetime, time_format);
+        QString date = splitted[9];
+        m_DateTime = QDateTime::fromString(date+time, time_format);
         m_DateTime = m_DateTime.addYears(100);
 
         m_Latitude = splitted[4] + changeMinuteToDegree(splitted[3]);

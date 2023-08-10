@@ -141,6 +141,7 @@ protected slots:
     void on_EnforceModeA();
     void on_EnforceModeV();
 protected:
+    void timerEvent(QTimerEvent *event);
     void paintEvent(QPaintEvent *event);
 
 private slots:

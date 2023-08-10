@@ -567,6 +567,11 @@ void EnforcementComponentWidget::initStyle()
 
 }
 
+void EnforcementComponentWidget::doVMode()
+{
+
+}
+
 void EnforcementComponentWidget::displaySpeedDistance(float fSpeed, float fDistance, QColor color, bool nRec)
 {
     ui->distanceLabel->setColor(color);
@@ -1149,6 +1154,11 @@ void EnforcementComponentWidget::on_EnforceModeV()
     m_nEnforcementMode = V;
     ui->recLabel->show();
     ui->recIconLabel->show();
+}
+
+void EnforcementComponentWidget::timerEvent(QTimerEvent *event)
+{
+
 }
 
 

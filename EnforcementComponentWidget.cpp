@@ -183,6 +183,8 @@ EnforcementComponentWidget::EnforcementComponentWidget(QWidget *parent) :
 EnforcementComponentWidget::~EnforcementComponentWidget()
 {
     displayRedOutline(false);
+
+    doReadyMode();
 //    emit ShowRedOutLine(false);
 //    if (m_pCamera)
 //    {
@@ -476,9 +478,21 @@ void EnforcementComponentWidget::laserInit()
     ConfigManager config2 = ConfigManager("parameter_settings2.json");
     QJsonObject object2 = config2.GetConfig();
 
-    m_pSerialLaserManager->set_weather_mode(object2["weather selection"].toInt());
-    m_pSerialLaserManager->set_AJamming_mode(object2["anti-jamming selection"].toInt());
-    m_pSerialLaserManager->set_buzzer_mode(object2["buzzer selection"].toInt());
+    if (object2["weather selection"].toInt() == 1)
+        m_pSerialLaserManager->set_weather_mode(1);
+    else
+        m_pSerialLaserManager->set_weather_mode(0);
+
+    if (object2["anti-jamming selection"].toInt() == 1)
+        m_pSerialLaserManager->set_AJamming_mode(1);
+    else
+        m_pSerialLaserManager->set_AJamming_mode(0);
+
+    if (object2["buzzer selection"].toInt() == 1)
+        m_pSerialLaserManager->set_buzzer_mode(1);
+    else
+        m_pSerialLaserManager->set_buzzer_mode(0);
+
 
 
     ConfigManager config3 = ConfigManager("parameter_enforcement.json");

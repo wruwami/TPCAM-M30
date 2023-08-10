@@ -144,7 +144,7 @@ EnforcementComponentWidget::EnforcementComponentWidget(QWidget *parent) :
         else
             ui->zoomRangePushButton->setText(QString("%1%2").arg(m_ltfeetvector[m_nZoomIndex]).arg(SpeedUnitManager::GetInstance()->distance()));
     }
-    m_pSerialLaserManager->show_laser_info();
+
 #if DEBUG_MODE
     SaveImageVideo();
 #endif
@@ -491,6 +491,8 @@ void EnforcementComponentWidget::laserInit()
     else
         m_pSerialLaserManager->set_night_mode(1);
     m_pSerialLaserManager->set_speed_measure_mode(1);
+
+    m_pSerialLaserManager->show_laser_info();
 }
 
 void EnforcementComponentWidget::SetCamera(Camera *camera)
@@ -925,6 +927,8 @@ void EnforcementComponentWidget::setPSerialLaserManager(SerialLaserManager *newP
 {
     if (m_pSerialLaserManager == nullptr)
         m_pSerialLaserManager = newPSerialLaserManager;
+
+
 }
 
 void EnforcementComponentWidget::paintEvent(QPaintEvent *event)

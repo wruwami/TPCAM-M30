@@ -680,6 +680,8 @@ void IndicatorDialog::on_clicked_sunny()
         return;
 //    SerialLaserManager laserManager;
     m_pSerialLaserManager->set_weather_mode(0);
+
+    m_pSerialLaserManager->show_laser_info();
 }
 
 void IndicatorDialog::on_clicked_rainy()
@@ -691,6 +693,8 @@ void IndicatorDialog::on_clicked_rainy()
     if (!m_bEnforcement)
         return;
     m_pSerialLaserManager->set_weather_mode(1);
+
+    m_pSerialLaserManager->show_laser_info();
 }
 
 void IndicatorDialog::setIndicatorImage(CustomPushButton* pCustomButton, QString path_name, QString file_name)

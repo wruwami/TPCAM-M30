@@ -54,13 +54,14 @@ public:
     void SaveImage();
 //    void SaveVideo();
     void laserInit();
+    void camInit();
     void SetCamera(Camera* camera);
 private:
     void hide();
     void show();
     void setOutFrame(bool isSet);
     void SetCamera();
-    void camInit();
+
     void hudInit();
 
     void doATMode();

@@ -99,7 +99,7 @@ EnforcementComponentWidget::EnforcementComponentWidget(QWidget *parent) :
     ui->recLabel->setSizePolicy(sp_retain);
     ui->speedLabel->setSizePolicy(sp_retain);
 
-    camInit();
+//    camInit();
     hudInit();
 //    laserInit();
     initRec();
@@ -138,8 +138,8 @@ EnforcementComponentWidget::EnforcementComponentWidget(QWidget *parent) :
     }
     else
     {
-        if (m_nZoomIndex > 5)
-            m_nZoomIndex = 5;
+        if (m_nZoomIndex > 4)
+            m_nZoomIndex = 4;
         if (distance() == meter)
             ui->zoomRangePushButton->setText(QString("%1%2").arg(m_ltmetervector[m_nZoomIndex]).arg(SpeedUnitManager::GetInstance()->distance()));
         else

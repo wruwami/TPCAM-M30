@@ -81,6 +81,8 @@ public:
     bool m_bEnforcement = false;
     void setPSerialLaserManager(SerialLaserManager *newPSerialLaserManager);
 
+    void setPSerialViscaManager(SerialViscaManager *newPSerialViscaManager);
+
 private:
     Ui::IndicatorDialog *ui;
     CustomPushButton* m_pDay1PushButton;
@@ -108,6 +110,7 @@ private:
     QJsonObject m_jsonObject4;
     MainMenuWidget* m_pMainMenuWidget;
     SerialLaserManager* m_pSerialLaserManager = nullptr;
+    SerialViscaManager* m_pSerialViscaManager = nullptr;
     bool m_nUserMode = true;
 //    SerialLaserManager* m_pSerialLaserManager;
     // QWidget interface

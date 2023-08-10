@@ -95,6 +95,7 @@ MainWindow::MainWindow(screensaver* screensaver, QWidget *parent) :
     m_pRemoteController = new RemoteController(this);
     m_pRemoteController->CreateThread();
     m_pSerialLaserManager = new SerialLaserManager;
+    m_pSerialViscaManager = new SerialViscaManager;
     g_pSerialLaserManager = m_pSerialLaserManager;
     QSizePolicy sp_retain = ui->widget_2->sizePolicy();
     sp_retain.setRetainSizeWhenHidden(true);
@@ -132,6 +133,12 @@ MainWindow::~MainWindow()
     {
         delete m_pSerialLaserManager;
         m_pSerialLaserManager = nullptr;
+    }
+
+    if (m_pSerialViscaManager)
+    {
+        delete m_pSerialViscaManager;
+        m_pSerialViscaManager = nullptr;
     }
 
 
@@ -450,6 +457,10 @@ void MainWindow::on_enforcementClicked()
     m_pMainMenuWidget->setTransparentBackGround(true);
     m_pEnforcementWidget->m_pEnforcementComponentWidget->setPSerialLaserManager(m_pSerialLaserManager);
     m_pIndicatorWidget->setPSerialLaserManager(m_pSerialLaserManager);
+    m_pEnforcementWidget->m_pEnforcementComponentWidget->setPSerialViscaManager(m_pSerialViscaManager);
+    m_pIndicatorWidget->setPSerialViscaManager(m_pSerialViscaManager);
+
+
     m_pEnforcementWidget->m_pEnforcementComponentWidget->laserInit();
 //    connect(m_pIndicatorWidget->m_pIndicatorCameraFocusWidget->m_pAutoTriggerPushButton, SIGNAL(clicked()), m_pEnforcementWidget->m_pEnforcementComponentWidget, SLOT(on_readyPushButton_clicked()));
 //    connect(m_pEnforcementWidget->m_pEnforcementComponentWidget->m_pReadyButton, SIGNAL(clicked()), m_pIndicatorWidget->m_pIndicatorCameraFocusWidget, SLOT(on_autoTriggerPushButton_clicked()));
@@ -523,6 +534,10 @@ void MainWindow::OpenEnforcement()
     ui->verticalLayout->addWidget(m_pEnforcementWidget, 835);
     m_pEnforcementWidget->m_pEnforcementComponentWidget->setPSerialLaserManager(m_pSerialLaserManager);
     m_pIndicatorWidget->setPSerialLaserManager(m_pSerialLaserManager);
+    m_pEnforcementWidget->m_pEnforcementComponentWidget->setPSerialViscaManager(m_pSerialViscaManager);
+    m_pIndicatorWidget->setPSerialViscaManager(m_pSerialViscaManager);
+
+
     m_pEnforcementWidget->m_pEnforcementComponentWidget->laserInit();
 //    connect(m_pIndicatorWidget->m_pIndicatorCameraFocusWidget->m_pAutoTriggerPushButton, SIGNAL(clicked()), m_pEnforcementWidget->m_pEnforcementComponentWidget, SLOT(on_readyPushButton_clicked()));
 //    connect(m_pEnforcementWidget->m_pEnforcementComponentWidget->m_pReadyButton, SIGNAL(clicked()), m_pIndicatorWidget->m_pIndicatorCameraFocusWidget, SLOT(on_autoTriggerPushButton_clicked()));

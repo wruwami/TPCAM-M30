@@ -400,26 +400,26 @@ void EnforcementComponentWidget::SetCamera()
 
 void EnforcementComponentWidget::camInit()
 {
-    SerialViscaManager serialViscaManager;
-    serialViscaManager.set_IRCorrection_standard();
-    serialViscaManager.set_AE_Mode("03");
 
-    serialViscaManager.SetDayMode(m_object2["day&night selection"].toInt());
+    m_pSerialViscaManager->set_IRCorrection_standard();
+    m_pSerialViscaManager->set_AE_Mode("03");
+
+    m_pSerialViscaManager->SetDayMode(m_object2["day&night selection"].toInt());
 
 
 
-    serialViscaManager.set_manual_focus();
+    m_pSerialViscaManager->set_manual_focus();
 //    m_pSerialViscaManager.set_AE_mode2e();
-    serialViscaManager.separate_zoom_mode();
+    m_pSerialViscaManager->separate_zoom_mode();
 
 //    Config
     QJsonObject object = ConfigManager("parameter_enforcement.json").GetConfig();
     m_nZoomIndex = object["zoom_index"].toInt();
-    serialViscaManager.SetZoom(m_nZoomIndex);
-    serialViscaManager.SetFocus(m_nZoomIndex);
+    m_pSerialViscaManager->SetZoom(m_nZoomIndex);
+    m_pSerialViscaManager->SetFocus(m_nZoomIndex);
 
 
-    serialViscaManager.dzoom_from_pq("00");
+    m_pSerialViscaManager->dzoom_from_pq("00");
 
 //    ConfigManager config = ConfigManager("parameter_enforcement.json");
 //    QJsonObject object = config.GetConfig();
@@ -563,11 +563,6 @@ int EnforcementComponentWidget::GetCaptureSpeedLimit()
 }
 
 void EnforcementComponentWidget::initStyle()
-{
-
-}
-
-void EnforcementComponentWidget::doVMode()
 {
 
 }
@@ -829,11 +824,10 @@ void EnforcementComponentWidget::zoomRange()
         }
     }
 
-    SerialViscaManager serialViscaManager;
-    serialViscaManager.SetZoom(zoom_index);
-    serialViscaManager.SetFocus(zoom_index);
+    m_pSerialViscaManager->SetZoom(zoom_index);
+    m_pSerialViscaManager->SetFocus(zoom_index);
 
-    SetLaserDetectionAreaDistance(zoom_index);
+//    SetLaserDetectionAreaDistance(zoom_index);
 }
 
 //void EnforcementComponentWidget::unitInit()
@@ -926,6 +920,11 @@ QString EnforcementComponentWidget::GetMode()
     }
 
     return mode;
+}
+
+void EnforcementComponentWidget::setPSerialViscaManager(SerialViscaManager *newPSerialViscaManager)
+{
+    m_pSerialViscaManager = newPSerialViscaManager;
 }
 
 

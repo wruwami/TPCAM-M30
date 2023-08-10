@@ -98,20 +98,20 @@ CameraZoomFocusWidget::CameraZoomFocusWidget(QWidget *parent) :
 //    if (m_pSerialLaserManager == nullptr)
 //        m_pSerialLaserManager = new SerialLaserManager;
 
-    m_serialViscaManager.show_dzoomPosition();
+    m_pSerialViscaManager->show_dzoomPosition();
 
-    connect(m_serialViscaManager.getVisca_packet(), SIGNAL(sig_show_dzoom(QString)), this, SLOT(on_show_dzoom(QString)));
-    connect(m_serialViscaManager.getVisca_packet(), SIGNAL(sig_show_zoom(QString)), this, SLOT(on_show_zoom(QString)));
-    connect(m_serialViscaManager.getVisca_packet(), SIGNAL(sig_show_focus(QString)), this, SLOT(on_show_focus(QString)));
+    connect(m_pSerialViscaManager->getVisca_packet(), SIGNAL(sig_show_dzoom(QString)), this, SLOT(on_show_dzoom(QString)));
+    connect(m_pSerialViscaManager->getVisca_packet(), SIGNAL(sig_show_zoom(QString)), this, SLOT(on_show_zoom(QString)));
+    connect(m_pSerialViscaManager->getVisca_packet(), SIGNAL(sig_show_focus(QString)), this, SLOT(on_show_focus(QString)));
 
     SendViscaValue();
 }
 
 CameraZoomFocusWidget::~CameraZoomFocusWidget()
 {
-    disconnect(m_serialViscaManager.getVisca_packet(), SIGNAL(sig_show_dzoom(QString)), this, SLOT(on_show_dzoom(QString)));
-    disconnect(m_serialViscaManager.getVisca_packet(), SIGNAL(sig_show_zoom(QString)), this, SLOT(on_show_zoom(QString)));
-    disconnect(m_serialViscaManager.getVisca_packet(), SIGNAL(sig_show_focus(QString)), this, SLOT(on_show_focus(QString)));
+    disconnect(m_pSerialViscaManager->getVisca_packet(), SIGNAL(sig_show_dzoom(QString)), this, SLOT(on_show_dzoom(QString)));
+    disconnect(m_pSerialViscaManager->getVisca_packet(), SIGNAL(sig_show_zoom(QString)), this, SLOT(on_show_zoom(QString)));
+    disconnect(m_pSerialViscaManager->getVisca_packet(), SIGNAL(sig_show_focus(QString)), this, SLOT(on_show_focus(QString)));
 
 //    delete m_pSerialLaserManager;
 //    m_serialViscaManager.close();
@@ -152,19 +152,19 @@ void CameraZoomFocusWidget::ZoomRange()
 
 void CameraZoomFocusWidget::on_optPushButton_clicked()
 {
-    m_serialViscaManager.set_AF_one_push_trigger();
+    m_pSerialViscaManager->set_AF_one_push_trigger();
 }
 
 
 void CameraZoomFocusWidget::on_focusPlusPushButton_clicked()
 {
-    m_serialViscaManager.plus_focus();
+    m_pSerialViscaManager->plus_focus();
 }
 
 
 void CameraZoomFocusWidget::on_FocusMinusPushButton_clicked()
 {
-    m_serialViscaManager.minus_focus();
+    m_pSerialViscaManager->minus_focus();
 }
 
 void CameraZoomFocusWidget::on_dayComboBox_currentIndexChanged(int index)
@@ -173,22 +173,22 @@ void CameraZoomFocusWidget::on_dayComboBox_currentIndexChanged(int index)
     QJsonObject object;
     if (index == 0)
     {
-        m_serialViscaManager.set_infrared_mode_off();
+        m_pSerialViscaManager->set_infrared_mode_off();
         object = m_object["Day"].toObject()["Normal"].toObject();
     }
     else
     {
-        m_serialViscaManager.set_infrared_mode_on();
+        m_pSerialViscaManager->set_infrared_mode_on();
         object = m_object["Night"].toObject()["Normal"].toObject();
     }
-    m_serialViscaManager.set_iris(object["Iris"].toInt());
-    m_serialViscaManager.set_shutter_speed(object["Shutter"].toInt());
-    m_serialViscaManager.set_gain(object["Gain"].toInt());
-    m_serialViscaManager.set_noise_reduction_on(object["DNR"].toString());
-    m_serialViscaManager.set_AE_Mode(object["priority"].toString());
-    object["DIS"].toBool() ? m_serialViscaManager.set_DIS_on() : m_serialViscaManager.set_DIS_off();
-    object["DEFOG"].toBool() ? m_serialViscaManager.set_defog_on() : m_serialViscaManager.set_defog_off();
-    object["HLC"].toBool() ? m_serialViscaManager.set_HLC_on() : m_serialViscaManager.set_HLC_off();
+    m_pSerialViscaManager->set_iris(object["Iris"].toInt());
+    m_pSerialViscaManager->set_shutter_speed(object["Shutter"].toInt());
+    m_pSerialViscaManager->set_gain(object["Gain"].toInt());
+    m_pSerialViscaManager->set_noise_reduction_on(object["DNR"].toString());
+    m_pSerialViscaManager->set_AE_Mode(object["priority"].toString());
+    object["DIS"].toBool() ? m_pSerialViscaManager->set_DIS_on() : m_pSerialViscaManager->set_DIS_off();
+    object["DEFOG"].toBool() ? m_pSerialViscaManager->set_defog_on() : m_pSerialViscaManager->set_defog_off();
+    object["HLC"].toBool() ? m_pSerialViscaManager->set_HLC_on() : m_pSerialViscaManager->set_HLC_off();
 
     if (m_mTableStatus[std::make_pair(m_nTableIndex.x(), m_nTableIndex.y())] == 1)
         ui->pgrsSavePushButton->setDisabled(false);
@@ -494,9 +494,9 @@ void CameraZoomFocusWidget::SetLtValue(int index, QJsonArray& ar, QJsonArray& ar
 
 void CameraZoomFocusWidget::SendViscaValue()
 {
-    m_serialViscaManager.show_dzoomPosition();
-    m_serialViscaManager.show_zoomPosition();
-    m_serialViscaManager.show_focusPosition();
+    m_pSerialViscaManager->show_dzoomPosition();
+    m_pSerialViscaManager->show_zoomPosition();
+    m_pSerialViscaManager->show_focusPosition();
 }
 
 void CameraZoomFocusWidget::on_zoomRangePushButton_clicked()
@@ -508,13 +508,13 @@ void CameraZoomFocusWidget::on_zoomRangePushButton_clicked()
 
 void CameraZoomFocusWidget::on_dzPlusPushButton_clicked()
 {
-    m_serialViscaManager.plus_dzoom();
+    m_pSerialViscaManager->plus_dzoom();
 }
 
 
 void CameraZoomFocusWidget::on_dzMinusPushButton_clicked()
 {
-    m_serialViscaManager.minus_dzoom();
+    m_pSerialViscaManager->minus_dzoom();
 }
 
 void CameraZoomFocusWidget::on_showDistance(float fDistance, int nSensitivity)
@@ -612,5 +612,10 @@ void CameraZoomFocusWidget::on_autoTriggerPushButton_clicked(bool checked)
 
 //    SerialPacket* laser_packet = m_pSerialLaserManager->getLaser_packet();
 
+}
+
+void CameraZoomFocusWidget::setPSerialViscaManager(SerialViscaManager *newPSerialViscaManager)
+{
+    m_pSerialViscaManager = newPSerialViscaManager;
 }
 

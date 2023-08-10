@@ -33,6 +33,7 @@ class CustomLabel;
 class CustomPushButton;
 class screensaver;
 class SerialLaserManager;
+class SerialViscaManager;
 namespace Ui {
 class MainWindow;
 }
@@ -129,6 +130,7 @@ private:
     screensaver *m_screensaver;
     bool m_bSelfTestFailed = false;
     SerialLaserManager* m_pSerialLaserManager = nullptr;
+    SerialViscaManager* m_pSerialViscaManager = nullptr;
     int m_nCrackDownCount;
     //    Language m_mLanguage = Language::English;
     bool m_bRedLine = false;

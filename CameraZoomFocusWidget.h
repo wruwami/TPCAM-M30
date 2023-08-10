@@ -23,6 +23,8 @@ public:
     void SetCamera(Camera* camera);
     void setPSerialLaserManager(SerialLaserManager *newPSerialLaserManager);
 
+    void setPSerialViscaManager(SerialViscaManager *newPSerialViscaManager);
+
 private:
     void ZoomRange();
     void SetLaserDetectionAreaDistance(int zoom_index);
@@ -75,7 +77,7 @@ private slots:
 
 private:
     Ui::CameraZoomFocusWidget *ui;
-    SerialViscaManager m_serialViscaManager;
+    SerialViscaManager* m_pSerialViscaManager;
     Camera* m_pCamera;
     size_t m_nLtIndex = 2;
     SerialLaserManager* m_pSerialLaserManager = nullptr;

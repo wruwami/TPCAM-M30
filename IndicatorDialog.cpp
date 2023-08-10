@@ -207,9 +207,8 @@ void IndicatorDialog::on_speedSTPushButton_clicked()
     ConfigManager config = ConfigManager("parameter_enforcement.json");
     QJsonObject object = config.GetConfig();
 
-    SerialViscaManager serialViscaManager;
-    serialViscaManager.SetFocus(object["zoom_index"].toInt());
-    serialViscaManager.SetZoom(object["zoom_index"].toInt());
+    m_pSerialViscaManager->SetFocus(object["zoom_index"].toInt());
+    m_pSerialViscaManager->SetZoom(object["zoom_index"].toInt());
 }
 
 void IndicatorDialog::on_speedLTPushButton_clicked()
@@ -227,9 +226,8 @@ void IndicatorDialog::on_speedLTPushButton_clicked()
     ConfigManager config = ConfigManager("parameter_enforcement.json");
     QJsonObject object = config.GetConfig();
 
-    SerialViscaManager serialViscaManager;
-    serialViscaManager.SetFocus(object["zoom_index"].toInt());
-    serialViscaManager.SetZoom(object["zoom_index"].toInt());
+    m_pSerialViscaManager->SetFocus(object["zoom_index"].toInt());
+    m_pSerialViscaManager->SetZoom(object["zoom_index"].toInt());
 
     object["zoom_index"].toInt();
 }
@@ -523,6 +521,11 @@ void IndicatorDialog::setPSerialLaserManager(SerialLaserManager *newPSerialLaser
         m_pSerialLaserManager = newPSerialLaserManager;
 }
 
+void IndicatorDialog::setPSerialViscaManager(SerialViscaManager *newPSerialViscaManager)
+{
+    m_pSerialViscaManager = newPSerialViscaManager;
+}
+
 void IndicatorDialog::on_day1WidgetClicked()
 {    
     ui->daynNightPushButton->setImage("indicator", "day1.jpg");
@@ -532,8 +535,7 @@ void IndicatorDialog::on_day1WidgetClicked()
     if (!m_bEnforcement)
         return;
     QJsonObject object = m_jsonObject3["Day"].toObject()["Dark"].toObject();
-    SerialViscaManager serialViscaManager;
-    serialViscaManager.SetDayMode(object, true);
+    m_pSerialViscaManager->SetDayMode(object, true);
 //     serialViscaManager.set_AE_shutter_priority();
 //     serialViscaManager.set_iris(object["Iris"].toInt());
 //     serialViscaManager.set_shutter_speed(object["Shutter"].toInt());
@@ -558,8 +560,7 @@ void IndicatorDialog::on_day2WidgetClicked()
     if (!m_bEnforcement)
         return;
     QJsonObject object = m_jsonObject3["Day"].toObject()["Normal"].toObject();
-    SerialViscaManager serialViscaManager;
-    serialViscaManager.SetDayMode(object, true);
+    m_pSerialViscaManager->SetDayMode(object, true);
 //    serialViscaManager.set_AE_shutter_priority();
 //    serialViscaManager.set_iris(object["Iris"].toInt());
 //    serialViscaManager.set_shutter_speed(object["Shutter"].toInt());
@@ -583,8 +584,7 @@ void IndicatorDialog::on_day3WidgetClicked()
     if (!m_bEnforcement)
         return;
     QJsonObject object = m_jsonObject3["Day"].toObject()["Bright"].toObject();
-    SerialViscaManager serialViscaManager;
-    serialViscaManager.SetDayMode(object, true);
+    m_pSerialViscaManager->SetDayMode(object, true);
 //    serialViscaManager.set_AE_shutter_priority();
 //    serialViscaManager.set_iris(object["Iris"].toInt());
 //    serialViscaManager.set_shutter_speed(object["Shutter"].toInt());
@@ -604,8 +604,7 @@ void IndicatorDialog::on_night1WidgetClicked()
     if (!m_bEnforcement)
         return;
     QJsonObject object = m_jsonObject3["Night"].toObject()["Dark"].toObject();
-    SerialViscaManager serialViscaManager;
-    serialViscaManager.SetDayMode(object, false);
+    m_pSerialViscaManager->SetDayMode(object, false);
 //    serialViscaManager.set_AE_shutter_priority();
 //    serialViscaManager.set_iris(object["Iris"].toInt());
 //    serialViscaManager.set_shutter_speed(object["Shutter"].toInt());
@@ -629,8 +628,7 @@ void IndicatorDialog::on_night2WidgetClicked()
     if (!m_bEnforcement)
         return;
     QJsonObject object = m_jsonObject3["Night"].toObject()["Normal"].toObject();
-    SerialViscaManager serialViscaManager;
-    serialViscaManager.SetDayMode(object, false);
+    m_pSerialViscaManager->SetDayMode(object, false);
 //    serialViscaManager.set_AE_shutter_priority();
 //    serialViscaManager.set_iris(object["Iris"].toInt());
 //    serialViscaManager.set_shutter_speed(object["Shutter"].toInt());
@@ -654,8 +652,7 @@ void IndicatorDialog::on_night3WidgetClicked()
     if (!m_bEnforcement)
         return;
     QJsonObject object = m_jsonObject3["Night"].toObject()["Bright"].toObject();
-    SerialViscaManager serialViscaManager;
-    serialViscaManager.SetDayMode(object, false);
+    m_pSerialViscaManager->SetDayMode(object, false);
 //    serialViscaManager.set_AE_shutter_priority();
 //    serialViscaManager.set_iris(object["Iris"].toInt());
 //    serialViscaManager.set_shutter_speed(object["Shutter"].toInt());

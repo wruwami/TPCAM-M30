@@ -32,6 +32,7 @@ enum EnforcementMode{
 };
 
 class SerialLaserManager;
+class SerialViscaManager;
 class Camera;
 class CustomPushButton;
 namespace Ui {
@@ -84,10 +85,13 @@ private:
     QString GetMode();
 public:
     SerialLaserManager* m_pSerialLaserManager = nullptr;
+    SerialViscaManager* m_pSerialViscaManager = nullptr;
     CustomPushButton* m_pReadyButton;
     void setPSerialLaserManager(SerialLaserManager *newPSerialLaserManager);
     bool m_bNight = false;
     bool m_bVirtualMode = false;
+
+    void setPSerialViscaManager(SerialViscaManager *newPSerialViscaManager);
 
 private:
     bool m_bHide = false;

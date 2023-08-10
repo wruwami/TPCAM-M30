@@ -147,7 +147,7 @@ EnforcementComponentWidget::EnforcementComponentWidget(QWidget *parent) :
     }
 
     startTimer(1000);
-    m_pSerialLaserManager->show_laser_info();
+//    m_pSerialLaserManager->show_laser_info();
 #if DEBUG_MODE
     SaveImageVideo();
 #endif

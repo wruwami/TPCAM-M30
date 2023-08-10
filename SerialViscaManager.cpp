@@ -1878,6 +1878,7 @@ void SerialViscaManager::SetDayMode(QJsonObject object, bool bDay)
     else
         set_infrared_mode_on();
 
+    show_ICR_OnOff();
 //    object.keys()
 //    if (object > 0 && index < 4)
 //        set_infrared_mode_off();
@@ -1991,4 +1992,6 @@ void SerialViscaManager::SetDayMode(int index)
         set_infrared_mode_off();
     else
         set_infrared_mode_on();
+
+    show_ICR_OnOff();
 }

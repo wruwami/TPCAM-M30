@@ -23,6 +23,7 @@ enum Dialog
     FileManagerQuestionMessageWidgetType,
     FileManagerFileTransferWidgetType,
     SearchBoxType,
+    SdCardMemoryLackType,
 };
 
 namespace Ui {

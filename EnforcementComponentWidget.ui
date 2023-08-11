@@ -95,7 +95,7 @@
 }</string>
          </property>
          <property name="text">
-          <string>0m,    0km/h</string>
+          <string/>
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>

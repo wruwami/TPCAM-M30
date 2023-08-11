@@ -12,6 +12,7 @@
 #include "camera.h"
 #include "FileManager.h"
 #include "HUDManager.h"
+#include "SdcardManager.h"
 
 enum Mode{
     Ready,
@@ -130,6 +131,7 @@ private:
     QTimer m_VModeTimer;
     int m_nVModeSecond = 60;
     bool m_bVModeTimerWorking = false;
+    SdcardManager m_sdcardManager;
 
 protected slots:
     void on_hidePushButton_clicked();

@@ -177,6 +177,14 @@ BaseDialog::BaseDialog(Dialog dialog, Qt::Alignment align, QString msg, bool isC
         setSize(1208, 702);
     }
         break;
+    case Dialog::SdCardMemoryLackType:
+    {
+//        ui->verticalLayout->addWidget(new SearchBoxWidget(msg, this));
+        ui->titleLabel->setText(title_text);
+        ui->titleLabel->setAlignment(align);
+        setSize(1216, 694);
+    }
+        break;
     default:
     {
 //        throw std::not_implement

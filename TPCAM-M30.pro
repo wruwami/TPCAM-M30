@@ -32,6 +32,7 @@ SOURCES += main.cpp\
     RemoteControlWorker.cpp \
     RemoteController.cpp \
     ScreenSaver.cpp \
+    SdCardMemoryLack.cpp \
     SdcardManager.cpp \
     SelfTestDialog.cpp \
     SelfTestWidget.cpp \
@@ -129,6 +130,7 @@ HEADERS  += MainWindow.h \
     RemoteControlWorker.h \
     RemoteController.h \
     ScreenSaver.h \
+    SdCardMemoryLack.h \
     SdcardManager.h \
     SelfTestDialog.h \
     SelfTestWidget.h \
@@ -217,6 +219,7 @@ FORMS    += MainWindow.ui \
     DateTimeWidget.ui \
     MainMenuContentWidget.ui \
     MovieViewerDialog.ui \
+    SdCardMemoryLack.ui \
     SelfTestDialog.ui \
     SelfTestWidget.ui \
     Setting4APWidget.ui \

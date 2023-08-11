@@ -288,21 +288,22 @@ void EnforcementComponentWidget::SaveImageVideo()
     enforceInfo.zoom_index = m_nZoomIndex;
 
 
-    switch(object["enforcement selection"].toInt())
+//    switch(object["enforcement selection"].toInt())
+    switch(m_nEnforcementMode)
     {
-    case 1:
+    case I:
     {
         m_pCamera->SaveImage(AI, enforceInfo, SNAPSHOT);
 
     }
         break;
-    case 2:
+    case A:
     {
         m_pCamera->SaveImage(AI, enforceInfo, SNAPSHOT);
         m_pCamera->SaveVideo(AV, enforceInfo, AUTO);
     }
         break;
-    case 3:
+    case V:
     {
         m_pCamera->SaveVideo(VV, enforceInfo, VIDEO);
     }

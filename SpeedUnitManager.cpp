@@ -18,7 +18,6 @@ SpeedUnitManager::SpeedUnitManager()
         m_distance = feet;
         m_speedUnit = mile;
     }
-
 }
 
 QString SpeedUnitManager::distance()
@@ -46,7 +45,7 @@ SpeedUnit SpeedUnitManager::speedUnitValue()
 QString SpeedUnitManager::speedUnit()
 {
     if (m_speedUnit == Km)
-5        return "km/h";
+        return "km/h";
     return "mph";
 }
 

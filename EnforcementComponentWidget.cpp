@@ -149,6 +149,9 @@ EnforcementComponentWidget::EnforcementComponentWidget(QWidget *parent) :
     }
 
     startTimer(1000);
+
+    m_nVModeMinute = ConfigManager("video_mode.json").GetConfig()["recoding minute"].toInt() * 60;
+    connect(&m_VModeTimer, SIGNAL(timeout()), this, SLOT(VModeVideoSave()));
 //    m_pSerialLaserManager->show_laser_info();
 #if DEBUG_MODE
     SaveImageVideo();
@@ -198,8 +201,8 @@ EnforcementComponentWidget::~EnforcementComponentWidget()
 
 void EnforcementComponentWidget::dzPlus()
 {
-    SerialViscaManager serialViscaManager;
-    serialViscaManager.plus_dzoom();
+//    SerialViscaManager serialViscaManager;
+    m_pSerialViscaManager->plus_dzoom();
 //    if (m_UserModeOn)
 //    {
 //        if (m_nDistance == meter)
@@ -252,8 +255,8 @@ void EnforcementComponentWidget::dzPlus()
 }
 void EnforcementComponentWidget::dzMinus()
 {
-    SerialViscaManager serialViscaManager;
-    serialViscaManager.minus_dzoom();//    if (m_UserModeOn)
+//    SerialViscaManager serialViscaManager;
+    m_pSerialViscaManager->minus_dzoom();//    if (m_UserModeOn)
 //    {
 //        if (m_nStIndex != 0)
 //        {
@@ -290,21 +293,22 @@ void EnforcementComponentWidget::SaveImageVideo()
     enforceInfo.zoom_index = m_nZoomIndex;
 
 
-    switch(object["enforcement selection"].toInt())
+//    switch(object["enforcement selection"].toInt())
+    switch(m_nEnforcementMode)
     {
-    case 1:
+    case I:
     {
         m_pCamera->SaveImage(AI, enforceInfo, SNAPSHOT);
 
     }
         break;
-    case 2:
+    case A:
     {
         m_pCamera->SaveImage(AI, enforceInfo, SNAPSHOT);
         m_pCamera->SaveVideo(AV, enforceInfo, AUTO);
     }
         break;
-    case 3:
+    case V:
     {
         m_pCamera->SaveVideo(VV, enforceInfo, VIDEO);
     }
@@ -526,6 +530,9 @@ void EnforcementComponentWidget::doATMode()
     m_pSerialLaserManager->stop_laser();
     m_pSerialLaserManager->request_distance(false);
 
+    if (m_nEnforcementMode == V)
+        return;
+
     SerialPacket* laser_packet = m_pSerialLaserManager->getLaser_packet();
     m_pSerialLaserManager->start_laser();
     m_pSerialLaserManager->request_distance(true);
@@ -543,7 +550,10 @@ void EnforcementComponentWidget::doManualMode()
 {
     displayRedOutline(false);
 
+    // triggering
     doATMode();
+    // release
+    doReadyMode();
 }
 
 void EnforcementComponentWidget::doReadyMode()
@@ -1162,6 +1172,7 @@ void EnforcementComponentWidget::on_EnforceModeI()
     m_nEnforcementMode = I;
     ui->recLabel->hide();
     ui->recIconLabel->hide();
+    displayRedOutline(false);
 }
 
 void EnforcementComponentWidget::on_EnforceModeA()
@@ -1171,6 +1182,7 @@ void EnforcementComponentWidget::on_EnforceModeA()
     m_nEnforcementMode = A;
     ui->recLabel->hide();
     ui->recIconLabel->hide();
+    displayRedOutline(false);
 }
 
 void EnforcementComponentWidget::on_EnforceModeV()
@@ -1181,6 +1193,7 @@ void EnforcementComponentWidget::on_EnforceModeV()
 
     ui->recLabel->show();
     ui->recIconLabel->show();
+    displayRedOutline(true);
 }
 
 void EnforcementComponentWidget::timerEvent(QTimerEvent *event)
@@ -1339,5 +1352,20 @@ void EnforcementComponentWidget::StopDisPlayRedLine()
     connect(laser_packet, SIGNAL(sig_showCaptureSpeedDistance(float,float, int)), &m_hudManager.hud(), SLOT(showCaptureSpeedDistance(float, float, int)));
     connect(laser_packet, SIGNAL(sig_showSpeedDistance(float,float)), &m_hudManager.hud(), SLOT(showSpeedDistanceSensitivity(float, float)));
     connect(laser_packet, SIGNAL(sig_showDistance(float,int)), &m_hudManager.hud(), SLOT(showDistanceSensitivity(float, int)));
+}
+
+void EnforcementComponentWidget::VModeVideoSave()
+{
+    stEnforcementInfo enforceInfo;
+    enforceInfo.nCaptureSpeed = 0;
+    enforceInfo.nSpeedLimit = m_SpeedLimit[m_nVehicleMode].toInt();
+    enforceInfo.nCaptureSpeedLimit = m_captureSpeed[m_nVehicleMode].toInt();
+    enforceInfo.nDistance = 0;
+    enforceInfo.bUserMode = m_UserModeOn;
+    enforceInfo.enforceMode = m_nEnforcementMode;
+    enforceInfo.vehicle = m_nVehicleMode;
+    enforceInfo.zoom_index = m_nZoomIndex;
+
+    m_pCamera->SaveVideo(VV, enforceInfo, VIDEO);
 }
 

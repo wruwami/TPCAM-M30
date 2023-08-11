@@ -126,6 +126,9 @@ private:
     HUDManager m_hudManager;
     EnforcementMode m_nEnforcementMode;
     bool m_bRedLine = false;
+    QTimer m_VModeTimer;
+    int m_nVModeMinute = 60;
+
 protected slots:
     void on_hidePushButton_clicked();
 //    void doShartAction();
@@ -164,6 +167,7 @@ private slots:
     void StopHUDRec();
     void StopDisPlayRec();
     void StopDisPlayRedLine();
+    void VModeVideoSave();
 signals:
     void ShowRedOutLine(bool);
 

@@ -502,7 +502,7 @@ void Camera::SaveVideo(PrefixType prefix, stEnforcementInfo enforceInfo, SDPath 
         recording_time = ConfigManager("video_mode.json").GetConfig()["recoding minute"].toInt() * 60;
     }
     QString qstrFilename = GetFileName(prefix, enforceInfo);
-    QString qstrPath = GETSDPATH(sdPath);
+    QString qstrPath = GETSDPATH(sdPath) + "/";
 
     saveVideoUseShmsrc(qstrFilename, qstrPath, SHM_NAME, recording_time, 30, RAW_IMAGE_WIDTH, RAW_IMAGE_HEIGHT);
 }

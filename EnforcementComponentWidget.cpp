@@ -150,7 +150,7 @@ EnforcementComponentWidget::EnforcementComponentWidget(QWidget *parent) :
 
     startTimer(1000);
 
-    m_nVModeMinute = ConfigManager("video_mode.json").GetConfig()["recoding minute"].toInt() * 60;
+    m_nVModeSecond = ConfigManager("video_mode.json").GetConfig()["recoding minute"].toInt() * 60;
     connect(&m_VModeTimer, SIGNAL(timeout()), this, SLOT(VModeVideoSave()));
 //    m_pSerialLaserManager->show_laser_info();
 #if DEBUG_MODE
@@ -531,7 +531,10 @@ void EnforcementComponentWidget::doATMode()
     m_pSerialLaserManager->request_distance(false);
 
     if (m_nEnforcementMode == V)
+    {
+        doVModeTimer(true);
         return;
+    }
 
     SerialPacket* laser_packet = m_pSerialLaserManager->getLaser_packet();
     m_pSerialLaserManager->start_laser();
@@ -552,12 +555,15 @@ void EnforcementComponentWidget::doManualMode()
 
     // triggering
     doATMode();
+    doVModeTimer(true);
     // release
     doReadyMode();
+    doVModeTimer(false);
 }
 
 void EnforcementComponentWidget::doReadyMode()
 {
+    doVModeTimer(false);
     SerialPacket* laser_packet = m_pSerialLaserManager->getLaser_packet();
 
     m_pSerialLaserManager->stop_laser();
@@ -956,6 +962,27 @@ QString EnforcementComponentWidget::GetMode()
     return mode;
 }
 
+void EnforcementComponentWidget::doVModeTimer(bool bVModeTimerWorking)
+{
+    if (bVModeTimerWorking)
+    {
+        if (!m_bVModeTimerWorking)
+        {
+            m_VModeTimer.start(m_nVModeSecond * 1000);
+            m_bVModeTimerWorking = true;
+        }
+    }
+    else
+    {
+        if (m_bVModeTimerWorking)
+        {
+            m_VModeTimer.stop();
+            m_bVModeTimerWorking = false;
+        }
+    }
+    return;
+}
+
 void EnforcementComponentWidget::setPSerialViscaManager(SerialViscaManager *newPSerialViscaManager)
 {
     m_pSerialViscaManager = newPSerialViscaManager;
@@ -1173,6 +1200,7 @@ void EnforcementComponentWidget::on_EnforceModeI()
     ui->recLabel->hide();
     ui->recIconLabel->hide();
     displayRedOutline(false);
+    doVModeTimer(false);
 }
 
 void EnforcementComponentWidget::on_EnforceModeA()
@@ -1183,6 +1211,7 @@ void EnforcementComponentWidget::on_EnforceModeA()
     ui->recLabel->hide();
     ui->recIconLabel->hide();
     displayRedOutline(false);
+    doVModeTimer(false);
 }
 
 void EnforcementComponentWidget::on_EnforceModeV()
@@ -1194,6 +1223,11 @@ void EnforcementComponentWidget::on_EnforceModeV()
     ui->recLabel->show();
     ui->recIconLabel->show();
     displayRedOutline(true);
+
+    if (m_nMode == AT)
+    {
+        doVModeTimer(true);
+    }
 }
 
 void EnforcementComponentWidget::timerEvent(QTimerEvent *event)

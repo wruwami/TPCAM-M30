@@ -5,6 +5,8 @@
 #include "WidgetSize.h"
 #include "ConfigManager.h"
 
+extern SerialViscaManager* g_pSerialViscaManager;
+
 IndicatorCameraExposeWidget::IndicatorCameraExposeWidget(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::IndicatorCameraExposeWidget)
@@ -61,6 +63,7 @@ IndicatorCameraExposeWidget::IndicatorCameraExposeWidget(QWidget *parent) :
         ui->gainComboBox->addItem(item, object.value(item));
     }
 
+    m_serialViscaManager = g_pSerialViscaManager;
 
 //    ui->shutterSpeedComboBox->addItems(shutterSpeeds);
 //    ui->applyPushButton->setText(LoadString("IDS_APPLY"));
@@ -106,12 +109,12 @@ void IndicatorCameraExposeWidget::on_hlcOnPushButton_clicked()
     m_bHLC = !m_bHLC;
     if (m_bHLC)
     {
-        m_serialViscaManager.set_HLC_on();
+        m_serialViscaManager->set_HLC_on();
         ui->hlcOnPushButton->setText(LoadString("IDS_HLC_ON"));
     }
     else
     {
-        m_serialViscaManager.set_HLC_off();
+        m_serialViscaManager->set_HLC_off();
         ui->hlcOnPushButton->setText(LoadString("IDS_HLC_OFF"));
     }
 
@@ -123,12 +126,12 @@ void IndicatorCameraExposeWidget::on_defogOffPushButton_clicked()
     m_bDEFOG = !m_bDEFOG;
     if (m_bDEFOG)
     {
-        m_serialViscaManager.set_defog_on();
+        m_serialViscaManager->set_defog_on();
         ui->defogOffPushButton->setText(LoadString("IDS_DEFOG_ON"));
     }
     else
     {
-        m_serialViscaManager.set_defog_off();
+        m_serialViscaManager->set_defog_off();
         ui->defogOffPushButton->setText(LoadString("IDS_DEFOG_OFF"));
     }
 }
@@ -139,47 +142,47 @@ void IndicatorCameraExposeWidget::on_disOffPushButton_clicked()
     m_bDIS = !m_bDIS;
     if (m_bDIS)
     {
-        m_serialViscaManager.set_DIS_on();
+        m_serialViscaManager->set_DIS_on();
         ui->disOffPushButton->setText(LoadString("IDS_DIS_ON"));
     }
     else
     {
-        m_serialViscaManager.set_DIS_off();
+        m_serialViscaManager->set_DIS_off();
         ui->disOffPushButton->setText(LoadString("IDS_DIS_OFF"));
     }
 }
 
 void IndicatorCameraExposeWidget::on_daynNightComboBox_currentIndexChanged(int index)
 {
-    m_serialViscaManager.SetDayMode(index + 1);
+    m_serialViscaManager->SetDayMode(index + 1);
     if ( index >= 0 && index <= 3)
-        m_serialViscaManager.set_infrared_mode_off();
+        m_serialViscaManager->set_infrared_mode_off();
     else if ( index >= 4 && index <= 6)
-        m_serialViscaManager.set_infrared_mode_on();
+        m_serialViscaManager->set_infrared_mode_on();
 }
 
 
 void IndicatorCameraExposeWidget::on_gainComboBox_currentIndexChanged(int index)
 {
-    m_serialViscaManager.set_gain_from_pq(ui->gainComboBox->itemData(index).toString());
+    m_serialViscaManager->set_gain_from_pq(ui->gainComboBox->itemData(index).toString());
 }
 
 
 void IndicatorCameraExposeWidget::on_irisComboBox_currentIndexChanged(int index)
 {
-    m_serialViscaManager.set_iris_from_pq(ui->irisComboBox->itemData(index).toString());
+    m_serialViscaManager->set_iris_from_pq(ui->irisComboBox->itemData(index).toString());
 }
 
 
 void IndicatorCameraExposeWidget::on_shutterSpeedComboBox_currentIndexChanged(int index)
 {
-    m_serialViscaManager.set_shutter_speed_from_pq(ui->shutterSpeedComboBox->itemData(index).toString());
+    m_serialViscaManager->set_shutter_speed_from_pq(ui->shutterSpeedComboBox->itemData(index).toString());
 }
 
 
 void IndicatorCameraExposeWidget::on_dnrComboBox_currentIndexChanged(int index)
 {
-    m_serialViscaManager.set_noise_reduction_on(QString::number(index));
+    m_serialViscaManager->set_noise_reduction_on(QString::number(index));
 }
 
 

@@ -5,6 +5,8 @@
 #include "WidgetSize.h"
 #include "ViscaPacket.h"
 
+extern SerialViscaManager* g_pSerialViscaManager;
+
 IndicatorCameraFocusWidget::IndicatorCameraFocusWidget(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::IndicatorCameraFocusWidget)
@@ -27,9 +29,10 @@ IndicatorCameraFocusWidget::IndicatorCameraFocusWidget(QWidget *parent) :
 
     ui->focusLineEdit->SetMode(KeypadType);
     m_pAutoTriggerPushButton = ui->autoTriggerPushButton;
-    m_pserialViscaManager.show_focusPosition();
+    m_pserialViscaManager = g_pSerialViscaManager;
+    m_pserialViscaManager->show_focusPosition();
 
-    connect(m_pserialViscaManager.getVisca_packet(), SIGNAL(sig_show_focus(QString)), this, SLOT(on_show_focus(QString)));
+    connect(m_pserialViscaManager->getVisca_packet(), SIGNAL(sig_show_focus(QString)), this, SLOT(on_show_focus(QString)));
 //    ui->applyPushButton->setText(LoadString("IDS_APPLY"));
 
 }
@@ -113,20 +116,20 @@ void IndicatorCameraFocusWidget::on_autoTriggerPushButton_clicked()
 void IndicatorCameraFocusWidget::on_onePushTriggerPushButton_clicked()
 {
 
-    m_pserialViscaManager.set_AF_one_push_trigger();
+    m_pserialViscaManager->set_AF_one_push_trigger();
 }
 
 
 void IndicatorCameraFocusWidget::on_forcusDownPushButton_clicked()
 {
-    m_pserialViscaManager.minus_focus();
+    m_pserialViscaManager->minus_focus();
 //    m_pserialViscaManager.set_focus()
 }
 
 
 void IndicatorCameraFocusWidget::on_forcusPlusPushButton_clicked()
 {
-    m_pserialViscaManager.plus_focus();
+    m_pserialViscaManager->plus_focus();
 }
 
 void IndicatorCameraFocusWidget::on_show_focus(QString value)

@@ -16,7 +16,7 @@ public:
 public slots:
     void showDistanceSensitivity(float fDistance, int nSensitivity);
     void showSpeedDistanceSensitivity(float fSpeed, float distance);
-    void showCaptureSpeedDistance(float fSpeed, float distance, int);
+    void showCaptureSpeedDistance(float fSpeed, float distance, int VehicleId);
     void hideSpeed();
     void hideDistance();
 
@@ -34,7 +34,7 @@ public:
 
     void changeToSpeedCheckMode();
     void changeToAlineMode();
-
+    void changeToZoomFocusMode();
 
 };
 

@@ -32,7 +32,7 @@ private:
     Ui::IndicatorCameraFocusWidget *ui;
     bool m_bHide = false;
     FocusMode m_nMode = Focus_Ready;
-    SerialViscaManager m_pserialViscaManager;
+    SerialViscaManager* m_pserialViscaManager;
     QString m_FocusValue;
     // QWidget interface
 protected:

@@ -18,7 +18,6 @@ SpeedUnitManager::SpeedUnitManager()
         m_distance = feet;
         m_speedUnit = mile;
     }
-
 }
 
 QString SpeedUnitManager::distance()

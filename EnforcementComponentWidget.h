@@ -84,6 +84,7 @@ private:
     void initRec();
     void setVehicleMode();
     QString GetMode();
+    void doVModeTimer(bool);
 public:
     SerialLaserManager* m_pSerialLaserManager = nullptr;
     SerialViscaManager* m_pSerialViscaManager = nullptr;
@@ -126,6 +127,10 @@ private:
     HUDManager m_hudManager;
     EnforcementMode m_nEnforcementMode;
     bool m_bRedLine = false;
+    QTimer m_VModeTimer;
+    int m_nVModeSecond = 60;
+    bool m_bVModeTimerWorking = false;
+
 protected slots:
     void on_hidePushButton_clicked();
 //    void doShartAction();
@@ -164,6 +169,7 @@ private slots:
     void StopHUDRec();
     void StopDisPlayRec();
     void StopDisPlayRedLine();
+    void VModeVideoSave();
 signals:
     void ShowRedOutLine(bool);
 

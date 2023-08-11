@@ -21,7 +21,7 @@ public:
 private:
     Ui::IndicatorCameraExposeWidget *ui;
     bool m_bHide = false;
-    SerialViscaManager m_serialViscaManager;
+    SerialViscaManager* m_serialViscaManager = nullptr;
     bool m_bDNR = false;
     bool m_bDIS = false;
     bool m_bDEFOG = false;

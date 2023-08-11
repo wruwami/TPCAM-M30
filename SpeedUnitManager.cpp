@@ -46,7 +46,7 @@ SpeedUnit SpeedUnitManager::speedUnitValue()
 QString SpeedUnitManager::speedUnit()
 {
     if (m_speedUnit == Km)
-        return "km/h";
+5        return "km/h";
     return "mph";
 }
 

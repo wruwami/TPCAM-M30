@@ -3,10 +3,16 @@
 #include <QFile>
 #include <QTextStream>
 #include <cstdlib>
+#include "SpeedUnitManager.h"
 
 CHeadUpDisplay::CHeadUpDisplay()
 {
     initDisplay();
+
+    if (distance() == meter)
+        m_nDistanceUnit = 2;
+    else
+        m_nDistanceUnit = 3;
 }
 
 void CHeadUpDisplay::initDisplay()
@@ -33,7 +39,7 @@ void CHeadUpDisplay::showDistanceSensitivity(float fDistance, int nSensitivity)
             writeNumberToFile("pointer", 1);
         }
 
-        writeNumberToFile("distance_sensitivity_distance_value", fDistance*10);
+        writeNumberToFile("distance_sensitivity_distance_value", getDistanceValue(fDistance)*10);
         writeNumberToFile("distance_sensitivity_sensitivity_value", nSensitivity);
     }
     else //m_bSensitivityOn == false
@@ -47,7 +53,7 @@ void CHeadUpDisplay::showDistanceSensitivity(float fDistance, int nSensitivity)
             writeNumberToFile("pointer", 1);
         }
 
-        writeNumberToFile("distance_value", fDistance*10);
+        writeNumberToFile("distance_value", getDistanceValue(fDistance)*10);
     }
 
     m_DistanceTimer.start(200);
@@ -83,7 +89,7 @@ void CHeadUpDisplay::showSpeedDistanceSensitivity(float fSpeed, float distance)
     }
 
 
-    writeNumberToFile("speed_value", fSpeed);
+    writeNumberToFile("speed_value", getSpeedValue(fSpeed));
 
     writeNumberToFile("speed", m_nREC);
 
@@ -112,7 +118,7 @@ void CHeadUpDisplay::showCaptureSpeedDistance(float fSpeed, float distance, int 
             writeNumberToFile("pointer", 1);
         }
 
-        writeNumberToFile("distance_sensitivity_distance_value", distance*10);
+        writeNumberToFile("distance_sensitivity_distance_value", getDistanceValue(distance)*10);
     }
     else //m_bSensitivityOn == false
     {
@@ -125,11 +131,11 @@ void CHeadUpDisplay::showCaptureSpeedDistance(float fSpeed, float distance, int 
             writeNumberToFile("pointer", 1);
         }
 
-        writeNumberToFile("distance_value", distance*10);
+        writeNumberToFile("distance_value", getDistanceValue(distance)*10);
     }
 
 
-    writeNumberToFile("speed_value", fSpeed);
+    writeNumberToFile("speed_value", getSpeedValue(fSpeed));
 
     writeNumberToFile("speed", m_nREC);
 
@@ -148,7 +154,6 @@ void CHeadUpDisplay::hideSpeed()
 {
     writeNumberToFile("speed", 0);
 }
-
 
 void CHeadUpDisplay::hideDistance()
 {
@@ -238,7 +243,12 @@ void CHeadUpDisplay::changeToAlineMode()
     initDisplay();//화면을 껐다 켜고 조준선을 켜줍니다.
 }
 
-
+void CHeadUpDisplay::changeToZoomFocusMode()
+{
+    m_bSensitivityOn = true;//감도를 표시 해줍니다.
+    m_nREC = 1; //화면녹화 표시(REC)를 꺼줍니다.
+    initDisplay();//화면을 껐다 켜고 조준선을 켜줍니다.
+}
 
 
 

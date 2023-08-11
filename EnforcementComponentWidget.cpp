@@ -12,6 +12,8 @@
 #include "WidgetSize.h"
 #include "SerialViscaManager.h"
 #include "SdcardManager.h"
+#include "HeadUpDisplay.h"
+#include "HUDManager.h"
 
 extern int g_nCrackDownIndex;
 
@@ -465,6 +467,8 @@ void EnforcementComponentWidget::hudInit()
 
     m_hudManager.ShowDistanceUnit(true);
 
+    m_hudManager.hud().changeToSpeedCheckMode();
+
 
     //hudManager.SetReticleShape()
 }
@@ -530,6 +534,9 @@ void EnforcementComponentWidget::doATMode()
     connect(laser_packet, SIGNAL(sig_showCaptureSpeedDistance(float,float, int)), this, SLOT(on_showCaptureSpeedDistance(float,float, int)));
     connect(laser_packet, SIGNAL(sig_showSpeedDistance(float,float)), this, SLOT(on_showSpeedDistance(float,float)));
     connect(laser_packet, SIGNAL(sig_showDistance(float,int)), this, SLOT(on_showDistance(float, int)));
+    connect(laser_packet, SIGNAL(sig_showCaptureSpeedDistance(float,float, int)), &m_hudManager.hud(), SLOT(showCaptureSpeedDistance(float, float, int)));
+    connect(laser_packet, SIGNAL(sig_showSpeedDistance(float,float)), &m_hudManager.hud(), SLOT(showSpeedDistanceSensitivity(float, float)));
+    connect(laser_packet, SIGNAL(sig_showDistance(float,int)), &m_hudManager.hud(), SLOT(showDistanceSensitivity(float, int)));
 }
 
 void EnforcementComponentWidget::doManualMode()
@@ -551,6 +558,9 @@ void EnforcementComponentWidget::doReadyMode()
     disconnect(laser_packet, SIGNAL(sig_showCaptureSpeedDistance(float,float, int)), this, SLOT(on_showCaptureSpeedDistance(float,float, int)));
     disconnect(laser_packet, SIGNAL(sig_showSpeedDistance(float,float)), this, SLOT(on_showSpeedDistance(float,float)));
     disconnect(laser_packet, SIGNAL(sig_showDistance(float,int)), this, SLOT(on_showDistance(float, int)));
+    disconnect(laser_packet, SIGNAL(sig_showCaptureSpeedDistance(float,float, int)), &m_hudManager.hud(), SLOT(showCaptureSpeedDistance(float, float, int)));
+    disconnect(laser_packet, SIGNAL(sig_showSpeedDistance(float,float)), &m_hudManager.hud(), SLOT(showSpeedDistanceSensitivity(float, float)));
+    disconnect(laser_packet, SIGNAL(sig_showDistance(float,int)), &m_hudManager.hud(), SLOT(showDistanceSensitivity(float, int)));
 
 }
 
@@ -1064,7 +1074,7 @@ void EnforcementComponentWidget::on_showCaptureSpeedDistance(float fSpeed, float
             displaySpeedDistance(fSpeed, fDistance, Qt::red, true);
 
             // HUD에 속도 및 거리, REC 표시 출력
-            displayHudSpeedDistance(true, true, true, true);
+//            displayHudSpeedDistance(true, true, true, true);
         //    빨간색 테두리 표시 등
             displayRedOutline(true);
 //
@@ -1078,7 +1088,10 @@ void EnforcementComponentWidget::on_showCaptureSpeedDistance(float fSpeed, float
             disconnect(laser_packet, SIGNAL(sig_showCaptureSpeedDistance(float,float, int)), this, SLOT(on_showCaptureSpeedDistance(float,float, int)));
             disconnect(laser_packet, SIGNAL(sig_showSpeedDistance(float,float)), this, SLOT(on_showSpeedDistance(float,float)));
             disconnect(laser_packet, SIGNAL(sig_showDistance(float,int)), this, SLOT(on_showDistance(float, int)));
-            QTimer::singleShot(1000, this, SLOT(StopDisPlayRedLine()));
+            disconnect(laser_packet, SIGNAL(sig_showCaptureSpeedDistance(float,float, int)), &m_hudManager.hud(), SLOT(showCaptureSpeedDistance(float, float, int)));
+            disconnect(laser_packet, SIGNAL(sig_showSpeedDistance(float,float)), &m_hudManager.hud(), SLOT(showSpeedDistanceSensitivity(float, float)));
+            disconnect(laser_packet, SIGNAL(sig_showDistance(float,int)), &m_hudManager.hud(), SLOT(showDistanceSensitivity(float, int)));
+            QTimer::singleShot(500, this, SLOT(StopDisPlayRedLine()));
 
             sleep(1);
         }
@@ -1089,7 +1102,7 @@ void EnforcementComponentWidget::on_showCaptureSpeedDistance(float fSpeed, float
         displaySpeedDistance(fSpeed, fDistance, Qt::white, false);
 
 //        HUD에 속도 및 거리 출력
-        displayHudSpeedDistance(true, true, false, true);
+//        displayHudSpeedDistance(true, true, false, true);
 
         displayRedOutline(false);
 //        로그 저장
@@ -1104,7 +1117,7 @@ void EnforcementComponentWidget::on_showSpeedDistance(float fSpeed, float fDista
 //    화면에 속도 및 거리 출력
     displaySpeedDistance(fSpeed, fDistance, Qt::white, false);
 //        HUD에 속도 및 거리 출력
-    displayHudSpeedDistance(true, true, false, true);
+//    displayHudSpeedDistance(true, true, false, true);
 
     displayRedOutline(false);
 //        로그 저장
@@ -1118,7 +1131,7 @@ void EnforcementComponentWidget::on_showDistance(float fDistance, int nSensitivi
 //    화면에 거리 출력
     displayDistance(fDistance);
 //	HUD에 거리 출력
-    displayHudDistance(true, true);
+//    displayHudDistance(true, true);
 
 //    displayRedOutline(false);
 //    로그 저장
@@ -1165,6 +1178,7 @@ void EnforcementComponentWidget::on_EnforceModeV()
     if (m_nEnforcementMode != V)
         g_nCrackDownIndex = 1;
     m_nEnforcementMode = V;
+
     ui->recLabel->show();
     ui->recIconLabel->show();
 }
@@ -1322,7 +1336,8 @@ void EnforcementComponentWidget::StopDisPlayRedLine()
     connect(laser_packet, SIGNAL(sig_showCaptureSpeedDistance(float,float, int)), this, SLOT(on_showCaptureSpeedDistance(float,float, int)));
     connect(laser_packet, SIGNAL(sig_showSpeedDistance(float,float)), this, SLOT(on_showSpeedDistance(float,float)));
     connect(laser_packet, SIGNAL(sig_showDistance(float,int)), this, SLOT(on_showDistance(float, int)));
-
-
+    connect(laser_packet, SIGNAL(sig_showCaptureSpeedDistance(float,float, int)), &m_hudManager.hud(), SLOT(showCaptureSpeedDistance(float, float, int)));
+    connect(laser_packet, SIGNAL(sig_showSpeedDistance(float,float)), &m_hudManager.hud(), SLOT(showSpeedDistanceSensitivity(float, float)));
+    connect(laser_packet, SIGNAL(sig_showDistance(float,int)), &m_hudManager.hud(), SLOT(showDistanceSensitivity(float, int)));
 }
 

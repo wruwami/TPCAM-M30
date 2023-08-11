@@ -76,3 +76,8 @@ void HUDManager::HUDInit()
 {
     m_hud.writeNumberToFile("clear_content", 1);
 }
+
+CHeadUpDisplay &HUDManager::hud()
+{
+    return m_hud;
+}

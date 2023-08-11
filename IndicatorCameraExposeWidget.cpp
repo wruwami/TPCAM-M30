@@ -27,6 +27,8 @@ IndicatorCameraExposeWidget::IndicatorCameraExposeWidget(QWidget *parent) :
     ui->disOffPushButton->setText(LoadString("IDS_DIS_OFF"));
 //    ui->dnrOnPushButton->setText(LoadString("IDS_DNR_ON"));
 
+    m_serialViscaManager = g_pSerialViscaManager;
+
     QStringList dayNights = {"IDS_DAY1", "IDS_DAY2", "IDS_DAY3", "IDS_NIGHT1", "IDS_NIGHT2", "IDS_NIGHT3"};
     for (int i = 0; i < dayNights.size() ; i++)
     {
@@ -63,7 +65,7 @@ IndicatorCameraExposeWidget::IndicatorCameraExposeWidget(QWidget *parent) :
         ui->gainComboBox->addItem(item, object.value(item));
     }
 
-    m_serialViscaManager = g_pSerialViscaManager;
+
 
 //    ui->shutterSpeedComboBox->addItems(shutterSpeeds);
 //    ui->applyPushButton->setText(LoadString("IDS_APPLY"));

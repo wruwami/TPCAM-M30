@@ -571,6 +571,7 @@ void EnforcementComponentWidget::doReadyMode()
 
     m_pSerialLaserManager->stop_laser();
     m_pSerialLaserManager->request_distance(false);
+    m_hudManager.HUDClear();
 
     displayRedOutline(false);
 

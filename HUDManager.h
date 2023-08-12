@@ -25,6 +25,7 @@ public:
     void SetPointX(int);
     void SetPointY(int);
     void HUDInit();
+    void HUDClear();
     CHeadUpDisplay &hud();
 
 private:

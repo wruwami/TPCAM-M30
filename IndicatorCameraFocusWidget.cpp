@@ -20,6 +20,8 @@ IndicatorCameraFocusWidget::IndicatorCameraFocusWidget(QWidget *parent) :
     setGeometry(GetWidgetSizePos(QRect(0, 0, 1600, 960)));
 //    setGeometry(GetWidgetSizePos(QRect(0, 125, 1600, 835)));
 
+    m_pserialViscaManager = g_pSerialViscaManager;
+
     ui->showHidePushButton->setText(LoadString("IDS_HIDE"));
     ui->speedPushButton->setText(LoadString("IDS_SPEED"));
     ui->autoTriggerPushButton->setText(LoadString("IDS_AT"));
@@ -29,7 +31,6 @@ IndicatorCameraFocusWidget::IndicatorCameraFocusWidget(QWidget *parent) :
 
     ui->focusLineEdit->SetMode(KeypadType);
     m_pAutoTriggerPushButton = ui->autoTriggerPushButton;
-    m_pserialViscaManager = g_pSerialViscaManager;
     m_pserialViscaManager->show_focusPosition();
 
     connect(m_pserialViscaManager->getVisca_packet(), SIGNAL(sig_show_focus(QString)), this, SLOT(on_show_focus(QString)));

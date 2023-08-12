@@ -1992,6 +1992,4 @@ void SerialViscaManager::SetDayMode(int index)
         set_infrared_mode_off();
     else
         set_infrared_mode_on();
-
-    show_ICR_OnOff();
 }

@@ -24,6 +24,7 @@
 #include "FileManagerQuestionMessageWidget.h"
 #include "FileManagerFileTransferWidget.h"
 #include "SearchBoxWidget.h"
+#include "SdCardMemoryLack.h"
 
 #include "WidgetSize.h"
 
@@ -179,7 +180,7 @@ BaseDialog::BaseDialog(Dialog dialog, Qt::Alignment align, QString msg, bool isC
         break;
     case Dialog::SdCardMemoryLackType:
     {
-//        ui->verticalLayout->addWidget(new SearchBoxWidget(msg, this));
+        ui->verticalLayout->addWidget(new SdCardMemoryLack(msg, this));
         ui->titleLabel->setText(title_text);
         ui->titleLabel->setAlignment(align);
         setSize(1216, 694);

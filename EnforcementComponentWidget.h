@@ -174,7 +174,7 @@ private slots:
     void VModeVideoSave();
 signals:
     void ShowRedOutLine(bool);
-
+    void sig_exit();
 private:
     Ui::EnforcementComponentWidget *ui;
 };

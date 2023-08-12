@@ -12,7 +12,7 @@ class SdCardMemoryLack : public QWidget
     Q_OBJECT
 
 public:
-    explicit SdCardMemoryLack(QWidget *parent = nullptr);
+    explicit SdCardMemoryLack(QString msg, QWidget *parent = nullptr);
     ~SdCardMemoryLack();
 
 private:

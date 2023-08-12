@@ -1,7 +1,7 @@
 #include "SdCardMemoryLack.h"
 #include "ui_SdCardMemoryLack.h"
 
-SdCardMemoryLack::SdCardMemoryLack(QWidget *parent) :
+SdCardMemoryLack::SdCardMemoryLack(QString msg, QWidget *parent) :
     QWidget(parent),
     ui(new Ui::SdCardMemoryLack)
 {

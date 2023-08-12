@@ -554,7 +554,7 @@ void EnforcementComponentWidget::doATMode()
 
 void EnforcementComponentWidget::doManualMode()
 {
-    displayRedOutline(false);
+//    displayRedOutline(false);
 
     // triggering
     doATMode();
@@ -1236,8 +1236,14 @@ void EnforcementComponentWidget::on_EnforceModeV()
 void EnforcementComponentWidget::timerEvent(QTimerEvent *event)
 {
     float sdpercent = m_sdcardManager.GetSDAvailable() / m_sdcardManager.GetSDTotal();
-//    if (sdpercent > 0.95)
-//        BaseDialog baseDialog(SdCardMemoryLackType, Qt::AlignmentFlag::AlignCenter, QString::number(sdpercent, "f", 1));
+    if (sdpercent > 0.95)
+    {
+        BaseDialog baseDialog(SdCardMemoryLackType, Qt::AlignmentFlag::AlignCenter, QString::number(sdpercent, 'f', 1), false, LoadString("IDS_WARNING MESSAGE"));
+        if (baseDialog.exec() == QDialog::Accepted)
+        {
+            emit sig_exit();
+        }
+    }
 }
 
 

@@ -275,7 +275,7 @@ QString FileManager::GetSDPath()
 {
     // sdcard root path
     QDir dir;
-    return dir.absolutePath();
+    return "/mnt/sdcard";dir.absolutePath();
 }
 
 QString FileManager::GetUSBPath()

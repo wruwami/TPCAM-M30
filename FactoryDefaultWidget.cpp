@@ -30,8 +30,12 @@ FactoryDefaultWidget::~FactoryDefaultWidget()
 
 void FactoryDefaultWidget::MoveFactorySetting()
 {
-//    QDir dir = GeteMMCPath()
+    QDir dir = GeteMMCPath();
 
+    foreach (QFileInfo item, dir.entryInfoList())
+    {
+        QFile::copy(GeteMMCPath() + "/" +item.fileName(), GeteMMCPath() + "/factory/" + item.fileName());
+    }
 }
 
 void FactoryDefaultWidget::on_okPushButton_clicked()

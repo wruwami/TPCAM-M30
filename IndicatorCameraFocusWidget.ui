@@ -103,6 +103,13 @@
        </property>
       </spacer>
      </item>
+     <item row="1" column="2" rowspan="2" colspan="3">
+      <widget class="QLabel" name="distanceLabel">
+       <property name="text">
+        <string>----.-m</string>
+       </property>
+      </widget>
+     </item>
     </layout>
    </item>
   </layout>

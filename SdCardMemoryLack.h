@@ -14,6 +14,10 @@ class SdCardMemoryLack : public QWidget
 public:
     explicit SdCardMemoryLack(QString msg, QWidget *parent = nullptr);
     ~SdCardMemoryLack();
+private:
+    QDialog* m_pParent;
+private slots:
+    void on_pushButton_clicked();
 
 private:
     Ui::SdCardMemoryLack *ui;

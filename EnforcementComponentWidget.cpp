@@ -1239,7 +1239,8 @@ void EnforcementComponentWidget::timerEvent(QTimerEvent *event)
     float sdpercent = m_sdcardManager.GetSDAvailable() / m_sdcardManager.GetSDTotal();
     if (sdpercent > 0.95)
     {
-        BaseDialog baseDialog(SdCardMemoryLackType, Qt::AlignmentFlag::AlignCenter, QString::number(sdpercent, 'f', 1), false, LoadString("IDS_WARNING MESSAGE"));
+        QString sdCardValue = LoadString("IDS_SD_CARD") + QString::number(sdpercent, 'f', 1) + "%";
+        BaseDialog baseDialog(SdCardMemoryLackType, Qt::AlignmentFlag::AlignCenter, sdCardValue, false, LoadString("IDS_WARNING MESSAGE"));
         if (baseDialog.exec() == QDialog::Accepted)
         {
             emit sig_exit();

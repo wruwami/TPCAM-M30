@@ -18,6 +18,7 @@ SdcardManager::SdcardManager()
         if (storage.device() == "/dev/mmcblk1p8")
         {
             m_emmcStorage = storage;
+//            storage.mountedVolumes()
             isExistEMMccard = true;
         }
     }

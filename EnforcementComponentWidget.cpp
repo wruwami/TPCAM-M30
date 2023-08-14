@@ -14,6 +14,7 @@
 #include "SdcardManager.h"
 #include "HeadUpDisplay.h"
 #include "HUDManager.h"
+#include "BaseDialog.h"
 
 extern int g_nCrackDownIndex;
 
@@ -190,6 +191,8 @@ EnforcementComponentWidget::~EnforcementComponentWidget()
     displayRedOutline(false);
 
     doReadyMode();
+
+    doVModeTimer(false);
 //    emit ShowRedOutLine(false);
 //    if (m_pCamera)
 //    {
@@ -326,7 +329,7 @@ void EnforcementComponentWidget::SaveImageVideo()
 void EnforcementComponentWidget::SaveImage()
 {
     stEnforcementInfo enforceInfo;
-    enforceInfo.nCaptureSpeed = (int)m_fSpeed;
+    enforceInfo.nCaptureSpeed = (int)0;
     enforceInfo.nSpeedLimit = m_SpeedLimit[m_nVehicleMode].toInt();
     enforceInfo.nCaptureSpeedLimit = m_captureSpeed[m_nVehicleMode].toInt();
     enforceInfo.nDistance = (int)m_fDistance;
@@ -334,9 +337,9 @@ void EnforcementComponentWidget::SaveImage()
     enforceInfo.enforceMode = m_nEnforcementMode;
     enforceInfo.vehicle = m_nVehicleMode;
     enforceInfo.zoom_index = m_nZoomIndex;
-    QPixmap pixmap = m_pCamera->grab();
-    pixmap.save(GETSDPATH(MANUAL_CAPTURE) + "/" +GetFileName(MC, enforceInfo));
-//    m_pCamera->SaveImage(enforceInfo, MANUAL_CAPTURE);
+//    QPixmap pixmap = m_pCamera->grab();
+//    pixmap.save(GETSDPATH(MANUAL_CAPTURE) + "/" +GetFileName(MC, enforceInfo));
+    m_pCamera->SaveImage(MC, enforceInfo, MANUAL_CAPTURE);
 }
 
 
@@ -551,7 +554,7 @@ void EnforcementComponentWidget::doATMode()
 
 void EnforcementComponentWidget::doManualMode()
 {
-    displayRedOutline(false);
+//    displayRedOutline(false);
 
     // triggering
     doATMode();
@@ -568,6 +571,7 @@ void EnforcementComponentWidget::doReadyMode()
 
     m_pSerialLaserManager->stop_laser();
     m_pSerialLaserManager->request_distance(false);
+    m_hudManager.HUDClear();
 
     displayRedOutline(false);
 
@@ -1232,7 +1236,16 @@ void EnforcementComponentWidget::on_EnforceModeV()
 
 void EnforcementComponentWidget::timerEvent(QTimerEvent *event)
 {
-
+    float sdpercent = m_sdcardManager.GetSDAvailable() / m_sdcardManager.GetSDTotal();
+    if (sdpercent > 0.95)
+    {
+        QString sdCardValue = LoadString("IDS_SD_CARD") + QString::number(sdpercent, 'f', 1) + "%";
+        BaseDialog baseDialog(SdCardMemoryLackType, Qt::AlignmentFlag::AlignCenter, sdCardValue, false, LoadString("IDS_WARNING MESSAGE"));
+        if (baseDialog.exec() == QDialog::Accepted)
+        {
+            emit sig_exit();
+        }
+    }
 }
 
 

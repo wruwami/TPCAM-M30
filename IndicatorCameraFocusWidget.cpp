@@ -4,8 +4,12 @@
 #include "StringLoader.h"
 #include "WidgetSize.h"
 #include "ViscaPacket.h"
+#include "SerialViscaManager.h"
+#include "SerialLaserManager.h"
+#include "SpeedUnitManager.h"
 
 extern SerialViscaManager* g_pSerialViscaManager;
+extern SerialLaserManager* g_pSerialLaserManager;
 
 IndicatorCameraFocusWidget::IndicatorCameraFocusWidget(QWidget *parent) :
     QDialog(parent),
@@ -20,6 +24,9 @@ IndicatorCameraFocusWidget::IndicatorCameraFocusWidget(QWidget *parent) :
     setGeometry(GetWidgetSizePos(QRect(0, 0, 1600, 960)));
 //    setGeometry(GetWidgetSizePos(QRect(0, 125, 1600, 835)));
 
+    m_pserialViscaManager = g_pSerialViscaManager;
+    m_pserialLaserManager = g_pSerialLaserManager;
+
     ui->showHidePushButton->setText(LoadString("IDS_HIDE"));
     ui->speedPushButton->setText(LoadString("IDS_SPEED"));
     ui->autoTriggerPushButton->setText(LoadString("IDS_AT"));
@@ -29,12 +36,11 @@ IndicatorCameraFocusWidget::IndicatorCameraFocusWidget(QWidget *parent) :
 
     ui->focusLineEdit->SetMode(KeypadType);
     m_pAutoTriggerPushButton = ui->autoTriggerPushButton;
-    m_pserialViscaManager = g_pSerialViscaManager;
-    m_pserialViscaManager->show_focusPosition();
 
     connect(m_pserialViscaManager->getVisca_packet(), SIGNAL(sig_show_focus(QString)), this, SLOT(on_show_focus(QString)));
+    connect(m_pserialLaserManager->getLaser_packet(), SIGNAL(sig_showDistance(float,int)), this, SLOT(showDistanceSensitivity(float, int)));
 //    ui->applyPushButton->setText(LoadString("IDS_APPLY"));
-
+    m_pserialViscaManager->show_focusPosition();
 }
 
 IndicatorCameraFocusWidget::~IndicatorCameraFocusWidget()
@@ -87,30 +93,6 @@ void IndicatorCameraFocusWidget::on_speedPushButton_clicked()
     accept();
 }
 
-void IndicatorCameraFocusWidget::on_autoTriggerPushButton_clicked()
-{
-    switch (m_nMode)
-    {
-    case Focus_Ready:
-    {
-        ui->autoTriggerPushButton->setText(LoadString("IDS_AT"));
-        m_nMode = Focus_AT;
-    }
-        break;
-    case Focus_AT:
-    {
-        ui->autoTriggerPushButton->setText(LoadString("IDS_Manual"));
-        m_nMode = Focus_Manual;
-    }
-        break;
-    case Focus_Manual:
-    {
-        ui->autoTriggerPushButton->setText(LoadString("IDS_Ready"));
-        m_nMode = Focus_Ready;
-    }
-        break;
-    }
-}
 
 
 void IndicatorCameraFocusWidget::on_onePushTriggerPushButton_clicked()
@@ -123,6 +105,7 @@ void IndicatorCameraFocusWidget::on_onePushTriggerPushButton_clicked()
 void IndicatorCameraFocusWidget::on_forcusDownPushButton_clicked()
 {
     m_pserialViscaManager->minus_focus();
+    m_pserialViscaManager->show_focusPosition();
 //    m_pserialViscaManager.set_focus()
 }
 
@@ -130,6 +113,7 @@ void IndicatorCameraFocusWidget::on_forcusDownPushButton_clicked()
 void IndicatorCameraFocusWidget::on_forcusPlusPushButton_clicked()
 {
     m_pserialViscaManager->plus_focus();
+    m_pserialViscaManager->show_focusPosition();
 }
 
 void IndicatorCameraFocusWidget::on_show_focus(QString value)
@@ -143,4 +127,26 @@ void IndicatorCameraFocusWidget::on_show_focus(QString value)
 //{
 
 //}
+
+
+void IndicatorCameraFocusWidget::on_autoTriggerPushButton_clicked(bool checked)
+{
+    if (checked)
+    {
+        m_pserialLaserManager->start_laser();
+        m_pserialLaserManager->request_distance(true);
+        ui->autoTriggerPushButton->setStyleSheet("border : red;");
+    }
+    else
+    {
+        m_pserialLaserManager->stop_laser();
+        m_pserialLaserManager->request_distance(true);
+        ui->autoTriggerPushButton->setStyleSheet("border : blue;");
+    }
+}
+
+void IndicatorCameraFocusWidget::showDistanceSensitivity(float fSDistance, int nSensitivity)
+{
+    ui->distanceLabel->setText(QString::number(getDistanceValue(fSDistance), 'f', 1) + distanceValue());
+}
 

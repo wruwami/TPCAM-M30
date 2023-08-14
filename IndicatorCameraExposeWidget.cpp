@@ -4,6 +4,7 @@
 #include "StringLoader.h"
 #include "WidgetSize.h"
 #include "ConfigManager.h"
+#include "iostream"
 
 extern SerialViscaManager* g_pSerialViscaManager;
 
@@ -54,22 +55,55 @@ IndicatorCameraExposeWidget::IndicatorCameraExposeWidget(QWidget *parent) :
     object.remove("count");
     foreach (auto item, object.keys())
     {
-        ui->gainComboBox->addItem(item, object.value(item));
+        bool ok;
+        irisMap[item.toStdString()] = object.value(item).toString().toInt(&ok, 16);
     }
+    vec.clear();
+    sort(irisMap, vec);
+    for (auto& it : vec)
+    {
+        std::string key = it.first;
+        int value = it.second;
 
-    ConfigManager shutterSpeedCon = ConfigManager("Gain.json");
+        QString number;
+        number.sprintf("%02X", value);
+        ui->irisComboBox->addItem(QString::fromStdString(key), number);
+    }
+//    foreach (auto item, object.keys())
+//    {
+//        ui->irisComboBox->addItem(item, object.value(item));
+//    }
+
+    ConfigManager shutterSpeedCon = ConfigManager("shutter_speed.json");
     object = shutterSpeedCon.GetConfig();
     object.remove("count");
     foreach (auto item, object.keys())
     {
-        ui->gainComboBox->addItem(item, object.value(item));
+        bool ok;
+        shutterSpeedMap[item.toStdString()] = object.value(item).toString().toInt(&ok, 16);
+    }
+    vec.clear();
+    sort(shutterSpeedMap, vec);
+//    foreach (auto item, object.keys())
+//    {
+//        ui->shutterSpeedComboBox->addItem(item, object.value(item));
+//    }
+    for (auto& it : vec)
+    {
+        std::string key = it.first;
+        int value = it.second;
+
+    m_serialViscaManager = g_pSerialViscaManager;
+
+    for (int i = 0 ; i < 5 ; i++)
+    {
+        std::string item = QString("DNR %1").arg(i).toStdString();
+        ui->dnrComboBox->addItem(item.c_str());
     }
 
-
-
-//    ui->shutterSpeedComboBox->addItems(shutterSpeeds);
-//    ui->applyPushButton->setText(LoadString("IDS_APPLY"));
-
+    ui->gainComboBox->setCurrentIndex(ui->gainComboBox->count() - 1);
+    ui->irisComboBox->setCurrentIndex(ui->irisComboBox->count() - 1);
+    ui->shutterSpeedComboBox->setCurrentIndex(ui->shutterSpeedComboBox->count() - 1);
 }
 
 IndicatorCameraExposeWidget::~IndicatorCameraExposeWidget()

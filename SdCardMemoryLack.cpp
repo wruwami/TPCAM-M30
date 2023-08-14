@@ -1,0 +1,33 @@
+#include "SdCardMemoryLack.h"
+#include "ui_SdCardMemoryLack.h"
+
+#include <QDialog>
+
+#include "StringLoader.h"
+
+SdCardMemoryLack::SdCardMemoryLack(QString msg, QWidget *parent) :
+    QWidget(parent),
+    ui(new Ui::SdCardMemoryLack)
+{
+    ui->setupUi(this);
+
+    m_pParent = (QDialog*)parent;
+
+    ui->warningLabel->setText(LoadString("IDS_CRACK_DOWN_MESSAGE"));
+    ui->warningLabel->setColor(Qt::white);
+    ui->warningLabel2->setText(LoadString("IDS_CRACK_DOWN_MESSAGE2"));
+    ui->warningLabel2->setColor(Qt::white);
+    ui->sdCardValueLabel->setText(msg);
+    ui->sdCardValueLabel->setColor(Qt::red);
+}
+
+SdCardMemoryLack::~SdCardMemoryLack()
+{
+    delete ui;
+}
+
+void SdCardMemoryLack::on_pushButton_clicked()
+{
+    m_pParent->accept();
+}
+

@@ -964,7 +964,7 @@ QString EnforcementComponentWidget::GetMode()
 
 void EnforcementComponentWidget::doVModeTimer(bool bVModeTimerWorking)
 {
-    if (bVModeTimerWorking)
+    if (bVModeTimerWorking && m_nMode == AT)
     {
         if (!m_bVModeTimerWorking)
         {

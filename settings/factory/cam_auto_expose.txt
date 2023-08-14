@@ -1,0 +1,54 @@
+{
+	"Night mode_on": {
+		"image brightness_dark": {
+			"night": "0x01",
+			"bright": "0x00",
+			"ae": "0x03",
+			"shutter": "0x07",
+			"iris": "0x11",
+			"gain": "0x02"
+		},
+		"image brightness_Normal": {
+			"night": "0x01",
+			"bright": "0x01",
+			"ae": "0x03",
+			"shutter": "0x06",
+			"iris": "0x11",
+			"gain": "0x02"
+		},
+		"image brightness_Bright": {
+			"night": "0x01",
+			"bright": "0x02",
+			"ae": "0x03",
+			"shutter": "0x05",
+			"iris": "0x11",
+			"gain": "0x02"
+		}
+	},
+	"Night mode_off": {
+		"image brightness_Dark": {
+			"night": "0x00",
+			"bright": "0x00",
+			"ae": "0x0A",
+			"shutter": "0x07",
+			"iris": "0x00",
+			"gain": "0x00"
+		},
+		"image brightness_Normal": {
+			"night": "0x00",
+			"bright": "0x00",
+			"ae": "0x0A",
+			"shutter": "0x06",
+			"iris": "0x00",
+			"gain": "0x00"
+		},
+		"image brightness_Bright": {
+			"night": "0x00",
+			"bright": "0x00",
+			"ae": "0x0A",
+			"shutter": "0x05",
+			"iris": "0x00",
+			"gain": "0x00"
+		}
+	}
+}

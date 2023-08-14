@@ -21,6 +21,8 @@ IndicatorCameraExposeWidget::IndicatorCameraExposeWidget(QWidget *parent) :
 //    setGeometry(GetWidgetSizePos(QRect(0, 125, 1600, 835)));
     setWindowOpacity(1);
 
+    m_serialViscaManager = g_pSerialViscaManager;
+
     ui->showHidePushButton->setText(LoadString("IDS_HIDE"));
     ui->speedPushButton->setText(LoadString("IDS_SPEED"));
     ui->hlcOnPushButton->setText(LoadString("IDS_HLC_ON"));
@@ -28,34 +30,45 @@ IndicatorCameraExposeWidget::IndicatorCameraExposeWidget(QWidget *parent) :
     ui->disOffPushButton->setText(LoadString("IDS_DIS_OFF"));
 //    ui->dnrOnPushButton->setText(LoadString("IDS_DNR_ON"));
 
-    m_serialViscaManager = g_pSerialViscaManager;
-
     QStringList dayNights = {"IDS_DAY1", "IDS_DAY2", "IDS_DAY3", "IDS_NIGHT1", "IDS_NIGHT2", "IDS_NIGHT3"};
     for (int i = 0; i < dayNights.size() ; i++)
     {
         ui->daynNightComboBox->addItem(LoadString(dayNights[i].toStdString()));
     }
-    std::map<std::string, int> irisMap;
-    std::map<std::string, int> gainMap;
-    std::map<std::string, int> shutterSpeedMap;
-
-    std::vector<std::pair<std::string, int>> vec;
-    ConfigManager gainCon = ConfigManager("Gain.json");
+    ConfigManager gainCon = ConfigManager("gain.json");
     QJsonObject object = gainCon.GetConfig();
 //    int count = object["count"].toInt();
     object.remove("count");
-//    for (int i = 0 ; i < count ; i++)
+//    QStringList value = ;
+//    foreach(auto key, object.keys())
 //    {
-//        ui->gainComboBox->addItem(object.keys());
+//        QJsonValue item = object.value(key);
+//        m_gainList[key] = item.toString();
 //    }
+    std::map<std::string, int> gainMap;
+    std::map<std::string, int> irisMap;
+    std::map<std::string, int> shutterSpeedMap;
 
     foreach (auto item, object.keys())
     {
-        ui->gainComboBox->addItem(item, object.value(item));
+        bool ok;
+        gainMap[item.toStdString()] = object.value(item).toString().toInt(&ok, 16);
+    }
+
+    std::vector<std::pair<std::string, int>> vec;
+    sort(gainMap, vec);
+    for (auto& it : vec)
+    {
+        std::string key = it.first;
+        int value = it.second;
+
+        QString number;
+        number.sprintf("%02X", value);
+        ui->gainComboBox->addItem(QString::fromStdString(key), number);
     }
 
 
-    ConfigManager irisCon = ConfigManager("Gain.json");
+    ConfigManager irisCon = ConfigManager("iris.json");
     object = irisCon.GetConfig();
     object.remove("count");
     foreach (auto item, object.keys())
@@ -97,8 +110,11 @@ IndicatorCameraExposeWidget::IndicatorCameraExposeWidget(QWidget *parent) :
     {
         std::string key = it.first;
         int value = it.second;
+
+        QString number;
+        number.sprintf("%02X", value);
+        ui->shutterSpeedComboBox->addItem(QString::fromStdString(key), number);
     }
-    m_serialViscaManager = g_pSerialViscaManager;
 
     for (int i = 0 ; i < 5 ; i++)
     {
@@ -126,6 +142,12 @@ void IndicatorCameraExposeWidget::on_showHidePushButton_clicked()
     m_bHide = !m_bHide;
     if (m_bHide)
     {
+        ui->speedPushButton->hide();
+        ui->daynNightComboBox->hide();
+        ui->gainComboBox->hide();
+        ui->irisComboBox->hide();
+        ui->shutterSpeedComboBox->hide();
+        ui->dnrComboBox->hide();
         ui->hlcOnPushButton->hide();
         ui->defogOffPushButton->hide();
         ui->disOffPushButton->hide();
@@ -133,6 +155,12 @@ void IndicatorCameraExposeWidget::on_showHidePushButton_clicked()
     }
     else
     {
+        ui->speedPushButton->show();
+        ui->daynNightComboBox->show();
+        ui->gainComboBox->show();
+        ui->irisComboBox->show();
+        ui->shutterSpeedComboBox->show();
+        ui->dnrComboBox->show();
         ui->hlcOnPushButton->show();
         ui->defogOffPushButton->show();
         ui->disOffPushButton->show();
@@ -195,11 +223,98 @@ void IndicatorCameraExposeWidget::on_disOffPushButton_clicked()
 
 void IndicatorCameraExposeWidget::on_daynNightComboBox_currentIndexChanged(int index)
 {
-    m_serialViscaManager->SetDayMode(index + 1);
-    if ( index >= 0 && index <= 3)
+    ConfigManager config = ConfigManager("exposure.json");
+    QJsonObject object = config.GetConfig();
+    QJsonObject ret;
+    switch (index) {
+    case 0:
+    {
+        ret = object["Day"].toObject()["Dark"].toObject();
+    }
+        break;
+    case 1:
+    {
+        ret = object["Day"].toObject()["Normal"].toObject();
+    }
+        break;
+    case 2:
+    {
+        ret = object["Day"].toObject()["Bright"].toObject();
+    }
+        break;
+    case 3:
+    {
+        ret = object["Night"].toObject()["Dark"].toObject();
+    }
+        break;
+    case 4:
+    {
+        ret = object["Night"].toObject()["Normal"].toObject();
+    }
+        break;
+    case 5:
+    {
+        ret = object["Night"].toObject()["Bright"].toObject();
+    }
+        break;
+    }
+
+    m_serialViscaManager->set_iris(ret["Iris"].toInt());
+    m_serialViscaManager->set_shutter_speed(ret["Shutter"].toInt());
+    m_serialViscaManager->set_gain(ret["Gain"].toInt());
+    m_serialViscaManager->set_noise_reduction_on(object["DNR"].toString());
+    m_serialViscaManager->set_AE_Mode(object["priority"].toString());
+    if (ret["DIS"].toBool())
+    {
+        m_serialViscaManager->set_DIS_on();
+        m_bDIS = true;
+        ui->disOffPushButton->setText(LoadString("IDS_DIS_ON"));
+    }
+    else
+    {
+        m_serialViscaManager->set_DIS_off();
+        m_bDIS = false;
+        ui->disOffPushButton->setText(LoadString("IDS_DIS_OFF"));
+    }
+    if (ret["DEFOG"].toBool())
+    {
+        m_serialViscaManager->set_defog_on();
+        m_bDEFOG = true;
+        ui->disOffPushButton->setText(LoadString("IDS_DEFOG_ON"));
+    }
+    else
+    {
+        m_serialViscaManager->set_defog_off();
+        m_bDEFOG = false;
+        ui->disOffPushButton->setText(LoadString("IDS_DEFOG_OFF"));
+    }
+    if(ret["HLC"].toBool())
+    {
+       m_serialViscaManager->set_HLC_on();
+       m_bHLC = true;
+       ui->hlcOnPushButton->setText(LoadString("IDS_HLC_ON"));
+    }
+    else
+    {
+        m_serialViscaManager->set_HLC_off();
+        m_bHLC = false;
+        ui->hlcOnPushButton->setText(LoadString("IDS_HLC_OFF"));
+    }
+
+//    set_AE_shutter_priority();
+
+    if (index >= 0 && index < 3)
+    {
         m_serialViscaManager->set_infrared_mode_off();
-    else if ( index >= 4 && index <= 6)
+        ui->gainComboBox->setDisabled(true);
+        ui->irisComboBox->setDisabled(true);
+    }
+    else
+    {
         m_serialViscaManager->set_infrared_mode_on();
+        ui->gainComboBox->setDisabled(false);
+        ui->irisComboBox->setDisabled(false);
+    }
 }
 
 

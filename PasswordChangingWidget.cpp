@@ -37,10 +37,11 @@ void PasswordChangingWidget::on_okPushButton_clicked()
     if (ui->newLineEdit->GetString().isEmpty() && (ui->currentLineEdit->GetString().isEmpty()))
         return;
 
-    if (ui->newLineEdit->GetString() != ui->currentLineEdit->GetString())
+    if (ui->newLineEdit->GetString() == ui->currentLineEdit->GetString())
         return;
 
     object["password"] = ui->newLineEdit->GetString();
+    config.SetConfig(object);
     config.SaveFile();
     m_pParent->accept();
 }

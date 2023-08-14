@@ -3,13 +3,6 @@
 
 #include <QDialog>
 
-
-enum FocusMode {
-    Focus_Ready,
-    Focus_AT,
-    Focus_Manual,
-};
-
 class SerialLaserManager;
 class SerialViscaManager;
 class CustomPushButton;
@@ -32,7 +25,6 @@ public:
 private:
     Ui::IndicatorCameraFocusWidget *ui;
     bool m_bHide = false;
-    FocusMode m_nMode = Focus_Ready;
     SerialViscaManager* m_pserialViscaManager;
     SerialLaserManager* m_pserialLaserManager;
     QString m_FocusValue;
@@ -49,6 +41,7 @@ private slots:
 //    void on_applyPushButton_clicked();
     void on_autoTriggerPushButton_clicked(bool checked);
     void showDistanceSensitivity(float, int);
+    void on_test(QString);
 };
 
 #endif // INDICATORCAMERAFOCUSWIDGET_H

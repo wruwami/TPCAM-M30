@@ -261,6 +261,9 @@ void IndicatorDialog::on_enforcementIPushButton_clicked()
     ui->enforcementPushButton->setImage("indicator", "indicator_mode_i.jpg");
     m_jsonObject1["enforcement selection"] = 1;
     m_pMainMenuWidget->setIndicatorImage(m_pMainMenuWidget->m_pEnforcementPushbutton, "indicator", "indicator_mode_i.jpg");
+
+    if (m_bEnforcement)
+        emit sig_EnforcementModeI();
 }
 
 void IndicatorDialog::on_enforcementAPushButton_clicked()
@@ -268,6 +271,9 @@ void IndicatorDialog::on_enforcementAPushButton_clicked()
     ui->enforcementPushButton->setImage("indicator", "indicator_mode_a.jpg");
     m_jsonObject1["enforcement selection"] = 2;
     m_pMainMenuWidget->setIndicatorImage(m_pMainMenuWidget->m_pEnforcementPushbutton, "indicator", "indicator_mode_a.jpg");
+
+    if (m_bEnforcement)
+        emit sig_EnforcementModeA();
 }
 
 void IndicatorDialog::on_enforcementVPushButton_clicked()
@@ -275,6 +281,9 @@ void IndicatorDialog::on_enforcementVPushButton_clicked()
     ui->enforcementPushButton->setImage("indicator", "indicator_mode_v.jpg");
     m_jsonObject1["enforcement selection"] = 3;
     m_pMainMenuWidget->setIndicatorImage(m_pMainMenuWidget->m_pEnforcementPushbutton, "indicator", "indicator_mode_v.jpg");
+
+    if (m_bEnforcement)
+        emit sig_EnforcementModeV();
 }
 
 void IndicatorDialog::on_weatherPushButton_clicked()

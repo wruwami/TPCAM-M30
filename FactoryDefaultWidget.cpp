@@ -4,6 +4,7 @@
 #include <QDialog>
 #include <QJsonObject>
 #include "qdir.h"
+#include <QDebug>
 
 #include "StringLoader.h"
 #include "ConfigManager.h"
@@ -30,11 +31,19 @@ FactoryDefaultWidget::~FactoryDefaultWidget()
 
 void FactoryDefaultWidget::MoveFactorySetting()
 {
-    QDir dir = GeteMMCPath();
+    QDir dir = GeteMMCPath() + "/settings";
 
     foreach (QFileInfo item, dir.entryInfoList())
     {
-        QFile::copy(GeteMMCPath() + "/" +item.fileName(), GeteMMCPath() + "/factory/" + item.fileName());
+        if (QFile::exists(GeteMMCPath() + "/settings/" + item.fileName()))
+        {
+            QFile::remove(GeteMMCPath() + "/settings/" + item.fileName());
+        }
+
+        qDebug() << item.fileName();
+        if (item.fileName() == "." || item.fileName() == "..")
+            continue;
+        QFile::copy(GeteMMCPath() + "/settings/facetory" +item.fileName(), GeteMMCPath() + "/settings/" + item.fileName());
     }
 }
 

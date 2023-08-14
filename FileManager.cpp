@@ -268,7 +268,7 @@ QString FileManager::GetFileName(PrefixType prefix, stEnforcementInfo enforceInf
 QString FileManager::GeteMMCPath()
 {
     QDir dir;
-    return dir.absolutePath() + DEFAULT_FILE_PATH;
+    return dir.absolutePath()/* + DEFAULT_FILE_PATH*/;
 }
 
 QString FileManager::GetSDPath()

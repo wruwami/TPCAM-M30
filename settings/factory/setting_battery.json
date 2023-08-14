@@ -1,0 +1,8 @@
+{
+    "ChargeThreasholdMax": 35718,
+    "ChargeThreasholdMin": 15000,
+    "IsChargingAmpere": -0.2,
+    "PowerOffVoltage": 9.4,
+    "VoltageThreasholdMax": 12.5,
+    "VoltageThreasholdMin": 9.5
+}

@@ -1,0 +1,12 @@
+{
+	"enforcement mode index ": 1,
+	"speed mode index ": 2,
+	"zoom index": 5,
+	"digital zoom index": 1,
+	"camera focus value": "0x1234",
+	"camera expose d&n": 2,
+	"camera DNR enable": 0,
+	"camera DIS enable": 0,
+	"camera DEFOG enable": 0,
+	"camera HLC enable": 0
+}

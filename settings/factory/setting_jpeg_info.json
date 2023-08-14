@@ -1,0 +1,67 @@
+{
+	"information y size": 100,
+	"First line": {
+		"Date and time": {
+			"Display": "DT:",
+			"Pos": [
+				10,
+				10
+			],
+			"Font_size ": 20
+		},
+		"DeviceID": {
+			"Display": "DID:",
+			"Prefix": 1,
+			"SerialNum": 1,
+			"Postfix": 0,
+			"Pos": [
+				20,
+				10
+			],
+			"Font_size": 20
+		},
+		"User name": {
+			"Display": "UN:",
+			"Pos": [
+				30,
+				10
+			],
+			"Font_size": 20
+		},
+		"Speed Limit": {
+			"Display": "SL:",
+			"Pos": [
+				40,
+				10
+			],
+			"Font_size": 20
+		}
+	},
+	"Second line": {
+		"Location": {
+			"Display": "Loc :",
+			"Pos": [
+				10,
+				20
+			],
+			"Font_size": 20
+		},
+		"GPS": {
+			"Display": "(",
+			"Pos": [
+				20,
+				20
+			],
+			"Font_size": 20
+		},
+		"Capture distance": {
+			"Display": "CD:",
+			"Pos": [
+				30,
+				20
+			],
+			"Font_size": 20
+		}
+	},
+	"Third line": "null"
+}

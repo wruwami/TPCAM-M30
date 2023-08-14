@@ -1,0 +1,6 @@
+{
+	"st day focus" : ["1588", "13DC", "11EC", "FC0", " FC0", "FC0", "FC0", "FC0", "FC0", "FC0", "FC0", "FC0", "FC0"],
+	"st night focus" : ["1588", "13DC", "11EC", "FC0", "FC0", "FC0", "FC0", "FC0", "FC0", "FC0", "FC0", " FC0", "FC0"],
+	"lt day focus" : ["1588", " 13DC", "11EC", "FC0", "FC0"],
+	"lt night focus" : ["1588", "13DC", "11EC", "FC0", "FC0"]
+}

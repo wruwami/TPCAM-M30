@@ -33,9 +33,12 @@ IndicatorCameraFocusWidget::IndicatorCameraFocusWidget(QWidget *parent) :
     ui->onePushTriggerPushButton->setText(LoadString("IDS_OPT"));
     ui->forcusDownPushButton->setText(LoadString("IDS_FOCUS_DOWN"));
     ui->forcusPlusPushButton->setText(LoadString("IDS_FOCUS_UP"));
+    ui->autoTriggerPushButton->setCheckable(true);
+//    ui->autoTriggerPushButton->setStyleSheet("background: transparent;");
 
     ui->focusLineEdit->SetMode(KeypadType);
     m_pAutoTriggerPushButton = ui->autoTriggerPushButton;
+    ui->distanceLabel->setStyleSheet("background: transparent;");
 
     connect(m_pserialViscaManager->getVisca_packet(), SIGNAL(sig_show_focus(QString)), this, SLOT(on_show_focus(QString)));
     connect(m_pserialLaserManager->getLaser_packet(), SIGNAL(sig_showDistance(float,int)), this, SLOT(showDistanceSensitivity(float, int)));
@@ -135,13 +138,13 @@ void IndicatorCameraFocusWidget::on_autoTriggerPushButton_clicked(bool checked)
     {
         m_pserialLaserManager->start_laser();
         m_pserialLaserManager->request_distance(true);
-        ui->autoTriggerPushButton->setStyleSheet("border : red;");
+        ui->autoTriggerPushButton->setStyleSheet("border-color : red;");
     }
     else
     {
         m_pserialLaserManager->stop_laser();
-        m_pserialLaserManager->request_distance(true);
-        ui->autoTriggerPushButton->setStyleSheet("border : blue;");
+        m_pserialLaserManager->request_distance(false);
+        ui->autoTriggerPushButton->setStyleSheet("border-color : blue;");
     }
 }
 

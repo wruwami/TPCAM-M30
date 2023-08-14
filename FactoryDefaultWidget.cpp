@@ -35,15 +35,18 @@ void FactoryDefaultWidget::MoveFactorySetting()
 
     foreach (QFileInfo item, dir.entryInfoList())
     {
+//        qDebug() << item.fileName();
+//        qDebug() << GeteMMCPath() + "/settings/factory/" +item.fileName();
+//        qDebug() << GeteMMCPath() + "/settings/" + item.fileName();
+        if (item.fileName() == "." || item.fileName() == "..")
+            continue;
+
         if (QFile::exists(GeteMMCPath() + "/settings/" + item.fileName()))
         {
             QFile::remove(GeteMMCPath() + "/settings/" + item.fileName());
         }
 
-        qDebug() << item.fileName();
-        if (item.fileName() == "." || item.fileName() == "..")
-            continue;
-        QFile::copy(GeteMMCPath() + "/settings/facetory" +item.fileName(), GeteMMCPath() + "/settings/" + item.fileName());
+        QFile::copy(GeteMMCPath() + "/settings/factory/" +item.fileName(), GeteMMCPath() + "/settings/" + item.fileName());
     }
 }
 

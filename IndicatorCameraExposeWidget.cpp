@@ -35,6 +35,11 @@ IndicatorCameraExposeWidget::IndicatorCameraExposeWidget(QWidget *parent) :
     {
         ui->daynNightComboBox->addItem(LoadString(dayNights[i].toStdString()));
     }
+    std::map<std::string, int> irisMap;
+    std::map<std::string, int> gainMap;
+    std::map<std::string, int> shutterSpeedMap;
+
+    std::vector<std::pair<std::string, int>> vec;
     ConfigManager gainCon = ConfigManager("Gain.json");
     QJsonObject object = gainCon.GetConfig();
 //    int count = object["count"].toInt();
@@ -92,7 +97,7 @@ IndicatorCameraExposeWidget::IndicatorCameraExposeWidget(QWidget *parent) :
     {
         std::string key = it.first;
         int value = it.second;
-
+    }
     m_serialViscaManager = g_pSerialViscaManager;
 
     for (int i = 0 ; i < 5 ; i++)

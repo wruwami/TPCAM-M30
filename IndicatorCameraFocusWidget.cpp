@@ -34,9 +34,10 @@ IndicatorCameraFocusWidget::IndicatorCameraFocusWidget(QWidget *parent) :
     ui->forcusDownPushButton->setText(LoadString("IDS_FOCUS_DOWN"));
     ui->forcusPlusPushButton->setText(LoadString("IDS_FOCUS_UP"));
     ui->autoTriggerPushButton->setCheckable(true);
+    ui->focusLineEdit->setAlignment(Qt::AlignCenter);
 //    ui->autoTriggerPushButton->setStyleSheet("background: transparent;");
 
-    ui->focusLineEdit->SetMode(KeypadType);
+    ui->focusLineEdit->SetMode(KeyboardType);
     m_pAutoTriggerPushButton = ui->autoTriggerPushButton;
     ui->distanceLabel->setStyleSheet("background: transparent;");
 
@@ -151,5 +152,11 @@ void IndicatorCameraFocusWidget::on_autoTriggerPushButton_clicked(bool checked)
 void IndicatorCameraFocusWidget::showDistanceSensitivity(float fSDistance, int nSensitivity)
 {
     ui->distanceLabel->setText(QString::number(getDistanceValue(fSDistance), 'f', 1) + distanceValue());
+}
+
+
+void IndicatorCameraFocusWidget::on_focusLineEdit_textChanged(const QString &arg1)
+{
+    m_pserialViscaManager->set_focus("0x"+arg1);
 }
 

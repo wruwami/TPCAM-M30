@@ -122,7 +122,7 @@ void IndicatorCameraFocusWidget::on_forcusPlusPushButton_clicked()
 void IndicatorCameraFocusWidget::on_show_focus(QString value)
 {
     m_FocusValue = value;
-    ui->focusLineEdit->setText(value);
+    ui->focusLineEdit->setText("0x"+value);
 }
 
 

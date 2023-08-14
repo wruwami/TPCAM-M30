@@ -7,6 +7,7 @@
 #include "SerialViscaManager.h"
 #include "SerialLaserManager.h"
 #include "SpeedUnitManager.h"
+#include "CustomLineEdit.h"
 
 extern SerialViscaManager* g_pSerialViscaManager;
 extern SerialLaserManager* g_pSerialLaserManager;
@@ -43,6 +44,7 @@ IndicatorCameraFocusWidget::IndicatorCameraFocusWidget(QWidget *parent) :
 
     connect(m_pserialViscaManager->getVisca_packet(), SIGNAL(sig_show_focus(QString)), this, SLOT(on_show_focus(QString)));
     connect(m_pserialLaserManager->getLaser_packet(), SIGNAL(sig_showDistance(float,int)), this, SLOT(showDistanceSensitivity(float, int)));
+    connect(ui->focusLineEdit, SIGNAL(sig_text(QString)), this, SLOT(on_test(QString)));
 //    ui->applyPushButton->setText(LoadString("IDS_APPLY"));
     m_pserialViscaManager->show_focusPosition();
 }
@@ -97,12 +99,10 @@ void IndicatorCameraFocusWidget::on_speedPushButton_clicked()
     accept();
 }
 
-
-
 void IndicatorCameraFocusWidget::on_onePushTriggerPushButton_clicked()
 {
-
     m_pserialViscaManager->set_AF_one_push_trigger();
+    m_pserialViscaManager->show_focusPosition();
 }
 
 
@@ -126,13 +126,6 @@ void IndicatorCameraFocusWidget::on_show_focus(QString value)
     ui->focusLineEdit->setText("0x"+value);
 }
 
-
-//void IndicatorCameraFocusWidget::on_applyPushButton_clicked()
-//{
-
-//}
-
-
 void IndicatorCameraFocusWidget::on_autoTriggerPushButton_clicked(bool checked)
 {
     if (checked)
@@ -154,9 +147,9 @@ void IndicatorCameraFocusWidget::showDistanceSensitivity(float fSDistance, int n
     ui->distanceLabel->setText(QString::number(getDistanceValue(fSDistance), 'f', 1) + distanceValue());
 }
 
-
-void IndicatorCameraFocusWidget::on_focusLineEdit_textChanged(const QString &arg1)
+void IndicatorCameraFocusWidget::on_test(QString value)
 {
-    m_pserialViscaManager->set_focus("0x"+arg1);
+    m_pserialViscaManager->set_focus(value);
+    m_pserialViscaManager->show_focusPosition();
 }
 

@@ -50,6 +50,7 @@ void CustomLineEdit::mousePressEvent(QMouseEvent *event)
         {
             this->setText(keyboardDialog.str());
             m_strText = keyboardDialog.str();
+            emit sig_text(keyboardDialog.str());
         }
     }
         break;
@@ -60,6 +61,7 @@ void CustomLineEdit::mousePressEvent(QMouseEvent *event)
         {
             this->setText(keypadDialog.str());
             m_strNum = keypadDialog.str();
+            emit sig_num(keypadDialog.str());
         }
 
     }

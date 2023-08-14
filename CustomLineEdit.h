@@ -27,6 +27,9 @@ private:
 protected:
     void resizeEvent(QResizeEvent *event);
     void mousePressEvent(QMouseEvent *event);
+signals:
+    void sig_text(QString);
+    void sig_num(QString);
 };
 
 #endif // CUSTOMLINEEDIT_H

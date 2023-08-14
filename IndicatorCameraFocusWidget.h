@@ -41,7 +41,7 @@ private slots:
 //    void on_applyPushButton_clicked();
     void on_autoTriggerPushButton_clicked(bool checked);
     void showDistanceSensitivity(float, int);
-    void on_focusLineEdit_textChanged(const QString &arg1);
+    void on_test(QString);
 };
 
 #endif // INDICATORCAMERAFOCUSWIDGET_H

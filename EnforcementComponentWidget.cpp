@@ -156,8 +156,13 @@ EnforcementComponentWidget::EnforcementComponentWidget(QWidget *parent) :
 
     startTimer(1000);
 
+
+
     m_nVModeSecond = ConfigManager("video_mode.json").GetConfig()["recoding minute"].toInt() * 60;
     connect(&m_VModeTimer, SIGNAL(timeout()), this, SLOT(VModeVideoSave()));
+
+    if (m_nEnforcementMode == V)
+        doVModeTimer(true);
 //    m_pSerialLaserManager->show_laser_info();
 #if DEBUG_MODE
     SaveImageVideo();
@@ -193,8 +198,6 @@ EnforcementComponentWidget::EnforcementComponentWidget(QWidget *parent) :
 
 EnforcementComponentWidget::~EnforcementComponentWidget()
 {
-    displayRedOutline(false);
-
     doReadyMode();
 
     doVModeTimer(false);
@@ -563,10 +566,8 @@ void EnforcementComponentWidget::doManualMode()
 
     // triggering
     doATMode();
-    doVModeTimer(true);
-    // release
-    doReadyMode();
-    doVModeTimer(false);
+//    // release
+//    doReadyMode();
 }
 
 void EnforcementComponentWidget::doReadyMode()
@@ -577,8 +578,6 @@ void EnforcementComponentWidget::doReadyMode()
     m_pSerialLaserManager->stop_laser();
     m_pSerialLaserManager->request_distance(false);
     m_hudManager.HUDClear();
-
-    displayRedOutline(false);
 
     disconnect(laser_packet, SIGNAL(sig_showCaptureSpeedDistance(float,float, int)), this, SLOT(on_showCaptureSpeedDistance(float,float, int)));
     disconnect(laser_packet, SIGNAL(sig_showSpeedDistance(float,float)), this, SLOT(on_showSpeedDistance(float,float)));
@@ -623,25 +622,25 @@ void EnforcementComponentWidget::displaySpeedDistance(float fSpeed, float fDista
     // REC
     ui->speedLabel->setColor(color);
     ui->speedLabel->setText(QString::number(getSpeedValue(fSpeed))+speedUnitValue());
-    if (nRec)
-    {
-        ui->recLabel->show();
-        ui->recIconLabel->show();
-    }
-    else
-    {
-        if (m_nEnforcementMode == V)
-        {
-            ui->recLabel->show();
-            ui->recIconLabel->show();
-        }
-        else
-        {
-            ui->recLabel->hide();
-            ui->recIconLabel->hide();
-        }
+//    if (nRec)
+//    {
+//        ui->recLabel->show();
+//        ui->recIconLabel->show();
+//    }
+//    else
+//    {
+//        if (m_nEnforcementMode == V)
+//        {
+//            ui->recLabel->show();
+//            ui->recIconLabel->show();
+//        }
+//        else
+//        {
+//            ui->recLabel->hide();
+//            ui->recIconLabel->hide();
+//        }
 
-    }
+//    }
 //    if (m_nEnforcementMode != V)
 //        QTimer::singleShot(500, this, SLOT(StopDisPlayRec()));
 }
@@ -889,14 +888,6 @@ void EnforcementComponentWidget::initRec()
     ui->recLabel->setColor(Qt::red);
     ui->recLabel->setText("IDS_REC");
     ui->recIconLabel->setImage("enforcement", "redcircle.png");
-    ui->recLabel->hide();
-    ui->recIconLabel->hide();
-
-    if (m_nEnforcementMode == V)
-    {
-        ui->recLabel->show();
-        ui->recIconLabel->show();
-    }
 }
 
 void EnforcementComponentWidget::setVehicleMode()
@@ -979,6 +970,7 @@ void EnforcementComponentWidget::doVModeTimer(bool bVModeTimerWorking)
         {
             m_VModeTimer.start(m_nVModeSecond * 1000);
             m_bVModeTimerWorking = true;
+            doEnforceMode(true);
         }
     }
     else
@@ -987,9 +979,28 @@ void EnforcementComponentWidget::doVModeTimer(bool bVModeTimerWorking)
         {
             m_VModeTimer.stop();
             m_bVModeTimerWorking = false;
+            doEnforceMode(false);
         }
     }
     return;
+}
+
+void EnforcementComponentWidget::doEnforceMode(bool bEnforced)
+{
+    if (bEnforced)
+    {
+        displayRedOutline(true);
+        ui->recLabel->show();
+        ui->recIconLabel->show();
+
+    }
+    else
+    {
+        displayRedOutline(false);
+        ui->recLabel->hide();
+        ui->recIconLabel->hide();
+
+    }
 }
 
 void EnforcementComponentWidget::setPSerialViscaManager(SerialViscaManager *newPSerialViscaManager)
@@ -1127,7 +1138,7 @@ void EnforcementComponentWidget::on_showCaptureSpeedDistance(float fSpeed, float
             // HUD에 속도 및 거리, REC 표시 출력
 //            displayHudSpeedDistance(true, true, true, true);
         //    빨간색 테두리 표시 등
-            displayRedOutline(true);
+            doEnforceMode(true);
 //
 
         //        이미지 또는 동영상을 설정대로 저장
@@ -1155,7 +1166,7 @@ void EnforcementComponentWidget::on_showCaptureSpeedDistance(float fSpeed, float
 //        HUD에 속도 및 거리 출력
 //        displayHudSpeedDistance(true, true, false, true);
 
-        displayRedOutline(false);
+        doEnforceMode(false);
 //        로그 저장
     }
 }
@@ -1170,7 +1181,7 @@ void EnforcementComponentWidget::on_showSpeedDistance(float fSpeed, float fDista
 //        HUD에 속도 및 거리 출력
 //    displayHudSpeedDistance(true, true, false, true);
 
-    displayRedOutline(false);
+    doEnforceMode(false);
 //        로그 저장
 
 }
@@ -1211,9 +1222,6 @@ void EnforcementComponentWidget::on_EnforceModeI()
     if (m_nEnforcementMode != I)
         g_nCrackDownIndex = 1;
     m_nEnforcementMode = I;
-    ui->recLabel->hide();
-    ui->recIconLabel->hide();
-    displayRedOutline(false);
     doVModeTimer(false);
 }
 
@@ -1222,9 +1230,6 @@ void EnforcementComponentWidget::on_EnforceModeA()
     if (m_nEnforcementMode != A)
         g_nCrackDownIndex = 1;
     m_nEnforcementMode = A;
-    ui->recLabel->hide();
-    ui->recIconLabel->hide();
-    displayRedOutline(false);
     doVModeTimer(false);
 }
 
@@ -1233,10 +1238,6 @@ void EnforcementComponentWidget::on_EnforceModeV()
     if (m_nEnforcementMode != V)
         g_nCrackDownIndex = 1;
     m_nEnforcementMode = V;
-
-    ui->recLabel->show();
-    ui->recIconLabel->show();
-    displayRedOutline(true);
 
     if (m_nMode == AT)
     {

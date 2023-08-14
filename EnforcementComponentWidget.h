@@ -86,6 +86,7 @@ private:
     void setVehicleMode();
     QString GetMode();
     void doVModeTimer(bool);
+    void doEnforceMode(bool);
 public:
     SerialLaserManager* m_pSerialLaserManager = nullptr;
     SerialViscaManager* m_pSerialViscaManager = nullptr;

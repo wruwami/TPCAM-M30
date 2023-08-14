@@ -132,6 +132,7 @@ private:
     int m_nVModeSecond = 60;
     bool m_bVModeTimerWorking = false;
     SdcardManager m_sdcardManager;
+    QPoint m_cross;
 
 protected slots:
     void on_hidePushButton_clicked();

@@ -149,6 +149,7 @@ void IndicatorCameraFocusWidget::showDistanceSensitivity(float fSDistance, int n
 
 void IndicatorCameraFocusWidget::on_test(QString value)
 {
+    ui->focusLineEdit->setText("0x"+value);
     m_pserialViscaManager->set_focus(value);
     m_pserialViscaManager->show_focusPosition();
 }

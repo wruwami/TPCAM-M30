@@ -149,6 +149,11 @@ EnforcementComponentWidget::EnforcementComponentWidget(QWidget *parent) :
             ui->zoomRangePushButton->setText(QString("%1%2").arg(m_ltfeetvector[m_nZoomIndex]).arg(SpeedUnitManager::GetInstance()->distance()));
     }
 
+    int x = ConfigManager("setting_reticle.json").GetConfig()["Camera reticle pos"].toArray()[0].toInt();
+    int y = ConfigManager("setting_reticle.json").GetConfig()["Camera reticle pos"].toArray()[1].toInt();
+    m_cross.setX(x);
+    m_cross.setY(y);
+
     startTimer(1000);
 
     m_nVModeSecond = ConfigManager("video_mode.json").GetConfig()["recoding minute"].toInt() * 60;
@@ -1043,6 +1048,11 @@ void EnforcementComponentWidget::paintEvent(QPaintEvent *event)
 
 
         }
+        QPen crossPen(Qt::white);
+        crossPen.setStyle(Qt::SolidLine);
+        crossPen.setWidth(10);
+
+
 }
 
 void EnforcementComponentWidget::on_zoomRangePushButton_clicked()

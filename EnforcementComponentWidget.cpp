@@ -161,8 +161,7 @@ EnforcementComponentWidget::EnforcementComponentWidget(QWidget *parent) :
     m_nVModeSecond = ConfigManager("video_mode.json").GetConfig()["recoding minute"].toInt() * 60;
     connect(&m_VModeTimer, SIGNAL(timeout()), this, SLOT(VModeVideoSave()));
 
-    if (m_nEnforcementMode == V)
-        doVModeTimer(true);
+    doEnforceMode(false);
 //    m_pSerialLaserManager->show_laser_info();
 #if DEBUG_MODE
     SaveImageVideo();
@@ -201,6 +200,8 @@ EnforcementComponentWidget::~EnforcementComponentWidget()
     doReadyMode();
 
     doVModeTimer(false);
+
+    doEnforceMode(false);
 //    emit ShowRedOutLine(false);
 //    if (m_pCamera)
 //    {

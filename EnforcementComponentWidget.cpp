@@ -973,7 +973,6 @@ void EnforcementComponentWidget::doVModeTimer(bool bVModeTimerWorking)
             m_VModeTimer.start(m_nVModeSecond * 1000);
             m_bVModeTimerWorking = true;
             doEnforceMode(true);
-            qDebug() << "doVModeTimer true";
         }
     }
     else
@@ -983,7 +982,6 @@ void EnforcementComponentWidget::doVModeTimer(bool bVModeTimerWorking)
             m_VModeTimer.stop();
             m_bVModeTimerWorking = false;
             doEnforceMode(false);
-            qDebug() << "doVModeTimer false";
         }
     }
     return;
@@ -1063,10 +1061,14 @@ void EnforcementComponentWidget::paintEvent(QPaintEvent *event)
 
 
         }
-//        QPen crossPen(Qt::white);
-//        crossPen.setStyle(Qt::SolidLine);
-//        crossPen.setWidth(10);
+        QPen crossPen(Qt::white);
+        crossPen.setStyle(Qt::SolidLine);
+        crossPen.setWidth(10);
+        QRect rect = QRect(width() / 2, height() / 2 + 10, 10, 30);
+        QRect rect2 = QRect(width() / 2 - 10, height() / 2, 10, 30);
 
+        painter.fillRect(rect, Qt::white);
+        painter.fillRect(rect2, Qt::white);
 
 }
 

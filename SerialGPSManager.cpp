@@ -96,6 +96,17 @@ QString SerialGPSManager::GetLongitude()
     return m_Longitude;
 }
 
+float SerialGPSManager::GetLatitudeValue()
+{
+    return m_fLatitude;
+}
+
+float SerialGPSManager::GetLongitudeValue()
+{
+    return m_fLongitude;
+}
+
+
 QString SerialGPSManager::GetSensitivity()
 {
     return m_sensitivity;
@@ -144,9 +155,12 @@ void SerialGPSManager::serial_received()
         QString date = splitted[9];
         m_DateTime = QDateTime::fromString(date+time, time_format);
         m_DateTime = m_DateTime.addYears(100);
+        m_fLatitude = changeMinuteToDegree(splitted[3]).toFloat();
+        m_fLongitude = changeMinuteToDegree(splitted[5]).toFloat();
 
         m_Latitude = splitted[4] + changeMinuteToDegree(splitted[3]);
         m_Longitude = splitted[6] + changeMinuteToDegree(splitted[5]);
+
         //TTFF 계산
 
         if((m_nTTFFFlag == 0) && (splitted[2] == "A"))

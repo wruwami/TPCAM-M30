@@ -28,6 +28,9 @@ public:
     int GetSatellitesInView();
     QString GetLatitude();
     QString GetLongitude();
+    float GetLatitudeValue();
+    float GetLongitudeValue();
+
     QString GetSensitivity();
     QString changeMinuteToDegree(QString Minute);
 private:
@@ -40,6 +43,9 @@ private:
     QString m_Latitude;
     QString m_Longitude;
     QString m_sensitivity;
+    float m_fLongitude;
+    float m_fLatitude;
+
 
 private:
     QSerialPort* m_pSerial;

@@ -473,27 +473,27 @@ void FileManagerWidget::on_datePushButton_clicked()
         {
         case I_MODE:
         {
-            path = "snapshot";
+            path = "/snapshot";
             break;
         }
         case A_MODE:
         {
-            path = "auto";
+            path = "/auto";
             break;
         }
         case V_MODE:
         {
-            path = "video";
+            path = "/video";
             break;
         }
         case M_MODE:
         {
-            path = "manual_capture";
+            path = "/manual_capture";
             break;
         }
         case S_MODE:
         {
-            path = "screen";
+            path = "/screen";
             break;
         }
 

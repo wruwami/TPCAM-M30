@@ -37,8 +37,6 @@ FileManagerFileTransferDialog::FileManagerFileTransferDialog(QList<AVFileFormat>
     sp_retain2.setRetainSizeWhenHidden(true);
     ui->oneProgressBar->setSizePolicy(sp_retain2);
 
-
-
     if (type == FileType)
     {
         ui->speedLabel->hide();

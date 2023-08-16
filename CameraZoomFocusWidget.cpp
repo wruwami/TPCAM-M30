@@ -181,11 +181,11 @@ void CameraZoomFocusWidget::on_dayComboBox_currentIndexChanged(int index)
         m_pSerialViscaManager->set_infrared_mode_on();
         object = m_object["Night"].toObject()["Normal"].toObject();
     }
+    m_pSerialViscaManager->set_AE_Mode(object["priority"].toString());
     m_pSerialViscaManager->set_iris(object["Iris"].toInt());
     m_pSerialViscaManager->set_shutter_speed(object["Shutter"].toInt());
     m_pSerialViscaManager->set_gain(object["Gain"].toInt());
     m_pSerialViscaManager->set_noise_reduction_on(object["DNR"].toString());
-    m_pSerialViscaManager->set_AE_Mode(object["priority"].toString());
     object["DIS"].toBool() ? m_pSerialViscaManager->set_DIS_on() : m_pSerialViscaManager->set_DIS_off();
     object["DEFOG"].toBool() ? m_pSerialViscaManager->set_defog_on() : m_pSerialViscaManager->set_defog_off();
     object["HLC"].toBool() ? m_pSerialViscaManager->set_HLC_on() : m_pSerialViscaManager->set_HLC_off();

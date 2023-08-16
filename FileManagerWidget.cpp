@@ -499,7 +499,7 @@ void FileManagerWidget::on_datePushButton_clicked()
 
         }
 
-        QString full_date_path = GetPath(path, eMMC) + "/" + date;
+        QString full_date_path = GetPath(path, SD) + "/" + date;
 
         ui->tableWidget->clear();
         m_avFileFormatList.clear();

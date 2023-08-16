@@ -38,27 +38,27 @@ FileManagerSnapShotDialog::FileManagerSnapShotDialog(int nMode, QWidget *parent)
     {
         case 0:
     {
-        folder_path = GetPath("snapshot/", SD);
+        folder_path = GetPath("/snapshot/", SD);
     }
         break;
     case 1:
     {
-        folder_path = GetPath("auto/", SD);
+        folder_path = GetPath("/auto/", SD);
     }
         break;
     case 2:
     {
-        folder_path = GetPath("video/", SD);
+        folder_path = GetPath("/video/", SD);
     }
         break;
     case 3:
     {
-        folder_path = GetPath("manual_capture/", SD);
+        folder_path = GetPath("/manual_capture/", SD);
     }
         break;
     case 4:
     {
-        folder_path = GetPath("screen/", SD);
+        folder_path = GetPath("/screen/", SD);
     }
         break;
 

@@ -259,7 +259,7 @@ void IndicatorCameraExposeWidget::on_daynNightComboBox_currentIndexChanged(int i
         break;
     }
 
-    m_serialViscaManager->set_AE_Mode(object["priority"].toString());
+    m_serialViscaManager->set_AE_Mode(object["Priority"].toString());
     m_serialViscaManager->set_iris(ret["Iris"].toInt());
     m_serialViscaManager->set_shutter_speed(ret["Shutter"].toInt());
     m_serialViscaManager->set_gain(ret["Gain"].toInt());

@@ -1864,7 +1864,7 @@ void SerialViscaManager::on_show_focus(QString focus)
 
 void SerialViscaManager::SetDayMode(QJsonObject object, bool bDay)
 {
-    set_AE_Mode(object["priority"].toString());
+    set_AE_Mode(object["Priority"].toString());
     set_iris(object["Iris"].toInt());
     set_shutter_speed(object["Shutter"].toInt());
     set_gain(object["Gain"].toInt());
@@ -1978,7 +1978,7 @@ void SerialViscaManager::SetDayMode(int index)
     }
         break;
     }    
-    set_AE_Mode(ret["priority"].toString());
+    set_AE_Mode(ret["Priority"].toString());
     set_iris(ret["Iris"].toInt());
     set_shutter_speed(ret["Shutter"].toInt());
     set_gain(ret["Gain"].toInt());

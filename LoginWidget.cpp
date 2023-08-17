@@ -128,7 +128,7 @@ void LoginWidget::on_loginPushButton_clicked()
 //    IndicatorWidget indicatorWidget;
 //    m_parent->ui->verticalLayout_2->addWidget(&indicatorWidget, 835);
 
-    if (m_StrKeyboard != "admin_test" && m_StrKeyboard != "admin_align" && m_StrKeyboard != "admin_vsg" && m_StrKeyboard != "admin_save")
+    if (m_StrKeyboard != "admin-test" && m_StrKeyboard != "admin-align" && m_StrKeyboard != "admin-vsg" && m_StrKeyboard != "admin-save")
     {
         m_config.SetConfig(m_jsonObject);
         m_config.SaveFile();

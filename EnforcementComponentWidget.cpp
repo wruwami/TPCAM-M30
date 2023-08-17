@@ -18,6 +18,7 @@
 
 extern int g_nCrackDownIndex;
 #define TRIGGER_FILE "/sys/class/gpio/gpio152/value"
+//#define TRIGGER_FILE "a.txt"
 
 #define DEBUG_MODE 0
 

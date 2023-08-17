@@ -144,7 +144,7 @@ private:
     SdcardManager m_sdcardManager;
     QPoint m_cross;
     QFileSystemWatcher m_fileSystemWatcher;
-    TriggerStatus m_triggerStatus = RELEASE;
+    TriggerStatus m_triggerStatus = SKIP;
 protected slots:
     void on_hidePushButton_clicked();
 //    void doShartAction();

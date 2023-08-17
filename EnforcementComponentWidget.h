@@ -13,6 +13,7 @@
 #include "FileManager.h"
 #include "HUDManager.h"
 #include "SdcardManager.h"
+#include <QFileSystemWatcher>
 
 enum Mode{
     Ready,
@@ -30,6 +31,11 @@ enum EnforcementMode{
     I = 0,
     A = 1,
     V = 2,
+};
+
+enum TriggerStatus{
+    RELEASE,
+    PRESS,
 };
 
 class SerialLaserManager;
@@ -87,6 +93,7 @@ private:
     QString GetMode();
     void doVModeTimer(bool);
     void doEnforceMode(bool);
+
 public:
     SerialLaserManager* m_pSerialLaserManager = nullptr;
     SerialViscaManager* m_pSerialViscaManager = nullptr;
@@ -134,7 +141,8 @@ private:
     bool m_bVModeTimerWorking = false;
     SdcardManager m_sdcardManager;
     QPoint m_cross;
-
+    QFileSystemWatcher m_fileSystemWatcher;
+    TriggerStatus m_triggerStatus = RELEASE;
 protected slots:
     void on_hidePushButton_clicked();
 //    void doShartAction();
@@ -154,6 +162,7 @@ protected slots:
     void on_EnforceModeI();
     void on_EnforceModeA();
     void on_EnforceModeV();
+    void do_FileSystemWatcher(const QString&);
 protected:
     void timerEvent(QTimerEvent *event);
     void paintEvent(QPaintEvent *event);

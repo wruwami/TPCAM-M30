@@ -17,6 +17,7 @@
 #include "BaseDialog.h"
 
 extern int g_nCrackDownIndex;
+#define TRIGGER_FILE "/sys/class/gpio/gpio152/value"
 
 #define DEBUG_MODE 0
 
@@ -563,12 +564,15 @@ void EnforcementComponentWidget::doATMode()
 
 void EnforcementComponentWidget::doManualMode()
 {
-//    displayRedOutline(false);
 
-    // triggering
-    doATMode();
+//    displayRedOutline(false);
+//
+    if (m_triggerStatus == PRESS)
+        doATMode();
+    else
+        doReadyMode();
 //    // release
-//    doReadyMode();
+//
 }
 
 void EnforcementComponentWidget::doReadyMode()
@@ -1089,13 +1093,17 @@ void EnforcementComponentWidget::on_readyPushButton_clicked()
     {
         ui->readyPushButton->setText(LoadString("IDS_AT"));
         m_nMode = AT;
+        disconnect(&m_fileSystemWatcher,SIGNAL(fileChanged(QString)),this,SLOT(do_FileSystemWatcher(QString)));
         doATMode();
+
     }
         break;
     case AT:
     {
         ui->readyPushButton->setText(LoadString("IDS_Manual"));
         m_nMode = Manual;
+        m_fileSystemWatcher.addPath(TRIGGER_FILE);
+        connect(&m_fileSystemWatcher,SIGNAL(fileChanged(QString)),this,SLOT(do_FileSystemWatcher(QString)));
         doManualMode();
     }
         break;
@@ -1103,6 +1111,7 @@ void EnforcementComponentWidget::on_readyPushButton_clicked()
     {
         ui->readyPushButton->setText(LoadString("IDS_Ready"));
         m_nMode = Ready;
+        disconnect(&m_fileSystemWatcher,SIGNAL(fileChanged(QString)),this,SLOT(do_FileSystemWatcher(QString)));
         doReadyMode();
     }
         break;
@@ -1252,6 +1261,35 @@ void EnforcementComponentWidget::on_EnforceModeV()
     {
         doVModeTimer(true);
     }
+}
+
+void EnforcementComponentWidget::do_FileSystemWatcher(const QString &path)
+{
+    QFile File(path);
+    QByteArray ba;
+    if(File.open(QFile::ReadOnly | QFile::Text))
+    {
+          ba = File.readAll();
+    }
+    else
+    {
+          qDebug()<<"ERROR:"<<File.errorString();
+    }
+
+    char value = ba[0];
+    if (value == '0')
+    {
+        m_triggerStatus = PRESS;
+    }
+    else
+    {
+        m_triggerStatus = RELEASE;
+    }
+
+    if (File.exists())
+        m_fileSystemWatcher.addPath(path);
+
+    File.close();
 }
 
 void EnforcementComponentWidget::timerEvent(QTimerEvent *event)
@@ -1435,4 +1473,3 @@ void EnforcementComponentWidget::VModeVideoSave()
 
     m_pCamera->SaveVideo(VV, enforceInfo, VIDEO);
 }
-

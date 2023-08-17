@@ -36,6 +36,7 @@ enum EnforcementMode{
 enum TriggerStatus{
     RELEASE,
     PRESS,
+    SKIP,
 };
 
 class SerialLaserManager;
@@ -137,6 +138,7 @@ private:
     EnforcementMode m_nEnforcementMode;
     bool m_bRedLine = false;
     QTimer m_VModeTimer;
+    QTimer m_ManualModeTimer;
     int m_nVModeSecond = 60;
     bool m_bVModeTimerWorking = false;
     SdcardManager m_sdcardManager;
@@ -183,9 +185,11 @@ private slots:
     void StopDisPlayRec();
     void StopDisPlayRedLine();
     void VModeVideoSave();
+    void on_ManualMode();
 signals:
     void ShowRedOutLine(bool);
     void sig_exit();
+    void sig_manual_exit();
 private:
     Ui::EnforcementComponentWidget *ui;
 };

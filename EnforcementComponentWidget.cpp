@@ -161,6 +161,7 @@ EnforcementComponentWidget::EnforcementComponentWidget(QWidget *parent) :
 
     m_nVModeSecond = ConfigManager("video_mode.json").GetConfig()["recoding minute"].toInt() * 60;
     connect(&m_VModeTimer, SIGNAL(timeout()), this, SLOT(VModeVideoSave()));
+    connect(&m_ManualModeTimer, SIGNAL(timeout()), this, SLOT(on_ManualMode()));
 
     doEnforceMode(false);
 //    m_pSerialLaserManager->show_laser_info();
@@ -567,10 +568,11 @@ void EnforcementComponentWidget::doManualMode()
 
 //    displayRedOutline(false);
 //
-    if (m_triggerStatus == PRESS)
-        doATMode();
-    else
-        doReadyMode();
+//    if (m_triggerStatus == PRESS)
+//        doATMode();
+//    else
+//        doReadyMode();
+    m_ManualModeTimer.start(1);
 //    // release
 //
 }
@@ -1109,6 +1111,7 @@ void EnforcementComponentWidget::on_readyPushButton_clicked()
         break;
     case Manual:
     {
+        m_ManualModeTimer.stop();
         ui->readyPushButton->setText(LoadString("IDS_Ready"));
         m_nMode = Ready;
         disconnect(&m_fileSystemWatcher,SIGNAL(fileChanged(QString)),this,SLOT(do_FileSystemWatcher(QString)));
@@ -1277,13 +1280,17 @@ void EnforcementComponentWidget::do_FileSystemWatcher(const QString &path)
     }
 
     char value = ba[0];
-    if (value == '0')
+    if (value == '0' && m_triggerStatus != PRESS)
     {
         m_triggerStatus = PRESS;
     }
-    else
+    else if (value == '1' && m_triggerStatus != RELEASE)
     {
         m_triggerStatus = RELEASE;
+    }
+    else
+    {
+        m_triggerStatus = SKIP;
     }
 
     if (File.exists())
@@ -1472,4 +1479,12 @@ void EnforcementComponentWidget::VModeVideoSave()
     enforceInfo.zoom_index = m_nZoomIndex;
 
     m_pCamera->SaveVideo(VV, enforceInfo, VIDEO);
+}
+
+void EnforcementComponentWidget::on_ManualMode()
+{
+    if (m_triggerStatus == PRESS)
+        doATMode();
+    else if (m_triggerStatus == RELEASE)
+        doReadyMode();
 }

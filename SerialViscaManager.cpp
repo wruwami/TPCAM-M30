@@ -1978,11 +1978,11 @@ void SerialViscaManager::SetDayMode(int index)
     }
         break;
     }    
-    set_AE_Mode(object["priority"].toString());
+    set_AE_Mode(ret["priority"].toString());
     set_iris(ret["Iris"].toInt());
     set_shutter_speed(ret["Shutter"].toInt());
     set_gain(ret["Gain"].toInt());
-    set_noise_reduction_on(object["DNR"].toString());
+    set_noise_reduction_on(ret["DNR"].toString());
     ret["DIS"].toBool() ? set_DIS_on() : set_DIS_off();
     ret["DEFOG"].toBool() ? set_defog_on() : set_defog_off();
     ret["HLC"].toBool() ? set_HLC_on() : set_HLC_off();

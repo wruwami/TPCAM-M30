@@ -1027,12 +1027,12 @@ void EnforcementComponentWidget::doPreManualMode()
     }
 
     char value = ba[0];
-    if (value == '0' && m_triggerStatus != PRESS)
+    if (value == '0')
     {
         m_triggerStatus = PRESS;
         doATMode();
     }
-    else if (value == '1' && m_triggerStatus != RELEASE)
+    else if (value == '1')
     {
         m_triggerStatus = RELEASE;
         doReadyMode();

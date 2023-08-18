@@ -580,6 +580,7 @@ void EnforcementComponentWidget::doATMode()
 
 void EnforcementComponentWidget::doReadyMode()
 {
+    doEnforceMode(false);
     doVModeTimer(false);
     SerialPacket* laser_packet = m_pSerialLaserManager->getLaser_packet();
 
@@ -1012,6 +1013,39 @@ void EnforcementComponentWidget::doEnforceMode(bool bEnforced)
     }
 }
 
+void EnforcementComponentWidget::doPreManualMode()
+{
+    QFile File(TRIGGER_FILE);
+    QByteArray ba;
+    if(File.open(QFile::ReadOnly | QFile::Text))
+    {
+          ba = File.readAll();
+    }
+    else
+    {
+          qDebug()<<"ERROR:"<<File.errorString();
+    }
+
+    char value = ba[0];
+    if (value == '0' && m_triggerStatus != PRESS)
+    {
+        m_triggerStatus = PRESS;
+        doATMode();
+    }
+    else if (value == '1' && m_triggerStatus != RELEASE)
+    {
+        m_triggerStatus = RELEASE;
+        doReadyMode();
+    }
+    else
+    {
+        m_triggerStatus = SKIP;
+    }
+
+    File.close();
+
+}
+
 void EnforcementComponentWidget::setPSerialViscaManager(SerialViscaManager *newPSerialViscaManager)
 {
     m_pSerialViscaManager = newPSerialViscaManager;
@@ -1105,6 +1139,7 @@ void EnforcementComponentWidget::on_readyPushButton_clicked()
     {
         ui->readyPushButton->setText(LoadString("IDS_Manual"));
         m_nMode = Manual;
+        doPreManualMode();
         m_fileSystemWatcher.addPath(TRIGGER_FILE);
         connect(&m_fileSystemWatcher,SIGNAL(fileChanged(QString)),this,SLOT(do_FileSystemWatcher(QString)));
 //        doManualMode();

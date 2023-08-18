@@ -94,6 +94,7 @@ private:
     QString GetMode();
     void doVModeTimer(bool);
     void doEnforceMode(bool);
+    void doPreManualMode();
 
 public:
     SerialLaserManager* m_pSerialLaserManager = nullptr;

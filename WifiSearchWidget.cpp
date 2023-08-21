@@ -45,6 +45,7 @@ void WifiSearchWidget::on_noPushButton_clicked()
 
 void WifiSearchWidget::timerEvent(QTimerEvent *event)
 {
+    ui->listWidget->clear();
     m_wifiList = m_networkAccessManager.findActiveWirelesses();
     ui->listWidget->addItems(m_wifiList);
 

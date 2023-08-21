@@ -13,6 +13,7 @@ public:
     void SetNetworkSetting();
     void SetWifiSSidnPW(QString, QString);
     QString getMacAddress(QString);
+    QString getMacAddress();
 
 private:
     void SetWifiStaMode();

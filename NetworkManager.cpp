@@ -104,6 +104,20 @@ QString NetworkManager::getMacAddress(QString deviceName)
     return QString();
 }
 
+QString NetworkManager::getMacAddress()
+{
+
+    foreach(QNetworkInterface netInterface, QNetworkInterface::allInterfaces())
+    {
+        // Return only the first non-loopback MAC Address
+        if (!(netInterface.flags() & QNetworkInterface::IsLoopBack))
+            if (netInterface.name() == "deviceName")
+                return netInterface.hardwareAddress();
+    }
+    return QString();
+}
+
+
 void NetworkManager::SetWifiStaMode()
 {
     QString gateway = m_wifi_jsonObject["ip"].toString();

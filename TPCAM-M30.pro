@@ -107,7 +107,8 @@ SOURCES += main.cpp\
     SearchBoxDialog.cpp \
     ltc2943.cpp \
     thermal_printer.cpp \
-    v4l2_thread.cpp
+    v4l2_thread.cpp \
+    wifi_scan.c
 
 
 HEADERS  += MainWindow.h \
@@ -209,7 +210,8 @@ HEADERS  += MainWindow.h \
     FileManagerFileTransferDialog.h \
     SearchBoxDialog.h \
     thermal_printer.h \
-    v4l2_thread.h
+    v4l2_thread.h \
+    wifi_scan.h
 
 FORMS    += MainWindow.ui \
     IndicatorCameraFocusWidget.ui \
@@ -282,7 +284,8 @@ unix:!macx: LIBS += -L/usr/local/lib/ \
         -lopencv_imgproc \
         -lopencv_objdetect \
         -lopencv_video \
-        -lopencv_videoio
+        -lopencv_videoio \
+        -lmnl
 
 INCLUDEPATH += /usr/local/include
 DEPENDPATH += /usr/local/include

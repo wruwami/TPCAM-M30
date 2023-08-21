@@ -17,8 +17,8 @@
 #include "BaseDialog.h"
 
 extern int g_nCrackDownIndex;
-#define TRIGGER_FILE "/sys/class/gpio/gpio152/value"
-//#define TRIGGER_FILE "a.txt"
+//#define TRIGGER_FILE "/sys/class/gpio/gpio152/value"
+#define TRIGGER_FILE "a.txt"
 
 #define DEBUG_MODE 0
 
@@ -973,7 +973,7 @@ QString EnforcementComponentWidget::GetMode()
 
 void EnforcementComponentWidget::doVModeTimer(bool bVModeTimerWorking)
 {
-    if (bVModeTimerWorking && m_nMode == AT)
+    if (bVModeTimerWorking && m_nMode != Ready)
     {
         if (!m_bVModeTimerWorking)
         {
@@ -1027,12 +1027,12 @@ void EnforcementComponentWidget::doPreManualMode()
     }
 
     char value = ba[0];
-    if (value == '0' && m_triggerStatus != PRESS)
+    if (value == '0')
     {
         m_triggerStatus = PRESS;
         doATMode();
     }
-    else if (value == '1' && m_triggerStatus != RELEASE)
+    else if (value == '1')
     {
         m_triggerStatus = RELEASE;
         doReadyMode();

@@ -12,8 +12,9 @@ public:
     ~NetworkManager();
     void SetNetworkSetting();
     void SetWifiSSidnPW(QString, QString);
-    QString getMacAddress(QString);
-    QString getMacAddress();
+    QString getHardwareAddress(QString);
+    QString getWlanAdapterName();
+    QString getLanAdapterName();
 
 private:
     void SetWifiStaMode();

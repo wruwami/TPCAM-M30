@@ -35,7 +35,7 @@ Setting4APWidget::Setting4APWidget(QWidget *parent) :
 
 //    ui->macAddressLineEdit->setText(m_jsonObject["mac address"].toString());
     NetworkManager networkManager;
-    networkManager.getMacAddress();
+    networkManager.getWlanAdapterName();
     ui->wifiSSIDnFTPlineEdit->setText(m_jsonObject["wiFi SSID"].toString());
     ui->ipLineEdit->setText(m_jsonObject["ip"].toString());
     ui->subnetMaskLineEdit->setText(m_jsonObject["subnet mask"].toString());

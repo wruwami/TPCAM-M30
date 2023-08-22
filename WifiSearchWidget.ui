@@ -26,7 +26,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QLineEdit" name="lineEdit"/>
+        <widget class="CustomLineEdit" name="lineEdit"/>
        </item>
        <item>
         <widget class="CustomPushButton" name="applyPushButton">
@@ -76,6 +76,11 @@
    <class>CustomLabel</class>
    <extends>QLabel</extends>
    <header>CustomLabel.h</header>
+  </customwidget>
+  <customwidget>
+   <class>CustomLineEdit</class>
+   <extends>QLineEdit</extends>
+   <header location="global">CustomLineEdit.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

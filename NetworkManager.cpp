@@ -4,13 +4,15 @@
 #include <QTextStream>
 #include <QNetworkInterface>
 #include <QNetworkConfiguration>
+#include <QNetworkConfigurationManager>
+#include <ifaddrs.h>
 
 
 #include "ConfigManager.h"
 
 #define NET_PATH   /etc/netplan/000-default.yaml
-#define WIFI_ADAPTER    wlx200db01ff154
-#define ETH_ADAPTER     eth0
+#define ETH_ADAPTER     "eth0"
+#define BUFF_SIZE 1024
 
 NetworkManager::NetworkManager()
 {
@@ -92,13 +94,10 @@ void NetworkManager::SetWifiSSidnPW(QString ssid, QString pw)
                         ").arg(gateway).arg(m_wifi_jsonObject["ip"].toString()).arg(GetSubNetMask(m_wifi_jsonObject["subnet mask"].toString())).arg(ssid).arg(pw));
 }
 
-QString NetworkManager::getMacAddress(QString deviceName)
+QString NetworkManager::getHardwareAddress(QString deviceName)
 {
-
     foreach(QNetworkInterface netInterface, QNetworkInterface::allInterfaces())
     {
-//        netInterface.name()
-        // Return only the first non-loopback MAC Address
         if (!(netInterface.flags() & QNetworkInterface::IsLoopBack))
             if (netInterface.name() == deviceName)
                 return netInterface.hardwareAddress();
@@ -106,31 +105,81 @@ QString NetworkManager::getMacAddress(QString deviceName)
     return QString();
 }
 
-QString NetworkManager::getMacAddress()
+QString NetworkManager::getWlanAdapterName()
 {
-    QStringList networkInterfaceList;
-    foreach(QNetworkInterface netInterface, QNetworkInterface::allInterfaces())
+
+//    struct ifaddrs *addrs;
+//     getifaddrs(&addrs);
+
+//     for (struct ifaddrs *addr = addrs; addr != nullptr; addr = addr->ifa_next) {
+//         if (addr->ifa_addr && addr->ifa_addr->sa_family == AF_PACKET) {
+//             qDebug() << addr->ifa_name;
+//         }
+//     }
+
+    QString strWlan;
+    char  buff[BUFF_SIZE];
+    FILE *fp;
+
+    fp = popen("iwconfig | grep WIFI | awk '{print $1}'", "r");
+    if (NULL == fp)
     {
-        // Return only the first non-loopback MAC Address
-        if (!(netInterface.flags() & QNetworkInterface::IsLoopBack))
+        perror("popen() 실패");
+        return "";
+    }
+
+    while (fgets(buff, BUFF_SIZE, fp))
+        printf("%s", buff);
+
+    QString ret(buff);
+    QStringList retList = ret.split("\n");
+    foreach (auto item, retList)
+    {
+        if (!item.contains("no wireless extensions.") && !item.isEmpty())
         {
-            networkInterfaceList.append(netInterface.name());
+            strWlan = item;
+            break;
         }
     }
 
-    QNetworkConfiguration networkConfiguration;
-    foreach (auto item, networkConfiguration.children())
-    {
-        if (networkInterfaceList.contains(item.name()))
-        {
-            if (item.bearerType() == QNetworkConfiguration::BearerWLAN)
-                return item.name();
-        }
-    }
+    pclose(fp);
 
-    return QString();
+    return strWlan;
+
+
+
+
+//     freeifaddrs(addrs);
+//    QStringList networkInterfaceList;
+//    foreach(QNetworkInterface netInterface, QNetworkInterface::allInterfaces())
+//    {
+//        // Return only the first non-loopback MAC Address
+//        if (!(netInterface.flags() & QNetworkInterface::IsLoopBack))
+//        {
+//            networkInterfaceList.append(netInterface.name());
+//        }
+//    }
+
+//    QNetworkConfigurationManager ncm;
+//    QList<QNetworkConfiguration> netcfg = ncm.allConfigurations();
+
+//    QNetworkConfiguration networkConfiguration;
+//    foreach (auto item, networkConfiguration.children())
+//    {
+//        if (networkInterfaceList.contains(item.name()))
+//        {
+//            if (item.bearerType() == QNetworkConfiguration::BearerWLAN)
+//                return item.name();
+//        }
+//    }
+
+    //    return QString();
 }
 
+QString NetworkManager::getLanAdapterName()
+{
+    return QString(ETH_ADAPTER);
+}
 
 void NetworkManager::SetWifiStaMode()
 {
@@ -139,14 +188,14 @@ void NetworkManager::SetWifiStaMode()
     gateway = stringList[0] + "." + stringList[1] + "." + stringList[2] + "." + "1";
 
     m_strNetPlan.append(QString("    wifis: \n\
-       wlx200db01ff154: \n\
+       %1: \n\
           dhcp4: no \n\
-          gateway4: %1 \n\
-          addresses: [%2/%3] \n\
+          gateway4: %2 \n\
+          addresses: [%3/%4] \n\
           access-points: \n\
-             \"%4\": \n\
-             password: \"%5\" \n\
-").arg(gateway).arg(m_wifi_jsonObject["ip"].toString()).arg(GetSubNetMask(m_wifi_jsonObject["subnet mask"].toString())).arg(m_wifi_jsonObject["sta ssid"].toString()).arg(m_wifi_jsonObject["sta ftp id & p/w"].toString()));
+             \"%5\": \n\
+             password: \"%6\" \n\
+").arg(getWlanAdapterName()).arg(gateway).arg(m_wifi_jsonObject["ip"].toString()).arg(GetSubNetMask(m_wifi_jsonObject["subnet mask"].toString())).arg(m_wifi_jsonObject["sta ssid"].toString()).arg(m_wifi_jsonObject["sta ftp id & p/w"].toString()));
 }
 
 void NetworkManager::SetWifiAPMode()

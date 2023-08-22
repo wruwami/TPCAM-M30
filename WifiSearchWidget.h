@@ -27,6 +27,7 @@ private:
     QDialog* m_pParent;
     NetworkAccessManager m_networkAccessManager;
     QStringList m_wifiList;
+    QString m_strFilter;
 protected:
     void timerEvent(QTimerEvent* event);
 };

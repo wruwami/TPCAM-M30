@@ -3,6 +3,7 @@
 #include <QFile>
 #include <QTextStream>
 #include <QNetworkInterface>
+#include <QNetworkConfiguration>
 
 
 #include "ConfigManager.h"
@@ -96,6 +97,7 @@ QString NetworkManager::getMacAddress(QString deviceName)
 
     foreach(QNetworkInterface netInterface, QNetworkInterface::allInterfaces())
     {
+//        netInterface.name()
         // Return only the first non-loopback MAC Address
         if (!(netInterface.flags() & QNetworkInterface::IsLoopBack))
             if (netInterface.name() == deviceName)
@@ -106,14 +108,26 @@ QString NetworkManager::getMacAddress(QString deviceName)
 
 QString NetworkManager::getMacAddress()
 {
-
+    QStringList networkInterfaceList;
     foreach(QNetworkInterface netInterface, QNetworkInterface::allInterfaces())
     {
         // Return only the first non-loopback MAC Address
         if (!(netInterface.flags() & QNetworkInterface::IsLoopBack))
-            if (netInterface.name() == "deviceName")
-                return netInterface.hardwareAddress();
+        {
+            networkInterfaceList.append(netInterface.name());
+        }
     }
+
+    QNetworkConfiguration networkConfiguration;
+    foreach (auto item, networkConfiguration.children())
+    {
+        if (networkInterfaceList.contains(item.name()))
+        {
+            if (item.bearerType() == QNetworkConfiguration::BearerWLAN)
+                return item.name();
+        }
+    }
+
     return QString();
 }
 

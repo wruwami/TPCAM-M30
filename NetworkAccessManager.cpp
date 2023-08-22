@@ -33,7 +33,6 @@ QStringList NetworkAccessManager::findActiveWirelesses()
     struct wifi_scan *wifi = wifi_scan_init("wlxe0e1a993b0fc");
 
     status=wifi_scan_all(wifi, bss, 10);
-    char* tmp;
     for(i=0;i<status && i<10;++i)
     {
         WiFisList.append(QString(bss[i].ssid));

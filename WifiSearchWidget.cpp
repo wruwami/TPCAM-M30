@@ -2,6 +2,7 @@
 #include "ui_WifiSearchWidget.h"
 
 #include <QDialog>
+#include <QListWidgetItem>
 
 #include "StringLoader.h"
 
@@ -36,6 +37,7 @@ void WifiSearchWidget::on_applyPushButton_clicked()
 
 void WifiSearchWidget::on_yesPushButton_clicked()
 {
+    emit sig_sendSSID(m_strSSID);
     m_pParent->accept();
 }
 
@@ -56,5 +58,12 @@ void WifiSearchWidget::timerEvent(QTimerEvent *event)
         ui->listWidget->clear();
     ui->listWidget->addItems(m_wifiList);
 
+}
+
+
+void WifiSearchWidget::on_listWidget_itemClicked(QListWidgetItem *item)
+{
+    m_strSSID = item->text();
+//    item
 }
 

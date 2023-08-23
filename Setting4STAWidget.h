@@ -30,10 +30,13 @@ private slots:
 
     void on_searchPushButton_clicked();
 
+    void on_wifiSSIDComboBox_currentIndexChanged(int index);
+
 private:
     QJsonObject m_jsonObject;
     QJsonObject m_newJsonObject;
     ConfigManager m_config = ConfigManager("parameter_setting4.json");
+    int m_nSSIDIndex = 0;
 protected slots:
     void on_sendSSID(QString);
 

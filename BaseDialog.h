@@ -41,6 +41,8 @@ public:
     virtual ~BaseDialog();
     void setAvFileFormatList(QList<AVFileFormat> avFileFormatList);
     void SetSelfTestResult(bool camera, bool laser, bool battery, bool storage);
+    QWidget *pWidget() const;
+
 private:
     void setSize(QSize size);
     void setSize(int w, int h);
@@ -53,6 +55,7 @@ private:
     bool m_isBattery;
     bool m_isStorage;
     QString m_strRet;
+//    QWidget* m_pWidget = nullptr;
 
     // QWidget interface
 protected:

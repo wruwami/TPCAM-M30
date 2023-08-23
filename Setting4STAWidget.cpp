@@ -44,6 +44,8 @@ Setting4STAWidget::Setting4STAWidget(QWidget *parent) :
     ui->ipLineEdit->setText(m_jsonObject["ip"].toString());
     ui->subnetMaskLineEdit->setText(m_jsonObject["subnet mask"].toString());
 
+
+
 }
 
 Setting4STAWidget::~Setting4STAWidget()
@@ -53,6 +55,13 @@ Setting4STAWidget::~Setting4STAWidget()
 
 void Setting4STAWidget::SaveConfig()
 {
+    QJsonArray ar = m_jsonObject["wiFi SSID"].toArray();
+    QJsonValue jv = ar[m_nSSIDIndex];
+    ar.removeAt(m_nSSIDIndex);
+    ar.insert(0, jv);
+    m_newJsonObject["wiFi SSID selection"] = 1;
+    m_newJsonObject["wiFi SSID"] = ar;
+
     m_config.SetConfig(m_newJsonObject);
     m_config.SaveFile();
 
@@ -90,15 +99,21 @@ void Setting4STAWidget::on_printerComboBox_currentIndexChanged(int index)
 
 void Setting4STAWidget::on_searchPushButton_clicked()
 {
-    WifiSearchWidget wifiSearchWidget;
-    BaseDialog baseDialog(Dialog::WifiSearchWidgetType, Qt::AlignmentFlag::AlignLeft, &wifiSearchWidget);
+    BaseDialog baseDialog(Dialog::WifiSearchWidgetType, Qt::AlignmentFlag::AlignLeft, this);
+    WifiSearchWidget* wifiSearchWidget = (WifiSearchWidget*)baseDialog.pWidget();
+    connect(wifiSearchWidget, SIGNAL(sig_sendSSID(QString)), this, SLOT(on_sendSSID(QString)));
     baseDialog.exec();
 
-//    connect();
 }
 
-void Setting4STAWidget::on_sendSSID(QString)
+void Setting4STAWidget::on_sendSSID(QString strSSID)
 {
+    ui->wifiSSIDComboBox->addItem(strSSID);
+}
 
+
+void Setting4STAWidget::on_wifiSSIDComboBox_currentIndexChanged(int index)
+{
+    m_nSSIDIndex = index;
 }
 

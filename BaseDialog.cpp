@@ -178,6 +178,15 @@ BaseDialog::BaseDialog(Dialog dialog, Qt::Alignment align, QString msg, bool isC
         setSize(1216, 694);
     }
         break;
+    case Dialog::WifiSearchWidgetType:
+    {
+        ui->verticalLayout->addWidget(new WifiSearchWidget(this));
+        ui->titleLabel->setText(LoadString("IDS_WIFI_SEARCH"));
+        ui->titleLabel->setAlignment(align);
+        setSize(1208, 635);
+    }
+        break;
+
     default:
     {
 //        throw std::not_implement
@@ -237,14 +246,6 @@ BaseDialog::BaseDialog(Dialog dialog, Qt::Alignment align, QWidget *pWidget, QWi
 
     switch (dialog)
     {
-    case Dialog::WifiSearchWidgetType:
-    {
-        ui->verticalLayout->addWidget(pWidget);
-        ui->titleLabel->setText(LoadString("IDS_WIFI_SEARCH"));
-        ui->titleLabel->setAlignment(align);
-        setSize(1208, 635);
-    }
-        break;
 
     }
 }
@@ -293,6 +294,11 @@ void BaseDialog::setSize(int w, int h)
 
 void BaseDialog::drawBorder(QRect rect)
 {
+}
+
+QWidget *BaseDialog::pWidget() const
+{
+    return ui->verticalLayout->widget();
 }
 
 

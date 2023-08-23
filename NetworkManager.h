@@ -11,7 +11,7 @@ public:
     NetworkManager(QString ssid, QString pw);
     ~NetworkManager();
     void SetNetworkSetting();
-    void SetWifiSSidnPW(QString, QString);
+//    void SetWifiSSidnPW(QString, QString);
     QString getHardwareAddress(QString);
     QString getWlanAdapterName();
     QString getLanAdapterName();

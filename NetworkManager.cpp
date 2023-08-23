@@ -22,19 +22,26 @@ NetworkManager::NetworkManager()
     ConfigManager eth_config = ConfigManager("parameter_setting5.json");
     m_eth_jsonObject = eth_config.GetConfig();
 
+    bool bEnableWifi = false;
+    if (ConfigManager("parameter_setting5.json").GetConfig()["wifi select"].toInt() == 1)
+        bEnableWifi = true;
+
     m_strNetPlan = "network: \n\
     version: 2 \n\
     renderer: NetworkManager\n";
 
-     SetEtherNet();
+    SetEtherNet();
 
-    if(m_wifi_jsonObject["wifi_mode"].toString() == "STA")
+    if (bEnableWifi)
     {
-        SetWifiStaMode();
-    }
-    else
-    {
-        SetWifiAPMode();
+        if(m_wifi_jsonObject["wifi_mode"].toString() == "STA")
+        {
+            SetWifiStaMode();
+        }
+        else
+        {
+            SetWifiAPMode();
+        }
     }
 }
 
@@ -77,22 +84,22 @@ void NetworkManager::SetNetworkSetting()
 
 }
 
-void NetworkManager::SetWifiSSidnPW(QString ssid, QString pw)
-{
-    QString gateway = m_wifi_jsonObject["ip"].toString();
-    QStringList stringList = gateway.split(".");
-    gateway = stringList[0] + "." + stringList[1] + "." + stringList[2] + "." + "1";
+//void NetworkManager::SetWifiSSidnPW(QString ssid, QString pw)
+//{
+//    QString gateway = m_wifi_jsonObject["ip"].toString();
+//    QStringList stringList = gateway.split(".");
+//    gateway = stringList[0] + "." + stringList[1] + "." + stringList[2] + "." + "1";
 
-    m_strNetPlan.append(QString("    wifis: \n\
-       wlx200db01ff154: \n\
-          dhcp4: no \n\
-          gateway4: %1 \n\
-          addresses: [%2/%3] \n\
-          access-points: \n\
-             \"%4\": \n\
-             password: \"%5\" \n\
-                        ").arg(gateway).arg(m_wifi_jsonObject["ip"].toString()).arg(GetSubNetMask(m_wifi_jsonObject["subnet mask"].toString())).arg(ssid).arg(pw));
-}
+//    m_strNetPlan.append(QString("    wifis: \n\
+//       wlx200db01ff154: \n\
+//          dhcp4: no \n\
+//          gateway4: %1 \n\
+//          addresses: [%2/%3] \n\
+//          access-points: \n\
+//             \"%4\": \n\
+//             password: \"%5\" \n\
+//                        ").arg(gateway).arg(m_wifi_jsonObject["ip"].toString()).arg(GetSubNetMask(m_wifi_jsonObject["subnet mask"].toString())).arg(ssid).arg(pw));
+//}
 
 QString NetworkManager::getHardwareAddress(QString deviceName)
 {
@@ -205,7 +212,7 @@ void NetworkManager::SetWifiAPMode()
     gateway = stringList[0] + "." + stringList[1] + "." + stringList[2] + "." + "1";
 
     m_strNetPlan.append(QString("    wifis: \n\
-       wlx200db01ff154: \n\
+       %1: \n\
           dhcp4: no \n\
           gateway4: %1 \n\
           addresses: [%2/%3] \n\
@@ -213,7 +220,7 @@ void NetworkManager::SetWifiAPMode()
              \"%4\": \n\
              password: \"%5\" \n\
              mode: ap \
-").arg(gateway).arg(m_wifi_jsonObject["ip"].toString()).arg(GetSubNetMask(m_wifi_jsonObject["subnet mask"].toString())).arg(m_wifi_jsonObject["sta ssid"].toString()).arg(m_wifi_jsonObject["sta ftp id & p/w"].toString()));
+").arg(getWlanAdapterName()).arg(gateway).arg(m_wifi_jsonObject["ip"].toString()).arg(GetSubNetMask(m_wifi_jsonObject["subnet mask"].toString())).arg(m_wifi_jsonObject["sta ssid"].toString()).arg(m_wifi_jsonObject["sta ftp id & p/w"].toString()));
 }
 
 void NetworkManager::SetEtherNet()

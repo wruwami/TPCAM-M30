@@ -5,6 +5,7 @@
 #include <QJsonArray>
 
 #include "StringLoader.h"
+#include "NetworkManager.h"
 
 Setting5Widget::Setting5Widget(QWidget *parent) :
     QWidget(parent),
@@ -35,6 +36,7 @@ Setting5Widget::Setting5Widget(QWidget *parent) :
     ui->dnsServerLineEdit->SetMode(Mode::KeypadType);
 
 
+
 }
 
 Setting5Widget::~Setting5Widget()
@@ -53,6 +55,8 @@ void Setting5Widget::setDHCPMode()
 {
     ui->IpLabel->setText(LoadString("IDS_MAC_ADDRESS"));
     ui->ipLineEdit->setDisabled(true);
+    NetworkManager networkManager;
+    ui->ipLineEdit->setText(networkManager.getHardwareAddress(networkManager.getLanAdapterName()));
     ui->gatewayLabel->hide();
     ui->subnetMaskLabel->hide();
     ui->dnsServerLabel->hide();
@@ -79,6 +83,7 @@ void Setting5Widget::setManualMode()
 //        delete ui->gridLayout->itemAtPosition(7, 1)->widget();
     }
     ui->ipLineEdit->setDisabled(false);
+    ui->ipLineEdit->clear();
     ui->gatewayLabel->show();
     ui->subnetMaskLabel->show();
     ui->dnsServerLabel->show();

@@ -122,14 +122,6 @@ BaseDialog::BaseDialog(Dialog dialog, Qt::Alignment align, QString msg, bool isC
         setSize(1139, 600);
     }
         break;
-    case Dialog::WifiSearchWidgetType:
-    {
-        ui->verticalLayout->addWidget(new WifiSearchWidget(this));
-        ui->titleLabel->setText(LoadString("IDS_WIFI_SEARCH"));
-        ui->titleLabel->setAlignment(align);
-        setSize(1208, 635);
-    }
-        break;
     case Dialog::BluetoothSearchFilterWidgetType:
     {
         ui->verticalLayout->addWidget(new BluetoothSearchFilterWidget(this));
@@ -226,6 +218,35 @@ BaseDialog::BaseDialog(Dialog dialog, Status isCamera, Status isLaser, Status is
     }
 
     //    if (isClosebutton)
+}
+
+BaseDialog::BaseDialog(Dialog dialog, Qt::Alignment align, QWidget *pWidget, QWidget *parent) :
+    QDialog(parent),
+    ui(new Ui::BaseDialog)
+{
+    ui->setupUi(this);
+
+    this->setWindowFlags( Qt::Dialog | Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint);
+//    this->setWindowFlags(Qt::CustomizeWindowHint);
+//    this->setStyleSheet("{border-width: 5px; border-style: solid; border-color: black; background-color : #d9d9d9;}");
+//    this->setAttribute(Qt::WA_StyledBackground);
+
+    ui->closePushButton->hide();
+
+    align |= Qt::AlignVCenter;
+
+    switch (dialog)
+    {
+    case Dialog::WifiSearchWidgetType:
+    {
+        ui->verticalLayout->addWidget(pWidget);
+        ui->titleLabel->setText(LoadString("IDS_WIFI_SEARCH"));
+        ui->titleLabel->setAlignment(align);
+        setSize(1208, 635);
+    }
+        break;
+
+    }
 }
 
 BaseDialog::~BaseDialog()

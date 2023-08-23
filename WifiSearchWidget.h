@@ -30,6 +30,9 @@ private:
     QString m_strFilter;
 protected:
     void timerEvent(QTimerEvent* event);
+
+signals:
+    void sig_sendSSID(QString);
 };
 
 #endif // WIFISEARCHWIDGET_H

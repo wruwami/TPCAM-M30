@@ -36,7 +36,8 @@ class BaseDialog : public QDialog
 
 public:
     explicit BaseDialog(Dialog, Qt::Alignment = Qt::AlignmentFlag::AlignLeft, QString = "", bool = false, QString title_text = "", QWidget *parent = 0);
-    BaseDialog(Dialog, Status, Status, Status, Status, Qt::Alignment = Qt::AlignmentFlag::AlignLeft, QWidget *parent = 0);
+    explicit BaseDialog(Dialog, Status, Status, Status, Status, Qt::Alignment = Qt::AlignmentFlag::AlignLeft, QWidget *parent = 0);
+    explicit BaseDialog(Dialog, Qt::Alignment = Qt::AlignmentFlag::AlignLeft, QWidget* pWidget = nullptr, QWidget *parent = 0);
     virtual ~BaseDialog();
     void setAvFileFormatList(QList<AVFileFormat> avFileFormatList);
     void SetSelfTestResult(bool camera, bool laser, bool battery, bool storage);
@@ -51,6 +52,7 @@ private:
     bool m_isLaser;
     bool m_isBattery;
     bool m_isStorage;
+    QString m_strRet;
 
     // QWidget interface
 protected:

@@ -7,6 +7,9 @@
 #include "BaseDialog.h"
 #include "KeyboardDialog.h"
 
+#include "NetworkManager.h"
+#include "WifiSearchWidget.h"
+
 Setting4STAWidget::Setting4STAWidget(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::Setting4STAWidget)
@@ -40,6 +43,7 @@ Setting4STAWidget::Setting4STAWidget(QWidget *parent) :
     ui->FTPIDPWLineEdit->setText(m_jsonObject["sta ftp id & p/w"].toString());
     ui->ipLineEdit->setText(m_jsonObject["ip"].toString());
     ui->subnetMaskLineEdit->setText(m_jsonObject["subnet mask"].toString());
+
 }
 
 Setting4STAWidget::~Setting4STAWidget()
@@ -86,7 +90,15 @@ void Setting4STAWidget::on_printerComboBox_currentIndexChanged(int index)
 
 void Setting4STAWidget::on_searchPushButton_clicked()
 {
-    BaseDialog baseDialog(Dialog::WifiSearchWidgetType, Qt::AlignmentFlag::AlignLeft, "");
+    WifiSearchWidget wifiSearchWidget;
+    BaseDialog baseDialog(Dialog::WifiSearchWidgetType, Qt::AlignmentFlag::AlignLeft, &wifiSearchWidget);
     baseDialog.exec();
+
+//    connect();
+}
+
+void Setting4STAWidget::on_sendSSID(QString)
+{
+
 }
 

@@ -34,6 +34,8 @@ private:
     QJsonObject m_jsonObject;
     QJsonObject m_newJsonObject;
     ConfigManager m_config = ConfigManager("parameter_setting4.json");
+protected slots:
+    void on_sendSSID(QString);
 
 private:
     Ui::Setting4STAWidget *ui;

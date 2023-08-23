@@ -35,11 +35,16 @@ private slots:
 private:
     QJsonObject m_jsonObject;
     QJsonObject m_newJsonObject;
+    QJsonObject m_passwordjsonObject;
     ConfigManager m_config = ConfigManager("parameter_setting4.json");
+    ConfigManager m_config2 = ConfigManager("setting_password.json");
     int m_nSSIDIndex = 0;
+    bool m_bSearching = false;
+    bool m_bPasswordChanging = false;
+    QString m_strNewPassword;
 protected slots:
     void on_sendSSID(QString);
-
+    void on_sendPW(QString);
 private:
     Ui::Setting4STAWidget *ui;
 };

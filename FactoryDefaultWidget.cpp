@@ -56,7 +56,7 @@ void FactoryDefaultWidget::on_okPushButton_clicked()
     QJsonObject object = config.GetConfig();
     if (object["password"].toString() == ui->lineEdit->GetString())
     {
-        MoveFactorySetting();
+//        MoveFactorySetting();
         m_pParent->accept();
     }
 }

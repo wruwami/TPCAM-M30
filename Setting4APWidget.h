@@ -32,9 +32,13 @@ private:
     QJsonObject m_jsonObject;
     QJsonObject m_newJsonObject;
     ConfigManager m_config = ConfigManager("parameter_setting4.json");
-
+//    bool m_bNetworkPassword;
+    bool m_bPasswordChanging = false;
+    QString m_strNewPassword;
 private:
     Ui::Setting4APWidget *ui;
+protected slots:
+    void on_sendPW(QString);
 };
 
 #endif // SETTING4APWIDGET_H

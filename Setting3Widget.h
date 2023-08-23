@@ -33,12 +33,19 @@ private slots:
 public:
     CustomPushButton* m_pSystemInfoButton;
 private:
+    bool m_bFactoryDefault = false;
+    bool m_bPasswordChanging = false;
+    QString m_strNewPassword;
+private:
     QJsonObject m_jsonObject;
     QJsonObject m_newJsonObject;
     ConfigManager m_config = ConfigManager("parameter_setting3.json");
 
 private:
     Ui::Setting3Widget *ui;
+
+protected slots:
+    void on_sendPW(QString);
 };
 
 #endif // SETTING3WIDGET_H

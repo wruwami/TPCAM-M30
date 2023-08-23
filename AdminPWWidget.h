@@ -23,6 +23,8 @@ private slots:
 private:
     Ui::AdminPWWidget *ui;
     QDialog* m_pParent;
+//signals:
+//    void sig_sendPW(QString);
 };
 
 #endif // ADMINPWWIDGET_H

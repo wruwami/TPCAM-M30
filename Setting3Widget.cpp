@@ -8,6 +8,8 @@
 #include "SpeedUnitManager.h"
 
 #include "CustomPushButton.h"
+#include "FactoryDefaultWidget.h"
+#include "PasswordChangingWidget.h"
 
 Setting3Widget::Setting3Widget(QWidget *parent) :
     QWidget(parent),
@@ -69,6 +71,21 @@ Setting3Widget::~Setting3Widget()
 
 void Setting3Widget::SaveConfig()
 {
+    if (m_bFactoryDefault)
+    {
+        FactoryDefaultWidget factoryDefaultWidget;
+        factoryDefaultWidget.MoveFactorySetting();
+    }
+
+    if (m_bPasswordChanging)
+    {
+        ConfigManager config = ConfigManager("setting_password.json");
+        QJsonObject object = config.GetConfig();
+        object["password"] = m_strNewPassword;
+        config.SetConfig(object);
+        config.SaveFile();
+    }
+
     m_config.SetConfig(m_newJsonObject);
     m_config.SaveFile();
 
@@ -93,7 +110,14 @@ void Setting3Widget::on_showInfoPushButton_clicked()
 void Setting3Widget::on_factoryDefaultPushButton_clicked()
 {
     BaseDialog baseDialog(Dialog::Setting3FactoryDefaultWidgetType, Qt::AlignmentFlag::AlignLeft, LoadString("IDS_ARE_U_SURE_FACTORY_DEFAULT"));
-    baseDialog.exec();
+    if (baseDialog.exec() == QDialog::Accepted)
+    {
+        m_bFactoryDefault = true;
+    }
+    else
+    {
+        m_bFactoryDefault = false;
+    }
 }
 
 void Setting3Widget::on_adminPWPushButton_clicked()
@@ -101,8 +125,16 @@ void Setting3Widget::on_adminPWPushButton_clicked()
     BaseDialog baseDialog(Dialog::AdminPWWidgetType, Qt::AlignmentFlag::AlignLeft, LoadString("IDS_PLEASE_INPUT_PW"));
     if (baseDialog.exec() == QDialog::Accepted)
     {
-        BaseDialog baseDialog(Dialog::PasswordChangingWidgetType, Qt::AlignmentFlag::AlignCenter, 0);
-        baseDialog.exec();
+        BaseDialog baseDialog(Dialog::PasswordChangingWidgetType, Qt::AlignmentFlag::AlignCenter, "");
+        connect((PasswordChangingWidget*)baseDialog.pWidget(), SIGNAL(sig_sendPW(QString)), this, SLOT(on_sendPW(QString)));
+        if (baseDialog.exec() == QDialog::Accepted)
+        {
+            m_bPasswordChanging = true;
+        }
+        else
+        {
+            m_bPasswordChanging = false;
+        }
     }
 }
 
@@ -120,3 +152,9 @@ void Setting3Widget::on_dateFormatComboBox_currentIndexChanged(int index)
 {
     m_newJsonObject["date format selection"] = index + 1;
 }
+
+void Setting3Widget::on_sendPW(QString str)
+{
+    m_strNewPassword = str;
+}
+

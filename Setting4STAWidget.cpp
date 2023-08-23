@@ -9,6 +9,7 @@
 
 #include "NetworkManager.h"
 #include "WifiSearchWidget.h"
+#include "PasswordChangingWidget.h"
 
 Setting4STAWidget::Setting4STAWidget(QWidget *parent) :
     QWidget(parent),
@@ -18,6 +19,7 @@ Setting4STAWidget::Setting4STAWidget(QWidget *parent) :
 
     m_jsonObject = m_config.GetConfig();
     m_newJsonObject = m_jsonObject;
+    m_passwordjsonObject = m_config.GetConfig();
 
     ui->searchPushButton->setText(LoadString("IDS_SEARCH"));
     ui->wifiSSIDLabel->setText(LoadString("IDS_WIFI_SSID"));
@@ -31,7 +33,14 @@ Setting4STAWidget::Setting4STAWidget(QWidget *parent) :
 //    ui->printerComboBox->addItem(LoadString("IDS_THERMAL_WOOSIM"));
 //    ui->printerComboBox->addItem(LoadString("IDS_BT_HP"));
 
-    ui->wifiSSIDComboBox->addItem(m_jsonObject["sta ssid"].toString());
+    QJsonArray ar = m_jsonObject["sta ssid"].toArray();
+    foreach(auto item, ar)
+    {
+        ui->wifiSSIDComboBox->addItem(item.toString());
+    }
+
+    ui->wifiSSIDComboBox->setCurrentIndex(0);
+
 
     foreach (QJsonValue json, m_jsonObject["printer items"].toArray())
     {
@@ -55,13 +64,25 @@ Setting4STAWidget::~Setting4STAWidget()
 
 void Setting4STAWidget::SaveConfig()
 {
-    QJsonArray ar = m_jsonObject["wiFi SSID"].toArray();
-    QJsonValue jv = ar[m_nSSIDIndex];
-    ar.removeAt(m_nSSIDIndex);
-    ar.insert(0, jv);
-    m_newJsonObject["wiFi SSID selection"] = 1;
-    m_newJsonObject["wiFi SSID"] = ar;
+    if (m_bSearching)
+    {
+        QJsonArray ar = m_jsonObject["sta ssid"].toArray();
+        QJsonValue jv = ar[m_nSSIDIndex];
+        ar.removeAt(m_nSSIDIndex);
+        ar.insert(0, jv);
+        m_newJsonObject["sta ssid selection"] = 1;
+        m_newJsonObject["sta ssid"] = ar;
+    }
 
+    if (m_bPasswordChanging)
+    {
+        ConfigManager config = ConfigManager("setting_password.json");
+        QJsonObject object = config.GetConfig();
+        object["network password"] = m_strNewPassword;
+        config.SaveFile();
+    }
+
+    m_config.SaveFile();
     m_config.SetConfig(m_newJsonObject);
     m_config.SaveFile();
 
@@ -69,10 +90,20 @@ void Setting4STAWidget::SaveConfig()
 
 void Setting4STAWidget::on_pwPushButton_clicked()
 {
-    KeyboardDialog keyboardDialog(GetLanguage());
-    if (keyboardDialog.exec() == QDialog::Accepted)
+//    KeyboardDialog keyboardDialog(GetLanguage());
+//    if (keyboardDialog.exec() == QDialog::Accepted)
+//    {
+//        m_passwordjsonObject["network password"] = keyboardDialog.str();
+//    }
+    BaseDialog baseDialog(Dialog::NetworkPasswordChangingWidgetType, Qt::AlignmentFlag::AlignCenter, "", false, LoadString("IDS_NETWORK_PASSWORD"));
+    connect((PasswordChangingWidget*)baseDialog.pWidget(), SIGNAL(sig_sendPW(QString)), this, SLOT(on_sendPW(QString)));
+    if (baseDialog.exec() == QDialog::Accepted)
     {
-        m_newJsonObject["sta ftp p/w"] = keyboardDialog.str();
+        m_bPasswordChanging = true;
+    }
+    else
+    {
+        m_bPasswordChanging = false;
     }
 }
 
@@ -100,15 +131,41 @@ void Setting4STAWidget::on_printerComboBox_currentIndexChanged(int index)
 void Setting4STAWidget::on_searchPushButton_clicked()
 {
     BaseDialog baseDialog(Dialog::WifiSearchWidgetType, Qt::AlignmentFlag::AlignLeft, this);
-    WifiSearchWidget* wifiSearchWidget = (WifiSearchWidget*)baseDialog.pWidget();
-    connect(wifiSearchWidget, SIGNAL(sig_sendSSID(QString)), this, SLOT(on_sendSSID(QString)));
-    baseDialog.exec();
+//    WifiSearchWidget* wifiSearchWidget = ();
+    connect((WifiSearchWidget*)baseDialog.pWidget(), SIGNAL(sig_sendSSID(QString)), this, SLOT(on_sendSSID(QString)));
+    if (baseDialog.exec() == QDialog::Accepted)
+    {
+        m_bSearching = true;
+    }
+    else
+    {
+        m_bSearching = false;
+    }
 
 }
 
 void Setting4STAWidget::on_sendSSID(QString strSSID)
 {
-    ui->wifiSSIDComboBox->addItem(strSSID);
+    ui->wifiSSIDComboBox->removeItem(4);
+    ui->wifiSSIDComboBox->insertItem(0, strSSID);
+
+    QJsonArray array = m_jsonObject["sta ssid"].toArray();
+    while(array.count()) {
+        array.pop_back();
+    }
+    for (int i = 0 ; i < ui->wifiSSIDComboBox->count() ; i++)
+    {
+        array.push_back(ui->wifiSSIDComboBox->itemText(i));
+    }
+    m_jsonObject["sta ssid"] = array;
+    m_newJsonObject["sta ssid"] = m_jsonObject["sta ssid"];
+
+    ui->wifiSSIDComboBox->setCurrentIndex(0);
+}
+
+void Setting4STAWidget::on_sendPW(QString pw)
+{
+    m_strNewPassword = pw;
 }
 
 

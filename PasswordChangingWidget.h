@@ -12,7 +12,7 @@ class PasswordChangingWidget : public QWidget
     Q_OBJECT
 
 public:
-    explicit PasswordChangingWidget(QWidget *parent = 0);
+    explicit PasswordChangingWidget(bool, QWidget *parent = 0);
     ~PasswordChangingWidget();
 private:
     QDialog* m_pParent;
@@ -23,6 +23,9 @@ private slots:
 
 private:
     Ui::PasswordChangingWidget *ui;
+    bool m_bNetwork;
+signals:
+    void sig_sendPW(QString);
 };
 
 #endif // PASSWORDCHANGINGWIDGET_H

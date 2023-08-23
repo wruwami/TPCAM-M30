@@ -5,6 +5,7 @@
 
 #include "BaseDialog.h"
 #include "NetworkManager.h"
+#include "PasswordChangingWidget.h"
 
 Setting4APWidget::Setting4APWidget(QWidget *parent) :
     QWidget(parent),
@@ -51,6 +52,13 @@ Setting4APWidget::~Setting4APWidget()
 
 void Setting4APWidget::SaveConfig()
 {
+    if (m_bPasswordChanging)
+    {
+        ConfigManager config = ConfigManager("setting_password.json");
+        QJsonObject object = config.GetConfig();
+        object["network password"] = m_strNewPassword;
+        config.SaveFile();
+    }
     m_config.SetConfig(m_newJsonObject);
     m_config.SaveFile();
 
@@ -58,8 +66,18 @@ void Setting4APWidget::SaveConfig()
 
 void Setting4APWidget::on_pwPushButton_clicked()
 {
-    BaseDialog baseDialog(Dialog::AdminPWWidgetType, Qt::AlignmentFlag::AlignVCenter, LoadString("IDS_PLEASE_INPUT_NETWORK_PASSWORD"));
-    baseDialog.exec();
+    BaseDialog baseDialog(Dialog::NetworkPasswordChangingWidgetType, Qt::AlignmentFlag::AlignCenter, "", false, LoadString("IDS_NETWORK_PASSWORD"));
+    connect((PasswordChangingWidget*)baseDialog.pWidget(), SIGNAL(sig_sendPW(QString)), this, SLOT(on_sendPW(QString)));
+    if (baseDialog.exec() == QDialog::Accepted)
+    {
+        m_bPasswordChanging = true;
+    }
+    else
+    {
+        m_bPasswordChanging = false;
+    }
+//    connect((PasswordChanging)baseDialog.pWidget(), SIGNAL())
+
 }
 
 void Setting4APWidget::on_wifiSSIDnFTPlineEdit_textChanged(const QString &arg1)
@@ -80,4 +98,9 @@ void Setting4APWidget::on_subnetMaskLineEdit_textChanged(const QString &arg1)
 void Setting4APWidget::on_printerComboBox_currentIndexChanged(int index)
 {
     m_newJsonObject["printer selection"] = index + 1;
+}
+
+void Setting4APWidget::on_sendPW(QString pw)
+{
+    m_strNewPassword = pw;
 }

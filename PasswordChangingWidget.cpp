@@ -6,7 +6,7 @@
 
 #include <QDialog>
 
-PasswordChangingWidget::PasswordChangingWidget(QWidget *parent) :
+PasswordChangingWidget::PasswordChangingWidget(bool bNetwork, QWidget *parent) :
     QWidget(parent),
     ui(new Ui::PasswordChangingWidget)
 {
@@ -14,6 +14,13 @@ PasswordChangingWidget::PasswordChangingWidget(QWidget *parent) :
 
     m_pParent = (QDialog*)parent;
 
+    m_bNetwork = bNetwork;
+    if (m_bNetwork)
+    {
+        QString password = ConfigManager("setting_password.json").GetConfig()["network password"].toString();
+        ui->currentLineEdit->setText(password);
+        ui->currentLineEdit->setDisabled(true);
+    }
     ui->currentLabel->setText(LoadString("IDS_CURRENT"));
     ui->newLabel->setText(LoadString("IDS_NEW"));
     ui->confirmLabel->setText(LoadString("IDS_CONFIRM"));
@@ -31,7 +38,18 @@ void PasswordChangingWidget::on_okPushButton_clicked()
 {
     ConfigManager config = ConfigManager("setting_password.json");
     QJsonObject object = config.GetConfig();
-    if (object["password"].toString() != ui->currentLineEdit->GetString())
+
+    QString password;
+    if (m_bNetwork)
+    {
+        password = object["network password"].toString();
+    }
+    else
+    {
+        password = object["password"].toString();
+
+    }
+    if (password != ui->currentLineEdit->GetString())
         return;
 
     if (ui->newLineEdit->GetString().isEmpty() && (ui->currentLineEdit->GetString().isEmpty()))
@@ -40,9 +58,10 @@ void PasswordChangingWidget::on_okPushButton_clicked()
     if (ui->newLineEdit->GetString() == ui->currentLineEdit->GetString())
         return;
 
-    object["password"] = ui->newLineEdit->GetString();
-    config.SetConfig(object);
-    config.SaveFile();
+    emit sig_sendPW(ui->newLineEdit->GetString());
+//    object["password"] = ui->newLineEdit->GetString();
+//    config.SetConfig(object);
+//    config.SaveFile();
     m_pParent->accept();
 }
 

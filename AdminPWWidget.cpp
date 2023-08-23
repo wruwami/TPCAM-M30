@@ -34,8 +34,9 @@ void AdminPWWidget::on_okPushButton_clicked()
     ConfigManager config = ConfigManager("setting_password.json");
     QJsonObject object = config.GetConfig();
     if (object["password"].toString() == ui->lineEdit->GetString())
+    {
         m_pParent->accept();
-
+    }
 }
 
 void AdminPWWidget::on_cancelPushButton_clicked()

@@ -106,9 +106,18 @@ BaseDialog::BaseDialog(Dialog dialog, Qt::Alignment align, QString msg, bool isC
         setSize(1139, 600);
     }
         break;
+    case Dialog::NetworkPasswordChangingWidgetType:
+    {
+        ui->verticalLayout->addWidget(new PasswordChangingWidget(true, this));
+        ui->titleLabel->setText(title_text);
+        ui->titleLabel->setAlignment(align);
+        setSize(1208, 655);
+    }
+        break;
+
     case Dialog::PasswordChangingWidgetType:
     {
-        ui->verticalLayout->addWidget(new PasswordChangingWidget(this));
+        ui->verticalLayout->addWidget(new PasswordChangingWidget(false, this));
         ui->titleLabel->setText(LoadString("IDS_PASSWORD_CHANGING"));
         ui->titleLabel->setAlignment(align);
         setSize(1208, 655);
@@ -298,7 +307,8 @@ void BaseDialog::drawBorder(QRect rect)
 
 QWidget *BaseDialog::pWidget() const
 {
-    return ui->verticalLayout->widget();
+    return ui->verticalLayout->itemAt(1)->widget();
+//    return ui->verticalLayout->widget();
 }
 
 

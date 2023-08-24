@@ -1,10 +1,15 @@
 {
 	"emmc": {
+		"name": "/dev/mmcblk1p8",
 		"exit enforcement percent": 20.0,
 		"exit self test percent": 30.0
 	},
 	"SD": {
+		"name": "/dev/mmcblk1p1",
 		"exit enforcement percent": 10.0,
 		"exit self test percent": 20.0
+	},
+	"USB": {
+		"name": "dev/sda1"
 	}
 }

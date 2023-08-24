@@ -15,7 +15,7 @@
 #include "FileManager.h"
 #include "SerialGPSManager.h"
 #include "SerialLaserManager.h"
-#include "SdcardManager.h"
+#include "StorageManager.h"
 #include "SerialViscaManager.h"
 #include "SerialPacket.h"
 #include "ViscaPacket.h"
@@ -247,7 +247,7 @@ bool SelfTestWidget::BatteryTest()
 
 bool SelfTestWidget::StorageTest()
 {
-    SdcardManager sdcardManager;
+    StorageManager sdcardManager;
     if (sdcardManager.isExistEMMccard == true && sdcardManager.isExistEMMccard == true)
     {
         float sdpercent = sdcardManager.GetSDAvailable() / sdcardManager.GetSDTotal();

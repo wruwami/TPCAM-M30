@@ -33,7 +33,6 @@ SOURCES += main.cpp\
     RemoteController.cpp \
     ScreenSaver.cpp \
     SdCardMemoryLack.cpp \
-    SdcardManager.cpp \
     SelfTestDialog.cpp \
     SelfTestWidget.cpp \
     SerialGPSManager.cpp \
@@ -43,6 +42,7 @@ SOURCES += main.cpp\
     Setting4APWidget.cpp \
     SpeedUnitManager.cpp \
     StillImageViewerDialog.cpp \
+    StorageManager.cpp \
     StringLoader.cpp \
     DateTimeWidget.cpp \
     MainMenuContentWidget.cpp \
@@ -132,7 +132,6 @@ HEADERS  += MainWindow.h \
     RemoteController.h \
     ScreenSaver.h \
     SdCardMemoryLack.h \
-    SdcardManager.h \
     SelfTestDialog.h \
     SelfTestWidget.h \
     SerialGPSManager.h \
@@ -142,6 +141,7 @@ HEADERS  += MainWindow.h \
     Setting4APWidget.h \
     SpeedUnitManager.h \
     StillImageViewerDialog.h \
+    StorageManager.h \
     StringLoader.h \
     Color.h \
     DateTimeWidget.h \

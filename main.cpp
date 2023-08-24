@@ -11,7 +11,7 @@
 #include "StringLoader.h"
 #include "DateFormatManager.h"
 #include "thermal_printer.h"
-#include "SdcardManager.h"
+#include "StorageManager.h"
 #include "Application.h"
 
 int main(int argc, char *argv[])

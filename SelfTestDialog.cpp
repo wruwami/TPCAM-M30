@@ -14,7 +14,7 @@
 #include "FileManager.h"
 #include "SerialGPSManager.h"
 #include "SerialLaserManager.h"
-#include "SdcardManager.h"
+#include "StorageManager.h"
 #include "SerialViscaManager.h"
 
 SelfTestDialog::SelfTestDialog(QWidget *parent) :
@@ -205,7 +205,7 @@ bool SelfTestDialog::BatteryTest()
 
 bool SelfTestDialog::StorageTest()
 {
-    SdcardManager sdcardManager;
+    StorageManager sdcardManager;
     if (sdcardManager.isExistEMMccard == true && sdcardManager.isExistEMMccard == true)
     {
         qDebug() << sdcardManager.GetSDTotal();

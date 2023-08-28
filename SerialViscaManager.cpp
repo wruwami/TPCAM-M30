@@ -1784,7 +1784,7 @@ void SerialViscaManager::get_inquiry_zoom()
 {
     m_pTimerInquiryZoom->stop();
     QEventLoop loop;
-    connect(visca_packet, SIGNAL(sig_show_zoom()), &loop, SLOT(quit()));
+    connect(visca_packet, SIGNAL(sig_show_zoom(QString)), &loop, SLOT(quit()));
     show_zoomPosition();
     loop.exec();
 
@@ -1807,7 +1807,7 @@ void SerialViscaManager::get_inquiry_focus()
 {
     m_pTimerInquiryFocus->stop();
     QEventLoop loop;
-    connect(visca_packet, SIGNAL(sig_show_focus()), &loop, SLOT(quit()));
+    connect(visca_packet, SIGNAL(sig_show_focus(QString)), &loop, SLOT(quit()));
     show_focusPosition();
     loop.exec();
 

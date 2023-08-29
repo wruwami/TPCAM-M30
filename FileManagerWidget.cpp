@@ -375,7 +375,7 @@ void FileManagerWidget::on_sharePushButton_clicked()
 {
 //    BaseDialog baseDialog(FileManagerFileTransferWidgetType, Qt::AlignmentFlag::AlignCenter, "", true, LoadString("IDS_FTP_FILE_TRANSFER"));
 //    baseDialog.exec();
-    FileManagerFileTransferDialog fileManagerFileTransferDialog(m_avFileFormatList, FTPType);
+    FileManagerFileTransferDialog fileManagerFileTransferDialog(FTPType);
     fileManagerFileTransferDialog.exec();
 }
 
@@ -383,7 +383,7 @@ void FileManagerWidget::on_movePushButton_clicked()
 {
 //    BaseDialog baseDialog(FileManagerFileTransferWidgetType, Qt::AlignmentFlag::AlignCenter, "", true, LoadString("IDS_USB_MEMORY_TRANSFER"));
 //    baseDialog.exec();
-    FileManagerFileTransferDialog fileManagerFileTransferDialog(m_avFileFormatList, FileType);
+    FileManagerFileTransferDialog fileManagerFileTransferDialog(FileType);
     fileManagerFileTransferDialog.exec();
 
 }

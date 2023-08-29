@@ -1386,6 +1386,9 @@ void SerialViscaManager::set_iris_from_pq(QString pq_input)
 
     m_iris_pq = pq;
 
+    //feedback
+    m_pTimerInquiryIris->start(500);
+
     QByteArray data;
     if(visca_packet)
         data= visca_packet->BlockCamMakePacket(header, msg, msgSize);

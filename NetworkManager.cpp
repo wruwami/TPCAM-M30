@@ -7,7 +7,6 @@
 #include <QNetworkConfigurationManager>
 #include <ifaddrs.h>
 
-
 #include "ConfigManager.h"
 
 #define NET_PATH   /etc/netplan/000-default.yaml
@@ -193,6 +192,7 @@ void NetworkManager::SetWifiStaMode()
     QString gateway = m_wifi_jsonObject["ip"].toString();
     QStringList stringList = gateway.split(".");
     gateway = stringList[0] + "." + stringList[1] + "." + stringList[2] + "." + "1";
+    QString ssid = m_wifi_jsonObject["sta ssid"].toArray()[0].toString();
 
     m_strNetPlan.append(QString("    wifis: \n\
        %1: \n\
@@ -202,7 +202,7 @@ void NetworkManager::SetWifiStaMode()
           access-points: \n\
              \"%5\": \n\
                 password: \"%6\" \n\
-").arg(getWlanAdapterName()).arg(gateway).arg(m_wifi_jsonObject["ip"].toString()).arg(GetSubNetMask(m_wifi_jsonObject["subnet mask"].toString())).arg(m_wifi_jsonObject["sta ssid"].toString()).arg(m_wifi_jsonObject["sta ftp id & p/w"].toString()));
+").arg(getWlanAdapterName()).arg(gateway).arg(m_wifi_jsonObject["ip"].toString()).arg(GetSubNetMask(m_wifi_jsonObject["subnet mask"].toString())).arg(ssid).arg(m_wifi_jsonObject["sta ftp id & p/w"].toString()));
 }
 
 void NetworkManager::SetWifiAPMode()

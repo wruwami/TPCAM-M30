@@ -28,7 +28,7 @@ MainMenuAdminAlignWidget::MainMenuAdminAlignWidget(QWidget *parent) :
 //    ui->logoPushButton->setImage("Main_menu", "comlaser_logo.bmp");
     QDir qdir;
     QPixmap pixmap;
-    pixmap.load(GeteMMCPath() + "images" + "/" + "Main_menu" + "/" + "comlaser_logo.bmp");
+    pixmap.load(GeteMMCPath() + "/" + "images" + "/" + "Main_menu" + "/" + "comlaser_logo.bmp");
     ui->logoPushButton->setIcon(QIcon(pixmap));
     ui->logoPushButton->setIconSize(pixmap.rect().adjusted(1, -1, -1, 1).size());
 }

@@ -25,6 +25,7 @@
 #include "FileManager.h"
 #include "ImageConverter.h"
 #include "WidgetSize.h"
+#include "SpeedUnitManager.h"
 
 enum Mode
 {
@@ -520,7 +521,7 @@ void FileManagerWidget::on_datePushButton_clicked()
 
             QTableWidgetItem* indexItem = new QTableWidgetItem(QString::number(i + 1));
 
-            QTableWidgetItem* item = new QTableWidgetItem(avfileFormat.captureSpeed + "km/h, " + QString("%0%1:%2%3:%4%5").arg(avfileFormat.date[0]).arg(avfileFormat.date[1]).arg(avfileFormat.date[2]).arg(avfileFormat.date[3]).arg(avfileFormat.date[4]).arg(avfileFormat.date[5]));
+            QTableWidgetItem* item = new QTableWidgetItem(getSpeedValue(avfileFormat.captureSpeed.toFloat()) + speedUnitValue()+", " + QString("%0%1:%2%3:%4%5").arg(avfileFormat.date[0]).arg(avfileFormat.date[1]).arg(avfileFormat.date[2]).arg(avfileFormat.date[3]).arg(avfileFormat.date[4]).arg(avfileFormat.date[5]));
             if (i < 6)
             {
                 ui->tableWidget->setItem(i, 0, indexItem);

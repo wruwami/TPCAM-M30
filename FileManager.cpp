@@ -185,9 +185,14 @@ QString FileManager::GetFileName(PrefixType prefix, stEnforcementInfo enforceInf
 
     QString captureSpeed;
     if (enforceInfo.nCaptureSpeed >= 0)
-        captureSpeed = "P" + QString::number(enforceInfo.nCaptureSpeed);
+    {
+        captureSpeed = "P";
+    }
     else
-        captureSpeed = "M" + QString::number(enforceInfo.nCaptureSpeed);
+    {
+        captureSpeed = "M";
+        enforceInfo.nCaptureSpeed = -enforceInfo.nCaptureSpeed;
+    }
 
     QString mode;
     if (enforceInfo.bUserMode)
@@ -276,7 +281,7 @@ QString FileManager::GetSDPath()
     // sdcard root path
     QDir dir;
 //    return dir.absolutePath();
-    return "/home/firefly/sdcard";
+    return "/home/wruwami/sdcard";
 }
 
 QString FileManager::GetUSBPath()

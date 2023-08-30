@@ -83,7 +83,7 @@
         </spacer>
        </item>
        <item>
-        <widget class="QPushButton" name="logoPushButton">
+        <widget class="CustomPushButton" name="logoPushButton">
          <property name="styleSheet">
           <string notr="true">QPushButton {
 	border : none;

@@ -22,6 +22,11 @@ SerialViscaManager::SerialViscaManager()
     connect(m_pTimerInquiryIris, SIGNAL(timeout()), this, SLOT(get_inquiry_iris()));
     connect(visca_packet, SIGNAL(sig_show_dzoom(QString)), this, SLOT(on_show_dzoom(QString)));
     connect(visca_packet, SIGNAL(sig_show_focus(QString)), this, SLOT(on_show_focus(QString)));
+
+    connect(this, SIGNAL(sig_pb_zoom_clicked()), this, SLOT(on_pushButton_Zoom_clicked()));
+    connect(this, SIGNAL(sig_pb_focus_clicked()), this, SLOT(on_pushButton_Focus_clicked()));
+    connect(this, SIGNAL(sig_pb_shutter_clicked()), this, SLOT(on_pushButton_Shutter_clicked()));
+    connect(this, SIGNAL(sig_pb_iris_clicked()), this, SLOT(on_pushButton_Iris_clicked()));
     this->show_dzoomPosition();
 //    this->show_focusPosition();
 }
@@ -1865,12 +1870,33 @@ void SerialViscaManager::on_show_focus(QString focus)
     m_focus_pqrs = focus;
 }
 
+void SerialViscaManager::on_pushButton_Zoom_clicked()
+{
+
+}
+
+void SerialViscaManager::on_pushButton_Focus_clicked()
+{
+
+}
+
+void SerialViscaManager::on_pushButton_Shutter_clicked()
+{
+
+}
+
+void SerialViscaManager::on_pushButton_Iris_clicked()
+{
+
+}
+
 void SerialViscaManager::SetDayMode(QJsonObject object, bool bDay)
 {
-    set_AE_Mode(object["Priority"].toString());
+    set_AE_Mode("03");
     set_iris(object["Iris"].toInt());
     set_shutter_speed(object["Shutter"].toInt());
     set_gain(object["Gain"].toInt());
+    set_AE_Mode(object["Priority"].toString());
     set_noise_reduction_on(object["DNR"].toString());
     object["DIS"].toBool() ? set_DIS_on() : set_DIS_off();
     object["DEFOG"].toBool() ? set_defog_on() : set_defog_off();

@@ -69,6 +69,7 @@ IDS_THERMAL_WOOSIM,Thermal(Woosim),열전사(우심),Térmica (Woosim),Térmica 
 IDS_BT_HP,BT(HP),BT(HP),BT(HP),BT (HP),BT(HP),BT (HP)
 IDS_DHCP,DHCP,DHCP,DHCP,DHCP,DHCP,DHCP
 IDS_MANUAL,Manual,수동,Manual,Manual,Manuel,كتيب
+IDS_Manual,Manual,수동,Manual,Manual,Manuel,كتيب
 IDS_LANUAGE,Language,언어,Língua,Idioma,Langue,لغة
 IDS_BLUETOOTH,Bluetooth,블루투스,Bluetooth,Bluetooth,Bluetooth,بلوتوث
 IDS_FTP,FTP,FTP,FTP,FTP,FTP,FTP
@@ -146,7 +147,8 @@ IDS_FILTER_NAME,Filter Name,필터 이름,Nome do filtro,Nombre del filtro,Nom d
 IDS_YES,yes,예,sim,si,oui,نعم
 IDS_NO,no,아니오,não,no,non,لا
 IDS_BLUETOOTH_SEARCH_FILTER,Bluetooth Search Filter,블루투스 검색 필터,Filtro de Pesquisa Bluetooth,Filtro de búsqueda Bluetooth,Filtre de recherche Bluetooth,مرشح بحث بلوتوث
-IDS_READY,ready,준비,pronto,Listo,prêt,جاهز
+IDS_READY,Ready,준비,Pronto,Listo,Prêt,جاهز
+IDS_Ready,Ready,준비,Pronto,Listo,Prêt,جاهز
 IDS_DZ_PLUS,DZ+,DZ+,DZ+,DZ+,DZ+,DZ+
 IDS_DZ_MINUS,DZ-,DZ-,DZ-,DZ-,DZ-,DZ-
 IDS_SAVE_IMAGE,Save Image,이미지 저장,Salvar imagem,Guardar imagen,Enregistrer l'image,احفظ الصورة

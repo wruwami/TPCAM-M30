@@ -69,8 +69,8 @@ public:
 
     unsigned char send_data;
 
-    unsigned char g_RxBuf[MAX_PACKET_SIZE];
-    unsigned short  g_RxLength;	
+//    unsigned char g_RxBuf[MAX_PACKET_SIZE];
+//    unsigned short  g_RxLength;
     
     int m_zoomPQRS;
     int m_focusPQRS;

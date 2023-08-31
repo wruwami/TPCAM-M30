@@ -221,17 +221,17 @@ void FileManagerWidget::on_deletePushButton_clicked()
                 file.remove();
             }
             ui->tableWidget->clear();
-        //        ui->listWidget->addItem(iterDir.fileName());
-            }
-//            foreach(auto avFormat, m_avFileFormatList)
-//            {
-//                QFile file(avFormat.file_path);
-//                file.remove();
-//                ui->tableWidget->clear();
-//            }
+            //        ui->listWidget->addItem(iterDir.fileName());
         }
+        //            foreach(auto avFormat, m_avFileFormatList)
+        //            {
+        //                QFile file(avFormat.file_path);
+        //                file.remove();
+        //                ui->tableWidget->clear();
+        //            }
     }
 }
+
 
 void FileManagerWidget::convertValue()
 {

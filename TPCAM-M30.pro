@@ -33,7 +33,6 @@ SOURCES += main.cpp\
     RemoteController.cpp \
     ScreenSaver.cpp \
     SdCardMemoryLack.cpp \
-    SdcardManager.cpp \
     SelfTestDialog.cpp \
     SelfTestWidget.cpp \
     SerialGPSManager.cpp \
@@ -43,6 +42,7 @@ SOURCES += main.cpp\
     Setting4APWidget.cpp \
     SpeedUnitManager.cpp \
     StillImageViewerDialog.cpp \
+    StorageManager.cpp \
     StringLoader.cpp \
     DateTimeWidget.cpp \
     MainMenuContentWidget.cpp \
@@ -72,6 +72,7 @@ SOURCES += main.cpp\
     camera.cpp \
     capture_thread.cpp \
     filter.cpp \
+    ftp.cc \
     keyboard/key.cpp \
     keyboard/keyboard.cpp \
     keyboard/keylayout.cpp \
@@ -106,6 +107,7 @@ SOURCES += main.cpp\
     FileManagerFileTransferDialog.cpp \
     SearchBoxDialog.cpp \
     ltc2943.cpp \
+    socket.cc \
     thermal_printer.cpp \
     v4l2_thread.cpp \
     wifi_scan.c
@@ -132,7 +134,6 @@ HEADERS  += MainWindow.h \
     RemoteController.h \
     ScreenSaver.h \
     SdCardMemoryLack.h \
-    SdcardManager.h \
     SelfTestDialog.h \
     SelfTestWidget.h \
     SerialGPSManager.h \
@@ -142,6 +143,7 @@ HEADERS  += MainWindow.h \
     Setting4APWidget.h \
     SpeedUnitManager.h \
     StillImageViewerDialog.h \
+    StorageManager.h \
     StringLoader.h \
     Color.h \
     DateTimeWidget.h \
@@ -173,6 +175,7 @@ HEADERS  += MainWindow.h \
     camera.h \
     capture_thread.h \
     filter.h \
+    ftp.hh \
     keyboard/key.h \
     keyboard/keyboard.h \
     keyboard/keylayout.h \
@@ -209,6 +212,7 @@ HEADERS  += MainWindow.h \
     CustomZoomLabel.h \
     FileManagerFileTransferDialog.h \
     SearchBoxDialog.h \
+    socket.hh \
     thermal_printer.h \
     v4l2_thread.h \
     wifi_scan.h

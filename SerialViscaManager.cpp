@@ -22,6 +22,11 @@ SerialViscaManager::SerialViscaManager()
     connect(m_pTimerInquiryIris, SIGNAL(timeout()), this, SLOT(get_inquiry_iris()));
     connect(visca_packet, SIGNAL(sig_show_dzoom(QString)), this, SLOT(on_show_dzoom(QString)));
     connect(visca_packet, SIGNAL(sig_show_focus(QString)), this, SLOT(on_show_focus(QString)));
+
+    connect(this, SIGNAL(sig_pb_zoom_clicked()), this, SLOT(on_pushButton_Zoom_clicked()));
+    connect(this, SIGNAL(sig_pb_focus_clicked()), this, SLOT(on_pushButton_Focus_clicked()));
+    connect(this, SIGNAL(sig_pb_shutter_clicked()), this, SLOT(on_pushButton_Shutter_clicked()));
+    connect(this, SIGNAL(sig_pb_iris_clicked()), this, SLOT(on_pushButton_Iris_clicked()));
     this->show_dzoomPosition();
 //    this->show_focusPosition();
 }
@@ -1386,6 +1391,9 @@ void SerialViscaManager::set_iris_from_pq(QString pq_input)
 
     m_iris_pq = pq;
 
+    //feedback
+    m_pTimerInquiryIris->start(500);
+
     QByteArray data;
     if(visca_packet)
         data= visca_packet->BlockCamMakePacket(header, msg, msgSize);
@@ -1784,7 +1792,7 @@ void SerialViscaManager::get_inquiry_zoom()
 {
     m_pTimerInquiryZoom->stop();
     QEventLoop loop;
-    connect(visca_packet, SIGNAL(sig_show_zoom()), &loop, SLOT(quit()));
+    connect(visca_packet, SIGNAL(sig_show_zoom(QString)), &loop, SLOT(quit()));
     show_zoomPosition();
     loop.exec();
 
@@ -1807,7 +1815,7 @@ void SerialViscaManager::get_inquiry_focus()
 {
     m_pTimerInquiryFocus->stop();
     QEventLoop loop;
-    connect(visca_packet, SIGNAL(sig_show_focus()), &loop, SLOT(quit()));
+    connect(visca_packet, SIGNAL(sig_show_focus(QString)), &loop, SLOT(quit()));
     show_focusPosition();
     loop.exec();
 
@@ -1862,12 +1870,33 @@ void SerialViscaManager::on_show_focus(QString focus)
     m_focus_pqrs = focus;
 }
 
+void SerialViscaManager::on_pushButton_Zoom_clicked()
+{
+
+}
+
+void SerialViscaManager::on_pushButton_Focus_clicked()
+{
+
+}
+
+void SerialViscaManager::on_pushButton_Shutter_clicked()
+{
+
+}
+
+void SerialViscaManager::on_pushButton_Iris_clicked()
+{
+
+}
+
 void SerialViscaManager::SetDayMode(QJsonObject object, bool bDay)
 {
-    set_AE_Mode(object["Priority"].toString());
+    set_AE_Mode("03");
     set_iris(object["Iris"].toInt());
     set_shutter_speed(object["Shutter"].toInt());
     set_gain(object["Gain"].toInt());
+    set_AE_Mode(object["Priority"].toString());
     set_noise_reduction_on(object["DNR"].toString());
     object["DIS"].toBool() ? set_DIS_on() : set_DIS_off();
     object["DEFOG"].toBool() ? set_defog_on() : set_defog_off();

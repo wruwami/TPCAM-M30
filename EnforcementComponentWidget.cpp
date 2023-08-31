@@ -11,7 +11,7 @@
 #include "SpeedUnitManager.h"
 #include "WidgetSize.h"
 #include "SerialViscaManager.h"
-#include "SdcardManager.h"
+#include "StorageManager.h"
 #include "HeadUpDisplay.h"
 #include "HUDManager.h"
 #include "BaseDialog.h"

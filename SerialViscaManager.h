@@ -147,6 +147,11 @@ public slots:
     void get_inquiry_iris();
     void on_show_dzoom(QString);
     void on_show_focus(QString);
+
+    void on_pushButton_Zoom_clicked();
+    void on_pushButton_Focus_clicked();
+    void on_pushButton_Shutter_clicked();
+    void on_pushButton_Iris_clicked();
 };
 
 #endif // SERIALVISCAMANAGER_H

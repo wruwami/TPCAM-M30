@@ -5,7 +5,7 @@
 #include <QHeaderView>
 
 #include "FileFormat.h"
-#include "SdcardManager.h"
+#include "StorageManager.h"
 
 namespace Ui {
 class FileManagerWidget;
@@ -34,7 +34,7 @@ private:
     QVideoWidget *m_videoWidget;
     QMediaPlayer* m_player;
     QString m_dateTime;
-    SdcardManager m_sdcardManager;
+    StorageManager m_sdcardManager;
 private:
     void setTableContent();
     void convertValue();

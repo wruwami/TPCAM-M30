@@ -23,13 +23,13 @@ SerialViscaManager::SerialViscaManager()
     connect(visca_packet, SIGNAL(sig_show_dzoom(QString)), this, SLOT(on_show_dzoom(QString)));
     connect(visca_packet, SIGNAL(sig_show_focus(QString)), this, SLOT(on_show_focus(QString)));
 
-    connect(this, SIGNAL(sig_pb_zoom_clicked()), this, SLOT(on_pushButton_Zoom_clicked()));
-    connect(this, SIGNAL(sig_pb_focus_clicked(QString)), this, SLOT(on_pushButton_Focus_clicked(QString)));
-    connect(this, SIGNAL(sig_pb_shutter_clicked()), this, SLOT(on_pushButton_Shutter_clicked()));
-    connect(this, SIGNAL(sig_pb_iris_clicked()), this, SLOT(on_pushButton_Iris_clicked()));
+//    connect(this, SIGNAL(sig_pb_zoom_clicked()), this, SLOT(on_pushButton_Zoom_clicked()));
+//    connect(this, SIGNAL(sig_pb_focus_clicked(QString)), this, SLOT(on_pushButton_Focus_clicked(QString)));
+//    connect(this, SIGNAL(sig_pb_shutter_clicked()), this, SLOT(on_pushButton_Shutter_clicked()));
+//    connect(this, SIGNAL(sig_pb_iris_clicked()), this, SLOT(on_pushButton_Iris_clicked()));
 
     //OPT
-//     connect(m_pTimerCheckOPTdone, SIGNAL(timeout()), this, SLOT(check_OPT_done()));
+     connect(m_pTimerCheckOPTdone, SIGNAL(timeout()), this, SLOT(check_OPT_done()));
 
     this->show_dzoomPosition();
 //    this->show_focusPosition();
@@ -1835,14 +1835,21 @@ void SerialViscaManager::get_inquiry_zoom()
 
     QString qstrpqrs = m_zoom_pqrs;
 
+    static int count = 0;
     if(qstrpqrs == qstrgZoom_pqrs )
     {
+        count++;
+        if(count == CHECK_OPT_DONE_COUNTER)
+        {
+            m_pTimerCheckOPTdone->stop();
 
+        }
+    } else {
+        zoom_from_pqrs(qstrpqrs);
+        count = 0;
     }
-    else
-    {
-        emit sig_pb_zoom_clicked();
-    }
+    m_zoom_pqrs = qstrgZoom_pqrs;
+
 }
 
 void SerialViscaManager::get_inquiry_focus()
@@ -1859,14 +1866,22 @@ void SerialViscaManager::get_inquiry_focus()
 
     qDebug() << qstrpqrs << ":" << qstrgFocus_pqrs;
 
-    if(qstrpqrs == qstrgFocus_pqrs )
+    int count = 0;
+    if(qstrpqrs == qstrgFocus_pqrs)
     {
-
+        count++;
+        if(count == CHECK_OPT_DONE_COUNTER)
+        {
+            m_pTimerInquiryFocus->stop();
+        }
     }
     else
     {
-        emit sig_pb_focus_clicked(qstrpqrs);
+        set_focus(m_focus_pqrs);
+        count = 0;
     }
+
+    m_focus_pqrs = qstrgFocus_pqrs;
 }
 
 void SerialViscaManager::get_inquiry_iris()
@@ -1884,14 +1899,25 @@ void SerialViscaManager::get_inquiry_iris()
 
     qDebug() << qstrpq << ":" << qstrgIris_pq;
 
+    static int count = 0;
     if(qstrpq == qstrgIris_pq)
     {
-
+        count++;
+        if(count == CHECK_OPT_DONE_COUNTER)
+        {
+            m_pTimerInquiryIris->stop();
+        }
     }
     else
     {
-        emit sig_pb_iris_clicked();
+        bool isAutoIris = false;
+        int dnn = ConfigManager("parameter_setting2.json").GetConfig()["day&night selection"].toInt();
+        if (dnn >= 0 && dnn < 4)
+            isAutoIris = true;
+        set_iris_from_pq(qstrpq, isAutoIris);
+        count = 0;
     }
+    m_iris_pq = qstrgIris_pq;
 }
 
 void SerialViscaManager::on_show_dzoom(QString zoom)
@@ -1902,26 +1928,6 @@ void SerialViscaManager::on_show_dzoom(QString zoom)
 void SerialViscaManager::on_show_focus(QString focus)
 {
     m_focus_pqrs = focus;
-}
-
-void SerialViscaManager::on_pushButton_Zoom_clicked()
-{
-
-}
-
-void SerialViscaManager::on_pushButton_Focus_clicked(QString str)
-{
-
-}
-
-void SerialViscaManager::on_pushButton_Shutter_clicked()
-{
-
-}
-
-void SerialViscaManager::on_pushButton_Iris_clicked()
-{
-
 }
 
 void SerialViscaManager::SetDayMode(QJsonObject object, bool bDay)
@@ -2063,12 +2069,11 @@ void SerialViscaManager::check_OPT_done()
 {
     static int count = 0;
     QEventLoop loop;
-    connect(visca_packet, SIGNAL(sig_show_focus()), &loop, SLOT(quit()));
-
+    connect(visca_packet, SIGNAL(sig_show_focus(QString)), &loop, SLOT(quit()));
     show_focusPosition();
     loop.exec();
 
-    QString qstrFocus = QStringLiteral("%1").arg(g_qstrFocus_pqrs.toInt(nullptr, 16), 4, 16, QLatin1Char('0'));
+    QString qstrFocus = QStringLiteral("%1").arg(getVisca_packet()->m_qstrFocus_pqrs.toInt(nullptr, 16), 4, 16, QLatin1Char('0'));
 
     m_focus_pqrs = qstrFocus;
     if(m_lastQstrFocus == qstrFocus)

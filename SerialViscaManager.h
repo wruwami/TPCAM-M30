@@ -140,10 +140,10 @@ public:
 
     ViscaPacket *getVisca_packet() const;
 signals:
-    void sig_pb_zoom_clicked();
-    void sig_pb_focus_clicked(QString);
-    void sig_pb_shutter_clicked();
-    void sig_pb_iris_clicked();
+//    void sig_pb_zoom_clicked();
+//    void sig_pb_focus_clicked(QString);
+//    void sig_pb_shutter_clicked();
+//    void sig_pb_iris_clicked();
 
 
 public slots:
@@ -154,10 +154,6 @@ public slots:
     void on_show_dzoom(QString);
     void on_show_focus(QString);
 
-    void on_pushButton_Zoom_clicked();
-    void on_pushButton_Focus_clicked(QString str);
-    void on_pushButton_Shutter_clicked();
-    void on_pushButton_Iris_clicked();
     void check_OPT_done();
 };
 

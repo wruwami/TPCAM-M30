@@ -333,6 +333,11 @@ QString g_Gain_Y_ASIX_Wonwoo[NUMBER_GAIN_CNT_WONWOO]= //
 int g_Camera_VenderID = 0x0078;
 QByteArray send_header_data;
 
+QString g_qstrZoom_pqrs;
+QString g_qstrFocus_pqrs;
+QString g_qstrShutter_pq;
+QString g_qstrIris_pq;
+
 //------------------------------------------------------------------------------
 //  Private : 송신 패킷의 형태로 인코딩
 //Head - 1xxx0kkk
@@ -619,7 +624,7 @@ unsigned char	ViscaPacket::MsgDecoder()
         m_zoomPQRS = (g_ZoomPos.p << 12) | (g_ZoomPos.q <<8) | (g_ZoomPos.r << 4) | (g_ZoomPos.s <<0);
         info.sprintf("Zoom position(%X):%02X; %02X; %02X; %02X", m_zoomPQRS, g_ZoomPos.p, g_ZoomPos.q, g_ZoomPos.r, g_ZoomPos.s);
         qDebug() << info;
-        m_qstrZoom_pqrs = QString::number(m_zoomPQRS, 16);
+        g_qstrZoom_pqrs = QString::number(m_zoomPQRS, 16);
         emit sig_show_zoom(m_qstrZoom_pqrs);
         return 1;
     }
@@ -715,7 +720,7 @@ unsigned char	ViscaPacket::MsgDecoder()
         info.sprintf("Shutter Position(%02X)_%02X; %02X", m_shutter, g_ShutterPos.p, g_ShutterPos.q);
         qDebug() << info;
         //feedback
-        m_qstrShutter_pq = QString::number(m_shutter, 16);
+        g_qstrShutter_pq = QString::number(m_shutter, 16);
         emit sig_show_shutter();
         return 1;
     }
@@ -726,7 +731,7 @@ unsigned char	ViscaPacket::MsgDecoder()
         m_iris = (g_IrisPos.p << 4) | (g_IrisPos.q <<0);
         info.sprintf("Iris Position(%02X)_ %02X; %02X",  m_iris, g_IrisPos.p, g_IrisPos.q);
         //feedback
-        m_qstrIris_pq = QString::number(m_iris, 16);
+        g_qstrIris_pq = QString::number(m_iris, 16);
         qDebug() << info;
         emit sig_show_iris();
         return 1;

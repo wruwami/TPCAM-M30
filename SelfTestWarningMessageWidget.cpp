@@ -14,6 +14,8 @@ SelfTestWarningMessageWidget::SelfTestWarningMessageWidget(Status isCamera, Stat
     ui->label->setText(LoadString("IDS_NOT_WORKING_NORMALLY"));
     ui->label_2->setText(LoadString("IDS_CONTINUE_QUESTION"));
 
+
+
     ui->cameraLabel->setText(LoadString("IDS_CAMERA"));
     ui->storageLabel->setText(LoadString("IDS_STORAGE"));
     ui->laserLabel->setText(LoadString("IDS_LASER"));

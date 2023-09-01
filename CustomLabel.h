@@ -15,12 +15,13 @@ public:
     void setImage(QString path_name, QString file_name, QSize size);
     void setZoom(double factor, QRect rect);
     void setColor(QColor);
+    void setFontSize(int);
 private:
     QPixmap scaleImage(double factor);
 private:
     QPixmap m_pixmap;
     QPixmap m_fitpixmap;
-
+    QString m_styleSheet;
 signals:
 
 public slots:

@@ -242,6 +242,92 @@ void ftp_t::get_file(const char *file_name)
   close_socket(sock_data);
 }
 
+void ftp_t::create_path(const char *path_name)
+{
+    char buf_request[255];
+    std::string str_server_ip;
+    std::string str_rsp;
+//    unsigned short server_port = 21;
+
+    //enter passive mode: make PASV request
+    sprintf(buf_request, "MKD %s\r\n", path_name);
+
+    //send PASV request
+    send_request(sock_ctrl, buf_request);
+
+    //receive response
+    get_response(sock_ctrl, str_rsp);
+
+    return;
+}
+
+void ftp_t::put_file(const char *file_name)
+{
+    char buf_request[255];
+    std::string str_server_ip;
+    std::string str_rsp;
+    unsigned short server_port;
+
+    //The FTP command, SIZE OF FILE (SIZE), is used to obtain the transfer
+    //size of a file from the server-FTP process.This is the exact number
+    //of octets(8 bit bytes) that would be transmitted over the data
+    //connection should that file be transmitted.
+    //syntax: "SIZE" SP pathname CRLF
+    //get SIZE
+    sprintf(buf_request, "SIZE %s\r\n", file_name);
+
+    //send SIZE request
+    send_request(sock_ctrl, buf_request);
+
+    //get response on control socket
+    get_response(sock_ctrl, str_rsp);
+
+    //parse the file size
+    std::string  str_code = str_rsp.substr(0, 3);
+    unsigned long long size_file = 0;
+    if ("213" == str_code)
+    {
+      std::string  str_size = str_rsp.substr(4, str_rsp.size() - 2 - 4); //subtract end CRLF plus start of "213 ", 213 SP
+      size_file = std::stoull(str_size);
+
+      std::cout << "FILE transfer is " << size_file << " bytes" << std::endl;
+    }
+
+    //enter passive mode: make PASV request
+    sprintf(buf_request, "PASV\r\n");
+
+    //send PASV request
+    send_request(sock_ctrl, buf_request);
+
+    //get response on control socket
+    get_response(sock_ctrl, str_rsp);
+
+    //parse the PASV response
+    parse_PASV_response(str_rsp, str_server_ip, server_port);
+
+    //create the data socket
+    create_socket(sock_data, str_server_ip.c_str(), server_port);
+
+    //construct STOR request message
+    sprintf(buf_request, "STOR %s\r\n", file_name);
+
+    //send RETR request on control socket
+    send_request(sock_ctrl, buf_request);
+
+//    //get response on control socket
+//    get_response(sock_ctrl, str_rsp);
+
+//    //get the file (data socket), save to local file with same name
+//    receive_all(sock_data, file_name);
+
+//    //get response
+//    get_response(sock_ctrl, str_rsp);
+
+    //close data socket
+    close_socket(sock_data);
+
+}
+
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 //ftp_t::receive_list
 /////////////////////////////////////////////////////////////////////////////////////////////////////

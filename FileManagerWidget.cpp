@@ -198,10 +198,10 @@ void FileManagerWidget::paintEvent(QPaintEvent *event)
 
 void FileManagerWidget::timerEvent(QTimerEvent *event)
 {
-    int percent = 0;
+    float percent = 0;
     if (m_sdcardManager.GetSDAvailable() != 0 && m_sdcardManager.GetSDTotal() != 0)
-        percent = m_sdcardManager.GetSDAvailable() / m_sdcardManager.GetSDTotal();
-    ui->percentPushButton->setText(QString("S:%1%").arg(percent));
+        percent = m_sdcardManager.GetSDAvailable() / m_sdcardManager.GetSDTotal() * 100;
+    ui->percentPushButton->setText(QString("S:%1%").arg(QString::number(percent, 'f', 0)));
 }
 
 void FileManagerWidget::on_deletePushButton_clicked()

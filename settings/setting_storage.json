@@ -5,7 +5,7 @@
 		"exit self test percent": 30.0
 	},
 	"SD": {
-		"name": "/dev/mmcblk1p1",
+		"name": "/dev/mmcblk0p1",
 		"exit enforcement percent": 10.0,
 		"exit self test percent": 20.0
 	},

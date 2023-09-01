@@ -51,9 +51,6 @@ extern QString g_Optical_Zoom_Value_Wonwoo[];
 //cnrk
 extern int g_Camera_VenderID;// = 0x0078;
 
-
-
-
 class ViscaPacket : public QObject
 {
     Q_OBJECT
@@ -66,6 +63,9 @@ public:
 
     unsigned char send_data;
 
+//    unsigned char g_RxBuf[MAX_PACKET_SIZE];
+//    unsigned short  g_RxLength;
+    
     int m_zoomPQRS;
     int m_focusPQRS;
     int m_gain;

@@ -23,10 +23,14 @@ SerialViscaManager::SerialViscaManager()
     connect(visca_packet, SIGNAL(sig_show_dzoom(QString)), this, SLOT(on_show_dzoom(QString)));
     connect(visca_packet, SIGNAL(sig_show_focus(QString)), this, SLOT(on_show_focus(QString)));
 
-    connect(this, SIGNAL(sig_pb_zoom_clicked()), this, SLOT(on_pushButton_Zoom_clicked()));
-    connect(this, SIGNAL(sig_pb_focus_clicked()), this, SLOT(on_pushButton_Focus_clicked()));
-    connect(this, SIGNAL(sig_pb_shutter_clicked()), this, SLOT(on_pushButton_Shutter_clicked()));
-    connect(this, SIGNAL(sig_pb_iris_clicked()), this, SLOT(on_pushButton_Iris_clicked()));
+//    connect(this, SIGNAL(sig_pb_zoom_clicked()), this, SLOT(on_pushButton_Zoom_clicked()));
+//    connect(this, SIGNAL(sig_pb_focus_clicked(QString)), this, SLOT(on_pushButton_Focus_clicked(QString)));
+//    connect(this, SIGNAL(sig_pb_shutter_clicked()), this, SLOT(on_pushButton_Shutter_clicked()));
+//    connect(this, SIGNAL(sig_pb_iris_clicked()), this, SLOT(on_pushButton_Iris_clicked()));
+
+    //OPT
+     connect(m_pTimerCheckOPTdone, SIGNAL(timeout()), this, SLOT(check_OPT_done()));
+
     this->show_dzoomPosition();
 //    this->show_focusPosition();
 }
@@ -34,6 +38,11 @@ SerialViscaManager::SerialViscaManager()
 SerialViscaManager::~SerialViscaManager()
 {
     close();
+
+    delete m_pTimerInquiryZoom;
+    delete m_pTimerInquiryFocus;
+    delete m_pTimerInquiryIris;
+    delete m_pTimerCheckOPTdone;
 
     delete visca_packet;
     delete serial_visca;
@@ -867,7 +876,16 @@ void SerialViscaManager::plus_focus()
 
     QString pqrs = m_focus_pqrs;//ui->textEdit_Focus->toPlainText() ;// g_Optical_Zoom_Value[index];
     bool ok;
-    int int_pqrs = pqrs.toInt(&ok, 16) + 0x05;
+    int int_pqrs = pqrs.toInt(&ok, 16) + 0x100;
+     if(int_pqrs<0)int_pqrs=0;
+     if(int_pqrs<0x1000)
+     {
+         int_pqrs=0x1000;
+     }
+     else if(int_pqrs>0xA000)
+     {
+         int_pqrs=0xA000;
+     }
     if(int_pqrs<0)int_pqrs=0;
     pqrs.sprintf("%x",int_pqrs);
     qDebug() << "add: "+ pqrs;
@@ -888,6 +906,9 @@ void SerialViscaManager::plus_focus()
     msg[6]=0x00 | s;
 
     m_focus_pqrs = pqrs;
+
+    //feedback
+     m_pTimerInquiryFocus->start(500);
 
     QByteArray data;
     if(visca_packet)
@@ -916,8 +937,16 @@ void SerialViscaManager::minus_focus()
 
     QString pqrs = m_focus_pqrs;//ui->textEdit_Focus->toPlainText() ;// g_Optical_Zoom_Value[index];
     bool ok;
-    int int_pqrs = pqrs.toInt(&ok, 16) - 0x05;
-    if(int_pqrs<0)int_pqrs=0;
+    int int_pqrs = pqrs.toInt(&ok, 16) - 0x100;
+     if(int_pqrs<0)int_pqrs=0;
+     if(int_pqrs<0x1000)
+     {
+         int_pqrs=0x1000;
+     }
+     else if(int_pqrs>0xA000)
+     {
+         int_pqrs=0xA000;
+     }
     pqrs.sprintf("%x",int_pqrs);
     qDebug() << "add: "+ pqrs;
 
@@ -1360,7 +1389,7 @@ void SerialViscaManager::set_iris(int currentIndex)
         serial_visca->write(data);
 }
 
-void SerialViscaManager::set_iris_from_pq(QString pq_input)
+void SerialViscaManager::set_iris_from_pq(QString pq_input,  bool isAutoIris)
 {
     unsigned char header=0x81;
     unsigned char msg[10];
@@ -1391,8 +1420,13 @@ void SerialViscaManager::set_iris_from_pq(QString pq_input)
 
     m_iris_pq = pq;
 
+    if(isAutoIris)
+    {
+
+    }else{
     //feedback
     m_pTimerInquiryIris->start(500);
+    }
 
     QByteArray data;
     if(visca_packet)
@@ -1801,14 +1835,21 @@ void SerialViscaManager::get_inquiry_zoom()
 
     QString qstrpqrs = m_zoom_pqrs;
 
+    static int count = 0;
     if(qstrpqrs == qstrgZoom_pqrs )
     {
+        count++;
+        if(count == CHECK_OPT_DONE_COUNTER)
+        {
+            m_pTimerCheckOPTdone->stop();
 
+        }
+    } else {
+        zoom_from_pqrs(qstrpqrs);
+        count = 0;
     }
-    else
-    {
-        emit sig_pb_zoom_clicked();
-    }
+    m_zoom_pqrs = qstrgZoom_pqrs;
+
 }
 
 void SerialViscaManager::get_inquiry_focus()
@@ -1825,14 +1866,22 @@ void SerialViscaManager::get_inquiry_focus()
 
     qDebug() << qstrpqrs << ":" << qstrgFocus_pqrs;
 
-    if(qstrpqrs == qstrgFocus_pqrs )
+    int count = 0;
+    if(qstrpqrs == qstrgFocus_pqrs)
     {
-
+        count++;
+        if(count == CHECK_OPT_DONE_COUNTER)
+        {
+            m_pTimerInquiryFocus->stop();
+        }
     }
     else
     {
-        emit sig_pb_focus_clicked();
+        set_focus(m_focus_pqrs);
+        count = 0;
     }
+
+    m_focus_pqrs = qstrgFocus_pqrs;
 }
 
 void SerialViscaManager::get_inquiry_iris()
@@ -1850,14 +1899,25 @@ void SerialViscaManager::get_inquiry_iris()
 
     qDebug() << qstrpq << ":" << qstrgIris_pq;
 
+    static int count = 0;
     if(qstrpq == qstrgIris_pq)
     {
-
+        count++;
+        if(count == CHECK_OPT_DONE_COUNTER)
+        {
+            m_pTimerInquiryIris->stop();
+        }
     }
     else
     {
-        emit sig_pb_iris_clicked();
+        bool isAutoIris = false;
+        int dnn = ConfigManager("parameter_setting2.json").GetConfig()["day&night selection"].toInt();
+        if (dnn >= 0 && dnn < 4)
+            isAutoIris = true;
+        set_iris_from_pq(qstrpq, isAutoIris);
+        count = 0;
     }
+    m_iris_pq = qstrgIris_pq;
 }
 
 void SerialViscaManager::on_show_dzoom(QString zoom)
@@ -1868,26 +1928,6 @@ void SerialViscaManager::on_show_dzoom(QString zoom)
 void SerialViscaManager::on_show_focus(QString focus)
 {
     m_focus_pqrs = focus;
-}
-
-void SerialViscaManager::on_pushButton_Zoom_clicked()
-{
-
-}
-
-void SerialViscaManager::on_pushButton_Focus_clicked()
-{
-
-}
-
-void SerialViscaManager::on_pushButton_Shutter_clicked()
-{
-
-}
-
-void SerialViscaManager::on_pushButton_Iris_clicked()
-{
-
 }
 
 void SerialViscaManager::SetDayMode(QJsonObject object, bool bDay)
@@ -1907,7 +1947,7 @@ void SerialViscaManager::SetDayMode(QJsonObject object, bool bDay)
     else
         set_infrared_mode_on();
 
-    show_ICR_OnOff();
+//    show_ICR_OnOff();
 //    object.keys()
 //    if (object > 0 && index < 4)
 //        set_infrared_mode_off();
@@ -2006,11 +2046,12 @@ void SerialViscaManager::SetDayMode(int index)
         ret = object["Night"].toObject()["Bright"].toObject();
     }
         break;
-    }    
-    set_AE_Mode(ret["Priority"].toString());
+    }
+    set_AE_Mode("03");
     set_iris(ret["Iris"].toInt());
     set_shutter_speed(ret["Shutter"].toInt());
     set_gain(ret["Gain"].toInt());
+    set_AE_Mode(ret["Priority"].toString());
     set_noise_reduction_on(ret["DNR"].toString());
     ret["DIS"].toBool() ? set_DIS_on() : set_DIS_off();
     ret["DEFOG"].toBool() ? set_defog_on() : set_defog_off();
@@ -2020,4 +2061,34 @@ void SerialViscaManager::SetDayMode(int index)
         set_infrared_mode_off();
     else
         set_infrared_mode_on();
+
+//    SetZoom
+}
+
+void SerialViscaManager::check_OPT_done()
+{
+    static int count = 0;
+    QEventLoop loop;
+    connect(visca_packet, SIGNAL(sig_show_focus(QString)), &loop, SLOT(quit()));
+    show_focusPosition();
+    loop.exec();
+
+    QString qstrFocus = QStringLiteral("%1").arg(getVisca_packet()->m_qstrFocus_pqrs.toInt(nullptr, 16), 4, 16, QLatin1Char('0'));
+
+    m_focus_pqrs = qstrFocus;
+    if(m_lastQstrFocus == qstrFocus)
+    {
+        count++;
+        if(count == CHECK_OPT_DONE_COUNTER)
+        {
+            m_pTimerCheckOPTdone->stop();
+
+        }
+    } else {
+        count = 0;
+    }
+    m_lastQstrFocus = qstrFocus;
+
+//    label_focus_pqrs->setText(qstrFocus);
+
 }

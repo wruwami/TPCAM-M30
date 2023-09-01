@@ -7,6 +7,7 @@
 #include "DateFormatManager.h"
 #include "SerialGPSManager.h"
 #include "ConfigManager.h"
+#include "StorageManager.h"
 
 #define DEFAULT_FILE_PATH   "/files/"
 
@@ -286,8 +287,10 @@ QString FileManager::GetSDPath()
 
 QString FileManager::GetUSBPath()
 {
-    QDir dir;
-    return dir.absolutePath();
+//    QDir dir;
+//    return dir.absolutePath();
+    StorageManager storageManager;
+    return storageManager.GetUSBPath();
 }
 
 QString FileManager::MakeSDPath(QString path)

@@ -212,15 +212,26 @@ void FileManagerWidget::on_deletePushButton_clicked()
         BaseDialog baseDialog(Dialog::AdminPWWidgetType, Qt::AlignmentFlag::AlignLeft, "");
         if (baseDialog.exec() == QDialog::Accepted)
         {
-            foreach(auto avFormat, m_avFileFormatList)
+            QDirIterator iterDir(GetUSBPath(), QDir::Files | QDir::NoSymLinks, QDirIterator::Subdirectories);
+            while (iterDir.hasNext())
             {
-                QFile file(avFormat.file_path);
+                iterDir.next();
+
+                QFile file(iterDir.filePath());
                 file.remove();
-                ui->tableWidget->clear();
             }
+            ui->tableWidget->clear();
+            //        ui->listWidget->addItem(iterDir.fileName());
         }
+        //            foreach(auto avFormat, m_avFileFormatList)
+        //            {
+        //                QFile file(avFormat.file_path);
+        //                file.remove();
+        //                ui->tableWidget->clear();
+        //            }
     }
 }
+
 
 void FileManagerWidget::convertValue()
 {

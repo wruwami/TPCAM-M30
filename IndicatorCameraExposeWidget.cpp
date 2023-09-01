@@ -326,15 +326,18 @@ void IndicatorCameraExposeWidget::on_gainComboBox_currentIndexChanged(int index)
 
 void IndicatorCameraExposeWidget::on_irisComboBox_currentIndexChanged(int index)
 {
-    m_serialViscaManager->set_iris_from_pq(ui->irisComboBox->itemData(index).toString());
-}
+    bool isAutoIris = false;
+    int dnn = ConfigManager("parameter_setting2.json").GetConfig()["day&night selection"].toInt();
+    if (dnn >= 0 && dnn < 4)
+        isAutoIris = true;
 
+    m_serialViscaManager->set_iris_from_pq(ui->irisComboBox->itemData(index).toString(), isAutoIris);
+}
 
 void IndicatorCameraExposeWidget::on_shutterSpeedComboBox_currentIndexChanged(int index)
 {
     m_serialViscaManager->set_shutter_speed_from_pq(ui->shutterSpeedComboBox->itemData(index).toString());
 }
-
 
 void IndicatorCameraExposeWidget::on_dnrComboBox_currentIndexChanged(int index)
 {

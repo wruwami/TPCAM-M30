@@ -6,6 +6,7 @@
 #include <QTimer>
 #include <QJsonObject>
 
+#define CHECK_OPT_DONE_COUNTER 3
 
 class QSerialPort;
 class ViscaPacket;
@@ -44,9 +45,12 @@ private:
     QString m_gain_pq;
     QString m_iris_pq;
 
+    QString m_lastQstrFocus;
+
     QTimer* m_pTimerInquiryZoom = new QTimer(this);
     QTimer* m_pTimerInquiryFocus = new QTimer(this);
     QTimer* m_pTimerInquiryIris = new QTimer(this);
+    QTimer* m_pTimerCheckOPTdone = new QTimer(this);
 public:
     void show_camera_version();
     void show_camera_model();
@@ -101,7 +105,7 @@ public:
     void set_gain(int currentIndex);
     void set_gain_from_pq(QString pq_input);
     void set_iris(int currentIndex);
-    void set_iris_from_pq(QString pq_input);
+    void set_iris_from_pq(QString pq_input, bool isAutoIris);
 
     void read_shutter_speed();
     void read_gain();
@@ -131,13 +135,15 @@ public:
     void SetDayMode(QJsonObject object, bool bDay);
     void SetFocus(int index);
     void SetZoom(int index);
+//    void check_OPT_done();
+
 
     ViscaPacket *getVisca_packet() const;
 signals:
-    void sig_pb_zoom_clicked();
-    void sig_pb_focus_clicked();
-    void sig_pb_shutter_clicked();
-    void sig_pb_iris_clicked();
+//    void sig_pb_zoom_clicked();
+//    void sig_pb_focus_clicked(QString);
+//    void sig_pb_shutter_clicked();
+//    void sig_pb_iris_clicked();
 
 
 public slots:
@@ -148,10 +154,7 @@ public slots:
     void on_show_dzoom(QString);
     void on_show_focus(QString);
 
-    void on_pushButton_Zoom_clicked();
-    void on_pushButton_Focus_clicked();
-    void on_pushButton_Shutter_clicked();
-    void on_pushButton_Iris_clicked();
+    void check_OPT_done();
 };
 
 #endif // SERIALVISCAMANAGER_H

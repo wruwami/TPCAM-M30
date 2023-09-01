@@ -107,8 +107,9 @@ void FileManagerFileTransferDialog::TransferFTP()
         url.setPort(jsonObject["ftp port"].toInt());
         url.setUserName(jsonObject["ftp user name"].toString());
         url.setPassword(jsonObject["ftp password"].toString());
-        url.setPath(QString(ret.c_str()) + "/" + iterDir2.filePath());
-
+        url.setPath(QString(ret.c_str()) + iterDir2.filePath());
+//        url.setPath(QString("d:") + iterDir2.filePath().replace("/", "\\"));
+//        qDebug() << QString("d:") + iterDir2.filePath().replace("/", "\\");
 //        QString file_path(iterDir2.fileName());
 //        int index = file_path.lastIndexOf('/');
 //        QString file_name = file_path.mid(index + 1, file_path.size() - index - 1);

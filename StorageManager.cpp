@@ -5,7 +5,7 @@
 
 StorageManager::StorageManager()
 {
-    ConfigManager configManager = ConfigManager("setting_storage");
+    ConfigManager configManager = ConfigManager("setting_storage.json");
     QJsonObject object = configManager.GetConfig();
     QString SDCARD = object["SDCARD"].toObject()["name"].toString();
     QString EMMC = object["EMMC"].toObject()["name"].toString();

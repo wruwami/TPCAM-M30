@@ -51,6 +51,8 @@ SelfTestWidget::SelfTestWidget(QWidget *parent) :
 //    ui->storageTitleLabel->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
     ui->storageValueLabel->setText(LoadString("IDS_SELFTEST_CHECK"));
 
+//    ui->titleLabel->setFontSize(18);
+
     QFile expired_file(GetPath("", SD) + "/" + ("expired_date.txt"));
     expired_file.open(QFile::ReadOnly);
 

@@ -1,10 +1,13 @@
 #include "CustomLabel.h"
 
 #include "qdir.h"
+#include <QFont>
+#include <QDebug>
 
 #define DEFAULT_PATH    "images"
 
 #include "FontSize.h"
+#include "WidgetSize.h"
 
 CustomLabel::CustomLabel(QWidget *parent) : QLabel(parent)
 {
@@ -98,6 +101,7 @@ void CustomLabel::setColor(QColor color)
 {
     if ( color == Qt::red)
     {
+        m_styleSheet = "QLabel { color : red; }";
         this->setStyleSheet("QLabel { color : red; }");
 
     }
@@ -105,6 +109,19 @@ void CustomLabel::setColor(QColor color)
     {
         this->setStyleSheet("QLabel { color : white; }");
     }
+}
+
+void CustomLabel::setFontSize(int ori_font_size)
+{
+    int font_size = GetFontSize(ori_font_size);
+
+    QFont font = this->font();
+
+    qDebug() << font.pointSize();
+    font.setPointSize(font_size);
+    this->setFont(font);
+//      m_styleSheet;
+//    this->setStyleSheet(m_styleSheet);
 }
 
 QPixmap CustomLabel::scaleImage(double factor)
@@ -116,12 +133,11 @@ QPixmap CustomLabel::scaleImage(double factor)
 
 void CustomLabel::resizeEvent(QResizeEvent *event)
 {
-    QFont font;
-    if(font.pointSizeF()>=FontSize::Maximum) //최소폰트 설정
-        font.setPointSizeF(this->width()/FontSize::Maximum); // /40은 창크기에 따른 비례 값으로 디버깅하면서 변경해야한다.
+//    QFont font;
+//    if(font.pointSizeF()>=FontSize::Maximum) //최소폰트 설정
+//        font.setPointSizeF(this->width()/FontSize::Maximum); // /40은 창크기에 따른 비례 값으로 디버깅하면서 변경해야한다.
 
-    if(font.pointSizeF()<=FontSize::Minimum) //최소폰트 설정
-        font.setPointSizeF(FontSize::Minimum);
-    this->setFont(font); //설정된 폰트를 위젯에 적용
+//    if(font.pointSizeF()<=FontSize::Minimum) //최소폰트 설정
+//        font.setPointSizeF(FontSize::Minimum);
+//    this->setFont(font); //설정된 폰트를 위젯에 적용
 }
-

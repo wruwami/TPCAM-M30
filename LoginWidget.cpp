@@ -37,7 +37,6 @@ LoginWidget::LoginWidget(QWidget *parent) :
 
     ui->deviceIDLabel->setText(LoadString("IDS_DEVICE_ID"));
     ui->userNameLabel->setText(LoadString("IDS_USER_NAME"));
-
     ui->loginPushButton->setText(LoadString("IDS_LOGIN"));
 
     ui->userNamePushButton->setImage("Login", "keyboard.bmp");

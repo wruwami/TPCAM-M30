@@ -18,7 +18,8 @@ public:
   std::string get_file_path();
   void get_file_list();
   void get_file(const char *file_name);
-
+  void create_path(const char* path_name);
+  void put_file(const char *file_name);
   //file list on ftp server
   std::vector<std::string> m_file_nslt;
 

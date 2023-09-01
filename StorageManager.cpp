@@ -5,13 +5,15 @@
 
 StorageManager::StorageManager()
 {
-    ConfigManager configManager = ConfigManager("setting_storage");
+    ConfigManager configManager = ConfigManager("setting_storage.json");
     QJsonObject object = configManager.GetConfig();
-    QString SDCARD = object["SDCARD"].toObject()["name"].toString();
-    QString EMMC = object["EMMC"].toObject()["name"].toString();
+    QString SDCARD = object["SD"].toObject()["name"].toString();
+    QString EMMC = object["emmc"].toObject()["name"].toString();
     QString USB = object["USB"].toObject()["name"].toString();
     foreach(auto storage , QStorageInfo::mountedVolumes())
     {
+        qDebug() << storage.device();
+        qDebug() << SDCARD;
         if (storage.device() == SDCARD)
         {
             m_sdStorage = storage;

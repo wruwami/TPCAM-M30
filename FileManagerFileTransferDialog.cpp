@@ -287,10 +287,14 @@ void FileManagerFileTransferDialog::TransferFile()
 
     ui->allProgressBar->setMaximum(m_count);
     int i = 0;
-    while (iterDir.hasNext())
+    QDirIterator iterDir2(GetSDPath(), QDir::Files | QDir::NoSymLinks, QDirIterator::Subdirectories);
+
+    while (iterDir2.hasNext())
     {
+        iterDir2.next();
+
         ui->fileCountLabel->setText(QString("%1 / %2").arg(i + 1).arg(m_count));
-        QString file_path(iterDir.fileName());
+        QString file_path(iterDir2.fileName());
         int index = file_path.lastIndexOf('/');
         QString file_name = file_path.mid(index + 1, file_path.size() - index - 1);
         ui->fileNameLabel->setText(QString(file_name));
@@ -298,7 +302,7 @@ void FileManagerFileTransferDialog::TransferFile()
         ui->allProgressBar->setValue(++i);
         file.copy(dir + '/' + file_name);
     }
-//    accept();
+    accept();
 }
 
 void FileManagerFileTransferDialog::paintEvent(QPaintEvent *event)

@@ -311,14 +311,14 @@ void ftp_t::put_file(const char *file_name)
     //construct STOR request message
     sprintf(buf_request, "STOR %s\r\n", file_name);
 
-    //send RETR request on control socket
+    //send STOR request on control socket
     send_request(sock_ctrl, buf_request);
 
-//    //get response on control socket
+    //get response on control socket
 //    get_response(sock_ctrl, str_rsp);
 
 //    //get the file (data socket), save to local file with same name
-//    receive_all(sock_data, file_name);
+//    send_all(sock_data, file_name);
 
 //    //get response
 //    get_response(sock_ctrl, str_rsp);

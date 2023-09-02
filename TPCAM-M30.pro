@@ -289,7 +289,8 @@ unix:!macx: LIBS += -L/usr/local/lib/ \
         -lopencv_objdetect \
         -lopencv_video \
         -lopencv_videoio \
-        -lmnl
+        -lmnl \
+        -lftp++
 
 INCLUDEPATH += /usr/local/include
 DEPENDPATH += /usr/local/include

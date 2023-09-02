@@ -118,7 +118,7 @@ void CustomLabel::setFontSize(int ori_font_size)
     QFont font = this->font();
 
     qDebug() << font.pointSize();
-    font.setPointSize(font_size);
+    font.setPixelSize(font_size);
     this->setFont(font);
 //      m_styleSheet;
 //    this->setStyleSheet(m_styleSheet);

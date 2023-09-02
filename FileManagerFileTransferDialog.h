@@ -24,6 +24,7 @@ public:
     ~FileManagerFileTransferDialog();
 private:
     void TransferFTP();
+    void TransferFTP2();
     void TransferFile();
 private:
     Ui::FileManagerFileTransferDialog *ui;
@@ -37,6 +38,8 @@ private slots:
     void replyFinished(QNetworkReply*);
 protected:
     void timerEvent(QTimerEvent *event);
+    void paintEvent(QPaintEvent *event);
+
 };
 
 #endif // FILEMANAGERFILETRANSFERDIALOG_H

@@ -168,9 +168,13 @@ IDS_Z160,Z160,Z160,Z160,Z160,Z160,Z160
 IDS_Z260,Z260,Z260,Z260,Z260,Z260,Z260
 IDS_PW,P/W,비밀번호,P/W,P/N,P/W,P/W
 IDS_HLC_ON,HLC ON,HLC 켬,HLC ON,CLS ENCENDIDO,HLC activé,HLC على
-IDS_DEFOG_OFF,DEFOG OFF,DEFOG 끔,DEFOG OFF,DESEMPAÑADOR APAGADO,DÉSEMBUAGE DÉSACTIVÉ,DEFOG OFF
+IDS_HLC_OFF,HLC OFF,HLC 끔,HLC DESLIGADO,HLC APAGADO,HLC OFF,إيقاف تشغيل HLC
+IDS_DIS_ON,DIS ON,DIS 켬,DIS LIGADO,DIS ACTIVADO,DIS activé,DIS على
 IDS_DIS_OFF,DIS OFF,DIS 끔,DIS DESLIGADO,DIS APAGADO,DIS OFF,إيقاف تشغيل DIS
-IDS_DNR_ON,DNR ON,DNR 켬,DNR LIGADO,DNR ACTIVADO,DNR activé,تشغيل DNR
+IDS_DEFOG_ON,DEFOG ON,DEFOG 켬,DEFOG LIGADO,DESEMPAÑADOR ACTIVADO,DÉSEMBUAGE activé,DEFOG على
+IDS_DEFOG_OFF,DEFOG OFF,DEFOG 끔,DEFOG OFF,DESEMPAÑADOR APAGADO,DÉSEMBUAGE DÉSACTIVÉ,إيقاف تشغيل DEFOG
+IDS_DNR_ON,DNR ON,DNR 켬,DNR LIGADO,DNR ACTIVADO,DNR activé,DNR على
+IDS_DNR_OFF,DNR OFF,DNR 끔,DNR DESLIGADO,DNR APAGADO,DNR OFF,إيقاف تشغيل DNR
 IDS_10_MINUTE,10 minutes,10 분,10 minutos,10 minutos,10 minutes,10 دقائق
 IDS_20_MINUTE,20 minutes,20 분,20 minutos,20 minutos,20 minutes,20 دقيقة
 IDS_30_MINUTE,30 minutes,30 분,30 minutos,30 minutos,30 minutes,30 دقيقة
@@ -190,7 +194,7 @@ IDS_CAM,Cam,카메라,câmera,Leva,Came,كام
 IDS_SERIAL_NUMBER,Serial Number,일련 번호,Número de série,Número de serie,Numéro de série,رقم سري
 IDS_SYSTEM_INFO,System Info,시스템 정보,Informação do sistema,Información del sistema,Information système,معلومات النظام
 IDS_PRINT_ERROR1,Cannot connect a printer!!,프린터를 연결할 수 없습니다!!,Não é possível conectar uma impressora!!,¡¡No se puede conectar una impresora!!,Impossible de connecter une imprimante !!,لا يمكن توصيل طابعة !!
-IDS_PRINT_ERROR2,Please check settings for the printer,프린터 설정을 확인하십시오,Verifique as configurações da impressora,Compruebe la configuración de la impresora.,Veuillez vérifier les paramètres de l'imprimante,يرجى التحقق من إعدادات الطابعة
+IDS_PRINT_ERROR2,Please checkIDS_DAY1 settings for the printer,프린터 설정을 확인하십시오,Verifique as configurações da impressora,Compruebe la configuración de la impresora.,Veuillez vérifier les paramètres de l'imprimante,يرجى التحقق من إعدادات الطابعة
 IDS_FILEMANAGER_ERROR_MESSAGE,Error Message,에러 메시지,Mensagem de erro,Mensaje de error,Message d'erreur,رسالة خطأ
 IDS_PASSWORD_CHANGING,Password Changing,비밀번호 변경,Mudança de Senha,Cambio de contraseña,Changement de mot de passe,تغيير كلمة المرور
 IDS_CURRENT,Current,현재 비밀번호,Atual,Actual,Actuel,حاضِر
@@ -207,3 +211,9 @@ IDS_SCREEN,Screen capture,스크린 캡처,Captura de tela,La captura de pantall
 IDS_SEARCH_TEXT,Enter the minute interval to search,분단위로 검색하세요,Digite o intervalo de minutos para pesquisar,Ingrese el intervalo de minutos para buscar,Entrez l'intervalle de minutes à rechercher,أدخل الفاصل الزمني للبحث
 IDS_FTP_TRANSFER,FTP file transfering,FTP 파일 전송,Transferência de arquivo FTP,Transferencia de archivos FTP,Transfert de fichiers FTP,قل ملف FTP
 IDS_FILE_TRANSFER,USB File transfering,USB 파일 전송,Transferência de arquivo USB,Transferencia de archivos USB,Transfert de fichiers USB,قل ملف USB
+IDS_DAY1,Day Dark,주간 어둡게,Dia escuro,día oscuro,Jour sombre,يوم مظلم
+IDS_DAY2,Day Standard,주간 표준,Dia Padrão,Estándar de día,Norme de jour,معيار اليوم
+IDS_DAY3,Day Bright,주간 밝게,Dia brilhante,día brillante,Jour lumineux,يوم مشرق
+IDS_NIGHT1,Night Dark,야간 어둡게,Noite escura,Noche oscura,Nuit sombre,ليلة مظلمة
+IDS_NIGHT2,Night Standard,야간 표준,Noturno Padrão,Noche Estándar,Norme de nuit,ليلة قياسية
+IDS_NIGHT3,Night Bright,야간 밝게,Noite brilhante,noche brillante,Nuit lumineuse,ليلة مشرقة

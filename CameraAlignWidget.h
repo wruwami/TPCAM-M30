@@ -75,6 +75,9 @@ private slots:
     void on_autoTriggerPushButton_toggled(bool checked);
     void on_showDistance(float,int);
 
+protected:
+    void paintEvent(QPaintEvent *event);
+
 private:
     Ui::CameraAlignWidget *ui;
     Camera* m_pCamera;

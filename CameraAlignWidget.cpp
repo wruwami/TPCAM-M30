@@ -2,6 +2,7 @@
 #include "ui_CameraAlignWidget.h"
 
 #include <QJsonArray>
+#include <QPainter>
 
 #include "StringLoader.h"
 
@@ -208,4 +209,36 @@ void CameraAlignWidget::on_autoTriggerPushButton_toggled(bool checked)
 void CameraAlignWidget::on_showDistance(float fDistance, int nSensitivity)
 {
     ui->speedSensitivitylabel->setText(QString::number(getDistanceValue(fDistance), 'f', 1) + distanceValue() + "(" + QString::number(nSensitivity)+ ")");
+}
+
+void CameraAlignWidget::paintEvent(QPaintEvent *event)
+{
+    QPainter painter(this);
+
+    QPen crossPen(Qt::white);
+    crossPen.setStyle(Qt::SolidLine);
+//        crossPen.setWidth(10);
+//        QRect rect = QRect(width() / 2, height() / 2 + 10, 10, 30);
+//        QRect rect2 = QRect(width() / 2 - 10, height() / 2, 10, 30);
+    if (m_bHUDChecked)
+    {
+        int gap = 10;
+
+//        m_HUDPoint.x()
+        QRect rect = QRect(QPoint(width() / 2 - 3 * gap, height() / 2 - gap), QPoint(width() /2 + 3*gap, height() / 2 + gap));
+        QRect rect2 = QRect(QPoint(width() / 2 - gap, height() / 2 - 3 * gap), QPoint(width() /2 + gap, height() / 2 + 3 * gap));
+
+        painter.fillRect(rect, Qt::white);
+        painter.fillRect(rect2, Qt::white);
+    }
+    else if (m_bCameraChecked)
+    {
+        int gap = 10;
+        QRect rect = QRect(QPoint(width() / 2 - 3 * gap, height() / 2 - gap), QPoint(width() /2 + 3*gap, height() / 2 + gap));
+        QRect rect2 = QRect(QPoint(width() / 2 - gap, height() / 2 - 3 * gap), QPoint(width() /2 + gap, height() / 2 + 3 * gap));
+
+        painter.fillRect(rect, Qt::white);
+        painter.fillRect(rect2, Qt::white);
+    }
+
 }

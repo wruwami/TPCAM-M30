@@ -56,6 +56,43 @@ void DeviceIDWidget::on_inputPushButton_clicked()
 
 void DeviceIDWidget::on_savePushButton_clicked()
 {
+    QString deviceID = ui->lineEdit->text();
 
+    if (ui->checkBox->isChecked())
+    {
+        ConfigManager config = ConfigManager("parameter_setting4.json");
+        QString deviceID = ui->lineEdit->text();
+        QJsonObject object = config.GetConfig();
+        object["wiFi SSID"] = deviceID;
+        object["sta ftp id & p/w"] = deviceID;
+        config.SetConfig(object);
+        config.SaveFile();
+
+    }
+
+    ConfigManager config = ConfigManager("setting_device_ID.json");
+    QJsonObject object = config.GetConfig();
+//    object[]
+    QStringList deviceIDList = deviceID.split("_");
+    if (deviceIDList.size() == 2)
+    {
+        object["Device ID"].toObject()["Prefix"] = deviceIDList[0];
+        object["Device ID"].toObject()["SerialNum"] = deviceIDList[1];
+        object["Device ID"].toObject()["Postfix"] = deviceIDList[2];
+    }
+    else if (deviceIDList.size() == 1)
+    {
+        object["Device ID"].toObject()["Prefix"] = deviceIDList[0];
+        object["Device ID"].toObject()["SerialNum"] = deviceIDList[1];
+        object["Device ID"].toObject()["Postfix"] = "null";
+    }
+    else
+    {
+        object["Device ID"].toObject()["Prefix"] = "null";
+        object["Device ID"].toObject()["SerialNum"] = deviceIDList[0];
+        object["Device ID"].toObject()["Postfix"] = "null";
+    }
+    config.SetConfig(object);
+    config.SaveFile();
 }
 

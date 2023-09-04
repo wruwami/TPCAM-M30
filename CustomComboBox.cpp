@@ -4,6 +4,7 @@
 #include <QProxyStyle>
 #include <QResizeEvent>
 #include <QLineEdit>
+#include <QFont>
 
 #include "FontSize.h"
 
@@ -54,7 +55,14 @@ CustomComboBox::CustomComboBox(QWidget *parent) : QComboBox(parent)
     QString styleSheet = QString::fromLatin1(file.readAll());
 
     setStyleSheet(styleSheet);
-//    this->setEditable(true);
+    //    this->setEditable(true);
+}
+
+void CustomComboBox::setFontSize(int font_size)
+{
+    QFont font = this->font();
+    font.setPixelSize(font_size);
+    this->setFont(font);
 }
 
 //void CustomComboBox::setText(QString text)

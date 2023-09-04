@@ -30,6 +30,13 @@ QString CustomLineEdit::GetNumber()
     return m_strNum;
 }
 
+void CustomLineEdit::setFontSize(int font_size)
+{
+    QFont font = this->font();
+    font.setPixelSize(font_size);
+    this->setFont(font);
+}
+
 void CustomLineEdit::resizeEvent(QResizeEvent *event)
 {
     QFont font;

@@ -11,6 +11,7 @@ public:
     explicit CustomPushButton(QWidget *parent = 0);
     void setImage(QString path_name, QString file_name);
     void setImage(QString path_name, QString file_name, QSize size);
+    void setFontSize(int);
 signals:
 
 private:

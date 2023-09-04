@@ -16,6 +16,7 @@ public:
     void SetMode(Mode nMode);
     QString GetString();
     QString GetNumber();
+    void setFontSize(int);
 signals:
 
 public slots:

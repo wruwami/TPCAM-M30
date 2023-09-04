@@ -31,6 +31,9 @@ LoginWidget::LoginWidget(QWidget *parent) :
 
     ui->dateTimePushButton->setText(LoadString("IDS_DATE_TIME"));
     ui->lightPushButton->setText(LoadString("IDS_LIGHT"));
+    ui->dateTimePushButton->setFontSize(23);
+    ui->lightPushButton->setFontSize(23);
+
 
     // 추후 cfg와 연동하여 수정 필요
     ui->versionLabel->setText("v.1.0.0");
@@ -38,11 +41,16 @@ LoginWidget::LoginWidget(QWidget *parent) :
     ui->deviceIDLabel->setText(LoadString("IDS_DEVICE_ID"));
     ui->userNameLabel->setText(LoadString("IDS_USER_NAME"));
     ui->loginPushButton->setText(LoadString("IDS_LOGIN"));
+    ui->deviceIDLabel->setFontSize(23);
+    ui->userNameLabel->setFontSize(23);
+    ui->loginPushButton->setFontSize(23);
 
     ui->userNamePushButton->setImage("Login", "keyboard.bmp");
     ui->logoLabel->setImage("Login", "comlaser_logo.bmp");
     ui->deviceIDLineEdit->setDisabled(true);
     ui->deviceIDLineEdit->setText(m_jsonObject["Device ID"].toString());
+    ui->deviceIDLineEdit->setFontSize(23);
+
 
     int index = 0;
     QJsonArray ar = m_jsonObject["User Name items"].toArray();
@@ -55,7 +63,7 @@ LoginWidget::LoginWidget(QWidget *parent) :
 //        ItemBackPush(json.toString());
     }
     ui->userNameComboBox->setCurrentIndex(index);
-
+    ui->userNameComboBox->setFontSize(23);
     m_pLightMager = new LightManager;
 
 //    m_userName = ui->userNameComboBox->it;

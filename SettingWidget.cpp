@@ -28,8 +28,20 @@ SettingWidget::SettingWidget(QWidget *parent) :
 
     this->setWindowFlags(Qt::FramelessWindowHint);
 
+    ui->setting1PushButton->setFontSize(23);
+    ui->setting2PushButton->setFontSize(23);
+    ui->setting3PushButton->setFontSize(23);
+    ui->setting4PushButton->setFontSize(23);
+    ui->setting5PushButton->setFontSize(23);
+    ui->setting6PushButton->setFontSize(23);
+    ui->setting7PushButton->setFontSize(23);
+
     ui->savePushButton->setText(LoadString("IDS_SAVE"));
     ui->cancelPushButton->setText(LoadString("IDS_CANCEL"));
+    ui->savePushButton->setFontSize(23);
+    ui->cancelPushButton->setFontSize(23);
+
+
 
     m_pSetting1Widget = new Setting1Widget;
     m_pSetting2Widget = new Setting2Widget;

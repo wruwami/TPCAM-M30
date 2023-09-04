@@ -21,10 +21,15 @@ Setting1Widget::Setting1Widget(QWidget *parent) :
     m_newJsonObject = m_jsonObject;
 
     ui->locationLabel->setText(LoadString("IDS_LOCATION"));
+    ui->locationLabel->setFontSize(23);
     ui->speedLimitLabel->setText(LoadString("IDS_SPEED_LIMIT"));
+    ui->speedLimitLabel->setFontSize(23);
     ui->captureSpeedLimitLabel->setText(LoadString("IDS_CAPTURE_LIMIT"));
+    ui->captureSpeedLimitLabel->setFontSize(23);
     ui->enforcementModeLabel->setText(LoadString("IDS_ENFORCEMENT_MODE"));
+    ui->enforcementModeLabel->setFontSize(23);
     ui->speedModeLabel->setText(LoadString("IDS_SPEED_MODE"));
+    ui->speedModeLabel->setFontSize(23);
 
     ui->locationPushButton->setImage("setting_1", "keyboard.bmp");
 
@@ -57,11 +62,17 @@ Setting1Widget::Setting1Widget(QWidget *parent) :
 //    ui->captureSpeedLimit2LineEdit->setText("90");
 //    ui->captureSpeedLimit3LineEdit->setText("70");
     ui->speedLimit1LineEdit->setText(QString::number(m_jsonObject["speed limit"].toArray()[0].toInt()));
+    ui->speedLimit1LineEdit->setFontSize(23);
     ui->speedLimit2LineEdit->setText(QString::number(m_jsonObject["speed limit"].toArray()[1].toInt()));
+    ui->speedLimit2LineEdit->setFontSize(23);
     ui->speedLimit3LineEdit->setText(QString::number(m_jsonObject["speed limit"].toArray()[2].toInt()));
+    ui->speedLimit3LineEdit->setFontSize(23);
     ui->captureSpeedLimit1LineEdit->setText(QString::number(m_jsonObject["capture speed"].toArray()[0].toInt()));
+    ui->captureSpeedLimit1LineEdit->setFontSize(23);
     ui->captureSpeedLimit2LineEdit->setText(QString::number(m_jsonObject["capture speed"].toArray()[1].toInt()));
+    ui->captureSpeedLimit2LineEdit->setFontSize(23);
     ui->captureSpeedLimit3LineEdit->setText(QString::number(m_jsonObject["capture speed"].toArray()[2].toInt()));
+    ui->captureSpeedLimit3LineEdit->setFontSize(23);
 
 
     ui->speedLimit1LineEdit->SetMode(KeypadType);

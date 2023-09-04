@@ -149,8 +149,8 @@ IDS_NO,no,아니오,não,no,non,لا
 IDS_BLUETOOTH_SEARCH_FILTER,Bluetooth Search Filter,블루투스 검색 필터,Filtro de Pesquisa Bluetooth,Filtro de búsqueda Bluetooth,Filtre de recherche Bluetooth,مرشح بحث بلوتوث
 IDS_READY,Ready,준비,Pronto,Listo,Prêt,جاهز
 IDS_Ready,Ready,준비,Pronto,Listo,Prêt,جاهز
-IDS_DZ_PLUS,DZ+,DZ+,DZ+,DZ+,DZ+,DZ+
-IDS_DZ_MINUS,DZ-,DZ-,DZ-,DZ-,DZ-,DZ-
+IDS_DZ_PLUS,D+,D+,D+,D+,D+,D+
+IDS_DZ_MINUS,D-,D-,D-,D-,D-,D-
 IDS_SAVE_IMAGE,Save Image,이미지 저장,Salvar imagem,Guardar imagen,Enregistrer l'image,احفظ الصورة
 IDS_FOCUS_PLIS,F+,F+,F+,F+,F+,F+
 IDS_FOCUS_MINUS,F-,F-,F-,F-,F-,F-

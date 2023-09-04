@@ -153,42 +153,42 @@
          <item>
           <widget class="CustomPushButton" name="mainMenuPushButton">
            <property name="text">
-            <string>PushButton</string>
+            <string/>
            </property>
           </widget>
          </item>
          <item>
           <widget class="CustomPushButton" name="searchPushButton">
            <property name="text">
-            <string>PushButton</string>
+            <string/>
            </property>
           </widget>
          </item>
          <item>
           <widget class="CustomPushButton" name="zoomPlayPushButton">
            <property name="text">
-            <string>PushButton</string>
+            <string/>
            </property>
           </widget>
          </item>
          <item>
           <widget class="CustomPushButton" name="deletePushButton">
            <property name="text">
-            <string>PushButton</string>
+            <string/>
            </property>
           </widget>
          </item>
          <item>
           <widget class="CustomPushButton" name="sharePushButton">
            <property name="text">
-            <string>PushButton</string>
+            <string/>
            </property>
           </widget>
          </item>
          <item>
           <widget class="CustomPushButton" name="movePushButton">
            <property name="text">
-            <string>PushButton</string>
+            <string/>
            </property>
           </widget>
          </item>

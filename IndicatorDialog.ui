@@ -202,7 +202,7 @@
        <item row="0" column="1" rowspan="2">
         <widget class="CustomPushButton" name="screenCapturePushButton">
          <property name="text">
-          <string>Screen Capture</string>
+          <string/>
          </property>
         </widget>
        </item>

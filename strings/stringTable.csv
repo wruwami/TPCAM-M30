@@ -194,20 +194,21 @@ IDS_CAM,Cam,카메라,câmera,Leva,Came,كام
 IDS_SERIAL_NUMBER,Serial Number,일련 번호,Número de série,Número de serie,Numéro de série,رقم سري
 IDS_SYSTEM_INFO,System Info,시스템 정보,Informação do sistema,Información del sistema,Information système,معلومات النظام
 IDS_PRINT_ERROR1,Cannot connect a printer!!,프린터를 연결할 수 없습니다!!,Não é possível conectar uma impressora!!,¡¡No se puede conectar una impresora!!,Impossible de connecter une imprimante !!,لا يمكن توصيل طابعة !!
-IDS_PRINT_ERROR2,Please checkIDS_DAY1 settings for the printer,프린터 설정을 확인하십시오,Verifique as configurações da impressora,Compruebe la configuración de la impresora.,Veuillez vérifier les paramètres de l'imprimante,يرجى التحقق من إعدادات الطابعة
+IDS_PRINT_ERROR2,Please check settings for the printer,프린터 설정을 확인하십시오,Verifique as configurações da impressora,Compruebe la configuración de la impresora.,Veuillez vérifier les paramètres de l'imprimante,يرجى التحقق من إعدادات الطابعة
 IDS_FILEMANAGER_ERROR_MESSAGE,Error Message,에러 메시지,Mensagem de erro,Mensaje de error,Message d'erreur,رسالة خطأ
 IDS_PASSWORD_CHANGING,Password Changing,비밀번호 변경,Mudança de Senha,Cambio de contraseña,Changement de mot de passe,تغيير كلمة المرور
 IDS_CURRENT,Current,현재 비밀번호,Atual,Actual,Actuel,حاضِر
 IDS_NEW,New,새 비밀번호,Novo,Nuevo,Nouveau,جديد
 IDS_CONFIRM,Confirm,새 비밀번호 확인,confirme,Confirmar,Confirmer,يتأكد
 IDS_SHOW,Show,보임,Mostrar,Show,Montrer,تبين
-IDS_WIFI_SSID,wifi ssid & ftp ID,wifi ssid & ftp ID,wifi ssid & ftp ID,wifi ssid & ftp ID,wifi ssid & ftp ID,wifi ssid & ftp ID
+IDS_WIFI_SSID,WIFI SSID & FTP ID,WIFI SSID & FTP ID,WIFI SSID & FTP ID,WIFI SSID & FTP ID,WIFI SSID & FTP ID,WIFI SSID & FTP ID
+IDS_WIFI_SEARCH,WIFI Search,WIFI 검색,Pesquisa WIFI,búsqueda WIFI,Recherche WIFI,يبحث WIFI
 IDS_FTP_ID_PW,FTP ID/PW,FTP ID/PW,FTP ID/PW,FTP ID/PW,FTP ID/PW,FTP ID/PW
 IDS_PASS,PASS,PASS,PASSAR,APROBAR,PASSER,يمر
 IDS_CALIBRATION_SERVICE_REQUIRED,Calibration service required,교정 서비스 필요합니다,Serviço de calibração necessário,Servicio de calibración requerido,Service d'étalonnage requis,خدمة المعايرة مطلوبة
 IDS_LOGIN_EXPIRED_DATE,Expired Date,교정 유효기간 만료,Data expirada,Fecha de vencimiento,Date d'expiration,منتهي الصلاحية
-IDS_MANUAL_CAPTURE,Manual capture,메뉴얼 캡처,Captura manual,Captura manual,Capture manuelle,الالتقاط اليدوي
-IDS_SCREEN,Screen capture,스크린 캡처,Captura de tela,La captura de pantalla,Capture d'écran,تصوير الشاشة
+IDS_MANUAL_CAPTURE,M,M,M,M,M,M
+IDS_SCREEN,S,S,S,S,S,S
 IDS_SEARCH_TEXT,Enter the minute interval to search,분단위로 검색하세요,Digite o intervalo de minutos para pesquisar,Ingrese el intervalo de minutos para buscar,Entrez l'intervalle de minutes à rechercher,أدخل الفاصل الزمني للبحث
 IDS_FTP_TRANSFER,FTP file transfering,FTP 파일 전송,Transferência de arquivo FTP,Transferencia de archivos FTP,Transfert de fichiers FTP,قل ملف FTP
 IDS_FILE_TRANSFER,USB File transfering,USB 파일 전송,Transferência de arquivo USB,Transferencia de archivos USB,Transfert de fichiers USB,قل ملف USB

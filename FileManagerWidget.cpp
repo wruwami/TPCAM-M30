@@ -70,12 +70,12 @@ FileManagerWidget::FileManagerWidget(QWidget *parent) :
     ui->printPushButton->setText(LoadString("IDS_PRINT"));
     ui->printPushButton->setDisabled(true);
 
-    ui->mainMenuPushButton->setText(LoadString("IDS_M"));
-    ui->searchPushButton->setText(LoadString("IDS_SEARCH"));
-    ui->zoomPlayPushButton->setText(LoadString("IDS_ZOOM"));
-    ui->deletePushButton->setText(LoadString("IDS_DELETE"));
-    ui->sharePushButton->setText(LoadString("IDS_SHARE"));
-    ui->movePushButton->setText(LoadString("IDS_MOVE"));
+    ui->mainMenuPushButton->setImage("file_manager", "file_management_home.jpg");
+    ui->searchPushButton->setImage("file_manager", "file_management_search.jpg");
+    ui->zoomPlayPushButton->setImage("file_manager", "file_management_zoom.jpg");
+    ui->deletePushButton->setImage("file_manager", "file_management_delete_all.jpg");
+    ui->sharePushButton->setImage("file_manager", "file_management_ftp.jpg");
+    ui->movePushButton->setImage("file_manager", "file_management_copy_usb.jpg");
 
     ui->horizontalLayout_9->setMargin(GetWidthWidth(15));
     ui->horizontalLayout_9->setSpacing(GetWidthWidth(30));
@@ -437,31 +437,31 @@ void FileManagerWidget::on_ImageVideoComboBox_currentIndexChanged(int index)
     case 0: // I
     {
         m_nMode = Mode::I_MODE;
-        ui->zoomPlayPushButton->setText(LoadString("IDS_ZOOM"));
+        ui->zoomPlayPushButton->setImage("file_manager", "file_management_zoom.jpg");
     }
         break;
     case 1: // A
     {
         m_nMode = Mode::A_MODE;
-        ui->zoomPlayPushButton->setText(LoadString("IDS_PLAY"));
+        ui->zoomPlayPushButton->setImage("file_manager", "file_management_play.jpg");
     }
         break;
     case 2: // V
     {
         m_nMode = Mode::V_MODE;
-        ui->zoomPlayPushButton->setText(LoadString("IDS_PLAY"));
+        ui->zoomPlayPushButton->setImage("file_manager", "file_management_play.jpg");
     }
         break;
     case 3: // M
     {
         m_nMode = Mode::M_MODE;
-        ui->zoomPlayPushButton->setText(LoadString("IDS_ZOOM"));
+        ui->zoomPlayPushButton->setImage("file_manager", "file_management_zoom.jpg");
     }
         break;
     case 4: // S
     {
         m_nMode = Mode::S_MODE;
-        ui->zoomPlayPushButton->setText(LoadString("IDS_ZOOM"));
+        ui->zoomPlayPushButton->setImage("file_manager", "file_management_zoom.jpg");
     }
         break;
     }

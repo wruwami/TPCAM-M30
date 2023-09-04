@@ -66,10 +66,27 @@ IndicatorDialog::~IndicatorDialog()
 void IndicatorDialog::setFocusExposeDisabled(bool isDisable)
 {
     if (m_pCameraExposePushButton != nullptr)
+    {
         m_pCameraExposePushButton->setDisabled(isDisable);
+        if (isDisable)
+        {
+            m_pCameraExposePushButton->setImage("indicator", "indicator_expose_disable.jpg");
+        }
+        else
+        {
+            m_pCameraExposePushButton->setImage("indicator", "indicator_expose_disable.jpg");
+        }
+
+    }
 
     if (m_pCameraFocusPushButton != nullptr)
+    {
         m_pCameraFocusPushButton->setDisabled(isDisable);
+        if (isDisable)
+            m_pCameraFocusPushButton->setImage("indicator", "indicator_focus_disable.jpg");
+        else
+            m_pCameraFocusPushButton->setImage("indicator", "indicator_focus_enable.jpg");
+    }
 }
 
 bool IndicatorDialog::GetGPSStatus()
@@ -93,9 +110,11 @@ void IndicatorDialog::on_cameraPushButton_clicked()
 
     m_pCameraExposePushButton = new CustomPushButton;
     m_pCameraFocusPushButton = new CustomPushButton;
+    m_pCameraExposePushButton->setImage("indicator", "indicator_expose_disable.jpg");
+    m_pCameraFocusPushButton->setImage("indicator", "indicator_focus_disable.jpg");
 
-    m_pCameraExposePushButton->setText(LoadString("IDS_EXPOSE"));
-    m_pCameraFocusPushButton->setText(LoadString("IDS_FOCUS"));
+//    m_pCameraExposePushButton->setText(LoadString("IDS_EXPOSE"));
+//    m_pCameraFocusPushButton->setText(LoadString("IDS_FOCUS"));
 
     ui->horizontalLayout2->removeItem(ui->horizontalLayout2->takeAt(0));
     ui->horizontalLayout2->removeItem(ui->horizontalLayout2->takeAt(1));
@@ -162,8 +181,8 @@ void IndicatorDialog::on_comPushButton_clicked()
     m_pBTPushButton = new CustomPushButton();
     m_pEthernetPushButton = new CustomPushButton();
     m_pWifiPushButton->setImage("indicator", "indicator_wifi_connected.jpg");
-    m_pBTPushButton->setImage("indicator", "BT.jpg");
-    m_pEthernetPushButton->setImage("indicator", "ethernet.png");
+    m_pBTPushButton->setImage("indicator", "indicator_bluetooth_enable.jpg");
+    m_pEthernetPushButton->setImage("indicator", "indicator_ethernet_enable.jpg");
 
     ui->horizontalLayout2->removeItem(ui->horizontalLayout2->takeAt(6));
     ui->horizontalLayout2->removeItem(ui->horizontalLayout2->takeAt(5));
@@ -475,6 +494,7 @@ void IndicatorDialog::initlize()
     ui->gpsPushButton->setImage("indicator", "indicator_gps_off.jpg");
 
     ui->screenRecordingPushButton->setImage("indicator", "screen_recording.jpg");
+    ui->screenCapturePushButton->setImage("indicator", "screen_capture.jpg");
 
 }
 

@@ -144,8 +144,8 @@ IDS_IP_ADDRESS,IP Address,IP 주소,Endereço de IP,Dirección IP,Adresse IP,ع�
 IDS_PORT,port,포트,porta,puerto,Port,ميناء
 IDS_USER_PASS,PASSWORD,비밀번호,SENHA,CLAVE,LE MOT DE PASSE,كلمه السر
 IDS_FILTER_NAME,Filter Name,필터 이름,Nome do filtro,Nombre del filtro,Nom du filtre,اسم المرشح
-IDS_YES,yes,예,sim,si,oui,نعم
-IDS_NO,no,아니오,não,no,non,لا
+IDS_YES,YES,예,sim,si,oui,نعم
+IDS_NO,NO,아니오,não,no,non,لا
 IDS_BLUETOOTH_SEARCH_FILTER,Bluetooth Search Filter,블루투스 검색 필터,Filtro de Pesquisa Bluetooth,Filtro de búsqueda Bluetooth,Filtre de recherche Bluetooth,مرشح بحث بلوتوث
 IDS_READY,Ready,준비,Pronto,Listo,Prêt,جاهز
 IDS_Ready,Ready,준비,Pronto,Listo,Prêt,جاهز

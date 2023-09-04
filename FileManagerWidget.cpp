@@ -72,7 +72,7 @@ FileManagerWidget::FileManagerWidget(QWidget *parent) :
 
     ui->mainMenuPushButton->setImage("file_manager", "file_management_home.jpg");
     ui->searchPushButton->setImage("file_manager", "file_management_search.jpg");
-    ui->zoomPlayPushButton->setImage("file_manager", "file_management_zoom.jpg");
+    ui->zoomPlayPushButton->setImage("file_manager", "file_management_zoom.png");
     ui->deletePushButton->setImage("file_manager", "file_management_delete_all.jpg");
     ui->sharePushButton->setImage("file_manager", "file_management_ftp.jpg");
     ui->movePushButton->setImage("file_manager", "file_management_copy_usb.jpg");
@@ -437,31 +437,31 @@ void FileManagerWidget::on_ImageVideoComboBox_currentIndexChanged(int index)
     case 0: // I
     {
         m_nMode = Mode::I_MODE;
-        ui->zoomPlayPushButton->setImage("file_manager", "file_management_zoom.jpg");
+        ui->zoomPlayPushButton->setImage("file_manager", "file_management_zoom.png");
     }
         break;
     case 1: // A
     {
         m_nMode = Mode::A_MODE;
-        ui->zoomPlayPushButton->setImage("file_manager", "file_management_play.jpg");
+        ui->zoomPlayPushButton->setImage("file_manager", "file_management_play.png");
     }
         break;
     case 2: // V
     {
         m_nMode = Mode::V_MODE;
-        ui->zoomPlayPushButton->setImage("file_manager", "file_management_play.jpg");
+        ui->zoomPlayPushButton->setImage("file_manager", "file_management_play.png");
     }
         break;
     case 3: // M
     {
         m_nMode = Mode::M_MODE;
-        ui->zoomPlayPushButton->setImage("file_manager", "file_management_zoom.jpg");
+        ui->zoomPlayPushButton->setImage("file_manager", "file_management_zoom.png");
     }
         break;
     case 4: // S
     {
         m_nMode = Mode::S_MODE;
-        ui->zoomPlayPushButton->setImage("file_manager", "file_management_zoom.jpg");
+        ui->zoomPlayPushButton->setImage("file_manager", "file_management_zoom.png");
     }
         break;
     }

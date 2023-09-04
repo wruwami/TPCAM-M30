@@ -74,7 +74,7 @@ void IndicatorDialog::setFocusExposeDisabled(bool isDisable)
         }
         else
         {
-            m_pCameraExposePushButton->setImage("indicator", "indicator_expose_disable.jpg");
+            m_pCameraExposePushButton->setImage("indicator", "indicator_expose_enable.jpg");
         }
 
     }
@@ -83,7 +83,7 @@ void IndicatorDialog::setFocusExposeDisabled(bool isDisable)
     {
         m_pCameraFocusPushButton->setDisabled(isDisable);
         if (isDisable)
-            m_pCameraFocusPushButton->setImage("indicator", "indicator_focus_disable.jpg");
+            m_pCameraFocusPushButton->setImage("indicator", "indicator_focos_disable.jpg");
         else
             m_pCameraFocusPushButton->setImage("indicator", "indicator_focus_enable.jpg");
     }
@@ -111,7 +111,7 @@ void IndicatorDialog::on_cameraPushButton_clicked()
     m_pCameraExposePushButton = new CustomPushButton;
     m_pCameraFocusPushButton = new CustomPushButton;
     m_pCameraExposePushButton->setImage("indicator", "indicator_expose_disable.jpg");
-    m_pCameraFocusPushButton->setImage("indicator", "indicator_focus_disable.jpg");
+    m_pCameraFocusPushButton->setImage("indicator", "indicator_focos_disable.jpg");
 
 //    m_pCameraExposePushButton->setText(LoadString("IDS_EXPOSE"));
 //    m_pCameraFocusPushButton->setText(LoadString("IDS_FOCUS"));
@@ -494,7 +494,7 @@ void IndicatorDialog::initlize()
     ui->gpsPushButton->setImage("indicator", "indicator_gps_off.jpg");
 
     ui->screenRecordingPushButton->setImage("indicator", "screen_recording.jpg");
-    ui->screenCapturePushButton->setImage("indicator", "screen_capture.jpg");
+    ui->screenCapturePushButton->setImage("indicator", "indicator_screen_capture.jpg");
 
 }
 

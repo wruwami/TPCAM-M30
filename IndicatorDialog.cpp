@@ -181,7 +181,7 @@ void IndicatorDialog::on_comPushButton_clicked()
     m_pBTPushButton = new CustomPushButton();
     m_pEthernetPushButton = new CustomPushButton();
     m_pWifiPushButton->setImage("indicator", "indicator_wifi_connected.jpg");
-    m_pBTPushButton->setImage("indicator", "indicator_bluetooth_enable.jpg");
+    m_pBTPushButton->setImage("indicator", "indicator_bluetooth_enbable");
     m_pEthernetPushButton->setImage("indicator", "indicator_ethernet_enable.jpg");
 
     ui->horizontalLayout2->removeItem(ui->horizontalLayout2->takeAt(6));

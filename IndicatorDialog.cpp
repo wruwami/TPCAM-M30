@@ -494,7 +494,7 @@ void IndicatorDialog::initlize()
     ui->gpsPushButton->setImage("indicator", "indicator_gps_off.jpg");
 
     ui->screenRecordingPushButton->setImage("indicator", "screen_recording.jpg");
-    ui->screenCapturePushButton->setImage("indicator", "screen_capture.jpg");
+    ui->screenCapturePushButton->setImage("indicator", "indicator_screen_capture.jpg");
 
 }
 

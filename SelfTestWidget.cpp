@@ -21,6 +21,8 @@
 #include "ViscaPacket.h"
 #include "ConfigManager.h"
 
+extern QString g_AppVersion;
+
 SelfTestWidget::SelfTestWidget(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::SelfTestWidget)
@@ -51,11 +53,20 @@ SelfTestWidget::SelfTestWidget(QWidget *parent) :
 //    ui->storageTitleLabel->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
     ui->storageValueLabel->setText(LoadString("IDS_SELFTEST_CHECK"));
 
+    if (SerialGPSManager::GetInstance()->GetSatellitesInView() != 0)
+    {
+        QDateTime datetime = SerialGPSManager::GetInstance()->GetDateTime();
+        QString string = datetime.toString("\"yyyy-MM-dd hh:mm:ss\"");
+        QString dateTimeString ("date -s ");
+        dateTimeString.append(string);
+
+        system(dateTimeString.toStdString().c_str());
+    }
+
 //    ui->titleLabel->setFontSize(18);
-
-    QFile expired_file(GetPath("", SD) + "/" + ("expired_date.txt"));
+    qDebug() << GetPath("/settings", eMMC) + "/" + ("expired_date.txt");
+    QFile expired_file(GetPath("/settings", eMMC) + "/" + ("expired_date.txt"));
     expired_file.open(QFile::ReadOnly);
-
     if (!expired_file.isOpen())
     {
         qDebug() << "no file has been opened";
@@ -65,12 +76,30 @@ SelfTestWidget::SelfTestWidget(QWidget *parent) :
     {
         QByteArray ba = expired_file.readAll();
         QString str = QString(ba);
+        str.replace(" ", "");
         ui->expiredDateLabel->setText(LoadString("IDS_EXPIRED_DATE") + GetDate(str));
     }
     expired_file.close();
 
+    QString build_date;
+    QFile build_file(GetPath("/settings", eMMC) + "/" + ("build_date.txt"));
+    build_file.open(QFile::ReadOnly);
+    if (!build_file.isOpen())
+    {
+        qDebug() << "no file has been opened";
+//        ui->expiredDateLabel->setText(LoadString("IDS_EXPIRED_DATE"));
+    }
+    else
+    {
+        QByteArray ba = build_file.readAll();
+        QString str = QString(ba);
+        str.replace(" ", "");
+        build_date = GetDate(str);
+    }
+    expired_file.close();
 
-    ui->versionLabel->setText(GetVersion() + "(" + GetDate(QDate::currentDate().toString("yyyyMMdd")) + ")");
+
+    ui->versionLabel->setText(GetVersion() + " (" + build_date + ")");
 
     ui->expiredDateLabel->setStyleSheet("QLabel { color : red; }");
     ui->versionLabel->setStyleSheet("QLabel { color : #ffc000; }");
@@ -134,23 +163,23 @@ SelfTestWidget::~SelfTestWidget()
 
 QString SelfTestWidget::GetVersion()
 {
-    QFile file(GetPath("", SD) + "/" + "verison_info.txt");
-    file.open(QFile::ReadOnly);
+//    QFile file(GetPath("", SD) + "/" + "verison_info.txt");
+//    file.open(QFile::ReadOnly);
 
-    if (!file.isOpen())
-    {
-        qDebug() << "no file has been opened";
-//        ui->versionLabel->setText(LoadString("IDS_EXPIRED_DATE"));
-    }
-    else
-    {
-        QByteArray ba = file.readAll();
-        QString str = QString(ba);
-        file.close();
-        return str;
-    }
-    file.close();
-    return "";
+//    if (!file.isOpen())
+//    {
+//        qDebug() << "no file has been opened";
+////        ui->versionLabel->setText(LoadString("IDS_EXPIRED_DATE"));
+//    }
+//    else
+//    {
+//        QByteArray ba = file.readAll();
+//        QString str = QString(ba);
+//        file.close();
+//        return str;
+//    }
+//    file.close();
+    return g_AppVersion;
 }
 
 void SelfTestWidget::StartSelfTest()
@@ -197,16 +226,7 @@ void SelfTestWidget::StartSelfTest()
 //    connect(m_Timer, SIGNAL())
 //    this->lower();
 
-    if (SerialGPSManager::GetInstance()->GetSatellitesInView() != 0)
-    {
-        QDateTime datetime = SerialGPSManager::GetInstance()->GetDateTime();
-        QString string = datetime.toString("\"yyyy-MM-dd hh:mm:ss\"");
-        QString dateTimeString ("date -s ");
-        dateTimeString.append(string);
 
-        system(dateTimeString.toStdString().c_str());
-
-    }
 
 //    BaseDialog baseDialog(SelfTestWarningMessageWidgetType, isCamera, isLaser, isBattery, isStorage, Qt::AlignmentFlag::AlignCenter);
 ////    baseDialog.SetSelfTestResult();

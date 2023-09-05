@@ -15,7 +15,7 @@ namespace ResourceLoader{
 class DateFormatManager
 {
 private:
-    DateFormatManager() {}
+    DateFormatManager();
     DateFormatManager(const DateFormatManager& other);
     ~DateFormatManager() {}
     static DateFormatManager* instance;

@@ -1,7 +1,16 @@
 #include "DateFormatManager.h"
 
+#include "ConfigManager.h"
+
 using namespace ResourceLoader;
 DateFormatManager* DateFormatManager::instance = nullptr;
+
+DateFormatManager::DateFormatManager()
+{
+    ConfigManager config = ConfigManager("parameter_setting3.json");
+    QJsonObject object = config.GetConfig();
+    m_DateFormat = object["date format items"].toArray()[object["date format selection"].toInt() - 1].toString();
+}
 
 void DateFormatManager::SetDateFormat(QString dateFormat)
 {
@@ -10,7 +19,7 @@ void DateFormatManager::SetDateFormat(QString dateFormat)
 
 QString DateFormatManager::GetDateFormat()
 {
-    m_DateFormat;
+    return m_DateFormat;
 }
 
 QString DateFormatManager::GetDate(QString str)

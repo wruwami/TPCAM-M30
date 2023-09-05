@@ -55,6 +55,7 @@ private:
     QPoint m_LaserPoint;
     AlignMode m_nMode = HUD;
     SerialLaserManager* m_pSerialLaserManager = nullptr;
+    int m_CameraMoveUnit = 1;
 private slots:
     void on_hudPushButton_clicked();
 

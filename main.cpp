@@ -14,6 +14,8 @@
 #include "StorageManager.h"
 #include "Application.h"
 
+QString g_AppVersion = "1.0.0";
+
 int main(int argc, char *argv[])
 {
     Application a(argc, argv);

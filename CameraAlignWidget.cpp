@@ -45,6 +45,8 @@ CameraAlignWidget::CameraAlignWidget(QWidget *parent) :
     m_HUDPoint = QPoint(ar[0].toInt(), ar[1].toInt());
     ar = m_object["Camera reticle pos"].toArray();
     m_LaserPoint = QPoint(ar[0].toInt(), ar[1].toInt());
+
+    m_CameraMoveUnit = m_object["Camera reticle move unit"].toInt();
 }
 
 CameraAlignWidget::~CameraAlignWidget()
@@ -86,12 +88,12 @@ void CameraAlignWidget::SetDirection(int x, int y)
     }
     else
     {
-        if ((m_LaserPoint.x() + x) > 1920 || (m_LaserPoint.x() + x) < 0)
+        if ((m_LaserPoint.x() + m_CameraMoveUnit * x) > 1920 || (m_LaserPoint.x() + m_CameraMoveUnit* x) < 0)
             return;
-        if ((m_LaserPoint.y() + y) > 1080 || (m_LaserPoint.y() + y) < 0)
+        if ((m_LaserPoint.y() + m_CameraMoveUnit * y) > 1080 || (m_LaserPoint.y() + m_CameraMoveUnit * y) < 0)
             return;
-        m_LaserPoint.setX(m_LaserPoint.x() + x);
-        m_LaserPoint.setY(m_LaserPoint.y() + y);
+        m_LaserPoint.setX(m_LaserPoint.x() + m_CameraMoveUnit * x);
+        m_LaserPoint.setY(m_LaserPoint.y() + m_CameraMoveUnit * y);
         SetLaserMode();
     }
 }
@@ -224,7 +226,8 @@ void CameraAlignWidget::paintEvent(QPaintEvent *event)
     {
         int gap = 10;
 
-//        m_HUDPoint.x()
+        int x = m_HUDPoint.x();
+        int y = m_HUDPoint.y();
         QRect rect = QRect(QPoint(width() / 2 - 3 * gap, height() / 2 - gap), QPoint(width() /2 + 3*gap, height() / 2 + gap));
         QRect rect2 = QRect(QPoint(width() / 2 - gap, height() / 2 - 3 * gap), QPoint(width() /2 + gap, height() / 2 + 3 * gap));
 
@@ -234,6 +237,10 @@ void CameraAlignWidget::paintEvent(QPaintEvent *event)
     else if (m_bCameraChecked)
     {
         int gap = 10;
+
+        int x = m_LaserPoint.x();
+        int y = m_LaserPoint.y();
+
         QRect rect = QRect(QPoint(width() / 2 - 3 * gap, height() / 2 - gap), QPoint(width() /2 + 3*gap, height() / 2 + gap));
         QRect rect2 = QRect(QPoint(width() / 2 - gap, height() / 2 - 3 * gap), QPoint(width() /2 + gap, height() / 2 + 3 * gap));
 

@@ -12,5 +12,6 @@
     "sta ssid selection" : 1,
     "subnet mask": "255.255.255.0",
     "wiFi SSID": "TP30000",
-    "wifi_mode": "STA"
+    "wifi_mode": "STA",
+    "wifi_gateway": "192.168.0.1"
 }

@@ -212,7 +212,7 @@ bool SelfTestDialog::StorageTest()
         qDebug() << sdcardManager.GeteMMCTotal();
         float sdpercent = sdcardManager.GetSDAvailable() / sdcardManager.GetSDTotal();
         float emmcpercent = sdcardManager.GeteMMCAvailable() / sdcardManager.GeteMMCTotal();
-        if (sdpercent > 0.8 && emmcpercent > 0.8)
+        if (sdpercent > 0.2 && emmcpercent > 0.2)
             return true;
     }
 

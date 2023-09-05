@@ -727,8 +727,24 @@ void MainWindow::PowerOff()
 
 void MainWindow::CheckLoginExpired()
 {
-    ConfigManager configManager = ConfigManager("expired_date.txt");
-    QString str = configManager.GetText();
+//    ConfigManager configManager = ConfigManager("expired_date.txt");
+//    QString str = configManager.GetText();
+    QString str;
+    QFile expired_file(GetPath("/settings", eMMC) + "/" + ("expired_date.txt"));
+    expired_file.open(QFile::ReadOnly);
+    if (!expired_file.isOpen())
+    {
+        qDebug() << "no file has been opened";
+//        ui->expiredDateLabel->setText(LoadString("IDS_EXPIRED_DATE"));
+    }
+    else
+    {
+        QByteArray ba = expired_file.readAll();
+        QString str = QString(ba);
+        str.replace(" ", "");
+    }
+    expired_file.close();
+
     if (str.isEmpty())
         return;
 

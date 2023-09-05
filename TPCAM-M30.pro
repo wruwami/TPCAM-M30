@@ -294,3 +294,7 @@ unix:!macx: LIBS += -L/usr/local/lib/ \
 
 INCLUDEPATH += /usr/local/include
 DEPENDPATH += /usr/local/include
+
+top_builddir=$$shadowed($$PWD)
+QMAKE_POST_LINK += "rm -rf $$top_builddir/settings/build_date.txt" $$escape_expand(\n\t)
+QMAKE_POST_LINK += "date +"%Y%m%d" >> $$top_builddir/settings/build_date.txt" $$escape_expand(\n\t)

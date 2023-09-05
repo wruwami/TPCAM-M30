@@ -96,7 +96,7 @@ SelfTestWidget::SelfTestWidget(QWidget *parent) :
         str.replace(" ", "");
         build_date = GetDate(str);
     }
-    expired_file.close();
+    build_file.close();
 
 
     ui->versionLabel->setText(GetVersion() + " (" + build_date + ")");

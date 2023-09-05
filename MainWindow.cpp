@@ -754,7 +754,7 @@ void MainWindow::CheckLoginExpired()
 //    QByteArray ba = expired_file.readAll();
 //    QString str = QString(ba);
     QDateTime datetime;
-    ;
+
     QDateTime current_datetime;
 
     qDebug() << current_datetime.currentDateTime();

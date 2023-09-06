@@ -37,6 +37,8 @@ CameraAlignWidget::CameraAlignWidget(QWidget *parent) :
 
     ui->hudPushButton->setDown(true);
 
+    ui->speedSensitivitylabel->setColor(Qt::white);
+
     m_pHomeButton = ui->homePushButton;
     m_pSaveButton = ui->savePushButton;
     m_pCancelButton = ui->cancelPushButton;
@@ -199,9 +201,9 @@ void CameraAlignWidget::on_autoTriggerPushButton_toggled(bool checked)
 {
 //    ui->autoTriggerPushButton->setDown(checked);
 //    ui->autoTriggerPushButton->setChecked(checked);
-    if (!checked)
+    if (checked)
     {
-        ui->autoTriggerPushButton->setStyleSheet("border-color: blue;");
+        ui->autoTriggerPushButton->setStyleSheet("border-color: red;");
         m_pSerialLaserManager->start_laser();
         m_pSerialLaserManager->request_distance(true);
         m_pSerialLaserManager->start_virtualSpeed(); // test
@@ -210,7 +212,8 @@ void CameraAlignWidget::on_autoTriggerPushButton_toggled(bool checked)
     }
     else
     {
-        ui->autoTriggerPushButton->setStyleSheet("border-color: red;");
+        ui->speedSensitivitylabel->setText("");
+        ui->autoTriggerPushButton->setStyleSheet("border-color: blue;");
         SerialPacket* laser_packet = m_pSerialLaserManager->getLaser_packet();
         disconnect(laser_packet, SIGNAL(sig_showDistance(float,int)), this, SLOT(on_showDistance(float,int)));
 

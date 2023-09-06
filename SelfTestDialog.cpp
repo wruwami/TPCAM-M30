@@ -69,11 +69,13 @@ SelfTestDialog::SelfTestDialog(QWidget *parent) :
         QByteArray ba = expired_file.readAll();
         QString str = QString(ba);
         ui->expiredDateLabel->setText(LoadString("IDS_EXPIRED_DATE") + GetDate(str));
+        ui->expiredDateLabel->setFontSize(23);
     }
     expired_file.close();
 
 
     ui->versionLabel->setText(GetVersion() + "(" + GetDate(QDate::currentDate().toString("yyyyMMdd")) + ")");
+    ui->versionLabel->setFontSize(23);
 
     ui->expiredDateLabel->setStyleSheet("QLabel { color : red; }");
     ui->versionLabel->setStyleSheet("QLabel { color : #ffc000; }");

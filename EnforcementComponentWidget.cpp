@@ -39,7 +39,7 @@ EnforcementComponentWidget::EnforcementComponentWidget(QWidget *parent) :
     ui->dzPlusPushButton->setText(LoadString("IDS_DZ_PLUS"));
     ui->dzMinusPushButton->setText(LoadString("IDS_DZ_MINUS"));
 
-    ui->saveImagePushButton->setText(LoadString("IDS_SAVE_IMAGE"));
+    ui->saveImagePushButton->setText(LoadString("IDS_SAVE_IMAGE1") + '\n' + LoadString("IDS_SAVE_IMAGE2"));
     ui->truckPushButton->setImage("enforcement", "truck.jpg");
     ui->truckPushButton->setCheckable(true);
     ui->bikePushButton->setImage("enforcement", "bike.jpg");

@@ -202,8 +202,6 @@ void MainWindow::initializeMainMenuWidget()
     }
     else
     {
-        m_widgetType = MainMenu;
-
         if (ui->verticalLayout->count() > 1)
         {
             QWidget* widget = ui->verticalLayout->itemAt(1)->widget();
@@ -212,12 +210,17 @@ void MainWindow::initializeMainMenuWidget()
         ui->verticalLayout->removeItem(ui->verticalLayout->takeAt(1));
         if (m_pMainMenuContentWidget == nullptr)
             m_pMainMenuContentWidget = new MainMenuContentWidget;
-        m_pMainMenuWidget->setMainMenuImage("Main_menu", "home_big_n.bmp");
+        if (m_widgetType == Enforcement || m_widgetType == Setting || m_widgetType == FileManager)
+            m_pMainMenuWidget->setMainMenuTitle(LoadString("IDS_MAIN_MENU"));
+        else
+            m_pMainMenuWidget->setMainMenuImage("Main_menu", "home_big_n.bmp");
         ui->verticalLayout->addWidget(m_pMainMenuContentWidget, 835);
         QObject::connect((QWidget*)m_pMainMenuContentWidget->m_pEnforcementButton, SIGNAL(clicked()), this, SLOT(on_enforcementClicked()));
         QObject::connect((QWidget*)m_pMainMenuContentWidget->m_pFileManagertButton, SIGNAL(clicked()), this, SLOT(on_filemanagementClicked()));
         QObject::connect((QWidget*)m_pMainMenuContentWidget->m_pSettingButton, SIGNAL(clicked()), this, SLOT(on_settingClicked()));
         QObject::connect((QWidget*)m_pMainMenuContentWidget->m_pLogoButton, SIGNAL(clicked()), this, SLOT(on_logo_clicked()));
+
+        m_widgetType = MainMenu;
 
     }
 }

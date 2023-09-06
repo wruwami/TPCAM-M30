@@ -100,7 +100,7 @@ IDS_TIMEZONE,Timezone,타임존,Fuso horário,Zona horaria,Fuseau horaire,وحد
 IDS_GPS_SYNC,GPS Sync,GPS 동기화,Sincronização GPS,Sincronización de GPS,Synchronisation GPS,مزامنة GPS
 IDS_SELFTEST_TITLE,[Self Test],[자가 진단],[Auto teste],[Autotest],[Auto-test],[اختبار ذاتي]
 IDS_CAMERA_TITLE,CAMERA,카메라,CÂMERA,CÁMARA,CAMÉRA,الة تصوير
-IDS_SELFTEST_CHECK,PASS,통과,PASSAR,APROBAR,PASSE,يمر
+IDS_SELFTEST_CHECK,CHECKING...,확인중...,verificando...,comprobación...,vérification...,تدقيق...
 IDS_LASER_TITLE,LASER,레이저,LASER,LÁSER,LASER,الليزر
 IDS_BATTERY_TITLE,BATTERY,배터리,BATERIA,BATERÍA,BATTERIE,البطارية
 IDS_STORAGE_TITLE,STORAGE,저장소,ARMAZENAR,ALMACENAMIENTO,ESPACE DE RANGEMENT,تخزين

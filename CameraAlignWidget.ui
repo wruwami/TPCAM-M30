@@ -38,7 +38,7 @@
 }</string>
        </property>
        <property name="text">
-        <string>HUD[06, 06]</string>
+        <string/>
        </property>
       </widget>
      </item>

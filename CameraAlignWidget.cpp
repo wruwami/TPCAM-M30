@@ -48,6 +48,8 @@ CameraAlignWidget::CameraAlignWidget(QWidget *parent) :
     m_LaserPoint = QPoint(ar[0].toInt() - Laser_x, ar[1].toInt() - Laser_y);
 
     m_CameraMoveUnit = m_object["Camera reticle move unit"].toString().toInt();
+
+    SetHudMode();
 }
 
 CameraAlignWidget::~CameraAlignWidget()
@@ -63,12 +65,12 @@ void CameraAlignWidget::SetCamera(Camera *camera)
 
 void CameraAlignWidget::SetHudMode()
 {
-    ui->hudLabel->setText(LoadString("IDS_HUD") +"[" +QString("%1").arg(QString::number(m_HUDPoint.x()), 2) + "," + QString("%1").arg(QString::number(m_HUDPoint.y()), 2) + "]");
+    ui->hudLabel->setText(LoadString("IDS_HUD") +"[" +QString("%1").arg(QString::number(m_HUDPoint.x() + HUD_x), 2) + "," + QString("%1").arg(QString::number(m_HUDPoint.y() + HUD_y), 2) + "]");
 }
 
 void CameraAlignWidget::SetLaserMode()
 {
-    ui->hudLabel->setText(LoadString("IDS_LASER") +"[" +QString("%1").arg(QString::number(m_LaserPoint.x()), 2) + "," + QString("%1").arg(QString::number(m_LaserPoint.y()), 2) + "]");
+    ui->hudLabel->setText(LoadString("IDS_LASER") +"[" +QString("%1").arg(QString::number(m_LaserPoint.x() + Laser_x), 2) + "," + QString("%1").arg(QString::number(m_LaserPoint.y() + Laser_y), 2) + "]");
 }
 
 void CameraAlignWidget::SetDirection(int x, int y)
@@ -164,6 +166,7 @@ void CameraAlignWidget::on_savePushButton_clicked()
     m_object["Camera reticle pos"] = ar2;
 
     m_configManager.SetConfig(m_object);
+    m_configManager.SaveFile();
 }
 
 
@@ -175,10 +178,14 @@ void CameraAlignWidget::on_downPushButton_clicked()
 
 void CameraAlignWidget::on_defaultPushButton_clicked()
 {
-    m_HUDPoint = QPoint(DefaultHUDValue::HUD_x, DefaultHUDValue::HUD_y);
-    m_LaserPoint = QPoint(DefaultLaserValue::Laser_x, DefaultLaserValue::Laser_y);
+    m_HUDPoint = QPoint(0, 0);
+    m_LaserPoint = QPoint(0, 0);
     HUDManager hudManager;
     hudManager.HUDInit();
+    if (m_nMode == HUD)
+        SetHudMode();
+    else
+        SetLaserMode();
 }
 
 
@@ -197,7 +204,7 @@ void CameraAlignWidget::on_autoTriggerPushButton_toggled(bool checked)
         ui->autoTriggerPushButton->setStyleSheet("border-color: blue;");
         m_pSerialLaserManager->start_laser();
         m_pSerialLaserManager->request_distance(true);
-
+        m_pSerialLaserManager->start_virtualSpeed(); // test
         SerialPacket* laser_packet = m_pSerialLaserManager->getLaser_packet();
         connect(laser_packet, SIGNAL(sig_showDistance(float,int)), this, SLOT(on_showDistance(float,int)));
     }

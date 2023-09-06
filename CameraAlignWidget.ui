@@ -187,7 +187,7 @@
      <item row="7" column="2" colspan="3">
       <widget class="CustomLabel" name="speedSensitivitylabel">
        <property name="text">
-        <string>TextLabel</string>
+        <string/>
        </property>
       </widget>
      </item>

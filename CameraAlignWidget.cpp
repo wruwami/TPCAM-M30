@@ -41,6 +41,8 @@ CameraAlignWidget::CameraAlignWidget(QWidget *parent) :
     m_pSaveButton = ui->savePushButton;
     m_pCancelButton = ui->cancelPushButton;
 
+    ui->speedSensitivitylabel->setColor(Qt::white);
+
     m_object = m_configManager.GetConfig();
     QJsonArray ar = m_object["HUD reticle pos"].toArray();
     m_HUDPoint = QPoint(ar[0].toInt() - HUD_x, ar[1].toInt() - HUD_y);

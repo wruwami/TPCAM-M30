@@ -104,6 +104,8 @@ SelfTestWidget::SelfTestWidget(QWidget *parent) :
     ui->expiredDateLabel->setStyleSheet("QLabel { color : red; }");
     ui->versionLabel->setStyleSheet("QLabel { color : #ffc000; }");
 
+    ui->dateTimeLabel->setText(GetDate(QDate::currentDate().toString("yyyyMMdd")) + " " + QTime::currentTime().toString("hh:mm:ss"));
+
     startTimer(1000);
     StartSelfTest();
 

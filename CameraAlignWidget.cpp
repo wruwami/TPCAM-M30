@@ -3,6 +3,7 @@
 
 #include <QJsonArray>
 #include <QPainter>
+#include <QDebug>
 
 #include "StringLoader.h"
 
@@ -42,9 +43,9 @@ CameraAlignWidget::CameraAlignWidget(QWidget *parent) :
 
     m_object = m_configManager.GetConfig();
     QJsonArray ar = m_object["HUD reticle pos"].toArray();
-    m_HUDPoint = QPoint(ar[0].toInt(), ar[1].toInt());
+    m_HUDPoint = QPoint(ar[0].toInt() - HUD_x, ar[1].toInt() - HUD_y);
     ar = m_object["Camera reticle pos"].toArray();
-    m_LaserPoint = QPoint(ar[0].toInt(), ar[1].toInt());
+    m_LaserPoint = QPoint(ar[0].toInt() - Laser_x, ar[1].toInt() - Laser_y);
 
     m_CameraMoveUnit = m_object["Camera reticle move unit"].toInt();
 }
@@ -74,9 +75,9 @@ void CameraAlignWidget::SetDirection(int x, int y)
 {
     if (m_nMode == HUD)
     {
-        if ((m_HUDPoint.x() + x) > 12 || (m_HUDPoint.x() + x) < 0)
+        if ((m_HUDPoint.x() + x) > HUD_x || (m_HUDPoint.x() + x) < -HUD_x)
             return;
-        if ((m_HUDPoint.y() + y) > 12 || (m_HUDPoint.y() + y) < 0)
+        if ((m_HUDPoint.y() + y) > HUD_y || (m_HUDPoint.y() + y) < -HUD_y)
             return;
 
         HUDManager hud;
@@ -88,9 +89,9 @@ void CameraAlignWidget::SetDirection(int x, int y)
     }
     else
     {
-        if ((m_LaserPoint.x() + m_CameraMoveUnit * x) > 1920 || (m_LaserPoint.x() + m_CameraMoveUnit* x) < 0)
+        if ((m_LaserPoint.x() + m_CameraMoveUnit * x) > Laser_x || (m_LaserPoint.x() + m_CameraMoveUnit* x) < -Laser_x)
             return;
-        if ((m_LaserPoint.y() + m_CameraMoveUnit * y) > 1080 || (m_LaserPoint.y() + m_CameraMoveUnit * y) < 0)
+        if ((m_LaserPoint.y() + m_CameraMoveUnit * y) > Laser_y || (m_LaserPoint.y() + m_CameraMoveUnit * y) < -Laser_y)
             return;
         m_LaserPoint.setX(m_LaserPoint.x() + m_CameraMoveUnit * x);
         m_LaserPoint.setY(m_LaserPoint.y() + m_CameraMoveUnit * y);
@@ -114,6 +115,8 @@ void CameraAlignWidget::on_hudPushButton_clicked()
 //        ui->hudPushButton->setDown(true);
         m_bHUDChecked = true;
         SetHudMode();
+
+         m_nMode = HUD;
     }
 }
 
@@ -128,6 +131,7 @@ void CameraAlignWidget::on_cameraPushButton_clicked()
 //        ui->cameraPushButton->setDown(true);
         m_bCameraChecked = true;
         SetLaserMode();
+        m_nMode = Laser;
     }
 
 }
@@ -148,14 +152,14 @@ void CameraAlignWidget::on_rightPushButton_clicked()
 void CameraAlignWidget::on_savePushButton_clicked()
 {
     QJsonArray ar;
-    ar.insert(0, m_HUDPoint.x());
-    ar.insert(1, m_HUDPoint.y());
+    ar.insert(0, m_HUDPoint.x() + HUD_x);
+    ar.insert(1, m_HUDPoint.y() + HUD_y);
 
     m_object["HUD reticle pos"] = ar;
 
     QJsonArray ar2;
-    ar2.insert(0, m_LaserPoint.x());
-    ar2.insert(1, m_LaserPoint.y());
+    ar2.insert(0, m_LaserPoint.x() + Laser_x);
+    ar2.insert(1, m_LaserPoint.y() + Laser_y);
 
     m_object["Camera reticle pos"] = ar2;
 
@@ -228,8 +232,8 @@ void CameraAlignWidget::paintEvent(QPaintEvent *event)
 
         int x = m_HUDPoint.x();
         int y = m_HUDPoint.y();
-        QRect rect = QRect(QPoint(width() / 2 - 3 * gap, height() / 2 - gap), QPoint(width() /2 + 3*gap, height() / 2 + gap));
-        QRect rect2 = QRect(QPoint(width() / 2 - gap, height() / 2 - 3 * gap), QPoint(width() /2 + gap, height() / 2 + 3 * gap));
+        QRect rect = QRect(QPoint(((width() / 2 ) + x) - 3 * gap, ((height() / 2) + y) - gap), QPoint(((width() / 2) + x) + 3*gap, ((height() / 2) + y) + gap));
+        QRect rect2 = QRect(QPoint(((width() / 2) + x) - gap, ((height() / 2) + y) - 3 * gap), QPoint(((width() / 2) + x) + gap, ((height() / 2) + y) + 3 * gap));
 
         painter.fillRect(rect, Qt::white);
         painter.fillRect(rect2, Qt::white);
@@ -241,8 +245,11 @@ void CameraAlignWidget::paintEvent(QPaintEvent *event)
         int x = m_LaserPoint.x();
         int y = m_LaserPoint.y();
 
-        QRect rect = QRect(QPoint(width() / 2 - 3 * gap, height() / 2 - gap), QPoint(width() /2 + 3*gap, height() / 2 + gap));
-        QRect rect2 = QRect(QPoint(width() / 2 - gap, height() / 2 - 3 * gap), QPoint(width() /2 + gap, height() / 2 + 3 * gap));
+        qDebug() << x;
+        qDebug() << y;
+
+        QRect rect = QRect(QPoint(((width() / 2 ) + x) - 3 * gap, ((height() / 2) + y) - gap), QPoint(((width() / 2) + x) + 3*gap, ((height() / 2) + y) + gap));
+        QRect rect2 = QRect(QPoint(((width() / 2) + x) - gap, ((height() / 2) + y) - 3 * gap), QPoint(((width() / 2) + x) + gap, ((height() / 2) + y) + 3 * gap));
 
         painter.fillRect(rect, Qt::white);
         painter.fillRect(rect2, Qt::white);

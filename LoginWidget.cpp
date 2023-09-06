@@ -16,6 +16,8 @@
 #include "FileManager.h"
 #include "LightManager.h"
 
+extern QString g_AppVersion;
+
 LoginWidget::LoginWidget(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::LoginWidget)
@@ -36,7 +38,7 @@ LoginWidget::LoginWidget(QWidget *parent) :
 
 
     // 추후 cfg와 연동하여 수정 필요
-    ui->versionLabel->setText("v.1.0.0");
+    ui->versionLabel->setText(g_AppVersion);
 
     ui->deviceIDLabel->setText(LoadString("IDS_DEVICE_ID"));
     ui->userNameLabel->setText(LoadString("IDS_USER_NAME"));

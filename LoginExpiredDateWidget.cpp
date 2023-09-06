@@ -10,7 +10,7 @@ LoginExpiredDateWidget::LoginExpiredDateWidget(QDialog *parent) :
     ui->setupUi(this);
 
     ui->label->setText(LoadString("IDS_CALIBRATION_SERVICE_REQUIRED"));
-    ui->pushButton->setText(LoadString("IDS_OK"));
+    ui->pushButton->setText(LoadString("IDS_POWER_OFF"));
     m_pParent = parent;
 }
 
@@ -22,5 +22,6 @@ LoginExpiredDateWidget::~LoginExpiredDateWidget()
 void LoginExpiredDateWidget::on_pushButton_clicked()
 {
     m_pParent->accept();
+    system("systemctl poweroff -i");
 }
 

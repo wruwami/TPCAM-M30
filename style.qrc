@@ -20,5 +20,6 @@
         <file>keyboard/fr.json</file>
         <file>keyboard/ko.json</file>
         <file>keyboard/pt.json</file>
+        <file>keyboard/icons/translate.png</file>
     </qresource>
 </RCC>

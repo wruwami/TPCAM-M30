@@ -601,7 +601,7 @@ void CameraZoomFocusWidget::on_autoTriggerPushButton_clicked(bool checked)
         ui->autoTriggerPushButton->setStyleSheet("border-color: red;");
         m_pSerialLaserManager->start_laser();
         m_pSerialLaserManager->request_distance(true);
-
+        m_pSerialLaserManager->start_virtualSpeed();
     }
     else
     {

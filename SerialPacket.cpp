@@ -415,7 +415,6 @@ void SerialPacket::ParsingPacket()
 
 //                qDebug() << strMsg;
 
-                m_bIsCaptureOnDisplay = true;
                 emit sig_showCaptureSpeedDistance(fSpeed, fDist, VehicleID);
 
 
@@ -441,7 +440,7 @@ void SerialPacket::ParsingPacket()
 
 //                qDebug() << strMsg;
 
-                if(!m_bIsCaptureOnDisplay)
+//                if(!m_bIsCaptureOnDisplay)
                     emit sig_showSpeedDistance(fSpeed, fDist);
 
             }break;
@@ -469,7 +468,7 @@ void SerialPacket::ParsingPacket()
                 str.sprintf("L%d_%.02fm(%dlv)", uLB, fDist, uCfd);
 //                qDebug() << str;
 
-                if(!m_bIsCaptureOnDisplay)
+//                if(!m_bIsCaptureOnDisplay)
                     emit sig_showDistance(fDist, uCfd);
 
             }

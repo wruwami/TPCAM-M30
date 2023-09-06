@@ -240,7 +240,7 @@ public:
 	unsigned short g_length;
 
     //cnrk
-    bool m_bIsCaptureOnDisplay = false;
+//    bool m_bIsCaptureOnDisplay = false;
 
 public:
     explicit SerialPacket(QObject *parent = nullptr);

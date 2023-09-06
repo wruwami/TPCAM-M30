@@ -22,24 +22,47 @@ SelfTestWarningMessageWidget::SelfTestWarningMessageWidget(Status isCamera, Stat
     ui->batteryLabel->setText(LoadString("IDS_BATTERY"));
 
     if (isCamera == Pass)
+    {
         ui->cameraValueLabel->setText(LoadString("IDS_PASS"));
+    }
     else if (isCamera == Fail)
+    {
         ui->cameraValueLabel->setText(LoadString("IDS_FAIL"));
+        ui->cameraValueLabel->setColor(Qt::red);
+        ui->cameraLabel->setColor(Qt::red);
+    }
 
     if (isLaser == Pass)
+    {
         ui->laserValueLabel->setText(LoadString("IDS_PASS"));
+    }
     else if (isLaser == Fail)
+    {
         ui->laserValueLabel->setText(LoadString("IDS_FAIL"));
-
+        ui->laserValueLabel->setColor(Qt::red);
+        ui->laserLabel->setColor(Qt::red);
+    }
     if (isBattery == Pass)
+    {
         ui->batteryValueLabel->setText(LoadString("IDS_PASS"));
+    }
     else if (isBattery == Fail)
+    {
         ui->batteryValueLabel->setText(LoadString("IDS_FAIL"));
+        ui->batteryValueLabel->setColor(Qt::red);
+        ui->batteryLabel->setColor(Qt::red);
+    }
 
     if (isStorage == Pass)
+    {
         ui->storageValueLabel->setText(LoadString("IDS_PASS"));
+    }
     else if (isStorage == Fail)
+    {
         ui->storageValueLabel->setText(LoadString("IDS_FAIL"));
+        ui->storageValueLabel->setColor(Qt::red);
+        ui->storageLabel->setColor(Qt::red);
+    }
 
 
     ui->continuePushButton->setText(LoadString("IDS_CONTINUE"));

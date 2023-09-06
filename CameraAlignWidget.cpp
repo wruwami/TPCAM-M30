@@ -47,7 +47,7 @@ CameraAlignWidget::CameraAlignWidget(QWidget *parent) :
     ar = m_object["Camera reticle pos"].toArray();
     m_LaserPoint = QPoint(ar[0].toInt() - Laser_x, ar[1].toInt() - Laser_y);
 
-    m_CameraMoveUnit = m_object["Camera reticle move unit"].toInt();
+    m_CameraMoveUnit = m_object["Camera reticle move unit"].toString().toInt();
 }
 
 CameraAlignWidget::~CameraAlignWidget()

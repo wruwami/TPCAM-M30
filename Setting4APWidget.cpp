@@ -17,10 +17,15 @@ Setting4APWidget::Setting4APWidget(QWidget *parent) :
     m_newJsonObject = m_jsonObject;
 
     ui->macAddressLabel->setText(LoadString("IDS_MAC_ADDRESS"));
+    ui->macAddressLabel->setFontSize(23);
     ui->wifiSSIDnFTPIDlabel->setText(LoadString("IDS_WIFISSID_AND_FTP_ID"));
+    ui->wifiSSIDnFTPIDlabel->setFontSize(23);
     ui->IpLabel->setText(LoadString("IDS_IP"));
+    ui->IpLabel->setFontSize(23);
     ui->subnetMaskLabel->setText(LoadString("IDS_SUBNET_MASK"));
+    ui->subnetMaskLabel->setFontSize(23);
     ui->printerLabel->setText(LoadString("IDS_PRINTER"));
+    ui->printerLabel->setFontSize(23);
 
     ui->printerComboBox->addItem(LoadString("IDS_THERMAL_EAST"));
     ui->printerComboBox->addItem(LoadString("IDS_THERMAL_WOOSIM"));
@@ -29,6 +34,7 @@ Setting4APWidget::Setting4APWidget(QWidget *parent) :
 
 
     ui->pwPushButton->setText(LoadString("IDS_PW"));
+    ui->pwPushButton->setFontSize(23);
 
     ui->macAddressLineEdit->setDisabled(true);
     NetworkManager networkManager;

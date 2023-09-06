@@ -35,17 +35,26 @@ SelfTestDialog::SelfTestDialog(QWidget *parent) :
 
     ui->titleLabel->setText(LoadString("IDS_SELFTEST_TITLE"));
     ui->cameraTitleLabel->setText(LoadString("IDS_CAMERA_TITLE"));
+    ui->titleLabel->setFontSize(23);
+    ui->cameraTitleLabel->setFontSize(23);
 //    ui->cameraTitleLabel->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
     ui->cameraValueLabel->setText(LoadString("IDS_SELFTEST_CHECK"));
     ui->laserTitleLabel->setText(LoadString("IDS_LASER_TITLE"));
+    ui->cameraValueLabel->setFontSize(23);
+    ui->laserTitleLabel->setFontSize(23);
 //    ui->laserTitleLabel->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
     ui->laserValueLabel->setText(LoadString("IDS_SELFTEST_CHECK"));
     ui->batteryTitleLabel->setText(LoadString("IDS_BATTERY_TITLE"));
+    ui->laserValueLabel->setFontSize(23);
+    ui->batteryTitleLabel->setFontSize(23);
 //    ui->batteryTitleLabel->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
     ui->batteryValueLabel->setText(LoadString("IDS_SELFTEST_CHECK"));
     ui->storageTitleLabel->setText(LoadString("IDS_STORAGE_TITLE"));
+    ui->batteryValueLabel->setFontSize(23);
+    ui->storageTitleLabel->setFontSize(23);
 //    ui->storageTitleLabel->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
     ui->storageValueLabel->setText(LoadString("IDS_SELFTEST_CHECK"));
+    ui->storageValueLabel->setFontSize(23);
 
     QFile expired_file(GetPath("", SD) + "/" + ("expired_date.txt"));
     expired_file.open(QFile::ReadOnly);

@@ -15,10 +15,14 @@ Setting6Widget::Setting6Widget(QWidget *parent) : QWidget(parent),
     m_newJsonObject = m_jsonObject;
 
     ui->languageLabel->setText(LoadString("IDS_LANUAGE"));
+    ui->languageLabel->setFontSize(23);
     ui->bludtoothLabel->setText(LoadString("IDS_BLUETOOTH"));
+    ui->bludtoothLabel->setFontSize(23);
     ui->ftpLabel->setText(LoadString("IDS_FTP"));
+    ui->ftpLabel->setFontSize(23);
 
     ui->searchPushButton->setText(LoadString("IDS_SEARCH"));
+    ui->searchPushButton->setFontSize(23);
 
 //    ui->languageComboBox->addItems(LoadLangaugeList());
 

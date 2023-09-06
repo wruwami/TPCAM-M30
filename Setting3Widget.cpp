@@ -21,11 +21,17 @@ Setting3Widget::Setting3Widget(QWidget *parent) :
     m_newJsonObject = m_jsonObject;
 
     ui->lcdBrightnessLabel->setText(LoadString("IDS_LCD_BRIGHTNESS"));
+    ui->lcdBrightnessLabel->setFontSize(23);
     ui->unitLabel->setText(LoadString("IDS_UNIT"));
+    ui->unitLabel->setFontSize(23);
     ui->dateFormatLabel->setText(LoadString("IDS_DATE_FORMAT"));
+    ui->dateFormatLabel->setFontSize(23);
     ui->showInfoPushButton->setText(LoadString("IDS_SHOW_INFO"));
+    ui->showInfoPushButton->setFontSize(23);
     ui->factoryDefaultPushButton->setText(LoadString("IDS_FACTORY_DEFAULT"));
+    ui->factoryDefaultPushButton->setFontSize(23);
     ui->adminPWPushButton->setText(LoadString("IDS_ADMIN_PW"));
+    ui->adminPWPushButton->setFontSize(23);
 
 //    ui->lcdBrightnessComboBox->addItem(LoadString("IDS_LEVEL1"));
 //    ui->lcdBrightnessComboBox->addItem(LoadString("IDS_LEVEL2"));

@@ -18,6 +18,7 @@ Setting5Widget::Setting5Widget(QWidget *parent) :
 
 
     ui->ipAddressLabel->setText(LoadString("IDS_IP_ADDRESS"));
+    ui->ipAddressLabel->setFontSize(23);
 
 //    ui->ipAddressComboBox->addItem(LoadString("IDS_DHCP"));
 //    ui->ipAddressComboBox->addItem(LoadString("IDS_MANUAL"));
@@ -54,6 +55,7 @@ void Setting5Widget::SaveConfig()
 void Setting5Widget::setDHCPMode()
 {
     ui->IpLabel->setText(LoadString("IDS_MAC_ADDRESS"));
+    ui->IpLabel->setFontSize(23);
     ui->ipLineEdit->setDisabled(true);
     NetworkManager networkManager;
     ui->ipLineEdit->setText(networkManager.getHardwareAddress(networkManager.getLanAdapterName()));
@@ -91,9 +93,13 @@ void Setting5Widget::setManualMode()
     ui->gatewayLineEdit->show();
     ui->dnsServerLineEdit->show();
     ui->IpLabel->setText(LoadString("IDS_IP"));
+    ui->IpLabel->setFontSize(23);
     ui->gatewayLabel->setText(LoadString("IDS_GATEWAY"));
+    ui->gatewayLabel->setFontSize(23);
     ui->subnetMaskLabel->setText(LoadString("IDS_SUBNET_MASK"));
+    ui->subnetMaskLabel->setFontSize(23);
     ui->dnsServerLabel->setText(LoadString("IDS_DNS_SERVER"));
+    ui->dnsServerLabel->setFontSize(23);
 
     ui->ipLineEdit->setText(m_jsonObject["ip"].toString());
     ui->subnetMaskLineEdit->setText(m_jsonObject["subnet mask"].toString());

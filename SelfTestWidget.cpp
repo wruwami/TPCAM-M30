@@ -40,18 +40,27 @@ SelfTestWidget::SelfTestWidget(QWidget *parent) :
     this->showFullScreen();
 
     ui->titleLabel->setText(LoadString("IDS_SELFTEST_TITLE"));
+    ui->titleLabel->setFontSize(23);
     ui->cameraTitleLabel->setText(LoadString("IDS_CAMERA_TITLE"));
+    ui->cameraTitleLabel->setFontSize(23);
 //    ui->cameraTitleLabel->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
     ui->cameraValueLabel->setText(LoadString("IDS_SELFTEST_CHECK"));
+    ui->cameraValueLabel->setFontSize(23);
     ui->laserTitleLabel->setText(LoadString("IDS_LASER_TITLE"));
+    ui->laserTitleLabel->setFontSize(23);
 //    ui->laserTitleLabel->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
     ui->laserValueLabel->setText(LoadString("IDS_SELFTEST_CHECK"));
+    ui->laserValueLabel->setFontSize(23);
     ui->batteryTitleLabel->setText(LoadString("IDS_BATTERY_TITLE"));
+    ui->batteryTitleLabel->setFontSize(23);
 //    ui->batteryTitleLabel->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
     ui->batteryValueLabel->setText(LoadString("IDS_SELFTEST_CHECK"));
+    ui->batteryValueLabel->setFontSize(23);
     ui->storageTitleLabel->setText(LoadString("IDS_STORAGE_TITLE"));
+    ui->storageTitleLabel->setFontSize(23);
 //    ui->storageTitleLabel->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
     ui->storageValueLabel->setText(LoadString("IDS_SELFTEST_CHECK"));
+    ui->storageValueLabel->setFontSize(23);
 
     if (SerialGPSManager::GetInstance()->GetSatellitesInView() != 0)
     {
@@ -78,6 +87,7 @@ SelfTestWidget::SelfTestWidget(QWidget *parent) :
         QString str = QString(ba);
         str.replace(" ", "");
         ui->expiredDateLabel->setText(LoadString("IDS_EXPIRED_DATE") + GetDate(str));
+        ui->expiredDateLabel->setFontSize(23);
     }
     expired_file.close();
 
@@ -100,6 +110,7 @@ SelfTestWidget::SelfTestWidget(QWidget *parent) :
 
 
     ui->versionLabel->setText(GetVersion() + " (" + build_date + ")");
+    ui->versionLabel->setFontSize(23);
 
     ui->expiredDateLabel->setStyleSheet("QLabel { color : red; }");
     ui->versionLabel->setStyleSheet("QLabel { color : #ffc000; }");

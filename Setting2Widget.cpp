@@ -16,10 +16,15 @@ Setting2Widget::Setting2Widget(QWidget *parent) :
 
 
     ui->reticleShapeLabel->setText(LoadString("IDS_RETICLE_SHAPE"));
+    ui->reticleShapeLabel->setFontSize(23);
     ui->weatherModeLabel->setText(LoadString("IDS_WEATHER_MODE"));
+    ui->weatherModeLabel->setFontSize(23);
     ui->daynNightLabel->setText(LoadString("IDS_DAYNIGHT"));
+    ui->daynNightLabel->setFontSize(23);
     ui->buzzerLabel->setText(LoadString("IDS_BUZZER"));
+    ui->buzzerLabel->setFontSize(23);
     ui->antiJammingModeLabel->setText(LoadString("IDS_ANTI_JAMMING_MODE"));
+    ui->antiJammingModeLabel->setFontSize(23);
 
 //    ui->reticleShapeComboBox->addItem(LoadString("IDS_CROSS"));
 //    ui->reticleShapeComboBox->addItem(LoadString("IDS_DOT"));

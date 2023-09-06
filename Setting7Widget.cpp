@@ -15,10 +15,15 @@ Setting7Widget::Setting7Widget(QWidget *parent) :
     m_newJsonObject = m_jsonObject;
 
     ui->WifiLabel->setText(LoadString("IDS_WIFI"));
+    ui->WifiLabel->setFontSize(23);
     ui->blueToothLabel->setText(LoadString("IDS_BLUETOOTH"));
+    ui->blueToothLabel->setFontSize(23);
     ui->nineAxisSensorLabel->setText(LoadString("IDS_NINE_AXIS_SENSOR"));
+    ui->nineAxisSensorLabel->setFontSize(23);
     ui->micnSpeackerLabel->setText(LoadString("IDS_MIC_N_SPEAKER"));
+    ui->micnSpeackerLabel->setFontSize(23);
     ui->powerSavingTimeLabel->setText(LoadString("IDS_POWER_SAVING_TIME"));
+    ui->powerSavingTimeLabel->setFontSize(23);
 
 //    ui->wifiComboBox->addItem(LoadString("IDS_ON"));
 //    ui->wifiComboBox->addItem(LoadString("IDS_OFF"));

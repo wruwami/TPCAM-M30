@@ -22,12 +22,19 @@ Setting4STAWidget::Setting4STAWidget(QWidget *parent) :
     m_passwordjsonObject = m_config.GetConfig();
 
     ui->searchPushButton->setText(LoadString("IDS_SEARCH"));
+    ui->searchPushButton->setFontSize(23);
     ui->wifiSSIDLabel->setText(LoadString("IDS_WIFI_SSID"));
+    ui->wifiSSIDLabel->setFontSize(23);
     ui->FTPIDPWLabel->setText(LoadString("IDS_FTP_ID_PW"));
+    ui->FTPIDPWLabel->setFontSize(23);
     ui->IpLabel->setText(LoadString("IDS_IP"));
+    ui->IpLabel->setFontSize(23);
     ui->subnetMaskLabel->setText(LoadString("IDS_SUBNET_MASK"));
+    ui->subnetMaskLabel->setFontSize(23);
     ui->printerLabel->setText(LoadString("IDS_PRINTER"));
+    ui->printerLabel->setFontSize(23);
     ui->pwPushButton->setText(LoadString("IDS_PW"));
+    ui->pwPushButton->setFontSize(23);
 
 //    ui->printerComboBox->addItem(LoadString("IDS_THERMAL_EAST"));
 //    ui->printerComboBox->addItem(LoadString("IDS_THERMAL_WOOSIM"));

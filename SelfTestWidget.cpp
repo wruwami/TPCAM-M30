@@ -334,21 +334,39 @@ void SelfTestWidget::timerEvent(QTimerEvent *event)
     MsgFormat ReceiveData = serial_packet->g_ReceiveData;
 
     if (ReceiveData.Header == 0XE4)
+    {
         m_nLaser = Status::Pass;
+        ui->laserValueLabel->setText(LoadString("IDS_PASS"));
+    }
     else if (ReceiveData.Header == 0X00)
+    {
         m_nLaser = Status::Check;
+        ui->laserValueLabel->setText(LoadString("IDS_SELFTEST_CHECK"));
+    }
     else
+    {
         m_nLaser = Status::Fail;
+        ui->laserValueLabel->setText(LoadString("IDS_FAIL"));
+    }
 
     ViscaPacket* visca_packet = m_serialViscaManager.getVisca_packet();
     unsigned char send_data = visca_packet->send_data;
 
     if (send_data == 0X02)
+    {
         m_nCamera = Status::Pass;
+        ui->cameraValueLabel->setText(LoadString("IDS_PASS"));
+    }
     else if (send_data == 0)
+    {
         m_nCamera = Status::Check;
+        ui->cameraValueLabel->setText(LoadString("IDS_SELFTEST_CHECK"));
+    }
     else
+    {
         m_nCamera = Status::Fail;
+        ui->cameraValueLabel->setText(LoadString("IDS_FAIL"));
+    }
 
     if (m_nCamera != Status::Check && m_nLaser != Status::Check && m_nBattery != Status::Check && m_nStorage != Status::Check)
     {

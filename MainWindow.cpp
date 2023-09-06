@@ -740,7 +740,7 @@ void MainWindow::CheckLoginExpired()
     else
     {
         QByteArray ba = expired_file.readAll();
-        QString str = QString(ba);
+        str = QString(ba);
         str.replace(" ", "");
     }
     expired_file.close();

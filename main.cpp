@@ -22,11 +22,14 @@ int main(int argc, char *argv[])
     Application::setAttribute(Qt::AA_EnableHighDpiScaling);
 
     QFont font("NanumGothic");
+    font.setPixelSize(23);
     Application::setFont(font);
+
 
     QFile file(":/style/default.qss");
     file.open(QFile::ReadOnly);
     QString styleSheet = QString::fromLatin1(file.readAll());
+    file.close();
 
     ConfigManager config = ConfigManager("parameter_setting3.json");
     QJsonObject json = config.GetConfig();

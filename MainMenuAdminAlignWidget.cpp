@@ -34,6 +34,11 @@ MainMenuAdminAlignWidget::MainMenuAdminAlignWidget(QWidget *parent) :
     pixmap.load(GeteMMCPath() + "/" + "images" + "/" + "Main_menu" + "/" + "comlaser_logo.bmp");
     ui->logoPushButton->setIcon(QIcon(pixmap));
     ui->logoPushButton->setIconSize(pixmap.rect().adjusted(1, -1, -1, 1).size());
+//    QFile file(":/style/customPushButton.qss");
+//    file.open(QFile::ReadOnly);
+//    QString styleSheet = QString::fromLatin1(file.readAll());
+//    file.close();
+//    ui->logoPushButton->setStyleSheet(styleSheet);
 }
 
 MainMenuAdminAlignWidget::~MainMenuAdminAlignWidget()

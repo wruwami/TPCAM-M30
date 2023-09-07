@@ -31,13 +31,21 @@ MainMenuContentWidget::MainMenuContentWidget(QWidget *parent) :
     m_pLogoButton = ui->logoPushButton;
 
 //    ui->logoPushButton->setImage("Main_menu", "comlaser_logo.bmp");
-    QDir qdir;
+//    QDir qdir;
     QPixmap pixmap;
     pixmap.load(GeteMMCPath() + "/" + "images" + "/" + "Main_menu" + "/" + "comlaser_logo.bmp");
 //    qDebug() << GeteMMCPath() + "images" + "/" + "Main_menu" + "/" + "comlaser_logo.bmp";
     ui->logoPushButton->setIcon(QIcon(pixmap));
 
-    ui->logoPushButton->setIconSize(pixmap.rect().adjusted(1, -1, -1, 1).size());
+    ui->logoPushButton->setIconSize(pixmap.rect().adjusted(1, -1, -1, 1).size());/*
+//    QPushButton {
+//        border : none;
+//    }
+
+    QPushButton:pressed {
+        border-color: red;
+    }*/
+    ui->logoPushButton->setStyleSheet("QPushButton {border-color : white;} QPushButton:pressed {border-color: red;}");
 }
 
 MainMenuContentWidget::~MainMenuContentWidget()

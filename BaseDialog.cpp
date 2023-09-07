@@ -35,7 +35,7 @@ BaseDialog::BaseDialog(Dialog dialog, Qt::Alignment align, QString msg, bool isC
     ui->setupUi(this);
     m_bIsCloseButton = isCloseButton;
 
-    ui->titleLabel->setFontSize(18);
+    ui->titleLabel->setFontSize(23);
 
     this->setWindowFlags( Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint);
 //    this->setWindowModality(Qt::ApplicationModal);

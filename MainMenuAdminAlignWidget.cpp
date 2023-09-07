@@ -20,8 +20,11 @@ MainMenuAdminAlignWidget::MainMenuAdminAlignWidget(QWidget *parent) :
     m_pCameraZoomFocusWidget = ui->cameraZoomFocusPushButton;
 
     ui->deviceIDPushButton->setText(LoadString("IDS_DEVICE_ID"));
+    ui->deviceIDPushButton->setFontSize(23);
     ui->cameraZoomFocusPushButton->setText(LoadString("IDS_CAMERA_ZOOM_FOCUS"));
+    ui->cameraZoomFocusPushButton->setFontSize(23);
     ui->cameraHUDAlignPushButton->setText(LoadString("IDS_CAMERA_HUD_ALIGN"));
+    ui->cameraHUDAlignPushButton->setFontSize(23);
 
     m_pLogoButton = ui->logoPushButton;
 

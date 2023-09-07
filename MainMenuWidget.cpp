@@ -67,6 +67,7 @@ MainMenuWidget::MainMenuWidget(QWidget *parent) :
     m_pHomePushButton = m_pHomeButtonWidget->m_pHomePushButton;
 
     m_pHomeTitleLabel->setText("Main Menu");
+    m_pHomeTitleLabel->setFontSize(23);
 
 
 
@@ -175,7 +176,8 @@ void MainMenuWidget::setBatteryPercentValue(int percent)
                                 }\
                                 ").arg(file_full_path));
 
-    ui->batteryPercentButton->setText(QString("%0%").arg(percent));
+ui->batteryPercentButton->setText(QString("%0%").arg(percent));
+//ui->batteryPercentButton->setFontSize(23);
 }
 
 void MainMenuWidget::setBatteryCharge(bool isCharge)
@@ -327,6 +329,7 @@ void MainMenuWidget::setMainMenuTitle(QString title)
 
     m_pHomeTitleLabel->setStyleSheet(QString::fromLatin1(file.readAll()));
     m_pHomeTitleLabel->setText(title);
+    m_pHomeTitleLabel->setFontSize(23);
     ui->stackedWidget->setCurrentIndex(0);
 
 //    m_pHomeTitleLabel->
@@ -371,6 +374,7 @@ void MainMenuWidget::updateStretch()
 void MainMenuWidget::timerEvent(QTimerEvent *event)
 {
     ui->timeLabel->setText(QTime::currentTime().toString("hh:mm:ss"));
+    ui->timeLabel->setFontSize(23);
     if (SerialGPSManager::GetInstance()->GetSatellitesInView() > 0)
         ui->gpsPushButton->setImage("indicator", "indicator_gps_on.jpg");
     else

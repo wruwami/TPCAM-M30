@@ -12,6 +12,7 @@ FileManagerFileTransferWidget::FileManagerFileTransferWidget(QWidget *parent) :
     ui->setupUi(this);
 
     ui->fileCountLabel->setText("4/100");
+    ui->fileCountLabel->setFontSize(23);
 }
 
 FileManagerFileTransferWidget::~FileManagerFileTransferWidget()

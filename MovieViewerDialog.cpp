@@ -31,16 +31,26 @@ MovieViewerDialog::MovieViewerDialog(AVFileFormat avFileFormat, QWidget *parent)
 //    ui->moveViewerLabel->setText(LoadString("IDS_MOVIE_VIEWER"));
 
     ui->quitPushButton->setText(LoadString("IDS_QUIT"));
+    ui->quitPushButton->setFontSize(23);
     ui->playPushButton->setText(LoadString("IDS_PLAY"));
+    ui->playPushButton->setFontSize(23);
     ui->pausePushButton->setText(LoadString("IDS_PAUSE"));
+    ui->pausePushButton->setFontSize(23);
     ui->printPushButton->setText(LoadString("IDS_PRINT"));
+    ui->printPushButton->setFontSize(23);
 
     ui->laserSpeedLabel->setText(QString("C %1km/h").arg(avFileFormat.captureSpeedLimit));
+//    ui->laserSpeedLabel->setFontSize(23);
     ui->laserDistanceLabel->setText(QString("%1m").arg(avFileFormat.distance));
+//    ui->laserDistanceLabel->setFontSize(23);
     ui->indexLabel->setText("[" + QString(avFileFormat.index).mid(0,5) + "]");
+//    ui->indexLabel->setFontSize(23);
     ui->dateLabel->setText(GetDate(avFileFormat.date));
+//    ui->dateLabel->setFontSize(23);
     ui->timeLabel->setText(QString(avFileFormat.time).mid(0,6));
+//    ui->timeLabel->setFontSize(23);
     ui->rtLabel->setText("RT - - - km/h, - - - - -m");
+//    ui->rtLabel->setFontSize(23);
 
 
 

@@ -29,11 +29,17 @@ IndicatorCameraFocusWidget::IndicatorCameraFocusWidget(QWidget *parent) :
     m_pserialLaserManager = g_pSerialLaserManager;
 
     ui->showHidePushButton->setText(LoadString("IDS_HIDE"));
+    ui->showHidePushButton->setFontSize(23);
     ui->speedPushButton->setText(LoadString("IDS_SPEED"));
+    ui->speedPushButton->setFontSize(23);
     ui->autoTriggerPushButton->setText(LoadString("IDS_AT"));
+    ui->autoTriggerPushButton->setFontSize(23);
     ui->onePushTriggerPushButton->setText(LoadString("IDS_OPT"));
+    ui->onePushTriggerPushButton->setFontSize(23);
     ui->forcusDownPushButton->setText(LoadString("IDS_FOCUS_DOWN"));
+    ui->forcusDownPushButton->setFontSize(23);
     ui->forcusPlusPushButton->setText(LoadString("IDS_FOCUS_UP"));
+    ui->forcusPlusPushButton->setFontSize(23);
     ui->autoTriggerPushButton->setCheckable(true);
     ui->focusLineEdit->setAlignment(Qt::AlignCenter);
 //    ui->autoTriggerPushButton->setStyleSheet("background: transparent;");
@@ -145,6 +151,9 @@ void IndicatorCameraFocusWidget::on_autoTriggerPushButton_clicked(bool checked)
 void IndicatorCameraFocusWidget::showDistanceSensitivity(float fSDistance, int nSensitivity)
 {
     ui->distanceLabel->setText(QString::number(getDistanceValue(fSDistance), 'f', 1) + distanceValue());
+    QFont font = ui->distanceLabel->font();
+    font.setPixelSize(23);
+    ui->distanceLabel->setFont(font);
 }
 
 void IndicatorCameraFocusWidget::on_test(QString value)

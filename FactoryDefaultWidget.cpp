@@ -18,10 +18,14 @@ FactoryDefaultWidget::FactoryDefaultWidget(QWidget *parent) :
 
     m_pParent = (QDialog*)parent;
     ui->factoryDefaultLabel->setText(LoadString("IDS_ARE_U_SURE_FACTORY_DEFAULT"));
+    ui->factoryDefaultLabel->setFontSize(23);
     ui->pwLabel->setText(LoadString("IDS_PW"));
+    ui->pwLabel->setFontSize(23);
 
     ui->okPushButton->setText(LoadString("IDS_OK"));
+    ui->okPushButton->setFontSize(23);
     ui->cancelPushButton->setText(LoadString("IDS_CANCEL"));
+    ui->cancelPushButton->setFontSize(23);
 }
 
 FactoryDefaultWidget::~FactoryDefaultWidget()

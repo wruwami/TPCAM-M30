@@ -46,12 +46,14 @@ FileManagerFileTransferDialog::FileManagerFileTransferDialog(TransType type, QWi
         ui->speedLabel->hide();
         ui->oneProgressBar->hide();
         ui->titleLabel->setText(LoadString("IDS_FILE_TRANSFER"));
+        ui->titleLabel->setFontSize(23);
         TransferFile();
 
     }
     else
     {
         ui->titleLabel->setText(LoadString("IDS_FTP_TRANSFER"));
+        ui->titleLabel->setFontSize(23);
         TransferFTP2();
     }
 
@@ -249,7 +251,10 @@ void FileManagerFileTransferDialog::loadProgress(qint64 bytesSent, qint64 bytesT
     ui->oneProgressBar->setMaximum(bytesTotal); //Max
     ui->oneProgressBar->setValue(bytesSent);  //The current value
     if (bytesSent != 0 && bytesTotal != 0)
+    {
         ui->speedLabel->setText(QString("%1 kB/s").arg(bytesSent / bytesTotal));
+        ui->speedLabel->setFontSize(23);
+    }
 }
 
 
@@ -257,13 +262,16 @@ void FileManagerFileTransferDialog::replyFinished(QNetworkReply *reply)
 {
     ui->allProgressBar->setValue(m_index + 1);
     ui->fileNameLabel->setText(m_file_name);
+    ui->fileNameLabel->setFontSize(23);
     ui->fileCountLabel->setText(QString("%1 / %2").arg(m_index + 1).arg(m_count));
+    ui->fileCountLabel->setFontSize(23);
     m_index++;
 }
 
 void FileManagerFileTransferDialog::timerEvent(QTimerEvent *event)
 {
     ui->remaiTimeLabel->setText(QString("%1").arg(m_second++));
+    ui->remaiTimeLabel->setFontSize(23);
 }
 
 void FileManagerFileTransferDialog::TransferFile()
@@ -294,10 +302,12 @@ void FileManagerFileTransferDialog::TransferFile()
         iterDir2.next();
 
         ui->fileCountLabel->setText(QString("%1 / %2").arg(i + 1).arg(m_count));
+        ui->fileCountLabel->setFontSize(23);
         QString file_path(iterDir2.fileName());
         int index = file_path.lastIndexOf('/');
         QString file_name = file_path.mid(index + 1, file_path.size() - index - 1);
         ui->fileNameLabel->setText(QString(file_name));
+        ui->fileNameLabel->setFontSize(23);
         QFile file(file_path);
         ui->allProgressBar->setValue(++i);
         file.copy(dir + '/' + file_name);

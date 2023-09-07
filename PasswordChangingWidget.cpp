@@ -22,11 +22,16 @@ PasswordChangingWidget::PasswordChangingWidget(bool bNetwork, QWidget *parent) :
         ui->currentLineEdit->setDisabled(true);
     }
     ui->currentLabel->setText(LoadString("IDS_CURRENT"));
+    ui->currentLabel->setFontSize(23);
     ui->newLabel->setText(LoadString("IDS_NEW"));
+    ui->newLabel->setFontSize(23);
     ui->confirmLabel->setText(LoadString("IDS_CONFIRM"));
+    ui->confirmLabel->setFontSize(23);
 
     ui->okPushButton->setText(LoadString("IDS_OK"));
+    ui->okPushButton->setFontSize(23);
     ui->cancelPushButton->setText(LoadString("IDS_CANCEL"));
+    ui->cancelPushButton->setFontSize(23);
 }
 
 PasswordChangingWidget::~PasswordChangingWidget()

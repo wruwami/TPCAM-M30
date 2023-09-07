@@ -55,6 +55,7 @@ FileManagerWidget::FileManagerWidget(QWidget *parent) :
 
     ui->dateImageLabel->setImage("file_manager", "file_management_folder_icon_small.bmp");
     ui->datePushButton->setText(LoadString("IDS_DATE"));
+    ui->datePushButton->setFontSize(23);
     ui->datePushButton->setStyleSheet("QPushButton {background-color: rgba(255,255,255,0); border:none;}");
 
     ui->firstPushButton->setImage("file_manager", "file_management_prev_big_seek_button.bmp");
@@ -65,9 +66,12 @@ FileManagerWidget::FileManagerWidget(QWidget *parent) :
 //    ui->firstPushButton->setStyleSheet(QString("image: url(images/file_manager/file_management_prev_big_seek_button.png); width: %0; height : %1;").arg(ui->firstPushButton->width(), ui->firstPushButton->height()));
     ui->percentPushButton->setDisabled(true);
     ui->percentPushButton->setText("S:100%");
+    ui->percentPushButton->setFontSize(23);
     ui->connectPushButton->setText(LoadString("IDS_CONNECT"));
+    ui->connectPushButton->setFontSize(23);
 
     ui->printPushButton->setText(LoadString("IDS_PRINT"));
+    ui->printPushButton->setFontSize(23);
     ui->printPushButton->setDisabled(true);
 
     ui->mainMenuPushButton->setImage("file_manager", "file_management_home.jpg");
@@ -83,6 +87,7 @@ FileManagerWidget::FileManagerWidget(QWidget *parent) :
     m_pHomePushButton = ui->mainMenuPushButton;
 
     ui->frameLabel->setText(LoadString("IDS_STILL_IMAGE_AND_MOVIE_VIEWER"));
+//    ui->frameLabel->setFontSize(23);
     m_videoWidget = new QVideoWidget;
     ui->verticalLayout->insertWidget(1, m_videoWidget, 335);
 //    m_videoWidget->setGeometry(ui->frameLabel->geometry());
@@ -202,6 +207,7 @@ void FileManagerWidget::timerEvent(QTimerEvent *event)
     if (m_sdcardManager.GetSDAvailable() != 0 && m_sdcardManager.GetSDTotal() != 0)
         percent = m_sdcardManager.GetSDAvailable() / m_sdcardManager.GetSDTotal() * 100;
     ui->percentPushButton->setText(QString("S:%1%").arg(QString::number(percent, 'f', 0)));
+    ui->percentPushButton->setFontSize(23);
 }
 
 void FileManagerWidget::on_deletePushButton_clicked()
@@ -479,6 +485,7 @@ void FileManagerWidget::on_datePushButton_clicked()
 //        int index = date.lastIndexOf('/');
 //        m_dateTime = date.mid(index + 1, date.size() - index - 1);
         ui->datePushButton->setText(date);
+        ui->datePushButton->setFontSize(23);
 
         QString path;
         switch (m_nMode)

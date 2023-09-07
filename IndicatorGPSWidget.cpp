@@ -16,10 +16,15 @@ IndicatorGPSWidget::IndicatorGPSWidget(QWidget *parent) :
 //    SerialGPSManager* m_serialGPSManager = new SerialGPSManager;
 
     ui->sensitivityeLabel->setText(LoadString("IDS_SENSITIVITY"));
+//    ui->sensitivityeLabel->setFontSize(23);
     ui->timeLabel->setText(LoadString("IDS_TIME") + SerialGPSManager::GetInstance()->GetDateTimeString());
+//    ui->timeLabel->setFontSize(23);
     ui->latitudeLabel->setText(LoadString("IDS_LATITUDE") + SerialGPSManager::GetInstance()->GetLatitude());
+//    ui->latitudeLabel->setFontSize(23);
     ui->longitudeLabel->setText(LoadString("IDS_LONGITUDE") + SerialGPSManager::GetInstance()->GetLongitude());
+//    ui->longitudeLabel->setFontSize(23);
     ui->numberOfSatellitesLabel->setText(LoadString("IDS_NUMBER_OF_SATELLITES") + QString::number(SerialGPSManager::GetInstance()->GetSatellitesInView()));
+//    ui->numberOfSatellitesLabel->setFontSize(23);
 
     startTimer(1000);
 }

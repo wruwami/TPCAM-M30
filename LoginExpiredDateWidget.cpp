@@ -10,7 +10,9 @@ LoginExpiredDateWidget::LoginExpiredDateWidget(QDialog *parent) :
     ui->setupUi(this);
 
     ui->label->setText(LoadString("IDS_CALIBRATION_SERVICE_REQUIRED"));
+//    ui->label->setFontSize(23);
     ui->pushButton->setText(LoadString("IDS_POWER_OFF"));
+    ui->pushButton->setFontSize(23);
     m_pParent = parent;
 }
 

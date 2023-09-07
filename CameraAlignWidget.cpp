@@ -20,16 +20,27 @@ CameraAlignWidget::CameraAlignWidget(QWidget *parent) :
     ui->setupUi(this);
 
     ui->homePushButton->setText(LoadString("IDS_HOME"));
+    ui->homePushButton->setFontSize(23);
     ui->defaultPushButton->setText(LoadString("IDS_DEFAULT"));
+    ui->defaultPushButton->setFontSize(23);
     ui->autoTriggerPushButton->setText(LoadString("IDS_AUTO_TRIGGER"));
+    ui->autoTriggerPushButton->setFontSize(23);
     ui->hudPushButton->setText(LoadString("IDS_HUD"));
+    ui->hudPushButton->setFontSize(23);
     ui->upPushButton->setText(LoadString("IDS_UP"));
+    ui->upPushButton->setFontSize(23);
     ui->leftPushButton->setText(LoadString("IDS_LEFT"));
+    ui->leftPushButton->setFontSize(23);
     ui->rightPushButton->setText(LoadString("IDS_RIGHT"));
+    ui->rightPushButton->setFontSize(23);
     ui->downPushButton->setText(LoadString("IDS_DOWN"));
+    ui->downPushButton->setFontSize(23);
     ui->savePushButton->setText(LoadString("IDS_SAVE"));
+    ui->savePushButton->setFontSize(23);
     ui->cancelPushButton->setText(LoadString("IDS_CANCEL"));
+    ui->cancelPushButton->setFontSize(23);
     ui->cameraPushButton->setText(LoadString("IDS_CAMERA"));
+    ui->cameraPushButton->setFontSize(23);
 
     ui->hudPushButton->setCheckable(true);
     ui->cameraPushButton->setCheckable(true);

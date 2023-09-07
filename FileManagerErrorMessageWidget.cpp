@@ -14,9 +14,12 @@ FileManagerErrorMessageWidget::FileManagerErrorMessageWidget(QWidget *parent) :
     m_pParent = (QDialog*)parent;
 
     ui->printError1Label->setText(LoadString("IDS_PRINT_ERROR1"));
+    ui->printError1Label->setFontSize(23);
     ui->printError2Label->setText(LoadString("IDS_PRINT_ERROR2"));
+    ui->printError2Label->setFontSize(23);
 
     ui->pushButton->setText(LoadString("IDS_OK"));
+    ui->pushButton->setFontSize(23);
 }
 
 FileManagerErrorMessageWidget::~FileManagerErrorMessageWidget()

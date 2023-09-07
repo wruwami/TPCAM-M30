@@ -73,7 +73,9 @@ KeyboardDialog::KeyboardDialog(QString lang, QWidget *parent) :
     setGeometry(GetWidgetSizePos(QRect(0, 125, 1600, 835)));
 
     ui->okPushButton->setText(LoadString("IDS_OK"));
+    ui->okPushButton->setFontSize(23);
     ui->cancelPushButton->setText(LoadString("IDS_CANCEL"));
+    ui->cancelPushButton->setFontSize(23);
 
     ui->deleteAllPushButton->setImage("Main_menu", "delete_all.bmp");
 

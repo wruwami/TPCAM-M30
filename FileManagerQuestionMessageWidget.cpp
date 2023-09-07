@@ -12,9 +12,12 @@ FileManagerQuestionMessageWidget::FileManagerQuestionMessageWidget(QWidget *pare
 
     m_pParent = (QDialog*)parent;
     ui->questionLabel->setText(LoadString("IDS_DELETE_ALL_QUESTION"));
+    ui->questionLabel->setFontSize(23);
 
     ui->okPushButton->setText(LoadString("IDS_OK"));
+    ui->okPushButton->setFontSize(23);
     ui->cancelPushButton->setText(LoadString("IDS_CANCEL"));
+    ui->cancelPushButton->setFontSize(23);
 }
 
 FileManagerQuestionMessageWidget::~FileManagerQuestionMessageWidget()

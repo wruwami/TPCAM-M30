@@ -15,7 +15,9 @@ KeypadDialog::KeypadDialog(QWidget *parent) :
     setWindowFlags(Qt::FramelessWindowHint);
     setGeometry(GetWidgetSizePos(QRect(0, 125, 1600, 835)));
     ui->okPushButton->setText(LoadString("IDS_OK"));
+    ui->okPushButton->setFontSize(23);
     ui->cancelPushButton->setText(LoadString("IDS_CANCEL"));
+    ui->cancelPushButton->setFontSize(23);
 
     ui->deleteAllPushButton->setImage("Main_menu", "delete_all.bmp");
 
@@ -39,7 +41,9 @@ KeypadDialog::KeypadDialog(QString str, QWidget *parent) :
     setWindowFlags(Qt::FramelessWindowHint);
     setGeometry(GetWidgetSizePos(QRect(0, 125, 1600, 835)));
     ui->okPushButton->setText(LoadString("IDS_OK"));
+    ui->okPushButton->setFontSize(23);
     ui->cancelPushButton->setText(LoadString("IDS_CANCEL"));
+    ui->cancelPushButton->setFontSize(23);
 
     ui->deleteAllPushButton->setImage("Main_menu", "delete_all.bmp");
     ui->lineEdit->setText(str);

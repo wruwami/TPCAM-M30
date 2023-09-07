@@ -16,10 +16,13 @@ SearchBoxDialog::SearchBoxDialog(QString title, QWidget *parent) :
 
 
     ui->titleLabel->setText(title);
+    ui->titleLabel->setFontSize(23);
     ui->searchTextLabel->setText(LoadString("IDS_SEARCH_TEXT"));
+    ui->searchTextLabel->setFontSize(23);
 
     ui->searchButton->setImage("file_manager", "file_management_search_search_button.bmp");
     ui->closePushButton->setText(LoadString("IDS_BACK"));
+    ui->closePushButton->setFontSize(23);
 
     resize(GetWidgetSize(QSize(1208, 702)));
 
@@ -47,6 +50,7 @@ void SearchBoxDialog::on_firstPlusButton_clicked()
         firstValue = secondValue;
 
     ui->firstValueButton->setText(QString::number(firstValue));
+    ui->firstValueButton->setFontSize(23);
 }
 
 void SearchBoxDialog::on_firstMinusButton_clicked()
@@ -63,6 +67,7 @@ void SearchBoxDialog::on_firstMinusButton_clicked()
         firstValue = secondValue;
 
     ui->firstValueButton->setText(QString::number(firstValue));
+    ui->firstValueButton->setFontSize(23);
 }
 
 void SearchBoxDialog::on_secondPlusButton_clicked()
@@ -79,6 +84,7 @@ void SearchBoxDialog::on_secondPlusButton_clicked()
         secondValue = firstValue;
 
     ui->secondValueButton->setText(QString::number(secondValue));
+    ui->secondValueButton->setFontSize(23);
 }
 
 void SearchBoxDialog::on_secondMinusButton_clicked()
@@ -95,6 +101,7 @@ void SearchBoxDialog::on_secondMinusButton_clicked()
         secondValue = firstValue;
 
     ui->secondValueButton->setText(QString::number(secondValue));
+    ui->secondValueButton->setFontSize(23);
 }
 
 void SearchBoxDialog::on_checkBox_clicked()

@@ -32,6 +32,9 @@ MainMenuWidget::MainMenuWidget(QWidget *parent) :
     sp_retain.setRetainSizeWhenHidden(true);
     setSizePolicy(sp_retain);
 
+    ui->timeLabel->setColor(Qt::white);
+    ui->timeLabel->setFontSize(15);
+
     ui->cameraPushButton->setSizePolicy(sp_retain);
     ui->daynNightPushButton->setSizePolicy(sp_retain);
     ui->weatherPushButton->setSizePolicy(sp_retain);
@@ -59,6 +62,8 @@ MainMenuWidget::MainMenuWidget(QWidget *parent) :
     m_pHomeButtonWidget = new HomeButtonWidget;
     ui->stackedWidget->addWidget(m_pHomeTitleLabel);
     ui->stackedWidget->addWidget(m_pHomeButtonWidget);
+    ui->stackedWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+
     m_pSpacerItem = new QSpacerItem(m_pCameraPushbutton->width(), m_pCameraPushbutton->height(), QSizePolicy::Expanding, QSizePolicy::Expanding);
 
 

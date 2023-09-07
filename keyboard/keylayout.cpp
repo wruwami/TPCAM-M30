@@ -171,6 +171,9 @@ QGridLayout *KeyLayout::initGridLayout(const QJsonArray &iKeysArray)
             mLastColumn = mLastColumn + mLastSpan;
             // When you add a widget to a layout it parents them
             Key *mKey = new Key(mText, mIconPath);
+            QFont font = mKey->font();
+            font.setPixelSize(23);
+            mKey->setFont(font);
 //            mKey->setStyleSheet("QPushButton {color:white;background-color : #7a7a7a;border-radius:10px;}");
             Q_ASSERT(this->connect(mKey, &Key::keyPressed, [mKey, this]() {
                 emit this->keyPressed(mKey->objectName(), mKey);

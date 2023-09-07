@@ -16,7 +16,9 @@ LocationWidget::LocationWidget(QWidget *parent) :
 //    ui->listWidget->addItem("Busan/Korea");
 
     ui->label->setText("Seoul/Korea");
+//    ui->label->setFontSize(23);
     ui->label_2->setText("Busan/Korea");
+//    ui->label_2->setFontSize(23);
 }
 
 LocationWidget::~LocationWidget()

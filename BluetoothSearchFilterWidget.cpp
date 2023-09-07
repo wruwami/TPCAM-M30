@@ -13,10 +13,14 @@ BluetoothSearchFilterWidget::BluetoothSearchFilterWidget(QWidget *parent) :
 
     m_pParent = (QDialog*)parent;
     ui->filterNameLabel->setText(LoadString("IDS_FILTER_NAME"));
+    ui->filterNameLabel->setFontSize(23);
 
     ui->applyPushButton->setText(LoadString("IDS_APPLY"));
+    ui->applyPushButton->setFontSize(23);
     ui->yesPushButton->setText(LoadString("IDS_YES"));
+    ui->yesPushButton->setFontSize(23);
     ui->noPushButton->setText(LoadString("IDS_NO"));
+    ui->noPushButton->setFontSize(23);
 
     ui->lineEdit->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 }

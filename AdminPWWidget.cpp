@@ -17,11 +17,15 @@ AdminPWWidget::AdminPWWidget(QString msg, QWidget *parent) :
     if (!msg.isEmpty())
     {
         ui->label->setText(msg);
+        ui->label->setText(msg);
     }
     ui->PWLabel->setText(LoadString("IDS_PW"));
+    ui->PWLabel->setFontSize(23);
 
     ui->okPushButton->setText(LoadString("IDS_OK"));
+    ui->okPushButton->setFontSize(23);
     ui->cancelPushButton->setText(LoadString("IDS_CANCEL"));
+    ui->cancelPushButton->setFontSize(23);
 }
 
 AdminPWWidget::~AdminPWWidget()

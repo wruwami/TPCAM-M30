@@ -15,12 +15,17 @@ DeviceIDWidget::DeviceIDWidget(QWidget *parent) :
     m_pCancelButton = ui->cancelPushButton;
 
     ui->deviceIDLabel->setText(LoadString("IDS_DEVICE_ID"));
+    ui->deviceIDLabel->setFontSize(23);
     ui->deviceIDLabel_2->setText(LoadString("IDS_DEVICE_ID"));
+    ui->deviceIDLabel_2->setFontSize(23);
     ui->changeSSIDnFTPLabel->setText(LoadString("IDS_CHANGE_SSID_AND_FTP"));
+    ui->changeSSIDnFTPLabel->setFontSize(23);
 
 
     ui->savePushButton->setText(LoadString("IDS_SAVE"));
+    ui->savePushButton->setFontSize(23);
     ui->cancelPushButton->setText(LoadString("IDS_CANCEL"));
+    ui->cancelPushButton->setFontSize(23);
     ui->inputPushButton->setImage("Login", "keyboard.bmp");
 
     ui->checkBox->setChecked(true);

@@ -17,8 +17,11 @@ StillImageViewerDialog::StillImageViewerDialog(AVFileFormat avFileFormat, QWidge
 //    ui->imageLabel->setText(LoadString("IDS_STILL_IMAGE_VIEWER"));
 
     ui->quitPushButton->setText(LoadString("IDS_QUIT"));
+    ui->quitPushButton->setFontSize(23);
     ui->originPushButton->setText(LoadString("IDS_ORIGIN"));
+    ui->originPushButton->setFontSize(23);
     ui->printPushButton->setText(LoadString("IDS_PRINT"));
+    ui->printPushButton->setFontSize(23);
 }
 
 StillImageViewerDialog::~StillImageViewerDialog()

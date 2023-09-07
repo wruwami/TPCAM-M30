@@ -24,8 +24,10 @@ FileManagerSnapShotDialog::FileManagerSnapShotDialog(int nMode, QWidget *parent)
     setBackGroundColor(this, 0xffffff);
 
     ui->snapShotLabel->setText(LoadString("IDC_SNAPSHOT"));
+    ui->snapShotLabel->setFontSize(23);
     ui->snapShotIconLabel->setImage("file_manager", "file_management_folder_icon_normal.bmp");
     ui->backPushButton->setText(LoadString("IDS_BACK"));
+    ui->backPushButton->setFontSize(23);
 
 //    ui->listWidget->setStyleSheet(QString("QListView::item { height: %0px; }").arg(ui->snapShotIconLabel->height()/64* 45));
 

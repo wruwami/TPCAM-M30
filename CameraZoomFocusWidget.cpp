@@ -23,21 +23,33 @@ CameraZoomFocusWidget::CameraZoomFocusWidget(QWidget *parent) :
 //    ui->focusLabel->setText("F: 1585");
 
     ui->optPushButton->setText(LoadString("IDS_OPT"));
+    ui->optPushButton->setFontSize(23);
     ui->focusPlusPushButton->setText(LoadString("IDS_FOCUS_PLIS"));
+    ui->focusPlusPushButton->setFontSize(23);
     ui->FocusMinusPushButton->setText(LoadString("IDS_FOCUS_MINUS"));
+    ui->FocusMinusPushButton->setFontSize(23);
 
     ui->dayComboBox->addItem(LoadString("IDS_DAY"));
+    ui->dayComboBox->setFontSize(23);
     ui->dayComboBox->addItem(LoadString("IDS_NIGHT"));
+    ui->dayComboBox->setFontSize(23);
 
     ui->autoTriggerPushButton->setText(LoadString("IDS_AT"));
+    ui->autoTriggerPushButton->setFontSize(23);
     ui->initPushButton->setText(LoadString("IDS_INIT"));
+    ui->initPushButton->setFontSize(23);
 
     ui->zoomRangePushButton->setText(LoadString("IDS_ZOOM_60_100"));
+    ui->zoomRangePushButton->setFontSize(23);
     ui->dzPlusPushButton->setText(LoadString("IDS_DZ_PLUS"));
+    ui->dzPlusPushButton->setFontSize(23);
     ui->dzMinusPushButton->setText(LoadString("IDS_DZ_MINUS"));
+    ui->dzMinusPushButton->setFontSize(23);
 
     ui->pgrsSavePushButton->setText(LoadString("IDS_PQRS_SAVE"));
+    ui->pgrsSavePushButton->setFontSize(23);
     ui->jpgSavePushButton->setText(LoadString("IDS_JPG_SAVE"));
+    ui->jpgSavePushButton->setFontSize(23);
 
     ui->autoTriggerPushButton->setEnabled(true);
 

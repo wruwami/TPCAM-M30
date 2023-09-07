@@ -23,15 +23,21 @@ SystemInfoWidget::SystemInfoWidget(QWidget *parent) :
     ui->setupUi(this);
 
     ui->alignLabel->setText(LoadString("IDS_ALIGN"));
+//    ui->alignLabel->setFontSize(23);
     ui->modeLabel->setText(LoadString("IDS_MODE"));
+//    ui->modeLabel->setFontSize(23);
     ui->camLabel->setText(LoadString("IDS_CAM"));
+//    ui->camLabel->setFontSize(23);
     ui->laserLabel->setText(LoadString("IDS_LASER"));
+//    ui->laserLabel->setFontSize(23);
     ui->serialNumberLabel->setText(LoadString("IDS_SERIAL_NUMBER"));
+//    ui->serialNumberLabel->setFontSize(23);
 
     QJsonObject object = ConfigManager("setting_reticle.json").GetConfig();
     QJsonArray ar = object["HUD reticle pos"].toArray();
     QJsonArray ar2 = object["Camera reticle pos"].toArray();
     ui->alignValueLabel->setText(QString("H%1, %2, C%3, %4").arg(ar[0].toInt()).arg(ar[1].toInt()).arg(ar2[0].toInt()).arg(ar2[1].toInt()));
+//    ui->alignValueLabel->setFontSize(23);
     object = ConfigManager("parameter_setting1.json").GetConfig();
     QString enforcement;
     switch (object["enforcement selection"].toInt())
@@ -94,6 +100,7 @@ SystemInfoWidget::SystemInfoWidget(QWidget *parent) :
     }
     zoom_level = zoom_level.mid(2);
     ui->modeValueLabel->setText(QString("%1(%2, %3%4)").arg(enforcement).arg(mode).arg(zoom_level).arg(distanceValue()));
+//    ui->modeValueLabel->setFontSize(23);
     object = ConfigManager("setting_device_ID.json").GetConfig();
     QJsonObject object2 = object["Device ID"].toObject();
     QString SerialNum;
@@ -103,6 +110,7 @@ SystemInfoWidget::SystemInfoWidget(QWidget *parent) :
         SerialNum.append("_" + object2["Postfix"].toString());
 
     ui->serialNumberValueLabel->setText(SerialNum);
+//    ui->serialNumberValueLabel->setFontSize(23);
 
 //    m_SerialViscaManager = new SerialViscaManager;
 
@@ -154,9 +162,11 @@ void SystemInfoWidget::on_cam_version(int vendor, int version)
     }
 
     ui->camValueLabel->setText(QString("v%1(%2)").arg(strVersion2).arg(strVendor));
+//    ui->camValueLabel->setFontSize(23);
 }
 
 void SystemInfoWidget::on_laser_version(QString version)
 {
     ui->laserValueLabel->setText(version);
+//    ui->laserValueLabel->setFontSize(23);
 }

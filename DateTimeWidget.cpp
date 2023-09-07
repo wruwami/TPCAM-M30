@@ -21,9 +21,13 @@ DateTimeWidget::DateTimeWidget(QWidget *parent) :
 
     this->setWindowFlags(Qt::FramelessWindowHint);
     ui->savePushButton->setText(LoadString("IDS_SAVE"));
+    ui->savePushButton->setFontSize(23);
     ui->cancelPushButton->setText(LoadString("IDS_CANCEL"));
+    ui->cancelPushButton->setFontSize(23);
     ui->timeZoneLabel->setText(LoadString("IDS_TIMEZONE"));
+//    ui->timeZoneLabel->setFontSize(23);
     ui->gpsSyncCheckBox->setText(LoadString("IDS_GPS_SYNC"));
+//    ui->gpsSyncCheckBox->setFontSize(23);
     ui->gpsSyncCheckBox->setChecked(m_jsonObject["gps sync"].toBool());
 
     m_pSavePushButton = ui->savePushButton;

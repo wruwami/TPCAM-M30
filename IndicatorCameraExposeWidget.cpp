@@ -24,10 +24,15 @@ IndicatorCameraExposeWidget::IndicatorCameraExposeWidget(QWidget *parent) :
     m_serialViscaManager = g_pSerialViscaManager;
 
     ui->showHidePushButton->setText(LoadString("IDS_HIDE"));
+    ui->showHidePushButton->setFontSize(23);
     ui->speedPushButton->setText(LoadString("IDS_SPEED"));
+    ui->speedPushButton->setFontSize(23);
     ui->hlcOnPushButton->setText(LoadString("IDS_HLC_ON"));
+    ui->hlcOnPushButton->setFontSize(23);
     ui->defogOffPushButton->setText(LoadString("IDS_DEFOG_OFF"));
+    ui->defogOffPushButton->setFontSize(23);
     ui->disOffPushButton->setText(LoadString("IDS_DIS_OFF"));
+    ui->disOffPushButton->setFontSize(23);
 //    ui->dnrOnPushButton->setText(LoadString("IDS_DNR_ON"));
 
     QStringList dayNights = {"IDS_DAY1", "IDS_DAY2", "IDS_DAY3", "IDS_NIGHT1", "IDS_NIGHT2", "IDS_NIGHT3"};

@@ -218,3 +218,6 @@ IDS_DAY3,Day Bright,주간 밝게,Dia brilhante,día brillante,Jour lumineux,ي�
 IDS_NIGHT1,Night Dark,야간 어둡게,Noite escura,Noche oscura,Nuit sombre,ليلة مظلمة
 IDS_NIGHT2,Night Standard,야간 표준,Noturno Padrão,Noche Estándar,Norme de nuit,ليلة قياسية
 IDS_NIGHT3,Night Bright,야간 밝게,Noite brilhante,noche brillante,Nuit lumineuse,ليلة مشرقة
+IDS_REC,REC,녹화중,gravação,grabación,enregistrement,تسجيل
+IDS_SAVE_IMAGE1,Save,영상,salvar,guardar,enregistrer,الصورة
+IDS_SAVE_IMAGE2,Image,저장,imagem,imagen,l'image,احفظ

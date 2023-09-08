@@ -191,7 +191,8 @@ IDS_PLEASE_INPUT_NETWORK_PASSWORD,"Please, input network password.",네트워크
 IDS_ALIGN,Align,얼라인,Alinhar,Alinear,Aligner,محاذاة
 IDS_MODE,Mode,모드,Modo,Modo,Mode,الوضع
 IDS_CAM,Cam,카메라,câmera,Leva,Came,كام
-IDS_SERIAL_NUMBER,Serial Number,일련 번호,Número de série,Número de serie,Numéro de série,رقم سري
+IDS_SERIAL_NUMBER,S/N,S/N,S/N,S/N,S/N,S/N
+IDS_SERIAL_NUMBER2,Serial Number,일련 번호,Número de série,Número de serie,Numéro de série,رقم سري
 IDS_SYSTEM_INFO,System Info,시스템 정보,Informação do sistema,Información del sistema,Information système,معلومات النظام
 IDS_PRINT_ERROR1,Cannot connect a printer!!,프린터를 연결할 수 없습니다!!,Não é possível conectar uma impressora!!,¡¡No se puede conectar una impresora!!,Impossible de connecter une imprimante !!,لا يمكن توصيل طابعة !!
 IDS_PRINT_ERROR2,Please check settings for the printer,프린터 설정을 확인하십시오,Verifique as configurações da impressora,Compruebe la configuración de la impresora.,Veuillez vérifier les paramètres de l'imprimante,يرجى التحقق من إعدادات الطابعة

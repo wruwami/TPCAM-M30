@@ -13,6 +13,9 @@
 #include "FileManager.h"
 #include "camera.h"
 
+extern SerialLaserManager* g_pSerialLaserManager;
+extern SerialViscaManager* g_pSerialViscaManager;
+
 CameraZoomFocusWidget::CameraZoomFocusWidget(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::CameraZoomFocusWidget)
@@ -21,6 +24,8 @@ CameraZoomFocusWidget::CameraZoomFocusWidget(QWidget *parent) :
 
 //    ui->zoomLabel->setText("Z: 2FCE");
 //    ui->focusLabel->setText("F: 1585");
+    m_pSerialLaserManager =  g_pSerialLaserManager;
+    m_pSerialViscaManager = g_pSerialViscaManager;
 
     ui->optPushButton->setText(LoadString("IDS_OPT"));
     ui->optPushButton->setFontSize(23);
@@ -112,6 +117,8 @@ CameraZoomFocusWidget::CameraZoomFocusWidget(QWidget *parent) :
 
     m_pSerialViscaManager->show_dzoomPosition();
 
+    connect(m_pSerialLaserManager->getLaser_packet(), SIGNAL(sig_showDistance(float,int)), this, SLOT(on_showDistance(float,int)));
+
     connect(m_pSerialViscaManager->getVisca_packet(), SIGNAL(sig_show_dzoom(QString)), this, SLOT(on_show_dzoom(QString)));
     connect(m_pSerialViscaManager->getVisca_packet(), SIGNAL(sig_show_zoom(QString)), this, SLOT(on_show_zoom(QString)));
     connect(m_pSerialViscaManager->getVisca_packet(), SIGNAL(sig_show_focus(QString)), this, SLOT(on_show_focus(QString)));
@@ -193,10 +200,12 @@ void CameraZoomFocusWidget::on_dayComboBox_currentIndexChanged(int index)
         m_pSerialViscaManager->set_infrared_mode_on();
         object = m_object["Night"].toObject()["Normal"].toObject();
     }
-    m_pSerialViscaManager->set_AE_Mode(object["Priority"].toString());
+    m_pSerialViscaManager->set_AE_Mode("03");
     m_pSerialViscaManager->set_iris(object["Iris"].toInt());
     m_pSerialViscaManager->set_shutter_speed(object["Shutter"].toInt());
     m_pSerialViscaManager->set_gain(object["Gain"].toInt());
+    m_pSerialViscaManager->set_AE_Mode(object["Priority"].toString());
+
     m_pSerialViscaManager->set_noise_reduction_on(object["DNR"].toString());
     object["DIS"].toBool() ? m_pSerialViscaManager->set_DIS_on() : m_pSerialViscaManager->set_DIS_off();
     object["DEFOG"].toBool() ? m_pSerialViscaManager->set_defog_on() : m_pSerialViscaManager->set_defog_off();

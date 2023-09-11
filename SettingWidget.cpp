@@ -177,8 +177,8 @@ void SettingWidget::on_savePushButton_clicked()
 
     LcdBrightManager lcdBrightManager;
 
-    ConfigManager configManaer1 = ConfigManager("parameter_settings1.json");
-    QJsonObject object = configManaer1.GetConfig();
+//    ConfigManager configManaer1 = ConfigManager("parameter_settings1.json");
+//    QJsonObject object = configManaer1.GetConfig();
 
 
 }

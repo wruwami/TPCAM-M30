@@ -56,6 +56,10 @@ CameraZoomFocusWidget::CameraZoomFocusWidget(QWidget *parent) :
     ui->jpgSavePushButton->setText(LoadString("IDS_JPG_SAVE"));
     ui->jpgSavePushButton->setFontSize(23);
 
+    ui->focusLabel->setColor(Qt::white);
+    ui->dFocusLabel->setColor(Qt::white);
+    ui->zoomLabel->setColor(Qt::white);
+
 //    ui->autoTriggerPushButton->setEnabled(true);
 
     ConfigManager con = ConfigManager("parameter_setting1.json");
@@ -376,15 +380,27 @@ void CameraZoomFocusWidget::setTableInit()
     QJsonArray ar = m_object3["lt day focus"].toArray();
     for (int i = 0; i < ar.size(); i++ )
     {
-        QTableWidgetItem item(ar[i].toString());
-        ui->tableWidget->setItem(i, 0, &item);
+        if (ui->tableWidget->item(i,0) != nullptr)
+        {
+            QTableWidgetItem *item = ui->tableWidget->item(i,0);
+            delete item;
+            item = nullptr;
+        }
+        QTableWidgetItem *item = new QTableWidgetItem(ar[i].toString());
+        ui->tableWidget->setItem(i, 0, item);
     }
 
     ar = m_object3["lt night focus"].toArray();
     for (int i = 0; i < ar.size(); i++ )
     {
-        QTableWidgetItem item(ar[i].toString());
-        ui->tableWidget->setItem(i, 1, &item);
+        if (ui->tableWidget->item(i,1) != nullptr)
+        {
+            QTableWidgetItem *item = ui->tableWidget->item(i,1);
+            delete item;
+            item = nullptr;
+        }
+        QTableWidgetItem *item = new QTableWidgetItem(ar[i].toString());
+        ui->tableWidget->setItem(i, 1, item);
     }
 
 }

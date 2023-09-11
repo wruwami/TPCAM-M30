@@ -170,21 +170,21 @@
        <item>
         <widget class="CustomLabel" name="zoomLabel">
          <property name="text">
-          <string>TextLabel</string>
+          <string/>
          </property>
         </widget>
        </item>
        <item>
         <widget class="CustomLabel" name="dFocusLabel">
          <property name="text">
-          <string>TextLabel</string>
+          <string/>
          </property>
         </widget>
        </item>
        <item>
         <widget class="CustomLabel" name="focusLabel">
          <property name="text">
-          <string>TextLabel</string>
+          <string/>
          </property>
         </widget>
        </item>

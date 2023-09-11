@@ -36,6 +36,7 @@ private:
     void SaveFocusJson();
     void SetLtValue(int index, QJsonArray& ar, QJsonArray& ar2);
     void SendViscaValue();
+    void EditTableValue();
 private:
     ConfigManager m_configManager = ConfigManager("exposure.json");
     ConfigManager m_coofigManager2 = ConfigManager("focus_edit.json");
@@ -45,6 +46,7 @@ private:
     QJsonObject m_object3;
     QString m_strFocus;
     QString m_strDZoom;
+    std::map<std::pair<int,int>, QString> m_MapFocus;
 private slots:
     void on_optPushButton_clicked();
 

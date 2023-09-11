@@ -89,6 +89,7 @@ CameraZoomFocusWidget::CameraZoomFocusWidget(QWidget *parent) :
 //    ui->tableWidget->setColumnWidth(1, ui->pgrsSavePushButton->width() * 1.5);
     ui->tableWidget->verticalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     ui->tableWidget->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    ui->tableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
 
     QStringList rowHeaders;
     rowHeaders.append(LoadString("IDS_DAY"));
@@ -176,18 +177,21 @@ void CameraZoomFocusWidget::ZoomRange()
 void CameraZoomFocusWidget::on_optPushButton_clicked()
 {
     m_pSerialViscaManager->set_AF_one_push_trigger();
+    m_pSerialViscaManager->show_focusPosition();
 }
 
 
 void CameraZoomFocusWidget::on_focusPlusPushButton_clicked()
 {
     m_pSerialViscaManager->plus_focus();
+    m_pSerialViscaManager->show_focusPosition();
 }
 
 
 void CameraZoomFocusWidget::on_FocusMinusPushButton_clicked()
 {
     m_pSerialViscaManager->minus_focus();
+    m_pSerialViscaManager->show_focusPosition();
 }
 
 void CameraZoomFocusWidget::on_dayComboBox_currentIndexChanged(int index)
@@ -377,15 +381,16 @@ void CameraZoomFocusWidget::SetLaserDetectionAreaDistance(int zoom_index)
 
 void CameraZoomFocusWidget::setTableInit()
 {
+    ui->tableWidget->setRowCount(0);
+    ui->tableWidget->setRowCount(6);
     QJsonArray ar = m_object3["lt day focus"].toArray();
     for (int i = 0; i < ar.size(); i++ )
     {
-        if (ui->tableWidget->item(i,0) != nullptr)
-        {
-            QTableWidgetItem *item = ui->tableWidget->item(i,0);
-            delete item;
-            item = nullptr;
-        }
+//        int row = ui->tableWidget->rowCount();
+//        ui->tableWidget->insertRow(row);
+        QPoint point(i, 0);
+        m_MapFocus[std::make_pair(i, 0)] = ar[i].toString();
+
         QTableWidgetItem *item = new QTableWidgetItem(ar[i].toString());
         ui->tableWidget->setItem(i, 0, item);
     }
@@ -393,16 +398,12 @@ void CameraZoomFocusWidget::setTableInit()
     ar = m_object3["lt night focus"].toArray();
     for (int i = 0; i < ar.size(); i++ )
     {
-        if (ui->tableWidget->item(i,1) != nullptr)
-        {
-            QTableWidgetItem *item = ui->tableWidget->item(i,1);
-            delete item;
-            item = nullptr;
-        }
+        QPoint point(i, 1);
+        m_MapFocus[std::make_pair(i, 1)] = ar[i].toString();
+
         QTableWidgetItem *item = new QTableWidgetItem(ar[i].toString());
         ui->tableWidget->setItem(i, 1, item);
     }
-
 }
 
 void CameraZoomFocusWidget::setFocusEditJsonInit()
@@ -536,6 +537,22 @@ void CameraZoomFocusWidget::SendViscaValue()
     m_pSerialViscaManager->show_focusPosition();
 }
 
+void CameraZoomFocusWidget::EditTableValue()
+{
+    ui->tableWidget->setRowCount(0);
+    ui->tableWidget->setRowCount(6);
+
+    for (int i = 0 ; i < 2 ; i++)
+    {
+        for( int j = 0 ; i < 6 ; j++)
+        {
+            QString focus = m_MapFocus[std::make_pair(i, j)];
+            QTableWidgetItem *item = new QTableWidgetItem(focus);
+            ui->tableWidget->setItem(i, j, item);
+        }
+    }
+}
+
 void CameraZoomFocusWidget::on_zoomRangePushButton_clicked()
 {
     ZoomRange();
@@ -562,6 +579,28 @@ void CameraZoomFocusWidget::on_showDistance(float fDistance, int nSensitivity)
 
 void CameraZoomFocusWidget::on_jpgSavePushButton_clicked()
 {
+    ui->tableWidget->setRowCount(0);
+    ui->tableWidget->setRowCount(6);
+    QJsonArray ar = m_object3["lt day focus"].toArray();
+    for (int i = 0; i < ar.size(); i++ )
+    {
+
+        QTableWidgetItem *item = new QTableWidgetItem(ar[i].toString());
+        ui->tableWidget->setItem(i, 0, item);
+    }
+
+    ar = m_object3["lt night focus"].toArray();
+    for (int i = 0; i < ar.size(); i++ )
+    {
+        if (ui->tableWidget->item(i,1) != nullptr)
+        {
+            QTableWidgetItem *item = ui->tableWidget->item(i,1);
+            delete item;
+            item = nullptr;
+        }
+        QTableWidgetItem *item = new QTableWidgetItem(ar[i].toString());
+        ui->tableWidget->setItem(i, 1, item);
+    }
 
     QTableWidgetItem* item = ui->tableWidget->item(m_nTableIndex.x(), m_nTableIndex.y());
     item->setTextColor(Qt::red);
@@ -574,6 +613,8 @@ void CameraZoomFocusWidget::on_jpgSavePushButton_clicked()
 
 void CameraZoomFocusWidget::on_pgrsSavePushButton_clicked()
 {
+    ui->tableWidget->setRowCount(0);
+
     QTableWidgetItem* item = ui->tableWidget->item(m_nTableIndex.x(), m_nTableIndex.y());
     item->setTextColor(Qt::green);
     ui->tableWidget->setItem(m_nTableIndex.x(), m_nTableIndex.y(), item);
@@ -619,9 +660,14 @@ void CameraZoomFocusWidget::on_show_zoom(QString zoom)
 void CameraZoomFocusWidget::on_show_focus(QString focus)
 {
     ui->focusLabel->setText("F:"+focus);
-    m_strFocus = focus;
-    QTableWidgetItem item(focus);
-    ui->tableWidget->setItem(m_nTableIndex.x(), m_nTableIndex.y(), &item);
+    if (m_mTableStatus[std::make_pair(m_nTableIndex.x(), m_nTableIndex.y())] == 0)
+    {
+        m_MapFocus[std::make_pair(m_nTableIndex.x(), m_nTableIndex.y())] = focus;
+    }
+
+    EditTableValue();
+//    QTableWidgetItem item(focus);
+//    ui->tableWidget->setItem(m_nTableIndex.x(), m_nTableIndex.y(), &item);
 }
 
 void CameraZoomFocusWidget::on_show_dzoom(QString dzoom)

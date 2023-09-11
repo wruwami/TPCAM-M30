@@ -56,7 +56,7 @@ CameraZoomFocusWidget::CameraZoomFocusWidget(QWidget *parent) :
     ui->jpgSavePushButton->setText(LoadString("IDS_JPG_SAVE"));
     ui->jpgSavePushButton->setFontSize(23);
 
-    ui->autoTriggerPushButton->setEnabled(true);
+//    ui->autoTriggerPushButton->setEnabled(true);
 
     ConfigManager con = ConfigManager("parameter_setting1.json");
     QJsonObject object = con.GetConfig();
@@ -602,7 +602,7 @@ void CameraZoomFocusWidget::on_show_zoom(QString zoom)
 
 void CameraZoomFocusWidget::on_show_focus(QString focus)
 {
-//    ui->focusLabel->setText("F:"+focus);
+    ui->focusLabel->setText("F:"+focus);
     m_strFocus = focus;
     QTableWidgetItem item(focus);
     ui->tableWidget->setItem(m_nTableIndex.x(), m_nTableIndex.y(), &item);
@@ -610,7 +610,7 @@ void CameraZoomFocusWidget::on_show_focus(QString focus)
 
 void CameraZoomFocusWidget::on_show_dzoom(QString dzoom)
 {
-//    ui->focusLabel->setText("DZ:"+dzoom);
+    ui->dFocusLabel->setText("DZ:"+dzoom);
     m_strDZoom = dzoom;
 }
 
@@ -639,4 +639,3 @@ void CameraZoomFocusWidget::setPSerialViscaManager(SerialViscaManager *newPSeria
 {
     m_pSerialViscaManager = newPSerialViscaManager;
 }
-

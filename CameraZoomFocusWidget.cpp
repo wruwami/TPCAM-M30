@@ -172,6 +172,8 @@ void CameraZoomFocusWidget::ZoomRange()
         ui->pgrsSavePushButton->setDisabled(false);
     else
         ui->pgrsSavePushButton->setDisabled(true);
+
+    SendViscaValue();
 }
 
 void CameraZoomFocusWidget::on_optPushButton_clicked()

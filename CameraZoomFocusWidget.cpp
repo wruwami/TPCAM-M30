@@ -161,7 +161,7 @@ void CameraZoomFocusWidget::ZoomRange()
 {
     int zoom_index = 0;
     m_nLtIndex++;
-    m_nTableIndex.setY(m_nLtIndex);
+    m_nTableIndex.setX(m_nLtIndex);
     if (m_nLtIndex == m_ltmetervector.size())
         m_nLtIndex = 0;
 
@@ -200,7 +200,7 @@ void CameraZoomFocusWidget::on_FocusMinusPushButton_clicked()
 
 void CameraZoomFocusWidget::on_dayComboBox_currentIndexChanged(int index)
 {
-    m_nTableIndex.setX(index);
+    m_nTableIndex.setY(index);
     QJsonObject object;
     if (index == 0)
     {
@@ -392,19 +392,19 @@ void CameraZoomFocusWidget::setTableInit()
     {
 //        int row = ui->tableWidget->rowCount();
 //        ui->tableWidget->insertRow(row);
-        m_MapFocus[std::make_pair(0, i)] = ar[i].toString();
+        m_MapFocus[std::make_pair(i, 0)] = ar[i].toString();
 
         QTableWidgetItem *item = new QTableWidgetItem(ar[i].toString());
-        ui->tableWidget->setItem(0, i, item);
+        ui->tableWidget->setItem(i, 0, item);
     }
 
     ar = m_object3["lt night focus"].toArray();
     for (int i = 0; i < ar.size(); i++ )
     {
-        m_MapFocus[std::make_pair(1, i)] = ar[i].toString();
+        m_MapFocus[std::make_pair(i, 1)] = ar[i].toString();
 
         QTableWidgetItem *item = new QTableWidgetItem(ar[i].toString());
-        ui->tableWidget->setItem(1, i, item);
+        ui->tableWidget->setItem(i, 1, item);
     }
 }
 
@@ -544,9 +544,9 @@ void CameraZoomFocusWidget::EditTableValue()
     ui->tableWidget->setRowCount(0);
     ui->tableWidget->setRowCount(6);
 
-    for (int i = 0 ; i < 2 ; i++)
+    for (int i = 0 ; 6 < 2 ; i++)
     {
-        for( int j = 0 ; j < 6 ; j++)
+        for( int j = 0 ; j < 2 ; j++)
         {
             QString focus = m_MapFocus[std::make_pair(i, j)];
             QTableWidgetItem *item = new QTableWidgetItem(focus);

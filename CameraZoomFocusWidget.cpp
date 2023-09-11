@@ -56,6 +56,8 @@ CameraZoomFocusWidget::CameraZoomFocusWidget(QWidget *parent) :
     ui->jpgSavePushButton->setText(LoadString("IDS_JPG_SAVE"));
     ui->jpgSavePushButton->setFontSize(23);
 
+    ui->autoTriggerPushButton->setCheckable(true);
+
     ui->focusLabel->setColor(Qt::white);
     ui->dFocusLabel->setColor(Qt::white);
     ui->zoomLabel->setColor(Qt::white);
@@ -390,21 +392,19 @@ void CameraZoomFocusWidget::setTableInit()
     {
 //        int row = ui->tableWidget->rowCount();
 //        ui->tableWidget->insertRow(row);
-        QPoint point(i, 0);
-        m_MapFocus[std::make_pair(i, 0)] = ar[i].toString();
+        m_MapFocus[std::make_pair(0, i)] = ar[i].toString();
 
         QTableWidgetItem *item = new QTableWidgetItem(ar[i].toString());
-        ui->tableWidget->setItem(i, 0, item);
+        ui->tableWidget->setItem(0, i, item);
     }
 
     ar = m_object3["lt night focus"].toArray();
     for (int i = 0; i < ar.size(); i++ )
     {
-        QPoint point(i, 1);
-        m_MapFocus[std::make_pair(i, 1)] = ar[i].toString();
+        m_MapFocus[std::make_pair(1, i)] = ar[i].toString();
 
         QTableWidgetItem *item = new QTableWidgetItem(ar[i].toString());
-        ui->tableWidget->setItem(i, 1, item);
+        ui->tableWidget->setItem(1, i, item);
     }
 }
 
@@ -546,7 +546,7 @@ void CameraZoomFocusWidget::EditTableValue()
 
     for (int i = 0 ; i < 2 ; i++)
     {
-        for( int j = 0 ; i < 6 ; j++)
+        for( int j = 0 ; j < 6 ; j++)
         {
             QString focus = m_MapFocus[std::make_pair(i, j)];
             QTableWidgetItem *item = new QTableWidgetItem(focus);
@@ -594,12 +594,12 @@ void CameraZoomFocusWidget::on_jpgSavePushButton_clicked()
     ar = m_object3["lt night focus"].toArray();
     for (int i = 0; i < ar.size(); i++ )
     {
-        if (ui->tableWidget->item(i,1) != nullptr)
-        {
-            QTableWidgetItem *item = ui->tableWidget->item(i,1);
-            delete item;
-            item = nullptr;
-        }
+//        if (ui->tableWidget->item(i,1) != nullptr)
+//        {
+//            QTableWidgetItem *item = ui->tableWidget->item(i,1);
+//            delete item;
+//            item = nullptr;
+//        }
         QTableWidgetItem *item = new QTableWidgetItem(ar[i].toString());
         ui->tableWidget->setItem(i, 1, item);
     }

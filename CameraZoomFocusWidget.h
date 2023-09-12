@@ -30,6 +30,7 @@ private:
     void SetLaserDetectionAreaDistance(int zoom_index);
     void setTableInit();
     void setTableDefualtInit();
+    void checkButtonEnable();
     void setFocusEditJsonInit();
     void SetFocusLabel();
     void SaveJpg();

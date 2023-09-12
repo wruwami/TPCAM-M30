@@ -399,6 +399,7 @@ void CameraZoomFocusWidget::setTableInit()
 //        int row = ui->tableWidget->rowCount();
 //        ui->tableWidget->insertRow(row);
         m_MapFocus[std::make_pair(i, 0)] = ar[i].toString();
+        m_mTableStatus[std::make_pair(i, 0)] = 0;
 
         QTableWidgetItem *item = new QTableWidgetItem(ar[i].toString());
         ui->tableWidget->setItem(i, 0, item);
@@ -408,7 +409,7 @@ void CameraZoomFocusWidget::setTableInit()
     for (int i = 0; i < ar.size(); i++ )
     {
         m_MapFocus[std::make_pair(i, 1)] = ar[i].toString();
-
+        m_mTableStatus[std::make_pair(i, 1)] = 0;
         QTableWidgetItem *item = new QTableWidgetItem(ar[i].toString());
         ui->tableWidget->setItem(i, 1, item);
     }
@@ -422,7 +423,7 @@ void CameraZoomFocusWidget::setTableDefualtInit()
     for (int i = 0; i < lt_day_focus.size(); i++ )
     {
         m_MapFocus[std::make_pair(i, 0)] = lt_day_focus[i];
-
+        m_mTableStatus[std::make_pair(i, 0)] = 0;
         QTableWidgetItem *item = new QTableWidgetItem(lt_day_focus[i]);
         ui->tableWidget->setItem(i, 0, item);
     }
@@ -430,11 +431,16 @@ void CameraZoomFocusWidget::setTableDefualtInit()
     for (int i = 0; i < lt_night_focus[i].size(); i++ )
     {
         m_MapFocus[std::make_pair(i, 1)] = lt_night_focus[i];
-
+        m_mTableStatus[std::make_pair(i, 1)] = 0;
         QTableWidgetItem *item = new QTableWidgetItem(lt_night_focus[i]);
         ui->tableWidget->setItem(i, 1, item);
     }
 
+}
+
+void CameraZoomFocusWidget::checkButtonEnable()
+{
+//    m_mTableStatus
 }
 
 void CameraZoomFocusWidget::setFocusEditJsonInit()
@@ -479,7 +485,7 @@ void CameraZoomFocusWidget::ModifyFocusEditJson(int x, int y, int value)
 
     config.SaveFile();
 
-    ui->tableWidget->clearContents();
+//    ui->tableWidget->clearContents();
 
 }
 
@@ -579,6 +585,11 @@ void CameraZoomFocusWidget::EditTableValue()
         {
             QString focus = m_MapFocus[std::make_pair(i, j)];
             QTableWidgetItem *item = new QTableWidgetItem(focus);
+            if (m_mTableStatus[std::make_pair(i, j)] == 1)
+                item->setTextColor(Qt::red);
+            if (m_mTableStatus[std::make_pair(i, j)] == 2)
+                item->setTextColor(Qt::green);
+
             ui->tableWidget->setItem(i, j, item);
         }
     }
@@ -637,6 +648,8 @@ void CameraZoomFocusWidget::on_jpgSavePushButton_clicked()
 //    item->setTextColor(Qt::red);
 //    ui->tableWidget->setItem(m_nTableIndex.x(), m_nTableIndex.y(), item);
     SaveJpg();
+
+    ui->pgrsSavePushButton->setEnabled(true);
 
     m_mTableStatus[std::make_pair(m_nTableIndex.x(), m_nTableIndex.y())] = 1;
 }
@@ -707,7 +720,7 @@ void CameraZoomFocusWidget::on_pgrsSavePushButton_clicked()
 void CameraZoomFocusWidget::on_show_zoom(QString zoom)
 {
 //    ui->zoomLabel->
-    ui->zoomLabel->setText("\nZ:"+zoom);
+    ui->zoomLabel->setText("Z:"+zoom);
 }
 
 void CameraZoomFocusWidget::on_show_focus(QString focus)

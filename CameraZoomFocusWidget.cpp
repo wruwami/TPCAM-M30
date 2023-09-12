@@ -100,6 +100,7 @@ CameraZoomFocusWidget::CameraZoomFocusWidget(QWidget *parent) :
     ui->tableWidget->verticalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     ui->tableWidget->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     ui->tableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
+//    ui->tableWidget
 
     QStringList rowHeaders;
     rowHeaders.append(LoadString("IDS_DAY"));
@@ -117,6 +118,10 @@ CameraZoomFocusWidget::CameraZoomFocusWidget(QWidget *parent) :
 //    columnHeaders.append(LoadString("IDS_Z100_160"));
 //    columnHeaders.append(LoadString("IDS_Z160"));
 //    columnHeaders.append(LoadString("IDS_Z260"));
+    QFont font = ui->tableWidget->horizontalHeader()->font();
+    font.setPixelSize( 8 );
+    ui->tableWidget->horizontalHeader()->setFont( font );
+    ui->tableWidget->verticalHeader()->setFont( font );
     ui->tableWidget->setVerticalHeaderLabels(columnHeaders);
     ui->pgrsSavePushButton->setDisabled(true);
 
@@ -621,12 +626,14 @@ void CameraZoomFocusWidget::on_zoomRangePushButton_clicked()
 void CameraZoomFocusWidget::on_dzPlusPushButton_clicked()
 {
     m_pSerialViscaManager->plus_dzoom();
+    m_pSerialViscaManager->show_dzoomPosition();
 }
 
 
 void CameraZoomFocusWidget::on_dzMinusPushButton_clicked()
 {
     m_pSerialViscaManager->minus_dzoom();
+    m_pSerialViscaManager->show_dzoomPosition();
 }
 
 void CameraZoomFocusWidget::on_showDistance(float fDistance, int nSensitivity)
@@ -669,8 +676,6 @@ void CameraZoomFocusWidget::on_jpgSavePushButton_clicked()
     SaveJpg();
 
     ui->pgrsSavePushButton->setEnabled(true);
-
-
 }
 
 
@@ -749,7 +754,7 @@ void CameraZoomFocusWidget::on_show_focus(QString focus)
         m_MapFocus[std::make_pair(m_nTableIndex.x(), m_nTableIndex.y())] = focus;
     }
 
-    EditTableValue();
+//    EditTableValue();
 //    QTableWidgetItem item(focus);
 //    ui->tableWidget->setItem(m_nTableIndex.x(), m_nTableIndex.y(), &item);
 }

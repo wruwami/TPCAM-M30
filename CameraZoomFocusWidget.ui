@@ -15,7 +15,7 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
-    <layout class="QGridLayout" name="gridLayout" rowstretch="12,1,1,1,1" columnstretch="2,2,1,1">
+    <layout class="QGridLayout" name="gridLayout" rowstretch="12,2,2,3,2" columnstretch="2,2,1,1">
      <item row="4" column="3">
       <widget class="CustomPushButton" name="jpgSavePushButton">
        <property name="text">

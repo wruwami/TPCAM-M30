@@ -115,6 +115,8 @@ CameraZoomFocusWidget::CameraZoomFocusWidget(QWidget *parent) :
     m_nTableIndex = QPoint(0,0);
     m_object = config.GetConfig();
 
+    ui->zoomRangePushButton->setText(m_ltmetervector[m_nLtIndex]+distanceValue());
+
     setTableInit();
 
 //    m_serialViscaManager.connectVisca();
@@ -417,12 +419,12 @@ void CameraZoomFocusWidget::setFocusEditJsonInit()
     object["lt night focus edit"] = ar;
     config.SaveFile();
 
-    ui->tableWidget->clearContents();
+//    ui->tableWidget->clearContents();
 }
 
 void CameraZoomFocusWidget::SetFocusLabel()
 {
-    ui->focusLabel->setText(QString("F:%1\nDZ:%2").arg(m_strFocus, m_strDZoom));
+    ui->focusLabel->setText(QString("F:%1").arg(m_strFocus));
 }
 
 void CameraZoomFocusWidget::SaveJpg()
@@ -544,7 +546,7 @@ void CameraZoomFocusWidget::EditTableValue()
     ui->tableWidget->setRowCount(0);
     ui->tableWidget->setRowCount(6);
 
-    for (int i = 0 ; 6 < 2 ; i++)
+    for (int i = 0 ; i < 6 ; i++)
     {
         for( int j = 0 ; j < 2 ; j++)
         {
@@ -558,7 +560,7 @@ void CameraZoomFocusWidget::EditTableValue()
 void CameraZoomFocusWidget::on_zoomRangePushButton_clicked()
 {
     ZoomRange();
-    SendViscaValue();
+//    SendViscaValue();
 }
 
 

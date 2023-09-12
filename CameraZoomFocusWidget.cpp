@@ -621,6 +621,8 @@ void CameraZoomFocusWidget::on_showDistance(float fDistance, int nSensitivity)
 
 void CameraZoomFocusWidget::on_jpgSavePushButton_clicked()
 {
+    m_mTableStatus[std::make_pair(m_nTableIndex.x(), m_nTableIndex.y())] = 1;
+
     EditTableValue();
 //    if (m_mTableStatus[std::make_pair(m_nTableIndex.x(), m_nTableIndex.y())] != 0)
 //        return;
@@ -652,7 +654,7 @@ void CameraZoomFocusWidget::on_jpgSavePushButton_clicked()
 
     ui->pgrsSavePushButton->setEnabled(true);
 
-    m_mTableStatus[std::make_pair(m_nTableIndex.x(), m_nTableIndex.y())] = 1;
+
 }
 
 
@@ -660,6 +662,8 @@ void CameraZoomFocusWidget::on_pgrsSavePushButton_clicked()
 {
     if (m_mTableStatus[std::make_pair(m_nTableIndex.x(), m_nTableIndex.y())] != 1)
         return;
+
+    m_mTableStatus[std::make_pair(m_nTableIndex.x(), m_nTableIndex.y())] = 2;
 
     EditTableValue();
 //    QJsonArray ar = m_object3["lt day focus"].toArray();
@@ -686,8 +690,6 @@ void CameraZoomFocusWidget::on_pgrsSavePushButton_clicked()
 //    ui->tableWidget->setItem(m_nTableIndex.x(), m_nTableIndex.y(), item);
 
     ModifyFocusEditJson(m_nTableIndex.x(), m_nTableIndex.y());
-
-    m_mTableStatus[std::make_pair(m_nTableIndex.x(), m_nTableIndex.y())] = 2;
 
     SaveFocusJson();
 }

@@ -167,9 +167,10 @@ void CameraZoomFocusWidget::ZoomRange()
 {
     int zoom_index = 0;
     m_nLtIndex++;
-    m_nTableIndex.setX(m_nLtIndex);
     if (m_nLtIndex == m_ltmetervector.size())
         m_nLtIndex = 0;
+
+    m_nTableIndex.setX(m_nLtIndex);
 
     zoom_index = m_nLtIndex;
     ui->zoomRangePushButton->setText(m_ltmetervector[m_nLtIndex]+distanceValue());

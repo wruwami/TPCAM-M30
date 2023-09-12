@@ -739,7 +739,9 @@ void SerialViscaManager::plus_dzoom()
     bool ok;
     int int_pq = pq.toInt(&ok, 16) + 0x05;
     if(int_pq<0)int_pq=0;
-    pq.sprintf("%x",int_pq);
+    if(int_pq>0xEB) int_pq=0xEB;
+    //    pq.sprintf("%x",int_pq);
+    pq = QString("%1").arg(int_pq, 2, 16, QChar('0'));
     qDebug() << "add: "+ pq;
 
     p = pq.mid(0,1).toInt(&ok, 16);
@@ -786,7 +788,8 @@ void SerialViscaManager::minus_dzoom()
     bool ok;
     int int_pq = pq.toInt(&ok, 16) - 0x05;
     if(int_pq<0)int_pq=0;
-    pq.sprintf("%x",int_pq);
+    //    pq.sprintf("%x",int_pq);
+    pq = QString("%1").arg(int_pq, 2, 16, QChar('0'));
     qDebug() << "add: "+ pq;
 
     p = pq.mid(0,1).toInt(&ok, 16);
@@ -813,7 +816,6 @@ void SerialViscaManager::minus_dzoom()
     if(serial_visca)
         serial_visca->write(data);
 }
-
 void SerialViscaManager::set_focus(QString a_pqrs)
 {
     unsigned char header=0x81;

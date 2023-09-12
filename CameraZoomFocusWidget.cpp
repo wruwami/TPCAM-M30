@@ -64,6 +64,7 @@ CameraZoomFocusWidget::CameraZoomFocusWidget(QWidget *parent) :
     ui->focusLabel->setColor(Qt::white);
     ui->dFocusLabel->setColor(Qt::white);
     ui->zoomLabel->setColor(Qt::white);
+    ui->speedSensitivitylabel->setColor(Qt::white);
 
 //    ui->autoTriggerPushButton->setEnabled(true);
 
@@ -115,7 +116,7 @@ CameraZoomFocusWidget::CameraZoomFocusWidget(QWidget *parent) :
     ui->tableWidget->setVerticalHeaderLabels(columnHeaders);
     ui->pgrsSavePushButton->setDisabled(true);
 
-    m_nTableIndex = QPoint(0,0);
+    m_nTableIndex = QPoint(m_nLtIndex,0);
     m_object = config.GetConfig();
 
     ui->zoomRangePushButton->setText(m_ltmetervector[m_nLtIndex]+distanceValue());
@@ -483,6 +484,7 @@ void CameraZoomFocusWidget::ModifyFocusEditJson(int x, int y, int value)
     object["lt day focus edit"] = ar;
     object["lt night focus edit"] = ar2;
 
+    config.SetConfig(object);
     config.SaveFile();
 
 //    ui->tableWidget->clearContents();

@@ -459,7 +459,7 @@ void CameraZoomFocusWidget::setFocusEditJsonInit()
 
 void CameraZoomFocusWidget::SaveJpg()
 {
-    QString filename = GetSubPath("factory", SD) + "/" + GetFileName(SC);
+    QString filename = GetSubPath("/factory", eMMC) + "/" + GetFileName(SC);
 
     QPixmap pixmap = m_pCamera->grab();
     pixmap.save(filename);

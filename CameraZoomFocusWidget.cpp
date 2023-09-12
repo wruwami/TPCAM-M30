@@ -79,8 +79,12 @@ CameraZoomFocusWidget::CameraZoomFocusWidget(QWidget *parent) :
 
     ConfigManager config = ConfigManager("zoom_level.json");
     QJsonObject object2 = config.GetConfig();
-    QJsonArray m_captureSpeed = object2["st mode meter dist"].toArray();
-    m_captureSpeed = object2["lt mode meter dist"].toArray();
+    QJsonArray m_captureSpeed;// = object2["st mode meter dist"].toArray();
+
+    if (distance() == meter)
+        m_captureSpeed = object2["lt mode meter dist"].toArray();
+    else
+        m_captureSpeed = object2["lt mode feet dist"].toArray();
     foreach(auto item, m_captureSpeed)
     {
         m_ltmetervector.push_back(item.toString());
@@ -103,16 +107,16 @@ CameraZoomFocusWidget::CameraZoomFocusWidget(QWidget *parent) :
     ui->tableWidget->setHorizontalHeaderLabels(rowHeaders);
 
     QStringList columnHeaders;
-//    foreach (auto item, m_ltmetervector)
-//    {
-//        columnHeaders.append(item);
-//    }
-    columnHeaders.append(LoadString("IDS_Z10_36"));
-    columnHeaders.append(LoadString("IDS_Z36_60"));
-    columnHeaders.append(LoadString("IDS_Z60_100"));
-    columnHeaders.append(LoadString("IDS_Z100_160"));
-    columnHeaders.append(LoadString("IDS_Z160"));
-    columnHeaders.append(LoadString("IDS_Z260"));
+    foreach (auto item, m_ltmetervector)
+    {
+        columnHeaders.append(item);
+    }
+//    columnHeaders.append(LoadString("IDS_Z10_36"));
+//    columnHeaders.append(LoadString("IDS_Z36_60"));
+//    columnHeaders.append(LoadString("IDS_Z60_100"));
+//    columnHeaders.append(LoadString("IDS_Z100_160"));
+//    columnHeaders.append(LoadString("IDS_Z160"));
+//    columnHeaders.append(LoadString("IDS_Z260"));
     ui->tableWidget->setVerticalHeaderLabels(columnHeaders);
     ui->pgrsSavePushButton->setDisabled(true);
 
@@ -395,6 +399,8 @@ void CameraZoomFocusWidget::setTableInit()
 {
     ui->tableWidget->setRowCount(0);
     ui->tableWidget->setRowCount(6);
+
+    SetTableVerticalHeader();
     QJsonArray ar = m_object3["lt day focus"].toArray();
     for (int i = 0; i < ar.size(); i++ )
     {
@@ -421,7 +427,7 @@ void CameraZoomFocusWidget::setTableDefualtInit()
 {
     ui->tableWidget->setRowCount(0);
     ui->tableWidget->setRowCount(6);
-
+    SetTableVerticalHeader();
     for (int i = 0; i < lt_day_focus.size(); i++ )
     {
         m_MapFocus[std::make_pair(i, 0)] = lt_day_focus[i];
@@ -577,7 +583,7 @@ void CameraZoomFocusWidget::EditTableValue()
 {
     ui->tableWidget->setRowCount(0);
     ui->tableWidget->setRowCount(6);
-
+    SetTableVerticalHeader();
     for (int i = 0 ; i < 6 ; i++)
     {
         for( int j = 0 ; j < 2 ; j++)
@@ -592,6 +598,17 @@ void CameraZoomFocusWidget::EditTableValue()
             ui->tableWidget->setItem(i, j, item);
         }
     }
+}
+
+void CameraZoomFocusWidget::SetTableVerticalHeader()
+{
+    QStringList columnHeaders;
+    foreach (auto item, m_ltmetervector)
+    {
+        columnHeaders.append(item);
+    }
+    ui->tableWidget->setVerticalHeaderLabels(columnHeaders);
+
 }
 
 void CameraZoomFocusWidget::on_zoomRangePushButton_clicked()

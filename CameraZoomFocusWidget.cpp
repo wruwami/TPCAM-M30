@@ -517,6 +517,7 @@ void CameraZoomFocusWidget::SaveFocusJson()
     object["st day focus"] = ar3;
     object["st night focus"] = ar4;
 
+    config.SetConfig(object);
     config.SaveFile();
 
 }

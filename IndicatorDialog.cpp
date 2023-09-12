@@ -22,6 +22,7 @@
 #include "ConfigManager.h"
 #include "MainMenuWidget.h"
 #include "SerialViscaManager.h"
+#include "NetworkManager.h"
 
 IndicatorDialog::IndicatorDialog(QWidget *parent) :
     QDialog(parent),
@@ -553,6 +554,29 @@ void IndicatorDialog::setPSerialLaserManager(SerialLaserManager *newPSerialLaser
 void IndicatorDialog::setPSerialViscaManager(SerialViscaManager *newPSerialViscaManager)
 {
     m_pSerialViscaManager = newPSerialViscaManager;
+}
+
+void IndicatorDialog::timerEvent(QTimerEvent *event)
+{
+    NetworkManager networkManager;
+    if (networkManager.getNetworkState(networkManager.getLanAdapterName()))
+    {
+        m_pEthernetPushButton->setImage("indicator", "indicator_ethernet_enable.jpg");
+    }
+    else
+    {
+        m_pEthernetPushButton->setImage("indicator", "indicator_ethernet_disable.jpg");
+    }
+
+    if (networkManager.getNetworkState(networkManager.getWlanAdapterName()))
+    {
+        m_pWifiPushButton->setImage("indicator", "indicator_wifi_connected.jpg");
+    }
+    else
+    {
+        m_pWifiPushButton->setImage("indicator", "indicator_wifi_disconnected.jpg");
+    }
+
 }
 
 void IndicatorDialog::on_day1WidgetClicked()

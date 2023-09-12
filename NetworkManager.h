@@ -15,7 +15,7 @@ public:
     QString getHardwareAddress(QString);
     QString getWlanAdapterName();
     QString getLanAdapterName();
-
+    bool getNetworkState(QString);
 private:
     void SetWifiStaMode();
     void SetWifiAPMode();

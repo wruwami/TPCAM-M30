@@ -187,6 +187,21 @@ QString NetworkManager::getLanAdapterName()
     return QString(ETH_ADAPTER);
 }
 
+bool NetworkManager::getNetworkState(QString deviceName)
+{
+    QList<QNetworkInterface> interfaces = QNetworkInterface::allInterfaces();
+     for(int i = 0; i < interfaces.count();i++)
+     {
+         QNetworkInterface interface = interfaces.at(i);
+         if(interface.IsUp && !interface.IsLoopBack)
+         {
+             if (interface.name() == deviceName)
+                 return true;
+         }
+     }
+     return false;
+}
+
 void NetworkManager::SetWifiStaMode()
 {
     QString gateway = m_wifi_jsonObject["ip"].toString();

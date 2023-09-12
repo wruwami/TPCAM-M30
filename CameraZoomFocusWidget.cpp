@@ -429,7 +429,7 @@ void CameraZoomFocusWidget::setTableDefualtInit()
         ui->tableWidget->setItem(i, 0, item);
     }
 
-    for (int i = 0; i < lt_night_focus[i].size(); i++ )
+    for (int i = 0; i < lt_night_focus.size(); i++ )
     {
         m_MapFocus[std::make_pair(i, 1)] = lt_night_focus[i];
         m_mTableStatus[std::make_pair(i, 1)] = 0;

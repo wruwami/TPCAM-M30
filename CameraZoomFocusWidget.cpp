@@ -13,6 +13,9 @@
 #include "FileManager.h"
 #include "camera.h"
 
+QStringList lt_day_focus = {"1587", "13D8", "11E8", "0FB7", "0FB7"};
+QStringList lt_night_focus = {"1587", "13D8", "11E8", "0FB7", "0FB7"};
+
 extern SerialLaserManager* g_pSerialLaserManager;
 extern SerialViscaManager* g_pSerialViscaManager;
 
@@ -235,7 +238,8 @@ void CameraZoomFocusWidget::on_dayComboBox_currentIndexChanged(int index)
 
 void CameraZoomFocusWidget::on_initPushButton_clicked()
 {
-    setTableInit();
+//    setTableInit();
+    setTableDefualtInit();
     setFocusEditJsonInit();
 }
 
@@ -408,6 +412,29 @@ void CameraZoomFocusWidget::setTableInit()
         QTableWidgetItem *item = new QTableWidgetItem(ar[i].toString());
         ui->tableWidget->setItem(i, 1, item);
     }
+}
+
+void CameraZoomFocusWidget::setTableDefualtInit()
+{
+    ui->tableWidget->setRowCount(0);
+    ui->tableWidget->setRowCount(6);
+
+    for (int i = 0; i < lt_day_focus.size(); i++ )
+    {
+        m_MapFocus[std::make_pair(i, 0)] = lt_day_focus[i];
+
+        QTableWidgetItem *item = new QTableWidgetItem(lt_day_focus[i]);
+        ui->tableWidget->setItem(i, 0, item);
+    }
+
+    for (int i = 0; i < lt_night_focus[i].size(); i++ )
+    {
+        m_MapFocus[std::make_pair(i, 1)] = lt_night_focus[i];
+
+        QTableWidgetItem *item = new QTableWidgetItem(lt_night_focus[i]);
+        ui->tableWidget->setItem(i, 1, item);
+    }
+
 }
 
 void CameraZoomFocusWidget::setFocusEditJsonInit()
@@ -583,32 +610,32 @@ void CameraZoomFocusWidget::on_showDistance(float fDistance, int nSensitivity)
 
 void CameraZoomFocusWidget::on_jpgSavePushButton_clicked()
 {
+    if (m_mTableStatus[std::make_pair(m_nTableIndex.x(), m_nTableIndex.y())] != 0)
+        return;
     ui->tableWidget->setRowCount(0);
     ui->tableWidget->setRowCount(6);
     QJsonArray ar = m_object3["lt day focus"].toArray();
     for (int i = 0; i < ar.size(); i++ )
     {
-
         QTableWidgetItem *item = new QTableWidgetItem(ar[i].toString());
+
+        if (m_nTableIndex.x() == 0 && m_nTableIndex.y() == i)
+            item->setTextColor(Qt::red);
         ui->tableWidget->setItem(i, 0, item);
     }
 
     ar = m_object3["lt night focus"].toArray();
     for (int i = 0; i < ar.size(); i++ )
     {
-//        if (ui->tableWidget->item(i,1) != nullptr)
-//        {
-//            QTableWidgetItem *item = ui->tableWidget->item(i,1);
-//            delete item;
-//            item = nullptr;
-//        }
         QTableWidgetItem *item = new QTableWidgetItem(ar[i].toString());
+        if (m_nTableIndex.x() == 1 && m_nTableIndex.y() == i)
+            item->setTextColor(Qt::red);
         ui->tableWidget->setItem(i, 1, item);
     }
 
-    QTableWidgetItem* item = ui->tableWidget->item(m_nTableIndex.x(), m_nTableIndex.y());
-    item->setTextColor(Qt::red);
-    ui->tableWidget->setItem(m_nTableIndex.x(), m_nTableIndex.y(), item);
+//    QTableWidgetItem* item = ui->tableWidget->item(, m_nTableIndex.y());
+//    item->setTextColor(Qt::red);
+//    ui->tableWidget->setItem(m_nTableIndex.x(), m_nTableIndex.y(), item);
     SaveJpg();
 
     m_mTableStatus[std::make_pair(m_nTableIndex.x(), m_nTableIndex.y())] = 1;
@@ -617,11 +644,33 @@ void CameraZoomFocusWidget::on_jpgSavePushButton_clicked()
 
 void CameraZoomFocusWidget::on_pgrsSavePushButton_clicked()
 {
+    if (m_mTableStatus[std::make_pair(m_nTableIndex.x(), m_nTableIndex.y())] != 1)
+        return;
     ui->tableWidget->setRowCount(0);
+    ui->tableWidget->setRowCount(6);
 
-    QTableWidgetItem* item = ui->tableWidget->item(m_nTableIndex.x(), m_nTableIndex.y());
-    item->setTextColor(Qt::green);
-    ui->tableWidget->setItem(m_nTableIndex.x(), m_nTableIndex.y(), item);
+    QJsonArray ar = m_object3["lt day focus"].toArray();
+    for (int i = 0; i < ar.size(); i++ )
+    {
+        QTableWidgetItem *item = new QTableWidgetItem(ar[i].toString());
+
+        if (m_nTableIndex.x() == 0 && m_nTableIndex.y() == i)
+            item->setTextColor(Qt::green);
+        ui->tableWidget->setItem(i, 0, item);
+    }
+
+    ar = m_object3["lt night focus"].toArray();
+    for (int i = 0; i < ar.size(); i++ )
+    {
+        QTableWidgetItem *item = new QTableWidgetItem(ar[i].toString());
+        if (m_nTableIndex.x() == 1 && m_nTableIndex.y() == i)
+            item->setTextColor(Qt::green);
+        ui->tableWidget->setItem(i, 1, item);
+    }
+
+//    QTableWidgetItem* item = ui->tableWidget->item(m_nTableIndex.x(), m_nTableIndex.y());
+//    item->setTextColor(Qt::green);
+//    ui->tableWidget->setItem(m_nTableIndex.x(), m_nTableIndex.y(), item);
 
     ModifyFocusEditJson(m_nTableIndex.x(), m_nTableIndex.y());
 

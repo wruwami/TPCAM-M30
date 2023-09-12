@@ -457,11 +457,6 @@ void CameraZoomFocusWidget::setFocusEditJsonInit()
 //    ui->tableWidget->clearContents();
 }
 
-void CameraZoomFocusWidget::SetFocusLabel()
-{
-    ui->focusLabel->setText(QString("F:%1").arg(m_strFocus));
-}
-
 void CameraZoomFocusWidget::SaveJpg()
 {
     QString filename = GetSubPath("factory", SD) + "/" + GetFileName(SC);
@@ -503,12 +498,12 @@ void CameraZoomFocusWidget::SaveFocusJson()
 
     if (m_nTableIndex.y() == 0)
     {
-        ar[m_nTableIndex.x()] = m_strFocus;
+        ar[m_nTableIndex.x()] = m_MapFocus[std::make_pair(m_nTableIndex.x(), m_nTableIndex.y())];
         SetLtValue(m_nTableIndex.x(), ar, ar3);
     }
     else
     {
-        ar2[m_nTableIndex.x()] = m_strFocus;
+        ar2[m_nTableIndex.x()] = m_MapFocus[std::make_pair(m_nTableIndex.x(), m_nTableIndex.y())];
         SetLtValue(m_nTableIndex.x(), ar2, ar4);
     }
 
@@ -517,6 +512,7 @@ void CameraZoomFocusWidget::SaveFocusJson()
     object["st day focus"] = ar3;
     object["st night focus"] = ar4;
 
+    config.SetConfig(object);
     config.SaveFile();
 
 }

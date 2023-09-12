@@ -32,7 +32,6 @@ private:
     void setTableDefualtInit();
     void checkButtonEnable();
     void setFocusEditJsonInit();
-    void SetFocusLabel();
     void SaveJpg();
     void ModifyFocusEditJson(int, int, int = 1);
     void SaveFocusJson();
@@ -46,7 +45,6 @@ private:
     QJsonObject m_object;
     QJsonObject m_object2;
     QJsonObject m_object3;
-    QString m_strFocus;
     QString m_strDZoom;
     std::map<std::pair<int,int>, QString> m_MapFocus;
 private slots:

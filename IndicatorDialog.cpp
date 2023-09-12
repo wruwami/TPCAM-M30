@@ -525,7 +525,7 @@ void IndicatorDialog::on_screenRecordingPushButton_clicked()
     {
         QString cmd;
         QString resolution = "800x480";
-        QString file_name = GetSubPath("screen", SD) + "/" + GetFileName(SR);
+        QString file_name = GetSubPath("/screen", SD) + "/" + GetFileName(SR);
         cmd = QString("ffmpeg -hwaccel opencl -y -f x11grab -framerate 10 -video_size %1 -i :0.0+0,0 -c:v libx264 -pix_fmt yuv420p -qp 0 -preset ultrafast %2 &").arg(resolution).arg(file_name);
         system(cmd.toStdString().c_str());
     }
@@ -540,7 +540,7 @@ void IndicatorDialog::on_screenCapturePushButton_clicked()
     accept();
 
     QPixmap pixmap = QPixmap::grabWindow(this->winId());
-    QString filename = GetSubPath("screen", SD) + "/" + GetFileName(SC);
+    QString filename = GetSubPath("/screen", SD) + "/" + GetFileName(SC);
     pixmap.save(filename, 0, 100);
 }
 

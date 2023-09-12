@@ -89,7 +89,18 @@ CameraZoomFocusWidget::CameraZoomFocusWidget(QWidget *parent) :
     {
         m_ltmetervector.push_back(item.toString());
     }
-    m_captureSpeed = object2["lt mode feet dist"].toArray();
+    if (m_ltmetervector.size() == 5)
+    {
+        if (distance() == meter)
+        {
+            m_ltmetervector.push_back("Z:260");
+        }
+        else
+        {
+            m_ltmetervector.push_back("Z:850");
+        }
+    }
+//    m_captureSpeed = object2["lt mode feet dist"].toArray();
 
     m_object2 = m_coofigManager2.GetConfig();
     m_object3 = m_coofigManager3.GetConfig();

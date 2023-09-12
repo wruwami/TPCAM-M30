@@ -476,10 +476,10 @@ void CameraZoomFocusWidget::ModifyFocusEditJson(int x, int y, int value)
     QJsonObject object = config.GetConfig();
     QJsonArray ar = object["lt day focus edit"].toArray();
     QJsonArray ar2 = object["lt night focus edit"].toArray();
-    if (x == 0)
-        ar[y] = value;
+    if (y == 0)
+        ar[x] = value;
     else
-        ar2[y] = value;
+        ar2[x] = value;
 
     object["lt day focus edit"] = ar;
     object["lt night focus edit"] = ar2;
@@ -500,15 +500,15 @@ void CameraZoomFocusWidget::SaveFocusJson()
     QJsonArray ar3 = object["st day focus"].toArray();
     QJsonArray ar4 = object["st night focus"].toArray();
 
-    if (m_nTableIndex.x() == 0)
+    if (m_nTableIndex.y() == 0)
     {
-        ar[m_nTableIndex.y()] = m_strFocus;
-        SetLtValue(m_nTableIndex.y(), ar, ar3);
+        ar[m_nTableIndex.x()] = m_strFocus;
+        SetLtValue(m_nTableIndex.x(), ar, ar3);
     }
     else
     {
-        ar2[m_nTableIndex.y()] = m_strFocus;
-        SetLtValue(m_nTableIndex.y(), ar2, ar4);
+        ar2[m_nTableIndex.x()] = m_strFocus;
+        SetLtValue(m_nTableIndex.x(), ar2, ar4);
     }
 
     object["lt day focus"] = ar;

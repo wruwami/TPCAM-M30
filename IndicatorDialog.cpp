@@ -2,6 +2,7 @@
 #include "ui_IndicatorDialog.h"
 #include "CustomPushButton.h"
 #include <stdlib.h>
+#include <thread>
 
 #include <QFile>
 #include <QPainter>
@@ -23,6 +24,14 @@
 #include "MainMenuWidget.h"
 #include "SerialViscaManager.h"
 #include "NetworkManager.h"
+
+void thread_CommandExcute2(QString strCommand)
+{
+    int result = std::system(strCommand.toStdString().c_str());
+
+    qDebug() << strCommand << " : " << result;
+}
+
 
 IndicatorDialog::IndicatorDialog(QWidget *parent) :
     QDialog(parent),
@@ -524,11 +533,14 @@ void IndicatorDialog::on_screenRecordingPushButton_clicked()
 
     if (!strlen(buff))
     {
-        QString cmd;
+        QString strCommand;
         QString resolution = "800x480";
         QString file_name = GetSubPath("/screen", SD) + "/" + GetFileName(SR);
-        cmd = QString("ffmpeg -hwaccel opencl -y -f x11grab -framerate 10 -video_size %1 -i :0.0+0,0 -c:v libx264 -pix_fmt yuv420p -qp 0 -preset ultrafast %2 &").arg(resolution).arg(file_name);
-        system(cmd.toStdString().c_str());
+        strCommand = QString("ffmpeg -hwaccel opencl -y -f x11grab -framerate 10 -video_size %1 -i :0.0+0,0 -c:v libx264 -pix_fmt yuv420p -qp 0 -preset ultrafast %2 &").arg(resolution).arg(file_name);
+        std::thread thread_command(thread_CommandExcute2, strCommand);
+        thread_command.detach();
+
+//        system(strCommand.toStdString().c_str());
     }
     else
     {

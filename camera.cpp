@@ -45,9 +45,9 @@ Q_DECLARE_METATYPE(QCameraInfo)
 
 void thread_CommandExcute(QString strCommand)
 {
-	int result = std::system(strCommand.toStdString().c_str());
+    int result = std::system(strCommand.toStdString().c_str());
 
-	qDebug() << strCommand << " : " << result;
+    qDebug() << strCommand << " : " << result;
 }
 
 Camera::Camera(QWidget *parent) :

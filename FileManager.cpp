@@ -123,9 +123,9 @@ QString FileManager::GetFileName(PrefixType prefix)
 {
     QDateTime datetime = datetime.currentDateTime();
     if (prefix == SC)
-        return "SC " + datetime.toString("yyyymmdd_hhmmss") + ".jpg";
+        return "SC_" + datetime.toString("yyyymmdd_hhmmss") + ".jpg";
     else
-        return "SR " + datetime.toString("yyyymmdd_hhmmss") + ".avi";
+        return "SR_" + datetime.toString("yyyymmdd_hhmmss") + ".avi";
 }
 
 QString FileManager::GetFileName(PrefixType prefix, stEnforcementInfo enforceInfo)

@@ -462,7 +462,7 @@ void CameraZoomFocusWidget::SetFocusLabel()
 
 void CameraZoomFocusWidget::SaveJpg()
 {
-    QString filename = GetSubPath("manual_capture", SD) + "/" + GetFileName(SC);
+    QString filename = GetSubPath("factory", SD) + "/" + GetFileName(SC);
 
     QPixmap pixmap = m_pCamera->grab();
     pixmap.save(filename);

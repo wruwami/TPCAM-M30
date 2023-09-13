@@ -11,6 +11,7 @@ public:
     //    void setIconImage(QString path_name, QString file_name);
     void setImageFromAvi(QString file_path, QSize size);
     void setImage(QString file_path, QSize size);
+    void resizeImage(QSize size);
     void setImage(QString path_name, QString file_name);
     void setImage(QString path_name, QString file_name, QSize size);
 private:

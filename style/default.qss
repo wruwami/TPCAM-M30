@@ -51,3 +51,6 @@ QLineEdit:disabled {
     color:#7f7f7f;
     border:1px solid #7030a0;
 }
+
+/*QTableWidget::item{ selection-background-color: #f0f0f0; color : black;}
+QTableWidget::item:selected{ selection-background-color: transparent; text-color: red; }*/

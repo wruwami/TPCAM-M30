@@ -10,6 +10,7 @@
 #include <QMediaPlayer>
 #include <QByteArray>
 #include <QBuffer>
+#include <QAbstractTableModel>
 
 #include "CustomPushButton.h"
 #include "StringLoader.h"
@@ -80,6 +81,7 @@ FileManagerWidget::FileManagerWidget(QWidget *parent) :
     ui->deletePushButton->setImage("file_manager", "file_management_delete_all.jpg");
     ui->sharePushButton->setImage("file_manager", "file_management_ftp.jpg");
     ui->movePushButton->setImage("file_manager", "file_management_copy_usb.jpg");
+    ui->datePushButton->setFontSize(23);
 
     ui->horizontalLayout_9->setMargin(GetWidthWidth(15));
     ui->horizontalLayout_9->setSpacing(GetWidthWidth(30));
@@ -134,6 +136,12 @@ FileManagerWidget::FileManagerWidget(QWidget *parent) :
 //    ui->tableWidget->setGeometry(ui->gridLayout_2->itemAtPosition(1, 1)->geometry());
 //    ui->tableWidget->setColumnWidth(0, ui->gridLayout_2->itemAtPosition(1, 1)->geometry().width());
 //    ui->tableWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+
+//    connect(ui->tableWidget, SIGNAL(cellClicked(int, int)), this, SLOT(on_tableWidget_clicked(const QModelIndex&)));
+
+//    ui->tableWidget->setStyleSheet("item { color:black; } item:selected { color:red; }");
+
+    initTable();
     startTimer(1000);
 }
 
@@ -153,8 +161,8 @@ void FileManagerWidget::setTableContent()
             break;
         AVFileFormat avfileFormat = m_avFileFormatList[i];
         QTableWidgetItem* indexItem = new QTableWidgetItem(QString::number(i + 1));
-
-        QTableWidgetItem* item = new QTableWidgetItem(avfileFormat.captureSpeed + "km/h, " + QString("%0%1:%2%3:%4%5").arg(avfileFormat.date[0]).arg(avfileFormat.date[1]).arg(avfileFormat.date[2]).arg(avfileFormat.date[3]).arg(avfileFormat.date[4]).arg(avfileFormat.date[5]));
+        float nCaptureSpeed = getSpeedValue(avfileFormat.captureSpeed.toFloat());
+        QTableWidgetItem* item = new QTableWidgetItem(QString::number(nCaptureSpeed, 'f', 0) + speedUnitValue() +", " + QString("%0%1:%2%3:%4%5").arg(avfileFormat.date[0]).arg(avfileFormat.date[1]).arg(avfileFormat.date[2]).arg(avfileFormat.date[3]).arg(avfileFormat.date[4]).arg(avfileFormat.date[5]));
         ui->tableWidget->setItem(j, 0, indexItem);
         ui->tableWidget->setItem(j, 1, item);
     }
@@ -165,6 +173,8 @@ void FileManagerWidget::resizeEvent(QResizeEvent *event)
     int width = ui->tableWidget->size().width();
     ui->tableWidget->setColumnWidth(0, width * 105 / (230 + 105));
     ui->tableWidget->setColumnWidth(1, width * 230 / (230 + 105));
+
+    ui->frameLabel->resizeImage(ui->frameLabel->size());
 
 //    ui->firstPushButton->setStyleSheet(QString("image: url(images/file_manager/file_management_prev_big_seek_button.png); width: %0, height : %1").arg(ui->firstPushButton->width(), ui->firstPushButton->height()));
 }
@@ -218,7 +228,7 @@ void FileManagerWidget::on_deletePushButton_clicked()
         BaseDialog baseDialog(Dialog::AdminPWWidgetType, Qt::AlignmentFlag::AlignLeft, "");
         if (baseDialog.exec() == QDialog::Accepted)
         {
-            QDirIterator iterDir(GetUSBPath(), QDir::Files | QDir::NoSymLinks, QDirIterator::Subdirectories);
+            QDirIterator iterDir(GetSDPath(), QDir::Files | QDir::NoSymLinks, QDirIterator::Subdirectories);
             while (iterDir.hasNext())
             {
                 iterDir.next();
@@ -267,60 +277,133 @@ void FileManagerWidget::convertValue()
 
 }
 
-void FileManagerWidget::on_tableWidget_clicked(const QModelIndex &index)
+void FileManagerWidget::initTable()
 {
-    if (m_avFileFormatList.size() >= (index.row() + m_AVFileFormatIndex))
-        m_currentAVFileFormat = m_avFileFormatList[index.row()+ m_AVFileFormatIndex];
-    else
-        return;
+    QString path = "/snapshot";
+    QDirIterator iterDir(GetSDPath() + path, QDir::Dirs | QDir::NoDotAndDotDot | QDir::NoSymLinks, QDirIterator::Subdirectories);
+    QString pre_dir = "0";
+    while (iterDir.hasNext())
+    {
+        QString dir = iterDir.next();
+        QStringList dirList = dir.split("/");
+        QDir qdir(dir);
+        QString dir2 = dirList[dirList.count() - 1];
+        qdir.setFilter( QDir::AllEntries | QDir::NoDotAndDotDot );
 
-    convertValue();
+        if (dir2.toUInt() > pre_dir.toUInt() && qdir.count() > 0)
+        {
+            pre_dir = dir2;
+        }
+    }
 
-    if (!strncmp(m_currentAVFileFormat.filePrefix, "VV", 2))
-    {
-        m_videoWidget->show();
-        ui->frameLabel->hide();
-        m_player->setMedia(QUrl::fromLocalFile(m_avFileFormatList[index.row()+ m_AVFileFormatIndex].file_path));
-        m_player->play();
-        m_player->pause();
-    }
-    else if (!strncmp(m_currentAVFileFormat.filePrefix, "AV", 2))
-    {
-        m_videoWidget->show();
-        ui->frameLabel->hide();
-        m_player->setMedia(QUrl::fromLocalFile(m_avFileFormatList[index.row()+ m_AVFileFormatIndex].file_path));
-        m_player->play();
-        m_player->pause();
-    }
-    else if (!strncmp(m_currentAVFileFormat.filePrefix, "SR", 2))
-    {
-        m_videoWidget->show();
-        ui->frameLabel->hide();
-        m_player->setMedia(QUrl::fromLocalFile(m_avFileFormatList[index.row()+ m_AVFileFormatIndex].file_path));
-        m_player->play();
-        m_player->pause();
-    }
-    else if (!strncmp(m_currentAVFileFormat.filePrefix, "MV", 2))
-    {
-        m_videoWidget->show();
-        ui->frameLabel->hide();
-        m_player->setMedia(QUrl::fromLocalFile(m_avFileFormatList[index.row()+ m_AVFileFormatIndex].file_path));
-        m_player->play();
-        m_player->pause();
-    }
-    else if (!strncmp(m_currentAVFileFormat.filePrefix, "AI", 2))
-    {
-        ui->frameLabel->show();
-        m_videoWidget->hide();
-        ui->frameLabel->setImage(m_avFileFormatList[index.row()+ m_AVFileFormatIndex].file_path, ui->frameLabel->size());
-    }
-    else if (!strncmp(m_currentAVFileFormat.filePrefix, "SC", 2))
-    {
-        ui->frameLabel->show();
-        m_videoWidget->hide();
-        ui->frameLabel->setImage(m_avFileFormatList[index.row()+ m_AVFileFormatIndex].file_path, ui->frameLabel->size());
-    }
+        m_dateTime = pre_dir;
+//        int index = date.lastIndexOf('/');
+//        m_dateTime = date.mid(index + 1, date.size() - index - 1);
+        ui->datePushButton->setText(pre_dir);
+
+
+
+        QString full_date_path = GetPath(path, SD) + "/" + pre_dir;
+
+        ui->tableWidget->clear();
+        m_avFileFormatList.clear();
+        m_AVFileFormatIndex = 0;
+
+        int i = 0;
+        QDirIterator it(full_date_path, QDir::Files);
+        while (it.hasNext())
+        {
+            QString file = it.next();
+            int index = file.lastIndexOf('/');
+//            if (file.mid(file.size() - 1, 1) == ".")
+//                continue;
+            //addListItem(file);
+
+            AVFileFormat avfileFormat = GetFileFormat(file);
+            m_avFileFormatList.append(avfileFormat);
+
+            QTableWidgetItem* indexItem = new QTableWidgetItem(QString::number(i + 1));
+
+            QTableWidgetItem* item = new QTableWidgetItem(getSpeedValue(avfileFormat.captureSpeed.toFloat()) + speedUnitValue()+", " + QString("%0%1:%2%3:%4%5").arg(avfileFormat.date[0]).arg(avfileFormat.date[1]).arg(avfileFormat.date[2]).arg(avfileFormat.date[3]).arg(avfileFormat.date[4]).arg(avfileFormat.date[5]));
+            if (i < 6)
+            {
+                ui->tableWidget->setItem(i, 0, indexItem);
+                ui->tableWidget->setItem(i++, 1, item);
+            }
+        }
+//        date
+    m_AVFileFormatIndex = m_avFileFormatList.size() - 5;
+    setTableContent();
+
+    emit ui->tableWidget->cellClicked(4, 0);
+//    ui->tableWidget->cellClicked()
 }
+
+//void FileManagerWidget::on_tableWidget_clicked(const QModelIndex &index)
+//{
+//    if (m_avFileFormatList.size() >= (index.row() + m_AVFileFormatIndex))
+//        m_currentAVFileFormat = m_avFileFormatList[index.row()+ m_AVFileFormatIndex];
+//    else
+//        return;
+
+//    ui->tableWidget->item(index.row(), 0)->setTextColor(Qt::red);
+//    ui->tableWidget->item(index.row(), 1)->setTextColor(Qt::red);
+//    for (int i = 0 ; i < 5 ; i++)
+//    {
+//        if (index.row() != i)
+//        {
+//            ui->tableWidget->item(i, 0)->setTextColor(Qt::black);
+//            ui->tableWidget->item(i, 1)->setTextColor(Qt::black);
+//        }
+//    }
+
+//    convertValue();
+
+//    if (!strncmp(m_currentAVFileFormat.filePrefix, "VV", 2))
+//    {
+//        m_videoWidget->show();
+//        ui->frameLabel->hide();
+//        m_player->setMedia(QUrl::fromLocalFile(m_avFileFormatList[index.row()+ m_AVFileFormatIndex].file_path));
+//        m_player->play();
+//        m_player->pause();
+//    }
+//    else if (!strncmp(m_currentAVFileFormat.filePrefix, "AV", 2))
+//    {
+//        m_videoWidget->show();
+//        ui->frameLabel->hide();
+//        m_player->setMedia(QUrl::fromLocalFile(m_avFileFormatList[index.row()+ m_AVFileFormatIndex].file_path));
+//        m_player->play();
+//        m_player->pause();
+//    }
+//    else if (!strncmp(m_currentAVFileFormat.filePrefix, "SR", 2))
+//    {
+//        m_videoWidget->show();
+//        ui->frameLabel->hide();
+//        m_player->setMedia(QUrl::fromLocalFile(m_avFileFormatList[index.row()+ m_AVFileFormatIndex].file_path));
+//        m_player->play();
+//        m_player->pause();
+//    }
+//    else if (!strncmp(m_currentAVFileFormat.filePrefix, "MV", 2))
+//    {
+//        m_videoWidget->show();
+//        ui->frameLabel->hide();
+//        m_player->setMedia(QUrl::fromLocalFile(m_avFileFormatList[index.row()+ m_AVFileFormatIndex].file_path));
+//        m_player->play();
+//        m_player->pause();
+//    }
+//    else if (!strncmp(m_currentAVFileFormat.filePrefix, "AI", 2))
+//    {
+//        ui->frameLabel->show();
+//        m_videoWidget->hide();
+//        ui->frameLabel->setImage(m_avFileFormatList[index.row()+ m_AVFileFormatIndex].file_path, ui->frameLabel->size());
+//    }
+//    else if (!strncmp(m_currentAVFileFormat.filePrefix, "SC", 2))
+//    {
+//        ui->frameLabel->show();
+//        m_videoWidget->hide();
+//        ui->frameLabel->setImage(m_avFileFormatList[index.row()+ m_AVFileFormatIndex].file_path, ui->frameLabel->size());
+//    }
+//}
 
 void FileManagerWidget::on_searchPushButton_clicked()
 {
@@ -598,4 +681,82 @@ void FileManagerWidget::on_nextPushButton_clicked()
     setTableContent();
 }
 
+
+
+//void FileManagerWidget::on_tableWidget_cellClicked(int row, int column)
+//{
+////    QAbstractTableModel *model = new QAbstractTableModel();
+//    QModelIndex nIndex = QAbstractItemModel::createIndex(row, column);
+//    // then you can do something like
+////    QModelIndex nIndex = model->index(row,column);
+////    QModelIndex index;
+//    on_tableWidget_clicked(nIndex);
+//}
+
+
+void FileManagerWidget::on_tableWidget_cellClicked(int row, int column)
+{
+    if (m_avFileFormatList.size() >= (row + m_AVFileFormatIndex))
+        m_currentAVFileFormat = m_avFileFormatList[row+ m_AVFileFormatIndex];
+    else
+        return;
+
+    ui->tableWidget->item(row, 0)->setTextColor(Qt::red);
+    ui->tableWidget->item(row, 1)->setTextColor(Qt::red);
+    for (int i = 0 ; i < 5 ; i++)
+    {
+        if (row != i)
+        {
+            ui->tableWidget->item(i, 0)->setTextColor(Qt::black);
+            ui->tableWidget->item(i, 1)->setTextColor(Qt::black);
+        }
+    }
+
+    convertValue();
+
+    if (!strncmp(m_currentAVFileFormat.filePrefix, "VV", 2))
+    {
+        m_videoWidget->show();
+        ui->frameLabel->hide();
+        m_player->setMedia(QUrl::fromLocalFile(m_avFileFormatList[row+ m_AVFileFormatIndex].file_path));
+        m_player->play();
+        m_player->pause();
+    }
+    else if (!strncmp(m_currentAVFileFormat.filePrefix, "AV", 2))
+    {
+        m_videoWidget->show();
+        ui->frameLabel->hide();
+        m_player->setMedia(QUrl::fromLocalFile(m_avFileFormatList[row+ m_AVFileFormatIndex].file_path));
+        m_player->play();
+        m_player->pause();
+    }
+    else if (!strncmp(m_currentAVFileFormat.filePrefix, "SR", 2))
+    {
+        m_videoWidget->show();
+        ui->frameLabel->hide();
+        m_player->setMedia(QUrl::fromLocalFile(m_avFileFormatList[row+ m_AVFileFormatIndex].file_path));
+        m_player->play();
+        m_player->pause();
+    }
+    else if (!strncmp(m_currentAVFileFormat.filePrefix, "MV", 2))
+    {
+        m_videoWidget->show();
+        ui->frameLabel->hide();
+        m_player->setMedia(QUrl::fromLocalFile(m_avFileFormatList[row+ m_AVFileFormatIndex].file_path));
+        m_player->play();
+        m_player->pause();
+    }
+    else if (!strncmp(m_currentAVFileFormat.filePrefix, "AI", 2))
+    {
+        ui->frameLabel->show();
+        m_videoWidget->hide();
+        ui->frameLabel->setImage(m_avFileFormatList[row+ m_AVFileFormatIndex].file_path, ui->frameLabel->size());
+    }
+    else if (!strncmp(m_currentAVFileFormat.filePrefix, "SC", 2))
+    {
+        ui->frameLabel->show();
+        m_videoWidget->hide();
+        ui->frameLabel->setImage(m_avFileFormatList[row+ m_AVFileFormatIndex].file_path, ui->frameLabel->size());
+    }
+}
 

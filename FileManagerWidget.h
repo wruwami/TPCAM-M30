@@ -38,6 +38,7 @@ private:
 private:
     void setTableContent();
     void convertValue();
+    void initTable();
 
 protected:
     void resizeEvent(QResizeEvent *event);
@@ -45,7 +46,7 @@ protected:
     void timerEvent(QTimerEvent *event);
 private slots:
     void on_deletePushButton_clicked();
-    void on_tableWidget_clicked(const QModelIndex &index);
+//    void on_tableWidget_clicked(const QModelIndex &index);
     void on_searchPushButton_clicked();
     void on_zoomPlayPushButton_clicked();
     void on_sharePushButton_clicked();
@@ -59,6 +60,8 @@ private slots:
     void on_previousPushButton_clicked();
     void on_nextPushButton_clicked();
     void on_lastPushButton_clicked();
+//    void on_tableWidget_cellClicked(int row, int column);
+    void on_tableWidget_cellClicked(int row, int column);
 };
 
 #endif // FILEMANAGERWIDGET_H

@@ -32,6 +32,8 @@ private slots:
     void on_checkBox_clicked();
 
     void on_checkBox_2_clicked();
+    void on_searchButton_clicked();
+
 private:
     Ui::SearchBoxDialog *ui;
     int firstValue = 0;

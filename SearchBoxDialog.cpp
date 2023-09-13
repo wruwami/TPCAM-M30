@@ -140,3 +140,9 @@ void SearchBoxDialog::setFirstValue(int value)
 {
     firstValue = value;
 }
+
+void SearchBoxDialog::on_searchButton_clicked()
+{
+    accept();
+}
+

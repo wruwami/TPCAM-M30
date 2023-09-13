@@ -37,6 +37,11 @@ enum Mode
     S_MODE,
 };
 
+bool TimeLessThan(const AVFileFormat& s1, const AVFileFormat& s2)
+{
+    return atoi(s1.time) < atoi(s2.time);
+}
+
 ST_ENFORCEMENT_FILENAME_ELEMENT g_file_elem_for_printer;
 char g_print_img_body_buff_file_management[1712 * 984];  // Only Y among YUV 420 image body buffer for thermal printer from uncompressed jpg file
 char g_print_img_body_buff_file_logo[1712 * 984];  // David, Add for LOGO file
@@ -160,9 +165,11 @@ void FileManagerWidget::setTableContent()
         if (i >= m_avFileFormatList.size())
             break;
         AVFileFormat avfileFormat = m_avFileFormatList[i];
-        QTableWidgetItem* indexItem = new QTableWidgetItem(QString::number(i + 1));
-        float nCaptureSpeed = getSpeedValue(avfileFormat.captureSpeed.toFloat());
-        QTableWidgetItem* item = new QTableWidgetItem(QString::number(nCaptureSpeed, 'f', 0) + speedUnitValue() +", " + QString("%0%1:%2%3:%4%5").arg(avfileFormat.date[0]).arg(avfileFormat.date[1]).arg(avfileFormat.date[2]).arg(avfileFormat.date[3]).arg(avfileFormat.date[4]).arg(avfileFormat.date[5]));
+        QString index;
+        index.sprintf("%05d", i+1);
+        QTableWidgetItem* indexItem = new QTableWidgetItem(index);
+        float nCaptureSpeed = getSpeedValue(avfileFormat.captureSpeed.mid(1,4).toFloat());
+        QTableWidgetItem* item = new QTableWidgetItem(QString::number(nCaptureSpeed, 'f', 0) + speedUnitValue() +", " + QString("%0%1:%2%3:%4%5").arg(avfileFormat.time[0]).arg(avfileFormat.time[1]).arg(avfileFormat.time[2]).arg(avfileFormat.time[3]).arg(avfileFormat.time[4]).arg(avfileFormat.date[5]));
         ui->tableWidget->setItem(j, 0, indexItem);
         ui->tableWidget->setItem(j, 1, item);
     }
@@ -322,20 +329,26 @@ void FileManagerWidget::initTable()
             AVFileFormat avfileFormat = GetFileFormat(file);
             m_avFileFormatList.append(avfileFormat);
 
-            QTableWidgetItem* indexItem = new QTableWidgetItem(QString::number(i + 1));
-
-            QTableWidgetItem* item = new QTableWidgetItem(getSpeedValue(avfileFormat.captureSpeed.toFloat()) + speedUnitValue()+", " + QString("%0%1:%2%3:%4%5").arg(avfileFormat.date[0]).arg(avfileFormat.date[1]).arg(avfileFormat.date[2]).arg(avfileFormat.date[3]).arg(avfileFormat.date[4]).arg(avfileFormat.date[5]));
-            if (i < 6)
-            {
-                ui->tableWidget->setItem(i, 0, indexItem);
-                ui->tableWidget->setItem(i++, 1, item);
-            }
         }
-//        date
-    m_AVFileFormatIndex = m_avFileFormatList.size() - 5;
+        std::sort(m_avFileFormatList.begin(), m_avFileFormatList.end(), TimeLessThan);
+
+//        for (int i = 0 ; i < 5 ; i++)
+//        {
+//            if (i < m_avFileFormatList.size())
+//            {
+//                QTableWidgetItem* indexItem = new QTableWidgetItem(QString::number(i + 1));
+
+//                QTableWidgetItem* item = new QTableWidgetItem(getSpeedValue(m_avFileFormatList[i].captureSpeed.mid(1, 4).toFloat()) + speedUnitValue()+", " + QString("%0%1:%2%3:%4%5").arg(m_avFileFormatList[i].time[0]).arg(m_avFileFormatList[i].time[1]).arg(m_avFileFormatList[i].time[2]).arg(m_avFileFormatList[i].time[3]).arg(m_avFileFormatList[i].time[4]).arg(m_avFileFormatList[i].time[5]));
+//                ui->tableWidget->setItem(i, 0, indexItem);
+//                ui->tableWidget->setItem(i++, 1, item);
+//            }
+
+//        }
+
+        m_AVFileFormatIndex = m_avFileFormatList.size() - 5 + (m_avFileFormatList.size() % 5) + 1;
     setTableContent();
 
-    emit ui->tableWidget->cellClicked(4, 0);
+    emit ui->tableWidget->cellClicked(m_avFileFormatList.size() % 5 - 1, 0);
 //    ui->tableWidget->cellClicked()
 }
 
@@ -418,7 +431,7 @@ void FileManagerWidget::on_searchPushButton_clicked()
 
         foreach (auto avFormat, m_avFileFormatList)
         {
-            int minute = QString(avFormat.time).mid(3, 2).toInt();
+            int minute = QString(avFormat.time).mid(2, 2).toInt();
             if ( minute >= firstValue && secondValue >= minute)
             {
                 avFileFormatList.push_back(avFormat);
@@ -620,16 +633,35 @@ void FileManagerWidget::on_datePushButton_clicked()
             AVFileFormat avfileFormat = GetFileFormat(file);
             m_avFileFormatList.append(avfileFormat);
 
-            QTableWidgetItem* indexItem = new QTableWidgetItem(QString::number(i + 1));
+//            QTableWidgetItem* indexItem = new QTableWidgetItem(QString::number(i + 1));
 
-            QTableWidgetItem* item = new QTableWidgetItem(getSpeedValue(avfileFormat.captureSpeed.toFloat()) + speedUnitValue()+", " + QString("%0%1:%2%3:%4%5").arg(avfileFormat.date[0]).arg(avfileFormat.date[1]).arg(avfileFormat.date[2]).arg(avfileFormat.date[3]).arg(avfileFormat.date[4]).arg(avfileFormat.date[5]));
-            if (i < 6)
-            {
-                ui->tableWidget->setItem(i, 0, indexItem);
-                ui->tableWidget->setItem(i++, 1, item);
-            }
+//            QTableWidgetItem* item = new QTableWidgetItem(getSpeedValue(avfileFormat.captureSpeed.toFloat()) + speedUnitValue()+", " + QString("%0%1:%2%3:%4%5").arg(avfileFormat.time[0]).arg(avfileFormat.time[1]).arg(avfileFormat.time[2]).arg(avfileFormat.time[3]).arg(avfileFormat.time[4]).arg(avfileFormat.time[5]));
+//            if (i < 6)
+//            {
+//                ui->tableWidget->setItem(i, 0, indexItem);
+//                ui->tableWidget->setItem(i++, 1, item);
+//            }
         }
-//        date
+        std::sort(m_avFileFormatList.begin(), m_avFileFormatList.end(), TimeLessThan);
+
+        setTableContent();
+
+//        for (int i = 0 ; i < 5 ; i++)
+//        {
+//            if (i < m_avFileFormatList.size())
+//            {
+
+//                QTableWidgetItem* indexItem = new QTableWidgetItem(QString::number(i + 1));
+
+//                qDebug() << i;
+//                qDebug() << getSpeedValue(m_avFileFormatList[i].captureSpeed.mid(1, 4).toFloat());
+//                QTableWidgetItem* item = new QTableWidgetItem(getSpeedValue(m_avFileFormatList[i].captureSpeed.mid(1, 4).toFloat()) + speedUnitValue()+", " + QString("%0%1:%2%3:%4%5").arg(m_avFileFormatList[i].time[0]).arg(m_avFileFormatList[i].time[1]).arg(m_avFileFormatList[i].time[2]).arg(m_avFileFormatList[i].time[3]).arg(m_avFileFormatList[i].time[4]).arg(m_avFileFormatList[i].time[5]));
+//                ui->tableWidget->setItem(i, 0, indexItem);
+//                ui->tableWidget->setItem(i++, 1, item);
+//            }
+
+//        }
+
     }
 }
 
@@ -640,9 +672,9 @@ void FileManagerWidget::on_firstPushButton_clicked()
     if (m_avFileFormatList.size() ==  0)
         return;
 
-    m_AVFileFormatIndex -= 50;
-    if (m_AVFileFormatIndex < 0)
-        m_AVFileFormatIndex = 0;
+    if (m_AVFileFormatIndex - 50 >= 0)
+        m_AVFileFormatIndex -= 50;
+
     setTableContent();
 }
 
@@ -652,9 +684,9 @@ void FileManagerWidget::on_previousPushButton_clicked()
     if (m_avFileFormatList.size() ==  0)
         return;
 
-    m_AVFileFormatIndex -= 5;
-    if (m_AVFileFormatIndex < 0)
-        m_AVFileFormatIndex = 0;
+
+    if (m_AVFileFormatIndex - 5 >= 0)
+        m_AVFileFormatIndex -= 5;
     setTableContent();
 }
 
@@ -664,9 +696,9 @@ void FileManagerWidget::on_nextPushButton_clicked()
     if (m_avFileFormatList.size() ==  0)
         return;
 
-    m_AVFileFormatIndex += 5;
-    if (m_avFileFormatList.size() <= m_AVFileFormatIndex)
-        m_AVFileFormatIndex = m_avFileFormatList.size() - 5;
+
+    if (m_avFileFormatList.size() >= m_AVFileFormatIndex + 5)
+        m_AVFileFormatIndex += 5;
     setTableContent();
 }
  void FileManagerWidget::on_lastPushButton_clicked()
@@ -675,9 +707,9 @@ void FileManagerWidget::on_nextPushButton_clicked()
     if (m_avFileFormatList.size() ==  0)
         return;
 
-    m_AVFileFormatIndex += 50;
-    if (m_avFileFormatList.size() <= m_AVFileFormatIndex)
-        m_AVFileFormatIndex = m_avFileFormatList.size() - 5;
+
+    if (m_avFileFormatList.size() >= m_AVFileFormatIndex + 50)
+        m_AVFileFormatIndex += 50;
     setTableContent();
 }
 
@@ -696,14 +728,18 @@ void FileManagerWidget::on_nextPushButton_clicked()
 
 void FileManagerWidget::on_tableWidget_cellClicked(int row, int column)
 {
-    if (m_avFileFormatList.size() >= (row + m_AVFileFormatIndex))
+    if (m_avFileFormatList.size() > (row + m_AVFileFormatIndex))
         m_currentAVFileFormat = m_avFileFormatList[row+ m_AVFileFormatIndex];
     else
         return;
 
+    int size = 5;
+    if (m_avFileFormatList.size() - 5 <= m_AVFileFormatIndex && m_avFileFormatList.size() % 5 != 0)
+        size = m_avFileFormatList.size() % 5;
+
     ui->tableWidget->item(row, 0)->setTextColor(Qt::red);
     ui->tableWidget->item(row, 1)->setTextColor(Qt::red);
-    for (int i = 0 ; i < 5 ; i++)
+    for (int i = 0 ; i < size ; i++)
     {
         if (row != i)
         {

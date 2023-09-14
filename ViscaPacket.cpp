@@ -678,7 +678,7 @@ unsigned char	ViscaPacket::MsgDecoder()
         info.sprintf("Focus position(%X):%02X ;%02X; %02X; %02X", m_focusPQRS, g_FocusPos.p, g_FocusPos.q, g_FocusPos.r, g_FocusPos.s);        
         qDebug() << info;
         //feedback
-        m_qstrFocus_pqrs = QString::number(m_focusPQRS, 16);
+        m_qstrFocus_pqrs = QStringLiteral("%1").arg(m_focusPQRS, 4, 16, QLatin1Char('0'));
 
         emit sig_show_focus(m_qstrFocus_pqrs);
         return 1;

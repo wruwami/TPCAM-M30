@@ -60,6 +60,7 @@ IndicatorDialog::IndicatorDialog(QWidget *parent) :
 //    ui->offPushButton->setVisible(false);
 
     initlize();
+    startTimer(1000);
 }
 
 IndicatorDialog::~IndicatorDialog()
@@ -200,6 +201,9 @@ void IndicatorDialog::on_comPushButton_clicked()
     ui->horizontalLayout2->addWidget(m_pWifiPushButton, 2);
     ui->horizontalLayout2->addWidget(m_pBTPushButton, 2);
     ui->horizontalLayout2->addWidget(m_pEthernetPushButton, 2);
+
+    connect(&m_pTimer, SIGNAL(timeout()), this, SLOT(doCheckNetwork()));
+    m_pTimer.start(1000);
 }
 
 void IndicatorDialog::on_speedPushButton_clicked()
@@ -557,18 +561,7 @@ void IndicatorDialog::on_screenCapturePushButton_clicked()
     pixmap.save(filename, 0, 100);
 }
 
-void IndicatorDialog::setPSerialLaserManager(SerialLaserManager *newPSerialLaserManager)
-{
-    if (m_pSerialLaserManager == nullptr)
-        m_pSerialLaserManager = newPSerialLaserManager;
-}
-
-void IndicatorDialog::setPSerialViscaManager(SerialViscaManager *newPSerialViscaManager)
-{
-    m_pSerialViscaManager = newPSerialViscaManager;
-}
-
-void IndicatorDialog::timerEvent(QTimerEvent *event)
+void IndicatorDialog::doCheckNetwork()
 {
     NetworkManager networkManager;
     if (networkManager.getNetworkState(networkManager.getLanAdapterName()))
@@ -589,6 +582,17 @@ void IndicatorDialog::timerEvent(QTimerEvent *event)
         m_pWifiPushButton->setImage("indicator", "indicator_wifi_disconnected.jpg");
     }
 
+}
+
+void IndicatorDialog::setPSerialLaserManager(SerialLaserManager *newPSerialLaserManager)
+{
+    if (m_pSerialLaserManager == nullptr)
+        m_pSerialLaserManager = newPSerialLaserManager;
+}
+
+void IndicatorDialog::setPSerialViscaManager(SerialViscaManager *newPSerialViscaManager)
+{
+    m_pSerialViscaManager = newPSerialViscaManager;
 }
 
 void IndicatorDialog::on_day1WidgetClicked()

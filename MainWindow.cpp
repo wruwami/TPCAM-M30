@@ -1437,7 +1437,7 @@ void MainWindow::on_DeviceIdCancelClicked()
 
 void MainWindow::on_datetimeChecked()
 {
-    if (SerialGPSManager::GetInstance()->GetSatellitesInView() != 0)
+    if (SerialGPSManager::GetInstance()->GetSatellitesInView() >= 3)
         m_pDateTimeWidget->SetGPSUTCDateTime(SerialGPSManager::GetInstance()->GetDateTime());
 }
 

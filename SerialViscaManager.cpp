@@ -830,8 +830,17 @@ void SerialViscaManager::set_focus(QString a_pqrs)
     msg[6]=0x00;
     int p=0,q=0,r=0,s=0;
     //int index = ui->comboBox_Zoom->currentIndex();
-
-    QString pqrs = a_pqrs;// g_Optical_Zoom_Value[index];
+    int int_pqrs = a_pqrs.toInt(nullptr, 16);
+    if(int_pqrs<100)
+    {
+        int_pqrs=0x0100;
+    }
+    else if(int_pqrs>0xFF00)
+    {
+        int_pqrs=0xFF00;
+    }
+    QString pqrs = QString("%1").arg(int_pqrs, 4, 16, QChar('0'));
+//    QString pqrs = a_pqrs;// g_Optical_Zoom_Value[index];
     bool ok;
     p = pqrs.mid(0,1).toInt(&ok, 16);
     q = pqrs.mid(1,1).toInt(&ok, 16);
@@ -879,17 +888,16 @@ void SerialViscaManager::plus_focus()
     QString pqrs = m_focus_pqrs;//ui->textEdit_Focus->toPlainText() ;// g_Optical_Zoom_Value[index];
     bool ok;
     int int_pqrs = pqrs.toInt(&ok, 16) + 0x100;
-     if(int_pqrs<0)int_pqrs=0;
-     if(int_pqrs<0x1000)
-     {
-         int_pqrs=0x1000;
-     }
-     else if(int_pqrs>0xA000)
-     {
-         int_pqrs=0xA000;
-     }
-    if(int_pqrs<0)int_pqrs=0;
-    pqrs.sprintf("%x",int_pqrs);
+    if(int_pqrs<100)
+    {
+        int_pqrs=0x0100;
+    }
+    else if(int_pqrs>0xFF00)
+    {
+        int_pqrs=0xFF00;
+    }
+    pqrs = QString("%1").arg(int_pqrs, 4, 16, QChar('0'));
+
     qDebug() << "add: "+ pqrs;
 
 
@@ -940,16 +948,16 @@ void SerialViscaManager::minus_focus()
     QString pqrs = m_focus_pqrs;//ui->textEdit_Focus->toPlainText() ;// g_Optical_Zoom_Value[index];
     bool ok;
     int int_pqrs = pqrs.toInt(&ok, 16) - 0x100;
-     if(int_pqrs<0)int_pqrs=0;
-     if(int_pqrs<0x1000)
-     {
-         int_pqrs=0x1000;
-     }
-     else if(int_pqrs>0xA000)
-     {
-         int_pqrs=0xA000;
-     }
-    pqrs.sprintf("%x",int_pqrs);
+    if(int_pqrs<100)
+    {
+        int_pqrs=0x0100;
+    }
+    else if(int_pqrs>0xFF00)
+    {
+        int_pqrs=0xFF00;
+    }
+    pqrs = QString("%1").arg(int_pqrs, 4, 16, QChar('0'));
+
     qDebug() << "add: "+ pqrs;
 
 

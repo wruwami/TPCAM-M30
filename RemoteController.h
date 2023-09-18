@@ -3,6 +3,7 @@
 
 //#include <QQueue>
 #include <QObject>
+#include <QSharedPointer>
 
 class QThread;
 class MainWindow;
@@ -14,7 +15,7 @@ public:
     void CreateThread();
 private:
     MainWindow* m_pMainwindow;
-    QThread* m_thread;
+    QSharedPointer<QThread> m_thread;
 //    QQueue<int> m_queue;
 };
 

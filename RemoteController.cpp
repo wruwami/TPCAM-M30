@@ -18,9 +18,9 @@ int RemoteController::Start()
 void RemoteController::CreateThread()
 {
 
-    m_thread = new QThread;
+    m_thread.reset(new QThread);
     RemoteControlWorker *worker = new RemoteControlWorker(m_pMainwindow);
-    worker->moveToThread(m_thread);
+    worker->moveToThread(m_thread.data());
     m_thread->start();
 
     QObject::connect(worker, &RemoteControlWorker::start, worker, &RemoteControlWorker::doWork);
@@ -34,7 +34,7 @@ void RemoteController::CreateThread()
     QObject::connect(worker, &RemoteControlWorker::ZeroAction, m_pMainwindow, &MainWindow::doZeroAction);
     QObject::connect(worker, &RemoteControlWorker::StarAction, m_pMainwindow, &MainWindow::doStarAction);
 
-    QObject::connect(m_thread, &QThread::finished, worker, &QObject::deleteLater);
+    QObject::connect(m_thread.data(), &QThread::finished, worker, &QObject::deleteLater);
 
     QObject::connect(worker, &RemoteControlWorker::resultReady, [&](const QString &result){
         //            qDebug() << result;

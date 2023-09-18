@@ -5,15 +5,18 @@
 #include <QJsonObject>
 #include <QJsonArray>
 #include <QQueue>
+#include <QSharedPointer>
+#include <QFileSystemWatcher>
+
 #include <list>
 #include <vector>
+
 #include "ConfigManager.h"
 #include "SpeedUnitManager.h"
 #include "camera.h"
 #include "FileManager.h"
 #include "HUDManager.h"
 #include "StorageManager.h"
-#include <QFileSystemWatcher>
 
 enum Mode{
     Ready,
@@ -39,6 +42,7 @@ enum TriggerStatus{
     SKIP,
 };
 
+class FtpTransThread;
 class SerialLaserManager;
 class SerialViscaManager;
 class Camera;
@@ -146,6 +150,7 @@ private:
     QPoint m_cross;
     QFileSystemWatcher m_fileSystemWatcher;
     TriggerStatus m_triggerStatus = SKIP;
+    QSharedPointer<FtpTransThread> m_pFtpThread;
 protected slots:
     void on_hidePushButton_clicked();
 //    void doShartAction();

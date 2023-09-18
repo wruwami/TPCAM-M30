@@ -37,8 +37,6 @@ public:
     void show_laser_info();
     void stop_laser();
 
-    void show_camera_version();
-    void show_camera_model();
     SerialPacket *getLaser_packet();
     void SetLaserDetectionAreaDistance(int, bool);
 private:

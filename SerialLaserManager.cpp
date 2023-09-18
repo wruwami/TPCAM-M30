@@ -4,6 +4,7 @@
 #include <QSerialPort>
 
 #include "SerialPacket.h"
+#include "Logger.h"
 
 SerialLaserManager::SerialLaserManager()
 {
@@ -57,6 +58,10 @@ void SerialLaserManager::serial_received()
 
 QString SerialLaserManager::connectLaser()
 {
+    QString msg = __PRETTY_FUNCTION__;
+    SetLogMsg(LASER_SEND_DATA, msg + "()");
+
+
     m_pSerial->setPortName("ttyS4");
     m_pSerial->setBaudRate(QSerialPort::Baud115200);
     m_pSerial->setDataBits(QSerialPort::Data8);
@@ -79,6 +84,9 @@ QString SerialLaserManager::connectLaser()
 
 void SerialLaserManager::close()
 {
+    QString msg = __PRETTY_FUNCTION__;
+    SetLogMsg(LASER_SEND_DATA, msg + "()");
+
     if(m_pSerial->isOpen())
         m_pSerial->close();
     laser_con=0;
@@ -86,6 +94,9 @@ void SerialLaserManager::close()
 
 void SerialLaserManager::start_laser()
 {
+    QString log_msg = __PRETTY_FUNCTION__;
+    SetLogMsg(LASER_SEND_DATA, log_msg + "()");
+
     unsigned char header=0xDA;//테스트 모드 설정
     unsigned char msg[2];
     unsigned char msgSize=1;
@@ -114,6 +125,13 @@ void SerialLaserManager::start_laser()
 
 void SerialLaserManager::request_distance(bool bRequestOn)
 {
+    QString log_msg = __PRETTY_FUNCTION__;
+    if (bRequestOn)
+        SetLogMsg(LASER_SEND_DATA, log_msg + "(true)");
+    else
+        SetLogMsg(LASER_SEND_DATA, log_msg + "(false)");
+
+
     unsigned char header=0x59;//거리전송 요청
     unsigned char msg[1];
     unsigned char msgSize=1;
@@ -134,6 +152,10 @@ void SerialLaserManager::request_distance(bool bRequestOn)
 
 void SerialLaserManager::set_speed_measure_mode(unsigned char mode)
 {
+    QString log_msg = __PRETTY_FUNCTION__;
+    SetLogMsg(LASER_SEND_DATA, log_msg + QString("(%1)").arg(mode));
+
+
     unsigned char header=0x3C;
     unsigned char msg[2];
     unsigned char msgSize=2;
@@ -149,6 +171,9 @@ void SerialLaserManager::set_speed_measure_mode(unsigned char mode)
 
 void SerialLaserManager::request_selftest()
 {
+    QString log_msg = __PRETTY_FUNCTION__;
+    SetLogMsg(LASER_SEND_DATA, log_msg + "()");
+
     unsigned char header=0xD8;//selftest 요청
     unsigned char msg[1];
     unsigned char msgSize=0;
@@ -162,6 +187,9 @@ void SerialLaserManager::request_selftest()
 
 void SerialLaserManager::set_weather_mode(unsigned char mode)
 {
+    QString log_msg = __PRETTY_FUNCTION__;
+    SetLogMsg(LASER_SEND_DATA, log_msg + QString("(%1)").arg(mode));
+
     unsigned char header=0xE2;//Set weather mode
     unsigned char msg[2];
     unsigned char msgSize=2;
@@ -178,6 +206,9 @@ void SerialLaserManager::set_weather_mode(unsigned char mode)
 
 void SerialLaserManager::set_AJamming_mode(unsigned char mode)
 {
+    QString log_msg = __PRETTY_FUNCTION__;
+    SetLogMsg(LASER_SEND_DATA, log_msg + QString("(%1)").arg(mode));
+
     unsigned char header=0x40;//Set Anti-Jamming mode
     unsigned char msg[2];
     unsigned char msgSize=2;
@@ -194,6 +225,9 @@ void SerialLaserManager::set_AJamming_mode(unsigned char mode)
 
 void SerialLaserManager::set_unit(unsigned char unit)
 {
+    QString log_msg = __PRETTY_FUNCTION__;
+    SetLogMsg(LASER_SEND_DATA, log_msg + QString("(%1)").arg(unit));
+
     unsigned char header=0x3B;//Set speed, distance Unit
     unsigned char msg[2];
     unsigned char msgSize=2;
@@ -210,6 +244,9 @@ void SerialLaserManager::set_unit(unsigned char unit)
 
 void SerialLaserManager::set_buzzer_mode(unsigned char mode)
 {
+    QString log_msg = __PRETTY_FUNCTION__;
+    SetLogMsg(LASER_SEND_DATA, log_msg + QString("(%1)").arg(mode));
+
     unsigned char header=0x4E;//Set buzzer on/off(0=off, 1=on)
     unsigned char msg[1];
     unsigned char msgSize=1;
@@ -225,6 +262,9 @@ void SerialLaserManager::set_buzzer_mode(unsigned char mode)
 
 void SerialLaserManager::set_detection_distance(double distance)
 {
+    QString log_msg = __PRETTY_FUNCTION__;
+    SetLogMsg(LASER_SEND_DATA, log_msg + QString("(%1)").arg(distance));
+
     unsigned char header=0x38;//Set dectection distance
     unsigned char msg[3];
     unsigned char msgSize=3;
@@ -242,6 +282,9 @@ void SerialLaserManager::set_detection_distance(double distance)
 
 void SerialLaserManager::set_detection_area(double area)
 {
+    QString log_msg = __PRETTY_FUNCTION__;
+    SetLogMsg(LASER_SEND_DATA, log_msg + QString("(%1)").arg(area));
+
     unsigned char header=0x39;//Set dectection area
     unsigned char msg[3];
     unsigned char msgSize=3;
@@ -259,6 +302,9 @@ void SerialLaserManager::set_detection_area(double area)
 
 void SerialLaserManager::set_night_mode(unsigned char mode)
 {
+    QString log_msg = __PRETTY_FUNCTION__;
+    SetLogMsg(LASER_SEND_DATA, log_msg + QString("(%1)").arg(mode));
+
     unsigned char header=0xE9;//Set night mode
     unsigned char msg[1];
     unsigned char msgSize=1;
@@ -274,6 +320,9 @@ void SerialLaserManager::set_night_mode(unsigned char mode)
 
 void SerialLaserManager::shutdown_laser()
 {
+    QString log_msg = __PRETTY_FUNCTION__;
+    SetLogMsg(LASER_SEND_DATA, log_msg + "()");
+
     unsigned char header=0xEE;//shutdown laser board
     unsigned char msg[0];
     unsigned char msgSize=0;
@@ -288,6 +337,9 @@ void SerialLaserManager::shutdown_laser()
 
 void SerialLaserManager::factoryreset_laser()
 {
+    QString log_msg = __PRETTY_FUNCTION__;
+    SetLogMsg(LASER_SEND_DATA, log_msg + "()");
+
     unsigned char header=0xA5;//factory-reset laser board
     unsigned char msg[0];
     unsigned char msgSize=0;
@@ -305,6 +357,9 @@ void SerialLaserManager::factoryreset_laser()
 
 void SerialLaserManager::start_virtualSpeed()
 {
+    QString log_msg = __PRETTY_FUNCTION__;
+    SetLogMsg(LASER_SEND_DATA, log_msg + "()");
+
     unsigned char header=0xDA;
     unsigned char msg[2];
     unsigned char msgSize=1;
@@ -320,6 +375,9 @@ void SerialLaserManager::start_virtualSpeed()
 
 void SerialLaserManager::show_laser_info()
 {
+    QString log_msg = __PRETTY_FUNCTION__;
+    SetLogMsg(LASER_SEND_DATA, log_msg + "()");
+
     unsigned char header=0xE3;
     unsigned char msg[1];
     unsigned char msgSize=0;
@@ -336,6 +394,9 @@ void SerialLaserManager::show_laser_info()
 
 void SerialLaserManager::stop_laser()
 {
+    QString log_msg = __PRETTY_FUNCTION__;
+    SetLogMsg(LASER_SEND_DATA, log_msg + (""));
+
     unsigned char header=0x59;
     unsigned char msg[2];
     unsigned char msgSize=1;
@@ -359,16 +420,6 @@ void SerialLaserManager::stop_laser()
 
     if(m_pSerial)
         m_pSerial->write(data);
-}
-
-void SerialLaserManager::show_camera_version()
-{
-
-}
-
-void SerialLaserManager::show_camera_model()
-{
-
 }
 
 SerialPacket *SerialLaserManager::getLaser_packet()

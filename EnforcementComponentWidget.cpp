@@ -15,6 +15,7 @@
 #include "HeadUpDisplay.h"
 #include "HUDManager.h"
 #include "BaseDialog.h"
+#include "Logger.h"
 
 extern int g_nCrackDownIndex;
 //#define TRIGGER_FILE "/sys/class/gpio/gpio152/value"
@@ -50,7 +51,7 @@ EnforcementComponentWidget::EnforcementComponentWidget(QWidget *parent) :
     ui->bikePushButton->setImage("enforcement", "bike.jpg");
     ui->bikePushButton->setCheckable(true);
 
-    m_pReadyButton = ui->readyPushButton;
+//    m_pReadyButton = ui->readyPushButton;
 
     m_captureSpeed = m_object["capture speed"].toArray();
 
@@ -568,6 +569,8 @@ void EnforcementComponentWidget::doATMode()
     connect(laser_packet, SIGNAL(sig_showCaptureSpeedDistance(float,float, int)), &m_hudManager.hud(), SLOT(showCaptureSpeedDistance(float, float, int)));
     connect(laser_packet, SIGNAL(sig_showSpeedDistance(float,float)), &m_hudManager.hud(), SLOT(showSpeedDistanceSensitivity(float, float)));
     connect(laser_packet, SIGNAL(sig_showDistance(float,int)), &m_hudManager.hud(), SLOT(showDistanceSensitivity(float, int)));
+
+    SetLogMsg(BUTTON_CLICKED, "AT_MODE");
 }
 
 //void EnforcementComponentWidget::doManualMode()
@@ -601,6 +604,7 @@ void EnforcementComponentWidget::doReadyMode()
     disconnect(laser_packet, SIGNAL(sig_showSpeedDistance(float,float)), &m_hudManager.hud(), SLOT(showSpeedDistanceSensitivity(float, float)));
     disconnect(laser_packet, SIGNAL(sig_showDistance(float,int)), &m_hudManager.hud(), SLOT(showDistanceSensitivity(float, int)));
 
+    SetLogMsg(BUTTON_CLICKED, "READY_MODE");
 }
 
 int EnforcementComponentWidget::GetCaptureSpeedLimit()
@@ -890,6 +894,8 @@ void EnforcementComponentWidget::zoomRange()
     m_pSerialViscaManager->SetZoom(zoom_index);
     m_pSerialViscaManager->SetFocus(zoom_index);
 
+    SetLogMsg(BUTTON_CLICKED, "ZOOM_INDEX, " + ui->zoomRangePushButton->text());
+
 //    SetLaserDetectionAreaDistance(zoom_index);
 }
 
@@ -908,11 +914,20 @@ void EnforcementComponentWidget::initRec()
 void EnforcementComponentWidget::setVehicleMode()
 {
     if (m_bTruckChecked && m_bBikeChecked)
+    {
         m_nVehicleMode = Normal;
+        SetLogMsg(BUTTON_CLICKED, "CAPTURE CAR," + QString::number(getSpeedValue(m_captureSpeed[0].toInt()), 'f' , 1));
+    }
     else if (m_bTruckChecked && !m_bBikeChecked)
+    {
         m_nVehicleMode = Truck;
+        SetLogMsg(BUTTON_CLICKED, "CAPTURE TRUCK," + QString::number(getSpeedValue(m_captureSpeed[1].toInt()), 'f' , 1));
+    }
     else if (!m_bTruckChecked && m_bBikeChecked)
+    {
         m_nVehicleMode = MotoCycle;
+        SetLogMsg(BUTTON_CLICKED, "CAPTURE TRUCK," + QString::number(getSpeedValue(m_captureSpeed[2].toInt()), 'f' , 1));
+    }
     return;
     //        assert();
 }
@@ -1148,6 +1163,7 @@ void EnforcementComponentWidget::on_readyPushButton_clicked()
         doPreManualMode();
         m_fileSystemWatcher.addPath(TRIGGER_FILE);
         connect(&m_fileSystemWatcher,SIGNAL(fileChanged(QString)),this,SLOT(do_FileSystemWatcher(QString)));
+        SetLogMsg(BUTTON_CLICKED, "MANUAL_MODE");
 //        doManualMode();
     }
         break;

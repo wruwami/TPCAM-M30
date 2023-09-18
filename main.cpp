@@ -13,6 +13,7 @@
 #include "thermal_printer.h"
 #include "StorageManager.h"
 #include "Application.h"
+#include "Logger.h"
 
 QString g_AppVersion = "1.0.0";
 
@@ -25,6 +26,7 @@ int main(int argc, char *argv[])
     font.setPixelSize(23);
     Application::setFont(font);
 
+    SetLogMsg(POWER_ON);
 
     QFile file(":/style/default.qss");
     file.open(QFile::ReadOnly);

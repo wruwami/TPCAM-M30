@@ -351,7 +351,7 @@ void SelfTestWidget::timerEvent(QTimerEvent *event)
     }
 
     ViscaPacket* visca_packet = m_serialViscaManager.getVisca_packet();
-    unsigned char send_data = visca_packet->send_data;
+    send_data = visca_packet->send_data;
 
     if (send_data == 0X02)
     {

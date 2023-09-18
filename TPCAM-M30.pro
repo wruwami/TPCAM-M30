@@ -23,6 +23,7 @@ SOURCES += main.cpp\
     IndicatorDialog.cpp \
     LcdBrightManager.cpp \
     LightManager.cpp \
+    Logger.cpp \
     MainWindow.cpp \
     LoginWidget.cpp \
     MainMenuWidget.cpp \
@@ -125,6 +126,7 @@ HEADERS  += MainWindow.h \
     IndicatorDialog.h \
     LcdBrightManager.h \
     LightManager.h \
+    Logger.h \
     LoginWidget.h \
     MainMenuWidget.h \
     MovieViewerDialog.h \

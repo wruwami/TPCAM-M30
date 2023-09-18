@@ -34,6 +34,7 @@
 #include "CustomComboBox.h"
 #include "SerialLaserManager.h"
 #include "EnforcementComponentWidget.h"
+#include "Logger.h"
 
 template <typename T>
 inline void removeSecondItem(T*& pointer) {
@@ -68,11 +69,44 @@ MainWindow::MainWindow(screensaver* screensaver, QWidget *parent) :
         if (selfTestWidget.m_nLaser == Check)
             selfTestWidget.m_nLaser = Fail;
 
+        QString msg = "OK";
+        if (selfTestWidget.m_nCamera == Pass)
+            msg = "OK";
+        else if (selfTestWidget.m_nCamera == Fail)
+            msg = "FAIL";
+        SetLogMsg(SELF_TEST, "Camera");
+
+        if (selfTestWidget.m_nLaser == Pass)
+            msg = "OK";
+        else if (selfTestWidget.m_nLaser == Fail)
+        {
+            QString result;
+            result.sprintf("0x%X", selfTestWidget.send_data);
+            msg = "FAIL, " + result;
+        }
+
+        SetLogMsg(SELF_TEST, "Laser");
+        if (selfTestWidget.m_nBattery == Pass)
+            msg = "OK";
+        else if (selfTestWidget.m_nBattery == Fail)
+            msg = "FAIL, Low Voltage";
+
+        SetLogMsg(SELF_TEST, "Battery");
+        if (selfTestWidget.m_nStorage == Pass)
+            msg = "OK";
+        else if (selfTestWidget.m_nStorage == Fail)
+            msg = "FAIL, emmc, sd";
+
+        SetLogMsg(SELF_TEST, "Storage");
+
         if (!(selfTestWidget.m_nCamera == Pass && selfTestWidget.m_nLaser == Pass && selfTestWidget.m_nStorage == Pass && selfTestWidget.m_nBattery == Pass))
         {
             BaseDialog baseDialog(SelfTestWarningMessageWidgetType, selfTestWidget.m_nCamera, selfTestWidget.m_nLaser, selfTestWidget.m_nBattery, selfTestWidget.m_nStorage, Qt::AlignmentFlag::AlignCenter);
             if (baseDialog.exec() == QDialog::Rejected)
+            {
+                SetLogMsg(POWER_OFF);
                 PowerOff();
+            }
             m_bSelfTestFailed = true;
         }
     }
@@ -485,6 +519,8 @@ void MainWindow::on_enforcementClicked()
         m_pEnforcementWidget->m_pEnforcementComponentWidget->m_bVirtualMode = false;
     SetCamera();
     m_pEnforcementWidget->m_pEnforcementComponentWidget->SetCamera(m_pCamera);
+
+    SetLogMsg(ENTERED_MENU, "ENFORCEMENT");
 }
 
 void MainWindow::OpenEnforcement()
@@ -613,6 +649,8 @@ void MainWindow::OpenMainMenu()
 
 void MainWindow::CheckBatteryPercent()
 {
+
+
     // load setting_battery.json
     ConfigManager config = ConfigManager("setting_battery.json");
     QJsonObject object = config.GetConfig();
@@ -647,12 +685,21 @@ void MainWindow::CheckBatteryPercent()
     if(ltc.m_filteredVolt <dPowerOffVoltage)
     {
 //        OS 자동 종료
-        QProcess::startDetached("shutdown -h now");
+        QProcess::startDetached("sudo shutdown -h now");
+        SetLogMsg(POWER_OFF, "Battery low");
     }
 
     // battery count
     int percent = ltc.m_filteredBat_persent/100;
     m_pMainMenuWidget->setBatteryPercentValue(percent);
+
+    m_nLogCount++;
+    if (m_nLogCount == 60)
+    {
+        QString msg = QString::number(ltc.m_volt) + "V," + QString::number(ltc.m_current) + "A," + QString::number(ltc.m_AC) + "," + QString::number(ltc.m_bat_persent/100) + "," +QString::number(ltc.getACThresholdL()) + "," +QString::number(ltc.getACThresholdH());
+        SetLogMsg(BATTERY_STATUS, msg);
+        m_nLogCount = 0;
+    }
 
 }
 
@@ -725,7 +772,8 @@ void MainWindow::SelfTestFail(bool show)
 
 void MainWindow::PowerOff()
 {
-    system("systemctl poweroff -i");
+    SetLogMsg(POWER_OFF);
+    system("sudo systemctl poweroff -i");
 }
 
 void MainWindow::CheckLoginExpired()
@@ -1164,6 +1212,8 @@ void MainWindow::on_filemanagementClicked()
 
     QObject::connect((QWidget*)pFileManagerWidget->m_pHomePushButton, SIGNAL(clicked()), this, SLOT(on_mainMenuHomeClicked()));
     m_pMainMenuWidget->setMainMenuImage("Main_menu", "home_big_n.bmp");
+
+    SetLogMsg(ENTERED_MENU, "FILE_MANAGER");
 }
 
 void MainWindow::OpenFileManagement()
@@ -1220,6 +1270,8 @@ void MainWindow::on_settingClicked()
     QObject::connect((QWidget*)pSettingWidget->m_pSetting3Widget, SIGNAL(clicked()), this, SLOT(on_SystemInfoClicked()));
 
     m_pMainMenuWidget->setMainMenuTitle(LoadString("IDS_SETTING"));
+
+    SetLogMsg(ENTERED_MENU, "SETTING");
 }
 
 //void MainWindow::on_mainMenuTitlePushButton_clicked()

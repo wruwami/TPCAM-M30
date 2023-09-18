@@ -8,6 +8,7 @@
 #include <ifaddrs.h>
 
 #include "ConfigManager.h"
+#include "Logger.h"
 
 #define NET_PATH   /etc/netplan/000-default.yaml
 #define ETH_ADAPTER     "eth0"
@@ -196,9 +197,17 @@ bool NetworkManager::getNetworkState(QString deviceName)
          if(interface.IsUp && !interface.IsLoopBack)
          {
              if (interface.name() == deviceName)
+             {
+                 if (deviceName == ETH_ADAPTER)
+                     SetLogMsg(NETWORK_CONNECTED, deviceName);
+                 else
+                    SetLogMsg(NETWORK_CONNECTED, deviceName + "," + m_wifi_jsonObject["sta ssid"].toArray()[0].toString());
                  return true;
+             }
          }
      }
+
+     SetLogMsg(NETWORK_DISCONNECTED, deviceName);
      return false;
 }
 

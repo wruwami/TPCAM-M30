@@ -134,7 +134,7 @@ private:
     int m_nCrackDownCount;
     //    Language m_mLanguage = Language::English;
     bool m_bRedLine = false;
-
+    int m_nLogCount= 0;
     // QObject interface
 protected:
     void timerEvent(QTimerEvent *event);

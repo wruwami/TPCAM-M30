@@ -3,6 +3,7 @@
 #include <QSerialPort>
 #include <QDebug>
 #include <math.h>
+#include "Logger.h"
 
 struct gprmc_data
 {
@@ -196,6 +197,12 @@ void SerialGPSManager::serial_received()
             snr_ary[l] = splitted.value(7+l*4).toInt();
         }
         m_nSatellitesInView = splitted.value(1).toUInt();
+        if (m_nSatellitesInView >= 3 && m_bFirstLog)
+        {
+            QString msg;
+            msg = m_Latitude + "," + m_Longitude + "," + m_DateTime.toString("hh:mm:ss");
+            SetLogMsg(GPS_DETECTED, msg);
+        }
         m_sensitivity = splitted.value(7);
 //        qDebug() << "Number of Message: "+splitted.value(1);
 //        qDebug() << "Message Number: "+splitted.value(2);
@@ -218,6 +225,10 @@ QString SerialGPSManager::changeMinuteToDegree(QString Minute)
     nDegree = Minute.toDouble()/100;
     dDegree = fmod(Minute.toDouble(), 100) / 60.0;
 
-    Degree = QString::number(nDegree+dDegree);
+    if (nDegree+dDegree)
+        Degree = "+";
+    else
+        Degree = "-";
+    Degree.append(QString::number(nDegree+dDegree));
     return Degree;
 }

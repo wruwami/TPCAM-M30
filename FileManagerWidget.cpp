@@ -27,6 +27,7 @@
 #include "ImageConverter.h"
 #include "WidgetSize.h"
 #include "SpeedUnitManager.h"
+#include "Logger.h"
 
 enum Mode
 {
@@ -229,6 +230,8 @@ void FileManagerWidget::timerEvent(QTimerEvent *event)
 
 void FileManagerWidget::on_deletePushButton_clicked()
 {
+    SetLogMsg(FILE_MANAGER, "DELETE");
+
     BaseDialog baseDialog(Dialog::FileManagerQuestionMessageWidgetType, Qt::AlignmentFlag::AlignCenter, "");
     if (baseDialog.exec() == QDialog::Accepted)
     {
@@ -489,12 +492,15 @@ void FileManagerWidget::on_sharePushButton_clicked()
 {
 //    BaseDialog baseDialog(FileManagerFileTransferWidgetType, Qt::AlignmentFlag::AlignCenter, "", true, LoadString("IDS_FTP_FILE_TRANSFER"));
 //    baseDialog.exec();
+    SetLogMsg(FILE_MANAGER, "SHARE");
+
     FileManagerFileTransferDialog fileManagerFileTransferDialog(FTPType);
     fileManagerFileTransferDialog.exec();
 }
 
 void FileManagerWidget::on_movePushButton_clicked()
 {
+    SetLogMsg(FILE_MANAGER, "MOVE");
 //    BaseDialog baseDialog(FileManagerFileTransferWidgetType, Qt::AlignmentFlag::AlignCenter, "", true, LoadString("IDS_USB_MEMORY_TRANSFER"));
 //    baseDialog.exec();
     FileManagerFileTransferDialog fileManagerFileTransferDialog(FileType);
@@ -516,6 +522,8 @@ void FileManagerWidget::on_printPushButton_clicked()
 
 //    pixmap.
     print_wifi_printer();
+
+    SetLogMsg(FILE_MANAGER, "PRINT");
 }
 
 void FileManagerWidget::on_connectPushButton_clicked()
@@ -525,6 +533,8 @@ void FileManagerWidget::on_connectPushButton_clicked()
 
     connect_wifi_printer();
     ui->printPushButton->setDisabled(false);
+
+    SetLogMsg(FILE_MANAGER, "CONNECT");
 }
 
 void FileManagerWidget::on_percentPushButton_clicked()

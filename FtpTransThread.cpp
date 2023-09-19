@@ -24,7 +24,7 @@ FtpTransThread::~FtpTransThread()
 void FtpTransThread::PushFile(QString file_name)
 {
     m_mutex->lock();
-    m_FileQueue.push_back(file_name);
+    m_FileQueue.enqueue(file_name);
     m_mutex->unlock();
 }
 
@@ -51,8 +51,10 @@ void FtpTransThread::run()
             return;
 
         m_mutex->lock();
-        QString file_name = m_FileQueue.front();
-        m_FileQueue.pop_front();
+        QString file_name;
+        if (m_FileQueue.size() > 0)
+            file_name = m_FileQueue.dequeue();
+//        m_FileQueue.pop_front();
         m_mutex->unlock();
 
         QFile file(file_name);

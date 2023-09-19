@@ -382,12 +382,12 @@ void EnforcementComponentWidget::on_hidePushButton_clicked()
     m_bHide = !m_bHide;
     if (m_bHide)
     {
-        ui->hidePushButton->setText(LoadString("IDS_HIDE"));
+        ui->hidePushButton->setText(LoadString("IDS_SHOW"));
         hide();
     }
     else
     {
-        ui->hidePushButton->setText(LoadString("IDS_SHOW"));
+        ui->hidePushButton->setText(LoadString("IDS_HIDE"));
         show();
     }
 }
@@ -872,14 +872,14 @@ void EnforcementComponentWidget::SetLaserDetectionAreaDistance(int zoom_index)
 
 void EnforcementComponentWidget::zoomRange()
 {
-    int zoom_index = 0;
+//    int zoom_index = 0;
     if (m_UserModeOn)
     {
         m_nZoomIndex++;
-        if (m_nZoomIndex == m_stmetervector.size())
+        if (m_nZoomIndex >= m_stmetervector.size())
             m_nZoomIndex = 0;
 
-        zoom_index = m_nZoomIndex;
+//        zoom_index = m_nZoomIndex;
         if (distance() == meter)
         {
             ui->zoomRangePushButton->setText(m_stmetervector[m_nZoomIndex]+distanceValue());
@@ -892,10 +892,10 @@ void EnforcementComponentWidget::zoomRange()
     else
     {
         m_nZoomIndex++;
-        if (m_nZoomIndex == m_ltmetervector.size())
+        if (m_nZoomIndex >= m_ltmetervector.size())
             m_nZoomIndex = 0;
 
-        zoom_index = m_nZoomIndex;
+//        zoom_index = m_nZoomIndex;
         if (distance() == meter)
         {
             ui->zoomRangePushButton->setText(m_ltmetervector[m_nZoomIndex]+distanceValue());
@@ -906,8 +906,8 @@ void EnforcementComponentWidget::zoomRange()
         }
     }
 
-    m_pSerialViscaManager->SetZoom(zoom_index);
-    m_pSerialViscaManager->SetFocus(zoom_index);
+    m_pSerialViscaManager->SetZoom(m_nZoomIndex);
+    m_pSerialViscaManager->SetFocus(m_nZoomIndex);
 
     SetLogMsg(BUTTON_CLICKED, "ZOOM_INDEX, " + ui->zoomRangePushButton->text());
 

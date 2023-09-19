@@ -1404,7 +1404,10 @@ void MainWindow::on_mainMenuHomeClicked()
         m_p500msTimer->start(500);
     }
     if (m_widgetType == Enforcement)
+    {
+        m_pIndicatorWidget->m_bEnforcement = false;
         m_pMainMenuWidget->setTransparentBackGround(false);
+    }
     showIndicator(true);
 
     QWidget* widget = nullptr;

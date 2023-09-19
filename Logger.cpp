@@ -32,7 +32,7 @@ void Logger::SetLogMsg(LaserLogType logType, QString msg)
     QString full_file_name = GETSDPATH(LASER_LOG) + "/" +  GetFileName(LASER_LOG);
     QFile file(full_file_name);
     if (file.open(QIODevice::WriteOnly | QIODevice::Append)) {
-        file.write(full_file_name.toStdString().c_str(), full_file_name.size());
+        file.write(logString.toStdString().c_str(), logString.size());
     }
 }
 
@@ -43,12 +43,12 @@ void Logger::SetLogMsg(SystemLogType logType, QString msg)
     {
     case POWER_ON:
     {
-        logString.append("POWER_ON : " + msg + "\n");
+        logString.append("POWER_ON" + msg + "\n");
     }
         break;
     case POWER_OFF:
     {
-        logString.append("POWER_OFF : " + msg + "\n");
+        logString.append("POWER_OFF" + msg + "\n");
     }
         break;
     case BATTERY_STATUS:
@@ -100,6 +100,6 @@ void Logger::SetLogMsg(SystemLogType logType, QString msg)
     QString full_file_name = GETSDPATH(SYSTEM_LOG) + "/" +  GetFileName(SYSTEM_LOG);
     QFile file(full_file_name);
     if (file.open(QIODevice::WriteOnly | QIODevice::Append)) {
-        file.write(full_file_name.toStdString().c_str(), full_file_name.size());
+        file.write(logString.toStdString().c_str(), logString.size());
     }
 }

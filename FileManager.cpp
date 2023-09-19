@@ -127,12 +127,12 @@ QString FileManager::GetFileName(SDPath sdpath)
     {
     case LASER_LOG:
     {
-        return "laser_log" + date.toString("yyyyymmdd") + ".txt";
+        return "laser_log_" + date.toString("yyyyMMdd") + ".txt";
     }
         break;
     case SYSTEM_LOG:
     {
-        return "system_log" + date.toString("yyyyymmdd") + ".txt";
+        return "system_log_" + date.toString("yyyyMMdd") + ".txt";
     }
         break;
     }

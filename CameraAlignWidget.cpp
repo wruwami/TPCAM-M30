@@ -100,8 +100,11 @@ void CameraAlignWidget::SetDirection(int x, int y)
         HUDManager hud;
         m_HUDPoint.setX(m_HUDPoint.x() + x);
         m_HUDPoint.setY(m_HUDPoint.y() + y);
-        hud.SetPointX(m_HUDPoint.x());
-        hud.SetPointX(m_HUDPoint.y());
+        hud.SetPointX(m_HUDPoint.x() + HUD_x);
+        hud.SetPointX(m_HUDPoint.y() + HUD_y);
+//        system(QString("echo %d > /sys/devices/platform/hud/pointer_x").arg()); // x 좌표 위치
+//        system("echo %d > /sys/devices/platform/hud/pointer_y"); // y 좌표 위치
+
         SetHudMode();
     }
     else

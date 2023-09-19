@@ -74,7 +74,7 @@ MainWindow::MainWindow(screensaver* screensaver, QWidget *parent) :
             msg = "OK";
         else if (selfTestWidget.m_nCamera == Fail)
             msg = "FAIL";
-        SetLogMsg(SELF_TEST, "Camera");
+        SetLogMsg(SELF_TEST, "Camera " + msg);
 
         if (selfTestWidget.m_nLaser == Pass)
             msg = "OK";
@@ -85,19 +85,19 @@ MainWindow::MainWindow(screensaver* screensaver, QWidget *parent) :
             msg = "FAIL, " + result;
         }
 
-        SetLogMsg(SELF_TEST, "Laser");
+        SetLogMsg(SELF_TEST, "Laser " + msg);
         if (selfTestWidget.m_nBattery == Pass)
             msg = "OK";
         else if (selfTestWidget.m_nBattery == Fail)
             msg = "FAIL, Low Voltage";
 
-        SetLogMsg(SELF_TEST, "Battery");
+        SetLogMsg(SELF_TEST, "Battery " + msg);
         if (selfTestWidget.m_nStorage == Pass)
             msg = "OK";
         else if (selfTestWidget.m_nStorage == Fail)
             msg = "FAIL, emmc, sd";
 
-        SetLogMsg(SELF_TEST, "Storage");
+        SetLogMsg(SELF_TEST, "Storage " + msg);
 
         if (!(selfTestWidget.m_nCamera == Pass && selfTestWidget.m_nLaser == Pass && selfTestWidget.m_nStorage == Pass && selfTestWidget.m_nBattery == Pass))
         {

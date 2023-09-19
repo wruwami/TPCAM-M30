@@ -226,6 +226,7 @@ bool Setting1Widget::CheckComboxBoxItem(QString str)
 {
     for (int i = 0 ; i < ui->locationComboBox->count() ; i++)
     {
+        qDebug() << ui->locationComboBox->itemText(i);
         if ( str  == ui->locationComboBox->itemText(i))
             return false;
     }

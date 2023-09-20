@@ -223,6 +223,9 @@ QString KeyboardDialog::getCommitString()
 
 void KeyboardDialog::onKeyPressed(const QString &iKey, Key *mKey)
 {
+    char commit[32] = { '\0', };
+    char preedit[32] = { '\0', };
+    bool bCommit = false;
 //    QString mLayoutName;
 
     if (iKey == "space")
@@ -252,15 +255,58 @@ void KeyboardDialog::onKeyPressed(const QString &iKey, Key *mKey)
         {
             int ascii = HangulCovertEnglish(iKey[0]);
             int ret = hangul_ic_process(m_hic, ascii);
-            if (ret)
-            {
-                ui->lineEdit->insert(getCommitString());
-            }
-            else
-            {
+            ucs4_to_utf8(commit, hangul_ic_get_commit_string(m_hic), sizeof(commit));
+
+            if (commit[0] != 0) {
                 ui->lineEdit->backspace();
-                ui->lineEdit->insert(getPreeditString());
+//                ui->lineEdit->text();`
+                ui->lineEdit->insert(commit);
+                bCommit = true;
+                qDebug() << "commit" <<commit;
             }
+
+            if (!bCommit && !m_bFirst){
+                ui->lineEdit->backspace();
+
+            }
+            m_bFirst = false;
+//            if (m_bFirst == true)
+//            {
+//                m_bFirst = false;
+//            }
+//            else
+//            {
+//                ui->lineEdit->backspace();
+//            }
+            ucs4_to_utf8(preedit, hangul_ic_get_preedit_string(m_hic), sizeof(preedit));
+
+//            preedit = hangul_ic_get_preedit_string(m_hic);
+            ui->lineEdit->insert(preedit);
+            qDebug() << "preedit" << preedit;
+
+//            const ucschar preedit;
+        }
+
+        else
+        {
+            ui->lineEdit->insert(iKey);
+        }
+        //            if (!ret) {
+////                char a;
+//                QString a;
+//                a.sprintf("c", ascii);
+////                sprintf(a, "%c", ascii);
+//                ui->lineEdit->insert(a);
+
+//            if (ret)
+//            {
+//                ui->lineEdit->insert(getCommitString());
+//            }
+//            else
+//            {
+//                ui->lineEdit->backspace();
+//                ui->lineEdit->insert(getCommitString());
+//            }
 
 
 //            QString str = getCommitString();
@@ -279,11 +325,7 @@ void KeyboardDialog::onKeyPressed(const QString &iKey, Key *mKey)
 //            const ucschar* ch = hangul_ic_get_commit_string(m_hic);
 //            QString utf8 = QString::fromUcs4(ch);
 
-        }
-        else
-        {
-            ui->lineEdit->insert(iKey);
-        }
+
 #else
         ui->lineEdit->insert(iKey);
 #endif

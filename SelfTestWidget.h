@@ -40,7 +40,7 @@ public:
     Status m_nLaser = Check;
     Status m_nBattery = Check;
     Status m_nStorage = Check;
-
+    unsigned char send_data;
 private:
     Ui::SelfTestWidget *ui;
     int m_nSecond = 0;

@@ -119,6 +119,25 @@ QString FileManager::AddFile(QString path_name, QString file_name)
 
 }
 
+QString FileManager::GetFileName(SDPath sdpath)
+{
+    QDate date = date.currentDate();
+
+    switch (sdpath)
+    {
+    case LASER_LOG:
+    {
+        return "laser_log_" + date.toString("yyyyMMdd") + ".txt";
+    }
+        break;
+    case SYSTEM_LOG:
+    {
+        return "system_log_" + date.toString("yyyyMMdd") + ".txt";
+    }
+        break;
+    }
+}
+
 QString FileManager::GetFileName(PrefixType prefix)
 {
     QDateTime datetime = datetime.currentDateTime();

@@ -62,7 +62,7 @@ SelfTestWidget::SelfTestWidget(QWidget *parent) :
     ui->storageValueLabel->setText(LoadString("IDS_SELFTEST_CHECK"));
     ui->storageValueLabel->setFontSize(23);
 
-    if (SerialGPSManager::GetInstance()->GetSatellitesInView() != 0)
+    if (SerialGPSManager::GetInstance()->GetSatellitesInView() >= 3)
     {
         QDateTime datetime = SerialGPSManager::GetInstance()->GetDateTime();
         QString string = datetime.toString("\"yyyy-MM-dd hh:mm:ss\"");
@@ -351,7 +351,7 @@ void SelfTestWidget::timerEvent(QTimerEvent *event)
     }
 
     ViscaPacket* visca_packet = m_serialViscaManager.getVisca_packet();
-    unsigned char send_data = visca_packet->send_data;
+    send_data = visca_packet->send_data;
 
     if (send_data == 0X02)
     {

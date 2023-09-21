@@ -65,8 +65,7 @@ private slots:
     void on_screenRecordingPushButton_clicked();
     void on_screenCapturePushButton_clicked();
 
-
-
+    void doCheckNetwork();
 public:
     CustomPushButton* m_pCameraFocusPushButton = nullptr;
     CustomPushButton* m_pCameraExposePushButton = nullptr;
@@ -112,6 +111,7 @@ private:
     SerialLaserManager* m_pSerialLaserManager = nullptr;
     SerialViscaManager* m_pSerialViscaManager = nullptr;
     bool m_nUserMode = true;
+    QTimer m_pTimer;
 //    SerialLaserManager* m_pSerialLaserManager;
     // QWidget interface
 signals:
@@ -122,7 +122,7 @@ signals:
     void sig_EnforcementModeV();
     void sig_EnforcementModeA();
 protected:
-    void timerEvent(QTimerEvent *event);
+
     void paintEvent(QPaintEvent *event);
     void mousePressEvent(QMouseEvent *event);
 private:

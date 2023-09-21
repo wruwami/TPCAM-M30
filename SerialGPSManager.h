@@ -45,7 +45,7 @@ private:
     QString m_sensitivity;
     float m_fLongitude;
     float m_fLatitude;
-
+    bool m_bFirstLog = true;
 
 private:
     QSerialPort* m_pSerial;

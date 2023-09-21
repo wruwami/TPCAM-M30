@@ -6,7 +6,7 @@
 #include <QDebug>
 #include <QStandardItemModel>
 #include "SerialPacket.h"
-
+#include "Logger.h"
 
 DistanceFormat distLaser;
 _ST_LASER_PARAM		g_stLaserParam;
@@ -416,7 +416,7 @@ void SerialPacket::ParsingPacket()
 //                qDebug() << strMsg;
 
                 emit sig_showCaptureSpeedDistance(fSpeed, fDist, VehicleID);
-
+                SetLogMsg(LASER_RECEIVE_DATA, strMsg);
 
             }break;
         case 0xDC:	// HEAD_SND_REALTIME_SPD : 실시간 속도 수신
@@ -478,6 +478,7 @@ void SerialPacket::ParsingPacket()
             {
                 QString	strMsg;
                 strMsg.sprintf("Result of Self Test = %s", g_ReceiveData.Msg[0]==0x01?"PASS":"FAIL");
+                SetLogMsg(LASER_RECEIVE_DATA, strMsg);
             }break;
 
         case 0x57:		// 레이저 파라메타 수신
@@ -537,6 +538,7 @@ void SerialPacket::ParsingPacket()
                     msg += ("[LD Feedback]");
 
                 msg = ("Err.Info : ") + msg;
+                SetLogMsg(LASER_RECEIVE_DATA, msg);
                 qDebug() << msg;
             }
             break;
@@ -551,6 +553,7 @@ void SerialPacket::ParsingPacket()
                                                     , g_ReceiveData.Msg[0], tmp, volt);
 
                 qDebug() << str;
+                SetLogMsg(LASER_RECEIVE_DATA, str);
             }
             break;
 
@@ -602,102 +605,129 @@ void SerialPacket::ParsingPacket()
 
                 memset(strBuf, 0, 31);	memcpy(strBuf, g_ReceiveData.Msg + 0, 30);
                 disp.sprintf("Laser S/N : %s", strBuf);
+                SetLogMsg(LASER_RECEIVE_DATA, disp);
                 qDebug() << disp;
 
                 memset(strBuf, 0, 31);	memcpy(strBuf, g_ReceiveData.Msg + 30, 8);
                 disp.sprintf("F/W version : %s", strBuf);
+                SetLogMsg(LASER_RECEIVE_DATA, disp);
                 emit sig_showVersion(QString(strBuf));
                 qDebug() << disp;
 
                 memset(strBuf, 0, 31);	memcpy(strBuf, g_ReceiveData.Msg + 38, 11);
                 disp.sprintf("F/W build date : %s", strBuf);
+                SetLogMsg(LASER_RECEIVE_DATA, disp);
                 qDebug() << disp;
 
                 memset(strBuf, 0, 31);	memcpy(strBuf, g_ReceiveData.Msg + 49, 5);
                 disp.sprintf("PLD version : %s", strBuf);
+                SetLogMsg(LASER_RECEIVE_DATA, disp);
                 qDebug() << disp;
 
                 memset(strBuf, 0, 31);	memcpy(strBuf, g_ReceiveData.Msg + 54, 5);
                 disp.sprintf("H/W version : %s", strBuf);
+                SetLogMsg(LASER_RECEIVE_DATA, disp);
 
                 disp.sprintf("Model Info :  %d", g_ReceiveData.Msg[59]);
+                SetLogMsg(LASER_RECEIVE_DATA, disp);
                 qDebug() << disp;
 
                 disp.sprintf("PRF :  %d", g_ReceiveData.Msg[60]);
+                SetLogMsg(LASER_RECEIVE_DATA, disp);
                 qDebug() << disp;
 
                 disp.sprintf("Unit :  %d", g_ReceiveData.Msg[61]);
+                SetLogMsg(LASER_RECEIVE_DATA, disp);
                 qDebug() << disp;
 
                 disp.sprintf("Auto trigger :   %d", g_ReceiveData.Msg[62]);
+                SetLogMsg(LASER_RECEIVE_DATA, disp);
                 qDebug() << disp;
 
                 disp.sprintf("CFD:   %d", g_ReceiveData.Msg[63]);
+                SetLogMsg(LASER_RECEIVE_DATA, disp);
                 qDebug() << disp;
 
                 float dist_offset = (g_ReceiveData.Msg[64]?-1.0f:1.0f) * ( (g_ReceiveData.Msg[65]<<8) | g_ReceiveData.Msg[66]) * 0.01f;
                 disp.sprintf("Dist offset :  %0.1f", dist_offset);
+                SetLogMsg(LASER_RECEIVE_DATA, disp);
                 qDebug() << disp;
 
                 float speed_offset = (g_ReceiveData.Msg[67]?-1.0f:1.0f) * ( (g_ReceiveData.Msg[68]<<8) | g_ReceiveData.Msg[69]) * 0.01f;
                 disp.sprintf("Speed offset :  %0.1f", speed_offset);
+                SetLogMsg(LASER_RECEIVE_DATA, disp);
                 qDebug() << disp;
 
                 disp.sprintf("APD rated V : %dV", ((g_ReceiveData.Msg[70]<<8) | g_ReceiveData.Msg[71]));
+                SetLogMsg(LASER_RECEIVE_DATA, disp);
                 qDebug() << disp;
 
                 disp.sprintf("APD drop step : %d", g_ReceiveData.Msg[72] );
+                SetLogMsg(LASER_RECEIVE_DATA, disp);
                 qDebug() << disp;
 
                 disp.sprintf("APD drop value : %d", (signed char)g_ReceiveData.Msg[73] );
+                SetLogMsg(LASER_RECEIVE_DATA, disp);
                 qDebug() << disp;
 
 
                 disp.sprintf("APD control : %d", g_ReceiveData.Msg[74] );
+                SetLogMsg(LASER_RECEIVE_DATA, disp);
                 qDebug() << disp;
 
 
                 disp.sprintf("ADC ref V : %0.1f", ((g_ReceiveData.Msg[75]<<8) | g_ReceiveData.Msg[76]) * 0.01f);
+                SetLogMsg(LASER_RECEIVE_DATA, disp);
                 qDebug() << disp;
 
 
                 disp.sprintf(" APD threshold : %d", g_ReceiveData.Msg[77] );
+                SetLogMsg(LASER_RECEIVE_DATA, disp);
                 qDebug() << disp;
 
 
                 disp.sprintf("Private CFD level : %d", g_ReceiveData.Msg[78] );
+                SetLogMsg(LASER_RECEIVE_DATA, disp);
                 qDebug() << disp;
 
 
                 disp.sprintf("Weather mode :  %d", g_ReceiveData.Msg[79] );
+                SetLogMsg(LASER_RECEIVE_DATA, disp);
                 qDebug() << disp;
 
 
                 disp.sprintf("Blank coarse bit :  %d", g_ReceiveData.Msg[80] );
+                SetLogMsg(LASER_RECEIVE_DATA, disp);
                 qDebug() << disp;
 
 
                 disp.sprintf("Anti-jamming :  %d", g_ReceiveData.Msg[81] );
+                SetLogMsg(LASER_RECEIVE_DATA, disp);
                 qDebug() << disp;
 
 
                 disp.sprintf("Measurement mode :  %d", g_ReceiveData.Msg[82] );
+                SetLogMsg(LASER_RECEIVE_DATA, disp);
                 qDebug() << disp;
 
 
                 disp.sprintf("Speed limit :  %d", ((g_ReceiveData.Msg[83]<<8) | g_ReceiveData.Msg[84]));
+                SetLogMsg(LASER_RECEIVE_DATA, disp);
                 qDebug() << disp;
 
 
                 disp.sprintf("Detect distance :  %d", ((g_ReceiveData.Msg[85]<<8) | g_ReceiveData.Msg[86]));
+                SetLogMsg(LASER_RECEIVE_DATA, disp);
                 qDebug() << disp;
 
 
                 disp.sprintf("Detect distance margin :  %d", ((g_ReceiveData.Msg[87]<<8) | g_ReceiveData.Msg[88]));
+                SetLogMsg(LASER_RECEIVE_DATA, disp);
                 qDebug() << disp;
 
 
                 disp.sprintf("Night mode :  %d",g_ReceiveData.Msg[89]);
+                SetLogMsg(LASER_RECEIVE_DATA, disp);
                 qDebug() << disp;
 
 

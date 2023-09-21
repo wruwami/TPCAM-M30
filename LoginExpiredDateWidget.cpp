@@ -1,5 +1,6 @@
 #include "LoginExpiredDateWidget.h"
 #include "ui_LoginExpiredDateWidget.h"
+#include "Logger.h"
 
 #include "StringLoader.h"
 
@@ -24,6 +25,7 @@ LoginExpiredDateWidget::~LoginExpiredDateWidget()
 void LoginExpiredDateWidget::on_pushButton_clicked()
 {
     m_pParent->accept();
+    SetLogMsg(POWER_OFF);
     system("systemctl poweroff -i");
 }
 

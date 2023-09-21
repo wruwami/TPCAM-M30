@@ -1,6 +1,8 @@
 #include "ScreenSaver.h"
 #include <QApplication>
 #include <QDesktopWidget>
+
+#include "Logger.h"
 screensaver::screensaver(QWidget *parent)
     : QWidget(parent)
 {
@@ -49,7 +51,8 @@ void screensaver::PowerOffTimerStop()
 
 void screensaver::PowerOff()
 {
-    system("systemctl poweroff -i");
+    SetLogMsg(POWER_OFF);
+    system("sudo systemctl poweroff -i");
 }
 void screensaver::settime(qint64 minute)
 {

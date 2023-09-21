@@ -5,13 +5,15 @@
 #include <QFile>
 #include <QJsonParseError>
 
+#include "FileManager.h"
+
 #define DEFAULT_PATH    "settings"
 
 ConfigManager::ConfigManager(QString file_name)
 {
     QDir qdir;
 
-    m_file_full_path = qdir.absolutePath() + "/" + DEFAULT_PATH + "/" + file_name;
+    m_file_full_path = GeteMMCPath() + "/" + DEFAULT_PATH + "/" + file_name;
 
     QFile file(m_file_full_path);
     file.open(QFile::ReadWrite);

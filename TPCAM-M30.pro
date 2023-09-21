@@ -16,6 +16,7 @@ SOURCES += main.cpp\
     Application.cpp \
     CustomTogglePushButton.cpp \
     FileManager.cpp \
+    FtpTransThread.cpp \
     HUDManager.cpp \
     HeadUpDisplay.cpp \
     ImageConverter.cpp \
@@ -23,6 +24,7 @@ SOURCES += main.cpp\
     IndicatorDialog.cpp \
     LcdBrightManager.cpp \
     LightManager.cpp \
+    Logger.cpp \
     MainWindow.cpp \
     LoginWidget.cpp \
     MainMenuWidget.cpp \
@@ -118,6 +120,7 @@ HEADERS  += MainWindow.h \
     CustomTogglePushButton.h \
     FileManager.h \
     FontSize.h \
+    FtpTransThread.h \
     HUDManager.h \
     HeadUpDisplay.h \
     ImageConverter.h \
@@ -125,6 +128,7 @@ HEADERS  += MainWindow.h \
     IndicatorDialog.h \
     LcdBrightManager.h \
     LightManager.h \
+    Logger.h \
     LoginWidget.h \
     MainMenuWidget.h \
     MovieViewerDialog.h \

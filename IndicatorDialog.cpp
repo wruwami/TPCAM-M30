@@ -24,6 +24,7 @@
 #include "MainMenuWidget.h"
 #include "SerialViscaManager.h"
 #include "NetworkManager.h"
+#include "Logger.h"
 
 void thread_CommandExcute2(QString strCommand)
 {
@@ -60,6 +61,7 @@ IndicatorDialog::IndicatorDialog(QWidget *parent) :
 //    ui->offPushButton->setVisible(false);
 
     initlize();
+    startTimer(1000);
 }
 
 IndicatorDialog::~IndicatorDialog()
@@ -200,6 +202,9 @@ void IndicatorDialog::on_comPushButton_clicked()
     ui->horizontalLayout2->addWidget(m_pWifiPushButton, 2);
     ui->horizontalLayout2->addWidget(m_pBTPushButton, 2);
     ui->horizontalLayout2->addWidget(m_pEthernetPushButton, 2);
+
+    connect(&m_pTimer, SIGNAL(timeout()), this, SLOT(doCheckNetwork()));
+    m_pTimer.start(1000);
 }
 
 void IndicatorDialog::on_speedPushButton_clicked()
@@ -228,6 +233,8 @@ void IndicatorDialog::on_speedSTPushButton_clicked()
     m_pMainMenuWidget->setIndicatorImage(m_pMainMenuWidget->m_pSpeedPushbutton, "indicator", "indicator_enable_user_mode_on.jpg");
     m_nUserMode = true;
 
+    SetLogMsg(INDICATOR_CLICKED ,"SPEED MODE ST");
+
     if (!m_bEnforcement)
         return;
 
@@ -246,6 +253,8 @@ void IndicatorDialog::on_speedLTPushButton_clicked()
     m_jsonObject1["speed selection"] = 2;
     m_pMainMenuWidget->setIndicatorImage(m_pMainMenuWidget->m_pSpeedPushbutton, "indicator", "indicator_enable_user_mode_off.jpg");
     m_nUserMode = false;
+
+    SetLogMsg(INDICATOR_CLICKED ,"SPEED MODE LT");
 
     if (!m_bEnforcement)
         return;
@@ -291,8 +300,12 @@ void IndicatorDialog::on_enforcementIPushButton_clicked()
     m_jsonObject1["enforcement selection"] = 1;
     m_pMainMenuWidget->setIndicatorImage(m_pMainMenuWidget->m_pEnforcementPushbutton, "indicator", "indicator_mode_i.jpg");
 
+    SetLogMsg(INDICATOR_CLICKED, "ENFORCEMENT MODE I");
+
     if (m_bEnforcement)
         emit sig_EnforcementModeI();
+
+
 }
 
 void IndicatorDialog::on_enforcementAPushButton_clicked()
@@ -300,6 +313,8 @@ void IndicatorDialog::on_enforcementAPushButton_clicked()
     ui->enforcementPushButton->setImage("indicator", "indicator_mode_a.jpg");
     m_jsonObject1["enforcement selection"] = 2;
     m_pMainMenuWidget->setIndicatorImage(m_pMainMenuWidget->m_pEnforcementPushbutton, "indicator", "indicator_mode_a.jpg");
+
+    SetLogMsg(INDICATOR_CLICKED, "ENFORCEMENT MODE A");
 
     if (m_bEnforcement)
         emit sig_EnforcementModeA();
@@ -310,6 +325,8 @@ void IndicatorDialog::on_enforcementVPushButton_clicked()
     ui->enforcementPushButton->setImage("indicator", "indicator_mode_v.jpg");
     m_jsonObject1["enforcement selection"] = 3;
     m_pMainMenuWidget->setIndicatorImage(m_pMainMenuWidget->m_pEnforcementPushbutton, "indicator", "indicator_mode_v.jpg");
+
+    SetLogMsg(INDICATOR_CLICKED, "ENFORCEMENT MODE V");
 
     if (m_bEnforcement)
         emit sig_EnforcementModeV();
@@ -557,18 +574,7 @@ void IndicatorDialog::on_screenCapturePushButton_clicked()
     pixmap.save(filename, 0, 100);
 }
 
-void IndicatorDialog::setPSerialLaserManager(SerialLaserManager *newPSerialLaserManager)
-{
-    if (m_pSerialLaserManager == nullptr)
-        m_pSerialLaserManager = newPSerialLaserManager;
-}
-
-void IndicatorDialog::setPSerialViscaManager(SerialViscaManager *newPSerialViscaManager)
-{
-    m_pSerialViscaManager = newPSerialViscaManager;
-}
-
-void IndicatorDialog::timerEvent(QTimerEvent *event)
+void IndicatorDialog::doCheckNetwork()
 {
     NetworkManager networkManager;
     if (networkManager.getNetworkState(networkManager.getLanAdapterName()))
@@ -591,11 +597,24 @@ void IndicatorDialog::timerEvent(QTimerEvent *event)
 
 }
 
+void IndicatorDialog::setPSerialLaserManager(SerialLaserManager *newPSerialLaserManager)
+{
+    if (m_pSerialLaserManager == nullptr)
+        m_pSerialLaserManager = newPSerialLaserManager;
+}
+
+void IndicatorDialog::setPSerialViscaManager(SerialViscaManager *newPSerialViscaManager)
+{
+    m_pSerialViscaManager = newPSerialViscaManager;
+}
+
 void IndicatorDialog::on_day1WidgetClicked()
 {    
     ui->daynNightPushButton->setImage("indicator", "day1.jpg");
     m_jsonObject2["day&night selection"] = 1;
     m_pMainMenuWidget->setIndicatorImage(m_pMainMenuWidget->m_pDaynNightPushbutton, "indicator", "day1.jpg");
+
+    SetLogMsg(INDICATOR_CLICKED, "DAY1");
 
     if (!m_bEnforcement)
         return;
@@ -614,6 +633,7 @@ void IndicatorDialog::on_day1WidgetClicked()
 //     m_jsonObject4[""]
 //    ViscaManager viscaManager;
 //    viscaManager.SetDayMode(object);
+
 }
 
 void IndicatorDialog::on_day2WidgetClicked()
@@ -621,6 +641,8 @@ void IndicatorDialog::on_day2WidgetClicked()
     ui->daynNightPushButton->setImage("indicator", "day2.jpg");
     m_jsonObject2["day&night selection"] = 2;
     m_pMainMenuWidget->setIndicatorImage(m_pMainMenuWidget->m_pDaynNightPushbutton, "indicator", "day2.jpg");
+
+    SetLogMsg(INDICATOR_CLICKED, "DAY2");
 
     if (!m_bEnforcement)
         return;
@@ -638,6 +660,7 @@ void IndicatorDialog::on_day2WidgetClicked()
 
 //    ViscaManager viscaManager;
 //    viscaManager.SetDayMode(object);
+
 }
 
 void IndicatorDialog::on_day3WidgetClicked()
@@ -645,6 +668,8 @@ void IndicatorDialog::on_day3WidgetClicked()
     ui->daynNightPushButton->setImage("indicator", "day3.jpg");
     m_jsonObject2["day&night selection"] = 3;
     m_pMainMenuWidget->setIndicatorImage(m_pMainMenuWidget->m_pDaynNightPushbutton, "indicator", "day3.jpg");
+
+    SetLogMsg(INDICATOR_CLICKED, "DAY3");
 
     if (!m_bEnforcement)
         return;
@@ -658,6 +683,7 @@ void IndicatorDialog::on_day3WidgetClicked()
 //    object["DIS"].toBool() ? serialViscaManager.set_DIS_on() : serialViscaManager.set_DIS_off();
 //    object["DEFOG"].toBool() ? serialViscaManager.set_defog_on() : serialViscaManager.set_defog_off();
 //    object["HLC"].toBool() ? serialViscaManager.set_HLC_on() : serialViscaManager.set_HLC_off();
+
 }
 
 void IndicatorDialog::on_night1WidgetClicked()
@@ -665,6 +691,8 @@ void IndicatorDialog::on_night1WidgetClicked()
     ui->daynNightPushButton->setImage("indicator", "night1.jpg");
     m_jsonObject2["day&night selection"] = 4;
     m_pMainMenuWidget->setIndicatorImage(m_pMainMenuWidget->m_pDaynNightPushbutton, "indicator", "night1.jpg");
+
+    SetLogMsg(INDICATOR_CLICKED, "NIGHT1");
 
     if (!m_bEnforcement)
         return;
@@ -682,6 +710,7 @@ void IndicatorDialog::on_night1WidgetClicked()
     emit sig_Night();
 //    ViscaManager viscaManager;
 //    viscaManager.SetDayMode(object);
+
 }
 
 void IndicatorDialog::on_night2WidgetClicked()
@@ -689,6 +718,8 @@ void IndicatorDialog::on_night2WidgetClicked()
     ui->daynNightPushButton->setImage("indicator", "night2.jpg");
     m_jsonObject2["day&night selection"] = 5;
     m_pMainMenuWidget->setIndicatorImage(m_pMainMenuWidget->m_pDaynNightPushbutton, "indicator", "night2.jpg");
+
+    SetLogMsg(INDICATOR_CLICKED, "NIGHT2");
 
     if (!m_bEnforcement)
         return;
@@ -704,6 +735,7 @@ void IndicatorDialog::on_night2WidgetClicked()
 //    object["HLC"].toBool() ? serialViscaManager.set_HLC_on() : serialViscaManager.set_HLC_off();
 
     emit sig_Night();
+
 //    ViscaManager viscaManager;
 //    viscaManager.SetDayMode(object);
 }
@@ -713,6 +745,8 @@ void IndicatorDialog::on_night3WidgetClicked()
     ui->daynNightPushButton->setImage("indicator", "night3.jpg");
     m_jsonObject2["day&night selection"] = 6;
     m_pMainMenuWidget->setIndicatorImage(m_pMainMenuWidget->m_pDaynNightPushbutton, "indicator", "night3.jpg");
+
+    SetLogMsg(INDICATOR_CLICKED, "NIGHT3");
 
     if (!m_bEnforcement)
         return;
@@ -728,6 +762,7 @@ void IndicatorDialog::on_night3WidgetClicked()
 //    object["HLC"].toBool() ? serialViscaManager.set_HLC_on() : serialViscaManager.set_HLC_off();
 
     emit sig_Night();
+
 //    ViscaManager viscaManager;
 //    viscaManager.SetDayMode(object);
 }
@@ -738,12 +773,15 @@ void IndicatorDialog::on_clicked_sunny()
     m_jsonObject2["weather selection"] = 1;
     m_pMainMenuWidget->setIndicatorImage(m_pMainMenuWidget->m_pWeatherPushbutton, "indicator", "indicator_enable_weather_mode_off.jpg");
 
+    SetLogMsg( INDICATOR_CLICKED, "WEATHER SUNNY");
+
     if (!m_bEnforcement)
         return;
 //    SerialLaserManager laserManager;
     m_pSerialLaserManager->set_weather_mode(0);
 
     m_pSerialLaserManager->show_laser_info();
+
 }
 
 void IndicatorDialog::on_clicked_rainy()
@@ -751,6 +789,8 @@ void IndicatorDialog::on_clicked_rainy()
     ui->weatherPushButton->setImage("indicator", "indicator_enable_weather_mode_on.jpg");
     m_jsonObject2["weather selection"] = 2;
     m_pMainMenuWidget->setIndicatorImage(m_pMainMenuWidget->m_pWeatherPushbutton, "indicator", "indicator_enable_weather_mode_on.jpg");
+
+    SetLogMsg( INDICATOR_CLICKED, "WEATHER RAINY");
 
     if (!m_bEnforcement)
         return;

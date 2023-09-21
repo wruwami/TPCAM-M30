@@ -102,8 +102,8 @@ void CustomPushButton::setImage(QString path_name, QString file_name, QSize size
     m_icon = QIcon(m_pixmap);
 //    QSize _size = size();
 //    m_pixmap = m_pixmap.scaled(_size.width, _size.height(), Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
-//    this->setIcon(m_icon);
-    this->setIconSize(m_pixmap.size());
+    this->setIcon(m_icon);
+    this->setIconSize(size);
 
 #else
     // background-image 방식
@@ -185,7 +185,7 @@ void CustomPushButton::paintEvent(QPaintEvent *event)
 //    QRect adjusted = rect();//.adjusted(0,0,0,-1);
     QRect adjusted = contentsRect().adjusted(1,1,-2,-2);
 //    QRect adjusted = m_pixmap.rect().adjusted(1,1,-1,-1);
-    painter.drawRect(adjusted);
+//    painter.drawRect(adjusted);
 //    m_pixmap = m_pixmap.scaled(m_size);
 //    painter.drawPixmap(adjusted, m_icon.pixmap(adjusted.size()));
     painter.drawPixmap(adjusted, m_icon.pixmap(adjusted.size()));

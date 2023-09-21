@@ -81,6 +81,7 @@ public:
     QString GetSubPath(QString name,Type type);
     QString GetSDPath(SDPath);
     QString AddFile(QString path_name, QString file_name);
+    QString GetFileName(SDPath);
     QString GetFileName(PrefixType prefix);
     QString GetFileName(PrefixType prefix, stEnforcementInfo enforceInfo);
 
@@ -106,6 +107,11 @@ static QString GetSubPath(QString name, Type type)
 {
     return FileManager::GetInstance()->GetSubPath(name, type);
 }
+static QString GetFileName(SDPath sdpath)
+{
+    return FileManager::GetInstance()->GetFileName(sdpath);
+}
+
 static QString GetFileName(PrefixType prefix)
 {
     return FileManager::GetInstance()->GetFileName(prefix);

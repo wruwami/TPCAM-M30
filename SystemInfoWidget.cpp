@@ -4,6 +4,11 @@
 #include <QPainter>
 #include <QPen>
 #include <QJsonArray>
+#include <QFile>
+#include "qdir.h"
+#include <QFileInfo>
+#include <QDateTime>
+#include <QDebug>
 
 #include "StringLoader.h"
 #include "ConfigManager.h"
@@ -12,6 +17,7 @@
 #include "SerialViscaManager.h"
 #include "ViscaPacket.h"
 #include "SerialPacket.h"
+#include "FileManager.h"
 
 extern SerialLaserManager* g_pSerialLaserManager;
 extern SerialViscaManager* g_pSerialViscaManager;
@@ -118,6 +124,8 @@ SystemInfoWidget::SystemInfoWidget(QWidget *parent) :
     connect(g_pSerialLaserManager->getLaser_packet(), SIGNAL(sig_showVersion(QString)), this, SLOT(on_laser_version(QString)));
     g_pSerialViscaManager->show_camera_version();
     g_pSerialLaserManager->show_laser_info();
+
+    MoveFactorySetting();
 }
 
 SystemInfoWidget::~SystemInfoWidget()
@@ -130,6 +138,43 @@ SystemInfoWidget::~SystemInfoWidget()
 
     delete ui;
 }
+
+void SystemInfoWidget::MoveFactorySetting()
+{
+    QDir dir = GeteMMCPath() + "/settings";
+
+    foreach (QFileInfo item, dir.entryInfoList())
+    {
+//        qDebug() << item.fileName();
+//        qDebug() << GeteMMCPath() + "/settings/factory/" +item.fileName();
+//        qDebug() << GeteMMCPath() + "/settings/" + item.fileName();
+        if (item.fileName() == "." || item.fileName() == "..")
+            continue;
+
+//        if (QFile::exists(GeteMMCPath() + "/settings/" + item.fileName()))
+//        {
+//            QFile::remove(GeteMMCPath() + "/settings/" + item.fileName());
+//        }
+        QDateTime datetime = datetime.currentDateTime();
+        QDir qdir(GeteMMCPath() + "/factory");
+        if (!qdir.exists())
+            qdir.mkdir(GeteMMCPath() + "/factory");
+
+        qdir = QDir(GeteMMCPath() + "/factory/" + datetime.toString("yyMMddhh"));
+        if (!qdir.exists())
+            qdir.mkdir(GeteMMCPath() + "/factory/" + datetime.toString("yyMMddhh"));
+
+        if (QFile::exists(GeteMMCPath() + "/factory/" + datetime.toString("yyMMddhh") + "/" + item.fileName()))
+        {
+            QFile::remove(GeteMMCPath() + "/factory/" + datetime.toString("yyMMddhh") + "/" + item.fileName());
+        }
+
+        QFile::copy(GeteMMCPath() + "/settings/" +item.fileName(), GeteMMCPath() + "/factory/" + datetime.toString("yyMMddhh") + "/" + item.fileName());
+//        qDebug() << GeteMMCPath() + "/settings/" +item.fileName();
+//        qDebug () << GeteMMCPath() + "/factory/" + datetime.toString("yyMMddhh") + "/" + item.fileName();
+    }
+}
+
 
 void SystemInfoWidget::paintEvent(QPaintEvent *event)
 {

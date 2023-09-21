@@ -380,10 +380,10 @@ void MainMenuWidget::timerEvent(QTimerEvent *event)
 {
     ui->timeLabel->setText(QTime::currentTime().toString("hh:mm:ss"));
     ui->timeLabel->setFontSize(23);
-    if (SerialGPSManager::GetInstance()->GetSatellitesInView() >= 3)
-        ui->gpsPushButton->setImage("indicator", "indicator_gps_on.jpg");
-    else
-        ui->gpsPushButton->setImage("indicator", "indicator_gps_off.jpg");
+//    if (SerialGPSManager::GetInstance()->GetSatellitesInView() >= 3)
+//        ui->gpsPushButton->setImage("indicator", "indicator_gps_on.jpg");
+//    else
+//        ui->gpsPushButton->setImage("indicator", "indicator_gps_off.jpg");
 }
 
 void MainMenuWidget::paintEvent(QPaintEvent *event)

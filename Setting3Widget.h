@@ -33,8 +33,6 @@ private slots:
 public:
     CustomPushButton* m_pSystemInfoButton;
 private:
-    bool m_bFactoryDefault = false;
-    bool m_bPasswordChanging = false;
     QString m_strNewPassword;
 private:
     QJsonObject m_jsonObject;

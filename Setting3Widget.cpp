@@ -77,21 +77,6 @@ Setting3Widget::~Setting3Widget()
 
 void Setting3Widget::SaveConfig()
 {
-    if (m_bFactoryDefault)
-    {
-        FactoryDefaultWidget factoryDefaultWidget;
-        factoryDefaultWidget.MoveFactorySetting();
-    }
-
-    if (m_bPasswordChanging)
-    {
-        ConfigManager config = ConfigManager("setting_password.json");
-        QJsonObject object = config.GetConfig();
-        object["password"] = m_strNewPassword;
-        config.SetConfig(object);
-        config.SaveFile();
-    }
-
     m_config.SetConfig(m_newJsonObject);
     m_config.SaveFile();
 
@@ -118,11 +103,8 @@ void Setting3Widget::on_factoryDefaultPushButton_clicked()
     BaseDialog baseDialog(Dialog::Setting3FactoryDefaultWidgetType, Qt::AlignmentFlag::AlignLeft, LoadString("IDS_ARE_U_SURE_FACTORY_DEFAULT"));
     if (baseDialog.exec() == QDialog::Accepted)
     {
-        m_bFactoryDefault = true;
-    }
-    else
-    {
-        m_bFactoryDefault = false;
+        FactoryDefaultWidget factoryDefaultWidget;
+        factoryDefaultWidget.MoveFactorySetting();
     }
 }
 
@@ -135,11 +117,11 @@ void Setting3Widget::on_adminPWPushButton_clicked()
         connect((PasswordChangingWidget*)baseDialog.pWidget(), SIGNAL(sig_sendPW(QString)), this, SLOT(on_sendPW(QString)));
         if (baseDialog.exec() == QDialog::Accepted)
         {
-            m_bPasswordChanging = true;
-        }
-        else
-        {
-            m_bPasswordChanging = false;
+            ConfigManager config = ConfigManager("setting_password.json");
+            QJsonObject object = config.GetConfig();
+            object["password"] = m_strNewPassword;
+            config.SetConfig(object);
+            config.SaveFile();
         }
     }
 }

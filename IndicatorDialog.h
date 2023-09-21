@@ -122,7 +122,7 @@ signals:
     void sig_EnforcementModeV();
     void sig_EnforcementModeA();
 protected:
-
+    void timerEvent(QTimerEvent *event);
     void paintEvent(QPaintEvent *event);
     void mousePressEvent(QMouseEvent *event);
 private:

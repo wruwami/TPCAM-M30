@@ -177,6 +177,35 @@ void SettingWidget::on_savePushButton_clicked()
 
     LcdBrightManager lcdBrightManager;
 
+    HUDManager hudManager;
+
+    ConfigManager config = ConfigManager("parameter_setting2.json");
+    QJsonObject object = config.GetConfig();
+    switch (object["reticle selection"].toInt())
+    {
+    case 1:
+    {
+        hudManager.SetReticleShape(Dot);
+    }
+        break;
+    case 2:
+    {
+        hudManager.SetReticleShape(Cross);
+    }
+        break;
+    case 3:
+    {
+        hudManager.SetReticleShape(Round);
+    }
+        break;
+    case 4:
+    {
+        hudManager.SetReticleShape(Rectangle);
+    }
+        break;
+    }
+
+
 //    ConfigManager configManaer1 = ConfigManager("parameter_settings1.json");
 //    QJsonObject object = configManaer1.GetConfig();
 

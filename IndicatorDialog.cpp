@@ -25,6 +25,7 @@
 #include "SerialViscaManager.h"
 #include "NetworkManager.h"
 #include "Logger.h"
+#include "SerialGPSManager.h"
 
 void thread_CommandExcute2(QString strCommand)
 {
@@ -802,4 +803,21 @@ void IndicatorDialog::on_clicked_rainy()
 void IndicatorDialog::setIndicatorImage(CustomPushButton* pCustomButton, QString path_name, QString file_name)
 {
     pCustomButton->setImage(path_name, file_name);
+}
+
+void IndicatorDialog::timerEvent(QTimerEvent *event)
+{
+//    ui->timeLabel->setText(QTime::currentTime().toString("hh:mm:ss"));
+//    ui->timeLabel->setFontSize(23);
+    if (SerialGPSManager::GetInstance()->GetSatellitesInView() >= 3)
+    {
+        ui->gpsPushButton->setImage("indicator", "indicator_gps_on.jpg");
+        m_pMainMenuWidget->setIndicatorImage(m_pMainMenuWidget->m_pGpsPushbutton, "indicator", "indicator_gps_on.jpg");
+    }
+    else
+    {
+        ui->gpsPushButton->setImage("indicator", "indicator_gps_off.jpg");
+        m_pMainMenuWidget->setIndicatorImage(m_pMainMenuWidget->m_pGpsPushbutton, "indicator", "indicator_gps_off.jpg");
+
+    }
 }

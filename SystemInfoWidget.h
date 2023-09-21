@@ -15,7 +15,8 @@ class SystemInfoWidget : public QWidget
 public:
     explicit SystemInfoWidget(QWidget *parent = 0);
     ~SystemInfoWidget();
-
+private:
+    void MoveFactorySetting();
 private:
     Ui::SystemInfoWidget *ui;
     // QWidget interface

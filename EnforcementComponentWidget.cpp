@@ -473,33 +473,6 @@ void EnforcementComponentWidget::camInit()
 
 void EnforcementComponentWidget::hudInit()
 {
-
-    ConfigManager config = ConfigManager("parameter_setting2.json");
-    QJsonObject object = config.GetConfig();
-    switch (object["reticle selection"].toInt())
-    {
-    case 1:
-    {
-        m_hudManager.SetReticleShape(Dot);
-    }
-        break;
-    case 2:
-    {
-        m_hudManager.SetReticleShape(Cross);
-    }
-        break;
-    case 3:
-    {
-        m_hudManager.SetReticleShape(Round);
-    }
-        break;
-    case 4:
-    {
-        m_hudManager.SetReticleShape(Rectangle);
-    }
-        break;
-    }
-
     ConfigManager config2 = ConfigManager("parameter_reticle.json");
     QJsonObject object2 = config2.GetConfig();
     QJsonArray array = object2["HUD reticle pos"].toArray();

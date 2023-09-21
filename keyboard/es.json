@@ -1,17 +1,29 @@
 {
-  "locale":"en",
+  "locale":"es",
   "layouts": [
     { "name":"lowercase",
         "keys":[["q", "w", "e", "r", "t", "y", "u", "i", "o", "p","?"],
                ["a", "s", "d", "f", "g", "h", "j", "k", "l","back"],
                ["Caps", "z", "x", "c", "v", "b", "n", "m", "ñ", "return"],
-               ["123", ".", "space", "@",",",";"]]
+               ["123", ".", "space", "esupper",",",";"]]
     },
     { "name":"uppercase",
         "keys":[["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P", "¿"],
                ["A", "S", "D", "F", "G", "H", "J", "K", "L","back"],
                ["Lowr", "Z", "X", "C", "V", "B", "N", "M", "Ñ", "return"],
-               ["123", ".", "space", "@",",",";"]]
+               ["123", ".", "space", "eslower",",",";"]]
+    },
+    { "name":"enlowercase",
+        "keys":[["q", "w", "e", "r", "t", "y", "u", "i", "o", "p","?"],
+               ["a", "s", "d", "f", "g", "h", "j", "k", "l","back"],
+               ["Caps", "z", "x", "c", "v", "b", "n", "m","return"],
+               ["123", ".", "space", "enlower",",",";"]]
+    },
+    { "name":"enuppercase",
+        "keys":[["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P", "¿"],
+               ["A", "S", "D", "F", "G", "H", "J", "K", "L","back"],
+               ["Lowr", "Z", "X", "C", "V", "B", "N", "M", "return"],
+               ["123", ".", "space", "enupper",",",";"]]
     },
     { "name":"numerical",
         "keys":[["1", "2", "3", "4", "5", "6", "7", "8", "9", "0","*"],
@@ -38,10 +50,18 @@
                      { "icon":"Caps", "path":":/keyboard/icons/caps.png" },
                      { "icon":"return", "path":":/keyboard/icons/enter.png" },
                      { "icon":"Lowr", "path":":/keyboard/icons/lows.png" },
+                     { "icon":"eslower", "path":":/keyboard/icons/translate.png" },
+                     { "icon":"esupper", "path":":/keyboard/icons/translate.png" },
+                     { "icon":"enlower", "path":":/keyboard/icons/translate.png" },
+                     { "icon":"enupper", "path":":/keyboard/icons/translate.png" },
                      { "switchkey":"Caps", "layout":"uppercase" },
                      { "switchkey":"123", "layout":"numerical" },
                      { "switchkey":"Lowr", "layout":"lowercase" },
                      { "switchkey":"ABC", "layout":"lowercase" },
-                     { "switchkey":"#+=", "layout":"symbols" }
+                     { "switchkey":"#+=", "layout":"symbols" },
+                     { "switchkey":"eslower", "layout":"enlowercase" },
+                     { "switchkey":"esupper", "layout":"enuppercase" },
+                     { "switchkey":"enlower", "layout":"lowercase" },
+                     { "switchkey":"enupper", "layout":"uppercase" }
                      ]
  }

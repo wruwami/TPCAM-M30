@@ -150,7 +150,7 @@ private:
     QPoint m_cross;
     QFileSystemWatcher m_fileSystemWatcher;
     TriggerStatus m_triggerStatus = SKIP;
-    QSharedPointer<FtpTransThread> m_pFtpThread;
+//    QSharedPointer<FtpTransThread> m_pFtpThread;
 protected slots:
     void on_hidePushButton_clicked();
 //    void doShartAction();

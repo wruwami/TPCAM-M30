@@ -174,8 +174,8 @@ EnforcementComponentWidget::EnforcementComponentWidget(QWidget *parent) :
 
     doEnforceMode(false);
 
-    m_pFtpThread.reset(new FtpTransThread);
-    QObject::connect(m_pFtpThread.data(), &FtpTransThread::finished, m_pFtpThread.data(), &QObject::deleteLater);
+//    m_pFtpThread.reset(new FtpTransThread);
+//    QObject::connect(m_pFtpThread.data(), &FtpTransThread::finished, m_pFtpThread.data(), &QObject::deleteLater);
 //    m_pFtpThread->start();
 //    m_pSerialLaserManager->show_laser_info();
 #if DEBUG_MODE
@@ -218,7 +218,7 @@ EnforcementComponentWidget::~EnforcementComponentWidget()
 
     doEnforceMode(false);
 
-    m_pFtpThread->requestInterruption();
+//    m_pFtpThread->requestInterruption();
 //    emit ShowRedOutLine(false);
 //    if (m_pCamera)
 //    {
@@ -330,24 +330,24 @@ void EnforcementComponentWidget::SaveImageVideo()
     case I:
     {
         m_pCamera->SaveImage(AI, enforceInfo, SNAPSHOT);
-        m_pFtpThread->PushFile(GETSDPATH(SNAPSHOT) + "/" + GetFileName(AI, enforceInfo));
+//        m_pFtpThread->PushFile(GETSDPATH(SNAPSHOT) + "/" + GetFileName(AI, enforceInfo));
 
     }
         break;
     case A:
     {
         m_pCamera->SaveImage(AI, enforceInfo, SNAPSHOT);
-        m_pFtpThread->PushFile(GETSDPATH(SNAPSHOT) + "/" + GetFileName(AI, enforceInfo));
+//        m_pFtpThread->PushFile(GETSDPATH(SNAPSHOT) + "/" + GetFileName(AI, enforceInfo));
 
         m_pCamera->SaveVideo(AV, enforceInfo, AUTO);
-        m_pFtpThread->PushFile(GETSDPATH(AUTO) + "/" + GetFileName(AV, enforceInfo));
+//        m_pFtpThread->PushFile(GETSDPATH(AUTO) + "/" + GetFileName(AV, enforceInfo));
 
     }
         break;
     case V:
     {
         m_pCamera->SaveVideo(VV, enforceInfo, VIDEO);
-        m_pFtpThread->PushFile(GETSDPATH(VIDEO) + "/" + GetFileName(VV, enforceInfo));
+//        m_pFtpThread->PushFile(GETSDPATH(VIDEO) + "/" + GetFileName(VV, enforceInfo));
     }
         break;
     }

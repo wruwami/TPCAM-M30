@@ -742,6 +742,9 @@ void FileManagerWidget::on_nextPushButton_clicked()
 
 void FileManagerWidget::on_tableWidget_cellClicked(int row, int column)
 {
+    if (m_avFileFormatList.size() == 0)
+        return;
+
     if (m_avFileFormatList.size() > (row + m_AVFileFormatIndex))
         m_currentAVFileFormat = m_avFileFormatList[row+ m_AVFileFormatIndex];
     else

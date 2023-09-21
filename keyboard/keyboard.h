@@ -5,7 +5,7 @@
 #include <QString>
 #include <QFile>
 enum InputMode { Undefined, Mouse, keyboard, Keypad, Keypad2, Mixed, DatePicker };
-
+enum Langauge { English, Arabic, Spanish, French, Korean, Portuguese};
 class KeyLayout;
 class Key;
 class Keyboard : public QStackedWidget {
@@ -16,6 +16,12 @@ public:
     ~Keyboard();
     // Key *findKeyFromString(const QString &name, const int &layout);
     KeyLayout *GetKeyLayout();
+    Langauge nLangauge() const;
+
+    void setNLangauge(Langauge newNLangauge);
+private:
+    QString LanguagePrefix();
+    Langauge LanguageCode();
 private:
     QWidget* m_parent;
     /*protected:
@@ -32,7 +38,7 @@ private slots:
 private:
     // Key *currentKey;
     // char currentindexkeyboard;
-
+    Langauge m_nLangauge;
     KeyLayout *_keylayout;
     InputMode _inputMode = Undefined;
 };

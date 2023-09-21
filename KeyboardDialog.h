@@ -7,6 +7,7 @@
 #include "hangul-1.0/hangul.h"
 #endif
 
+class Keyboard;
 class Key;
 namespace Ui {
 class KeyboardDialog;
@@ -33,6 +34,7 @@ private:
     QString m_str;
     char m_commit[32] = { '\0', };
     bool m_bFirst = true;
+    Keyboard *m_k;
 #ifdef Q_OS_LINUX
     HangulInputContext *m_hic = nullptr;
 #endif

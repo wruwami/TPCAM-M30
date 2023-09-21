@@ -115,9 +115,35 @@ KeyboardDialog::KeyboardDialog(QString lang, QWidget *parent) :
 
     }
 
+    m_k = new Keyboard(file, InputMode::keyboard, this);
+    if (lang == "english")
+    {
+        m_k->setNLangauge(English);
+    }
+    else if (lang == "korean")
+    {
+        m_k->setNLangauge(Korean);
+    }
+    else if (lang == "french")
+    {
+        m_k->setNLangauge(French);
+    }
+    else if(lang == "spanish")
+    {
+        m_k->setNLangauge(Spanish);
+    }
 
-    Keyboard *k = new Keyboard(file, InputMode::keyboard, this);
-    ui->verticalLayout->addWidget(k);
+    else if (lang == "portuguese")
+    {
+        m_k->setNLangauge(Portuguese);
+    }
+    else if (lang == "arabic")
+    {
+        m_k->setNLangauge(Portuguese);
+
+    }
+
+    ui->verticalLayout->addWidget(m_k);
 //    KeyLayout *kl = k->GetKeyLayout();
 //    k->setFocus();
 //    k->show();
@@ -179,8 +205,8 @@ KeyboardDialog::KeyboardDialog(QString str, QString lang, QWidget *parent) :
 
     }
 
-    Keyboard *k = new Keyboard(file, InputMode::keyboard, this);
-    ui->verticalLayout->addWidget(k);
+    m_k = new Keyboard(file, InputMode::keyboard, this);
+    ui->verticalLayout->addWidget(m_k);
 //    KeyLayout *kl = k->GetKeyLayout();
 //    k->setFocus();
 //    k->show();
@@ -202,6 +228,7 @@ KeyboardDialog::~KeyboardDialog()
         hangul_fini();
     }
 #endif
+    delete m_k;
 
     delete ui;
 }
@@ -235,7 +262,7 @@ void KeyboardDialog::onKeyPressed(const QString &iKey, Key *mKey)
     else if (iKey == "return")
     {
 #ifdef Q_OS_LINUX
-        if (GetLanguage() == "korean")
+        if (m_k->nLangauge() == Korean)
         {
             ui->lineEdit->insert(getPreeditString());
 //            1hangul_ic_get_preedit_string();
@@ -251,7 +278,7 @@ void KeyboardDialog::onKeyPressed(const QString &iKey, Key *mKey)
     else
     {
 #ifdef Q_OS_LINUX
-        if (GetLanguage() == "korean")
+        if (m_k->nLangauge() == Korean)
         {
             int ascii = HangulCovertEnglish(iKey[0]);
             int ret = hangul_ic_process(m_hic, ascii);

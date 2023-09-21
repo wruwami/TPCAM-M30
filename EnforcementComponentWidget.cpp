@@ -176,7 +176,7 @@ EnforcementComponentWidget::EnforcementComponentWidget(QWidget *parent) :
 
     m_pFtpThread.reset(new FtpTransThread);
     QObject::connect(m_pFtpThread.data(), &FtpTransThread::finished, m_pFtpThread.data(), &QObject::deleteLater);
-    m_pFtpThread->start();
+//    m_pFtpThread->start();
 //    m_pSerialLaserManager->show_laser_info();
 #if DEBUG_MODE
     SaveImageVideo();

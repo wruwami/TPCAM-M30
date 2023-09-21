@@ -161,6 +161,10 @@ FileManagerWidget::~FileManagerWidget()
 void FileManagerWidget::setTableContent()
 {
     int j = 0;
+
+    if (m_avFileFormatList.size() == 0)
+        return;
+
     for (int i = m_AVFileFormatIndex ; i < m_AVFileFormatIndex + 5 ; i++, j++)
     {
         if (i >= m_avFileFormatList.size())

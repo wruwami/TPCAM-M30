@@ -7,6 +7,7 @@
 	"BT(HP)"
     ],
     "printer selection": 2,
+    "gateway" : "192.168.0.1",
     "sta ftp id & p/w": "TP30000",
     "sta ssid": ["Comlaser"],
     "sta ssid selection" : 1,

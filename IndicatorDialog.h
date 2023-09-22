@@ -121,6 +121,8 @@ signals:
     void sig_EnforcementModeI();
     void sig_EnforcementModeV();
     void sig_EnforcementModeA();
+    void sig_Hide();
+    void sig_Show();
 protected:
     void timerEvent(QTimerEvent *event);
     void paintEvent(QPaintEvent *event);

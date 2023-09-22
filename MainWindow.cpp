@@ -589,7 +589,7 @@ void MainWindow::OpenEnforcement()
     connect(m_pIndicatorWidget, SIGNAL(sig_Night()), m_pEnforcementWidget->m_pEnforcementComponentWidget, SLOT(on_Night()));
     connect(m_pIndicatorWidget, SIGNAL(sig_STMode()), m_pEnforcementWidget->m_pEnforcementComponentWidget, SLOT(on_STMode()));
     connect(m_pIndicatorWidget, SIGNAL(sig_LTMode()), m_pEnforcementWidget->m_pEnforcementComponentWidget, SLOT(on_LTMode()));
-    connect(m_pIndicatorWidget, SIGNAL(sig_E`nforcementModeI()), m_pEnforcementWidget->m_pEnforcementComponentWidget, SLOT(on_EnforceModeI()));
+    connect(m_pIndicatorWidget, SIGNAL(sig_EnforcementModeI()), m_pEnforcementWidget->m_pEnforcementComponentWidget, SLOT(on_EnforceModeI()));
     connect(m_pIndicatorWidget, SIGNAL(sig_EnforcementModeA()), m_pEnforcementWidget->m_pEnforcementComponentWidget, SLOT(on_EnforceModeA()));
     connect(m_pIndicatorWidget, SIGNAL(sig_EnforcementModeV()), m_pEnforcementWidget->m_pEnforcementComponentWidget, SLOT(on_EnforceModeV()));
     connect(m_pEnforcementWidget->m_pEnforcementComponentWidget, SIGNAL(ShowRedOutLine(bool)), this, SLOT(on_ShowRedOutLine(bool)));
@@ -1315,6 +1315,7 @@ void MainWindow::on_camera_align_clicked()
 //    m_pMainMenuWidget->hide();
     delete m_pMainMenuWidget;
     m_pMainMenuWidget = nullptr;
+    m_pIndicatorWidget->SetMainMenu(nullptr);
     ui->verticalLayout->removeItem(ui->verticalLayout->itemAt(0));
     delete m_pMainMenuAdminAlignWidget;
     m_pMainMenuAdminAlignWidget = nullptr;
@@ -1399,6 +1400,7 @@ void MainWindow::on_mainMenuHomeClicked()
     if (m_widgetType == CameraAlign)
     {
         m_pMainMenuWidget = new MainMenuWidget;
+        m_pIndicatorWidget->SetMainMenu(m_pMainMenuWidget);
         ui->verticalLayout->addWidget(m_pMainMenuWidget, 125);
         m_p100msTimer->start(100);
         m_p500msTimer->start(500);

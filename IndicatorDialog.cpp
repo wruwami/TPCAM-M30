@@ -812,12 +812,14 @@ void IndicatorDialog::timerEvent(QTimerEvent *event)
     if (SerialGPSManager::GetInstance()->GetSatellitesInView() >= 3)
     {
         ui->gpsPushButton->setImage("indicator", "indicator_gps_on.jpg");
-        m_pMainMenuWidget->setIndicatorImage(m_pMainMenuWidget->m_pGpsPushbutton, "indicator", "indicator_gps_on.jpg");
+        if (m_pMainMenuWidget)
+            m_pMainMenuWidget->setIndicatorImage(m_pMainMenuWidget->m_pGpsPushbutton, "indicator", "indicator_gps_on.jpg");
     }
     else
     {
         ui->gpsPushButton->setImage("indicator", "indicator_gps_off.jpg");
-        m_pMainMenuWidget->setIndicatorImage(m_pMainMenuWidget->m_pGpsPushbutton, "indicator", "indicator_gps_off.jpg");
+        if (m_pMainMenuWidget)
+            m_pMainMenuWidget->setIndicatorImage(m_pMainMenuWidget->m_pGpsPushbutton, "indicator", "indicator_gps_off.jpg");
 
     }
 }

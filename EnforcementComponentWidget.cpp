@@ -849,8 +849,8 @@ void EnforcementComponentWidget::zoomRange()
     if (m_UserModeOn)
     {
         m_nZoomIndex++;
-        if (m_nZoomIndex >= m_stmetervector.size())
-            m_nZoomIndex = 0;
+        if (m_nZoomIndex > m_stmetervector.size())
+            m_nZoomIndex = m_stmetervector.size() - 1;
 
 //        zoom_index = m_nZoomIndex;
         if (distance() == meter)
@@ -865,8 +865,8 @@ void EnforcementComponentWidget::zoomRange()
     else
     {
         m_nZoomIndex++;
-        if (m_nZoomIndex >= m_ltmetervector.size())
-            m_nZoomIndex = 0;
+        if (m_nZoomIndex > m_ltmetervector.size())
+            m_nZoomIndex = m_ltmetervector.size() - 1;
 
 //        zoom_index = m_nZoomIndex;
         if (distance() == meter)

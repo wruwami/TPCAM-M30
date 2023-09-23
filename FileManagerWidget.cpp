@@ -686,9 +686,7 @@ void FileManagerWidget::on_firstPushButton_clicked()
     if (m_avFileFormatList.size() ==  0)
         return;
 
-    if (m_AVFileFormatIndex - 50 >= 0)
-        m_AVFileFormatIndex -= 50;
-
+    m_AVFileFormatIndex = 0;
     setTableContent();
 }
 
@@ -721,9 +719,7 @@ void FileManagerWidget::on_nextPushButton_clicked()
     if (m_avFileFormatList.size() ==  0)
         return;
 
-
-    if (m_avFileFormatList.size() >= m_AVFileFormatIndex + 50)
-        m_AVFileFormatIndex += 50;
+    m_AVFileFormatIndex = m_avFileFormatList.size() - 5 + (m_avFileFormatList.size() % 5) + 1;
     setTableContent();
 }
 

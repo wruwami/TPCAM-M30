@@ -358,17 +358,23 @@ void IndicatorDialog::on_cameraExposeClicked()
 {
     this->hide();
 
+    emit sig_Hide();
+
     IndicatorCameraExposeWidget indicatorCameraExposeWidget;
 //    m_pIndicatorCameraExposeWidget->lower();
     indicatorCameraExposeWidget.exec();
+
+    emit sig_Show();
 }
 
 void IndicatorDialog::on_cameraFocusClicked()
 {
     this->hide();
 
+    emit sig_Hide();
     IndicatorCameraFocusWidget indicatorCameraFocusWidget;
     indicatorCameraFocusWidget.exec();
+    emit sig_Show();
 }
 
 void IndicatorDialog::paintEvent(QPaintEvent *event)

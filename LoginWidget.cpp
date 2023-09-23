@@ -84,15 +84,15 @@ LoginWidget::~LoginWidget()
     delete ui;
 }
 
-bool LoginWidget::CheckComboxBoxItem(QString str)
+int LoginWidget::CheckComboxBoxItem(QString str)
 {
     for (int i = 0 ; i < ui->userNameComboBox->count() ; i++)
     {
         if ( str  == ui->userNameComboBox->itemText(i))
-            return false;
+            return i;
     }
 
-    return true;
+    return -1;
 //    foreach(auto item, ui->userNameComboBox)
 //    {
 
@@ -208,12 +208,18 @@ void LoginWidget::on_userNamePushButton_clicked()
     {
 //        if (ui->userNameComboBox->item)
         m_StrKeyboard = keyboardDialog.str();
-
-        if (CheckComboxBoxItem(m_StrKeyboard))
+        int index;
+        if ((index = CheckComboxBoxItem(m_StrKeyboard)) == -1)
         {
             ui->userNameComboBox->removeItem(4);
             ui->userNameComboBox->insertItem(0, keyboardDialog.str());
         }
+        else
+        {
+            ui->userNameComboBox->removeItem(index);
+            ui->userNameComboBox->insertItem(0, keyboardDialog.str());
+        }
+
 
 //        ItemBackPush(keyboardDialog.str());
 //        m_queue.removeAt(ui->userNameComboBox->currentIndex());

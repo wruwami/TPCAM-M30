@@ -120,9 +120,15 @@ void Setting1Widget::on_locationPushButton_clicked()
     KeyboardDialog keyboardDialog(GetLanguage());
     if (keyboardDialog.exec() == QDialog::Accepted)
     {
-        if (CheckComboxBoxItem(keyboardDialog.str()))
+        int index = -1;
+        if ((index = CheckComboxBoxItem(keyboardDialog.str())) == -1)
         {
             ui->locationComboBox->removeItem(4);
+            ui->locationComboBox->insertItem(0, keyboardDialog.str());
+        }
+        else
+        {
+            ui->locationComboBox->removeItem(index);
             ui->locationComboBox->insertItem(0, keyboardDialog.str());
         }
     }
@@ -222,16 +228,16 @@ void Setting1Widget::on_speedModeComboBox_currentIndexChanged(int index)
     m_newJsonObject["speed selection"] = index + 1;
 }
 
-bool Setting1Widget::CheckComboxBoxItem(QString str)
+int Setting1Widget::CheckComboxBoxItem(QString str)
 {
     for (int i = 0 ; i < ui->locationComboBox->count() ; i++)
     {
         qDebug() << ui->locationComboBox->itemText(i);
         if ( str  == ui->locationComboBox->itemText(i))
-            return false;
+            return i;
     }
 
-    return true;
+    return -1;
 //    foreach(auto item, ui->userNameComboBox)
 //    {
 

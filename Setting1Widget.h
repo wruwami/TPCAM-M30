@@ -19,7 +19,7 @@ public:
     ~Setting1Widget();
     void SaveConfig();
 private:
-    bool CheckComboxBoxItem(QString str);
+    int CheckComboxBoxItem(QString str);
 private slots:
     void on_locationPushButton_clicked();
 

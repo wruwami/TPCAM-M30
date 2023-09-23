@@ -25,7 +25,7 @@ private:
 //    void ItemBackPush(QString);
 //    void ItemFrontPush(QString);
 //    QString m_userName;
-    bool CheckComboxBoxItem(QString);
+    int CheckComboxBoxItem(QString);
 private slots:
     void on_loginPushButton_clicked();
     void on_dateTimePushButton_clicked();

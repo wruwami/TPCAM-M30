@@ -8,6 +8,7 @@
 #include <QPainter>
 #include <QDateTime>
 #include "qdir.h"
+#include <QWindow>
 
 #include "BaseDialog.h"
 #include "Color.h"
@@ -557,12 +558,14 @@ void IndicatorDialog::on_screenRecordingPushButton_clicked()
         strCommand = QString("ffmpeg -hwaccel opencl -y -f x11grab -framerate 10 -video_size %1 -i :0.0+0,0 -c:v libx264 -pix_fmt yuv420p -qp 0 -preset ultrafast %2 &").arg(resolution).arg(file_name);
         std::thread thread_command(thread_CommandExcute2, strCommand);
         thread_command.detach();
+        ui->screenRecordingPushButton->setImage("indicator", "screen_recording.jpg");
 
 //        system(strCommand.toStdString().c_str());
     }
     else
     {
         system("ps -ef | grep ffmpeg | awk '{print $2}' | xargs kill -9");
+        ui->screenRecordingPushButton->setImage("indicator", "screen recording_off.jpg");
     }
 }
 
@@ -570,9 +573,8 @@ void IndicatorDialog::on_screenCapturePushButton_clicked()
 {
     accept();
 
-    QPixmap pixmap = QPixmap::grabWindow(this->winId());
-    QString filename = GetSubPath("/screen", SD) + "/" + GetFileName(SC);
-    pixmap.save(filename, 0, 100);
+    emit sig_screenShot();
+
 }
 
 void IndicatorDialog::doCheckNetwork()

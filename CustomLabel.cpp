@@ -8,6 +8,7 @@
 
 #include "FontSize.h"
 #include "WidgetSize.h"
+#include "FileManager.h"
 
 CustomLabel::CustomLabel(QWidget *parent) : QLabel(parent)
 {
@@ -46,7 +47,7 @@ void CustomLabel::setImage(QString path_name, QString file_name)
 {
     QDir qdir;
     QString file_full_path;
-    file_full_path = qdir.absolutePath() + "/" + DEFAULT_PATH + "/" + path_name + "/" + file_name;
+    file_full_path = GeteMMCPath() + "/" + DEFAULT_PATH + "/" + path_name + "/" + file_name;
 
 
     m_pixmap.load(file_full_path);
@@ -60,7 +61,7 @@ void CustomLabel::setImage(QString path_name, QString file_name, QSize size)
 {
     QDir qdir;
     QString file_full_path;
-    file_full_path = qdir.absolutePath() + "/" + DEFAULT_PATH + "/" + path_name + "/" + file_name;
+    file_full_path = GeteMMCPath() + "/" + DEFAULT_PATH + "/" + path_name + "/" + file_name;
 
     m_fitpixmap = m_pixmap;
     m_pixmap.load(file_full_path);

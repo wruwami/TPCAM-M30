@@ -6,6 +6,7 @@
 #define DEFAULT_PATH    "images"
 
 #include "FontSize.h"
+#include "FileManager.h"
 
 CustomZoomLabel::CustomZoomLabel(QWidget *parent) : QLabel(parent)
 {
@@ -52,7 +53,7 @@ void CustomZoomLabel::setImage(QString path_name, QString file_name)
 {
     QDir qdir;
     QString file_full_path;
-    file_full_path = qdir.absolutePath() + "/" + DEFAULT_PATH + "/" + path_name + "/" + file_name;
+    file_full_path = GeteMMCPath() + "/" + DEFAULT_PATH + "/" + path_name + "/" + file_name;
 
 
     m_pixmap.load(file_full_path);
@@ -65,7 +66,7 @@ void CustomZoomLabel::setImage(QString path_name, QString file_name, QSize size)
 {
     QDir qdir;
     QString file_full_path;
-    file_full_path = qdir.absolutePath() + "/" + DEFAULT_PATH + "/" + path_name + "/" + file_name;
+    file_full_path = GeteMMCPath() + "/" + DEFAULT_PATH + "/" + path_name + "/" + file_name;
 
 
     m_pixmap.load(file_full_path);

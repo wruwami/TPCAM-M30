@@ -15,6 +15,7 @@
 
 #include "HomeButtonWidget.h"
 #include "SerialGPSManager.h"
+#include "FileManager.h"
 
 MainMenuWidget::MainMenuWidget(QWidget *parent) :
     QWidget(parent),
@@ -145,27 +146,27 @@ void MainMenuWidget::setBatteryPercentValue(int percent)
 
     if (percent == 0)
     {
-        file_full_path = qdir.absolutePath() + "/" + "images" + "/" + "indicator" + "/" + "indicator_battery0.bmp";
+        file_full_path = GeteMMCPath() + "/" + "images" + "/" + "indicator" + "/" + "indicator_battery0.bmp";
     }
     else if (percent < 20 && percent > 0)
     {
-        file_full_path = qdir.absolutePath() + "/" + "images" + "/" + "indicator" + "/" + "indicator_battery1.bmp";
+        file_full_path = GeteMMCPath() + "/" + "images" + "/" + "indicator" + "/" + "indicator_battery1.bmp";
     }
     else if (percent < 40 && percent >= 20)
     {
-        file_full_path = qdir.absolutePath() + "/" + "images" + "/" + "indicator" + "/" + "indicator_battery2.bmp";
+        file_full_path = GeteMMCPath() + "/" + "images" + "/" + "indicator" + "/" + "indicator_battery2.bmp";
     }
     else if (percent < 60 && percent >= 40)
     {
-        file_full_path = qdir.absolutePath() + "/" + "images" + "/" + "indicator" + "/" + "indicator_battery3.bmp";
+        file_full_path = GeteMMCPath() + "/" + "images" + "/" + "indicator" + "/" + "indicator_battery3.bmp";
     }
     else if (percent < 80 && percent >= 60)
     {
-        file_full_path = qdir.absolutePath() + "/" + "images" + "/" + "indicator" + "/" + "indicator_battery4.bmp";
+        file_full_path = GeteMMCPath() + "/" + "images" + "/" + "indicator" + "/" + "indicator_battery4.bmp";
     }
     else if (percent >= 80)
     {
-        file_full_path = qdir.absolutePath() + "/" + "images" + "/" + "indicator" + "/" + "indicator_battery5.bmp";
+        file_full_path = GeteMMCPath() + "/" + "images" + "/" + "indicator" + "/" + "indicator_battery5.bmp";
     }
 
     QPixmap pixmap;

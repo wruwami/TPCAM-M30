@@ -69,7 +69,8 @@ void Setting5Widget::setDHCPMode()
     ui->gridLayout->addItem(new QSpacerItem(ui->gatewayLineEdit->size().width(), ui->gatewayLineEdit->size().height(), QSizePolicy::Expanding, QSizePolicy::Expanding), 6, 1);
     ui->gridLayout->addItem(new QSpacerItem(ui->dnsServerLineEdit->size().width(), ui->dnsServerLineEdit->size().height(), QSizePolicy::Expanding, QSizePolicy::Expanding), 7, 1);
 
-    ui->ipLineEdit->setText(m_jsonObject["mac address"].toString());
+    m_newJsonObject["mac address"] = networkManager.getHardwareAddress(networkManager.getLanAdapterName());
+//    ui->ipLineEdit->setText(m_jsonObject["mac address"].toString());
 }
 
 void Setting5Widget::setManualMode()

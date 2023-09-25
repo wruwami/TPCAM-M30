@@ -106,8 +106,11 @@ QString NetworkManager::getHardwareAddress(QString deviceName)
     foreach(QNetworkInterface netInterface, QNetworkInterface::allInterfaces())
     {
         if (!(netInterface.flags() & QNetworkInterface::IsLoopBack))
+        {
+//            qDebug() << netInterface.hardwareAddress();
             if (netInterface.name() == deviceName)
                 return netInterface.hardwareAddress();
+        }
     }
     return QString();
 }

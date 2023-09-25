@@ -242,7 +242,7 @@ void FileManagerWidget::on_deletePushButton_clicked()
         BaseDialog baseDialog(Dialog::AdminPWWidgetType, Qt::AlignmentFlag::AlignLeft, "");
         if (baseDialog.exec() == QDialog::Accepted)
         {
-            QDirIterator iterDir(GetSDPath(), QDir::Files | QDir::NoSymLinks, QDirIterator::Subdirectories);
+            QDirIterator iterDir(GetSDPath(), QDir::Files | QDir::NoDotAndDotDot, QDirIterator::Subdirectories);
             while (iterDir.hasNext())
             {
                 iterDir.next();
@@ -250,7 +250,7 @@ void FileManagerWidget::on_deletePushButton_clicked()
                 QFile file(iterDir.filePath());
                 file.remove();
             }
-            ui->tableWidget->clear();
+
             //        ui->listWidget->addItem(iterDir.fileName());
         }
         //            foreach(auto avFormat, m_avFileFormatList)
@@ -259,7 +259,9 @@ void FileManagerWidget::on_deletePushButton_clicked()
         //                file.remove();
         //                ui->tableWidget->clear();
         //            }
+        ui->tableWidget->clear();
     }
+
 }
 
 

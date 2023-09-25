@@ -2,6 +2,7 @@
 #include <QMouseEvent>
 #include <QDebug>
 
+
 #include "keylayout.h"
 #include "keyboard.h"
 #include "../KeyboardDialog.h"
@@ -70,9 +71,20 @@ void Keyboard::onKeyPressed(const QString &iKey, Key* mKey)
                 if (m_nLangauge == English)
                 {
                     m_nLangauge = LanguageCode();
+                    if (GetLanguage() == "korean")
+                    {
+                        hangul_ic_reset(m_hic);
+                        m_bFirst = true;
+                    }
                 }
                 else
                 {
+                    if (GetLanguage() == "korean")
+                    {
+                        hangul_ic_reset(m_hic);
+                        m_bFirst = true;
+                    }
+
 //                    mLayoutName.insert(0, "en");
                     m_nLangauge = English;
                 }
@@ -150,6 +162,21 @@ Langauge Keyboard::LanguageCode()
     else if (GetLanguage() == "portuguese")
         return Portuguese;
 
+}
+
+bool Keyboard::bFirst() const
+{
+    return m_bFirst;
+}
+
+void Keyboard::setBFirst(bool newBFirst)
+{
+    m_bFirst = newBFirst;
+}
+
+void Keyboard::setHic(HangulInputContext *newHic)
+{
+    m_hic = newHic;
 }
 
 Langauge Keyboard::nLangauge() const

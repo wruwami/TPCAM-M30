@@ -123,6 +123,7 @@ KeyboardDialog::KeyboardDialog(QString lang, QWidget *parent) :
     else if (lang == "korean")
     {
         m_k->setNLangauge(Korean);
+        m_k->setHic(m_hic);
     }
     else if (lang == "french")
     {
@@ -206,6 +207,34 @@ KeyboardDialog::KeyboardDialog(QString str, QString lang, QWidget *parent) :
     }
 
     m_k = new Keyboard(file, InputMode::keyboard, this);
+    if (lang == "english")
+    {
+        m_k->setNLangauge(English);
+    }
+    else if (lang == "korean")
+    {
+        m_k->setNLangauge(Korean);
+        m_k->setHic(m_hic);
+    }
+    else if (lang == "french")
+    {
+        m_k->setNLangauge(French);
+    }
+    else if(lang == "spanish")
+    {
+        m_k->setNLangauge(Spanish);
+    }
+
+    else if (lang == "portuguese")
+    {
+        m_k->setNLangauge(Portuguese);
+    }
+    else if (lang == "arabic")
+    {
+        m_k->setNLangauge(Portuguese);
+
+    }
+
     ui->verticalLayout->addWidget(m_k);
 //    KeyLayout *kl = k->GetKeyLayout();
 //    k->setFocus();
@@ -274,6 +303,12 @@ void KeyboardDialog::onKeyPressed(const QString &iKey, Key *mKey)
     else if (iKey == "back")
     {
         ui->lineEdit->backspace();
+        if (GetLanguage() == "korean")
+        {
+            hangul_ic_reset(m_hic);
+            m_k->setBFirst(true);
+        }
+
     }
     else
     {
@@ -289,14 +324,14 @@ void KeyboardDialog::onKeyPressed(const QString &iKey, Key *mKey)
 //                ui->lineEdit->text();`
                 ui->lineEdit->insert(commit);
                 bCommit = true;
-                qDebug() << "commit" <<commit;
+//                qDebug() << "commit" <<commit;
             }
 
-            if (!bCommit && !m_bFirst){
+            if (!bCommit && !m_k->bFirst()){
                 ui->lineEdit->backspace();
 
             }
-            m_bFirst = false;
+            m_k->setBFirst(false);
 //            if (m_bFirst == true)
 //            {
 //                m_bFirst = false;
@@ -309,7 +344,7 @@ void KeyboardDialog::onKeyPressed(const QString &iKey, Key *mKey)
 
 //            preedit = hangul_ic_get_preedit_string(m_hic);
             ui->lineEdit->insert(preedit);
-            qDebug() << "preedit" << preedit;
+//            qDebug() << "preedit" << preedit;
 
 //            const ucschar preedit;
         }
@@ -383,6 +418,8 @@ char KeyboardDialog::HangulCovertEnglish(QString str)
         return 'E';
     else if (str == "ㄲ")
         return 'R';
+    else if (str == "ㅆ")
+        return 'T';
     else if (str == "ㅁ")
         return 'a';
     else if (str == "ㄴ")
@@ -449,5 +486,11 @@ void KeyboardDialog::on_cancelPushButton_clicked()
 
 void KeyboardDialog::on_deleteAllPushButton_clicked()
 {
+    if (GetLanguage() == "korean")
+    {
+        hangul_ic_reset(m_hic);
+        m_k->setBFirst(true);
+    }
+
     ui->lineEdit->clear();
 }

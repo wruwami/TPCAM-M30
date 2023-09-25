@@ -342,7 +342,11 @@ void FileManagerWidget::initTable()
         }
         std::sort(m_avFileFormatList.begin(), m_avFileFormatList.end(), TimeLessThan);
 
-        m_AVFileFormatIndex = m_avFileFormatList.size() - 5 + (m_avFileFormatList.size() % 5) - 1;
+        if ((m_avFileFormatList.size() % 5) != 0)
+            m_AVFileFormatIndex = m_avFileFormatList.size() - (m_avFileFormatList.size() % 5);
+        else
+            m_AVFileFormatIndex = m_avFileFormatList.size() - 5;
+
     setTableContent();
 
     emit ui->tableWidget->cellClicked(m_avFileFormatList.size() % 5 - 1, 0);
@@ -709,10 +713,10 @@ void FileManagerWidget::on_nextPushButton_clicked()
     if (m_avFileFormatList.size() ==  0)
         return;
 
-//    if ((m_avFileFormatList.size() % 5) != 0)
-    m_AVFileFormatIndex = m_avFileFormatList.size() - 5 + (m_avFileFormatList.size() % 5) + 1;
-//    else
-//        m_AVFileFormatIndex = m_avFileFormatList.size() - 5 - 1;
+    if ((m_avFileFormatList.size() % 5) != 0)
+        m_AVFileFormatIndex = m_avFileFormatList.size() - (m_avFileFormatList.size() % 5);
+    else
+        m_AVFileFormatIndex = m_avFileFormatList.size() - 5;
     setTableContent();
 }
 

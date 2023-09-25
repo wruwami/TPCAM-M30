@@ -305,7 +305,7 @@ QString FileManager::GetSDPath()
 //    return dir.absolutePath();
 //    StorageManager storageManager;
 //    return storageManager.GetSDCARDPath();
-    return "/home/wruwami/sdcard";
+    return "/home/firefly/sdcard";
 }
 
 QString FileManager::GetUSBPath()

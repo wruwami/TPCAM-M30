@@ -141,8 +141,8 @@ MainWindow::MainWindow(screensaver* screensaver, QWidget *parent) :
     ui->widget_2->setSizePolicy(sp_retain);
 
     QObject::connect((QWidget*)m_pIndicatorWidget, SIGNAL(sig_screenShot()), this, SLOT(on_screenShot()));
-    QObject::connect((QWidget*)m_pIndicatorWidget, SIGNAL(sig_Show()), (QWidget*)m_pEnforcementWidget->m_pEnforcementComponentWidget, SLOT(on_Show()));
-    QObject::connect((QWidget*)m_pIndicatorWidget, SIGNAL(sig_Hide()), (QWidget*)m_pEnforcementWidget->m_pEnforcementComponentWidget, SLOT(on_Hide()));
+//    QObject::connect((QWidget*)m_pIndicatorWidget, SIGNAL(sig_Show()), (QWidget*)m_pEnforcementWidget->m_pEnforcementComponentWidget, SLOT(on_Show()));
+//    QObject::connect((QWidget*)m_pIndicatorWidget, SIGNAL(sig_Hide()), (QWidget*)m_pEnforcementWidget->m_pEnforcementComponentWidget, SLOT(on_Hide()));
     QObject::connect((QWidget*)m_pDateTimeWidget->m_pGPSCheckBox, SIGNAL(stateChanged()), this, SLOT(on_datetimeChecked()));
     QObject::connect((QWidget*)m_pLoginWidget->m_loginPushButton, SIGNAL(clicked()), this, SLOT(on_loginWidgetClicked()));
     QObject::connect((QWidget*)m_pLoginWidget->m_dateTimePushButton, SIGNAL(clicked()), this, SLOT(on_dateTimeWidgetClicked()));

@@ -22,9 +22,9 @@ NetworkManager::NetworkManager()
     ConfigManager eth_config = ConfigManager("parameter_setting5.json");
     m_eth_jsonObject = eth_config.GetConfig();
 
-    bool bEnableWifi = false;
-    if (ConfigManager("parameter_setting5.json").GetConfig()["wifi select"].toInt() == 1)
-        bEnableWifi = true;
+//    bool bEnableWifi = false;
+//    if (ConfigManager("parameter_setting5.json").GetConfig()["wifi select"].toInt() == 1)
+//        bEnableWifi = true;
 
     m_strNetPlan = "network: \n\
     version: 2 \n\
@@ -32,8 +32,8 @@ NetworkManager::NetworkManager()
 
     SetEtherNet();
 
-    if (bEnableWifi)
-    {
+//    if (bEnableWifi)
+//    {
         if(m_wifi_jsonObject["wifi_mode"].toString() == "STA")
         {
             SetWifiStaMode();
@@ -42,7 +42,7 @@ NetworkManager::NetworkManager()
         {
             SetWifiAPMode();
         }
-    }
+//    }
 }
 
 NetworkManager::NetworkManager(QString ssid, QString pw)

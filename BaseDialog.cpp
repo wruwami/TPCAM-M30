@@ -240,26 +240,26 @@ BaseDialog::BaseDialog(Dialog dialog, Status isCamera, Status isLaser, Status is
     //    if (isClosebutton)
 }
 
-BaseDialog::BaseDialog(Dialog dialog, Qt::Alignment align, QWidget *pWidget, QWidget *parent) :
-    QDialog(parent),
-    ui(new Ui::BaseDialog)
-{
-    ui->setupUi(this);
+//BaseDialog::BaseDialog(Dialog dialog, Qt::Alignment align, QWidget *pWidget, QWidget *parent) :
+//    QDialog(parent),
+//    ui(new Ui::BaseDialog)
+//{
+//    ui->setupUi(this);
 
-    this->setWindowFlags( Qt::Dialog | Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint);
-//    this->setWindowFlags(Qt::CustomizeWindowHint);
-//    this->setStyleSheet("{border-width: 5px; border-style: solid; border-color: black; background-color : #d9d9d9;}");
-//    this->setAttribute(Qt::WA_StyledBackground);
+//    this->setWindowFlags( Qt::Dialog | Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint);
+////    this->setWindowFlags(Qt::CustomizeWindowHint);
+////    this->setStyleSheet("{border-width: 5px; border-style: solid; border-color: black; background-color : #d9d9d9;}");
+////    this->setAttribute(Qt::WA_StyledBackground);
 
-    ui->closePushButton->hide();
+//    ui->closePushButton->hide();
 
-    align |= Qt::AlignVCenter;
+//    align |= Qt::AlignVCenter;
 
-    switch (dialog)
-    {
+//    switch (dialog)
+//    {
 
-    }
-}
+//    }
+//}
 
 BaseDialog::~BaseDialog()
 {

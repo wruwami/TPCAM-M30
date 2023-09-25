@@ -50,26 +50,23 @@ IndicatorCameraExposeWidget::IndicatorCameraExposeWidget(QWidget *parent) :
 //        QJsonValue item = object.value(key);
 //        m_gainList[key] = item.toString();
 //    }
-    std::map<std::string, int> gainMap;
-    std::map<std::string, int> irisMap;
-    std::map<std::string, int> shutterSpeedMap;
 
     foreach (auto item, object.keys())
     {
         bool ok;
-        gainMap[item.toStdString()] = object.value(item).toString().toInt(&ok, 16);
+        m_gainMap[item.toStdString()] = object.value(item).toString().toStdString();
     }
 
-    std::vector<std::pair<std::string, int>> vec;
-    sort(gainMap, vec);
+    std::vector<std::pair<std::string, std::string>> vec;
+    sort(m_gainMap, vec);
     for (auto& it : vec)
     {
         std::string key = it.first;
-        int value = it.second;
+        std::string value = it.second;
 
-        QString number;
-        number.sprintf("%02X", value);
-        ui->gainComboBox->addItem(QString::fromStdString(key), number);
+//        QString number;
+//        number.sprintf("%02X", value);
+        ui->gainComboBox->addItem(QString::fromStdString(key), QString::fromStdString(value));
     }
 
 
@@ -79,18 +76,16 @@ IndicatorCameraExposeWidget::IndicatorCameraExposeWidget(QWidget *parent) :
     foreach (auto item, object.keys())
     {
         bool ok;
-        irisMap[item.toStdString()] = object.value(item).toString().toInt(&ok, 16);
+        m_irisMap[item.toStdString()] = object.value(item).toString().toStdString();
     }
     vec.clear();
-    sort(irisMap, vec);
+    sort(m_irisMap, vec);
     for (auto& it : vec)
     {
         std::string key = it.first;
-        int value = it.second;
+        std::string value = it.second;
 
-        QString number;
-        number.sprintf("%02X", value);
-        ui->irisComboBox->addItem(QString::fromStdString(key), number);
+        ui->irisComboBox->addItem(QString::fromStdString(key), QString::fromStdString(value));
     }
 //    foreach (auto item, object.keys())
 //    {
@@ -103,10 +98,10 @@ IndicatorCameraExposeWidget::IndicatorCameraExposeWidget(QWidget *parent) :
     foreach (auto item, object.keys())
     {
         bool ok;
-        shutterSpeedMap[item.toStdString()] = object.value(item).toString().toInt(&ok, 16);
+        m_shutterSpeedMap[item.toStdString()] = object.value(item).toString().toStdString();
     }
     vec.clear();
-    sort(shutterSpeedMap, vec);
+    sort(m_shutterSpeedMap, vec);
 //    foreach (auto item, object.keys())
 //    {
 //        ui->shutterSpeedComboBox->addItem(item, object.value(item));
@@ -114,11 +109,9 @@ IndicatorCameraExposeWidget::IndicatorCameraExposeWidget(QWidget *parent) :
     for (auto& it : vec)
     {
         std::string key = it.first;
-        int value = it.second;
+        std::string value = it.second;
 
-        QString number;
-        number.sprintf("%02X", value);
-        ui->shutterSpeedComboBox->addItem(QString::fromStdString(key), number);
+        ui->shutterSpeedComboBox->addItem(QString::fromStdString(key), QString::fromStdString(value));
     }
 
     for (int i = 0 ; i < 5 ; i++)
@@ -127,9 +120,11 @@ IndicatorCameraExposeWidget::IndicatorCameraExposeWidget(QWidget *parent) :
         ui->dnrComboBox->addItem(item.c_str());
     }
 
-    ui->gainComboBox->setCurrentIndex(ui->gainComboBox->count() - 1);
-    ui->irisComboBox->setCurrentIndex(ui->irisComboBox->count() - 1);
-    ui->shutterSpeedComboBox->setCurrentIndex(ui->shutterSpeedComboBox->count() - 1);
+//    ui->gainComboBox->setCurrentIndex(ui->gainComboBox->count() - 1);
+//    ui->irisComboBox->setCurrentIndex(ui->irisComboBox->count() - 1);
+//    ui->shutterSpeedComboBox->setCurrentIndex(ui->shutterSpeedComboBox->count() - 1);
+
+    ui->daynNightComboBox->setCurrentIndex(0);
 }
 
 IndicatorCameraExposeWidget::~IndicatorCameraExposeWidget()
@@ -264,46 +259,61 @@ void IndicatorCameraExposeWidget::on_daynNightComboBox_currentIndexChanged(int i
         break;
     }
 
+    m_serialViscaManager->set_AE_Mode("03");
+    int i = 0;
+    for (auto it = m_gainMap.begin(); it != m_gainMap.end(); ++it, i++)
+        if (it->second == ret["Gain"].toString().toStdString())
+            ui->gainComboBox->setCurrentIndex(i);
+
+    i = 0;
+    for (auto it = m_irisMap.begin(); it != m_irisMap.end(); ++it, i++)
+        if (it->second == ret["Iris"].toString().toStdString())
+            ui->irisComboBox->setCurrentIndex(i);
+
+    i = 0;
+    for (auto it = m_shutterSpeedMap.begin(); it != m_shutterSpeedMap.end(); ++it, i++)
+        if (it->second == ret["Shutter"].toString().toStdString())
+            ui->shutterSpeedComboBox->setCurrentIndex(i);
+//    m_serialViscaManager->set_iris(ret["Iris"].toInt());
+//    m_serialViscaManager->set_shutter_speed(ret["Shutter"].toInt());
+//    m_serialViscaManager->set_gain(ret["Gain"].toInt());
     m_serialViscaManager->set_AE_Mode(ret["Priority"].toString());
-    m_serialViscaManager->set_iris(ret["Iris"].toInt());
-    m_serialViscaManager->set_shutter_speed(ret["Shutter"].toInt());
-    m_serialViscaManager->set_gain(ret["Gain"].toInt());
     m_serialViscaManager->set_noise_reduction_on(ret["DNR"].toString());
     if (ret["DIS"].toBool())
     {
         m_serialViscaManager->set_DIS_on();
         m_bDIS = true;
-        ui->disOffPushButton->setText(LoadString("IDS_DIS_ON"));
+        ui->disOffPushButton->setText(LoadString("IDS_DIS_OFF"));
     }
     else
     {
         m_serialViscaManager->set_DIS_off();
         m_bDIS = false;
-        ui->disOffPushButton->setText(LoadString("IDS_DIS_OFF"));
+        ui->disOffPushButton->setText(LoadString("IDS_DIS_ON"));
     }
     if (ret["DEFOG"].toBool())
     {
         m_serialViscaManager->set_defog_on();
         m_bDEFOG = true;
-        ui->disOffPushButton->setText(LoadString("IDS_DEFOG_ON"));
+        ui->disOffPushButton->setText(LoadString("IDS_DEFOG_OFF"));
     }
     else
     {
         m_serialViscaManager->set_defog_off();
         m_bDEFOG = false;
-        ui->disOffPushButton->setText(LoadString("IDS_DEFOG_OFF"));
+        ui->disOffPushButton->setText(LoadString("IDS_DEFOG_ON"));
     }
     if(ret["HLC"].toBool())
     {
        m_serialViscaManager->set_HLC_on();
        m_bHLC = true;
-       ui->hlcOnPushButton->setText(LoadString("IDS_HLC_ON"));
+       ui->hlcOnPushButton->setText(LoadString("IDS_HLC_OFF"));
     }
     else
     {
         m_serialViscaManager->set_HLC_off();
         m_bHLC = false;
-        ui->hlcOnPushButton->setText(LoadString("IDS_HLC_OFF"));
+        ui->hlcOnPushButton->setText(LoadString("IDS_HLC_ON"));
     }
 
 //    set_AE_shutter_priority();

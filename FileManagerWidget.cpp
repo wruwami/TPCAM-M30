@@ -439,6 +439,7 @@ void FileManagerWidget::on_searchPushButton_clicked()
             }
         }
         m_avFileFormatList = avFileFormatList;
+        m_AVFileFormatIndex = 0;
         setTableContent();
     }
     else
@@ -703,7 +704,7 @@ void FileManagerWidget::on_nextPushButton_clicked()
         return;
 
 
-    if (m_avFileFormatList.size() >= m_AVFileFormatIndex + 5)
+    if (m_avFileFormatList.size() > m_AVFileFormatIndex + 5)
         m_AVFileFormatIndex += 5;
     setTableContent();
 }

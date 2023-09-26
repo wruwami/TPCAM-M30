@@ -592,21 +592,54 @@ void IndicatorDialog::doCheckNetwork()
 {
     NetworkManager networkManager;
 
+    if (m_nEthernetState == Active || m_nEthernetState == NotConnected)
+    {
+        if (networkManager.getNetworkState(networkManager.getLanAdapterName()))
+        {
+            m_nEthernetState = Active;
+        }
+        else
+        {
+            m_nEthernetState = NotConnected;
+        }
+    }
+    else
+    {
+        m_nEthernetState = InActive;
+    }
+
+    if (m_nWifiState == Active || m_nWifiState == NotConnected)
+    {
+        if (networkManager.getNetworkState(networkManager.getWlanAdapterName()))
+        {
+            m_nWifiState = Active;
+        }
+        else
+        {
+            m_nWifiState = NotConnected;
+        }
+    }
+    else
+    {
+        m_nWifiState = InActive;
+    }
+
+
     switch (m_nEthernetState)
     {
     case Active:
     {
-        m_pEthernetPushButton->setImage("indicator", "indicator_ethernet_enable.jpg");
+        m_pEthernetPushButton->setImage("indicator", "eth_on.png");
     }
         break;
     case InActive:
     {
-        m_pEthernetPushButton->setImage("indicator", "indicator_ethernet_disable.jpg");
+        m_pEthernetPushButton->setImage("indicator", "eth_down.png");
     }
         break;
     case NotConnected:
     {
-
+        m_pEthernetPushButton->setImage("indicator", "eth_up.png");
     }
         break;
     }
@@ -615,39 +648,20 @@ void IndicatorDialog::doCheckNetwork()
     {
     case Active:
     {
-
+        m_pWifiPushButton->setImage("indicator", "wifi_connected.png");
     }
         break;
     case InActive:
     {
-
+        m_pWifiPushButton->setImage("indicator", "wifi_down.png");
     }
         break;
     case NotConnected:
     {
-
+        m_pWifiPushButton->setImage("indicator", "wifi_up.png");
     }
         break;
     }
-
-    if (networkManager.getNetworkState(networkManager.getLanAdapterName()))
-    {
-
-    }
-    else
-    {
-
-    }
-
-    if (networkManager.getNetworkState(networkManager.getWlanAdapterName()))
-    {
-        m_pWifiPushButton->setImage("indicator", "indicator_wifi_connected.jpg");
-    }
-    else
-    {
-        m_pWifiPushButton->setImage("indicator", "indicator_wifi_disconnected.jpg");
-    }
-
 }
 
 void IndicatorDialog::on_wifiPushButton_clicked()
@@ -661,11 +675,13 @@ void IndicatorDialog::on_wifiPushButton_clicked()
     {
         cmd.append(" down");
         system(cmd.toStdString().c_str());
+        m_nWifiState = InActive;
     }
     else
     {
         cmd.append(" up");
         system(cmd.toStdString().c_str());
+        m_nWifiState = NotConnected;
     }
 }
 
@@ -685,11 +701,13 @@ void IndicatorDialog::on_EthernetPushButton_clicked()
     {
         cmd.append(" down");
         system(cmd.toStdString().c_str());
+        m_nEthernetState = InActive;
     }
     else
     {
         cmd.append(" up");
         system(cmd.toStdString().c_str());
+        m_nEthernetState = NotConnected;
     }
 }
 

@@ -401,6 +401,8 @@ void IndicatorDialog::mousePressEvent(QMouseEvent *event)
 
 void IndicatorDialog::clearSecondRow()
 {
+    m_pTimer.stop();
+
     if (m_pCameraFocusPushButton != nullptr)
     {
         delete m_pCameraFocusPushButton;
@@ -629,6 +631,8 @@ void IndicatorDialog::on_day1WidgetClicked()
         return;
     QJsonObject object = m_jsonObject3["Day"].toObject()["Dark"].toObject();
     m_pSerialViscaManager->SetDayMode(object, true);
+
+//    m_pSerialLaserManager->set_night_mode(0);
 //     serialViscaManager.set_AE_shutter_priority();
 //     serialViscaManager.set_iris(object["Iris"].toInt());
 //     serialViscaManager.set_shutter_speed(object["Shutter"].toInt());

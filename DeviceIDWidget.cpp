@@ -77,27 +77,29 @@ void DeviceIDWidget::on_savePushButton_clicked()
 
     ConfigManager config = ConfigManager("setting_device_ID.json");
     QJsonObject object = config.GetConfig();
+    QJsonObject object2 = object["Device ID"].toObject();
 //    object[]
     QStringList deviceIDList = deviceID.split("_");
-    if (deviceIDList.size() == 2)
+    if (deviceIDList.size() == 3)
     {
-        object["Device ID"].toObject()["Prefix"] = deviceIDList[0];
-        object["Device ID"].toObject()["SerialNum"] = deviceIDList[1];
-        object["Device ID"].toObject()["Postfix"] = deviceIDList[2];
+
+        object2["Prefix"] = deviceIDList[0];
+        object2["SerialNum"] = deviceIDList[1];
+        object2["Postfix"] = deviceIDList[2];
     }
-    else if (deviceIDList.size() == 1)
+    else if (deviceIDList.size() == 2)
     {
-        object["Device ID"].toObject()["Prefix"] = deviceIDList[0];
-        object["Device ID"].toObject()["SerialNum"] = deviceIDList[1];
-        object["Device ID"].toObject()["Postfix"] = "null";
+        object2["Prefix"] = deviceIDList[0];
+        object2["SerialNum"] = deviceIDList[1];
+        object2["Postfix"] = "null";
     }
     else
     {
-        object["Device ID"].toObject()["Prefix"] = "null";
-        object["Device ID"].toObject()["SerialNum"] = deviceIDList[0];
-        object["Device ID"].toObject()["Postfix"] = "null";
+        object2["Prefix"] = "null";
+        object2["SerialNum"] = deviceIDList[0];
+        object2["Postfix"] = "null";
     }
-    config.SetConfig(object);
+    config.SetConfig(object2);
     config.SaveFile();
 }
 

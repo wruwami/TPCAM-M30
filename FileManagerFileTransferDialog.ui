@@ -16,32 +16,31 @@
   <layout class="QGridLayout" name="gridLayout_2" rowstretch="68,282">
    <item row="1" column="0">
     <layout class="QGridLayout" name="gridLayout">
-     <item row="2" column="1">
-      <widget class="CustomLabel" name="fileCountLabel">
+     <item row="4" column="0" colspan="3">
+      <widget class="CustomLabel" name="fileNameLabel">
        <property name="text">
-        <string>0/100</string>
+        <string/>
        </property>
       </widget>
      </item>
-     <item row="2" column="0">
-      <widget class="CustomLabel" name="remaiTimeLabel">
+     <item row="2" column="1">
+      <widget class="CustomLabel" name="fileCountLabel">
        <property name="text">
-        <string>0.0s</string>
+        <string/>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="2">
+      <widget class="CustomLabel" name="speedLabel">
+       <property name="text">
+        <string/>
        </property>
       </widget>
      </item>
      <item row="3" column="0" colspan="3">
-      <widget class="QProgressBar" name="oneProgressBar">
+      <widget class="QProgressBar" name="allProgressBar">
        <property name="value">
         <number>24</number>
-       </property>
-      </widget>
-     </item>
-     <item row="5" column="0" colspan="3">
-      <widget class="CustomLabel" name="fileNameLabel">
-       <property name="text">
-        <string>I_00003_220505_122510_52.jpg
-</string>
        </property>
       </widget>
      </item>
@@ -52,17 +51,10 @@
        </property>
       </widget>
      </item>
-     <item row="4" column="0" colspan="3">
-      <widget class="QProgressBar" name="allProgressBar">
-       <property name="value">
-        <number>24</number>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="2">
-      <widget class="CustomLabel" name="speedLabel">
+     <item row="2" column="0">
+      <widget class="CustomLabel" name="remaiTimeLabel">
        <property name="text">
-        <string>xxx/kB/s</string>
+        <string/>
        </property>
       </widget>
      </item>

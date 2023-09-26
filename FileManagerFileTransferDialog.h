@@ -33,9 +33,9 @@ private:
     int m_count = 0;
     QString m_file_name;
 private slots:
-    void loadProgress(qint64 bytesSent, qint64 bytesTotal);    //Update progress bar
+//    void loadProgress(qint64 bytesSent, qint64 bytesTotal);    //Update progress bar
 
-    void replyFinished(QNetworkReply*);
+//    void replyFinished(QNetworkReply*);
 protected:
     void timerEvent(QTimerEvent *event);
     void paintEvent(QPaintEvent *event);

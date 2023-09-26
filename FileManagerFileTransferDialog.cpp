@@ -37,14 +37,14 @@ FileManagerFileTransferDialog::FileManagerFileTransferDialog(TransType type, QWi
     sp_retain.setRetainSizeWhenHidden(true);
     ui->speedLabel->setSizePolicy(sp_retain);
 
-    QSizePolicy sp_retain2 = ui->oneProgressBar->sizePolicy();
-    sp_retain2.setRetainSizeWhenHidden(true);
-    ui->oneProgressBar->setSizePolicy(sp_retain2);
+//    QSizePolicy sp_retain2 = ui->oneProgressBar->sizePolicy();
+//    sp_retain2.setRetainSizeWhenHidden(true);
+//    ui->oneProgressBar->setSizePolicy(sp_retain2);
 
     if (type == FileType)
     {
-        ui->speedLabel->hide();
-        ui->oneProgressBar->hide();
+//        ui->speedLabel->hide();
+//        ui->oneProgressBar->hide();
         ui->titleLabel->setText(LoadString("IDS_FILE_TRANSFER"));
         ui->titleLabel->setFontSize(23);
         TransferFile();
@@ -67,7 +67,7 @@ FileManagerFileTransferDialog::~FileManagerFileTransferDialog()
 
 void FileManagerFileTransferDialog::TransferFTP()
 {
-    ui->oneProgressBar->setValue(0);
+//    ui->oneProgressBar->setValue(0);
     ui->allProgressBar->setValue(0);
 //    buttonsEnabled(true);
 
@@ -152,7 +152,7 @@ void FileManagerFileTransferDialog::TransferFTP()
 
 void FileManagerFileTransferDialog::TransferFTP2()
 {
-    ui->oneProgressBar->setValue(0);
+//    ui->oneProgressBar->setValue(0);
     ui->allProgressBar->setValue(0);
 //    buttonsEnabled(true);
 
@@ -196,18 +196,25 @@ void FileManagerFileTransferDialog::TransferFTP2()
     QDirIterator iterDir2(GetSDPath(), QDir::Files | QDir::NoSymLinks, QDirIterator::Subdirectories);
 
     ui->allProgressBar->setMaximum(m_count);
+    ui->allProgressBar->setValue(0);
+    int i = 0;
     while (iterDir2.hasNext())
     {
+//        i++;
         QString fileName = iterDir2.next().replace(GetSDPath(), QString(targetDir));
         fileName.replace("\"", "");
         QString filePath;
         ftp.Put(iterDir2.next().toStdString().c_str(), fileName.toStdString().c_str(), ftplib::image);
+        ui->allProgressBar->setValue((++i) / m_count);
+        ui->fileCountLabel->setText(QString("%1 / %2").arg(i).arg(m_count));
+        ui->fileNameLabel->setText(fileName);
 //        ftp.put_file(fileName.toStdString().c_str());
 
 
 //        qDebug() << iterDir2.fileInfo().;
         qDebug() << iterDir2.fileName();
         qDebug() << iterDir2.filePath();
+
 //        QString iterDir2.next();
 
 //        QUrl url;
@@ -245,28 +252,28 @@ void FileManagerFileTransferDialog::TransferFTP2()
 //    connect(reply, SIGNAL(error(QNetworkReply::NetworkError)),SLOT(loadError(QNetworkReply::NetworkError)));
 }
 
-void FileManagerFileTransferDialog::loadProgress(qint64 bytesSent, qint64 bytesTotal)    //Update progress bar
-{
-//    ui->label_Byte->setText(QString("%1 / %2").arg(bytesSent).arg(bytesTotal));
-    ui->oneProgressBar->setMaximum(bytesTotal); //Max
-    ui->oneProgressBar->setValue(bytesSent);  //The current value
-    if (bytesSent != 0 && bytesTotal != 0)
-    {
-        ui->speedLabel->setText(QString("%1 kB/s").arg(bytesSent / bytesTotal));
-        ui->speedLabel->setFontSize(23);
-    }
-}
+//void FileManagerFileTransferDialog::loadProgress(qint64 bytesSent, qint64 bytesTotal)    //Update progress bar
+//{
+////    ui->label_Byte->setText(QString("%1 / %2").arg(bytesSent).arg(bytesTotal));
+//    ui->oneProgressBar->setMaximum(bytesTotal); //Max
+//    ui->oneProgressBar->setValue(bytesSent);  //The current value
+//    if (bytesSent != 0 && bytesTotal != 0)
+//    {
+//        ui->speedLabel->setText(QString("%1 kB/s").arg(bytesSent / bytesTotal));
+//        ui->speedLabel->setFontSize(23);
+//    }
+//}
 
 
-void FileManagerFileTransferDialog::replyFinished(QNetworkReply *reply)
-{
-    ui->allProgressBar->setValue(m_index + 1);
-    ui->fileNameLabel->setText(m_file_name);
-    ui->fileNameLabel->setFontSize(23);
-    ui->fileCountLabel->setText(QString("%1 / %2").arg(m_index + 1).arg(m_count));
-    ui->fileCountLabel->setFontSize(23);
-    m_index++;
-}
+//void FileManagerFileTransferDialog::replyFinished(QNetworkReply *reply)
+//{
+//    ui->allProgressBar->setValue(m_index + 1);
+//    ui->fileNameLabel->setText(m_file_name);
+//    ui->fileNameLabel->setFontSize(23);
+//    ui->fileCountLabel->setText(QString("%1 / %2").arg(m_index + 1).arg(m_count));
+//    ui->fileCountLabel->setFontSize(23);
+//    m_index++;
+//}
 
 void FileManagerFileTransferDialog::timerEvent(QTimerEvent *event)
 {
@@ -276,7 +283,7 @@ void FileManagerFileTransferDialog::timerEvent(QTimerEvent *event)
 
 void FileManagerFileTransferDialog::TransferFile()
 {
-    ui->oneProgressBar->setValue(0);
+//    ui->oneProgressBar->setValue(0);
     ui->allProgressBar->setValue(0);
 //    QString dir = QFileDialog::getExistingDirectory(this, "path select", QDir::currentPath(), QFileDialog::ShowDirsOnly);
     QString dir = GetUSBPath();
@@ -296,18 +303,21 @@ void FileManagerFileTransferDialog::TransferFile()
     ui->allProgressBar->setMaximum(m_count);
     int i = 0;
     QDirIterator iterDir2(GetSDPath(), QDir::Files | QDir::NoSymLinks, QDirIterator::Subdirectories);
-
+    ui->allProgressBar->setValue(0);
     while (iterDir2.hasNext())
     {
         iterDir2.next();
 
-        ui->fileCountLabel->setText(QString("%1 / %2").arg(i + 1).arg(m_count));
-        ui->fileCountLabel->setFontSize(23);
         QString file_path(iterDir2.fileName());
         int index = file_path.lastIndexOf('/');
         QString file_name = file_path.mid(index + 1, file_path.size() - index - 1);
         ui->fileNameLabel->setText(QString(file_name));
         ui->fileNameLabel->setFontSize(23);
+        ui->allProgressBar->setValue((++i) / m_count);
+        ui->fileCountLabel->setText(QString("%1 / %2").arg(i).arg(m_count));
+        ui->fileCountLabel->setFontSize(23);
+
+
         QFile file(file_path);
         ui->allProgressBar->setValue(++i);
         file.copy(dir + '/' + file_name);

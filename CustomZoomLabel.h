@@ -14,6 +14,7 @@ public:
     void resizeImage(QSize size);
     void setImage(QString path_name, QString file_name);
     void setImage(QString path_name, QString file_name, QSize size);
+    void removeImage();
 private:
     QPixmap scaleImage(double factor);
 private:

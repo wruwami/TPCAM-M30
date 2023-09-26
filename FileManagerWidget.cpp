@@ -254,6 +254,9 @@ void FileManagerWidget::on_deletePushButton_clicked()
 //                file.remove();
 //            }
             ui->tableWidget->clear();
+            ui->frameLabel->removeImage();
+            m_avFileFormatList.clear();
+//            m_currentAVFileFormat = nullptr;
         }
 
     }
@@ -445,6 +448,9 @@ void FileManagerWidget::on_searchPushButton_clicked()
 
 void FileManagerWidget::on_zoomPlayPushButton_clicked()
 {
+    if (m_avFileFormatList.size() == 0)
+        return;
+
     switch (m_nMode)
     {
     case Mode::I_MODE: // I

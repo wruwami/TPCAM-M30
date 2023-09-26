@@ -3,6 +3,7 @@
 #include <QFile>
 #include "qdir.h"
 #include <QPainter>
+#include "FileManager.h"
 
 #define DEFAULT_PATH    "images"
 
@@ -22,7 +23,7 @@ void CustomImageWidget::setImage(QString path_name, QString file_name)
     QDir qdir;
     QString file_full_path;
 
-    file_full_path = qdir.absolutePath() + "/" + DEFAULT_PATH + "/" + path_name + "/" + file_name;
+    file_full_path = GeteMMCPath() + "/" + DEFAULT_PATH + "/" + path_name + "/" + file_name;
 
     this->setAutoFillBackground(true);    //Widget When adding background pictures , This must be true .
     m_pixmap.load(file_full_path);

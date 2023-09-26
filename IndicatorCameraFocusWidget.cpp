@@ -90,12 +90,12 @@ void IndicatorCameraFocusWidget::on_showHidePushButton_clicked()
     m_bHide = !m_bHide;
     if (m_bHide)
     {
-        ui->showHidePushButton->setText(LoadString("IDS_HIDE"));
+        ui->showHidePushButton->setText(LoadString("IDS_SHOW"));
         hide();
     }
     else
     {
-        ui->showHidePushButton->setText(LoadString("IDS_SHOW"));
+        ui->showHidePushButton->setText(LoadString("IDS_HIDE"));
         show();
     }
 }

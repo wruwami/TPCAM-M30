@@ -5,6 +5,7 @@
 #include <QNetworkInterface>
 #include <QNetworkConfiguration>
 #include <QNetworkConfigurationManager>
+#include <QNetworkSession>
 #include <ifaddrs.h>
 
 #include "ConfigManager.h"
@@ -22,9 +23,9 @@ NetworkManager::NetworkManager()
     ConfigManager eth_config = ConfigManager("parameter_setting5.json");
     m_eth_jsonObject = eth_config.GetConfig();
 
-    bool bEnableWifi = false;
-    if (ConfigManager("parameter_setting5.json").GetConfig()["wifi select"].toInt() == 1)
-        bEnableWifi = true;
+//    bool bEnableWifi = false;
+//    if (ConfigManager("parameter_setting5.json").GetConfig()["wifi select"].toInt() == 1)
+//        bEnableWifi = true;
 
     m_strNetPlan = "network: \n\
     version: 2 \n\
@@ -32,8 +33,8 @@ NetworkManager::NetworkManager()
 
     SetEtherNet();
 
-    if (bEnableWifi)
-    {
+//    if (bEnableWifi)
+//    {
         if(m_wifi_jsonObject["wifi_mode"].toString() == "STA")
         {
             SetWifiStaMode();
@@ -42,7 +43,7 @@ NetworkManager::NetworkManager()
         {
             SetWifiAPMode();
         }
-    }
+//    }
 }
 
 NetworkManager::NetworkManager(QString ssid, QString pw)
@@ -106,8 +107,11 @@ QString NetworkManager::getHardwareAddress(QString deviceName)
     foreach(QNetworkInterface netInterface, QNetworkInterface::allInterfaces())
     {
         if (!(netInterface.flags() & QNetworkInterface::IsLoopBack))
+        {
+//            qDebug() << netInterface.hardwareAddress();
             if (netInterface.name() == deviceName)
                 return netInterface.hardwareAddress();
+        }
     }
     return QString();
 }
@@ -190,25 +194,53 @@ QString NetworkManager::getLanAdapterName()
 
 bool NetworkManager::getNetworkState(QString deviceName)
 {
-    QList<QNetworkInterface> interfaces = QNetworkInterface::allInterfaces();
-     for(int i = 0; i < interfaces.count();i++)
-     {
-         QNetworkInterface interface = interfaces.at(i);
-         if(interface.IsUp && !interface.IsLoopBack)
-         {
-             if (interface.name() == deviceName)
-             {
-                 if (deviceName == ETH_ADAPTER)
-                     SetLogMsg(NETWORK_CONNECTED, deviceName);
-                 else
-                    SetLogMsg(NETWORK_CONNECTED, deviceName + "," + m_wifi_jsonObject["sta ssid"].toArray()[0].toString());
-                 return true;
-             }
-         }
-     }
+    // My target SSID and interface (let's assume this is an open AP)
+//    QString ssid = "DeviceRouter";
+//    QString interface = "Wi-Fi 2";  // I want to use my secondary interface
 
-     SetLogMsg(NETWORK_DISCONNECTED, deviceName);
-     return false;
+    // Get all configurations
+    QNetworkConfigurationManager mgr;
+    mgr.updateConfigurations();
+//    waitForSignal( &mgr, SIGNAL( updateCompleted() ), 20000 ); // implemented elsewhere
+    QList<QNetworkConfiguration> allConfigs = mgr.allConfigurations();
+
+    // Select the configuration matching my target SSID
+    bool connected = false;
+    foreach( QNetworkConfiguration config, allConfigs ) {
+        if( config.name() == deviceName /*&& config.bearerType() == QNetworkConfiguration::BearerWLAN*/ ) {
+            QNetworkSession s( config );
+            // How can I set the interface for the session?
+            s.open();
+            connected = s.waitForOpened( 30000 );
+            if( connected ) {
+                qDebug() << "You're connected on interface: " << s.interface().humanReadableName();
+            }
+            break;
+        }
+    }
+    return connected;
+
+//    QNetworkConfiguration con;
+//    QNetworkSession session;
+//    QList<QNetworkInterface> interfaces = QNetworkInterface::allInterfaces();
+//     for(int i = 0; i < interfaces.count();i++)
+//     {
+//         QNetworkInterface interface = interfaces.at(i);
+//         if(interface.IsUp && !interface.IsLoopBack)
+//         {
+//             if (interface.name() == deviceName)
+//             {
+//                 if (deviceName == ETH_ADAPTER)
+//                     SetLogMsg(NETWORK_CONNECTED, deviceName);
+//                 else
+//                    SetLogMsg(NETWORK_CONNECTED, deviceName + "," + m_wifi_jsonObject["sta ssid"].toArray()[0].toString());
+//                 return true;
+//             }
+//         }
+//     }
+
+//     SetLogMsg(NETWORK_DISCONNECTED, deviceName);
+//     return false;
 }
 
 void NetworkManager::SetWifiStaMode()

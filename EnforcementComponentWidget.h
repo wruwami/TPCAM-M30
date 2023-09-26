@@ -69,8 +69,8 @@ public:
     void camInit();
     void SetCamera(Camera* camera);
 private:
-    void hide();
-    void show();
+    void hide(bool);
+    void show(bool);
     void setOutFrame(bool isSet);
     void SetCamera();
 
@@ -191,6 +191,9 @@ private slots:
     void StopDisPlayRec();
     void StopDisPlayRedLine();
     void VModeVideoSave();
+    void on_Show();
+    void on_Hide();
+
 //    void on_ManualMode();
 signals:
     void ShowRedOutLine(bool);

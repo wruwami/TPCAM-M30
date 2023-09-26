@@ -8,6 +8,7 @@
 
 #include "FontSize.h"
 #include "ImageSize.h"
+#include "FileManager.h"
 
 #define DEFAULT_PATH    "images"
 
@@ -27,7 +28,7 @@ void CustomPushButton::setImage(QString path_name, QString file_name)
 //#ifdef Q_OS_WIN
 //    file_full_path = qdir.absolutePath() + "\\" + DEFAULT_PATH + "\\" + path_name + "\\" + file_name;
 //#else   /*Q_OS_LINUX*/
-    file_full_path = qdir.absolutePath() + "/" + DEFAULT_PATH + "/" + path_name + "/" + file_name;
+    file_full_path = GeteMMCPath() + "/" + DEFAULT_PATH + "/" + path_name + "/" + file_name;
 //#endif
 
 #if 1
@@ -92,7 +93,7 @@ void CustomPushButton::setImage(QString path_name, QString file_name, QSize size
 //#ifdef Q_OS_WIN
 //    file_full_path = qdir.absolutePath() + "\\" + DEFAULT_PATH + "\\" + path_name + "\\" + file_name;
 //#else   /*Q_OS_LINUX*/
-    file_full_path = qdir.absolutePath() + "/" + DEFAULT_PATH + "/" + path_name + "/" + file_name;
+    file_full_path = GeteMMCPath() + "/" + DEFAULT_PATH + "/" + path_name + "/" + file_name;
 //#endif
 
 #if 1

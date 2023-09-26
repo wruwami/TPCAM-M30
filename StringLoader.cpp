@@ -9,6 +9,7 @@
 #include "qdir.h"
 
 #include "rapidcsv.h"
+#include "FileManager.h"
 
 using namespace ResourceLoader;
 StringLoader* StringLoader::instance = nullptr;
@@ -16,7 +17,7 @@ StringLoader* StringLoader::instance = nullptr;
 void StringLoader::Initialize(std::string path_name, std::string file_name, std::string language)
 {    
     QDir qdir;
-    QString dir = qdir.absolutePath();
+    QString dir = GeteMMCPath();
 
     QString dir_qstr;
 #ifdef Q_OS_WIN

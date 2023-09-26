@@ -60,6 +60,12 @@ void FtpTransThread::run()
         QFile file(file_name);
         if (file.exists())
             DoFtpTrans(file_name);
+        else
+        {
+            m_mutex->lock();
+            m_FileQueue.enqueue(file_name);
+            m_mutex->unlock();
+        }
         msleep(1);
 
     }

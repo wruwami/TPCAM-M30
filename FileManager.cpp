@@ -294,6 +294,8 @@ QString FileManager::GeteMMCPath()
 {
     QDir dir;
     return dir.absolutePath()/* + DEFAULT_FILE_PATH*/;
+//    StorageManager storageManager;
+//    return storageManager.GetEMMCPath();
 }
 
 QString FileManager::GetSDPath()
@@ -301,7 +303,9 @@ QString FileManager::GetSDPath()
     // sdcard root path
     QDir dir;
 //    return dir.absolutePath();
-    return "/home/wruwami/sdcard";
+//    StorageManager storageManager;
+//    return storageManager.GetSDCARDPath();
+    return "/home/firefly/sdcard";
 }
 
 QString FileManager::GetUSBPath()

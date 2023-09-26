@@ -8,6 +8,7 @@
 #include <QPainter>
 #include <QDateTime>
 #include "qdir.h"
+#include <QWindow>
 
 #include "BaseDialog.h"
 #include "Color.h"
@@ -205,7 +206,10 @@ void IndicatorDialog::on_comPushButton_clicked()
     ui->horizontalLayout2->addWidget(m_pEthernetPushButton, 2);
 
     connect(&m_pTimer, SIGNAL(timeout()), this, SLOT(doCheckNetwork()));
-    m_pTimer.start(1000);
+    connect(m_pWifiPushButton, SIGNAL(clicked), this, SLOT(on_wifiPushButton_clicked()));
+    connect(m_pBTPushButton, SIGNAL(clicked), this, SLOT(on_BTPushButton_clicked()));
+    connect(m_pEthernetPushButton, SIGNAL(clicked), this, SLOT(on_EthernetPushButton_clicked()));
+    m_pTimer.start(5000);
 }
 
 void IndicatorDialog::on_speedPushButton_clicked()
@@ -357,17 +361,23 @@ void IndicatorDialog::on_cameraExposeClicked()
 {
     this->hide();
 
+    emit sig_Hide();
+
     IndicatorCameraExposeWidget indicatorCameraExposeWidget;
 //    m_pIndicatorCameraExposeWidget->lower();
     indicatorCameraExposeWidget.exec();
+
+    emit sig_Show();
 }
 
 void IndicatorDialog::on_cameraFocusClicked()
 {
     this->hide();
 
+    emit sig_Hide();
     IndicatorCameraFocusWidget indicatorCameraFocusWidget;
     indicatorCameraFocusWidget.exec();
+    emit sig_Show();
 }
 
 void IndicatorDialog::paintEvent(QPaintEvent *event)
@@ -394,6 +404,8 @@ void IndicatorDialog::mousePressEvent(QMouseEvent *event)
 
 void IndicatorDialog::clearSecondRow()
 {
+    m_pTimer.stop();
+
     if (m_pCameraFocusPushButton != nullptr)
     {
         delete m_pCameraFocusPushButton;
@@ -557,12 +569,14 @@ void IndicatorDialog::on_screenRecordingPushButton_clicked()
         strCommand = QString("ffmpeg -hwaccel opencl -y -f x11grab -framerate 10 -video_size %1 -i :0.0+0,0 -c:v libx264 -pix_fmt yuv420p -qp 0 -preset ultrafast %2 &").arg(resolution).arg(file_name);
         std::thread thread_command(thread_CommandExcute2, strCommand);
         thread_command.detach();
+        ui->screenRecordingPushButton->setImage("indicator", "screen_recording.jpg");
 
 //        system(strCommand.toStdString().c_str());
     }
     else
     {
         system("ps -ef | grep ffmpeg | awk '{print $2}' | xargs kill -9");
+        ui->screenRecordingPushButton->setImage("indicator", "screen recording_off.jpg");
     }
 }
 
@@ -570,32 +584,131 @@ void IndicatorDialog::on_screenCapturePushButton_clicked()
 {
     accept();
 
-    QPixmap pixmap = QPixmap::grabWindow(this->winId());
-    QString filename = GetSubPath("/screen", SD) + "/" + GetFileName(SC);
-    pixmap.save(filename, 0, 100);
+    emit sig_screenShot();
+
 }
 
 void IndicatorDialog::doCheckNetwork()
 {
     NetworkManager networkManager;
-    if (networkManager.getNetworkState(networkManager.getLanAdapterName()))
+
+    if (m_nEthernetState == Active || m_nEthernetState == NotConnected)
     {
-        m_pEthernetPushButton->setImage("indicator", "indicator_ethernet_enable.jpg");
+        if (networkManager.getNetworkState(networkManager.getLanAdapterName()))
+        {
+            m_nEthernetState = Active;
+        }
+        else
+        {
+            m_nEthernetState = NotConnected;
+        }
     }
     else
     {
-        m_pEthernetPushButton->setImage("indicator", "indicator_ethernet_disable.jpg");
+        m_nEthernetState = InActive;
     }
 
-    if (networkManager.getNetworkState(networkManager.getWlanAdapterName()))
+    if (m_nWifiState == Active || m_nWifiState == NotConnected)
     {
-        m_pWifiPushButton->setImage("indicator", "indicator_wifi_connected.jpg");
+        if (networkManager.getNetworkState(networkManager.getWlanAdapterName()))
+        {
+            m_nWifiState = Active;
+        }
+        else
+        {
+            m_nWifiState = NotConnected;
+        }
     }
     else
     {
-        m_pWifiPushButton->setImage("indicator", "indicator_wifi_disconnected.jpg");
+        m_nWifiState = InActive;
     }
 
+
+    switch (m_nEthernetState)
+    {
+    case Active:
+    {
+        m_pEthernetPushButton->setImage("indicator", "eth_on.png");
+    }
+        break;
+    case InActive:
+    {
+        m_pEthernetPushButton->setImage("indicator", "eth_down.png");
+    }
+        break;
+    case NotConnected:
+    {
+        m_pEthernetPushButton->setImage("indicator", "eth_up.png");
+    }
+        break;
+    }
+
+    switch (m_nWifiState)
+    {
+    case Active:
+    {
+        m_pWifiPushButton->setImage("indicator", "wifi_connected.png");
+    }
+        break;
+    case InActive:
+    {
+        m_pWifiPushButton->setImage("indicator", "wifi_down.png");
+    }
+        break;
+    case NotConnected:
+    {
+        m_pWifiPushButton->setImage("indicator", "wifi_up.png");
+    }
+        break;
+    }
+}
+
+void IndicatorDialog::on_wifiPushButton_clicked()
+{
+    NetworkManager networkManager;
+    QString cmd;
+    cmd = "sudo ifconfig ";
+    cmd.append(networkManager.getWlanAdapterName());
+
+    if (m_nWifiState == NotConnected || m_nWifiState == Active)
+    {
+        cmd.append(" down");
+        system(cmd.toStdString().c_str());
+        m_nWifiState = InActive;
+    }
+    else
+    {
+        cmd.append(" up");
+        system(cmd.toStdString().c_str());
+        m_nWifiState = NotConnected;
+    }
+}
+
+void IndicatorDialog::on_BTPushButton_clicked()
+{
+
+}
+
+void IndicatorDialog::on_EthernetPushButton_clicked()
+{
+    NetworkManager networkManager;
+    QString cmd;
+    cmd = "sudo ifconfig ";
+    cmd.append(networkManager.getLanAdapterName());
+
+    if (m_nWifiState == NotConnected || m_nWifiState == Active)
+    {
+        cmd.append(" down");
+        system(cmd.toStdString().c_str());
+        m_nEthernetState = InActive;
+    }
+    else
+    {
+        cmd.append(" up");
+        system(cmd.toStdString().c_str());
+        m_nEthernetState = NotConnected;
+    }
 }
 
 void IndicatorDialog::setPSerialLaserManager(SerialLaserManager *newPSerialLaserManager)
@@ -621,6 +734,8 @@ void IndicatorDialog::on_day1WidgetClicked()
         return;
     QJsonObject object = m_jsonObject3["Day"].toObject()["Dark"].toObject();
     m_pSerialViscaManager->SetDayMode(object, true);
+
+//    m_pSerialLaserManager->set_night_mode(0);
 //     serialViscaManager.set_AE_shutter_priority();
 //     serialViscaManager.set_iris(object["Iris"].toInt());
 //     serialViscaManager.set_shutter_speed(object["Shutter"].toInt());

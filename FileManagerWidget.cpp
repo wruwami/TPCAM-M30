@@ -160,6 +160,7 @@ FileManagerWidget::~FileManagerWidget()
 
 void FileManagerWidget::setTableContent()
 {
+    ui->tableWidget->clear();
     int j = 0;
 
     if (m_avFileFormatList.size() == 0)
@@ -242,7 +243,7 @@ void FileManagerWidget::on_deletePushButton_clicked()
         BaseDialog baseDialog(Dialog::AdminPWWidgetType, Qt::AlignmentFlag::AlignLeft, "");
         if (baseDialog.exec() == QDialog::Accepted)
         {
-            QDirIterator iterDir(GetSDPath(), QDir::Files | QDir::NoSymLinks, QDirIterator::Subdirectories);
+            QDirIterator iterDir(GetSDPath(), QDir::Files | QDir::NoDotAndDotDot, QDirIterator::Subdirectories);
             while (iterDir.hasNext())
             {
                 iterDir.next();
@@ -250,7 +251,7 @@ void FileManagerWidget::on_deletePushButton_clicked()
                 QFile file(iterDir.filePath());
                 file.remove();
             }
-            ui->tableWidget->clear();
+
             //        ui->listWidget->addItem(iterDir.fileName());
         }
         //            foreach(auto avFormat, m_avFileFormatList)
@@ -259,7 +260,9 @@ void FileManagerWidget::on_deletePushButton_clicked()
         //                file.remove();
         //                ui->tableWidget->clear();
         //            }
+        ui->tableWidget->clear();
     }
+
 }
 
 
@@ -339,20 +342,11 @@ void FileManagerWidget::initTable()
         }
         std::sort(m_avFileFormatList.begin(), m_avFileFormatList.end(), TimeLessThan);
 
-//        for (int i = 0 ; i < 5 ; i++)
-//        {
-//            if (i < m_avFileFormatList.size())
-//            {
-//                QTableWidgetItem* indexItem = new QTableWidgetItem(QString::number(i + 1));
+        if ((m_avFileFormatList.size() % 5) != 0)
+            m_AVFileFormatIndex = m_avFileFormatList.size() - (m_avFileFormatList.size() % 5);
+        else
+            m_AVFileFormatIndex = m_avFileFormatList.size() - 5;
 
-//                QTableWidgetItem* item = new QTableWidgetItem(getSpeedValue(m_avFileFormatList[i].captureSpeed.mid(1, 4).toFloat()) + speedUnitValue()+", " + QString("%0%1:%2%3:%4%5").arg(m_avFileFormatList[i].time[0]).arg(m_avFileFormatList[i].time[1]).arg(m_avFileFormatList[i].time[2]).arg(m_avFileFormatList[i].time[3]).arg(m_avFileFormatList[i].time[4]).arg(m_avFileFormatList[i].time[5]));
-//                ui->tableWidget->setItem(i, 0, indexItem);
-//                ui->tableWidget->setItem(i++, 1, item);
-//            }
-
-//        }
-
-        m_AVFileFormatIndex = m_avFileFormatList.size() - 5 + (m_avFileFormatList.size() % 5) + 1;
     setTableContent();
 
     emit ui->tableWidget->cellClicked(m_avFileFormatList.size() % 5 - 1, 0);
@@ -445,6 +439,7 @@ void FileManagerWidget::on_searchPushButton_clicked()
             }
         }
         m_avFileFormatList = avFileFormatList;
+        m_AVFileFormatIndex = 0;
         setTableContent();
     }
     else
@@ -686,9 +681,7 @@ void FileManagerWidget::on_firstPushButton_clicked()
     if (m_avFileFormatList.size() ==  0)
         return;
 
-    if (m_AVFileFormatIndex - 50 >= 0)
-        m_AVFileFormatIndex -= 50;
-
+    m_AVFileFormatIndex = 0;
     setTableContent();
 }
 
@@ -711,7 +704,7 @@ void FileManagerWidget::on_nextPushButton_clicked()
         return;
 
 
-    if (m_avFileFormatList.size() >= m_AVFileFormatIndex + 5)
+    if (m_avFileFormatList.size() > m_AVFileFormatIndex + 5)
         m_AVFileFormatIndex += 5;
     setTableContent();
 }
@@ -721,9 +714,10 @@ void FileManagerWidget::on_nextPushButton_clicked()
     if (m_avFileFormatList.size() ==  0)
         return;
 
-
-    if (m_avFileFormatList.size() >= m_AVFileFormatIndex + 50)
-        m_AVFileFormatIndex += 50;
+    if ((m_avFileFormatList.size() % 5) != 0)
+        m_AVFileFormatIndex = m_avFileFormatList.size() - (m_avFileFormatList.size() % 5);
+    else
+        m_AVFileFormatIndex = m_avFileFormatList.size() - 5;
     setTableContent();
 }
 

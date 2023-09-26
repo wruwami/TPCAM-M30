@@ -124,7 +124,7 @@ IDS_STILL_IMAGE_AND_MOVIE_VIEWER,"""Still image and movie viewer If movie, the f
 IDS_SNAPSHOT,Snapshot,스냅샷,Instantâneo,Instantánea,Instantané,لمحة
 IDS_BACK,Back,뒤로,De volta,atrás,Arrière,خلف
 IDS_WARNING_MESSAGE,Warning message,경고 메시지,Mensagem de aviso,Mensaje de advertencia,Message d'alerte,رسالة تحذير
-IDS_CONTINUE_QUESTION,This unit does not work normally Do you continue using it?,이 기기가 정상적으로 작동하지 않습니다. 계속 사용하시겠습니까?,Esta unidade não funciona normalmente Você continua a usá-la?,Esta unidad no funciona con normalidad ¿Sigues usándola?,Cet appareil ne fonctionne pas normalement Continuez-vous à l'utiliser ?,هذه الوحدة لا تعمل بشكل طبيعي هل تستمر في استخدامها؟
+IDS_CONTINUE_QUESTION,Do you continue using it?,계속 사용하시겠습니까?,Você continua a usá-la?,¿Sigues usándola?,Continuez-vous à l'utiliser?,هل تريد الاستمرار في استخدامه؟
 IDS_LASER,Laser,레이저,Laser,Láser,Laser,الليزر
 IDS_STORAGE,Storage,저장소,Armazenar,Almacenamiento,Espace de rangement,تخزين
 IDS_BATTERY,Battery,배터리,Bateria,Batería,Batterie,بطارية

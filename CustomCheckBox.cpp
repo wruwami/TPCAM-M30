@@ -3,6 +3,7 @@
 #include "qdir.h"
 
 #include "FontSize.h"
+#include "FileManager.h"
 
 CustomCheckBox::CustomCheckBox(QWidget *parent) : QCheckBox(parent)
 {
@@ -17,7 +18,7 @@ CustomCheckBox::CustomCheckBox(QWidget *parent) : QCheckBox(parent)
     { \
       image: url(%0/images/Date_time/unchecked.bmp); \
     } \
-    ").arg(dir.absolutePath()));
+    ").arg(GeteMMCPath()));
 
     this->setStyleSheet(styleSheet);
 

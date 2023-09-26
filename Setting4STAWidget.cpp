@@ -137,7 +137,7 @@ void Setting4STAWidget::on_printerComboBox_currentIndexChanged(int index)
 
 void Setting4STAWidget::on_searchPushButton_clicked()
 {
-    BaseDialog baseDialog(Dialog::WifiSearchWidgetType, Qt::AlignmentFlag::AlignLeft, this);
+    BaseDialog baseDialog(Dialog::WifiSearchWidgetType, Qt::AlignmentFlag::AlignLeft);
 //    WifiSearchWidget* wifiSearchWidget = ();
     connect((WifiSearchWidget*)baseDialog.pWidget(), SIGNAL(sig_sendSSID(QString)), this, SLOT(on_sendSSID(QString)));
     if (baseDialog.exec() == QDialog::Accepted)

@@ -4,6 +4,7 @@
 #include <QVBoxLayout>
 #include <QPainter>
 #include <QDialog>
+#include <QDesktopWidget>
 
 #include "CustomPushButton.h"
 #include "Color.h"
@@ -139,6 +140,7 @@ MainWindow::MainWindow(screensaver* screensaver, QWidget *parent) :
     ui->widget->setSizePolicy(sp_retain);
     ui->widget_2->setSizePolicy(sp_retain);
 
+    QObject::connect((QWidget*)m_pIndicatorWidget, SIGNAL(sig_screenShot()), this, SLOT(on_screenShot()));
     QObject::connect((QWidget*)m_pDateTimeWidget->m_pGPSCheckBox, SIGNAL(stateChanged()), this, SLOT(on_datetimeChecked()));
     QObject::connect((QWidget*)m_pLoginWidget->m_loginPushButton, SIGNAL(clicked()), this, SLOT(on_loginWidgetClicked()));
     QObject::connect((QWidget*)m_pLoginWidget->m_dateTimePushButton, SIGNAL(clicked()), this, SLOT(on_dateTimeWidgetClicked()));
@@ -180,6 +182,8 @@ MainWindow::~MainWindow()
 
 
     delete m_screensaver;
+
+    delete m_pIndicatorWidget;
 //    if (m_pLoginWidget != nullptr)
 //        delete m_pLoginWidget;
 //    if (m_pMainMenuContentWidget != nullptr)
@@ -505,6 +509,9 @@ void MainWindow::on_enforcementClicked()
     m_pEnforcementWidget->m_pEnforcementComponentWidget->camInit();
 //    connect(m_pIndicatorWidget->m_pIndicatorCameraFocusWidget->m_pAutoTriggerPushButton, SIGNAL(clicked()), m_pEnforcementWidget->m_pEnforcementComponentWidget, SLOT(on_readyPushButton_clicked()));
 //    connect(m_pEnforcementWidget->m_pEnforcementComponentWidget->m_pReadyButton, SIGNAL(clicked()), m_pIndicatorWidget->m_pIndicatorCameraFocusWidget, SLOT(on_autoTriggerPushButton_clicked()));
+    QObject::connect((QWidget*)m_pIndicatorWidget, SIGNAL(sig_Show()), (QWidget*)m_pEnforcementWidget->m_pEnforcementComponentWidget, SLOT(on_Show()));
+    QObject::connect((QWidget*)m_pIndicatorWidget, SIGNAL(sig_Hide()), (QWidget*)m_pEnforcementWidget->m_pEnforcementComponentWidget, SLOT(on_Hide()));
+
     connect(m_pIndicatorWidget, SIGNAL(sig_Night()), m_pEnforcementWidget->m_pEnforcementComponentWidget, SLOT(on_Night()));
     connect(m_pIndicatorWidget, SIGNAL(sig_STMode()), m_pEnforcementWidget->m_pEnforcementComponentWidget, SLOT(on_STMode()));
     connect(m_pIndicatorWidget, SIGNAL(sig_LTMode()), m_pEnforcementWidget->m_pEnforcementComponentWidget, SLOT(on_LTMode()));
@@ -586,6 +593,9 @@ void MainWindow::OpenEnforcement()
     m_pEnforcementWidget->m_pEnforcementComponentWidget->camInit();
 //    connect(m_pIndicatorWidget->m_pIndicatorCameraFocusWidget->m_pAutoTriggerPushButton, SIGNAL(clicked()), m_pEnforcementWidget->m_pEnforcementComponentWidget, SLOT(on_readyPushButton_clicked()));
 //    connect(m_pEnforcementWidget->m_pEnforcementComponentWidget->m_pReadyButton, SIGNAL(clicked()), m_pIndicatorWidget->m_pIndicatorCameraFocusWidget, SLOT(on_autoTriggerPushButton_clicked()));
+    QObject::connect((QWidget*)m_pIndicatorWidget, SIGNAL(sig_Show()), (QWidget*)m_pEnforcementWidget->m_pEnforcementComponentWidget, SLOT(on_Show()));
+    QObject::connect((QWidget*)m_pIndicatorWidget, SIGNAL(sig_Hide()), (QWidget*)m_pEnforcementWidget->m_pEnforcementComponentWidget, SLOT(on_Hide()));
+
     connect(m_pIndicatorWidget, SIGNAL(sig_Night()), m_pEnforcementWidget->m_pEnforcementComponentWidget, SLOT(on_Night()));
     connect(m_pIndicatorWidget, SIGNAL(sig_STMode()), m_pEnforcementWidget->m_pEnforcementComponentWidget, SLOT(on_STMode()));
     connect(m_pIndicatorWidget, SIGNAL(sig_LTMode()), m_pEnforcementWidget->m_pEnforcementComponentWidget, SLOT(on_LTMode()));
@@ -1511,6 +1521,30 @@ void MainWindow::on_ShowRedOutLine(bool bOn)
 //        this->setStyleSheet("QMainWindow{border: none;}");
     }
     m_bRedLine = bOn;
+}
+
+void MainWindow::on_screenShot()
+{
+//    QList<QScreen *>screen2 = QGuiApplication::screens();
+
+//    QScreen *screen = QGuiApplication::primaryScreen();
+//     if (const QWindow *window = windowHandle())
+//         screen = window->screen();
+//     if (!screen)
+//         return;
+
+     auto v_ScreenNumber = QApplication::desktop()->screenNumber(QApplication::activeWindow());
+     QScreen* v_Screen = QApplication::screens().at(v_ScreenNumber);
+     QPoint v_ScreenOffset(v_Screen->geometry().x(), v_Screen->geometry().y());
+     const WId id = QApplication::desktop()->screen(v_ScreenNumber)->winId();
+     QRect v_Rect = QApplication::desktop()->screenGeometry(v_ScreenNumber);
+//     QPixmap v_FullWindowWrong = v_Screen->grabWindow(id, v_Rect.x(), v_Rect.y());
+     QPixmap pixmap = v_Screen->grabWindow(id, v_Rect.x(), v_Rect.y(), v_Rect.width(), v_Rect.height());
+
+//     QRect v_Rect = QGuiApplication::desktop()->screenGeometry(v_ScreenNumber);
+//     QPixmap pixmap = screen->grabWindow(0, this->captureRect.getRect());
+     QString filename = GetSubPath("/screen", SD) + "/" + GetFileName(SC);
+     pixmap.save(filename, 0, 100);
 }
 
 void MainWindow::timerEvent(QTimerEvent *event)

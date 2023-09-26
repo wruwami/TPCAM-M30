@@ -89,7 +89,7 @@ void FileManagerSnapShotDialog::addListItem(QString strDate)
     QDir qdir;
 //    ui->listWidget->setViewMode(QListView::IconMode);
     QPixmap pixmap;
-    pixmap.load(qdir.absolutePath() + "/images/file_manager/file_management_folder_icon_normal.bmp");
+    pixmap.load(GeteMMCPath() + "/images/file_manager/file_management_folder_icon_normal.bmp");
     QIcon icon(pixmap);
 
     std::string str = strDate.toStdString();

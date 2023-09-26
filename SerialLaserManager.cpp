@@ -58,8 +58,8 @@ void SerialLaserManager::serial_received()
 
 QString SerialLaserManager::connectLaser()
 {
-    QString msg = __PRETTY_FUNCTION__;
-    SetLogMsg(LASER_SEND_DATA, msg + "()");
+//    QString msg = __PRETTY_FUNCTION__;
+    SetLogMsg(LASER_SEND_DATA, "connectLaser()");
 
 
     m_pSerial->setPortName("ttyS4");
@@ -380,7 +380,7 @@ void SerialLaserManager::show_laser_info()
 
 void SerialLaserManager::stop_laser()
 {
-    QString log_msg = __PRETTY_FUNCTION__;
+//    QString log_msg = __PRETTY_FUNCTION__;
     SetLogMsg(LASER_SEND_DATA, "stop_laser()");
 
     unsigned char header=0x59;

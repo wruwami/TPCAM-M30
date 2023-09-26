@@ -383,12 +383,12 @@ void EnforcementComponentWidget::on_hidePushButton_clicked()
     if (m_bHide)
     {
         ui->hidePushButton->setText(LoadString("IDS_SHOW"));
-        hide();
+        hide(false);
     }
     else
     {
         ui->hidePushButton->setText(LoadString("IDS_HIDE"));
-        show();
+        show(false);
     }
 }
 
@@ -397,8 +397,10 @@ void EnforcementComponentWidget::on_hidePushButton_clicked()
 
 //}
 
-void EnforcementComponentWidget::hide()
+void EnforcementComponentWidget::hide(bool bAll)
 {
+    if (bAll)
+        ui->hidePushButton->hide();
     ui->readyPushButton->hide();
     ui->zoomRangePushButton->hide();
     ui->dzPlusPushButton->hide();
@@ -415,8 +417,10 @@ void EnforcementComponentWidget::hide()
     ui->enforcementTimeLabel->hide();
 }
 
-void EnforcementComponentWidget::show()
+void EnforcementComponentWidget::show(bool bAll)
 {
+    if (bAll)
+        ui->hidePushButton->show();
     ui->readyPushButton->show();
     ui->zoomRangePushButton->show();
     ui->dzPlusPushButton->show();
@@ -849,8 +853,8 @@ void EnforcementComponentWidget::zoomRange()
     if (m_UserModeOn)
     {
         m_nZoomIndex++;
-        if (m_nZoomIndex >= m_stmetervector.size())
-            m_nZoomIndex = 0;
+        if (m_nZoomIndex > m_stmetervector.size())
+            m_nZoomIndex = m_stmetervector.size() - 1;
 
 //        zoom_index = m_nZoomIndex;
         if (distance() == meter)
@@ -865,8 +869,8 @@ void EnforcementComponentWidget::zoomRange()
     else
     {
         m_nZoomIndex++;
-        if (m_nZoomIndex >= m_ltmetervector.size())
-            m_nZoomIndex = 0;
+        if (m_nZoomIndex > m_ltmetervector.size())
+            m_nZoomIndex = m_ltmetervector.size() - 1;
 
 //        zoom_index = m_nZoomIndex;
         if (distance() == meter)
@@ -884,7 +888,7 @@ void EnforcementComponentWidget::zoomRange()
 
     SetLogMsg(BUTTON_CLICKED, "ZOOM_INDEX, " + ui->zoomRangePushButton->text());
 
-//    SetLaserDetectionAreaDistance(zoom_index);
+    SetLaserDetectionAreaDistance(m_nZoomIndex);
 }
 
 //void EnforcementComponentWidget::unitInit()
@@ -1527,6 +1531,16 @@ void EnforcementComponentWidget::VModeVideoSave()
     enforceInfo.zoom_index = m_nZoomIndex;
 
     m_pCamera->SaveVideo(VV, enforceInfo, VIDEO);
+}
+
+void EnforcementComponentWidget::on_Show()
+{
+    show(true);
+}
+
+void EnforcementComponentWidget::on_Hide()
+{
+    hide(true);
 }
 
 //void EnforcementComponentWidget::on_ManualMode()

@@ -8,6 +8,7 @@
 
 #include "FontSize.h"
 #include "WidgetSize.h"
+#include "FileManager.h"
 
 CustomLabel::CustomLabel(QWidget *parent) : QLabel(parent)
 {
@@ -46,7 +47,7 @@ void CustomLabel::setImage(QString path_name, QString file_name)
 {
     QDir qdir;
     QString file_full_path;
-    file_full_path = qdir.absolutePath() + "/" + DEFAULT_PATH + "/" + path_name + "/" + file_name;
+    file_full_path = GeteMMCPath() + "/" + DEFAULT_PATH + "/" + path_name + "/" + file_name;
 
 
     m_pixmap.load(file_full_path);
@@ -60,7 +61,7 @@ void CustomLabel::setImage(QString path_name, QString file_name, QSize size)
 {
     QDir qdir;
     QString file_full_path;
-    file_full_path = qdir.absolutePath() + "/" + DEFAULT_PATH + "/" + path_name + "/" + file_name;
+    file_full_path = GeteMMCPath() + "/" + DEFAULT_PATH + "/" + path_name + "/" + file_name;
 
     m_fitpixmap = m_pixmap;
     m_pixmap.load(file_full_path);
@@ -79,16 +80,20 @@ void CustomLabel::setImage(QString path_name, QString file_name, QSize size)
 void CustomLabel::setZoom(double factor, QRect rect)
 {
 
-    int x = (geometry().left() + geometry().right()) / 2;
-    int y = (geometry().top() + geometry().bottom()) / 2;
+    int x = (geometry().left() + geometry().right()) / factor;
+    int y = (geometry().top() + geometry().bottom()) / factor;
+//    x *= factor / 2;
+//    y *= factor / 2;
 //    int x = m_fitpixmap.width() / 2;
 //    int y = m_fitpixmap.
     int width = geometry().width();
     int height = geometry().height();
+//    x -= width / 2;
+//    y -= height / 2;
     QPixmap pixmap;
     if (factor > 1)
     {
-        pixmap = scaleImage(factor).copy(x, y, width, height);
+        pixmap = scaleImage(factor).copy(m_fitpixmap.size().width() / 2 - (width / 2), m_fitpixmap.size().height() / 2 - (height / 2), width, height);
     }
     else
         pixmap = scaleImage(factor).copy(0, 0, width, height);
@@ -124,9 +129,9 @@ void CustomLabel::setFontSize(int font_size)
 
 QPixmap CustomLabel::scaleImage(double factor)
 {
-    QPixmap pixmap;
-    pixmap = m_fitpixmap.scaled(factor * size()/*, Qt::IgnoreAspectRatio, Qt::SmoothTransformation*/);
-    return pixmap;
+//    QPixmap pixmap;
+    m_fitpixmap = m_fitpixmap.scaled(factor * size()/*, Qt::IgnoreAspectRatio, Qt::SmoothTransformation*/);
+    return m_fitpixmap;
 }
 
 void CustomLabel::resizeEvent(QResizeEvent *event)

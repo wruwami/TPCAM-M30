@@ -1943,9 +1943,9 @@ void SerialViscaManager::on_show_focus(QString focus)
 void SerialViscaManager::SetDayMode(QJsonObject object, bool bDay)
 {
     set_AE_Mode("03");
-    set_iris(object["Iris"].toInt());
-    set_shutter_speed(object["Shutter"].toInt());
-    set_gain(object["Gain"].toInt());
+    set_iris_from_pq(object["Iris"].toString(), bDay);
+    set_shutter_speed_from_pq(object["Shutter"].toString());
+    set_gain_from_pq(object["Gain"].toString());
     set_AE_Mode(object["Priority"].toString());
     set_noise_reduction_on(object["DNR"].toString());
     object["DIS"].toBool() ? set_DIS_on() : set_DIS_off();
@@ -2025,20 +2025,24 @@ void SerialViscaManager::SetDayMode(int index)
     ConfigManager config = ConfigManager("exposure.json");
     QJsonObject object = config.GetConfig();
     QJsonObject ret;
+    bool bDay = false;
     switch (index) {
     case 1:
     {
         ret = object["Day"].toObject()["Dark"].toObject();
+        bDay = true;
     }
         break;
     case 2:
     {
         ret = object["Day"].toObject()["Normal"].toObject();
+        bDay = true;
     }
         break;
     case 3:
     {
         ret = object["Day"].toObject()["Bright"].toObject();
+        bDay = true;
     }
         break;
     case 4:
@@ -2058,9 +2062,9 @@ void SerialViscaManager::SetDayMode(int index)
         break;
     }
     set_AE_Mode("03");
-    set_iris(ret["Iris"].toInt());
-    set_shutter_speed(ret["Shutter"].toInt());
-    set_gain(ret["Gain"].toInt());
+    set_iris_from_pq(ret["Iris"].toString(), bDay);
+    set_shutter_speed_from_pq(ret["Shutter"].toString());
+    set_gain_from_pq(ret["Gain"].toString());
     set_AE_Mode(ret["Priority"].toString());
     set_noise_reduction_on(ret["DNR"].toString());
     ret["DIS"].toBool() ? set_DIS_on() : set_DIS_off();

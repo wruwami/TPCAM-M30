@@ -5,13 +5,13 @@
         "keys":[["a", "z", "e", "r", "t", "y", "u", "i", "o", "p","?"],
                ["q", "s", "d", "f", "g", "h", "j", "k", "l","back"],
                ["Caps", "w", "x", "c", "v", "b", "n", "m","return"],
-               ["123", ".", "space", "frupper",",",";"]]
+               ["123", ".", "space", "frlower",",",";"]]
     },
     { "name":"uppercase",
         "keys":[["A", "Z", "E", "R", "T", "Y", "U", "I", "O", "P", "¿"],
                ["Q", "S", "D", "F", "G", "H", "J", "K", "L","back"],
                ["Lowr", "W", "X", "C", "V", "B", "N", "M", "return"],
-               ["123", ".", "space", "frlower",",",";"]]
+               ["123", ".", "space", "frupper",",",";"]]
     },
     { "name":"enlowercase",
         "keys":[["q", "w", "e", "r", "t", "y", "u", "i", "o", "p","?"],

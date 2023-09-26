@@ -26,6 +26,10 @@ private:
     bool m_bDIS = false;
     bool m_bDEFOG = false;
     bool m_bHLC = false;
+    std::map<std::string, std::string> m_gainMap;
+    std::map<std::string, std::string> m_irisMap;
+    std::map<std::string, std::string> m_shutterSpeedMap;
+
 
     // QWidget interface
 protected:

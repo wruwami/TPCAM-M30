@@ -99,6 +99,7 @@ private slots:
     void on_DeviceIdCancelClicked();
     void on_datetimeChecked();
     void on_ShowRedOutLine(bool);
+    void on_screenShot();
 private:
     Ui::MainWindow *ui;
     DateTimeWidget* m_pDateTimeWidget = nullptr;

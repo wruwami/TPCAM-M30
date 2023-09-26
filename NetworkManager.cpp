@@ -249,6 +249,8 @@ void NetworkManager::SetWifiStaMode()
     QStringList stringList = gateway.split(".");
     gateway = stringList[0] + "." + stringList[1] + "." + stringList[2] + "." + "1";
     QString ssid = m_wifi_jsonObject["sta ssid"].toArray()[0].toString();
+    ConfigManager con = ConfigManager("setting_password.json");
+    QString password = con.GetConfig()["network password"].toString();
 
     m_strNetPlan.append(QString("    wifis: \n\
        %1: \n\
@@ -258,7 +260,7 @@ void NetworkManager::SetWifiStaMode()
           access-points: \n\
              \"%5\": \n\
                 password: \"%6\" \n\
-").arg(getWlanAdapterName()).arg(gateway).arg(m_wifi_jsonObject["ip"].toString()).arg(GetSubNetMask(m_wifi_jsonObject["subnet mask"].toString())).arg(ssid).arg(m_wifi_jsonObject["sta ftp id & p/w"].toString()));
+").arg(getWlanAdapterName()).arg(m_wifi_jsonObject["wifi_gateway"].toString()).arg(m_wifi_jsonObject["ip"].toString()).arg(GetSubNetMask(m_wifi_jsonObject["subnet mask"].toString())).arg(ssid).arg(password));
 }
 
 void NetworkManager::SetWifiAPMode()
@@ -266,6 +268,8 @@ void NetworkManager::SetWifiAPMode()
     QString gateway = m_wifi_jsonObject["ip"].toString();
     QStringList stringList = gateway.split(".");
     gateway = stringList[0] + "." + stringList[1] + "." + stringList[2] + "." + "1";
+    ConfigManager con = ConfigManager("setting_password.json");
+    QString password = con.GetConfig()["network password"].toString();
 
     m_strNetPlan.append(QString("    wifis: \n\
        %1: \n\
@@ -276,7 +280,7 @@ void NetworkManager::SetWifiAPMode()
              \"%4\": \n\
                 password: \"%5\" \n\
                 mode: ap \
-").arg(getWlanAdapterName()).arg(gateway).arg(m_wifi_jsonObject["ip"].toString()).arg(GetSubNetMask(m_wifi_jsonObject["subnet mask"].toString())).arg(m_wifi_jsonObject["sta ssid"].toString()).arg(m_wifi_jsonObject["sta ftp id & p/w"].toString()));
+").arg(getWlanAdapterName()).arg(m_wifi_jsonObject["wifi_gateway"].toString()).arg(m_wifi_jsonObject["ip"].toString()).arg(GetSubNetMask(m_wifi_jsonObject["subnet mask"].toString())).arg(m_wifi_jsonObject["sta ssid"].toString()).arg(m_wifi_jsonObject["sta ftp id & p/w"].toString()));
 }
 
 void NetworkManager::SetEtherNet()

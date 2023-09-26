@@ -206,7 +206,10 @@ void IndicatorDialog::on_comPushButton_clicked()
     ui->horizontalLayout2->addWidget(m_pEthernetPushButton, 2);
 
     connect(&m_pTimer, SIGNAL(timeout()), this, SLOT(doCheckNetwork()));
-    m_pTimer.start(1000);
+    connect(m_pWifiPushButton, SIGNAL(clicked), this, SLOT(on_wifiPushButton_clicked()));
+    connect(m_pBTPushButton, SIGNAL(clicked), this, SLOT(on_BTPushButton_clicked()));
+    connect(m_pEthernetPushButton, SIGNAL(clicked), this, SLOT(on_EthernetPushButton_clicked()));
+    m_pTimer.start(5000);
 }
 
 void IndicatorDialog::on_speedPushButton_clicked()
@@ -588,13 +591,52 @@ void IndicatorDialog::on_screenCapturePushButton_clicked()
 void IndicatorDialog::doCheckNetwork()
 {
     NetworkManager networkManager;
-    if (networkManager.getNetworkState(networkManager.getLanAdapterName()))
+
+    switch (m_nEthernetState)
+    {
+    case Active:
     {
         m_pEthernetPushButton->setImage("indicator", "indicator_ethernet_enable.jpg");
     }
-    else
+        break;
+    case InActive:
     {
         m_pEthernetPushButton->setImage("indicator", "indicator_ethernet_disable.jpg");
+    }
+        break;
+    case NotConnected:
+    {
+
+    }
+        break;
+    }
+
+    switch (m_nWifiState)
+    {
+    case Active:
+    {
+
+    }
+        break;
+    case InActive:
+    {
+
+    }
+        break;
+    case NotConnected:
+    {
+
+    }
+        break;
+    }
+
+    if (networkManager.getNetworkState(networkManager.getLanAdapterName()))
+    {
+
+    }
+    else
+    {
+
     }
 
     if (networkManager.getNetworkState(networkManager.getWlanAdapterName()))
@@ -606,6 +648,49 @@ void IndicatorDialog::doCheckNetwork()
         m_pWifiPushButton->setImage("indicator", "indicator_wifi_disconnected.jpg");
     }
 
+}
+
+void IndicatorDialog::on_wifiPushButton_clicked()
+{
+    NetworkManager networkManager;
+    QString cmd;
+    cmd = "sudo ifconfig ";
+    cmd.append(networkManager.getWlanAdapterName());
+
+    if (m_nWifiState == NotConnected || m_nWifiState == Active)
+    {
+        cmd.append(" down");
+        system(cmd.toStdString().c_str());
+    }
+    else
+    {
+        cmd.append(" up");
+        system(cmd.toStdString().c_str());
+    }
+}
+
+void IndicatorDialog::on_BTPushButton_clicked()
+{
+
+}
+
+void IndicatorDialog::on_EthernetPushButton_clicked()
+{
+    NetworkManager networkManager;
+    QString cmd;
+    cmd = "sudo ifconfig ";
+    cmd.append(networkManager.getLanAdapterName());
+
+    if (m_nWifiState == NotConnected || m_nWifiState == Active)
+    {
+        cmd.append(" down");
+        system(cmd.toStdString().c_str());
+    }
+    else
+    {
+        cmd.append(" up");
+        system(cmd.toStdString().c_str());
+    }
 }
 
 void IndicatorDialog::setPSerialLaserManager(SerialLaserManager *newPSerialLaserManager)

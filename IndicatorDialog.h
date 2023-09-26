@@ -7,6 +7,12 @@
 #include "SerialLaserManager.h"
 #include "IndicatorCameraFocusWidget.h"
 
+enum NetworkState {
+    Active,
+    InActive,
+    NotConnected,
+};
+
 class CustomPushButton;
 class IndicatorCameraExposeWidget;
 class IndicatorCameraFocusWidget;
@@ -66,6 +72,9 @@ private slots:
     void on_screenCapturePushButton_clicked();
 
     void doCheckNetwork();
+    void on_wifiPushButton_clicked();
+    void on_BTPushButton_clicked();
+    void on_EthernetPushButton_clicked();
 public:
     CustomPushButton* m_pCameraFocusPushButton = nullptr;
     CustomPushButton* m_pCameraExposePushButton = nullptr;
@@ -112,6 +121,9 @@ private:
     SerialViscaManager* m_pSerialViscaManager = nullptr;
     bool m_nUserMode = true;
     QTimer m_pTimer;
+    NetworkState m_nEthernetState;
+    NetworkState m_nWifiState;
+
 //    SerialLaserManager* m_pSerialLaserManager;
     // QWidget interface
 signals:

@@ -240,27 +240,22 @@ void FileManagerWidget::on_deletePushButton_clicked()
     BaseDialog baseDialog(Dialog::FileManagerQuestionMessageWidgetType, Qt::AlignmentFlag::AlignCenter, "");
     if (baseDialog.exec() == QDialog::Accepted)
     {
-        BaseDialog baseDialog(Dialog::AdminPWWidgetType, Qt::AlignmentFlag::AlignLeft, "");
-        if (baseDialog.exec() == QDialog::Accepted)
+        BaseDialog baseDialog2(Dialog::AdminPWWidgetType, Qt::AlignmentFlag::AlignLeft, "");
+        if (baseDialog2.exec() == QDialog::Accepted)
         {
-            QDirIterator iterDir(GetSDPath(), QDir::Files | QDir::NoDotAndDotDot, QDirIterator::Subdirectories);
-            while (iterDir.hasNext())
-            {
-                iterDir.next();
+            QDir dir(GetSDPath());
+            dir.removeRecursively();
+//            QDirIterator iterDir(GetSDPath(), QDir::Files | QDir::NoDotAndDotDot, QDirIterator::Subdirectories);
+//            while (iterDir.hasNext())
+//            {
+//                iterDir.next();
 
-                QFile file(iterDir.filePath());
-                file.remove();
-            }
-
-            //        ui->listWidget->addItem(iterDir.fileName());
+//                QFile file(iterDir.filePath());
+//                file.remove();
+//            }
+            ui->tableWidget->clear();
         }
-        //            foreach(auto avFormat, m_avFileFormatList)
-        //            {
-        //                QFile file(avFormat.file_path);
-        //                file.remove();
-        //                ui->tableWidget->clear();
-        //            }
-        ui->tableWidget->clear();
+
     }
 
 }

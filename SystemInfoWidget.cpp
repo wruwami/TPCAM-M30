@@ -203,7 +203,7 @@ void SystemInfoWidget::on_cam_version(int vendor, int version)
     {
         if (i == strVersion.length() - 1)
             strVersion2 = strVersion[i];
-        strVersion2 = strVersion[i] + ".";
+        strVersion2.append(strVersion[i] + ".");
     }
 
     ui->camValueLabel->setText(QString("v%1(%2)").arg(strVersion2).arg(strVendor));

@@ -496,8 +496,14 @@ void FileManagerWidget::on_sharePushButton_clicked()
 //    baseDialog.exec();
     SetLogMsg(FILE_MANAGER, "SHARE");
 
+//    FileManagerFileTransferDialog fileManagerFileTransferDialog(FTPType);
+//    fileManagerFileTransferDialog.exec();
+
+    QEventLoop loop;
     FileManagerFileTransferDialog fileManagerFileTransferDialog(FTPType);
-    fileManagerFileTransferDialog.exec();
+    fileManagerFileTransferDialog.show();
+    connect(&fileManagerFileTransferDialog, SIGNAL(finished()), &loop, SLOT(quit()));
+    loop.exec();
 }
 
 void FileManagerWidget::on_movePushButton_clicked()

@@ -10,6 +10,6 @@
 		"exit self test percent": 20.0
 	},
 	"USB": {
-		"name": "dev/sda1"
+		"name": "/dev/sda1"
 	}
 }

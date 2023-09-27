@@ -318,6 +318,8 @@ void FileManagerFileTransferDialog::TransferFile()
     {
         iterDir2.next();
 
+        QString fileName = iterDir2.next().replace(GetSDPath(), GetUSBPath());
+        fileName.replace("\"", "");
         QString file_path(iterDir2.fileName());
         int index = file_path.lastIndexOf('/');
         QString file_name = file_path.mid(index + 1, file_path.size() - index - 1);
@@ -328,9 +330,12 @@ void FileManagerFileTransferDialog::TransferFile()
         ui->fileCountLabel->setFontSize(23);
 
 
-        QFile file(file_path);
+        QFile file(iterDir2.next());
         ui->allProgressBar->setValue(++i);
-        file.copy(dir + '/' + file_name);
+//        qDebug() << iterDir2.next();
+//        qDebug() << fileName;
+
+        file.copy(fileName);
     }
     accept();
 }

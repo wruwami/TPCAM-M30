@@ -42,6 +42,8 @@ FileManagerFileTransferWidget::FileManagerFileTransferWidget(TransType type, QWi
 //    sp_retain2.setRetainSizeWhenHidden(true);
 //    ui->oneProgressBar->setSizePolicy(sp_retain2);
 
+    startTimer(1000);
+
     if (type == FileType)
     {
 //        ui->speedLabel->hide();
@@ -58,7 +60,7 @@ FileManagerFileTransferWidget::FileManagerFileTransferWidget(TransType type, QWi
         TransferFTP2();
     }
 
-    startTimer(1000);
+
 }
 
 FileManagerFileTransferWidget::~FileManagerFileTransferWidget()

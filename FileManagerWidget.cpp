@@ -21,6 +21,7 @@
 #include "StillImageViewerDialog.h"
 #include "MovieViewerDialog.h"
 #include "FileManagerFileTransferDialog.h"
+#include "FileManagerFileTransferWidget.h"
 #include "SearchBoxDialog.h"
 #include "thermal_printer.h"
 #include "FileManager.h"
@@ -500,9 +501,9 @@ void FileManagerWidget::on_sharePushButton_clicked()
 //    fileManagerFileTransferDialog.exec();
 
     QEventLoop loop;
-    FileManagerFileTransferDialog fileManagerFileTransferDialog(FTPType);
-    fileManagerFileTransferDialog.show();
-    connect(&fileManagerFileTransferDialog, SIGNAL(finished()), &loop, SLOT(quit()));
+    FileManagerFileTransferWidget fileManagerFileTransferWidget(FTPType);
+    fileManagerFileTransferWidget.show();
+    connect(&fileManagerFileTransferWidget, SIGNAL(finished()), &loop, SLOT(quit()));
     loop.exec();
 }
 
@@ -511,8 +512,13 @@ void FileManagerWidget::on_movePushButton_clicked()
     SetLogMsg(FILE_MANAGER, "MOVE");
 //    BaseDialog baseDialog(FileManagerFileTransferWidgetType, Qt::AlignmentFlag::AlignCenter, "", true, LoadString("IDS_USB_MEMORY_TRANSFER"));
 //    baseDialog.exec();
-    FileManagerFileTransferDialog fileManagerFileTransferDialog(FileType);
-    fileManagerFileTransferDialog.exec();
+//    FileManagerFileTransferDialog fileManagerFileTransferDialog(FileType);
+//    fileManagerFileTransferDialog.exec();
+    QEventLoop loop;
+    FileManagerFileTransferWidget fileManagerFileTransferWidget(FileType);
+    fileManagerFileTransferWidget.show();
+    connect(&fileManagerFileTransferWidget, SIGNAL(finished()), &loop, SLOT(quit()));
+    loop.exec();
 
 }
 

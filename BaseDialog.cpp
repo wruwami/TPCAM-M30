@@ -165,14 +165,14 @@ BaseDialog::BaseDialog(Dialog dialog, Qt::Alignment align, QString msg, bool isC
         setSize(1208, 689);
     }
         break;
-    case Dialog::FileManagerFileTransferWidgetType:
-    {
-        ui->verticalLayout->addWidget(new FileManagerFileTransferWidget(this));
-        ui->titleLabel->setText(LoadString("IDS_FILEMANAGER_FILE_TRANSFER"));
-        ui->titleLabel->setAlignment(align);
-        setSize(1208, 702);
-    }
-        break;
+//    \\case Dialog::FileManagerFileTransferWidgetType:
+//    {
+//        ui->verticalLayout->addWidget(new FileManagerFileTransferWidget(this));
+//        ui->titleLabel->setText(LoadString("IDS_FILEMANAGER_FILE_TRANSFER"));
+//        ui->titleLabel->setAlignment(align);
+//        setSize(1208, 702);
+//    }
+//        break;
     case Dialog::SearchBoxType:
     {
         ui->verticalLayout->addWidget(new SearchBoxWidget(this));

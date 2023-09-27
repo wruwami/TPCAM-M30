@@ -3,8 +3,6 @@
 
 #include <QDialog>
 
-#include "FileFormat.h"
-
 enum TransType
 {
     FileType,
@@ -32,6 +30,8 @@ private:
     int m_index = 0;
     int m_count = 0;
     QString m_file_name;
+signals:
+    void finished();
 private slots:
 //    void loadProgress(qint64 bytesSent, qint64 bytesTotal);    //Update progress bar
 

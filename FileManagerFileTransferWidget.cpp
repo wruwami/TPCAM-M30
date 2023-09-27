@@ -1,21 +1,351 @@
 #include "FileManagerFileTransferWidget.h"
 #include "ui_FileManagerFileTransferWidget.h"
 
+#include <QNetworkAccessManager>
+#include <QUrl>
+#include <QFile>
+#include <QNetworkRequest>
+#include <QNetworkReply>
+#include <QTimerEvent>
+#include <QFileDialog>
+#include <QDirIterator>
+#include <QPainter>
+
+#include <ftplib.h>
+
+#include "ConfigManager.h"
+#include "FileManager.h"
 #include "StringLoader.h"
+#include "WidgetSize.h"
+#include "ftp.hh"
 
-#include "FileFormat.h"
 
-FileManagerFileTransferWidget::FileManagerFileTransferWidget(QWidget *parent) :
+FileManagerFileTransferWidget::FileManagerFileTransferWidget(TransType type, QWidget *parent) :
     QWidget(parent),
     ui(new Ui::FileManagerFileTransferWidget)
 {
     ui->setupUi(this);
 
-    ui->fileCountLabel->setText("4/100");
-    ui->fileCountLabel->setFontSize(23);
+    this->setFixedSize(GetWidgetSize(QSize(800, 704)));
+
+    this->setWindowFlags(Qt::FramelessWindowHint);
+
+    ui->closePushButton->setStyleSheet("QPushButton {border-image : url(images/MessageBox/closeButton.png); border:none;}");
+    ui->closePushButton->
+    connect(ui->closePushButton, &QAbstractButton::clicked, this, &QWidget::close);
+
+    QSizePolicy sp_retain = ui->speedLabel->sizePolicy();
+    sp_retain.setRetainSizeWhenHidden(true);
+    ui->speedLabel->setSizePolicy(sp_retain);
+
+//    QSizePolicy sp_retain2 = ui->oneProgressBar->sizePolicy();
+//    sp_retain2.setRetainSizeWhenHidden(true);
+//    ui->oneProgressBar->setSizePolicy(sp_retain2);
+
+    if (type == FileType)
+    {
+//        ui->speedLabel->hide();
+//        ui->oneProgressBar->hide();
+        ui->titleLabel->setText(LoadString("IDS_FILE_TRANSFER"));
+        ui->titleLabel->setFontSize(23);
+        TransferFile();
+
+    }
+    else
+    {
+        ui->titleLabel->setText(LoadString("IDS_FTP_TRANSFER"));
+        ui->titleLabel->setFontSize(23);
+        TransferFTP2();
+    }
+
+    startTimer(1000);
 }
 
 FileManagerFileTransferWidget::~FileManagerFileTransferWidget()
 {
     delete ui;
+}
+
+void FileManagerFileTransferWidget::TransferFTP()
+{
+//    ui->oneProgressBar->setValue(0);
+    ui->allProgressBar->setValue(0);
+//    buttonsEnabled(true);
+
+//    QNetworkAccessManager *accessManager=new QNetworkAccessManager(this);
+//    accessManager->setNetworkAccessible(QNetworkAccessManager::Accessible);
+
+    ConfigManager config = ConfigManager("parameter_setting6.json");
+    QJsonObject jsonObject = config.GetConfig();
+
+
+    m_index = 0;
+
+    ftp_t ftp(jsonObject["ftp server( dns )"].toString().toStdString().c_str(), 21);
+    ftp.login(jsonObject["ftp user name"].toString().toStdString().c_str(), jsonObject["ftp password"].toString().toStdString().c_str());
+    std::string targetDir = ftp.get_file_path();
+
+    QDir qdir(GetSDPath());
+    QDirIterator iterDir(GetSDPath(), QDir::Files | QDir::NoSymLinks, QDirIterator::Subdirectories);
+    while (iterDir.hasNext())
+    {
+        iterDir.next();
+        m_count++;
+    }
+
+    QDirIterator iterDir3(GetSDPath(), QDir::Dirs | QDir::NoDotAndDotDot | QDir::NoSymLinks, QDirIterator::Subdirectories);
+    while (iterDir3.hasNext())
+    {
+        QString dir = iterDir3.next().replace(GetSDPath(), QString(targetDir.c_str()));
+        dir.replace("\"", "");
+        ftp.create_path(dir.toStdString().c_str());
+     }
+
+
+    QDirIterator iterDir2(GetSDPath(), QDir::Files | QDir::NoSymLinks, QDirIterator::Subdirectories);
+
+    ui->allProgressBar->setMaximum(m_count);
+    while (iterDir2.hasNext())
+    {
+        QString fileName = iterDir2.next().replace(GetSDPath(), QString(targetDir.c_str()));
+        fileName.replace("\"", "");
+        ftp.put_file(fileName.toStdString().c_str());
+
+
+//        qDebug() << iterDir2.fileInfo().;
+        qDebug() << iterDir2.fileName();
+        qDebug() << iterDir2.filePath();
+//        QString iterDir2.next();
+
+//        QUrl url;
+//        url.setScheme("ftp");
+//        url.setHost(jsonObject["ftp server( dns )"].toString());
+
+//        url.setPort(jsonObject["ftp port"].toInt());
+//        url.setUserName(jsonObject["ftp user name"].toString());
+//        url.setPassword(jsonObject["ftp password"].toString());
+//        url.setPath(QString(ret.c_str()) + iterDir2.filePath());
+////        url.setPath(QString("d:") + iterDir2.filePath().replace("/", "\\"));
+////        qDebug() << QString("d:") + iterDir2.filePath().replace("/", "\\");
+////        QString file_path(iterDir2.fileName());
+////        int index = file_path.lastIndexOf('/');
+////        QString file_name = file_path.mid(index + 1, file_path.size() - index - 1);
+////        url.setPath(QString(ret.c_str()) + "/" + file_name);
+
+//        ui->fileNameLabel->setText(iterDir2.fileName());
+
+//        QByteArray byte_file;
+//        QNetworkRequest request(url);
+//        QNetworkReply* reply;
+
+//        QFile file(QString(iterDir2.filePath()));
+//        file.open(QIODevice::ReadOnly);
+//        byte_file=file.readAll();
+//        reply = accessManager->put(request, byte_file);
+
+//        connect(reply, SIGNAL(uploadProgress(qint64 ,qint64)), SLOT(loadProgress(qint64 ,qint64)));
+    }
+    ftp.logout();
+//    accept();
+//    connect(accessManager, SIGNAL(finished(QNetworkReply*)), SLOT(replyFinished(QNetworkReply*)));
+//    connect(reply, SIGNAL(error(QNetworkReply::NetworkError)),SLOT(loadError(QNetworkReply::NetworkError)));
+}
+
+void FileManagerFileTransferWidget::TransferFTP2()
+{
+//    ui->oneProgressBar->setValue(0);
+    ui->allProgressBar->setValue(0);
+//    buttonsEnabled(true);
+
+//    QNetworkAccessManager *accessManager=new QNetworkAccessManager(this);
+//    accessManager->setNetworkAccessible(QNetworkAccessManager::Accessible);
+
+    ConfigManager config = ConfigManager("parameter_setting6.json");
+    QJsonObject jsonObject = config.GetConfig();
+
+
+    m_index = 0;
+
+    ftplib ftp;/* = new ftplib();*/
+//    qDebug() << QString(jsonObject["ftp server( dns )"].toString() + ":" + ;
+    ftp.Connect(QString(jsonObject["ftp server( dns )"].toString() + ":" + std::to_string(jsonObject["ftp port"].toInt()).c_str()).toStdString().c_str());
+    ftp.Login(jsonObject["ftp user name"].toString().toStdString().c_str(), jsonObject["ftp password"].toString().toStdString().c_str());
+    char targetDir[1024];
+    ftp.Pwd(targetDir, 1024);
+
+//    ftp_t ftp(jsonObject["ftp server( dns )"].toString().toStdString().c_str(), 21);
+//    ftp.login(jsonObject["ftp user name"].toString().toStdString().c_str(), jsonObject["ftp password"].toString().toStdString().c_str());
+//    std::string targetDir = ftp.get_file_path();
+
+    QDir qdir(GetSDPath());
+    QDirIterator iterDir(GetSDPath(), QDir::Files | QDir::NoSymLinks, QDirIterator::Subdirectories);
+    while (iterDir.hasNext())
+    {
+        iterDir.next();
+        m_count++;
+    }
+
+    QDirIterator iterDir3(GetSDPath(), QDir::Dirs | QDir::NoDotAndDotDot | QDir::NoSymLinks, QDirIterator::Subdirectories);
+    while (iterDir3.hasNext())
+    {
+        QString dir = iterDir3.next().replace(GetSDPath(), QString(targetDir));
+        dir.replace("\"", "");
+        ftp.Mkdir(dir.toStdString().c_str());
+     }
+
+
+    QDirIterator iterDir2(GetSDPath(), QDir::Files | QDir::NoSymLinks, QDirIterator::Subdirectories);
+
+    ui->allProgressBar->setMaximum(m_count);
+    ui->allProgressBar->setValue(0);
+    int i = 0;
+    while (iterDir2.hasNext())
+    {
+//        i++;
+        QString fileName = iterDir2.next().replace(GetSDPath(), QString(targetDir));
+        fileName.replace("\"", "");
+        QString filePath;
+        ftp.Put(iterDir2.next().toStdString().c_str(), fileName.toStdString().c_str(), ftplib::image);
+        ui->allProgressBar->setValue((++i) / m_count);
+        ui->fileCountLabel->setText(QString("%1 / %2").arg(i).arg(m_count));
+        ui->fileNameLabel->setText(fileName);
+//        ftp.put_file(fileName.toStdString().c_str());
+
+
+//        qDebug() << iterDir2.fileInfo().;
+        qDebug() << iterDir2.fileName();
+        qDebug() << iterDir2.filePath();
+
+//        QString iterDir2.next();
+
+//        QUrl url;
+//        url.setScheme("ftp");
+//        url.setHost(jsonObject["ftp server( dns )"].toString());
+
+//        url.setPort(jsonObject["ftp port"].toInt());
+//        url.setUserName(jsonObject["ftp user name"].toString());
+//        url.setPassword(jsonObject["ftp password"].toString());
+//        url.setPath(QString(ret.c_str()) + iterDir2.filePath());
+////        url.setPath(QString("d:") + iterDir2.filePath().replace("/", "\\"));
+////        qDebug() << QString("d:") + iterDir2.filePath().replace("/", "\\");
+////        QString file_path(iterDir2.fileName());
+////        int index = file_path.lastIndexOf('/');
+////        QString file_name = file_path.mid(index + 1, file_path.size() - index - 1);
+////        url.setPath(QString(ret.c_str()) + "/" + file_name);
+
+//        ui->fileNameLabel->setText(iterDir2.fileName());
+
+//        QByteArray byte_file;
+//        QNetworkRequest request(url);
+//        QNetworkReply* reply;
+
+//        QFile file(QString(iterDir2.filePath()));
+//        file.open(QIODevice::ReadOnly);
+//        byte_file=file.readAll();
+//        reply = accessManager->put(request, byte_file);
+
+//        connect(reply, SIGNAL(uploadProgress(qint64 ,qint64)), SLOT(loadProgress(qint64 ,qint64)));
+    }
+    ftp.Quit();
+//    delete ftp;
+//    accept();
+    emit finished();
+//    connect(accessManager, SIGNAL(finished(QNetworkReply*)), SLOT(replyFinished(QNetworkReply*)));
+//    connect(reply, SIGNAL(error(QNetworkReply::NetworkError)),SLOT(loadError(QNetworkReply::NetworkError)));
+}
+
+//void FileManagerFileTransferWidget::loadProgress(qint64 bytesSent, qint64 bytesTotal)    //Update progress bar
+//{
+////    ui->label_Byte->setText(QString("%1 / %2").arg(bytesSent).arg(bytesTotal));
+//    ui->oneProgressBar->setMaximum(bytesTotal); //Max
+//    ui->oneProgressBar->setValue(bytesSent);  //The current value
+//    if (bytesSent != 0 && bytesTotal != 0)
+//    {
+//        ui->speedLabel->setText(QString("%1 kB/s").arg(bytesSent / bytesTotal));
+//        ui->speedLabel->setFontSize(23);
+//    }
+//}
+
+
+//void FileManagerFileTransferWidget::replyFinished(QNetworkReply *reply)
+//{
+//    ui->allProgressBar->setValue(m_index + 1);
+//    ui->fileNameLabel->setText(m_file_name);
+//    ui->fileNameLabel->setFontSize(23);
+//    ui->fileCountLabel->setText(QString("%1 / %2").arg(m_index + 1).arg(m_count));
+//    ui->fileCountLabel->setFontSize(23);
+//    m_index++;
+//}
+
+void FileManagerFileTransferWidget::timerEvent(QTimerEvent *event)
+{
+    ui->remaiTimeLabel->setText(QString("%1").arg(m_second++));
+    ui->remaiTimeLabel->setFontSize(23);
+}
+
+void FileManagerFileTransferWidget::TransferFile()
+{
+//    ui->oneProgressBar->setValue(0);
+    ui->allProgressBar->setValue(0);
+//    QString dir = QFileDialog::getExistingDirectory(this, "path select", QDir::currentPath(), QFileDialog::ShowDirsOnly);
+    QString dir = GetUSBPath();
+    QDir qdir(GetSDPath());
+    QDirIterator iterDir(GetSDPath(), QDir::Files | QDir::NoSymLinks, QDirIterator::Subdirectories);
+    while (iterDir.hasNext())
+    {
+        iterDir.next();
+
+        qDebug() << iterDir.fileName();
+
+        m_count++;
+
+//        ui->listWidget->addItem(iterDir.fileName());
+    }
+
+    QDirIterator iterDir3(GetSDPath(), QDir::Dirs | QDir::NoDotAndDotDot | QDir::NoSymLinks, QDirIterator::Subdirectories);
+    while (iterDir3.hasNext())
+    {
+        QString dir2 = iterDir3.next().replace(GetSDPath(), QString(dir));
+        dir2.replace("\"", "");
+//        QDir qdir2(dir2);
+        qdir.mkdir(dir2);
+//        ftp.Mkdir(dir.toStdString().c_str());
+     }
+
+    ui->allProgressBar->setMaximum(m_count);
+    int i = 0;
+    QDirIterator iterDir2(GetSDPath(), QDir::Files | QDir::NoSymLinks, QDirIterator::Subdirectories);
+    ui->allProgressBar->setValue(0);
+    while (iterDir2.hasNext())
+    {
+        iterDir2.next();
+
+        QString fileName = iterDir2.next().replace(GetSDPath(), GetUSBPath());
+        fileName.replace("\"", "");
+        QString file_path(iterDir2.fileName());
+        int index = file_path.lastIndexOf('/');
+        QString file_name = file_path.mid(index + 1, file_path.size() - index - 1);
+        ui->fileNameLabel->setText(QString(file_name));
+        ui->fileNameLabel->setFontSize(23);
+        ui->allProgressBar->setValue((++i) / m_count);
+        ui->fileCountLabel->setText(QString("%1 / %2").arg(i).arg(m_count));
+        ui->fileCountLabel->setFontSize(23);
+
+
+        QFile file(iterDir2.next());
+        ui->allProgressBar->setValue(++i);
+//        qDebug() << iterDir2.next();
+//        qDebug() << fileName;
+
+        file.copy(fileName);
+    }
+    emit finished();
+//    accept();
+}
+
+void FileManagerFileTransferWidget::paintEvent(QPaintEvent *event)
+{
+    QPainter painter(this);
+    painter.setPen(QPen(QColor(127,127,127)));
+    painter.drawLine(rect().bottomLeft(), rect().bottomRight());
 }

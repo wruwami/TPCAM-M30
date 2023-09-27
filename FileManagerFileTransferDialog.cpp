@@ -247,7 +247,8 @@ void FileManagerFileTransferDialog::TransferFTP2()
     }
     ftp.Quit();
 //    delete ftp;
-    accept();
+//    accept();
+    emit finished();
 //    connect(accessManager, SIGNAL(finished(QNetworkReply*)), SLOT(replyFinished(QNetworkReply*)));
 //    connect(reply, SIGNAL(error(QNetworkReply::NetworkError)),SLOT(loadError(QNetworkReply::NetworkError)));
 }
@@ -337,7 +338,8 @@ void FileManagerFileTransferDialog::TransferFile()
 
         file.copy(fileName);
     }
-    accept();
+    emit finished();
+//    accept();
 }
 
 void FileManagerFileTransferDialog::paintEvent(QPaintEvent *event)

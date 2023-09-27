@@ -20,7 +20,7 @@
 #include "KeypadDialog.h"
 #include "StillImageViewerDialog.h"
 #include "MovieViewerDialog.h"
-#include "FileManagerFileTransferDialog.h"
+//#include "FileManagerFileTransferDialog.h"
 #include "FileManagerFileTransferWidget.h"
 #include "SearchBoxDialog.h"
 #include "thermal_printer.h"

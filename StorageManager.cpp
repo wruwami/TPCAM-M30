@@ -29,7 +29,6 @@ StorageManager::StorageManager()
         if (QString(storage.device()) == EMMC)
         {
             m_emmcStorage = storage;
-//            storage.mountedVolumes()
             isExistEMMccard = true;
         }
     }
@@ -39,25 +38,9 @@ StorageManager::StorageManager()
         if (QString(storage.device()) == USB)
         {
             m_usbStorage = storage;
-//            storage.mountedVolumes()
             isExistEMMccard = true;
         }
     }
-
-    foreach (auto sdStorage, QStorageInfo::mountedVolumes())
-    {
-        qDebug() << "displayName : " + sdStorage.displayName();
-        qDebug() << "name : " + sdStorage.name();
-        qDebug() << "fileSystemType : " + sdStorage.fileSystemType();
-        qDebug() << "device : " + sdStorage.device();
-    }
-
-
-
-//    qDebug() << "name:" << m_storage.name();
-//    qDebug() << "fileSystemType:" << m_storage.fileSystemType();
-//    qDebug() << "size:" << m_storage.bytesTotal()/1024/1024 << "MB";
-//    qDebug() << "availableSize:" << m_storage.bytesAvailable()/1024/1024 << "MB";
 }
 
 float StorageManager::GetSDAvailable()

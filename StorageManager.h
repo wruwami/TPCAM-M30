@@ -16,10 +16,17 @@ public:
     QString GetEMMCPath();
     QString GetUSBPath();
 
+    bool GetSDExitSelfTest();
+    bool GetSDExitEnforcement();
+    bool GetEMMCExitSelfTest();
+
 private:
     QStorageInfo m_sdStorage;
     QStorageInfo m_emmcStorage;
     QStorageInfo m_usbStorage;
+    double m_fEMMCExitSelfTestPercent;
+    double m_fSDExitSelfTestPercent;
+    double m_fSDExitEnforcementPercent;
 public:
     bool isExistSdcard = false;
     bool isExistEMMccard = false;

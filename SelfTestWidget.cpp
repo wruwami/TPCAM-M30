@@ -284,14 +284,8 @@ bool SelfTestWidget::BatteryTest()
 bool SelfTestWidget::StorageTest()
 {
     StorageManager sdcardManager;
-    if (sdcardManager.isExistEMMccard == true && sdcardManager.isExistEMMccard == true)
-    {
-        float sdpercent = sdcardManager.GetSDAvailable() / sdcardManager.GetSDTotal();
-        float emmcpercent = sdcardManager.GeteMMCAvailable() / sdcardManager.GeteMMCTotal();
-        if (sdpercent > 0.2 && emmcpercent > 0.2)
-            return true;
-    }
-
+    if (!sdcardManager.GetEMMCExitSelfTest() && !sdcardManager.GetSDExitSelfTest())
+        return true;
     return false;
 }
 

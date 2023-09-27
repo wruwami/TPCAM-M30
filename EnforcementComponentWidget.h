@@ -146,7 +146,7 @@ private:
 //    QTimer m_ManualModeTimer;
     int m_nVModeSecond = 60;
     bool m_bVModeTimerWorking = false;
-    StorageManager m_sdcardManager;
+//    StorageManager m_sdcardManager;
     QPoint m_cross;
     QFileSystemWatcher m_fileSystemWatcher;
     TriggerStatus m_triggerStatus = SKIP;

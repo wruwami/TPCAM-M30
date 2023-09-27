@@ -10,6 +10,11 @@ StorageManager::StorageManager()
     QString SDCARD = object["SD"].toObject()["name"].toString();
     QString EMMC = object["emmc"].toObject()["name"].toString();
     QString USB = object["USB"].toObject()["name"].toString();
+    m_fEMMCExitSelfTestPercent = object["emmc"].toObject()["exit self test percent"].toDouble();
+    m_fSDExitSelfTestPercent = object["SD"].toObject()["exit self test percent"].toDouble();
+    m_fSDExitEnforcementPercent = object["SD"].toObject()["exit self test percent"].toDouble();
+
+
     foreach(auto storage , QStorageInfo::mountedVolumes())
     {
         if (QString(storage.device()) == SDCARD)
@@ -46,6 +51,8 @@ StorageManager::StorageManager()
         qDebug() << "fileSystemType : " + sdStorage.fileSystemType();
         qDebug() << "device : " + sdStorage.device();
     }
+
+
 
 //    qDebug() << "name:" << m_storage.name();
 //    qDebug() << "fileSystemType:" << m_storage.fileSystemType();
@@ -86,4 +93,25 @@ QString StorageManager::GetEMMCPath()
 QString StorageManager::GetUSBPath()
 {
     return m_usbStorage.rootPath();
+}
+
+bool StorageManager::GetSDExitSelfTest()
+{
+    if (GetSDAvailable() < m_fSDExitSelfTestPercent)
+        return true;
+    return false;
+}
+
+bool StorageManager::GetSDExitEnforcement()
+{
+    if (GetSDAvailable() < m_fSDExitEnforcementPercent)
+        return true;
+    return false;
+}
+
+bool StorageManager::GetEMMCExitSelfTest()
+{
+    if (GeteMMCAvailable() < m_fEMMCExitSelfTestPercent)
+        return true;
+    return false;
 }

@@ -12,9 +12,7 @@ StorageManager::StorageManager()
     QString USB = object["USB"].toObject()["name"].toString();
     foreach(auto storage , QStorageInfo::mountedVolumes())
     {
-        qDebug() << storage.device();
-        qDebug() << SDCARD;
-        if (storage.device() == SDCARD)
+        if (QString(storage.device()) == SDCARD)
         {
             m_sdStorage = storage;
             isExistSdcard = true;
@@ -23,7 +21,7 @@ StorageManager::StorageManager()
 
     foreach(auto storage , QStorageInfo::mountedVolumes())
     {
-        if (storage.device() == EMMC)
+        if (QString(storage.device()) == EMMC)
         {
             m_emmcStorage = storage;
 //            storage.mountedVolumes()
@@ -33,7 +31,7 @@ StorageManager::StorageManager()
 
     foreach(auto storage , QStorageInfo::mountedVolumes())
     {
-        if (storage.device() == USB)
+        if (QString(storage.device()) == USB)
         {
             m_usbStorage = storage;
 //            storage.mountedVolumes()

@@ -300,6 +300,16 @@ void FileManagerFileTransferDialog::TransferFile()
 //        ui->listWidget->addItem(iterDir.fileName());
     }
 
+    QDirIterator iterDir3(GetSDPath(), QDir::Dirs | QDir::NoDotAndDotDot | QDir::NoSymLinks, QDirIterator::Subdirectories);
+    while (iterDir3.hasNext())
+    {
+        QString dir2 = iterDir3.next().replace(GetSDPath(), QString(dir));
+        dir2.replace("\"", "");
+//        QDir qdir2(dir2);
+        qdir.mkdir(dir2);
+//        ftp.Mkdir(dir.toStdString().c_str());
+     }
+
     ui->allProgressBar->setMaximum(m_count);
     int i = 0;
     QDirIterator iterDir2(GetSDPath(), QDir::Files | QDir::NoSymLinks, QDirIterator::Subdirectories);

@@ -46,6 +46,14 @@ void HUDManager::ShowDistanceUnit(bool nShow)
         m_hud.writeNumberToFile("distance_sensitivity_unit", 1);
 }
 
+void HUDManager::SetDistanceUnit()
+{
+    if (distance() == meter)
+        m_hud.writeNumberToFile("distance_sensitivity_unit", 2);
+    else if (distance() == feet)
+        m_hud.writeNumberToFile("distance_sensitivity_unit", 3);
+}
+
 void HUDManager::ShowSpeedUnit(bool nShow)
 {
     if (!nShow)

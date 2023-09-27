@@ -114,6 +114,8 @@ FileManagerWidget::FileManagerWidget(QWidget *parent) :
     QHeaderView *verticalHeader = ui->tableWidget->verticalHeader();
     verticalHeader->setSectionResizeMode(QHeaderView::Stretch);
 
+    ui->tableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
+
 ////    int width = ui->tableWidget->width();//kui->gridLayout_2->itemAtPosition(1, 0)->geometry().width();
 
 ////    verticalHeader->setSectionResizeMode(0, QHeaderView::Stretch);

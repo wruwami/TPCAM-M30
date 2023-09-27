@@ -205,6 +205,7 @@ void SettingWidget::on_savePushButton_clicked()
         break;
     }
 
+    hudManager.SetDistanceUnit();
 
 //    ConfigManager configManaer1 = ConfigManager("parameter_settings1.json");
 //    QJsonObject object = configManaer1.GetConfig();

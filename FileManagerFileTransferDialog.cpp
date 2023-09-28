@@ -403,18 +403,31 @@ void FileManagerFileTransferDialog::closeThread()
     {
     case FTPType:
     {
+        disconnect(m_FtpTransThread.data(), SIGNAL(setValue(int)), this, SLOT(setValue(int)));
+        disconnect(m_FtpTransThread.data(), SIGNAL(setMaximum(int)), this, SLOT(setMaximum(int)));
+        disconnect(m_FtpTransThread.data(), SIGNAL(setFileNameText(QString)), this, SLOT(setFileNameText(QString)));
+        disconnect(m_FtpTransThread.data(), SIGNAL(setFileCountText(QString)), this, SLOT(setFileCountText(QString)));
+
         if (m_FtpTransThread->isRunning())
             m_FtpTransThread->requestInterruption();
+
     }
         break;
     case FileType:
     {
+        disconnect(m_FileTransThread.data(), SIGNAL(setValue(int)), this, SLOT(setValue(int)));
+        disconnect(m_FileTransThread.data(), SIGNAL(setMaximum(int)), this, SLOT(setMaximum(int)));
+        disconnect(m_FileTransThread.data(), SIGNAL(setFileNameText(QString)), this, SLOT(setFileNameText(QString)));
+        disconnect(m_FileTransThread.data(), SIGNAL(setFileCountText(QString)), this, SLOT(setFileCountText(QString)));
+
         if (m_FileTransThread->isRunning())
             m_FileTransThread->requestInterruption();
+
     }
         break;
     }
 
+    sleep(1);
     this->close();
 
 }

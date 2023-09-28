@@ -83,7 +83,7 @@ ViscaPacket *SerialViscaManager::getVisca_packet() const
 
 void SerialViscaManager::receive_camera()
 {
-    qDebug() << "\r\n\r\n";
+//    qDebug() << "\r\n\r\n";
     QByteArray data= serial_visca->readAll();//readline-> readall
     if(data.size()>0)
     {
@@ -602,7 +602,7 @@ void SerialViscaManager::zoom_from_pqrs(QString pqrs_input)
     q = pqrs.mid(1,1).toInt(&ok, 16);
     r = pqrs.mid(2,1).toInt(&ok, 16);
     s = pqrs.mid(3,1).toInt(&ok, 16);
-    qDebug() << pqrs;
+//    qDebug() << pqrs;
 
     QString dd;
     dd.sprintf("P%X, Q%X, R%X, S%X", p,q,r,s);
@@ -1851,7 +1851,7 @@ void SerialViscaManager::get_inquiry_zoom()
         count++;
         if(count == CHECK_OPT_DONE_COUNTER)
         {
-            m_pTimerCheckOPTdone->stop();
+            m_pTimerInquiryZoom->stop();
 
         }
     } else {
@@ -1874,7 +1874,7 @@ void SerialViscaManager::get_inquiry_focus()
 
     QString qstrpqrs = m_focus_pqrs;
 
-    qDebug() << qstrpqrs << ":" << qstrgFocus_pqrs;
+//    qDebug() << qstrpqrs << ":" << qstrgFocus_pqrs;
 
     int count = 0;
     if(qstrpqrs == qstrgFocus_pqrs)

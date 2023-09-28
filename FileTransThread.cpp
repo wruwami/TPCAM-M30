@@ -48,6 +48,9 @@ void FileTransThread::run()
         emit setValue(0);
         while (iterDir2.hasNext())
         {
+            if ( QThread::currentThread()->isInterruptionRequested() )
+                return;
+
             i++;
             iterDir2.next();
 
@@ -72,3 +75,8 @@ void FileTransThread::run()
             file.copy(fileName);
         }
 }
+
+//void FileTransThread::close2()
+//{
+//    this->requestInterruption();
+//}

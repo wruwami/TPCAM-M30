@@ -31,8 +31,8 @@ FileManagerFileTransferDialog::FileManagerFileTransferDialog(TransType type, QWi
     this->setWindowFlags(Qt::FramelessWindowHint);
 
     ui->closePushButton->setStyleSheet("QPushButton {border-image : url(images/MessageBox/closeButton.png); border:none;}");
-    ui->closePushButton->
-    connect(ui->closePushButton, &QAbstractButton::clicked, this, &QWidget::close);
+    connect(ui->closePushButton, SIGNAL(clicked()), this, SLOT(closeThread()));
+//    connect(ui->closePushButton, &QAbstractButton::clicked, this, &QWidget::close);
 
     QSizePolicy sp_retain = ui->speedLabel->sizePolicy();
     sp_retain.setRetainSizeWhenHidden(true);
@@ -41,7 +41,7 @@ FileManagerFileTransferDialog::FileManagerFileTransferDialog(TransType type, QWi
 //    QSizePolicy sp_retain2 = ui->oneProgressBar->sizePolicy();
 //    sp_retain2.setRetainSizeWhenHidden(true);
 //    ui->oneProgressBar->setSizePolicy(sp_retain2);
-
+    m_type = type;
     if (type == FileType)
     {
 //        ui->speedLabel->hide();
@@ -64,6 +64,8 @@ FileManagerFileTransferDialog::FileManagerFileTransferDialog(TransType type, QWi
         ui->titleLabel->setText(LoadString("IDS_FTP_TRANSFER"));
         ui->titleLabel->setFontSize(23);
         m_FtpTransThread.reset(new FtpTransThread2);
+//        connect(ui->closePushButton, &QAbstractButton::clicked, m_FtpTransThread.data(), &FtpTransThread2::requestInterruption);
+
         connect(m_FtpTransThread.data(), &FtpTransThread2::finished, m_FtpTransThread.data(), &QObject::deleteLater);
         connect(m_FtpTransThread.data(), SIGNAL(setValue(int)), this, SLOT(setValue(int)));
         connect(m_FtpTransThread.data(), SIGNAL(setMaximum(int)), this, SLOT(setMaximum(int)));
@@ -80,6 +82,20 @@ FileManagerFileTransferDialog::FileManagerFileTransferDialog(TransType type, QWi
 
 FileManagerFileTransferDialog::~FileManagerFileTransferDialog()
 {
+    switch (m_type)
+    {
+    case FTPType:
+    {
+        m_FtpTransThread->requestInterruption();
+    }
+        break;
+    case FileType:
+    {
+        m_FileTransThread->requestInterruption();
+    }
+        break;
+    }
+
     delete ui;
 }
 
@@ -380,6 +396,47 @@ void FileManagerFileTransferDialog::setFileCountText(QString str)
 {
     ui->fileCountLabel->setText(str);
 }
+
+void FileManagerFileTransferDialog::closeThread()
+{
+    switch (m_type)
+    {
+    case FTPType:
+    {
+        if (m_FtpTransThread->isRunning())
+            m_FtpTransThread->requestInterruption();
+    }
+        break;
+    case FileType:
+    {
+        if (m_FileTransThread->isRunning())
+            m_FileTransThread->requestInterruption();
+    }
+        break;
+    }
+
+    this->close();
+
+}
+
+//void FileManagerFileTransferDialog::close()
+//{
+//    switch (m_type)
+//    {
+//    case FTPType:
+//    {
+//        m_FtpTransThread->requestInterruption();
+//    }
+//        break;
+//    case FileType:
+//    {
+//        m_FileTransThread->requestInterruption();
+//    }
+//        break;
+//    }
+
+//    this->close();
+//}
 
 void FileManagerFileTransferDialog::paintEvent(QPaintEvent *event)
 {

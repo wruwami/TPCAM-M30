@@ -510,8 +510,8 @@ void FileManagerWidget::on_sharePushButton_clicked()
 void FileManagerWidget::on_movePushButton_clicked()
 {
     SetLogMsg(FILE_MANAGER, "MOVE");
-    BaseDialog baseDialog(FileManagerFileTransferWidgetType, Qt::AlignmentFlag::AlignCenter, "", true, LoadString("IDS_USB_MEMORY_TRANSFER"));
-    baseDialog.exec();
+//    BaseDialog baseDialog(FileManagerFileTransferWidgetType, Qt::AlignmentFlag::AlignCenter, "", true, LoadString("IDS_USB_MEMORY_TRANSFER"));
+//    baseDialog.exec();
     FileManagerFileTransferDialog fileManagerFileTransferDialog(FileType);
     fileManagerFileTransferDialog.exec();
 //    QEventLoop loop;

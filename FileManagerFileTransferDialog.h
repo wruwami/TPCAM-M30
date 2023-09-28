@@ -37,6 +37,7 @@ private:
     QString m_file_name;
     QSharedPointer<FileTransThread> m_FileTransThread;
     QSharedPointer<FtpTransThread2> m_FtpTransThread;
+    TransType m_type;
 signals:
     void finished();
 private slots:
@@ -44,6 +45,7 @@ private slots:
     void setMaximum(int);
     void setFileNameText(QString);
     void setFileCountText(QString);
+    void closeThread();
 //    void loadProgress(qint64 bytesSent, qint64 bytesTotal);    //Update progress bar
 
 //    void replyFinished(QNetworkReply*);

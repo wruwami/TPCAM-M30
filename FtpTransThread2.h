@@ -18,6 +18,7 @@ signals:
     void setValue(int);
     void setFileNameText(QString);
     void setFileCountText(QString);
+//    void close2();
 protected:
     void run() override;
 

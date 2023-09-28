@@ -63,6 +63,9 @@ void FtpTransThread2::run()
         int i = 0;
         while (iterDir2.hasNext())
         {
+            if ( QThread::currentThread()->isInterruptionRequested() )
+                return;
+
     //        i++;
             QString fileName = iterDir2.next().replace(GetSDPath(), QString(targetDir));
             fileName.replace("\"", "");
@@ -105,3 +108,8 @@ void FtpTransThread2::run()
         }
         ftp.Quit();
 }
+
+//void FtpTransThread2::close2()
+//{
+//    this->requestInterruption();
+//}

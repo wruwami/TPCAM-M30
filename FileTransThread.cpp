@@ -10,7 +10,8 @@
 FileTransThread::FileTransThread(QObject *parent)
     : QThread{parent}
 {
-
+    if (GetUSBPath() == "")
+        this->requestInterruption();
 }
 
 void FileTransThread::run()

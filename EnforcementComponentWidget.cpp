@@ -166,14 +166,19 @@ EnforcementComponentWidget::EnforcementComponentWidget(QWidget *parent) :
 
     startTimer(1000);
 
-
-
     m_nVModeSecond = ConfigManager("video_mode.json").GetConfig()["recoding minute"].toInt() * 60;
     connect(&m_VModeTimer, SIGNAL(timeout()), this, SLOT(VModeVideoSave()));
 //    connect(&m_ManualModeTimer, SIGNAL(timeout()), this, SLOT(on_ManualMode()));
 
     doEnforceMode(false);
 
+//    ConfigManager config = ConfigManager("parameter_setting6.json");
+//    QJsonObject jsonObject = config.GetConfig();
+
+//    if (jsonObject["ftp select"].toInt() == 3)
+//    {
+
+//    }
 //    m_pFtpThread.reset(new FtpTransThread);
 //    QObject::connect(m_pFtpThread.data(), &FtpTransThread::finished, m_pFtpThread.data(), &QObject::deleteLater);
 //    m_pFtpThread->start();
@@ -495,9 +500,9 @@ void EnforcementComponentWidget::laserInit()
 {
 //     if (m_pSerialLaserManager == nullptr)
 //        m_pSerialLaserManager = new SerialLaserManager;
-    ConfigManager config = ConfigManager("parameter_settings1.json");
+    ConfigManager config = ConfigManager("parameter_setting1.json");
     QJsonObject object = config.GetConfig();
-    ConfigManager config2 = ConfigManager("parameter_settings2.json");
+    ConfigManager config2 = ConfigManager("parameter_setting2.json");
     QJsonObject object2 = config2.GetConfig();
 
     if (object2["weather selection"].toInt() == 1)

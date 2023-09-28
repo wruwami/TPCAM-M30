@@ -44,40 +44,49 @@ FileManagerFileTransferDialog::FileManagerFileTransferDialog(TransType type, QWi
     m_type = type;
     if (type == FileType)
     {
-//        ui->speedLabel->hide();
-//        ui->oneProgressBar->hide();
-        ui->titleLabel->setText(LoadString("IDS_FILE_TRANSFER"));
-        ui->titleLabel->setFontSize(23);
-        m_FileTransThread.reset(new FileTransThread);
-        connect(m_FileTransThread.data(), &FileTransThread::finished, m_FileTransThread.data(), &QObject::deleteLater);
-        connect(m_FileTransThread.data(), SIGNAL(setValue(int)), this, SLOT(setValue(int)));
-        connect(m_FileTransThread.data(), SIGNAL(setMaximum(int)), this, SLOT(setMaximum(int)));
-        connect(m_FileTransThread.data(), SIGNAL(setFileNameText(QString)), this, SLOT(setFileNameText(QString)));
-        connect(m_FileTransThread.data(), SIGNAL(setFileCountText(QString)), this, SLOT(setFileCountText(QString)));
+//        if (!GetUSBPath().isEmpty())
+//        {
+            ui->titleLabel->setText(LoadString("IDS_FILE_TRANSFER"));
+            ui->titleLabel->setFontSize(23);
+            m_FileTransThread.reset(new FileTransThread);
+            connect(m_FileTransThread.data(), &FileTransThread::finished, m_FileTransThread.data(), &QObject::deleteLater);
+            connect(m_FileTransThread.data(), SIGNAL(setValue(int)), this, SLOT(setValue(int)));
+            connect(m_FileTransThread.data(), SIGNAL(setMaximum(int)), this, SLOT(setMaximum(int)));
+            connect(m_FileTransThread.data(), SIGNAL(setFileNameText(QString)), this, SLOT(setFileNameText(QString)));
+            connect(m_FileTransThread.data(), SIGNAL(setFileCountText(QString)), this, SLOT(setFileCountText(QString)));
 
-        m_FileTransThread->start();
+            m_FileTransThread->start();
+            startTimer(1000);
+//        }
 //        TransferFile();
 
     }
     else
     {
-        ui->titleLabel->setText(LoadString("IDS_FTP_TRANSFER"));
-        ui->titleLabel->setFontSize(23);
-        m_FtpTransThread.reset(new FtpTransThread2);
-//        connect(ui->closePushButton, &QAbstractButton::clicked, m_FtpTransThread.data(), &FtpTransThread2::requestInterruption);
+        ConfigManager config = ConfigManager("parameter_setting6.json");
+        QJsonObject jsonObject = config.GetConfig();
 
-        connect(m_FtpTransThread.data(), &FtpTransThread2::finished, m_FtpTransThread.data(), &QObject::deleteLater);
-        connect(m_FtpTransThread.data(), SIGNAL(setValue(int)), this, SLOT(setValue(int)));
-        connect(m_FtpTransThread.data(), SIGNAL(setMaximum(int)), this, SLOT(setMaximum(int)));
-        connect(m_FtpTransThread.data(), SIGNAL(setFileNameText(QString)), this, SLOT(setFileNameText(QString)));
-        connect(m_FtpTransThread.data(), SIGNAL(setFileCountText(QString)), this, SLOT(setFileCountText(QString)));
+//        if (jsonObject["ftp select"].toInt() != 1)
+//        {
+            ui->titleLabel->setText(LoadString("IDS_FTP_TRANSFER"));
+            ui->titleLabel->setFontSize(23);
+            m_FtpTransThread.reset(new FtpTransThread2);
+    //        connect(ui->closePushButton, &QAbstractButton::clicked, m_FtpTransThread.data(), &FtpTransThread2::requestInterruption);
 
-        m_FtpTransThread->start();
+            connect(m_FtpTransThread.data(), &FtpTransThread2::finished, m_FtpTransThread.data(), &QObject::deleteLater);
+            connect(m_FtpTransThread.data(), SIGNAL(setValue(int)), this, SLOT(setValue(int)));
+            connect(m_FtpTransThread.data(), SIGNAL(setMaximum(int)), this, SLOT(setMaximum(int)));
+            connect(m_FtpTransThread.data(), SIGNAL(setFileNameText(QString)), this, SLOT(setFileNameText(QString)));
+            connect(m_FtpTransThread.data(), SIGNAL(setFileCountText(QString)), this, SLOT(setFileCountText(QString)));
+
+            m_FtpTransThread->start();
+            startTimer(1000);
+//        }
 
 //        TransferFTP2();
     }
 
-    startTimer(1000);
+
 }
 
 FileManagerFileTransferDialog::~FileManagerFileTransferDialog()
@@ -408,7 +417,7 @@ void FileManagerFileTransferDialog::closeThread()
         disconnect(m_FtpTransThread.data(), SIGNAL(setFileNameText(QString)), this, SLOT(setFileNameText(QString)));
         disconnect(m_FtpTransThread.data(), SIGNAL(setFileCountText(QString)), this, SLOT(setFileCountText(QString)));
 
-        if (m_FtpTransThread->isRunning())
+        if (m_FtpTransThread != nullptr && m_FtpTransThread->isRunning())
             m_FtpTransThread->requestInterruption();
 
     }
@@ -420,7 +429,7 @@ void FileManagerFileTransferDialog::closeThread()
         disconnect(m_FileTransThread.data(), SIGNAL(setFileNameText(QString)), this, SLOT(setFileNameText(QString)));
         disconnect(m_FileTransThread.data(), SIGNAL(setFileCountText(QString)), this, SLOT(setFileCountText(QString)));
 
-        if (m_FileTransThread->isRunning())
+        if (m_FileTransThread != nullptr && m_FileTransThread->isRunning())
             m_FileTransThread->requestInterruption();
 
     }

@@ -10,6 +10,9 @@ FtpTransThread::FtpTransThread(FTPMode mode, QObject *parent)
     : QThread{parent}
 {
     QJsonObject jsonObject = m_config.GetConfig();
+
+    if (jsonObject["ftp select"].toInt() != 3)
+        this->terminate();
     m_ftp.Connect(QString(jsonObject["ftp server( dns )"].toString() + ":" + std::to_string(jsonObject["ftp port"].toInt()).c_str()).toStdString().c_str());
     m_ftp.Login(jsonObject["ftp user name"].toString().toStdString().c_str(), jsonObject["ftp password"].toString().toStdString().c_str());
 

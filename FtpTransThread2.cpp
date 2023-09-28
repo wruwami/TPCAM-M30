@@ -25,9 +25,6 @@ void FtpTransThread2::run()
         ConfigManager config = ConfigManager("parameter_setting6.json");
         QJsonObject jsonObject = config.GetConfig();
 
-
-//        m_index = 0;
-
         ftplib ftp;/* = new ftplib();*/
     //    qDebug() << QString(jsonObject["ftp server( dns )"].toString() + ":" + ;
         ftp.Connect(QString(jsonObject["ftp server( dns )"].toString() + ":" + std::to_string(jsonObject["ftp port"].toInt()).c_str()).toStdString().c_str());

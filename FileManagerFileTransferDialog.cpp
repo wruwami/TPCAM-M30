@@ -1,6 +1,7 @@
 #include "FileManagerFileTransferDialog.h"
 #include "ui_FileManagerFileTransferDialog.h"
 
+#include <QThread>
 #include <QNetworkAccessManager>
 #include <QUrl>
 #include <QFile>
@@ -47,14 +48,31 @@ FileManagerFileTransferDialog::FileManagerFileTransferDialog(TransType type, QWi
 //        ui->oneProgressBar->hide();
         ui->titleLabel->setText(LoadString("IDS_FILE_TRANSFER"));
         ui->titleLabel->setFontSize(23);
-        TransferFile();
+        m_FileTransThread.reset(new FileTransThread);
+        connect(m_FileTransThread.data(), &FileTransThread::finished, m_FileTransThread.data(), &QObject::deleteLater);
+        connect(m_FileTransThread.data(), SIGNAL(setValue(int)), this, SLOT(setValue(int)));
+        connect(m_FileTransThread.data(), SIGNAL(setMaximum(int)), this, SLOT(setMaximum(int)));
+        connect(m_FileTransThread.data(), SIGNAL(setFileNameText(QString)), this, SLOT(setFileNameText(QString)));
+        connect(m_FileTransThread.data(), SIGNAL(setFileCountText(QString)), this, SLOT(setFileCountText(QString)));
+
+        m_FileTransThread->start();
+//        TransferFile();
 
     }
     else
     {
         ui->titleLabel->setText(LoadString("IDS_FTP_TRANSFER"));
         ui->titleLabel->setFontSize(23);
-        TransferFTP2();
+        m_FtpTransThread.reset(new FtpTransThread2);
+        connect(m_FtpTransThread.data(), &FtpTransThread2::finished, m_FtpTransThread.data(), &QObject::deleteLater);
+        connect(m_FtpTransThread.data(), SIGNAL(setValue(int)), this, SLOT(setValue(int)));
+        connect(m_FtpTransThread.data(), SIGNAL(setMaximum(int)), this, SLOT(setMaximum(int)));
+        connect(m_FtpTransThread.data(), SIGNAL(setFileNameText(QString)), this, SLOT(setFileNameText(QString)));
+        connect(m_FtpTransThread.data(), SIGNAL(setFileCountText(QString)), this, SLOT(setFileCountText(QString)));
+
+        m_FtpTransThread->start();
+
+//        TransferFTP2();
     }
 
     startTimer(1000);
@@ -104,6 +122,7 @@ void FileManagerFileTransferDialog::TransferFTP()
     QDirIterator iterDir2(GetSDPath(), QDir::Files | QDir::NoSymLinks, QDirIterator::Subdirectories);
 
     ui->allProgressBar->setMaximum(m_count);
+    ui->allProgressBar->setValue(0);
     while (iterDir2.hasNext())
     {
         QString fileName = iterDir2.next().replace(GetSDPath(), QString(targetDir.c_str()));
@@ -339,7 +358,27 @@ void FileManagerFileTransferDialog::TransferFile()
         file.copy(fileName);
     }
     emit finished();
-//    accept();
+    //    accept();
+}
+
+void FileManagerFileTransferDialog::setValue(int value)
+{
+    ui->allProgressBar->setValue(value);
+}
+
+void FileManagerFileTransferDialog::setMaximum(int value)
+{
+    ui->allProgressBar->setMaximum(value);
+}
+
+void FileManagerFileTransferDialog::setFileNameText(QString str)
+{
+    ui->fileNameLabel->setText(str);
+}
+
+void FileManagerFileTransferDialog::setFileCountText(QString str)
+{
+    ui->fileCountLabel->setText(str);
 }
 
 void FileManagerFileTransferDialog::paintEvent(QPaintEvent *event)

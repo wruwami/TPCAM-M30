@@ -10,10 +10,15 @@
 
 #include "ConfigManager.h"
 
+enum FTPMode {
+    FileManagerMode,
+    EnforcementMode
+};
+
 class FtpTransThread : public QThread
 {
 public:
-    explicit FtpTransThread(QObject *parent = nullptr);
+    explicit FtpTransThread(FTPMode, QObject *parent = nullptr);
     virtual ~FtpTransThread();
     void PushFile(QString);
 private:
@@ -23,6 +28,7 @@ private:
      QSharedPointer<QMutex> m_mutex;
      ConfigManager m_config = ConfigManager("parameter_setting6.json");
      ftplib m_ftp;/* = new ftplib();*/
+     FTPMode m_Mode;
 
 protected:
     void run() override;

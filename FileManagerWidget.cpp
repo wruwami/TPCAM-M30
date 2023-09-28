@@ -20,8 +20,8 @@
 #include "KeypadDialog.h"
 #include "StillImageViewerDialog.h"
 #include "MovieViewerDialog.h"
-//#include "FileManagerFileTransferDialog.h"
-#include "FileManagerFileTransferWidget.h"
+#include "FileManagerFileTransferDialog.h"
+//#include "FileManagerFileTransferWidget.h"
 #include "SearchBoxDialog.h"
 #include "thermal_printer.h"
 #include "FileManager.h"
@@ -497,28 +497,29 @@ void FileManagerWidget::on_sharePushButton_clicked()
 //    baseDialog.exec();
     SetLogMsg(FILE_MANAGER, "SHARE");
 
-//    FileManagerFileTransferDialog fileManagerFileTransferDialog(FTPType);
-//    fileManagerFileTransferDialog.exec();
+    FileManagerFileTransferDialog fileManagerFileTransferDialog(FTPType);
+    fileManagerFileTransferDialog.exec();
 
-    QEventLoop loop;
-    FileManagerFileTransferWidget fileManagerFileTransferWidget(FTPType);
-    fileManagerFileTransferWidget.show();
-    connect(&fileManagerFileTransferWidget, SIGNAL(finished()), &loop, SLOT(quit()));
-    loop.exec();
+//    QEventLoop loop;
+//    FileManagerFileTransferWidget fileManagerFileTransferWidget(FTPType);
+//    fileManagerFileTransferWidget.show();
+//    connect(&fileManagerFileTransferWidget, SIGNAL(finished()), &loop, SLOT(quit()));
+//    loop.exec();
 }
 
 void FileManagerWidget::on_movePushButton_clicked()
 {
     SetLogMsg(FILE_MANAGER, "MOVE");
-//    BaseDialog baseDialog(FileManagerFileTransferWidgetType, Qt::AlignmentFlag::AlignCenter, "", true, LoadString("IDS_USB_MEMORY_TRANSFER"));
-//    baseDialog.exec();
-//    FileManagerFileTransferDialog fileManagerFileTransferDialog(FileType);
-//    fileManagerFileTransferDialog.exec();
-    QEventLoop loop;
-    FileManagerFileTransferWidget fileManagerFileTransferWidget(FileType);
-    fileManagerFileTransferWidget.show();
-    connect(&fileManagerFileTransferWidget, SIGNAL(finished()), &loop, SLOT(quit()));
-    loop.exec();
+    BaseDialog baseDialog(FileManagerFileTransferWidgetType, Qt::AlignmentFlag::AlignCenter, "", true, LoadString("IDS_USB_MEMORY_TRANSFER"));
+    baseDialog.exec();
+    FileManagerFileTransferDialog fileManagerFileTransferDialog(FileType);
+    fileManagerFileTransferDialog.exec();
+//    QEventLoop loop;
+//    FileManagerFileTransferWidget fileManagerFileTransferWidget(FileType);
+//    fileManagerFileTransferWidget.show();
+//    fileManagerFileTransferWidget.transFile
+//    connect(&fileManagerFileTransferWidget, SIGNAL(finished()), &loop, SLOT(quit()));
+//    loop.exec();
 
 }
 

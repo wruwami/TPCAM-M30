@@ -6,7 +6,7 @@
 #include "FileManager.h"
 
 
-FtpTransThread::FtpTransThread(QObject *parent)
+FtpTransThread::FtpTransThread(FTPMode mode, QObject *parent)
     : QThread{parent}
 {
     QJsonObject jsonObject = m_config.GetConfig();
@@ -14,6 +14,7 @@ FtpTransThread::FtpTransThread(QObject *parent)
     m_ftp.Login(jsonObject["ftp user name"].toString().toStdString().c_str(), jsonObject["ftp password"].toString().toStdString().c_str());
 
     m_mutex.reset(new QMutex);
+    m_Mode = mode;
 }
 
 FtpTransThread::~FtpTransThread()

@@ -605,7 +605,7 @@ void SerialViscaManager::zoom_from_pqrs(QString pqrs_input)
 //    qDebug() << pqrs;
 
     QString dd;
-    dd.sprintf("P%X, Q%X, R%X, S%X", p,q,r,s);
+    dd.sprintf("set zoom P%X, Q%X, R%X, S%X", p,q,r,s);
     qDebug() << dd;
     msg[3]=0x00 | p;
     msg[4]=0x00 | q;
@@ -1078,6 +1078,8 @@ void SerialViscaManager::set_AF_one_push_trigger()
     msg[1]=0x04;
     msg[2]=0x18;
     msg[3]=0x01;
+
+    m_pTimerCheckOPTdone->start(500);
 
     QByteArray data;
     if(visca_packet)
@@ -1858,8 +1860,6 @@ void SerialViscaManager::get_inquiry_zoom()
         zoom_from_pqrs(qstrpqrs);
         count = 0;
     }
-    m_zoom_pqrs = qstrgZoom_pqrs;
-
 }
 
 void SerialViscaManager::get_inquiry_focus()
@@ -1891,7 +1891,6 @@ void SerialViscaManager::get_inquiry_focus()
         count = 0;
     }
 
-    m_focus_pqrs = qstrgFocus_pqrs;
 }
 
 void SerialViscaManager::get_inquiry_iris()
@@ -1927,7 +1926,6 @@ void SerialViscaManager::get_inquiry_iris()
         set_iris_from_pq(qstrpq, isAutoIris);
         count = 0;
     }
-    m_iris_pq = qstrgIris_pq;
 }
 
 void SerialViscaManager::on_show_dzoom(QString zoom)

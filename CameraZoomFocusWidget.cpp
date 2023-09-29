@@ -12,6 +12,7 @@
 #include "ViscaPacket.h"
 #include "FileManager.h"
 #include "camera.h"
+#include "Logger.h"
 
 QStringList lt_day_focus = {"1587", "13D8", "11E8", "0FB7", "0FB7"};
 QStringList lt_night_focus = {"1587", "13D8", "11E8", "0FB7", "0FB7"};
@@ -187,13 +188,18 @@ void CameraZoomFocusWidget::ZoomRange()
 {
     int zoom_index = 0;
     m_nLtIndex++;
-    if (m_nLtIndex == m_ltmetervector.size())
+    if (m_nLtIndex >= m_ltmetervector.size())
         m_nLtIndex = 0;
 
     m_nTableIndex.setX(m_nLtIndex);
 
     zoom_index = m_nLtIndex;
     ui->zoomRangePushButton->setText(m_ltmetervector[m_nLtIndex]+distanceValue());
+
+    m_pSerialViscaManager->SetZoom(zoom_index);
+    m_pSerialViscaManager->SetFocus(zoom_index);
+
+    SetLogMsg(BUTTON_CLICKED, "ZOOM_INDEX, " + ui->zoomRangePushButton->text());
 
     SetLaserDetectionAreaDistance(zoom_index);
 
@@ -208,6 +214,7 @@ void CameraZoomFocusWidget::ZoomRange()
 void CameraZoomFocusWidget::on_optPushButton_clicked()
 {
     m_pSerialViscaManager->set_AF_one_push_trigger();
+//    m_pSerialViscaManager->m_pTimerCheckOPTdone->start(500);
     m_pSerialViscaManager->show_focusPosition();
 }
 

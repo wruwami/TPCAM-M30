@@ -16,7 +16,9 @@ SOURCES += main.cpp\
     Application.cpp \
     CustomTogglePushButton.cpp \
     FileManager.cpp \
+    FileTransThread.cpp \
     FtpTransThread.cpp \
+    FtpTransThread2.cpp \
     HUDManager.cpp \
     HeadUpDisplay.cpp \
     ImageConverter.cpp \
@@ -119,8 +121,10 @@ HEADERS  += MainWindow.h \
     Application.h \
     CustomTogglePushButton.h \
     FileManager.h \
+    FileTransThread.h \
     FontSize.h \
     FtpTransThread.h \
+    FtpTransThread2.h \
     HUDManager.h \
     HeadUpDisplay.h \
     ImageConverter.h \

@@ -20,7 +20,6 @@ class FileManagerFileTransferWidget : public QWidget
 public:
     explicit FileManagerFileTransferWidget(TransType, QWidget *parent = 0);
     ~FileManagerFileTransferWidget();
-private:
     void TransferFTP();
     void TransferFTP2();
     void TransferFile();

@@ -69,6 +69,11 @@ IndicatorDialog::IndicatorDialog(QWidget *parent) :
 IndicatorDialog::~IndicatorDialog()
 {
 
+    m_configManager1.SetConfig(m_jsonObject1);
+    m_configManager1.SaveFile();
+
+    m_configManager2.SetConfig(m_jsonObject2);
+    m_configManager2.SaveFile();
 //    if (m_pIndicatorCameraFocusWidget != nullptr)
 //        delete m_pIndicatorCameraFocusWidget;
 
@@ -245,11 +250,11 @@ void IndicatorDialog::on_speedSTPushButton_clicked()
 
     emit sig_STMode();
 
-    ConfigManager config = ConfigManager("parameter_enforcement.json");
-    QJsonObject object = config.GetConfig();
+//    ConfigManager config = ConfigManager("parameter_enforcement.json");
+//    QJsonObject object = config.GetConfig();
 
-    m_pSerialViscaManager->SetFocus(object["zoom_index"].toInt());
-    m_pSerialViscaManager->SetZoom(object["zoom_index"].toInt());
+//    m_pSerialViscaManager->SetFocus(object["zoom_index"].toInt());
+//    m_pSerialViscaManager->SetZoom(object["zoom_index"].toInt());
 }
 
 void IndicatorDialog::on_speedLTPushButton_clicked()
@@ -266,13 +271,13 @@ void IndicatorDialog::on_speedLTPushButton_clicked()
 
     emit sig_LTMode();
 
-    ConfigManager config = ConfigManager("parameter_enforcement.json");
-    QJsonObject object = config.GetConfig();
+//    ConfigManager config = ConfigManager("parameter_enforcement.json");
+//    QJsonObject object = config.GetConfig();
 
-    m_pSerialViscaManager->SetFocus(object["zoom_index"].toInt());
-    m_pSerialViscaManager->SetZoom(object["zoom_index"].toInt());
+//    m_pSerialViscaManager->SetFocus(object["zoom_index"].toInt());
+//    m_pSerialViscaManager->SetZoom(object["zoom_index"].toInt());
 
-    object["zoom_index"].toInt();
+//    object["zoom_index"].toInt();
 }
 
 void IndicatorDialog::on_enforcementPushButton_clicked()
@@ -393,12 +398,6 @@ void IndicatorDialog::paintEvent(QPaintEvent *event)
 
 void IndicatorDialog::mousePressEvent(QMouseEvent *event)
 {
-    m_configManager1.SetConfig(m_jsonObject1);
-    m_configManager1.SaveFile();
-
-    m_configManager2.SetConfig(m_jsonObject2);
-    m_configManager2.SaveFile();
-
     accept();
 }
 

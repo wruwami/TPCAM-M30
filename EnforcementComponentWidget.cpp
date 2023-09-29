@@ -468,7 +468,7 @@ void EnforcementComponentWidget::camInit()
 
 //    Config
     QJsonObject object = ConfigManager("parameter_enforcement.json").GetConfig();
-    m_nZoomIndex = object["zoom_index"].toInt();
+    m_nZoomIndex = object["zoom_index"].toInt() - 1;
     m_pSerialViscaManager->SetZoom(m_nZoomIndex);
     m_pSerialViscaManager->SetFocus(m_nZoomIndex);
 
@@ -859,7 +859,7 @@ void EnforcementComponentWidget::zoomRange()
     {
         m_nZoomIndex++;
         if (m_nZoomIndex >= m_stmetervector.size())
-            m_nZoomIndex = m_stmetervector.size() - 1;
+            m_nZoomIndex = 0;
 
 //        zoom_index = m_nZoomIndex;
         if (distance() == meter)
@@ -875,7 +875,7 @@ void EnforcementComponentWidget::zoomRange()
     {
         m_nZoomIndex++;
         if (m_nZoomIndex >= m_ltmetervector.size())
-            m_nZoomIndex = m_ltmetervector.size() - 1;
+            m_nZoomIndex = 0;
 
 //        zoom_index = m_nZoomIndex;
         if (distance() == meter)

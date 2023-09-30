@@ -64,11 +64,17 @@ CameraAlignWidget::CameraAlignWidget(QWidget *parent) :
 
     m_CameraMoveUnit = m_object["Camera reticle move unit"].toString().toInt();
 
+    HUDManager hudManager;
+    hudManager.HUDAlignInit();
+
     SetHudMode();
 }
 
 CameraAlignWidget::~CameraAlignWidget()
 {
+    HUDManager hudManager;
+    hudManager.HUDClear();
+
     delete ui;
 }
 
@@ -199,7 +205,7 @@ void CameraAlignWidget::on_defaultPushButton_clicked()
     m_HUDPoint = QPoint(0, 0);
     m_LaserPoint = QPoint(0, 0);
     HUDManager hudManager;
-    hudManager.HUDInit();
+    hudManager.HUDAlignInit();
     if (m_nMode == HUD)
         SetHudMode();
     else
@@ -256,10 +262,8 @@ void CameraAlignWidget::paintEvent(QPaintEvent *event)
     {
         int gap = 10;
 
-        int x = m_HUDPoint.x();
-        int y = m_HUDPoint.y();
-        QRect rect = QRect(QPoint(((width() / 2 ) + x) - 3 * gap, ((height() / 2) + y) - gap), QPoint(((width() / 2) + x) + 3*gap, ((height() / 2) + y) + gap));
-        QRect rect2 = QRect(QPoint(((width() / 2) + x) - gap, ((height() / 2) + y) - 3 * gap), QPoint(((width() / 2) + x) + gap, ((height() / 2) + y) + 3 * gap));
+        QRect rect = QRect(QPoint(width() / 2 - 3 * gap, height() / 2 - gap), QPoint(width() /2 + 3*gap, height() / 2 + gap));
+        QRect rect2 = QRect(QPoint(width() / 2 - gap, height() / 2 - 3 * gap), QPoint(width() /2 + gap, height() / 2 + 3 * gap));
 
         painter.fillRect(rect, Qt::white);
         painter.fillRect(rect2, Qt::white);

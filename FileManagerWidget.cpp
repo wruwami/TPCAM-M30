@@ -682,6 +682,9 @@ void FileManagerWidget::on_datePushButton_clicked()
 
         setTableContent();
 
+        if (m_avFileFormatList.size() > 0)
+            emit ui->tableWidget->cellClicked(0, 0);
+
 //        for (int i = 0 ; i < 5 ; i++)
 //        {
 //            if (i < m_avFileFormatList.size())

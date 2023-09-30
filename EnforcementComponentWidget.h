@@ -75,6 +75,7 @@ private:
     void SetCamera();
 
     void hudInit();
+    void hudClear();
 
     void doATMode();
 //    void doManualMode();
@@ -92,13 +93,13 @@ private:
     void displayHudDistance(bool, bool);
     void SetLaserDetectionAreaDistance(int);
     void zoomRange();
-    void unitInit();
     void initRec();
     void setVehicleMode();
     QString GetMode();
     void doVModeTimer(bool);
     void doEnforceMode(bool);
     void doPreManualMode();
+    void clearDistanceSpeed();
 
 public:
     SerialLaserManager* m_pSerialLaserManager = nullptr;
@@ -143,6 +144,7 @@ private:
     EnforcementMode m_nEnforcementMode;
     bool m_bRedLine = false;
     QTimer m_VModeTimer;
+    QTimer m_WhiteClearTimer;
 //    QTimer m_ManualModeTimer;
     int m_nVModeSecond = 60;
     bool m_bVModeTimerWorking = false;
@@ -188,8 +190,8 @@ private slots:
 
     void on_saveImagePushButton_clicked();
     void StopHUDRec();
-    void StopDisPlayRec();
-    void StopDisPlayRedLine();
+    void ClearDisplay();
+    void RestartSignal();
     void VModeVideoSave();
     void on_Show();
     void on_Hide();

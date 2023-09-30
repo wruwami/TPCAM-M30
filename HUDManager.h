@@ -22,10 +22,12 @@ public:
     void ShowDistance(bool);
     void ShowDistanceUnit(bool);
     void SetDistanceUnit();
-    void ShowSpeedUnit(bool);
+    void SetSpeedUnit();
     void SetPointX(int);
     void SetPointY(int);
-    void HUDInit();
+    void HUDEnforcementInit();
+    void HUDAlignInit();
+    void HUDZoomFocusInit();
     void HUDClear();
     CHeadUpDisplay &hud();
 

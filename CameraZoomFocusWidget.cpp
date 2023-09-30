@@ -158,10 +158,14 @@ CameraZoomFocusWidget::CameraZoomFocusWidget(QWidget *parent) :
     connect(m_pSerialViscaManager->getVisca_packet(), SIGNAL(sig_show_focus(QString)), this, SLOT(on_show_focus(QString)));
 
     SendViscaValue();
+
+    m_hud.HUDZoomFocusInit();
 }
 
 CameraZoomFocusWidget::~CameraZoomFocusWidget()
 {
+    m_hud.HUDClear();
+
     disconnect(m_pSerialViscaManager->getVisca_packet(), SIGNAL(sig_show_dzoom(QString)), this, SLOT(on_show_dzoom(QString)));
     disconnect(m_pSerialViscaManager->getVisca_packet(), SIGNAL(sig_show_zoom(QString)), this, SLOT(on_show_zoom(QString)));
     disconnect(m_pSerialViscaManager->getVisca_packet(), SIGNAL(sig_show_focus(QString)), this, SLOT(on_show_focus(QString)));

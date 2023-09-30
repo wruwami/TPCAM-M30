@@ -6,6 +6,7 @@
 
 #include "SerialViscaManager.h"
 #include "ConfigManager.h"
+#include "HUDManager.h"
 
 class Camera;
 class SerialLaserManager;
@@ -90,6 +91,7 @@ private:
     QPoint m_nTableIndex;
 //    QMap<QPoint, int> m_mTableStatus;   // int 0 not jpg,pqrs, 1 not pqrs, 2 all complete
     std::map<std::pair<int,int>, int> m_mTableStatus;   // int 0 not jpg,pqrs, 1 not pqrs, 2 all complete
+    HUDManager m_hud;
 //    QPoint m_nTableStatus;
 };
 

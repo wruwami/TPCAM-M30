@@ -21,6 +21,7 @@ public:
     void ShowSpeed(bool, bool);
     void ShowDistance(bool);
     void ShowDistanceUnit(bool);
+    void SetDistanceSensitivityUnit();
     void SetDistanceUnit();
     void SetSpeedUnit();
     void SetPointX(int);
@@ -29,6 +30,9 @@ public:
     void HUDAlignInit();
     void HUDZoomFocusInit();
     void HUDClear();
+    void HUDEnforcement(bool, float, float);
+    void HUDEnforcementClear();
+
     CHeadUpDisplay &hud();
 
 private:

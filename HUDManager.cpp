@@ -47,12 +47,20 @@ void HUDManager::ShowDistanceUnit(bool nShow)
         m_hud.writeNumberToFile("distance_sensitivity_unit", 1);
 }
 
-void HUDManager::SetDistanceUnit()
+void HUDManager::SetDistanceSensitivityUnit()
 {
     if (distance() == meter)
         m_hud.writeNumberToFile("distance_sensitivity_unit", 2);
     else if (distance() == feet)
         m_hud.writeNumberToFile("distance_sensitivity_unit", 3);
+}
+
+void HUDManager::SetDistanceUnit()
+{
+    if (distance() == meter)
+        m_hud.writeNumberToFile("distance_unit", 2);
+    else if (distance() == feet)
+        m_hud.writeNumberToFile("distance_unit", 3);
 }
 
 void HUDManager::SetSpeedUnit()
@@ -138,7 +146,7 @@ void HUDManager::HUDEnforcementInit()
     m_hud.writeNumberToFile("pointer_x", object["HUD reticle pos"].toArray()[0].toInt());
     m_hud.writeNumberToFile("pointer_y", object["HUD reticle pos"].toArray()[1].toInt());
 
-    SetDistanceUnit();
+    SetDistanceSensitivityUnit();
     m_hud.writeNumberToFile("distance_sensitivity", 0);
     m_hud.writeNumberToFile("distance", 1);
 
@@ -207,7 +215,7 @@ void HUDManager::HUDAlignInit()
     m_hud.writeNumberToFile("pointer_x", object["HUD reticle pos"].toArray()[0].toInt());
     m_hud.writeNumberToFile("pointer_y", object["HUD reticle pos"].toArray()[1].toInt());
 
-    SetDistanceUnit();
+    SetDistanceSensitivityUnit();
     m_hud.writeNumberToFile("distance_sensitivity", 1);
     m_hud.writeNumberToFile("distance", 0);
 
@@ -288,6 +296,45 @@ void HUDManager::HUDZoomFocusInit()
 void HUDManager::HUDClear()
 {
     m_hud.writeNumberToFile("display", 0) ;
+}
+
+void HUDManager::HUDEnforcement(bool bEnforcement, float fSpeed, float fDistance)
+{
+    if (bEnforcement)
+    {
+        m_hud.writeNumberToFile("speed", 2);
+
+        m_hud.writeNumberToFile("distance_value", (int)getDistanceValue(fDistance));
+        m_hud.writeNumberToFile("speed_value", (int)getSpeedValue(fSpeed));
+    }
+    else
+    {
+        if (m_hud.readNumberFromFile("speed") < 2)
+        {
+            m_hud.writeNumberToFile("speed", 1);
+
+            m_hud.writeNumberToFile("distance_value", (int)getDistanceValue(fDistance));
+            m_hud.writeNumberToFile("speed_value", (int)getSpeedValue(fSpeed));
+        }
+        else if (m_hud.readNumberFromFile("speed") == 2)
+        {
+            m_hud.writeNumberToFile("clear_content", 1);
+            m_hud.writeNumberToFile("speed", 1);
+
+            m_hud.writeNumberToFile("pointer", 1);
+            m_hud.writeNumberToFile("distance", 1);
+
+            m_hud.writeNumberToFile("distance_value", (int)getDistanceValue(fDistance));
+            m_hud.writeNumberToFile("speed_value", (int)getSpeedValue(fSpeed));
+        }
+    }
+
+}
+
+void HUDManager::HUDEnforcementClear()
+{
+    m_hud.writeNumberToFile("distance_value", 0);
+    m_hud.writeNumberToFile("speed", 0);
 }
 
 CHeadUpDisplay &HUDManager::hud()

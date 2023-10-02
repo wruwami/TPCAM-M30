@@ -172,6 +172,9 @@ CameraZoomFocusWidget::~CameraZoomFocusWidget()
     disconnect(m_pSerialViscaManager->getVisca_packet(), SIGNAL(sig_show_zoom(QString)), this, SLOT(on_show_zoom(QString)));
     disconnect(m_pSerialViscaManager->getVisca_packet(), SIGNAL(sig_show_focus(QString)), this, SLOT(on_show_focus(QString)));
 
+    m_pSerialLaserManager->stop_laser();
+    m_pSerialLaserManager->request_distance(false);
+
 //    delete m_pSerialLaserManager;
 //    m_serialViscaManager.close();
     delete ui;
@@ -808,7 +811,7 @@ void CameraZoomFocusWidget::on_autoTriggerPushButton_clicked(bool checked)
         ui->autoTriggerPushButton->setStyleSheet("border-color: red;");
         m_pSerialLaserManager->start_laser();
         m_pSerialLaserManager->request_distance(true);
-        m_pSerialLaserManager->start_virtualSpeed();
+//        m_pSerialLaserManager->start_virtualSpeed();
     }
     else
     {

@@ -31,7 +31,12 @@ public:
     void HUDZoomFocusInit();
     void HUDClear();
     void HUDEnforcement(bool, float, float);
+    void HUDEnforcementLimitOver(float, float);
     void HUDEnforcementClear();
+    void HUDAlign(float, int);
+    void HUDAlignClear();
+    void HUDZoomFocus(float);
+    void HUDZoomFocusClear();
 
     CHeadUpDisplay &hud();
 

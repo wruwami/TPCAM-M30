@@ -331,10 +331,40 @@ void HUDManager::HUDEnforcement(bool bEnforcement, float fSpeed, float fDistance
 
 }
 
+void HUDManager::HUDEnforcementLimitOver(float fSpeed, float fDistance)
+{
+    m_hud.writeNumberToFile("speed", 2);
+
+    m_hud.writeNumberToFile("distance_value", (int)getDistanceValue(fDistance));
+    m_hud.writeNumberToFile("speed_value", (int)getSpeedValue(fSpeed));
+}
+
 void HUDManager::HUDEnforcementClear()
 {
     m_hud.writeNumberToFile("distance_value", 0);
     m_hud.writeNumberToFile("speed", 0);
+}
+
+void HUDManager::HUDAlign(float fDistance, int nSensitivity)
+{
+    m_hud.writeNumberToFile("distance_sensitivity_distance_value", (int)getDistanceValue(fDistance));
+    m_hud.writeNumberToFile("distance_sensitivity_sensitivity_value", nSensitivity);
+}
+
+void HUDManager::HUDAlignClear()
+{
+    m_hud.writeNumberToFile("distance_sensitivity_distance_value", 0);
+    m_hud.writeNumberToFile("distance_sensitivity_sensitivity_value", 0);
+}
+
+void HUDManager::HUDZoomFocus(float fDistance)
+{
+    m_hud.writeNumberToFile("distance_value", (int)getDistanceValue(fDistance));
+}
+
+void HUDManager::HUDZoomFocusClear()
+{
+    m_hud.writeNumberToFile("distance_value", 0);
 }
 
 CHeadUpDisplay &HUDManager::hud()

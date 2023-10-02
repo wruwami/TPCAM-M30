@@ -49,6 +49,8 @@ private:
     QJsonObject m_object3;
     QString m_strDZoom;
     std::map<std::pair<int,int>, QString> m_MapFocus;
+    QTimer m_ClearTimer;
+
 private slots:
     void on_optPushButton_clicked();
 
@@ -76,6 +78,7 @@ private slots:
     void on_show_zoom(QString);
     void on_show_focus(QString);
 
+    void ClearDisplay();
 
     void on_autoTriggerPushButton_clicked(bool checked);
 

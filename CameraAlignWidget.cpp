@@ -67,6 +67,8 @@ CameraAlignWidget::CameraAlignWidget(QWidget *parent) :
     HUDManager hudManager;
     hudManager.HUDAlignInit();
 
+    connect(&m_ClearTimer, SIGNAL(timeout), this, SLOT(ClearDisplay()));
+
     SetHudMode();
 }
 
@@ -247,6 +249,16 @@ void CameraAlignWidget::on_autoTriggerPushButton_toggled(bool checked)
 void CameraAlignWidget::on_showDistance(float fDistance, int nSensitivity)
 {
     ui->speedSensitivitylabel->setText(QString::number(getDistanceValue(fDistance), 'f', 1) + distanceValue() + "(" + QString::number(nSensitivity)+ ")");
+
+    m_ClearTimer.start(200);
+}
+
+void CameraAlignWidget::ClearDisplay()
+{
+    ui->speedSensitivitylabel->setText("----.-" + distanceValue() + "(" + "(0)");
+
+    HUDManager hudManager;
+    hudManager.HUDAlignClear();
 }
 
 void CameraAlignWidget::paintEvent(QPaintEvent *event)

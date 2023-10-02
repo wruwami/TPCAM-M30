@@ -159,6 +159,8 @@ CameraZoomFocusWidget::CameraZoomFocusWidget(QWidget *parent) :
 
     SendViscaValue();
 
+    connect(&m_ClearTimer, SIGNAL(timeout), this, SLOT(ClearDisplay()));
+
     m_hud.HUDZoomFocusInit();
 }
 
@@ -661,6 +663,10 @@ void CameraZoomFocusWidget::on_dzMinusPushButton_clicked()
 void CameraZoomFocusWidget::on_showDistance(float fDistance, int nSensitivity)
 {
     ui->speedSensitivitylabel->setText(QString::number(getDistanceValue(fDistance), 'f', 1) + distanceValue() + "(" + QString::number(nSensitivity)+ ")");
+
+    m_hud.HUDZoomFocus(fDistance);
+
+    m_ClearTimer.start(200);
 }
 
 
@@ -778,7 +784,14 @@ void CameraZoomFocusWidget::on_show_focus(QString focus)
 
 //    EditTableValue();
 //    QTableWidgetItem item(focus);
-//    ui->tableWidget->setItem(m_nTableIndex.x(), m_nTableIndex.y(), &item);
+    //    ui->tableWidget->setItem(m_nTableIndex.x(), m_nTableIndex.y(), &item);
+}
+
+void CameraZoomFocusWidget::ClearDisplay()
+{
+    m_hud.HUDZoomFocusClear();
+
+    ui->speedSensitivitylabel->setText("----.-" + distanceValue() + "(0)");
 }
 
 void CameraZoomFocusWidget::on_show_dzoom(QString dzoom)

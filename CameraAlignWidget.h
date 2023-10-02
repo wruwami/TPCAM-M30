@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include <QPoint>
+#include <QTimer>
 
 #include "ConfigManager.h"
 
@@ -56,6 +57,7 @@ private:
     AlignMode m_nMode = HUD;
     SerialLaserManager* m_pSerialLaserManager = nullptr;
     int m_CameraMoveUnit = 1;
+    QTimer m_ClearTimer;
 private slots:
     void on_hudPushButton_clicked();
 
@@ -75,6 +77,8 @@ private slots:
 
     void on_autoTriggerPushButton_toggled(bool checked);
     void on_showDistance(float,int);
+
+    void ClearDisplay();
 
 protected:
     void paintEvent(QPaintEvent *event);

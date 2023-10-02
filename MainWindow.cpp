@@ -1405,11 +1405,13 @@ void MainWindow::on_mainMenuHomeClicked()
         m_pCamera = nullptr;
     }
 
-    m_pMainMenuWidget->setTransparentBackGround(false);
+    if (m_pMainMenuWidget)
+        m_pMainMenuWidget->setTransparentBackGround(false);
 
     if (m_widgetType == CameraAlign)
     {
         m_pMainMenuWidget = new MainMenuWidget;
+        m_pMainMenuWidget->setTransparentBackGround(false);
         m_pIndicatorWidget->SetMainMenu(m_pMainMenuWidget);
         ui->verticalLayout->addWidget(m_pMainMenuWidget, 125);
         m_p100msTimer->start(100);

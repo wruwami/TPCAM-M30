@@ -65,7 +65,7 @@ CameraAlignWidget::CameraAlignWidget(QWidget *parent) :
     m_CameraMoveUnit = m_object["Camera reticle move unit"].toString().toInt();
 
     HUDManager hudManager;
-    hudManager.HUDAlignInit();
+    hudManager.HUDAlignInit(true);
 
     connect(&m_ClearTimer, SIGNAL(timeout), this, SLOT(ClearDisplay()));
 
@@ -207,7 +207,7 @@ void CameraAlignWidget::on_defaultPushButton_clicked()
     m_HUDPoint = QPoint(0, 0);
     m_LaserPoint = QPoint(0, 0);
     HUDManager hudManager;
-    hudManager.HUDAlignInit();
+    hudManager.HUDAlignInit(false);
     if (m_nMode == HUD)
         SetHudMode();
     else

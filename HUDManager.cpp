@@ -154,7 +154,7 @@ void HUDManager::HUDEnforcementInit()
     m_hud.writeNumberToFile("speed", 1);
 }
 
-void HUDManager::HUDAlignInit()
+void HUDManager::HUDAlignInit(bool bFirst)
 {
     m_hud.writeNumberToFile("display", 1);
     m_hud.writeNumberToFile("clear_content", 1);
@@ -211,9 +211,18 @@ void HUDManager::HUDAlignInit()
         break;
     }
 
-    object = ConfigManager("setting_reticle.json").GetConfig();
-    m_hud.writeNumberToFile("pointer_x", object["HUD reticle pos"].toArray()[0].toInt());
-    m_hud.writeNumberToFile("pointer_y", object["HUD reticle pos"].toArray()[1].toInt());
+    if (bFirst)
+    {
+        object = ConfigManager("setting_reticle.json").GetConfig();
+        m_hud.writeNumberToFile("pointer_x", object["HUD reticle pos"].toArray()[0].toInt());
+        m_hud.writeNumberToFile("pointer_y", object["HUD reticle pos"].toArray()[1].toInt());
+    }
+    else
+    {
+        m_hud.writeNumberToFile("pointer_x", 6);
+        m_hud.writeNumberToFile("pointer_y", 6);
+
+    }
 
     SetDistanceSensitivityUnit();
     m_hud.writeNumberToFile("distance_sensitivity", 1);

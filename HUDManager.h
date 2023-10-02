@@ -27,7 +27,7 @@ public:
     void SetPointX(int);
     void SetPointY(int);
     void HUDEnforcementInit();
-    void HUDAlignInit();
+    void HUDAlignInit(bool);
     void HUDZoomFocusInit();
     void HUDClear();
     void HUDEnforcement(bool, float, float);

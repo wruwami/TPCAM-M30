@@ -585,7 +585,12 @@ void IndicatorDialog::on_screenCapturePushButton_clicked()
 {
     accept();
 
-    emit sig_screenShot();
+    QString filename = GetSubPath("/screen", SD) + "/" + GetFileName(SC);
+    QString cmd("sudo scrot ");
+    cmd.append(filename);
+    system(cmd.toStdString().c_str());
+
+//    emit sig_screenShot();
 
 }
 

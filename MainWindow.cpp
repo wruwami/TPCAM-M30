@@ -1411,6 +1411,7 @@ void MainWindow::on_mainMenuHomeClicked()
     if (m_widgetType == CameraAlign)
     {
         m_pMainMenuWidget = new MainMenuWidget;
+        QObject::connect((QWidget*)m_pMainMenuWidget->m_pHomePushButton, SIGNAL(clicked()), this, SLOT(on_mainMenuHomeClicked()));
         m_pMainMenuWidget->setTransparentBackGround(false);
         m_pIndicatorWidget->SetMainMenu(m_pMainMenuWidget);
         ui->verticalLayout->addWidget(m_pMainMenuWidget, 125);

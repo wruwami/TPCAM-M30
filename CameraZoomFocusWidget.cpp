@@ -616,7 +616,7 @@ void CameraZoomFocusWidget::EditTableValue()
     ui->tableWidget->setRowCount(0);
     ui->tableWidget->setRowCount(6);
     SetTableVerticalHeader();
-    for (int i = 0 ; i < 6 ; i++)
+    for (int i = 0 ; i < 5 ; i++)
     {
         for( int j = 0 ; j < 2 ; j++)
         {
@@ -785,7 +785,7 @@ void CameraZoomFocusWidget::on_show_focus(QString focus)
         m_MapFocus[std::make_pair(m_nTableIndex.x(), m_nTableIndex.y())] = focus;
     }
 
-//    EditTableValue();
+    EditTableValue();
 //    QTableWidgetItem item(focus);
     //    ui->tableWidget->setItem(m_nTableIndex.x(), m_nTableIndex.y(), &item);
 }

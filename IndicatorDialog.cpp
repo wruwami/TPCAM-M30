@@ -548,7 +548,7 @@ void IndicatorDialog::on_screenRecordingPushButton_clicked()
 
     char buff[256];
     memset(buff, 0, 256);
-    FILE* fp = popen("pidof ffmpeg", "r");
+    FILE* fp = popen("sudo pidof ffmpeg", "r");
     if (fp == NULL)
     {
         perror("erro : ");
@@ -565,17 +565,19 @@ void IndicatorDialog::on_screenRecordingPushButton_clicked()
         QString strCommand;
         QString resolution = "800x480";
         QString file_name = GetSubPath("/screen", SD) + "/" + GetFileName(SR);
-        strCommand = QString("ffmpeg -hwaccel opencl -y -f x11grab -framerate 10 -video_size %1 -i :0.0+0,0 -c:v libx264 -pix_fmt yuv420p -qp 0 -preset ultrafast %2 &").arg(resolution).arg(file_name);
+        strCommand = QString("sudo ffmpeg -hwaccel opencl -y -f x11grab -framerate 10 -video_size %1 -i :0.0+0,0 -c:v libx264 -pix_fmt yuv420p -qp 0 -preset ultrafast %2 &").arg(resolution).arg(file_name);
         std::thread thread_command(thread_CommandExcute2, strCommand);
         thread_command.detach();
-        ui->screenRecordingPushButton->setImage("indicator", "screen_recording.jpg");
-
+        ui->screenRecordingPushButton->setImage("indicator", "screen recording_off.jpg");
 //        system(strCommand.toStdString().c_str());
     }
     else
     {
-        system("ps -ef | grep ffmpeg | awk '{print $2}' | xargs kill -9");
-        ui->screenRecordingPushButton->setImage("indicator", "screen recording_off.jpg");
+        std::string cmd("sudo kill -9 ");
+        cmd.append(buff);
+        system(cmd.c_str());
+//        system("ps -ef | grep ffmpeg | awk '{print $2}' | xargs kill -9");
+        ui->screenRecordingPushButton->setImage("indicator", "screen_recording.jpg");
     }
 }
 

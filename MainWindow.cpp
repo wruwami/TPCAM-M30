@@ -147,7 +147,7 @@ MainWindow::MainWindow(screensaver* screensaver, QWidget *parent) :
     QObject::connect((QWidget*)m_pLoginWidget->m_pUserNameComboBox, SIGNAL(currentIndexChanged(QString)), this, SLOT(on_userNameChanged(QString)));
     QObject::connect((QWidget*)m_pMainMenuWidget->m_pHomePushButton, SIGNAL(clicked()), this, SLOT(on_mainMenuHomeClicked()));
 
-//    BatteryInit();
+    BatteryInit();
 //    device use
 
     get(screensaver);

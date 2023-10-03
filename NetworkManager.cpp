@@ -27,22 +27,6 @@ NetworkManager::NetworkManager()
 //    if (ConfigManager("parameter_setting5.json").GetConfig()["wifi select"].toInt() == 1)
 //        bEnableWifi = true;
 
-    m_strNetPlan = "network: \n\
-    version: 2 \n\
-    renderer: NetworkManager\n";
-
-    SetEtherNet();
-
-//    if (bEnableWifi)
-//    {
-        if(m_wifi_jsonObject["wifi_mode"].toString() == "STA")
-        {
-            SetWifiStaMode();
-        }
-        else
-        {
-            SetWifiAPMode();
-        }
 //    }
 }
 
@@ -71,6 +55,23 @@ NetworkManager::~NetworkManager()
 
 void NetworkManager::SetNetworkSetting()
 {
+    m_strNetPlan = "network: \n\
+    version: 2 \n\
+    renderer: NetworkManager\n";
+
+    SetEtherNet();
+
+//    if (bEnableWifi)
+//    {
+    if(m_wifi_jsonObject["wifi_mode"].toString() == "STA")
+    {
+        SetWifiStaMode();
+    }
+    else
+    {
+        SetWifiAPMode();
+    }
+
     QFile existFile("/etc/netplan/01-network-manager-all.yaml");
     existFile.open(QFile::ReadOnly);
     if (existFile.exists())

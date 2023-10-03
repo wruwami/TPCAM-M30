@@ -25,7 +25,7 @@ public:
     void setPSerialLaserManager(SerialLaserManager *newPSerialLaserManager);
 
     void setPSerialViscaManager(SerialViscaManager *newPSerialViscaManager);
-
+    void setMainMenuSize(QSize);
 private:
     void ZoomRange();
     void SetLaserDetectionAreaDistance(int zoom_index);
@@ -40,6 +40,7 @@ private:
     void SendViscaValue();
     void EditTableValue();
     void SetTableVerticalHeader();
+
 private:
     ConfigManager m_configManager = ConfigManager("exposure.json");
     ConfigManager m_coofigManager2 = ConfigManager("focus_edit.json");
@@ -83,6 +84,7 @@ private slots:
     void on_autoTriggerPushButton_clicked(bool checked);
 
 private:
+    QSize m_pMainMenuWidgetSize;
     Ui::CameraZoomFocusWidget *ui;
     SerialViscaManager* m_pSerialViscaManager;
     Camera* m_pCamera;
@@ -96,6 +98,10 @@ private:
     std::map<std::pair<int,int>, int> m_mTableStatus;   // int 0 not jpg,pqrs, 1 not pqrs, 2 all complete
     HUDManager m_hud;
 //    QPoint m_nTableStatus;
+
+protected:
+    void paintEvent(QPaintEvent *event);
+
 };
 
 #endif // CAMERAZOOMFOCUSWIDGET_H

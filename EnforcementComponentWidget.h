@@ -68,6 +68,7 @@ public:
     void laserInit();
     void camInit();
     void SetCamera(Camera* camera);
+    void setMainMenuSize(QSize);
 private:
     void hide(bool);
     void show(bool);
@@ -152,6 +153,7 @@ private:
     QPoint m_cross;
     QFileSystemWatcher m_fileSystemWatcher;
     TriggerStatus m_triggerStatus = SKIP;
+    QSize m_MainMenuWidgetSize;
 //    QSharedPointer<FtpTransThread> m_pFtpThread;
 protected slots:
     void on_hidePushButton_clicked();

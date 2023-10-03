@@ -551,6 +551,11 @@ void EnforcementComponentWidget::SetCamera(Camera *camera)
         m_pCamera = camera;
 }
 
+void EnforcementComponentWidget::setMainMenuSize(QSize size)
+{
+    m_MainMenuWidgetSize = size;
+}
+
 void EnforcementComponentWidget::doATMode()
 {
 //    emit ShowRedOutLine(true);
@@ -1155,14 +1160,21 @@ void EnforcementComponentWidget::paintEvent(QPaintEvent *event)
 
         crossPen.setStyle(Qt::SolidLine);
 //        crossPen.setWidth(10);
-//        QRect rect = QRect(width() / 2, height() / 2 + 10, 10, 30);
-//        QRect rect2 = QRect(width() / 2 - 10, height() / 2, 10, 30);
+        int height2 = height() + m_MainMenuWidgetSize.height();
         int gap = 10;
-        QRect rect = QRect(QPoint(width() / 2 - 3 * gap, height() / 2 - gap), QPoint(width() /2 + 3*gap, height() / 2 + gap));
-        QRect rect2 = QRect(QPoint(width() / 2 - gap, height() / 2 - 3 * gap), QPoint(width() /2 + gap, height() / 2 + 3 * gap));
+        QRect rect = QRect(QPoint(width() / 2 - 3 * gap, height2 / 2 - gap), QPoint(width() /2 + 3*gap, height2 / 2 + gap));
+        QRect rect2 = QRect(QPoint(width() / 2 - gap, height2 / 2 - 3 * gap), QPoint(width() /2 + gap, height2 / 2 + 3 * gap));
 
-        painter.fillRect(rect, Qt::white);
-        painter.fillRect(rect2, Qt::white);
+        if (m_bRedLine)
+        {
+            painter.fillRect(rect, Qt::red);
+            painter.fillRect(rect2, Qt::red);
+        }
+        else
+        {
+            painter.fillRect(rect, Qt::white);
+            painter.fillRect(rect2, Qt::white);
+        }
 
 }
 

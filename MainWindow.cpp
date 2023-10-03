@@ -499,6 +499,7 @@ void MainWindow::on_enforcementClicked()
     ui->verticalLayout->addWidget(m_pEnforcementWidget, 835);
     m_pMainMenuWidget->setMainMenuImage("Main_menu", "home_big_n.bmp");
     m_pMainMenuWidget->setTransparentBackGround(true);
+    m_pEnforcementWidget->m_pEnforcementComponentWidget->setMainMenuSize(m_pMainMenuWidget->size());
     m_pEnforcementWidget->m_pEnforcementComponentWidget->setPSerialLaserManager(m_pSerialLaserManager);
     m_pIndicatorWidget->setPSerialLaserManager(m_pSerialLaserManager);
     m_pEnforcementWidget->m_pEnforcementComponentWidget->setPSerialViscaManager(m_pSerialViscaManager);
@@ -583,6 +584,7 @@ void MainWindow::OpenEnforcement()
     if (m_pEnforcementWidget == nullptr)
         m_pEnforcementWidget = new EnforcementWidget;
     ui->verticalLayout->addWidget(m_pEnforcementWidget, 835);
+    m_pEnforcementWidget->m_pEnforcementComponentWidget->setMainMenuSize(m_pMainMenuWidget->size());
     m_pEnforcementWidget->m_pEnforcementComponentWidget->setPSerialLaserManager(m_pSerialLaserManager);
     m_pIndicatorWidget->setPSerialLaserManager(m_pSerialLaserManager);
     m_pEnforcementWidget->m_pEnforcementComponentWidget->setPSerialViscaManager(m_pSerialViscaManager);
@@ -1364,6 +1366,7 @@ void MainWindow::on_camera_zoom_focus()
     ui->verticalLayout->removeItem(ui->verticalLayout->itemAt(1));
     CameraZoomFocusWidget* pCameraZoonFocusWidget = new CameraZoomFocusWidget;
     ui->verticalLayout->addWidget(pCameraZoonFocusWidget, 835);
+    pCameraZoonFocusWidget->setMainMenuSize(m_pMainMenuWidget->size());
 //    pCameraZoonFocusWidget->setPSerialLaserManager(m_pSerialLaserManager);
 //    pCameraZoonFocusWidget->setPSerialViscaManager(m_pSerialViscaManager);
     SetCamera();

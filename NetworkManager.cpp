@@ -240,7 +240,32 @@ bool NetworkManager::getNetworkState(QString deviceName)
 //     }
 
 //     SetLogMsg(NETWORK_DISCONNECTED, deviceName);
-//     return false;
+    //     return false;
+}
+
+bool NetworkManager::getNetworkUpDown(QString deviceName)
+{
+    bool result = false;  // up true , down flase
+    char  buff[BUFF_SIZE];
+    FILE *fp;
+
+    fp = popen("ifconfig eth0 | grep flags= | awk '{print $2}'", "r");
+    if (NULL == fp)
+    {
+        perror("popen() failed");
+        return "";
+    }
+
+    while (fgets(buff, BUFF_SIZE, fp))
+        printf("%s", buff);
+
+    QString ret(buff);
+    if (ret.contains("UP"))
+        result = true;
+
+    pclose(fp);
+
+    return result;
 }
 
 void NetworkManager::SetWifiStaMode()

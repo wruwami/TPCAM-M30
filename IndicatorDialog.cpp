@@ -211,9 +211,9 @@ void IndicatorDialog::on_comPushButton_clicked()
     ui->horizontalLayout2->addWidget(m_pEthernetPushButton, 2);
 
     connect(&m_pTimer, SIGNAL(timeout()), this, SLOT(doCheckNetwork()));
-    connect(m_pWifiPushButton, SIGNAL(clicked), this, SLOT(on_wifiPushButton_clicked()));
-    connect(m_pBTPushButton, SIGNAL(clicked), this, SLOT(on_BTPushButton_clicked()));
-    connect(m_pEthernetPushButton, SIGNAL(clicked), this, SLOT(on_EthernetPushButton_clicked()));
+    connect(m_pWifiPushButton, SIGNAL(clicked()), this, SLOT(on_wifiPushButton_clicked()));
+    connect(m_pBTPushButton, SIGNAL(clicked()), this, SLOT(on_BTPushButton_clicked()));
+    connect(m_pEthernetPushButton, SIGNAL(clicked()), this, SLOT(on_EthernetPushButton_clicked()));
     m_pTimer.start(5000);
 }
 
@@ -597,6 +597,12 @@ void IndicatorDialog::on_screenCapturePushButton_clicked()
 void IndicatorDialog::doCheckNetwork()
 {
     NetworkManager networkManager;
+
+    if (networkManager.getNetworkUpDown(networkManager.getLanAdapterName()))
+        m_nEthernetState = Active;
+    if (networkManager.getNetworkUpDown(networkManager.getWlanAdapterName()))
+        m_nWifiState = Active;
+
 
     if (m_nEthernetState == Active || m_nEthernetState == NotConnected)
     {

@@ -5,6 +5,7 @@
 #include <QResizeEvent>
 #include <QLineEdit>
 #include <QFont>
+#include <QAbstractItemView>
 
 #include "FontSize.h"
 
@@ -43,10 +44,8 @@ public:
 CustomComboBox::CustomComboBox(QWidget *parent) : QComboBox(parent)
 {
     this->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-//    setEditable(true);
-//    lineEdit()->setDisabled(true);
-//    lineEdit()->setAlignment(Qt::AlignVCenter);
-//    lineEdit()->setReadOnly(true);
+    this->view()->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+//    this->view()->verticalScrollBar().resize();
     setStyle(new AlignComboBoxProxy);
     setItemDelegate(new AlignDelegate(Qt::AlignLeft | Qt::AlignVCenter, this));
 //    setStyleSheet(QString("QComboBox::down-arrow { image: url(images/Main_menu/combobox_drop_down_arrow.jpg);}"));

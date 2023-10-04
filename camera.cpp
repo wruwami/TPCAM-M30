@@ -512,7 +512,7 @@ void Camera::SaveImage(PrefixType prefix, stEnforcementInfo enforceInfo, SDPath 
     QJsonObject object = ConfigManager("parameter_setting1.json").GetConfig();
     QString qstrLocation = object["location items"].toArray()[0].toString();
     QString qstrUsername = ConfigManager("parameter_login.json").GetConfig()["User Name items"].toArray()[0].toString();
-    QJsonObject object2 = object["Device ID"].toObject();
+    QJsonObject object2 = ConfigManager("setting_device_ID.json").GetConfig();
     QString SerialNum;
     if (!QString::compare(object2["Prefix"].toString(), "null", Qt::CaseInsensitive) || !object2["Prefix"].toString().isEmpty())
         SerialNum.append(object2["Prefix"].toString() + "_" + object2["SerialNum"].toString());

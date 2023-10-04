@@ -431,6 +431,7 @@ void IndicatorDialog::clearSecondRow()
         QSpacerItem *item2 = new QSpacerItem(20, 40, QSizePolicy::Expanding, QSizePolicy::Expanding);
         ui->horizontalLayout2->addItem(item2);
         ui->horizontalLayout2->setStretch(i, 2);
+//        ui->horizontalLayout2->addStretch(2);
     }
 
 }
@@ -535,6 +536,14 @@ void IndicatorDialog::initlize()
     ui->screenRecordingPushButton->setImage("indicator", "screen_recording.jpg");
     ui->screenCapturePushButton->setImage("indicator", "indicator_screen_capture.jpg");
 
+    ui->horizontalLayout_7->setStretch(0, 1);
+    ui->horizontalLayout_7->setStretch(1, 1);
+    ui->horizontalLayout_7->addStretch(1);
+    ui->horizontalLayout_7->addStretch(1);
+    ui->horizontalLayout_7->addStretch(1);
+    ui->horizontalLayout_7->addStretch(1);
+    ui->horizontalLayout_7->addStretch(1);
+    ui->horizontalLayout_7->setSpacing(0);
 }
 
 void IndicatorDialog::on_pushButton_clicked()

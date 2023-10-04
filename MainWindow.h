@@ -136,6 +136,7 @@ private:
     //    Language m_mLanguage = Language::English;
     bool m_bRedLine = false;
     int m_nLogCount= 0;
+    QSize m_MainMenuWidgetSize;
     // QObject interface
 protected:
     void timerEvent(QTimerEvent *event);

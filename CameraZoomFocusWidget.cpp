@@ -832,7 +832,7 @@ void CameraZoomFocusWidget::paintEvent(QPaintEvent *event)
 
     crossPen.setStyle(Qt::SolidLine);
     //        crossPen.setWidth(10);
-    int height2 = height() + m_pMainMenuWidgetSize.height();
+    int height2 = height() - m_pMainMenuWidgetSize.height();
     int gap = 10;
     QRect rect = QRect(QPoint(width() / 2 - 3 * gap, height2 / 2 - gap), QPoint(width() /2 + 3*gap, height2 / 2 + gap));
     QRect rect2 = QRect(QPoint(width() / 2 - gap, height2 / 2 - 3 * gap), QPoint(width() /2 + gap, height2 / 2 + 3 * gap));

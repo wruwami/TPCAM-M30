@@ -11,6 +11,7 @@
 #include <QFileDialog>
 #include <QDirIterator>
 #include <QPainter>
+#include <QDesktopWidget>
 
 #include <ftplib.h>
 
@@ -85,6 +86,8 @@ FileManagerFileTransferDialog::FileManagerFileTransferDialog(TransType type, QWi
 
 //        TransferFTP2();
     }
+
+    this->move(QApplication::desktop()->screen()->rect().center() - this->rect().center());
 
 
 }

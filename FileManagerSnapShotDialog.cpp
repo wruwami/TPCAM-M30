@@ -5,6 +5,7 @@
 #include "qdiriterator.h"
 #include <QListWidget>
 #include <QPainter>
+#include <QDesktopWidget>
 
 #include "StringLoader.h"
 #include "Color.h"
@@ -26,8 +27,10 @@ FileManagerSnapShotDialog::FileManagerSnapShotDialog(int nMode, QWidget *parent)
     ui->snapShotLabel->setText(LoadString("IDC_SNAPSHOT"));
     ui->snapShotLabel->setFontSize(23);
     ui->snapShotIconLabel->setImage("file_manager", "file_management_folder_icon_normal.bmp");
-    ui->backPushButton->setText(LoadString("IDS_BACK"));
-    ui->backPushButton->setFontSize(23);
+//    ui->backPushButton->setText(LoadString("IDS_BACK"));
+    ui->backPushButton->setStyleSheet("QPushButton {border-image : url(images/MessageBox/closeButton.png); border:none;}");
+
+//    ui->backPushButton->setFontSize(23);
 
 //    ui->listWidget->setStyleSheet(QString("QListView::item { height: %0px; }").arg(ui->snapShotIconLabel->height()/64* 45));
 
@@ -76,6 +79,9 @@ FileManagerSnapShotDialog::FileManagerSnapShotDialog(int nMode, QWidget *parent)
 
         addListItem(dir);
     }
+
+    this->move(QApplication::desktop()->screen()->rect().center() - this->rect().center());
+
 }
 
 FileManagerSnapShotDialog::~FileManagerSnapShotDialog()

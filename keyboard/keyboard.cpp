@@ -22,6 +22,7 @@ Keyboard::Keyboard(QFile &iJsonFile, InputMode iInputMode, QWidget *iParent) : Q
     foreach (QGridLayout *mLayout, _keylayout->getLayouts()) {
         QWidget *mWidget = new QWidget(this);
         mWidget->setLayout(mLayout->layout());
+        mLayout->setMargin(0);
         this->addWidget(mWidget);
     }
 

@@ -145,6 +145,7 @@ KeyboardDialog::KeyboardDialog(QString lang, QWidget *parent) :
     }
 
     ui->verticalLayout->addWidget(m_k);
+    ui->verticalLayout->setMargin(9);
 //    KeyLayout *kl = k->GetKeyLayout();
 //    k->setFocus();
 //    k->show();

@@ -2,6 +2,7 @@
 #include "ui_SearchBoxDialog.h"
 
 #include <QPainter>
+#include <QDesktopWidget>
 
 #include "StringLoader.h"
 #include "WidgetSize.h"
@@ -21,7 +22,8 @@ SearchBoxDialog::SearchBoxDialog(QString title, QWidget *parent) :
     ui->searchTextLabel->setFontSize(23);
 
     ui->searchButton->setImage("file_manager", "file_management_search_search_button.bmp");
-    ui->closePushButton->setText(LoadString("IDS_BACK"));
+//    ui->closePushButton->setText(LoadString("IDS_BACK"));
+    ui->closePushButton->setStyleSheet("QPushButton {border-image : url(images/MessageBox/closeButton.png); border:none;}");
     ui->closePushButton->setFontSize(23);
 
     resize(GetWidgetSize(QSize(1208, 702)));
@@ -29,6 +31,9 @@ SearchBoxDialog::SearchBoxDialog(QString title, QWidget *parent) :
 //    setStyleSheet("QWidget. {border: 5px solid black;}");
 
     connect(ui->closePushButton, &QAbstractButton::clicked, this, &QWidget::close);
+
+    this->move(QApplication::desktop()->screen()->rect().center() - this->rect().center());
+
 }
 
 SearchBoxDialog::~SearchBoxDialog()

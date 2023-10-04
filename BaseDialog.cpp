@@ -4,6 +4,7 @@
 #include <QPen>
 #include <QPainter>
 #include <QPaintEvent>
+#include <QDesktopWidget>
 
 #include "Color.h"
 #include "StringLoader.h"
@@ -205,6 +206,8 @@ BaseDialog::BaseDialog(Dialog dialog, Qt::Alignment align, QString msg, bool isC
         break;
     }
 
+    this->move(QApplication::desktop()->screen()->rect().center() - this->rect().center());
+
     //    if (isClosebutton)
 }
 
@@ -236,6 +239,9 @@ BaseDialog::BaseDialog(Dialog dialog, Status isCamera, Status isLaser, Status is
         break;
 
     }
+
+
+    this->move(QApplication::desktop()->screen()->rect().center() - this->rect().center());
 
     //    if (isClosebutton)
 }

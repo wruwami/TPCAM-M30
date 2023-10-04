@@ -18,7 +18,10 @@
   </property>
   <layout class="QGridLayout" name="gridLayout_2">
    <item row="0" column="0">
-    <layout class="QGridLayout" name="gridLayout" rowstretch="1,1,1,1,1,1,1" columnstretch="215,285,100,210">
+    <layout class="QGridLayout" name="gridLayout" rowstretch="100,100,100,100,100,100,172" columnstretch="215,285,100,210">
+     <property name="verticalSpacing">
+      <number>6</number>
+     </property>
      <item row="2" column="0">
       <spacer name="verticalSpacer">
        <property name="orientation">

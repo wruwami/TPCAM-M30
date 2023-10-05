@@ -18,7 +18,7 @@
   </property>
   <layout class="QGridLayout" name="gridLayout_2">
    <item row="0" column="0">
-    <layout class="QGridLayout" name="gridLayout" rowstretch="100,100,100,100,100,100,174" columnstretch="215,285,100,212">
+    <layout class="QGridLayout" name="gridLayout" rowstretch="100,100,100,100,100,100,185" columnstretch="215,285,100,212">
      <property name="verticalSpacing">
       <number>6</number>
      </property>

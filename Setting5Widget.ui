@@ -15,7 +15,20 @@
   </property>
   <layout class="QGridLayout" name="gridLayout_2">
    <item row="0" column="0">
-    <layout class="QGridLayout" name="gridLayout">
+    <layout class="QGridLayout" name="gridLayout" columnstretch="324,312,110">
+     <item row="0" column="1">
+      <widget class="CustomComboBox" name="ipAddressComboBox"/>
+     </item>
+     <item row="1" column="1">
+      <widget class="CustomLineEdit" name="ipLineEdit"/>
+     </item>
+     <item row="3" column="0">
+      <widget class="CustomLabel" name="gatewayLabel">
+       <property name="text">
+        <string>TextLabel</string>
+       </property>
+      </widget>
+     </item>
      <item row="4" column="0">
       <widget class="CustomLabel" name="dnsServerLabel">
        <property name="text">
@@ -23,8 +36,14 @@
        </property>
       </widget>
      </item>
-     <item row="3" column="0">
-      <widget class="CustomLabel" name="gatewayLabel">
+     <item row="4" column="1">
+      <widget class="CustomLineEdit" name="dnsServerLineEdit"/>
+     </item>
+     <item row="2" column="1">
+      <widget class="CustomLineEdit" name="subnetMaskLineEdit"/>
+     </item>
+     <item row="1" column="0">
+      <widget class="CustomLabel" name="IpLabel">
        <property name="text">
         <string>TextLabel</string>
        </property>
@@ -37,13 +56,6 @@
        </property>
       </widget>
      </item>
-     <item row="1" column="0">
-      <widget class="CustomLabel" name="IpLabel">
-       <property name="text">
-        <string>TextLabel</string>
-       </property>
-      </widget>
-     </item>
      <item row="0" column="0">
       <widget class="CustomLabel" name="ipAddressLabel">
        <property name="text">
@@ -51,20 +63,21 @@
        </property>
       </widget>
      </item>
-     <item row="1" column="1">
-      <widget class="CustomLineEdit" name="ipLineEdit"/>
-     </item>
-     <item row="2" column="1">
-      <widget class="CustomLineEdit" name="subnetMaskLineEdit"/>
-     </item>
      <item row="3" column="1">
       <widget class="CustomLineEdit" name="gatewayLineEdit"/>
      </item>
-     <item row="4" column="1">
-      <widget class="CustomLineEdit" name="dnsServerLineEdit"/>
-     </item>
-     <item row="0" column="1">
-      <widget class="CustomComboBox" name="ipAddressComboBox"/>
+     <item row="0" column="2">
+      <spacer name="horizontalSpacer">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
      </item>
     </layout>
    </item>

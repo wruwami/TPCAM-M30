@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1200</width>
-    <height>658</height>
+    <width>1216</width>
+    <height>684</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -82,14 +82,14 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>CustomLabel</class>
-   <extends>QLabel</extends>
-   <header>CustomLabel.h</header>
-  </customwidget>
-  <customwidget>
    <class>CustomPushButton</class>
    <extends>QPushButton</extends>
    <header>CustomPushButton.h</header>
+  </customwidget>
+  <customwidget>
+   <class>CustomLabel</class>
+   <extends>QLabel</extends>
+   <header>CustomLabel.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

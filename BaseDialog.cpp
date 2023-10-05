@@ -66,7 +66,7 @@ BaseDialog::BaseDialog(Dialog dialog, Qt::Alignment align, QString msg, bool isC
         ui->verticalLayout->addWidget(new LoginExpiredDateWidget(this));
         ui->titleLabel->setText(LoadString("IDS_LOGIN_EXPIRED_DATE"));
         ui->titleLabel->setAlignment(align);
-        setSize(1146,604);
+        setSize(1216, 684);
     }
     break;
     case Dialog::IndicatorGPSWidgetType:
@@ -98,7 +98,7 @@ BaseDialog::BaseDialog(Dialog dialog, Qt::Alignment align, QString msg, bool isC
         ui->verticalLayout->addWidget(new FactoryDefaultWidget(this));
         ui->titleLabel->setText(LoadString("IDS_FACTORY_DEFAULT"));
         ui->titleLabel->setAlignment(align);
-        setSize(1139, 600);
+        setSize(1216, 684);
     }
         break;
     case Dialog::AdminPWWidgetType:
@@ -106,7 +106,7 @@ BaseDialog::BaseDialog(Dialog dialog, Qt::Alignment align, QString msg, bool isC
         ui->verticalLayout->addWidget(new AdminPWWidget(msg, this));
         ui->titleLabel->setText(LoadString("IDS_ADMIN_PW"));
         ui->titleLabel->setAlignment(align);
-        setSize(1139, 600);
+        setSize(1216, 684);
     }
         break;
     case Dialog::NetworkPasswordChangingWidgetType:
@@ -114,7 +114,7 @@ BaseDialog::BaseDialog(Dialog dialog, Qt::Alignment align, QString msg, bool isC
         ui->verticalLayout->addWidget(new PasswordChangingWidget(true, this));
         ui->titleLabel->setText(title_text);
         ui->titleLabel->setAlignment(align);
-        setSize(1208, 655);
+        setSize(1216, 684);
     }
         break;
 
@@ -123,7 +123,7 @@ BaseDialog::BaseDialog(Dialog dialog, Qt::Alignment align, QString msg, bool isC
         ui->verticalLayout->addWidget(new PasswordChangingWidget(false, this));
         ui->titleLabel->setText(LoadString("IDS_PASSWORD_CHANGING"));
         ui->titleLabel->setAlignment(align);
-        setSize(1208, 655);
+        setSize(1216, 684);
     }
         break;
     case Dialog::NetworkPWWidgetType:
@@ -131,7 +131,7 @@ BaseDialog::BaseDialog(Dialog dialog, Qt::Alignment align, QString msg, bool isC
         ui->verticalLayout->addWidget(new NetworkPWWidget(this));
         ui->titleLabel->setText(LoadString("IDS_NETWORK_PW"));
         ui->titleLabel->setAlignment(align);
-        setSize(1139, 600);
+        setSize(1216, 684);
     }
         break;
     case Dialog::BluetoothSearchFilterWidgetType:
@@ -139,7 +139,7 @@ BaseDialog::BaseDialog(Dialog dialog, Qt::Alignment align, QString msg, bool isC
         ui->verticalLayout->addWidget(new BluetoothSearchFilterWidget(this));
         ui->titleLabel->setText(LoadString("IDS_BLUETOOTH_SEARCH_FILTER"));
         ui->titleLabel->setAlignment(align);
-        setSize(1208, 631);
+        setSize(1216, 684);
     }
         break;
     case Dialog::EnforcementWarningMessageWidgetType:
@@ -147,7 +147,7 @@ BaseDialog::BaseDialog(Dialog dialog, Qt::Alignment align, QString msg, bool isC
         ui->verticalLayout->addWidget(new EnforcementWarningMessageWidget(this));
         ui->titleLabel->setText(LoadString("IDS_ENFORCEMENT_WARNING_MESSAGE"));
         ui->titleLabel->setAlignment(align);
-        setSize(1216, 694);
+        setSize(1216, 684);
     }
         break;
     case Dialog::FileManagerErrorMessageWidgetType:
@@ -155,7 +155,7 @@ BaseDialog::BaseDialog(Dialog dialog, Qt::Alignment align, QString msg, bool isC
         ui->verticalLayout->addWidget(new FileManagerErrorMessageWidget(this));
         ui->titleLabel->setText(LoadString("IDS_FILEMANAGER_ERROR_MESSAGE"));
         ui->titleLabel->setAlignment(align);
-        setSize(1208, 514);
+        setSize(1216, 684);
     }
         break;
     case Dialog::FileManagerQuestionMessageWidgetType:
@@ -163,7 +163,7 @@ BaseDialog::BaseDialog(Dialog dialog, Qt::Alignment align, QString msg, bool isC
         ui->verticalLayout->addWidget(new FileManagerQuestionMessageWidget(this));
         ui->titleLabel->setText(LoadString("IDS_FILEMANAGER_QUESTION_MESSAGE"));
         ui->titleLabel->setAlignment(align);
-        setSize(1208, 689);
+        setSize(1216, 684);
     }
         break;
 //    \\case Dialog::FileManagerFileTransferWidgetType:
@@ -179,7 +179,7 @@ BaseDialog::BaseDialog(Dialog dialog, Qt::Alignment align, QString msg, bool isC
         ui->verticalLayout->addWidget(new SearchBoxWidget(this));
         ui->titleLabel->setText(title_text);
         ui->titleLabel->setAlignment(align);
-        setSize(1208, 702);
+        setSize(1216, 684);
     }
         break;
     case Dialog::SdCardMemoryLackType:
@@ -187,7 +187,7 @@ BaseDialog::BaseDialog(Dialog dialog, Qt::Alignment align, QString msg, bool isC
         ui->verticalLayout->addWidget(new SdCardMemoryLack(msg, this));
         ui->titleLabel->setText(title_text);
         ui->titleLabel->setAlignment(align);
-        setSize(1216, 694);
+        setSize(1216, 684);
     }
         break;
     case Dialog::WifiSearchWidgetType:
@@ -195,7 +195,7 @@ BaseDialog::BaseDialog(Dialog dialog, Qt::Alignment align, QString msg, bool isC
         ui->verticalLayout->addWidget(new WifiSearchWidget(this));
         ui->titleLabel->setText(LoadString("IDS_WIFI_SEARCH"));
         ui->titleLabel->setAlignment(align);
-        setSize(1208, 635);
+        setSize(1216, 684);
     }
         break;
 

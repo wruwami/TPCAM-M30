@@ -15,25 +15,12 @@
   </property>
   <layout class="QGridLayout" name="gridLayout_2">
    <item row="0" column="0">
-    <layout class="QGridLayout" name="gridLayout">
-     <item row="1" column="1">
-      <widget class="CustomLineEdit" name="speedLimit1LineEdit"/>
+    <layout class="QGridLayout" name="gridLayout" columnstretch="346,78,39,78,39,78,50,60">
+     <item row="2" column="5">
+      <widget class="CustomLineEdit" name="captureSpeedLimit3LineEdit"/>
      </item>
-     <item row="1" column="3">
-      <widget class="CustomLineEdit" name="speedLimit2LineEdit"/>
-     </item>
-     <item row="1" column="2">
-      <widget class="CustomLabel" name="label_6">
-       <property name="text">
-        <string>T</string>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignCenter</set>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="4">
-      <widget class="CustomLabel" name="label_7">
+     <item row="2" column="4">
+      <widget class="CustomLabel" name="label_8">
        <property name="text">
         <string>M</string>
        </property>
@@ -42,43 +29,11 @@
        </property>
       </widget>
      </item>
-     <item row="1" column="5">
-      <widget class="CustomLineEdit" name="speedLimit3LineEdit"/>
+     <item row="1" column="3">
+      <widget class="CustomLineEdit" name="speedLimit2LineEdit"/>
      </item>
-     <item row="1" column="0">
-      <widget class="CustomLabel" name="speedLimitLabel">
-       <property name="text">
-        <string>TextLabel</string>
-       </property>
-      </widget>
-     </item>
-     <item row="3" column="0">
-      <widget class="CustomLabel" name="enforcementModeLabel">
-       <property name="text">
-        <string>TextLabel</string>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="0">
-      <widget class="CustomLabel" name="captureSpeedLimitLabel">
-       <property name="text">
-        <string>TextLabel</string>
-       </property>
-      </widget>
-     </item>
-     <item row="4" column="0">
-      <widget class="CustomLabel" name="speedModeLabel">
-       <property name="text">
-        <string>TextLabel</string>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="0">
-      <widget class="CustomLabel" name="locationLabel">
-       <property name="text">
-        <string>TextLabel</string>
-       </property>
-      </widget>
+     <item row="3" column="1" colspan="5">
+      <widget class="CustomComboBox" name="enforcementModeComboBox"/>
      </item>
      <item row="0" column="1" colspan="5">
       <widget class="CustomComboBox" name="locationComboBox"/>
@@ -93,19 +48,53 @@
      <item row="2" column="1">
       <widget class="CustomLineEdit" name="captureSpeedLimit1LineEdit"/>
      </item>
-     <item row="2" column="3">
-      <widget class="CustomLineEdit" name="captureSpeedLimit2LineEdit"/>
+     <item row="1" column="2">
+      <widget class="CustomLabel" name="label_6">
+       <property name="text">
+        <string>T</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
      </item>
-     <item row="2" column="5">
-      <widget class="CustomLineEdit" name="captureSpeedLimit3LineEdit"/>
+     <item row="0" column="0">
+      <widget class="CustomLabel" name="locationLabel">
+       <property name="text">
+        <string>TextLabel</string>
+       </property>
+      </widget>
      </item>
-     <item row="2" column="4">
-      <widget class="CustomLabel" name="label_8">
+     <item row="1" column="4">
+      <widget class="CustomLabel" name="label_7">
        <property name="text">
         <string>M</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <widget class="CustomLineEdit" name="speedLimit1LineEdit"/>
+     </item>
+     <item row="1" column="5">
+      <widget class="CustomLineEdit" name="speedLimit3LineEdit"/>
+     </item>
+     <item row="3" column="0">
+      <widget class="CustomLabel" name="enforcementModeLabel">
+       <property name="text">
+        <string>TextLabel</string>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="1" colspan="2">
+      <widget class="CustomComboBox" name="speedModeComboBox"/>
+     </item>
+     <item row="2" column="0">
+      <widget class="CustomLabel" name="captureSpeedLimitLabel">
+       <property name="text">
+        <string>TextLabel</string>
        </property>
       </widget>
      </item>
@@ -119,11 +108,35 @@
        </property>
       </widget>
      </item>
-     <item row="4" column="1" colspan="2">
-      <widget class="CustomComboBox" name="speedModeComboBox"/>
+     <item row="2" column="3">
+      <widget class="CustomLineEdit" name="captureSpeedLimit2LineEdit"/>
      </item>
-     <item row="3" column="1" colspan="5">
-      <widget class="CustomComboBox" name="enforcementModeComboBox"/>
+     <item row="4" column="0">
+      <widget class="CustomLabel" name="speedModeLabel">
+       <property name="text">
+        <string>TextLabel</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <widget class="CustomLabel" name="speedLimitLabel">
+       <property name="text">
+        <string>TextLabel</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="7">
+      <spacer name="horizontalSpacer">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
      </item>
     </layout>
    </item>
@@ -131,14 +144,14 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>CustomLabel</class>
-   <extends>QLabel</extends>
-   <header>CustomLabel.h</header>
-  </customwidget>
-  <customwidget>
    <class>CustomPushButton</class>
    <extends>QPushButton</extends>
    <header>CustomPushButton.h</header>
+  </customwidget>
+  <customwidget>
+   <class>CustomLabel</class>
+   <extends>QLabel</extends>
+   <header>CustomLabel.h</header>
   </customwidget>
   <customwidget>
    <class>CustomComboBox</class>

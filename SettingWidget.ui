@@ -17,7 +17,7 @@
    <item>
     <layout class="QVBoxLayout" name="verticalLayout_2" stretch="78,0,342">
      <item>
-      <layout class="QHBoxLayout" name="horizontalLayout" stretch="2,2,2,2,2,2,2,2,4,4">
+      <layout class="QHBoxLayout" name="horizontalLayout" stretch="2,2,2,2,2,2,2,2,6,6">
        <item>
         <widget class="CustomPushButton" name="setting1PushButton">
          <property name="text">

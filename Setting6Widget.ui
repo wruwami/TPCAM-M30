@@ -15,7 +15,7 @@
   </property>
   <layout class="QGridLayout" name="gridLayout_2">
    <item row="0" column="0">
-    <layout class="QGridLayout" name="gridLayout">
+    <layout class="QGridLayout" name="gridLayout" columnstretch="328,156,156,110">
      <item row="4" column="1">
       <widget class="CustomLineEdit" name="userNameLineEdit"/>
      </item>
@@ -43,9 +43,6 @@
        </property>
       </widget>
      </item>
-     <item row="3" column="3">
-      <widget class="CustomLineEdit" name="ftpPortLineEdit"/>
-     </item>
      <item row="1" column="3">
       <widget class="CustomPushButton" name="searchPushButton">
        <property name="text">
@@ -65,20 +62,40 @@
      <item row="0" column="1" colspan="2">
       <widget class="CustomComboBox" name="languageComboBox"/>
      </item>
+     <item row="3" column="3">
+      <layout class="QHBoxLayout" name="horizontalLayout" stretch="94,20">
+       <item>
+        <widget class="CustomLineEdit" name="ftpPortLineEdit"/>
+       </item>
+       <item>
+        <spacer name="horizontalSpacer">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
+     </item>
     </layout>
    </item>
   </layout>
  </widget>
  <customwidgets>
   <customwidget>
-   <class>CustomLabel</class>
-   <extends>QLabel</extends>
-   <header>CustomLabel.h</header>
-  </customwidget>
-  <customwidget>
    <class>CustomPushButton</class>
    <extends>QPushButton</extends>
    <header>CustomPushButton.h</header>
+  </customwidget>
+  <customwidget>
+   <class>CustomLabel</class>
+   <extends>QLabel</extends>
+   <header>CustomLabel.h</header>
   </customwidget>
   <customwidget>
    <class>CustomComboBox</class>

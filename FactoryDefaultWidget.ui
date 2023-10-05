@@ -92,15 +92,15 @@
        </property>
       </widget>
      </item>
-     <item row="1" column="0">
+     <item row="1" column="2" colspan="2">
+      <widget class="CustomLineEdit" name="lineEdit"/>
+     </item>
+     <item row="1" column="1">
       <widget class="CustomLabel" name="pwLabel">
        <property name="text">
         <string>TextLabel</string>
        </property>
       </widget>
-     </item>
-     <item row="1" column="1" colspan="3">
-      <widget class="CustomLineEdit" name="lineEdit"/>
      </item>
     </layout>
    </item>
@@ -115,7 +115,7 @@
   <customwidget>
    <class>CustomLabel</class>
    <extends>QLabel</extends>
-   <header location="global">CustomLabel.h</header>
+   <header>CustomLabel.h</header>
   </customwidget>
   <customwidget>
    <class>CustomLineEdit</class>

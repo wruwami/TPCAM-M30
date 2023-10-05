@@ -48,6 +48,8 @@ int main(int argc, char *argv[])
     CreateWiFiReadThreadAndInitPrinter();
 
     system("sudo timedatectl set-ntp 0");
+	system("sudo /home/firefly/start.sh");
+
 
     MainWindow w(a.send());
 //    w.get(a.send());

@@ -27,8 +27,8 @@ public:
 private:
     QString GetVersion();
     void StartSelfTest();
-    bool CameraTest();
-    bool LaserTest();
+    void CameraTest();
+    void LaserTest();
     bool BatteryTest();
     bool StorageTest();
 public:

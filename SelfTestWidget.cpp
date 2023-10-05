@@ -198,22 +198,24 @@ QString SelfTestWidget::GetVersion()
 
 void SelfTestWidget::StartSelfTest()
 {
-    if (CameraTest())
-    {
-        m_nCamera = Check;
-    }
-    else
-    {
-        m_nCamera = Fail;
-    }
-    if (LaserTest())
-    {
-        m_nLaser = Check;
-    }
-    else
-    {
-        m_nLaser = Fail;
-    }
+    CameraTest();
+//    if (CameraTest())
+//    {
+//        m_nCamera = Check;
+//    }
+//    else
+//    {
+//        m_nCamera = Fail;
+//    }
+    LaserTest();
+//    if ()
+//    {
+//        m_nLaser = Check;
+//    }
+//    else
+//    {
+//        m_nLaser = Fail;
+//    }
     if (BatteryTest())
     {
         ui->batteryValueLabel->setText(LoadString("IDS_PASS"));
@@ -251,12 +253,12 @@ void SelfTestWidget::StartSelfTest()
 
 }
 
-bool SelfTestWidget::CameraTest()
+void SelfTestWidget::CameraTest()
 {
     m_serialViscaManager.show_camera_model();
 }
 
-bool SelfTestWidget::LaserTest()
+void SelfTestWidget::LaserTest()
 {
     m_serialLaserManager.show_laser_info();
 }
@@ -338,11 +340,11 @@ void SelfTestWidget::timerEvent(QTimerEvent *event)
         m_nLaser = Status::Check;
         ui->laserValueLabel->setText(LoadString("IDS_SELFTEST_CHECK"));
     }
-    else
-    {
-        m_nLaser = Status::Fail;
-        ui->laserValueLabel->setText(LoadString("IDS_FAIL"));
-    }
+//    else
+//    {
+//        m_nLaser = Status::Fail;
+//        ui->laserValueLabel->setText(LoadString("IDS_FAIL"));
+//    }
 
     ViscaPacket* visca_packet = m_serialViscaManager.getVisca_packet();
     send_data = visca_packet->send_data;
@@ -357,11 +359,11 @@ void SelfTestWidget::timerEvent(QTimerEvent *event)
         m_nCamera = Status::Check;
         ui->cameraValueLabel->setText(LoadString("IDS_SELFTEST_CHECK"));
     }
-    else
-    {
-        m_nCamera = Status::Fail;
-        ui->cameraValueLabel->setText(LoadString("IDS_FAIL"));
-    }
+//    else
+//    {
+//        m_nCamera = Status::Fail;
+//        ui->cameraValueLabel->setText(LoadString("IDS_FAIL"));
+//    }
 
     if (m_nCamera != Status::Check && m_nLaser != Status::Check && m_nBattery != Status::Check && m_nStorage != Status::Check)
     {

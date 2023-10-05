@@ -15,7 +15,7 @@
   </property>
   <layout class="QGridLayout" name="gridLayout_2">
    <item row="0" column="0">
-    <layout class="QGridLayout" name="gridLayout" columnstretch="326,312,110">
+    <layout class="QGridLayout" name="gridLayout" columnstretch="653,624,220">
      <item row="2" column="0">
       <widget class="CustomLabel" name="IpLabel">
        <property name="text">

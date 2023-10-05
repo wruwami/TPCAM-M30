@@ -15,7 +15,7 @@
   </property>
   <layout class="QGridLayout" name="gridLayout_2">
    <item row="0" column="0">
-    <layout class="QGridLayout" name="gridLayout" columnstretch="653,624,220">
+    <layout class="QGridLayout" name="gridLayout" columnstretch="655,624,220">
      <item row="0" column="1">
       <widget class="CustomComboBox" name="wifiSSIDComboBox"/>
      </item>

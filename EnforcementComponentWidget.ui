@@ -30,62 +30,7 @@
       </spacer>
      </item>
      <item row="3" column="0">
-      <layout class="QGridLayout" name="gridLayout_6" columnstretch="2,2,1">
-       <item row="1" column="2">
-        <widget class="CustomPushButton" name="dzMinusPushButton">
-         <property name="text">
-          <string>PushButton</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="0" colspan="2">
-        <widget class="CustomPushButton" name="zoomRangePushButton">
-         <property name="text">
-          <string>PushButton</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="1">
-        <widget class="CustomPushButton" name="readyPushButton">
-         <property name="text">
-          <string>PushButton</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="2">
-        <widget class="CustomPushButton" name="dzPlusPushButton">
-         <property name="text">
-          <string>PushButton</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="0">
-        <widget class="CustomPushButton" name="hidePushButton">
-         <property name="text">
-          <string>PushButton</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </item>
-     <item row="1" column="0">
-      <layout class="QGridLayout" name="gridLayout_4" columnstretch="2,2,1">
-       <item row="0" column="1">
-        <widget class="CustomLabel" name="enforcementTimeLabel">
-         <property name="styleSheet">
-          <string notr="true">QLabel{
-	background-color : rgba(127,127,127,127);
-	color : black;
-}</string>
-         </property>
-         <property name="text">
-          <string>00:00:00</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
-         </property>
-        </widget>
-       </item>
+      <layout class="QGridLayout" name="gridLayout_6" columnstretch="2,2,1,0">
        <item row="1" column="0" colspan="2">
         <widget class="CustomLabel" name="enforcementDistanceSpeedLabel">
          <property name="styleSheet">
@@ -96,6 +41,46 @@
          </property>
          <property name="text">
           <string/>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0" colspan="2">
+        <widget class="CustomLabel" name="thumbnailLabel">
+         <property name="styleSheet">
+          <string notr="true">border : solid, white, 1px</string>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="0">
+        <widget class="CustomPushButton" name="hidePushButton">
+         <property name="text">
+          <string>PushButton</string>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="2">
+        <widget class="CustomPushButton" name="dzMinusPushButton">
+         <property name="text">
+          <string>PushButton</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="CustomLabel" name="enforcementTimeLabel">
+         <property name="styleSheet">
+          <string notr="true">QLabel{
+	background-color : rgba(127,127,127,127);
+	color : black;
+}</string>
+         </property>
+         <property name="text">
+          <string>00:00:00</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
@@ -119,18 +104,33 @@
          </property>
         </widget>
        </item>
-       <item row="0" column="2">
-        <spacer name="horizontalSpacer_2">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
+       <item row="3" column="2">
+        <widget class="CustomPushButton" name="dzPlusPushButton">
+         <property name="text">
+          <string>PushButton</string>
          </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>40</width>
-           <height>20</height>
-          </size>
+        </widget>
+       </item>
+       <item row="3" column="1">
+        <widget class="CustomPushButton" name="readyPushButton">
+         <property name="text">
+          <string>PushButton</string>
          </property>
-        </spacer>
+        </widget>
+       </item>
+       <item row="4" column="0" colspan="2">
+        <widget class="CustomPushButton" name="zoomRangePushButton">
+         <property name="text">
+          <string>PushButton</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="3" rowspan="2">
+        <widget class="CustomLabel" name="distanceLabel">
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
        </item>
       </layout>
      </item>
@@ -182,23 +182,6 @@ QLabel:disabled {
        </item>
       </layout>
      </item>
-     <item row="3" column="1">
-      <widget class="CustomLabel" name="distanceLabel">
-       <property name="text">
-        <string/>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="0">
-      <widget class="CustomLabel" name="thumbnailLabel">
-       <property name="styleSheet">
-        <string notr="true">border : solid, white, 1px</string>
-       </property>
-       <property name="text">
-        <string/>
-       </property>
-      </widget>
-     </item>
      <item row="1" column="2">
       <layout class="QVBoxLayout" name="verticalLayout">
        <item>
@@ -209,7 +192,7 @@ QLabel:disabled {
         </widget>
        </item>
        <item>
-        <layout class="QHBoxLayout" name="horizontalLayout">
+        <layout class="QHBoxLayout" name="horizontalLayout" stretch="1,1">
          <item>
           <widget class="CustomLabel" name="recIconLabel">
            <property name="text">
@@ -241,7 +224,7 @@ QLabel:disabled {
   <customwidget>
    <class>CustomLabel</class>
    <extends>QLabel</extends>
-   <header location="global">CustomLabel.h</header>
+   <header>CustomLabel.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

@@ -26,6 +26,11 @@ MainMenuAdminAlignWidget::MainMenuAdminAlignWidget(QWidget *parent) :
     ui->cameraHUDAlignPushButton->setText(LoadString("IDS_CAMERA_HUD_ALIGN"));
     ui->cameraHUDAlignPushButton->setFontSize(23);
 
+    QString style = "background-color : #f9d979; border = 5px solid #385d8a;";
+    ui->deviceIDPushButton->setStyleSheet(style);
+    ui->cameraZoomFocusPushButton->setStyleSheet(style);
+    ui->cameraHUDAlignPushButton->setStyleSheet(style);
+
     m_pLogoButton = ui->logoPushButton;
 
 //    ui->logoPushButton->setImage("Main_menu", "comlaser_logo.bmp");

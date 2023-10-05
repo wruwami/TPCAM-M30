@@ -49,7 +49,7 @@
       </widget>
      </item>
      <item>
-      <layout class="QHBoxLayout" name="horizontalLayout" stretch="9,1,0">
+      <layout class="QHBoxLayout" name="horizontalLayout" stretch="712,44,44">
        <item>
         <widget class="CustomLabel" name="changeSSIDnFTPLabel">
          <property name="text">
@@ -93,7 +93,7 @@
       </spacer>
      </item>
      <item>
-      <layout class="QHBoxLayout" name="horizontalLayout_5" stretch="4,4,1,0">
+      <layout class="QHBoxLayout" name="horizontalLayout_5" stretch="353,337,55,55">
        <item>
         <widget class="CustomLabel" name="deviceIDLabel_2">
          <property name="text">

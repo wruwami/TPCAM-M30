@@ -204,14 +204,19 @@ void CameraAlignWidget::on_downPushButton_clicked()
 
 void CameraAlignWidget::on_defaultPushButton_clicked()
 {
-    m_HUDPoint = QPoint(0, 0);
-    m_LaserPoint = QPoint(0, 0);
-    HUDManager hudManager;
-    hudManager.HUDAlignInit(false);
     if (m_nMode == HUD)
+    {
+        m_HUDPoint = QPoint(0, 0);
+        HUDManager hudManager;
+        hudManager.HUDAlignInit(false);
+
         SetHudMode();
+    }
     else
+    {
+        m_LaserPoint = QPoint(0, 0);
         SetLaserMode();
+    }
 }
 
 

@@ -56,7 +56,8 @@ EnforcementComponentWidget::EnforcementComponentWidget(QWidget *parent) :
 
     m_captureSpeed = m_object["capture speed"].toArray();
 
-    ui->speedLimitLabel->setText(QString("CS: %0%4\nT: %2%4\nM: %3%4").arg(QString::number(m_captureSpeed[0].toDouble(), 'f' , 1)).arg(QString::number(m_captureSpeed[1].toDouble()), 'f' , 1).arg(QString::number(m_captureSpeed[2].toInt(), 'f' , 1)).arg(speedUnitValue()));
+    QString speedLimit = QString("CS: %0%4\nT: %2%4\nM: %3%4").arg(QString::number(m_captureSpeed[0].toInt())).arg(QString::number(m_captureSpeed[1].toInt())).arg(QString::number(m_captureSpeed[2].toInt())).arg(speedUnitValue());
+    ui->speedLimitLabel->setText(speedLimit);
     ui->speedLimitLabel->setFontSize(14);
     ui->speedLimitLabel->setDisabled(true);
 
@@ -1415,16 +1416,16 @@ void EnforcementComponentWidget::do_FileSystemWatcher(const QString &path)
 void EnforcementComponentWidget::timerEvent(QTimerEvent *event)
 {
     StorageManager storageManager;
-    if (storageManager.GetSDExitEnforcement())
-    {
-        float sdpercent = storageManager.GetSDAvailable() / storageManager.GetSDTotal() * 100;
-        QString sdCardValue = LoadString("IDS_SD_CARD") + QString::number(sdpercent, 'f', 1) + "%";
-        BaseDialog baseDialog(SdCardMemoryLackType, Qt::AlignmentFlag::AlignCenter, sdCardValue, false, LoadString("IDS_WARNING MESSAGE"));
-        if (baseDialog.exec() == QDialog::Accepted)
-        {
-            emit sig_exit();
-        }
-    }
+//    if (storageManager.GetSDExitEnforcement())
+//    {
+//        float sdpercent = storageManager.GetSDAvailable() / storageManager.GetSDTotal() * 100;
+//        QString sdCardValue = LoadString("IDS_SD_CARD") + QString::number(sdpercent, 'f', 1) + "%";
+//        BaseDialog baseDialog(SdCardMemoryLackType, Qt::AlignmentFlag::AlignCenter, sdCardValue, false, LoadString("IDS_WARNING MESSAGE"));
+//        if (baseDialog.exec() == QDialog::Accepted)
+//        {
+//            emit sig_exit();
+//        }
+//    }
 }
 
 

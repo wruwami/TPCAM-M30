@@ -75,6 +75,8 @@ private slots:
     void on_wifiPushButton_clicked();
     void on_BTPushButton_clicked();
     void on_EthernetPushButton_clicked();
+
+    void EnforcementClose();
 public:
     CustomPushButton* m_pCameraFocusPushButton = nullptr;
     CustomPushButton* m_pCameraExposePushButton = nullptr;

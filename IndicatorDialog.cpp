@@ -732,6 +732,11 @@ void IndicatorDialog::on_EthernetPushButton_clicked()
     }
 }
 
+void IndicatorDialog::EnforcementClose()
+{
+    setFocusExposeDisabled(false);
+}
+
 void IndicatorDialog::setPSerialLaserManager(SerialLaserManager *newPSerialLaserManager)
 {
     if (m_pSerialLaserManager == nullptr)

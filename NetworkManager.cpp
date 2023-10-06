@@ -276,7 +276,7 @@ void NetworkManager::SetWifiStaMode()
     QString gateway = m_wifi_jsonObject["ip"].toString();
     QStringList stringList = gateway.split(".");
     gateway = stringList[0] + "." + stringList[1] + "." + stringList[2] + "." + "1";
-    QString ssid = m_wifi_jsonObject["sta ssid"].toArray()[0].toString();
+    QString ssid = m_wifi_jsonObject["sta ssid"].toArray()[m_wifi_jsonObject["sta ssid selection"].toInt() - 1].toString();
     ConfigManager con = ConfigManager("setting_password.json");
     QString password = con.GetConfig()["network password"].toString();
 

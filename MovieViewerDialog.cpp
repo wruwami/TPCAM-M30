@@ -8,6 +8,7 @@
 #include "StringLoader.h"
 #include "WidgetSize.h"
 #include "DateFormatManager.h"
+#include "SpeedUnitManager.h"
 
 MovieViewerDialog::MovieViewerDialog(AVFileFormat avFileFormat, QWidget *parent) :
     QDialog(parent),
@@ -39,9 +40,9 @@ MovieViewerDialog::MovieViewerDialog(AVFileFormat avFileFormat, QWidget *parent)
     ui->printPushButton->setText(LoadString("IDS_PRINT"));
     ui->printPushButton->setFontSize(23);
 
-    ui->laserSpeedLabel->setText(QString("C %1km/h").arg(avFileFormat.captureSpeedLimit));
+    ui->laserSpeedLabel->setText(QString("C %1%2").arg(avFileFormat.captureSpeedLimit).arg(speedUnitValue()));
 //    ui->laserSpeedLabel->setFontSize(23);
-    ui->laserDistanceLabel->setText(QString("%1m").arg(avFileFormat.distance));
+    ui->laserDistanceLabel->setText(QString("%1%2").arg(avFileFormat.distance).arg(distanceValue()));
 //    ui->laserDistanceLabel->setFontSize(23);
     ui->indexLabel->setText("[" + QString(avFileFormat.index).mid(0,5) + "]");
 //    ui->indexLabel->setFontSize(23);
@@ -49,7 +50,7 @@ MovieViewerDialog::MovieViewerDialog(AVFileFormat avFileFormat, QWidget *parent)
 //    ui->dateLabel->setFontSize(23);
     ui->timeLabel->setText(QString(avFileFormat.time).mid(0,6));
 //    ui->timeLabel->setFontSize(23);
-    ui->rtLabel->setText("RT - - - km/h, - - - - -m");
+    ui->rtLabel->setText(QString("RT - - - %1, - - - - -%2").arg(speedUnitValue().arg(distanceValue())));
 //    ui->rtLabel->setFontSize(23);
 
 

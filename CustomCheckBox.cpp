@@ -3,26 +3,29 @@
 #include "qdir.h"
 
 #include "FontSize.h"
+#include "WidgetSize.h"
 #include "FileManager.h"
 
 CustomCheckBox::CustomCheckBox(QWidget *parent) : QCheckBox(parent)
 {
     QDir dir;
 
-    QString styleSheet(QString("QCheckBox::indicator:checked \
+    QString styleSheet(QString("QCheckBox::indicator { width:%0px; height: %1px; } QCheckBox::indicator:checked \
     { \
-      image: url(%0/images/Date_time/checked.bmp); \
+      image: url(%2/images/Date_time/checked.bmp); \
     }\
      \
     QCheckBox::indicator:unchecked \
     { \
-      image: url(%0/images/Date_time/unchecked.bmp); \
+      image: url(%2/images/Date_time/unchecked.bmp); \
     } \
-    ").arg(GeteMMCPath()));
+    ").arg(GetWidgetSize(QSize(44, 44)).width()).arg(GetWidgetSize(QSize(44, 44)).height()).arg(GeteMMCPath()));
+    // "QCheckBox::indicator { width:50px; height: 50px; }"
+//    this->resize();
 
     this->setStyleSheet(styleSheet);
 
-    this->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);    
+    this->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 }
 
 void CustomCheckBox::resizeEvent(QResizeEvent *event)

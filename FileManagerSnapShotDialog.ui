@@ -47,7 +47,7 @@
        <item>
         <widget class="CustomPushButton" name="backPushButton">
          <property name="text">
-          <string>PushButton</string>
+          <string/>
          </property>
         </widget>
        </item>

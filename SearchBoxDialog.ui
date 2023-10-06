@@ -16,7 +16,7 @@
   <property name="styleSheet">
    <string notr="true"/>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout_2" stretch="14,68">
+  <layout class="QVBoxLayout" name="verticalLayout_2" stretch="14,0,68">
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="347,130">
      <item>
@@ -29,11 +29,18 @@
      <item>
       <widget class="CustomPushButton" name="closePushButton">
        <property name="text">
-        <string>PushButton</string>
+        <string/>
        </property>
       </widget>
      </item>
     </layout>
+   </item>
+   <item>
+    <widget class="Line" name="line">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+    </widget>
    </item>
    <item>
     <layout class="QVBoxLayout" name="verticalLayout" stretch="1,3">

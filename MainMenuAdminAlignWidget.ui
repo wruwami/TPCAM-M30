@@ -33,22 +33,31 @@
       <layout class="QHBoxLayout" name="horizontalLayout">
        <item>
         <widget class="CustomPushButton" name="deviceIDPushButton">
+         <property name="styleSheet">
+          <string notr="true"/>
+         </property>
          <property name="text">
-          <string>PushButton</string>
+          <string/>
          </property>
         </widget>
        </item>
        <item>
         <widget class="CustomPushButton" name="cameraHUDAlignPushButton">
+         <property name="styleSheet">
+          <string notr="true"/>
+         </property>
          <property name="text">
-          <string>PushButton</string>
+          <string/>
          </property>
         </widget>
        </item>
        <item>
         <widget class="CustomPushButton" name="cameraZoomFocusPushButton">
+         <property name="styleSheet">
+          <string notr="true"/>
+         </property>
          <property name="text">
-          <string>PushButton</string>
+          <string/>
          </property>
         </widget>
        </item>

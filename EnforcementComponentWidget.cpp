@@ -36,17 +36,17 @@ EnforcementComponentWidget::EnforcementComponentWidget(QWidget *parent) :
     m_object2 = m_config2.GetConfig();
 
     ui->hidePushButton->setText(LoadString("IDS_HIDE"));
-    ui->hidePushButton->setFontSize(23);
+    ui->hidePushButton->setFontSize(15);
     ui->readyPushButton->setText(LoadString("IDS_READY"));
-    ui->readyPushButton->setFontSize(23);
+    ui->readyPushButton->setFontSize(15);
 //    ui->zoomRangePushButton->setText("Z: 100~160 m");
     ui->dzPlusPushButton->setText(LoadString("IDS_DZ_PLUS"));
-    ui->dzPlusPushButton->setFontSize(23);
+    ui->dzPlusPushButton->setFontSize(15);
     ui->dzMinusPushButton->setText(LoadString("IDS_DZ_MINUS"));
-    ui->dzMinusPushButton->setFontSize(23);
+    ui->dzMinusPushButton->setFontSize(15);
 
     ui->saveImagePushButton->setText(LoadString("IDS_SAVE_IMAGE1") + '\n' + LoadString("IDS_SAVE_IMAGE2"));
-    ui->saveImagePushButton->setFontSize(23);
+    ui->saveImagePushButton->setFontSize(15);
     ui->truckPushButton->setImage("enforcement", "truck.jpg");
     ui->truckPushButton->setCheckable(true);
     ui->bikePushButton->setImage("enforcement", "bike.jpg");
@@ -57,8 +57,14 @@ EnforcementComponentWidget::EnforcementComponentWidget(QWidget *parent) :
     m_captureSpeed = m_object["capture speed"].toArray();
 
     ui->speedLimitLabel->setText(QString("CS: %0%4\nT: %2%4\nM: %3%4").arg(QString::number(getSpeedValue(m_captureSpeed[0].toInt()), 'f' , 1)).arg(QString::number(getSpeedValue(m_captureSpeed[1].toInt()), 'f' , 1)).arg(QString::number(getSpeedValue(m_captureSpeed[2].toInt()), 'f' , 1)).arg(speedUnitValue()));
-    ui->speedLimitLabel->setFontSize(23);
+    ui->speedLimitLabel->setFontSize(14);
     ui->speedLimitLabel->setDisabled(true);
+
+    ui->recIconLabel->setFontSize(30);
+    ui->recLabel->setFontSize(30);
+    ui->speedLabel->setFontSize(30);
+    ui->distanceLabel->setFontSize(30);
+    ui->distanceLabel->setAlignment(Qt::AlignCenter);
 
     m_SpeedLimit = m_object["speed limit"].toArray();
 

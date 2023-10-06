@@ -19,7 +19,7 @@
      <item row="4" column="3">
       <widget class="CustomPushButton" name="jpgSavePushButton">
        <property name="text">
-        <string>PushButton</string>
+        <string/>
        </property>
       </widget>
      </item>
@@ -31,14 +31,14 @@
        <item>
         <widget class="CustomPushButton" name="autoTriggerPushButton">
          <property name="text">
-          <string>PushButton</string>
+          <string/>
          </property>
         </widget>
        </item>
        <item>
         <widget class="CustomPushButton" name="initPushButton">
          <property name="text">
-          <string>PushButton</string>
+          <string/>
          </property>
         </widget>
        </item>
@@ -62,21 +62,21 @@
        <item>
         <widget class="CustomPushButton" name="optPushButton">
          <property name="text">
-          <string>PushButton</string>
+          <string/>
          </property>
         </widget>
        </item>
        <item>
         <widget class="CustomPushButton" name="focusPlusPushButton">
          <property name="text">
-          <string>PushButton</string>
+          <string/>
          </property>
         </widget>
        </item>
        <item>
         <widget class="CustomPushButton" name="FocusMinusPushButton">
          <property name="text">
-          <string>PushButton</string>
+          <string/>
          </property>
         </widget>
        </item>
@@ -118,7 +118,7 @@
      <item row="4" column="2">
       <widget class="CustomPushButton" name="pgrsSavePushButton">
        <property name="text">
-        <string>PushButton</string>
+        <string/>
        </property>
       </widget>
      </item>
@@ -145,21 +145,21 @@
        <item>
         <widget class="CustomPushButton" name="zoomRangePushButton">
          <property name="text">
-          <string>PushButton</string>
+          <string/>
          </property>
         </widget>
        </item>
        <item>
         <widget class="CustomPushButton" name="dzPlusPushButton">
          <property name="text">
-          <string>PushButton</string>
+          <string/>
          </property>
         </widget>
        </item>
        <item>
         <widget class="CustomPushButton" name="dzMinusPushButton">
          <property name="text">
-          <string>PushButton</string>
+          <string/>
          </property>
         </widget>
        </item>
@@ -203,7 +203,7 @@
   <customwidget>
    <class>CustomLabel</class>
    <extends>QLabel</extends>
-   <header location="global">CustomLabel.h</header>
+   <header>CustomLabel.h</header>
   </customwidget>
   <customwidget>
    <class>CustomComboBox</class>

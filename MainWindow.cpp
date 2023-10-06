@@ -1364,6 +1364,8 @@ void MainWindow::on_camera_zoom_focus()
 
     m_pMainMenuWidget->hideButton();
     m_pMainMenuWidget->setTransparentBackGround(true);
+    m_pMainMenuWidget->setMainMenuImage("Main_menu", "home_big_n.bmp");
+
 
 //    delete m_pMainMenuAdminAlignWidget;
 //    m_pMainMenuAdminAlignWidget = nullptr;
@@ -1375,7 +1377,6 @@ void MainWindow::on_camera_zoom_focus()
 //    pCameraZoonFocusWidget->setPSerialViscaManager(m_pSerialViscaManager);
     SetCamera();
     pCameraZoonFocusWidget->SetCamera(m_pCamera);
-    m_pMainMenuWidget->setMainMenuImage("Main_menu", "home_big_n.bmp");
 
     showIndicator(false);
 }
@@ -1419,6 +1420,14 @@ void MainWindow::on_mainMenuHomeClicked()
     {
         m_pMainMenuWidget = new MainMenuWidget;
         QObject::connect((QWidget*)m_pMainMenuWidget->m_pHomePushButton, SIGNAL(clicked()), this, SLOT(on_mainMenuHomeClicked()));
+        QObject::connect((QWidget*)m_pMainMenuWidget->m_pCameraPushbutton, SIGNAL(clicked()), this, SLOT(on_cameraPushButton_clicked()));
+        QObject::connect((QWidget*)m_pMainMenuWidget->m_pDaynNightPushbutton, SIGNAL(clicked()), this, SLOT(on_daynNightPushButton_clicked()));
+        QObject::connect((QWidget*)m_pMainMenuWidget->m_pWeatherPushbutton, SIGNAL(clicked()), this, SLOT(on_weatherPushButton_clicked()));
+        QObject::connect((QWidget*)m_pMainMenuWidget->m_pEnforcementPushbutton, SIGNAL(clicked()), this, SLOT(on_enforcementPushButton_clicked()));
+        QObject::connect((QWidget*)m_pMainMenuWidget->m_pSpeedPushbutton, SIGNAL(clicked()), this, SLOT(on_speedPushButton_clicked()));
+        QObject::connect((QWidget*)m_pMainMenuWidget->m_pWifiPushbutton, SIGNAL(clicked()), this, SLOT(on_wifiPushButton_clicked()));
+        QObject::connect((QWidget*)m_pMainMenuWidget->m_pGpsPushbutton, SIGNAL(clicked()), this, SLOT(on_gpsPushButton_clicked()));
+
         m_pMainMenuWidget->setTransparentBackGround(false);
         m_pIndicatorWidget->SetMainMenu(m_pMainMenuWidget);
         ui->verticalLayout->addWidget(m_pMainMenuWidget, 125);

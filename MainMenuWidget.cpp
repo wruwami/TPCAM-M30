@@ -72,7 +72,7 @@ MainMenuWidget::MainMenuWidget(QWidget *parent) :
 //    m_pMainMenuTitlePushButton = m_pHomeButtonWidget->m_pHomePushButton;
     m_pHomePushButton = m_pHomeButtonWidget->m_pHomePushButton;
 
-    m_pHomeTitleLabel->setText("Main Menu");
+    m_pHomeTitleLabel->setText(LoadString("IDS_MAIN_MENU"));
     m_pHomeTitleLabel->setFontSize(23);
 
 

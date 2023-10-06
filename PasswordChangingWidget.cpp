@@ -63,6 +63,10 @@ void PasswordChangingWidget::on_okPushButton_clicked()
     if (ui->newLineEdit->GetString() == ui->currentLineEdit->GetString())
         return;
 
+    if (ui->newLineEdit->GetString() != ui->confirmLineEdit->GetString())
+        return;
+
+
     emit sig_sendPW(ui->newLineEdit->GetString());
 //    object["password"] = ui->newLineEdit->GetString();
 //    config.SetConfig(object);

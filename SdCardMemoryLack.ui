@@ -78,7 +78,7 @@
        <item>
         <widget class="CustomPushButton" name="pushButton">
          <property name="text">
-          <string>PushButton</string>
+          <string/>
          </property>
         </widget>
        </item>

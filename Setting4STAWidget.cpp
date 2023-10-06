@@ -77,7 +77,7 @@ void Setting4STAWidget::SaveConfig()
         QJsonValue jv = ar[m_nSSIDIndex];
         ar.removeAt(m_nSSIDIndex);
         ar.insert(0, jv);
-        m_newJsonObject["sta ssid selection"] = 1;
+        m_newJsonObject["sta ssid selection"] = ui->wifiSSIDComboBox->currentIndex() + 1;
         m_newJsonObject["sta ssid"] = ar;
     }
 

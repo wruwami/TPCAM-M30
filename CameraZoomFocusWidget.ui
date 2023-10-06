@@ -15,7 +15,7 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
-    <layout class="QGridLayout" name="gridLayout" rowstretch="12,2,2,3,2" columnstretch="2,2,1,1">
+    <layout class="QGridLayout" name="gridLayout" rowstretch="230,82,56,56,56" columnstretch="306,268,113,113">
      <item row="4" column="3">
       <widget class="CustomPushButton" name="jpgSavePushButton">
        <property name="text">
@@ -24,7 +24,7 @@
       </widget>
      </item>
      <item row="3" column="0">
-      <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="3,3,3,1">
+      <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="81,81,81,21">
        <item>
         <widget class="CustomComboBox" name="dayComboBox"/>
        </item>
@@ -58,7 +58,7 @@
       </layout>
      </item>
      <item row="2" column="0">
-      <layout class="QHBoxLayout" name="horizontalLayout_5" stretch="2,1,1,2">
+      <layout class="QHBoxLayout" name="horizontalLayout_5" stretch="81,47,47,89">
        <item>
         <widget class="CustomPushButton" name="optPushButton">
          <property name="text">
@@ -141,7 +141,7 @@
       </widget>
      </item>
      <item row="4" column="0">
-      <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="4,1,1">
+      <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="184,47,47">
        <item>
         <widget class="CustomPushButton" name="zoomRangePushButton">
          <property name="text">

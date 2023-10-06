@@ -56,7 +56,7 @@ EnforcementComponentWidget::EnforcementComponentWidget(QWidget *parent) :
 
     m_captureSpeed = m_object["capture speed"].toArray();
 
-    ui->speedLimitLabel->setText(QString("CS: %0%4\nT: %2%4\nM: %3%4").arg(QString::number(getSpeedValue(m_captureSpeed[0].toInt()), 'f' , 1)).arg(QString::number(getSpeedValue(m_captureSpeed[1].toInt()), 'f' , 1)).arg(QString::number(getSpeedValue(m_captureSpeed[2].toInt()), 'f' , 1)).arg(speedUnitValue()));
+    ui->speedLimitLabel->setText(QString("CS: %0%4\nT: %2%4\nM: %3%4").arg(QString::number(m_captureSpeed[0].toDouble(), 'f' , 1)).arg(QString::number(m_captureSpeed[1].toDouble()), 'f' , 1).arg(QString::number(m_captureSpeed[2].toInt(), 'f' , 1)).arg(speedUnitValue()));
     ui->speedLimitLabel->setFontSize(14);
     ui->speedLimitLabel->setDisabled(true);
 
@@ -625,23 +625,23 @@ void EnforcementComponentWidget::doReadyMode()
     SetLogMsg(BUTTON_CLICKED, "READY_MODE");
 }
 
-int EnforcementComponentWidget::GetCaptureSpeedLimit()
+float EnforcementComponentWidget::GetCaptureSpeedLimit()
 {
     switch (m_nVehicleMode)
     {
     case Normal:
     {
-        return getSpeedValue(m_captureSpeed.at(0).toInt());
+        return (float)(m_captureSpeed.at(0).toDouble());
     }
         break;
     case Truck:
     {
-        return getSpeedValue(m_captureSpeed.at(1).toInt());
+        return (float)(m_captureSpeed.at(0).toDouble());
     }
         break;
     case MotoCycle:
     {
-        return getSpeedValue(m_captureSpeed.at(2).toInt());
+        return (float)(m_captureSpeed.at(0).toDouble());
     }
         break;
     }
@@ -934,17 +934,17 @@ void EnforcementComponentWidget::setVehicleMode()
     if (m_bTruckChecked && m_bBikeChecked)
     {
         m_nVehicleMode = Normal;
-        SetLogMsg(BUTTON_CLICKED, "CAPTURE CAR," + QString::number(getSpeedValue(m_captureSpeed[0].toInt()), 'f' , 1));
+        SetLogMsg(BUTTON_CLICKED, "CAPTURE CAR," + QString::number(m_captureSpeed[0].toDouble(), 'f' , 1));
     }
     else if (m_bTruckChecked && !m_bBikeChecked)
     {
         m_nVehicleMode = Truck;
-        SetLogMsg(BUTTON_CLICKED, "CAPTURE TRUCK," + QString::number(getSpeedValue(m_captureSpeed[1].toInt()), 'f' , 1));
+        SetLogMsg(BUTTON_CLICKED, "CAPTURE TRUCK," + QString::number(m_captureSpeed[1].toDouble(), 'f' , 1));
     }
     else if (!m_bTruckChecked && m_bBikeChecked)
     {
         m_nVehicleMode = MotoCycle;
-        SetLogMsg(BUTTON_CLICKED, "CAPTURE TRUCK," + QString::number(getSpeedValue(m_captureSpeed[2].toInt()), 'f' , 1));
+        SetLogMsg(BUTTON_CLICKED, "CAPTURE TRUCK," + QString::number(m_captureSpeed[2].toDouble(), 'f' , 1));
     }
     return;
     //        assert();

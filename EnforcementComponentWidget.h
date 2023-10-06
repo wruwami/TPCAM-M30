@@ -81,7 +81,7 @@ private:
     void doATMode();
 //    void doManualMode();
     void doReadyMode();
-    int GetCaptureSpeedLimit();
+    float GetCaptureSpeedLimit();
     void initStyle();
 
     void displaySpeedDistance(float, float, QColor = Qt::white, bool = false);

@@ -235,7 +235,6 @@ void CameraAlignWidget::on_autoTriggerPushButton_toggled(bool checked)
         ui->autoTriggerPushButton->setStyleSheet("border-color: red;");
         m_pSerialLaserManager->start_laser();
         m_pSerialLaserManager->request_distance(true);
-        m_pSerialLaserManager->start_virtualSpeed(); // test
         SerialPacket* laser_packet = m_pSerialLaserManager->getLaser_packet();
         connect(laser_packet, SIGNAL(sig_showDistance(float,int)), this, SLOT(on_showDistance(float,int)));
     }
@@ -291,9 +290,6 @@ void CameraAlignWidget::paintEvent(QPaintEvent *event)
 
         int x = m_LaserPoint.x();
         int y = m_LaserPoint.y();
-
-        qDebug() << x;
-        qDebug() << y;
 
         QRect rect = QRect(QPoint(((width() / 2 ) + x) - 3 * gap, ((height() / 2) + y) - gap), QPoint(((width() / 2) + x) + 3*gap, ((height() / 2) + y) + gap));
         QRect rect2 = QRect(QPoint(((width() / 2) + x) - gap, ((height() / 2) + y) - 3 * gap), QPoint(((width() / 2) + x) + gap, ((height() / 2) + y) + 3 * gap));

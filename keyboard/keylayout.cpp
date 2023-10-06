@@ -184,6 +184,10 @@ QGridLayout *KeyLayout::initGridLayout(const QJsonArray &iKeysArray)
             {
                 rows->addWidget(mKey, mRow, mLastColumn, 2, mKeySpan);
             }
+            else if (mText == "esreturn")
+            {
+                rows->addWidget(mKey, mRow, mLastColumn, 1, 1);
+            }
             else
             {
                 rows->addWidget(mKey, mRow, mLastColumn, 1, mKeySpan);

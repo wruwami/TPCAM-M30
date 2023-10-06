@@ -142,6 +142,7 @@ protected:
     void timerEvent(QTimerEvent *event);
     void paintEvent(QPaintEvent *event);
     void mousePressEvent(QMouseEvent *event);
+    void hideEvent(QHideEvent *event);
 private:
     bool m_isRecording = false;
 };

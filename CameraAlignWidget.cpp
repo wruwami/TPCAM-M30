@@ -64,8 +64,8 @@ CameraAlignWidget::CameraAlignWidget(QWidget *parent) :
 
     m_CameraMoveUnit = m_object["Camera reticle move unit"].toString().toInt();
 
-    HUDManager hudManager;
-    hudManager.HUDAlignInit(true);
+//    HUDManager hudManager;
+    m_hud.HUDAlignInit(true);
 
     connect(&m_ClearTimer, SIGNAL(timeout), this, SLOT(ClearDisplay()));
 
@@ -74,8 +74,7 @@ CameraAlignWidget::CameraAlignWidget(QWidget *parent) :
 
 CameraAlignWidget::~CameraAlignWidget()
 {
-    HUDManager hudManager;
-    hudManager.HUDClear();
+    m_hud.HUDClear();
 
     delete ui;
 }
@@ -105,11 +104,10 @@ void CameraAlignWidget::SetDirection(int x, int y)
         if ((m_HUDPoint.y() + y) > HUD_y || (m_HUDPoint.y() + y) < -HUD_y)
             return;
 
-        HUDManager hud;
         m_HUDPoint.setX(m_HUDPoint.x() + x);
         m_HUDPoint.setY(m_HUDPoint.y() + y);
-        hud.SetPointX(m_HUDPoint.x() + HUD_x);
-        hud.SetPointY(m_HUDPoint.y() + HUD_y);
+        m_hud.SetPointX(m_HUDPoint.x() + HUD_x);
+        m_hud.SetPointY(m_HUDPoint.y() + HUD_y);
 //        system(QString("echo %d > /sys/devices/platform/hud/pointer_x").arg()); // x 좌표 위치
 //        system("echo %d > /sys/devices/platform/hud/pointer_y"); // y 좌표 위치
 
@@ -235,6 +233,7 @@ void CameraAlignWidget::on_autoTriggerPushButton_toggled(bool checked)
         ui->autoTriggerPushButton->setStyleSheet("border-color: red;");
         m_pSerialLaserManager->start_laser();
         m_pSerialLaserManager->request_distance(true);
+//        m_pSerialLaserManager->start_virtualSpeed(); // test
         SerialPacket* laser_packet = m_pSerialLaserManager->getLaser_packet();
         connect(laser_packet, SIGNAL(sig_showDistance(float,int)), this, SLOT(on_showDistance(float,int)));
     }
@@ -254,6 +253,8 @@ void CameraAlignWidget::on_showDistance(float fDistance, int nSensitivity)
 {
     ui->speedSensitivitylabel->setText(QString::number(getDistanceValue(fDistance), 'f', 1) + distanceValue() + "(" + QString::number(nSensitivity)+ ")");
 
+    m_hud.HUDAlign(fDistance, nSensitivity);
+
     m_ClearTimer.start(200);
 }
 
@@ -261,8 +262,7 @@ void CameraAlignWidget::ClearDisplay()
 {
     ui->speedSensitivitylabel->setText("----.-" + distanceValue() + "(" + "(0)");
 
-    HUDManager hudManager;
-    hudManager.HUDAlignClear();
+    m_hud.HUDAlignClear();
 }
 
 void CameraAlignWidget::paintEvent(QPaintEvent *event)

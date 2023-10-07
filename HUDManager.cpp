@@ -146,12 +146,14 @@ void HUDManager::HUDEnforcementInit()
     m_hud.writeNumberToFile("pointer_x", object["HUD reticle pos"].toArray()[0].toInt());
     m_hud.writeNumberToFile("pointer_y", object["HUD reticle pos"].toArray()[1].toInt());
 
-    SetDistanceSensitivityUnit();
+//    SetDistanceSensitivityUnit();
+    SetDistanceUnit();
     m_hud.writeNumberToFile("distance_sensitivity", 0);
     m_hud.writeNumberToFile("distance", 1);
 
     SetSpeedUnit();
-    m_hud.writeNumberToFile("speed", 1);
+//    m_hud.writeNumberToFile("speed", 1);
+    m_hud.writeNumberToFile("speed", 0);
 }
 
 void HUDManager::HUDAlignInit(bool bFirst)
@@ -313,7 +315,7 @@ void HUDManager::HUDEnforcement(bool bEnforcement, float fSpeed, float fDistance
     {
         m_hud.writeNumberToFile("speed", 2);
 
-        m_hud.writeNumberToFile("distance_value", (int)getDistanceValue(fDistance));
+        m_hud.writeNumberToFile("distance_value", (int)(getDistanceValue(fDistance)*10));
         m_hud.writeNumberToFile("speed_value", (int)getSpeedValue(fSpeed));
     }
     else
@@ -322,7 +324,7 @@ void HUDManager::HUDEnforcement(bool bEnforcement, float fSpeed, float fDistance
         {
             m_hud.writeNumberToFile("speed", 1);
 
-            m_hud.writeNumberToFile("distance_value", (int)getDistanceValue(fDistance));
+            m_hud.writeNumberToFile("distance_value", (int)(getDistanceValue(fDistance)*10));
             m_hud.writeNumberToFile("speed_value", (int)getSpeedValue(fSpeed));
         }
         else if (m_hud.readNumberFromFile("speed") == 2)
@@ -333,30 +335,46 @@ void HUDManager::HUDEnforcement(bool bEnforcement, float fSpeed, float fDistance
             m_hud.writeNumberToFile("pointer", 1);
             m_hud.writeNumberToFile("distance", 1);
 
-            m_hud.writeNumberToFile("distance_value", (int)getDistanceValue(fDistance));
+            m_hud.writeNumberToFile("distance_value", (int)(getDistanceValue(fDistance)*10));
             m_hud.writeNumberToFile("speed_value", (int)getSpeedValue(fSpeed));
         }
     }
 
 }
 
+void HUDManager::HUDEnforcementDistance(bool bEnforcement, float fSpeed, float fDistance)
+{
+    if (bEnforcement)
+    {
+        m_hud.writeNumberToFile("distance_value", (int)(getDistanceValue(fDistance)*10));
+    }
+    else
+    {
+        m_hud.writeNumberToFile("distance_value", (int)(getDistanceValue(fDistance)*10));
+    }
+}
+
 void HUDManager::HUDEnforcementLimitOver(float fSpeed, float fDistance)
 {
     m_hud.writeNumberToFile("speed", 2);
 
-    m_hud.writeNumberToFile("distance_value", (int)getDistanceValue(fDistance));
+    m_hud.writeNumberToFile("distance_value", (int)(getDistanceValue(fDistance)*10));
     m_hud.writeNumberToFile("speed_value", (int)getSpeedValue(fSpeed));
 }
 
-void HUDManager::HUDEnforcementClear()
+void HUDManager::HUDEnforcementSpeedClear()
+{
+    m_hud.writeNumberToFile("speed", 0);
+}
+
+void HUDManager::HUDEnforcementDistanceClear()
 {
     m_hud.writeNumberToFile("distance_value", 0);
-    m_hud.writeNumberToFile("speed", 0);
 }
 
 void HUDManager::HUDAlign(float fDistance, int nSensitivity)
 {
-    m_hud.writeNumberToFile("distance_sensitivity_distance_value", (int)getDistanceValue(fDistance));
+    m_hud.writeNumberToFile("distance_sensitivity_distance_value", (int)(getDistanceValue(fDistance)*10));
     m_hud.writeNumberToFile("distance_sensitivity_sensitivity_value", nSensitivity);
 }
 
@@ -368,7 +386,7 @@ void HUDManager::HUDAlignClear()
 
 void HUDManager::HUDZoomFocus(float fDistance)
 {
-    m_hud.writeNumberToFile("distance_value", (int)getDistanceValue(fDistance));
+    m_hud.writeNumberToFile("distance_value", (int)(getDistanceValue(fDistance)*10));
 }
 
 void HUDManager::HUDZoomFocusClear()

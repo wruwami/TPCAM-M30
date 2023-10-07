@@ -82,6 +82,7 @@ private slots:
 
 protected:
     void paintEvent(QPaintEvent *event);
+    void mousePressEvent(QMouseEvent *event);
 
 private:
     Ui::CameraAlignWidget *ui;

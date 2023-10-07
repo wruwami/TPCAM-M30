@@ -299,3 +299,8 @@ void CameraAlignWidget::paintEvent(QPaintEvent *event)
     }
 
 }
+
+void CameraAlignWidget::mousePressEvent(QMouseEvent *event)
+{
+
+}

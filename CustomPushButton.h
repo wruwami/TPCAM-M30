@@ -19,9 +19,13 @@ private:
     QSize m_size;
     QIcon m_icon;
     float m_ratio = 0;
+//    QSize max;
+//    QSize min;
+//    bool settingText = false;
 public slots:
 
-
+//public:
+// void setT5ext(const QString text);
     // QWidget interface
 protected:
     void resizeEvent(QResizeEvent *event);

@@ -6,6 +6,7 @@
 #include <QLineEdit>
 #include <QFont>
 #include <QAbstractItemView>
+#include <QAbstractScrollArea>
 
 #include "FontSize.h"
 
@@ -43,7 +44,10 @@ public:
 
 CustomComboBox::CustomComboBox(QWidget *parent) : QComboBox(parent)
 {
-    this->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    this->setSizePolicy(QSizePolicy::Ignored, QSizePolicy::Expanding);
+    this->view()->setSizePolicy(QSizePolicy::Ignored, QSizePolicy::Expanding);
+    this->setSizeAdjustPolicy(QComboBox::AdjustToMinimumContentsLength);
+//    this->view()->setMaximumWidth()
     this->view()->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
 //    this->view()->verticalScrollBar().resize();
     setStyle(new AlignComboBoxProxy);

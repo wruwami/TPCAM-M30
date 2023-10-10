@@ -415,7 +415,7 @@ void FileManagerFileTransferDialog::closeThread()
     {
     case FTPType:
     {
-        if (m_FtpTransThread != nullptr && m_FtpTransThread->isRunning())
+        if (m_FtpTransThread->isRunning())
         {
             disconnect(m_FtpTransThread.data(), SIGNAL(setValue(int)), this, SLOT(setValue(int)));
             disconnect(m_FtpTransThread.data(), SIGNAL(setMaximum(int)), this, SLOT(setMaximum(int)));
@@ -430,7 +430,7 @@ void FileManagerFileTransferDialog::closeThread()
     case FileType:
     {
 
-        if (m_FileTransThread != nullptr && m_FileTransThread->isRunning())
+        if (m_FileTransThread->isRunning())
         {
             disconnect(m_FileTransThread.data(), SIGNAL(setValue(int)), this, SLOT(setValue(int)));
             disconnect(m_FileTransThread.data(), SIGNAL(setMaximum(int)), this, SLOT(setMaximum(int)));

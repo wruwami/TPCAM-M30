@@ -64,10 +64,12 @@ void FtpTransThread2::run()
                 return;
 
     //        i++;
-            QString fileName = iterDir2.next().replace(GetSDPath(), QString(targetDir));
-            fileName.replace("\"", "");
+            QString fileName = iterDir2.next();
+            QString targetFileName = fileName;
+            targetFileName = targetFileName.replace(GetSDPath(), QString(targetDir));
+            targetFileName.replace("\"", "");
             QString filePath;
-            ftp.Put(iterDir2.next().toStdString().c_str(), fileName.toStdString().c_str(), ftplib::image);
+            ftp.Put(fileName.toStdString().c_str(), fileName.toStdString().c_str(), ftplib::image);
             emit setValue((++i) / m_count);
             emit setFileCountText(QString("%1 / %2").arg(i).arg(m_count));
             emit setFileNameText(fileName);
@@ -104,6 +106,7 @@ void FtpTransThread2::run()
     //        connect(reply, SIGNAL(uploadProgress(qint64 ,qint64)), SLOT(loadProgress(qint64 ,qint64)));
         }
         ftp.Quit();
+        quit();
 }
 
 //void FtpTransThread2::close2()

@@ -262,7 +262,7 @@ QString FileManager::GetFileName(PrefixType prefix, stEnforcementInfo enforceInf
         break;
     }
     QString strZoomIndex;
-    strZoomIndex.sprintf("%02d", enforceInfo.zoom_index);
+    strZoomIndex.sprintf("%02d", enforceInfo.zoom_index + 1);
     mode.append(strZoomIndex);
 
     int index = g_nCrackDownIndex; // index

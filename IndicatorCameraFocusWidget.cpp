@@ -42,6 +42,8 @@ IndicatorCameraFocusWidget::IndicatorCameraFocusWidget(QWidget *parent) :
     ui->forcusPlusPushButton->setFontSize(23);
     ui->autoTriggerPushButton->setCheckable(true);
     ui->focusLineEdit->setAlignment(Qt::AlignCenter);
+
+    ui->distanceLabel->setColor(Qt::white);
 //    ui->autoTriggerPushButton->setStyleSheet("background: transparent;");
 
     ui->focusLineEdit->SetMode(KeyboardType);
@@ -158,6 +160,11 @@ void IndicatorCameraFocusWidget::showDistanceSensitivity(float fSDistance, int n
 
 void IndicatorCameraFocusWidget::on_test(QString value)
 {
+    if (value.contains("0x"))
+        value.remove(value.indexOf("0x"), 2);
+    if (value.contains("0X"))
+        value.remove(value.indexOf("0X"), 2);
+
     ui->focusLineEdit->setText("0x"+value);
     m_pserialViscaManager->set_focus(value);
     m_pserialViscaManager->show_focusPosition();

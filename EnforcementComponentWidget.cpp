@@ -523,9 +523,9 @@ void EnforcementComponentWidget::laserInit()
     QJsonObject object2 = config2.GetConfig();
 
     if (object2["weather selection"].toInt() == 1)
-        m_pSerialLaserManager->set_weather_mode(1);
-    else
         m_pSerialLaserManager->set_weather_mode(0);
+    else
+        m_pSerialLaserManager->set_weather_mode(1);
 
     if (object2["anti-jamming selection"].toInt() == 1)
         m_pSerialLaserManager->set_AJamming_mode(1);

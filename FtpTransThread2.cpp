@@ -110,7 +110,7 @@ void FtpTransThread2::run()
     //        connect(reply, SIGNAL(uploadProgress(qint64 ,qint64)), SLOT(loadProgress(qint64 ,qint64)));
         }
         ftp.Quit();
-        quit();
+        emit sig_exit();
 }
 
 //void FtpTransThread2::close2()

@@ -55,6 +55,8 @@ FileManagerFileTransferDialog::FileManagerFileTransferDialog(TransType type, QWi
             connect(m_FileTransThread.data(), SIGNAL(setMaximum(int)), this, SLOT(setMaximum(int)));
             connect(m_FileTransThread.data(), SIGNAL(setFileNameText(QString)), this, SLOT(setFileNameText(QString)));
             connect(m_FileTransThread.data(), SIGNAL(setFileCountText(QString)), this, SLOT(setFileCountText(QString)));
+            connect(m_FileTransThread.data(), SIGNAL(sig_exit()), this, SLOT(closeThread()));
+
 
             m_FileTransThread->start();
             startTimer(1000);
@@ -79,6 +81,8 @@ FileManagerFileTransferDialog::FileManagerFileTransferDialog(TransType type, QWi
             connect(m_FtpTransThread.data(), SIGNAL(setMaximum(int)), this, SLOT(setMaximum(int)));
             connect(m_FtpTransThread.data(), SIGNAL(setFileNameText(QString)), this, SLOT(setFileNameText(QString)));
             connect(m_FtpTransThread.data(), SIGNAL(setFileCountText(QString)), this, SLOT(setFileCountText(QString)));
+            connect(m_FtpTransThread.data(), SIGNAL(sig_exit()), this, SLOT(closeThread()));
+
 
             m_FtpTransThread->start();
             startTimer(1000);
@@ -424,7 +428,7 @@ void FileManagerFileTransferDialog::closeThread()
 
             m_FtpTransThread->requestInterruption();
         }
-
+        m_FtpTransThread->exit();
     }
         break;
     case FileType:
@@ -439,7 +443,7 @@ void FileManagerFileTransferDialog::closeThread()
 
             m_FileTransThread->requestInterruption();
         }
-
+        m_FileTransThread->exit();
     }
         break;
     }

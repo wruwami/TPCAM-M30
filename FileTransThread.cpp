@@ -76,7 +76,7 @@ void FileTransThread::run()
 
             file.copy(targetFileName);
         }
-    quit();
+    emit sig_exit();
 }
 
 //void FileTransThread::close2()

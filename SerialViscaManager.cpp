@@ -7,6 +7,7 @@
 #include <QJsonArray>
 
 #include "ConfigManager.h"
+#include "Logger.h"
 
 SerialViscaManager::SerialViscaManager()
 {
@@ -111,6 +112,7 @@ void SerialViscaManager::receive_camera()
 
 void SerialViscaManager::show_camera_version()
 {
+    SetLogMsg(VISCA_SEND_DATA, "show_camera_version()");
     unsigned char header=0x81;
     unsigned char msg[4];
     unsigned char msgSize=3;
@@ -133,6 +135,7 @@ void SerialViscaManager::show_camera_version()
 
 void SerialViscaManager::show_camera_model()
 {
+    SetLogMsg(VISCA_SEND_DATA, "show_camera_model()");
     unsigned char header=0x81;
     unsigned char msg[4];
     unsigned char msgSize=3;
@@ -156,6 +159,7 @@ void SerialViscaManager::show_camera_model()
 
 void SerialViscaManager::set_infrared_mode_on()
 {
+    SetLogMsg(VISCA_SEND_DATA, "set_infrared_mode_on()");
     unsigned char header=0x81;
     unsigned char msg[4];
     unsigned char msgSize=4;
@@ -177,6 +181,7 @@ void SerialViscaManager::set_infrared_mode_on()
 
 void SerialViscaManager::set_infrared_mode_off()
 {
+    SetLogMsg(VISCA_SEND_DATA, "set_infrared_mode_on()");
     unsigned char header=0x81;
     unsigned char msg[4];
     unsigned char msgSize=4;
@@ -198,6 +203,7 @@ void SerialViscaManager::set_infrared_mode_off()
 
 void SerialViscaManager::set_infrared_mode_auto()
 {
+    SetLogMsg(VISCA_SEND_DATA, "set_infrared_mode_auto()");
     unsigned char header=0x81;
     unsigned char msg[4];
     unsigned char msgSize=4;
@@ -250,6 +256,8 @@ void SerialViscaManager::set_noise_reduction_on(QString p)
 
 void SerialViscaManager::set_defog_off()
 {
+    SetLogMsg(VISCA_SEND_DATA, "set_defog_off()");
+
     unsigned char header=0x81;
     unsigned char msg[5];
     unsigned char msgSize=5;
@@ -272,6 +280,8 @@ void SerialViscaManager::set_defog_off()
 
 void SerialViscaManager::set_defog_on()
 {
+    SetLogMsg(VISCA_SEND_DATA, "set_defog_on()");
+
     unsigned char header=0x81;
     unsigned char msg[5];
     unsigned char msgSize=5;
@@ -338,6 +348,8 @@ QString SerialViscaManager::change_defog_mode()
 
 void SerialViscaManager::set_DIS_off()
 {
+    SetLogMsg(VISCA_SEND_DATA, "set_dis_off()");
+
     unsigned char header=0x81;
     unsigned char msg[4];
     unsigned char msgSize=4;
@@ -359,6 +371,8 @@ void SerialViscaManager::set_DIS_off()
 
 void SerialViscaManager::set_DIS_on()
 {
+    SetLogMsg(VISCA_SEND_DATA, "set_dis_on()");
+
     unsigned char header=0x81;
     unsigned char msg[4];
     unsigned char msgSize=4;
@@ -380,6 +394,8 @@ void SerialViscaManager::set_DIS_on()
 
 void SerialViscaManager::set_HLC_off()
 {
+    SetLogMsg(VISCA_SEND_DATA, "set_hlc_off()");
+
     unsigned char header=0x81;
     unsigned char msg[5];
     unsigned char msgSize=5;
@@ -402,6 +418,8 @@ void SerialViscaManager::set_HLC_off()
 
 void SerialViscaManager::set_HLC_on()
 {
+    SetLogMsg(VISCA_SEND_DATA, "set_hlc_on()");
+
     unsigned char header=0x81;
     unsigned char msg[5];
     unsigned char msgSize=5;
@@ -424,6 +442,8 @@ void SerialViscaManager::set_HLC_on()
 
 void SerialViscaManager::zoom(int currentIndex)
 {
+    SetLogMsg(VISCA_SEND_DATA, QString("zoom(%1)").arg(currentIndex));
+
     unsigned char header=0x81;
     unsigned char msg[10];
     unsigned char msgSize=7;
@@ -479,6 +499,8 @@ void SerialViscaManager::zoom(int currentIndex)
 
 void SerialViscaManager::plus_zoom()
 {
+    SetLogMsg(VISCA_SEND_DATA, "plus_zoom");
+
     unsigned char header=0x81;
     unsigned char msg[10];
     unsigned char msgSize=7;
@@ -531,6 +553,8 @@ void SerialViscaManager::plus_zoom()
 
 void SerialViscaManager::minus_zoom()
 {
+    SetLogMsg(VISCA_SEND_DATA, "minus_zoom");
+
     unsigned char header=0x81;
     unsigned char msg[10];
     unsigned char msgSize=7;
@@ -582,6 +606,8 @@ void SerialViscaManager::minus_zoom()
 
 void SerialViscaManager::zoom_from_pqrs(QString pqrs_input)
 {
+    SetLogMsg(VISCA_SEND_DATA, QString("zoom_from_pqrs(%1").arg(pqrs_input));
+
     unsigned char header=0x81;
     unsigned char msg[10];
     unsigned char msgSize=7;
@@ -629,6 +655,8 @@ void SerialViscaManager::zoom_from_pqrs(QString pqrs_input)
 
 void SerialViscaManager::dzoom_from_pq(QString pq_input)
 {
+    SetLogMsg(VISCA_SEND_DATA, QString("dzooom_from_pq(%1").arg(pq_input));
+
     unsigned char header=0x81;
     unsigned char msg[10];
     unsigned char msgSize=7;
@@ -671,6 +699,8 @@ void SerialViscaManager::dzoom_from_pq(QString pq_input)
 
 void SerialViscaManager::dzoom(int currentIndex)
 {
+    SetLogMsg(VISCA_SEND_DATA, QString("dzoom(%1").arg(currentIndex));
+
     unsigned char header=0x81;
     unsigned char msg[10];
     unsigned char msgSize=7;
@@ -722,6 +752,8 @@ void SerialViscaManager::dzoom(int currentIndex)
 
 void SerialViscaManager::plus_dzoom()
 {
+    SetLogMsg(VISCA_SEND_DATA, "plus_dzoom");
+
     unsigned char header=0x81;
     unsigned char msg[10];
     unsigned char msgSize=7;
@@ -771,6 +803,8 @@ void SerialViscaManager::plus_dzoom()
 
 void SerialViscaManager::minus_dzoom()
 {
+    SetLogMsg(VISCA_SEND_DATA, " minus_dzoom");
+
     unsigned char header=0x81;
     unsigned char msg[10];
     unsigned char msgSize=7;
@@ -818,6 +852,8 @@ void SerialViscaManager::minus_dzoom()
 }
 void SerialViscaManager::set_focus(QString a_pqrs)
 {
+    SetLogMsg(VISCA_SEND_DATA, QString("set_focus").arg(a_pqrs));
+
     unsigned char header=0x81;
     unsigned char msg[10];
     unsigned char msgSize=7;
@@ -872,6 +908,8 @@ void SerialViscaManager::set_focus(QString a_pqrs)
 
 void SerialViscaManager::plus_focus()
 {
+    SetLogMsg(VISCA_SEND_DATA, "plus_focus");
+
     unsigned char header=0x81;
     unsigned char msg[10];
     unsigned char msgSize=7;
@@ -932,6 +970,8 @@ void SerialViscaManager::plus_focus()
 
 void SerialViscaManager::minus_focus()
 {
+    SetLogMsg(VISCA_SEND_DATA, "minus_focus");
+
     unsigned char header=0x81;
     unsigned char msg[10];
     unsigned char msgSize=7;
@@ -989,6 +1029,8 @@ void SerialViscaManager::minus_focus()
 
 void SerialViscaManager::separate_zoom_mode()
 {
+    SetLogMsg(VISCA_SEND_DATA, QString("separate_zoom_mode"));
+
     //seperator mode
     unsigned char header=0x81;
     unsigned char msg[10];
@@ -1031,6 +1073,8 @@ void SerialViscaManager::combine_zoom_mode()
 
 void SerialViscaManager::set_manual_focus()
 {
+    SetLogMsg(VISCA_SEND_DATA, QString("set_manual_focus"));
+
     unsigned char header=0x81;
     unsigned char msg[10];
     unsigned char msgSize=4;
@@ -1071,6 +1115,8 @@ void SerialViscaManager::set_auto_focus()
 
 void SerialViscaManager::set_AF_one_push_trigger()
 {
+    SetLogMsg(VISCA_SEND_DATA, QString("set_AF_one_push_trigger"));
+
     unsigned char header=0x81;
     unsigned char msg[10];
     unsigned char msgSize=4;
@@ -1093,6 +1139,8 @@ void SerialViscaManager::set_AF_one_push_trigger()
 
 void SerialViscaManager::set_AE_shutter_priority()
 {
+    SetLogMsg(VISCA_SEND_DATA, QString("set_AE_shutter_priority"));
+
     unsigned char header=0x81;
     unsigned char msg[10];
     unsigned char msgSize=4;
@@ -1113,6 +1161,8 @@ void SerialViscaManager::set_AE_shutter_priority()
 
 void SerialViscaManager::set_AE_manual()
 {
+    SetLogMsg(VISCA_SEND_DATA, QString("set_AE_manual"));
+
     //can set variable iris, gain, shutter
     unsigned char header=0x81;
     unsigned char msg[10];
@@ -1134,6 +1184,8 @@ void SerialViscaManager::set_AE_manual()
 
 void SerialViscaManager::set_AE_Mode(QString p)
 {
+    SetLogMsg(VISCA_SEND_DATA, QString("set_AE_Mode(%1)").arg(p));
+
     unsigned char header=0x81;
     unsigned char msg[10];
     unsigned char msgSize=4;
@@ -1173,6 +1225,8 @@ void SerialViscaManager::read_AE_mode()
 
 void SerialViscaManager::set_shutter_speed(int currentIndex)
 {
+    SetLogMsg(VISCA_SEND_DATA, QString("set_shuuter_spped(%1)").arg(currentIndex));
+
     unsigned char header=0x81;
     unsigned char msg[10];
     unsigned char msgSize=7;
@@ -1222,6 +1276,8 @@ void SerialViscaManager::set_shutter_speed(int currentIndex)
 
 void SerialViscaManager::set_shutter_speed_from_pq(QString pq_input)
 {
+    SetLogMsg(VISCA_SEND_DATA, QString("set_shuuter_spped_from_pq(%1)").arg(pq_input));
+
     unsigned char header=0x81;
     unsigned char msg[10];
     unsigned char msgSize=7;
@@ -1262,6 +1318,8 @@ void SerialViscaManager::set_shutter_speed_from_pq(QString pq_input)
 
 void SerialViscaManager::set_gain(int currentIndex)
 {
+    SetLogMsg(VISCA_SEND_DATA, QString("set_gain(%1)").arg(currentIndex));
+
     unsigned char header=0x81;
     unsigned char msg[10];
     unsigned char msgSize=7;
@@ -1311,6 +1369,8 @@ void SerialViscaManager::set_gain(int currentIndex)
 
 void SerialViscaManager::set_gain_from_pq(QString pq_input)
 {
+    SetLogMsg(VISCA_SEND_DATA, QString("set_gain_from_pq(%1)").arg(pq_input));
+
     unsigned char header=0x81;
     unsigned char msg[10];
     unsigned char msgSize=7;
@@ -1351,6 +1411,8 @@ void SerialViscaManager::set_gain_from_pq(QString pq_input)
 
 void SerialViscaManager::set_iris(int currentIndex)
 {
+    SetLogMsg(VISCA_SEND_DATA, QString("set_iris(%1)").arg(currentIndex));
+
     unsigned char header=0x81;
     unsigned char msg[10];
     unsigned char msgSize=7;
@@ -1403,6 +1465,8 @@ void SerialViscaManager::set_iris(int currentIndex)
 
 void SerialViscaManager::set_iris_from_pq(QString pq_input,  bool isAutoIris)
 {
+    SetLogMsg(VISCA_SEND_DATA, QString("set_iris_from_pq(%1)%2").arg(pq_input).arg(isAutoIris));
+
     unsigned char header=0x81;
     unsigned char msg[10];
     unsigned char msgSize=7;

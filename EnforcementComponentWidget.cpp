@@ -93,7 +93,7 @@ EnforcementComponentWidget::EnforcementComponentWidget(QWidget *parent) :
         break;
     }
 
-    m_nZoomIndex = ConfigManager("parameter_enforcement.json").GetConfig()["zoom index"].toInt();
+    m_nZoomIndex = ConfigManager("parameter_enforcement.json").GetConfig()["zoom index"].toInt() - 1;
 
     ConfigManager con = ConfigManager("parameter_setting3.json");
     QJsonObject object = con.GetConfig();
@@ -478,7 +478,7 @@ void EnforcementComponentWidget::camInit()
 
 //    Config
     QJsonObject object = ConfigManager("parameter_enforcement.json").GetConfig();
-    m_nZoomIndex = object["zoom_index"].toInt() - 1;
+    m_nZoomIndex = object["zoom index"].toInt() - 1;
     m_pSerialViscaManager->SetZoom(m_nZoomIndex);
     m_pSerialViscaManager->SetFocus(m_nZoomIndex);
 

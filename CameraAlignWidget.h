@@ -50,7 +50,7 @@ public:
 
 private:
     bool m_bHUDChecked = true;
-    bool m_bCameraChecked = false;
+    bool m_bCameraChecked = true;
     ConfigManager m_configManager = ConfigManager("setting_reticle.json");
     QJsonObject m_object;
     QPoint m_HUDPoint;

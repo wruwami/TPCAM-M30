@@ -147,7 +147,7 @@ MainWindow::MainWindow(screensaver* screensaver, QWidget *parent) :
     QObject::connect((QWidget*)m_pLoginWidget->m_pUserNameComboBox, SIGNAL(currentIndexChanged(QString)), this, SLOT(on_userNameChanged(QString)));
     QObject::connect((QWidget*)m_pMainMenuWidget->m_pHomePushButton, SIGNAL(clicked()), this, SLOT(on_mainMenuHomeClicked()));
 
-    BatteryInit();
+//    BatteryInit();
 //    device use
 
     get(screensaver);
@@ -478,6 +478,7 @@ void MainWindow::on_dateTimeWidgetClicked()
 
 void MainWindow::on_enforcementClicked()
 {
+    QSize menu_size = m_pMainMenuWidget->size();
     m_widgetType = Enforcement;
     m_pIndicatorWidget->setFocusExposeDisabled(false);
     m_pIndicatorWidget->m_bFocusExposeDisabled = false;
@@ -499,7 +500,7 @@ void MainWindow::on_enforcementClicked()
     ui->verticalLayout->addWidget(m_pEnforcementWidget, 835);
     m_pMainMenuWidget->setMainMenuImage("Main_menu", "home_big_n.bmp");
     m_pMainMenuWidget->setTransparentBackGround(true);
-    m_pEnforcementWidget->m_pEnforcementComponentWidget->setMainMenuSize(m_pMainMenuWidget->size());
+    m_pEnforcementWidget->m_pEnforcementComponentWidget->setMainMenuSize(menu_size);
     m_pEnforcementWidget->m_pEnforcementComponentWidget->setPSerialLaserManager(m_pSerialLaserManager);
     m_pIndicatorWidget->setPSerialLaserManager(m_pSerialLaserManager);
     m_pEnforcementWidget->m_pEnforcementComponentWidget->setPSerialViscaManager(m_pSerialViscaManager);
@@ -535,6 +536,8 @@ void MainWindow::on_enforcementClicked()
 
 void MainWindow::OpenEnforcement()
 {
+    QSize menu_size = m_pMainMenuWidget->size();
+
     if (m_widgetType == Enforcement)
         return;
 
@@ -586,7 +589,7 @@ void MainWindow::OpenEnforcement()
     if (m_pEnforcementWidget == nullptr)
         m_pEnforcementWidget = new EnforcementWidget;
     ui->verticalLayout->addWidget(m_pEnforcementWidget, 835);
-    m_pEnforcementWidget->m_pEnforcementComponentWidget->setMainMenuSize(m_pMainMenuWidget->size());
+    m_pEnforcementWidget->m_pEnforcementComponentWidget->setMainMenuSize(menu_size);
     m_pEnforcementWidget->m_pEnforcementComponentWidget->setPSerialLaserManager(m_pSerialLaserManager);
     m_pIndicatorWidget->setPSerialLaserManager(m_pSerialLaserManager);
     m_pEnforcementWidget->m_pEnforcementComponentWidget->setPSerialViscaManager(m_pSerialViscaManager);

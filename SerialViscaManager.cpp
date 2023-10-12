@@ -606,7 +606,7 @@ void SerialViscaManager::minus_zoom()
 
 void SerialViscaManager::zoom_from_pqrs(QString pqrs_input)
 {
-    SetLogMsg(VISCA_SEND_DATA, QString("zoom_from_pqrs(%1").arg(pqrs_input));
+    SetLogMsg(VISCA_SEND_DATA, QString("zoom_from_pqrs(%1)").arg(pqrs_input));
 
     unsigned char header=0x81;
     unsigned char msg[10];

@@ -919,7 +919,7 @@ void EnforcementComponentWidget::zoomRange()
 
     SetLogMsg(BUTTON_CLICKED, "ZOOM_INDEX, " + ui->zoomRangePushButton->text());
 
-    SetLaserDetectionAreaDistance(m_nZoomIndex);
+    SetLaserDetectionAreaDistance(m_nZoomIndex + 1);
 }
 
 //void EnforcementComponentWidget::unitInit()

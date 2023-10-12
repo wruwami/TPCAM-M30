@@ -166,8 +166,16 @@ void SettingWidget::on_savePushButton_clicked()
     m_pSetting1Widget->SaveConfig();
     m_pSetting2Widget->SaveConfig();
     m_pSetting3Widget->SaveConfig();
-    m_pSetting4APWidget->SaveConfig();
-    m_pSetting4StaWidget->SaveConfig();
+
+    QString wifi_mode = ConfigManager("parameter_setting4.json").GetConfig()["wifi_mode"].toString();
+    if (wifi_mode == "AP")
+    {
+        m_pSetting4APWidget->SaveConfig();
+    }
+    else
+    {
+        m_pSetting4StaWidget->SaveConfig();
+    }
     m_pSetting5Widget->SaveConfig();
     m_pSetting6Widget->SaveConfig();
     m_pSetting7Widget->SaveConfig();

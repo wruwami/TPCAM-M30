@@ -58,13 +58,6 @@ Setting4APWidget::~Setting4APWidget()
 
 void Setting4APWidget::SaveConfig()
 {
-    if (m_bPasswordChanging)
-    {
-        ConfigManager config = ConfigManager("setting_password.json");
-        QJsonObject object = config.GetConfig();
-        object["network password"] = m_strNewPassword;
-        config.SaveFile();
-    }
     m_config.SetConfig(m_newJsonObject);
     m_config.SaveFile();
 
@@ -76,11 +69,11 @@ void Setting4APWidget::on_pwPushButton_clicked()
     connect((PasswordChangingWidget*)baseDialog.pWidget(), SIGNAL(sig_sendPW(QString)), this, SLOT(on_sendPW(QString)));
     if (baseDialog.exec() == QDialog::Accepted)
     {
-        m_bPasswordChanging = true;
-    }
-    else
-    {
-        m_bPasswordChanging = false;
+        ConfigManager config = ConfigManager("setting_password.json");
+        QJsonObject object = config.GetConfig();
+        object["network password"] = m_strNewPassword;
+        config.SetConfig(object);
+        config.SaveFile();
     }
 //    connect((PasswordChanging)baseDialog.pWidget(), SIGNAL())
 

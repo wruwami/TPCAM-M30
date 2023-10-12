@@ -45,8 +45,8 @@ FileManagerFileTransferDialog::FileManagerFileTransferDialog(TransType type, QWi
     m_type = type;
     if (type == FileType)
     {
-//        if (!GetUSBPath().isEmpty())
-//        {
+        if (!GetUSBPath().isEmpty())
+        {
             ui->titleLabel->setText(LoadString("IDS_FILE_TRANSFER"));
             ui->titleLabel->setFontSize(23);
             m_FileTransThread.reset(new FileTransThread);
@@ -60,17 +60,15 @@ FileManagerFileTransferDialog::FileManagerFileTransferDialog(TransType type, QWi
 
             m_FileTransThread->start();
             startTimer(1000);
-//        }
-//        TransferFile();
-
+        }
     }
     else
     {
         ConfigManager config = ConfigManager("parameter_setting6.json");
         QJsonObject jsonObject = config.GetConfig();
 
-//        if (jsonObject["ftp select"].toInt() != 1)
-//        {
+        if (jsonObject["ftp select"].toInt() != 1)
+        {
             ui->titleLabel->setText(LoadString("IDS_FTP_TRANSFER"));
             ui->titleLabel->setFontSize(23);
             m_FtpTransThread.reset(new FtpTransThread2);
@@ -86,9 +84,7 @@ FileManagerFileTransferDialog::FileManagerFileTransferDialog(TransType type, QWi
 
             m_FtpTransThread->start();
             startTimer(1000);
-//        }
-
-//        TransferFTP2();
+        }
     }
 
     this->move(QApplication::desktop()->screen()->rect().center() - this->rect().center());

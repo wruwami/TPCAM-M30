@@ -140,7 +140,7 @@ KeyboardDialog::KeyboardDialog(QString lang, QWidget *parent) :
     }
     else if (lang == "arabic")
     {
-        m_k->setNLangauge(Portuguese);
+        m_k->setNLangauge(Arabic);
 
     }
 
@@ -232,7 +232,7 @@ KeyboardDialog::KeyboardDialog(QString str, QString lang, QWidget *parent) :
     }
     else if (lang == "arabic")
     {
-        m_k->setNLangauge(Portuguese);
+        m_k->setNLangauge(Arabic);
 
     }
 

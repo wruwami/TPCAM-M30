@@ -54,7 +54,7 @@ void PasswordChangingWidget::on_okPushButton_clicked()
         password = object["password"].toString();
 
     }
-    if (password != ui->currentLineEdit->GetString())
+    if (password != ui->currentLineEdit->text())
         return;
 
     if (ui->newLineEdit->GetString().isEmpty() && (ui->currentLineEdit->GetString().isEmpty()))

@@ -302,13 +302,13 @@ void NetworkManager::SetWifiAPMode()
     m_strNetPlan.append(QString("    wifis: \n\
        %1: \n\
           dhcp4: no \n\
-          gateway4: %1 \n\
-          addresses: [%2/%3] \n\
+          gateway4: %2 \n\
+          addresses: [%3/%4] \n\
           access-points: \n\
-             \"%4\": \n\
-                password: \"%5\" \n\
+             \"%5\": \n\
+                password: \"%6\" \n\
                 mode: ap \
-").arg(getWlanAdapterName()).arg(m_wifi_jsonObject["wifi_gateway"].toString()).arg(m_wifi_jsonObject["ip"].toString()).arg(GetSubNetMask(m_wifi_jsonObject["subnet mask"].toString())).arg(m_wifi_jsonObject["sta ssid"].toString()).arg(m_wifi_jsonObject["sta ftp id & p/w"].toString()));
+").arg(getWlanAdapterName()).arg(m_wifi_jsonObject["wifi_gateway"].toString()).arg(m_wifi_jsonObject["ip"].toString()).arg(GetSubNetMask(m_wifi_jsonObject["subnet mask"].toString())).arg(m_wifi_jsonObject["wiFi SSID"].toString()).arg(password));
 }
 
 void NetworkManager::SetEtherNet()

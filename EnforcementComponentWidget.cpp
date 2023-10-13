@@ -914,7 +914,7 @@ void EnforcementComponentWidget::zoomRange()
         }
     }
 
-    qDebug() << m_nZoomIndex;
+    qDebug() << "zoom_index" << m_nZoomIndex;
     m_pSerialViscaManager->SetZoom(m_nZoomIndex);
     m_pSerialViscaManager->SetFocus(m_nZoomIndex);
 
@@ -1576,7 +1576,7 @@ void EnforcementComponentWidget::on_saveImagePushButton_clicked()
     enforceInfo.bUserMode = m_UserModeOn;
     enforceInfo.enforceMode = m_nEnforcementMode;
     enforceInfo.vehicle = m_nVehicleMode;
-    enforceInfo.zoom_index = m_nZoomIndex + 1;
+    enforceInfo.zoom_index = m_nZoomIndex;
 //    m_pCamera->SaveImage(enforceInfo, MANUAL_CAPTURE);
     QPixmap pixmap = m_pCamera->grab();
     pixmap.save(GETSDPATH(MANUAL_CAPTURE) + "/" +GetFileName(MC, enforceInfo));

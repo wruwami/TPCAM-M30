@@ -175,8 +175,8 @@ void v4l2_thread::run()
 
 	running = true;
 
-    while (running)
-    {
+//    while (running)
+    forever{
 		//qDebug() << "m_bDeviceValid : " << m_bDeviceValid;
 		if (m_bDeviceValid)
 		{
@@ -225,6 +225,13 @@ void v4l2_thread::run()
 				m_bDeviceValid = false;
 			}
 		}
+
+        if ( QThread::currentThread()->isInterruptionRequested() )
+        {
+            qDebug() << Q_FUNC_INFO << " terminated";
+            return;
+        }
+
     }
 	if (DEBUG_MODE)
 		qDebug() << "READ AND SAVE DONE!";

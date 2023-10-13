@@ -129,7 +129,8 @@ Camera::~Camera()
 
             m_v4l2Capturer->setRunning(false);
 
-            m_v4l2Capturer->exit();
+//            m_v4l2Capturer->exit();
+            m_v4l2Capturer->requestInterruption();
 
             m_v4l2Capturer->wait(100);
 

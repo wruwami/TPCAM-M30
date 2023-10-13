@@ -914,6 +914,7 @@ void EnforcementComponentWidget::zoomRange()
         }
     }
 
+    qDebug() << m_nZoomIndex;
     m_pSerialViscaManager->SetZoom(m_nZoomIndex);
     m_pSerialViscaManager->SetFocus(m_nZoomIndex);
 
@@ -1005,11 +1006,11 @@ QString EnforcementComponentWidget::GetMode()
 
     if (m_UserModeOn)
     {
-        mode.append(QString("%1").arg(QString::number(m_nZoomIndex), 2));
+        mode.append(QString("%1").arg(QString::number(m_nZoomIndex + 1), 2));
     }
     else
     {
-        mode.append(QString("%1").arg(QString::number(m_nZoomIndex), 2));
+        mode.append(QString("%1").arg(QString::number(m_nZoomIndex + 1), 2));
     }
 
     return mode;
@@ -1575,7 +1576,7 @@ void EnforcementComponentWidget::on_saveImagePushButton_clicked()
     enforceInfo.bUserMode = m_UserModeOn;
     enforceInfo.enforceMode = m_nEnforcementMode;
     enforceInfo.vehicle = m_nVehicleMode;
-    enforceInfo.zoom_index = m_nZoomIndex;
+    enforceInfo.zoom_index = m_nZoomIndex + 1;
 //    m_pCamera->SaveImage(enforceInfo, MANUAL_CAPTURE);
     QPixmap pixmap = m_pCamera->grab();
     pixmap.save(GETSDPATH(MANUAL_CAPTURE) + "/" +GetFileName(MC, enforceInfo));
@@ -1621,7 +1622,7 @@ void EnforcementComponentWidget::VModeVideoSave()
     enforceInfo.bUserMode = m_UserModeOn;
     enforceInfo.enforceMode = m_nEnforcementMode;
     enforceInfo.vehicle = m_nVehicleMode;
-    enforceInfo.zoom_index = m_nZoomIndex;
+    enforceInfo.zoom_index = m_nZoomIndex + 1;
 
     m_pCamera->SaveVideo(VV, enforceInfo, VIDEO);
 }

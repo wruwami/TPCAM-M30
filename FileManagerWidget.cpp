@@ -556,11 +556,16 @@ void FileManagerWidget::on_printPushButton_clicked()
 
 void FileManagerWidget::on_connectPushButton_clicked()
 {
-//    BaseDialog baseDialog(FileManagerErrorMessageWidgetType, Qt::AlignmentFlag::AlignCenter);
-//    baseDialog.exec();
 
-    connect_wifi_printer();
-    ui->printPushButton->setDisabled(false);
+    if (connect_wifi_printer() == 1)
+    {
+        BaseDialog baseDialog(FileManagerErrorMessageWidgetType, Qt::AlignmentFlag::AlignCenter);
+        baseDialog.exec();
+    }
+    else
+    {
+        ui->printPushButton->setDisabled(false);
+    }
 
     SetLogMsg(FILE_MANAGER, "CONNECT");
 }

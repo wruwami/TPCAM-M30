@@ -41,6 +41,7 @@ public:
 private:
     void SetHudMode();
     void SetLaserMode();
+    void SetLaserMode2();
     void SetDirection(int, int);
 public:
     CustomPushButton* m_pHomeButton;

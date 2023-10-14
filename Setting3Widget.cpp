@@ -100,7 +100,7 @@ void Setting3Widget::on_showInfoPushButton_clicked()
 
 void Setting3Widget::on_factoryDefaultPushButton_clicked()
 {
-    BaseDialog baseDialog(Dialog::Setting3FactoryDefaultWidgetType, Qt::AlignmentFlag::AlignLeft, LoadString("IDS_ARE_U_SURE_FACTORY_DEFAULT"));
+    BaseDialog baseDialog(Dialog::Setting3FactoryDefaultWidgetType, Qt::AlignmentFlag::AlignCenter, LoadString("IDS_ARE_U_SURE_FACTORY_DEFAULT"));
     if (baseDialog.exec() == QDialog::Accepted)
     {
         FactoryDefaultWidget factoryDefaultWidget;

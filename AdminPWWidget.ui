@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>AdminPWWidget</class>
+ <class>FactoryDefaultWidget</class>
  <widget class="QWidget" name="AdminPWWidget">
   <property name="geometry">
    <rect>
@@ -15,48 +15,18 @@
   </property>
   <layout class="QGridLayout" name="gridLayout_2">
    <item row="0" column="0">
-    <layout class="QGridLayout" name="gridLayout" rowstretch="1,1,1" columnstretch="1,2,1,2,1">
-     <item row="2" column="1">
-      <widget class="CustomPushButton" name="okPushButton">
+    <layout class="QGridLayout" name="gridLayout" rowstretch="2,2,1,2,1" columnstretch="1,1,1,1,1">
+     <item row="0" column="0" colspan="5">
+      <widget class="CustomLabel" name="label">
        <property name="text">
-        <string>PushButton</string>
+        <string>TextLabel</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
        </property>
       </widget>
      </item>
-     <item row="2" column="3">
-      <widget class="CustomPushButton" name="cancelPushButton">
-       <property name="text">
-        <string>PushButton</string>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="2">
-      <spacer name="horizontalSpacer_2">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>40</width>
-         <height>20</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-     <item row="2" column="0">
-      <spacer name="horizontalSpacer">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>40</width>
-         <height>20</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-     <item row="2" column="4">
+     <item row="4" column="0">
       <spacer name="horizontalSpacer_3">
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
@@ -69,18 +39,64 @@
        </property>
       </spacer>
      </item>
-     <item row="1" column="0">
-      <widget class="CustomLabel" name="PWLabel">
+     <item row="4" column="4">
+      <spacer name="horizontalSpacer_2">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item row="4" column="2">
+      <spacer name="horizontalSpacer">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item row="1" column="4">
+      <spacer name="horizontalSpacer_4">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item row="3" column="1">
+      <widget class="CustomPushButton" name="okPushButton">
        <property name="text">
-        <string>TextLabel</string>
+        <string>PushButton</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="3">
+      <widget class="CustomPushButton" name="cancelPushButton">
+       <property name="text">
+        <string>PushButton</string>
        </property>
       </widget>
      </item>
      <item row="1" column="2" colspan="2">
       <widget class="CustomLineEdit" name="lineEdit"/>
      </item>
-     <item row="0" column="0" colspan="5">
-      <widget class="CustomLabel" name="label">
+     <item row="1" column="1">
+      <widget class="CustomLabel" name="pwLabel">
        <property name="text">
         <string>TextLabel</string>
        </property>

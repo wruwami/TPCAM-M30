@@ -19,8 +19,8 @@ AdminPWWidget::AdminPWWidget(QString msg, QWidget *parent) :
         ui->label->setText(msg);
         ui->label->setText(msg);
     }
-    ui->PWLabel->setText(LoadString("IDS_PW"));
-    ui->PWLabel->setFontSize(23);
+    ui->pwLabel->setText(LoadString("IDS_PW"));
+    ui->pwLabel->setFontSize(23);
 
     ui->okPushButton->setText(LoadString("IDS_OK"));
     ui->okPushButton->setFontSize(23);

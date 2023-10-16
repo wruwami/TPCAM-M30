@@ -12,7 +12,7 @@ StorageManager::StorageManager()
     QString USB = object["USB"].toObject()["name"].toString();
     m_fEMMCExitSelfTestPercent = object["emmc"].toObject()["exit self test percent"].toDouble();
     m_fSDExitSelfTestPercent = object["SD"].toObject()["exit self test percent"].toDouble();
-    m_fSDExitEnforcementPercent = object["SD"].toObject()["exit self test percent"].toDouble();
+    m_fSDExitEnforcementPercent = object["SD"].toObject()["exit enforcement percent"].toDouble();
 
 
     foreach(auto storage , QStorageInfo::mountedVolumes())

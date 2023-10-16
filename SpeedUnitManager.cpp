@@ -58,7 +58,7 @@ float SpeedUnitManager::getSpeedValue(float Kmh)
 {
     if (m_speedUnit == Km)
         return Kmh;
-    return Kmh * 1.609;
+    return Kmh * 0.621;
 }
 
 float SpeedUnitManager::getDistanceValue(float meter)

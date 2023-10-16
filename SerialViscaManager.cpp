@@ -852,7 +852,7 @@ void SerialViscaManager::minus_dzoom()
 }
 void SerialViscaManager::set_focus(QString a_pqrs)
 {
-    SetLogMsg(VISCA_SEND_DATA, QString("set_focus").arg(a_pqrs));
+    SetLogMsg(VISCA_SEND_DATA, QString("set_focus(%1)").arg(a_pqrs));
 
     unsigned char header=0x81;
     unsigned char msg[10];

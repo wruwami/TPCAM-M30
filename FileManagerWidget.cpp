@@ -91,8 +91,10 @@ FileManagerWidget::FileManagerWidget(QWidget *parent) :
     ui->movePushButton->setImage("file_manager", "file_management_copy_usb.jpg");
     ui->datePushButton->setFontSize(23);
 
-    ui->horizontalLayout_9->setMargin(GetWidthWidth(15));
-    ui->horizontalLayout_9->setSpacing(GetWidthWidth(30));
+    ui->tableWidget->setSizePolicy(QSizePolicy::Ignored, QSizePolicy::Expanding);
+
+//    ui->horizontalLayout_9->setMargin(GetWidthWidth(15));
+//    ui->horizontalLayout_9->setSpacing(GetWidthWidth(30));
 
     m_pHomePushButton = ui->mainMenuPushButton;
 
@@ -244,7 +246,7 @@ void FileManagerWidget::on_deletePushButton_clicked()
     BaseDialog baseDialog(Dialog::FileManagerQuestionMessageWidgetType, Qt::AlignmentFlag::AlignCenter, "");
     if (baseDialog.exec() == QDialog::Accepted)
     {
-        BaseDialog baseDialog2(Dialog::AdminPWWidgetType, Qt::AlignmentFlag::AlignLeft, "");
+        BaseDialog baseDialog2(Dialog::AdminPWWidgetType, Qt::AlignmentFlag::AlignCenter, "");
         if (baseDialog2.exec() == QDialog::Accepted)
         {
             QDir dir(GetSDPath());
@@ -554,11 +556,16 @@ void FileManagerWidget::on_printPushButton_clicked()
 
 void FileManagerWidget::on_connectPushButton_clicked()
 {
-//    BaseDialog baseDialog(FileManagerErrorMessageWidgetType, Qt::AlignmentFlag::AlignCenter);
-//    baseDialog.exec();
 
-    connect_wifi_printer();
-    ui->printPushButton->setDisabled(false);
+    if (connect_wifi_printer() == 1)
+    {
+        BaseDialog baseDialog(FileManagerErrorMessageWidgetType, Qt::AlignmentFlag::AlignCenter);
+        baseDialog.exec();
+    }
+    else
+    {
+        ui->printPushButton->setDisabled(false);
+    }
 
     SetLogMsg(FILE_MANAGER, "CONNECT");
 }

@@ -4,6 +4,7 @@
 #include <QJsonArray>
 #include <QPainter>
 #include <QDebug>
+#include <QMouseEvent>
 
 #include "StringLoader.h"
 
@@ -94,6 +95,12 @@ void CameraAlignWidget::SetLaserMode()
 {
     ui->hudLabel->setText(LoadString("IDS_LASER") +"[" +QString("%1").arg(QString::number(m_LaserPoint.x() + Laser_x), 2) + "," + QString("%1").arg(QString::number(m_LaserPoint.y() + Laser_y), 2) + "]");
 }
+
+void CameraAlignWidget::SetLaserMode2()
+{
+    ui->hudLabel->setText(LoadString("IDS_LASER") +"[" +QString("%1").arg(QString::number(m_LaserPoint.x()), 2) + "," + QString("%1").arg(QString::number(m_LaserPoint.y()), 2) + "]");
+}
+
 
 void CameraAlignWidget::SetDirection(int x, int y)
 {
@@ -274,7 +281,7 @@ void CameraAlignWidget::paintEvent(QPaintEvent *event)
 //        crossPen.setWidth(10);
 //        QRect rect = QRect(width() / 2, height() / 2 + 10, 10, 30);
 //        QRect rect2 = QRect(width() / 2 - 10, height() / 2, 10, 30);
-    if (m_bHUDChecked)
+    if (m_nMode == HUD)
     {
         int gap = 10;
 
@@ -284,7 +291,7 @@ void CameraAlignWidget::paintEvent(QPaintEvent *event)
         painter.fillRect(rect, Qt::white);
         painter.fillRect(rect2, Qt::white);
     }
-    else if (m_bCameraChecked)
+    else if (m_nMode == Laser)
     {
         int gap = 10;
 
@@ -302,5 +309,10 @@ void CameraAlignWidget::paintEvent(QPaintEvent *event)
 
 void CameraAlignWidget::mousePressEvent(QMouseEvent *event)
 {
-
+    if (m_nMode == Laser)
+    {
+        m_LaserPoint.setX(event->x());
+        m_LaserPoint.setY(event->y());
+        SetLaserMode2();
+    }
 }

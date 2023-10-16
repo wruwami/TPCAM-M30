@@ -288,7 +288,6 @@ unix:!macx: LIBS += -L/usr/local/lib/ \
         -lhangul \
         -lavformat\
         -lswscale\
-        -lavformat\
         -lavcodec\
         -lavutil\
         -lopencv_core \

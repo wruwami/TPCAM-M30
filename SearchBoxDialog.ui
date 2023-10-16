@@ -19,7 +19,7 @@
   <layout class="QVBoxLayout" name="verticalLayout_2" stretch="14,0,68">
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="347,130">
-     <item>
+     <item alignment="Qt::AlignHCenter">
       <widget class="CustomLabel" name="titleLabel">
        <property name="text">
         <string>TextLabel</string>
@@ -46,7 +46,7 @@
     <layout class="QVBoxLayout" name="verticalLayout" stretch="1,3">
      <item>
       <layout class="QHBoxLayout" name="horizontalLayout">
-       <item>
+       <item alignment="Qt::AlignHCenter">
         <widget class="CustomLabel" name="searchTextLabel">
          <property name="text">
           <string>TextLabel</string>

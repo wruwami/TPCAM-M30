@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>AdminPWWWidget</class>
+ <class>AdminPWWidget</class>
  <widget class="QWidget" name="AdminPWWidget">
   <property name="geometry">
    <rect>
@@ -15,7 +15,7 @@
   </property>
   <layout class="QGridLayout" name="gridLayout_2">
    <item row="0" column="0">
-    <layout class="QGridLayout" name="gridLayout" rowstretch="2,2,1,2,1" columnstretch="1,1,1,1,1">
+    <layout class="QGridLayout" name="gridLayout" rowstretch="2,2,2,2,2" columnstretch="1,1,1,1,1">
      <item row="0" column="0" colspan="5">
       <widget class="CustomLabel" name="label">
        <property name="text">

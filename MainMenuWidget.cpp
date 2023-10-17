@@ -92,7 +92,7 @@ MainMenuWidget::MainMenuWidget(QWidget *parent) :
 
     initImage();
 
-    ui->batteryStatusLabel->setImage("indicator", "indicator_battery_charge_off.bmp");
+    ui->batteryStatusLabel->setImage("indicator", "indicator_battery_charge_off.png");
     startTimer(1000);
 }
 
@@ -189,9 +189,9 @@ ui->batteryPercentButton->setText(QString("%0%").arg(percent));
 void MainMenuWidget::setBatteryCharge(bool isCharge)
 {
     if (isCharge)
-        ui->batteryStatusLabel->setImage("indicator", "indicator_battery_charge_on.bmp");
+        ui->batteryStatusLabel->setImage("indicator", "indicator_battery_charge_on.png");
     else
-        ui->batteryStatusLabel->setImage("indicator", "indicator_battery_charge_off.bmp");
+        ui->batteryStatusLabel->setImage("indicator", "indicator_battery_charge_off.png");
 }
 
 void MainMenuWidget::setIndicatorImage(CustomPushButton* pCustomButton, QString path_name, QString file_name)

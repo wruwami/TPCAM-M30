@@ -52,7 +52,10 @@ private:
     QTimer* m_pTimerInquiryIris = new QTimer(this);
     QTimer* m_pTimerCheckOPTdone = new QTimer(this);
 
-    int count = 0;
+    int zoom_count = 0;
+    int focus_count = 0;
+    int iris_count = 0;
+    int opt_count = 0;
 public:
     void show_camera_version();
     void show_camera_model();

@@ -484,7 +484,7 @@ void SerialViscaManager::zoom(int currentIndex)
 
     m_zoom_pqrs = pqrs;
 
-    count = 0;
+    zoom_count = 0;
 
     //feedback
     m_pTimerInquiryZoom->start(500);
@@ -642,7 +642,7 @@ void SerialViscaManager::zoom_from_pqrs(QString pqrs_input)
 
     m_zoom_pqrs = pqrs;
 
-    count = 0;
+    zoom_count = 0;
 
     //feedback
     m_pTimerInquiryZoom->start(500);
@@ -900,7 +900,7 @@ void SerialViscaManager::set_focus(QString a_pqrs)
 
     m_focus_pqrs = pqrs;
 
-    count = 0;
+    focus_count = 0;
 
 
     //feedback
@@ -965,7 +965,7 @@ void SerialViscaManager::plus_focus()
     m_focus_pqrs = pqrs;
 
     //feedback
-     m_pTimerInquiryFocus->start(500);
+//     m_pTimerInquiryFocus->start(500);
 
     QByteArray data;
     if(visca_packet)
@@ -1134,7 +1134,7 @@ void SerialViscaManager::set_AF_one_push_trigger()
     msg[2]=0x18;
     msg[3]=0x01;
 
-    count = 0;
+    opt_count = 0;
 
     m_pTimerCheckOPTdone->start(500);
 
@@ -1461,6 +1461,8 @@ void SerialViscaManager::set_iris(int currentIndex)
 
     m_iris_pq = pq;
 
+    iris_count = 0;
+
     //feedback
     m_pTimerInquiryIris->start(500);
 
@@ -1511,6 +1513,7 @@ void SerialViscaManager::set_iris_from_pq(QString pq_input,  bool isAutoIris)
     {
 
     }else{
+        iris_count = 0;
     //feedback
     m_pTimerInquiryIris->start(500);
     }
@@ -1911,7 +1914,7 @@ void SerialViscaManager::show_noiseReduction()
 
 void SerialViscaManager::get_inquiry_zoom()
 {
-    m_pTimerInquiryZoom->stop();
+//    m_pTimerInquiryZoom->stop();
     QEventLoop loop;
     connect(visca_packet, SIGNAL(sig_show_zoom(QString)), &loop, SLOT(quit()));
     show_zoomPosition();
@@ -1924,21 +1927,21 @@ void SerialViscaManager::get_inquiry_zoom()
 
     if(qstrpqrs == qstrgZoom_pqrs )
     {
-        count++;
-        if(count == CHECK_OPT_DONE_COUNTER)
+        zoom_count++;
+        if(zoom_count >= CHECK_OPT_DONE_COUNTER)
         {
             m_pTimerInquiryZoom->stop();
 
         }
     } else {
         zoom_from_pqrs(qstrpqrs);
-        count = 0;
+        zoom_count = 0;
     }
 }
 
 void SerialViscaManager::get_inquiry_focus()
 {
-    m_pTimerInquiryFocus->stop();
+//    m_pTimerInquiryFocus->stop();
     QEventLoop loop;
     connect(visca_packet, SIGNAL(sig_show_focus(QString)), &loop, SLOT(quit()));
     show_focusPosition();
@@ -1952,8 +1955,8 @@ void SerialViscaManager::get_inquiry_focus()
 
     if(qstrpqrs == qstrgFocus_pqrs)
     {
-        count++;
-        if(count == CHECK_OPT_DONE_COUNTER)
+        focus_count++;
+        if(focus_count >= CHECK_OPT_DONE_COUNTER)
         {
             m_pTimerInquiryFocus->stop();
         }
@@ -1961,14 +1964,14 @@ void SerialViscaManager::get_inquiry_focus()
     else
     {
         set_focus(m_focus_pqrs);
-        count = 0;
+        focus_count = 0;
     }
 
 }
 
 void SerialViscaManager::get_inquiry_iris()
 {
-    m_pTimerInquiryIris->stop();
+//    m_pTimerInquiryIris->stop();
     QEventLoop loop;
     connect(visca_packet, SIGNAL(sig_show_iris()), &loop, SLOT(quit()));
     read_iris();
@@ -1983,8 +1986,8 @@ void SerialViscaManager::get_inquiry_iris()
 
     if(qstrpq == qstrgIris_pq)
     {
-        count++;
-        if(count == CHECK_OPT_DONE_COUNTER)
+        iris_count++;
+        if(iris_count >= CHECK_OPT_DONE_COUNTER)
         {
             m_pTimerInquiryIris->stop();
         }
@@ -1996,7 +1999,7 @@ void SerialViscaManager::get_inquiry_iris()
         if (dnn >= 0 && dnn < 4)
             isAutoIris = true;
         set_iris_from_pq(qstrpq, isAutoIris);
-        count = 0;
+        iris_count = 0;
     }
 }
 
@@ -2161,14 +2164,14 @@ void SerialViscaManager::check_OPT_done()
     m_focus_pqrs = qstrFocus;
     if(m_lastQstrFocus == qstrFocus)
     {
-        count++;
-        if(count == CHECK_OPT_DONE_COUNTER)
+        opt_count++;
+        if(opt_count >= CHECK_OPT_DONE_COUNTER)
         {
             m_pTimerCheckOPTdone->stop();
 
         }
     } else {
-        count = 0;
+        opt_count = 0;
     }
     m_lastQstrFocus = qstrFocus;
 

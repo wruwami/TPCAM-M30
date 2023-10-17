@@ -21,8 +21,8 @@ SerialViscaManager::SerialViscaManager()
     connect(m_pTimerInquiryZoom, SIGNAL(timeout()), this, SLOT(get_inquiry_zoom()));
     connect(m_pTimerInquiryFocus, SIGNAL(timeout()), this, SLOT(get_inquiry_focus()));
     connect(m_pTimerInquiryIris, SIGNAL(timeout()), this, SLOT(get_inquiry_iris()));
-    connect(visca_packet, SIGNAL(sig_show_dzoom(QString)), this, SLOT(on_show_dzoom(QString)));
-    connect(visca_packet, SIGNAL(sig_show_focus(QString)), this, SLOT(on_show_focus(QString)));
+//    connect(visca_packet, SIGNAL(sig_show_dzoom(QString)), this, SLOT(on_show_dzoom(QString)));
+//    connect(visca_packet, SIGNAL(sig_show_focus(QString)), this, SLOT(on_show_focus(QString)));
 
 //    connect(this, SIGNAL(sig_pb_zoom_clicked()), this, SLOT(on_pushButton_Zoom_clicked()));
 //    connect(this, SIGNAL(sig_pb_focus_clicked(QString)), this, SLOT(on_pushButton_Focus_clicked(QString)));

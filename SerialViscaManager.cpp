@@ -484,6 +484,8 @@ void SerialViscaManager::zoom(int currentIndex)
 
     m_zoom_pqrs = pqrs;
 
+    count = 0;
+
     //feedback
     m_pTimerInquiryZoom->start(500);
 
@@ -639,6 +641,8 @@ void SerialViscaManager::zoom_from_pqrs(QString pqrs_input)
     msg[6]=0x00 | s;
 
     m_zoom_pqrs = pqrs;
+
+    count = 0;
 
     //feedback
     m_pTimerInquiryZoom->start(500);
@@ -884,6 +888,8 @@ void SerialViscaManager::set_focus(QString a_pqrs)
     s = pqrs.mid(3,1).toInt(&ok, 16);
     qDebug() << pqrs;
 
+    SetLogMsg(VISCA_SEND_DATA, QString("set_focus("+ pqrs + ")2"));
+
     QString dd;
     dd.sprintf("P%X, Q%X, R%X, S%X", p,q,r,s);
     qDebug() << dd;
@@ -893,6 +899,9 @@ void SerialViscaManager::set_focus(QString a_pqrs)
     msg[6]=0x00 | s;
 
     m_focus_pqrs = pqrs;
+
+    count = 0;
+
 
     //feedback
     m_pTimerInquiryFocus->start(500);
@@ -1124,6 +1133,8 @@ void SerialViscaManager::set_AF_one_push_trigger()
     msg[1]=0x04;
     msg[2]=0x18;
     msg[3]=0x01;
+
+    count = 0;
 
     m_pTimerCheckOPTdone->start(500);
 
@@ -1911,7 +1922,6 @@ void SerialViscaManager::get_inquiry_zoom()
 
     QString qstrpqrs = m_zoom_pqrs;
 
-    static int count = 0;
     if(qstrpqrs == qstrgZoom_pqrs )
     {
         count++;
@@ -1940,7 +1950,6 @@ void SerialViscaManager::get_inquiry_focus()
 
 //    qDebug() << qstrpqrs << ":" << qstrgFocus_pqrs;
 
-    int count = 0;
     if(qstrpqrs == qstrgFocus_pqrs)
     {
         count++;
@@ -1972,7 +1981,6 @@ void SerialViscaManager::get_inquiry_iris()
 
     qDebug() << qstrpq << ":" << qstrgIris_pq;
 
-    static int count = 0;
     if(qstrpq == qstrgIris_pq)
     {
         count++;
@@ -2143,7 +2151,6 @@ void SerialViscaManager::SetDayMode(int index)
 
 void SerialViscaManager::check_OPT_done()
 {
-    static int count = 0;
     QEventLoop loop;
     connect(visca_packet, SIGNAL(sig_show_focus(QString)), &loop, SLOT(quit()));
     show_focusPosition();

@@ -6,6 +6,7 @@
 #include <QDebug>
 #include <QStandardItemModel>
 #include "ViscaPacket.h"
+#include "Logger.h"
 
 QString g_Optical_Zoom_Value_KTNC[NUMBER_OPTICAL_ZOOM_CNT]=
 {
@@ -621,6 +622,8 @@ unsigned char	ViscaPacket::MsgDecoder()
         qDebug() << info;
         m_qstrZoom_pqrs = QString::number(m_zoomPQRS, 16);
         emit sig_show_zoom(m_qstrZoom_pqrs);
+        SetLogMsg(VISCA_RECEIVE_DATA, QString("show_zoomPosition(" + m_qstrZoom_pqrs + ")"));
+
         return 1;
     }
     else if(send_data == 0x06) //dzoom on / off
@@ -681,6 +684,8 @@ unsigned char	ViscaPacket::MsgDecoder()
         m_qstrFocus_pqrs = QStringLiteral("%1").arg(m_focusPQRS, 4, 16, QLatin1Char('0'));
 
         emit sig_show_focus(m_qstrFocus_pqrs);
+        SetLogMsg(VISCA_RECEIVE_DATA, QString("show_focusPosition(" + m_qstrFocus_pqrs + ")"));
+
         return 1;
     }
     else if(send_data == 0x35) //WB mode

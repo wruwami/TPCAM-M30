@@ -852,7 +852,7 @@ void SerialViscaManager::minus_dzoom()
 }
 void SerialViscaManager::set_focus(QString a_pqrs)
 {
-    SetLogMsg(VISCA_SEND_DATA, QString("set_focus").arg(a_pqrs));
+    SetLogMsg(VISCA_SEND_DATA, QString("set_focus(%1)").arg(a_pqrs));
 
     unsigned char header=0x81;
     unsigned char msg[10];
@@ -2029,10 +2029,10 @@ void SerialViscaManager::SetDayMode(QJsonObject object, bool bDay)
 
 void SerialViscaManager::SetFocus(int index)
 {
-    QJsonObject object = ConfigManager("parameter_settings1.json").GetConfig();
+    QJsonObject object = ConfigManager("parameter_setting1.json").GetConfig();
     int userMode = object["speed selection"].toInt();
 
-    object = ConfigManager("parameter_settings2.json").GetConfig();
+    object = ConfigManager("parameter_setting2.json").GetConfig();
     int daynight = object["day&night selection"].toInt();
     object = ConfigManager("focus.json").GetConfig();
     QJsonArray ar;
@@ -2066,7 +2066,7 @@ void SerialViscaManager::SetFocus(int index)
 
 void SerialViscaManager::SetZoom(int index)
 {
-    QJsonObject object = ConfigManager("parameter_settings1.json").GetConfig();
+    QJsonObject object = ConfigManager("parameter_setting1.json").GetConfig();
     int userMode = object["speed selection"].toInt();
     object = ConfigManager("zoom.json").GetConfig();
     QString magnification;

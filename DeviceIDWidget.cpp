@@ -53,7 +53,7 @@ DeviceIDWidget::~DeviceIDWidget()
 
 void DeviceIDWidget::on_inputPushButton_clicked()
 {
-    KeyboardDialog keyboardDialog(GetLanguage());
+    KeyboardDialog keyboardDialog(ui->lineEdit->text(), GetLanguage());
     if (keyboardDialog.exec() == QDialog::Accepted)
     {
         ui->lineEdit->setText(keyboardDialog.str());
@@ -78,7 +78,7 @@ void DeviceIDWidget::on_savePushButton_clicked()
 
     ConfigManager config = ConfigManager("setting_device_ID.json");
     QJsonObject object = config.GetConfig();
-    QJsonObject object2 = object["Device ID"].toObject();
+    QJsonObject object2 = object;
 //    object[]
     QStringList deviceIDList = deviceID.split("_");
     if (deviceIDList.size() == 3)
@@ -100,7 +100,8 @@ void DeviceIDWidget::on_savePushButton_clicked()
         object2["SerialNum"] = deviceIDList[0];
         object2["Postfix"] = "null";
     }
-    config.SetConfig(object2);
+    object["Device ID"] = object2;
+    config.SetConfig(object);
     config.SaveFile();
 }
 

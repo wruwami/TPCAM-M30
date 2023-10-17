@@ -96,10 +96,10 @@ void CameraAlignWidget::SetLaserMode()
     ui->hudLabel->setText(LoadString("IDS_LASER") +"[" +QString("%1").arg(QString::number(m_LaserPoint.x() + Laser_x), 2) + "," + QString("%1").arg(QString::number(m_LaserPoint.y() + Laser_y), 2) + "]");
 }
 
-void CameraAlignWidget::SetLaserMode2()
-{
-    ui->hudLabel->setText(LoadString("IDS_LASER") +"[" +QString("%1").arg(QString::number(m_LaserPoint.x()), 2) + "," + QString("%1").arg(QString::number(m_LaserPoint.y()), 2) + "]");
-}
+//void CameraAlignWidget::SetLaserMode2()
+//{
+//    ui->hudLabel->setText(LoadString("IDS_LASER") +"[" +QString("%1").arg(QString::number(m_LaserPoint.x()), 2) + "," + QString("%1").arg(QString::number(m_LaserPoint.y()), 2) + "]");
+//}
 
 
 void CameraAlignWidget::SetDirection(int x, int y)
@@ -293,7 +293,7 @@ void CameraAlignWidget::paintEvent(QPaintEvent *event)
     }
     else if (m_nMode == Laser)
     {
-        int gap = 10;
+        int gap = 1;
 
         int x = m_LaserPoint.x();
         int y = m_LaserPoint.y();
@@ -313,6 +313,6 @@ void CameraAlignWidget::mousePressEvent(QMouseEvent *event)
     {
         m_LaserPoint.setX(event->x());
         m_LaserPoint.setY(event->y());
-        SetLaserMode2();
+        SetLaserMode();
     }
 }

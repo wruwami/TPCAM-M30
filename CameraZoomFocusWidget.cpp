@@ -205,8 +205,17 @@ void CameraZoomFocusWidget::ZoomRange()
     zoom_index = m_nLtIndex;
     ui->zoomRangePushButton->setText(m_ltmetervector[m_nLtIndex]+distanceValue());
 
+    int ndaynight;
+    if(ui->dayComboBox->currentIndex() == 0)
+    {
+       ndaynight = 1;
+    }else
+    {
+       ndaynight = 4;
+    }
+
     m_pSerialViscaManager->SetZoom(zoom_index);
-    m_pSerialViscaManager->SetFocus(zoom_index);
+    m_pSerialViscaManager->SetFocusForZoomFocus(zoom_index, ndaynight);
 
     SetLogMsg(BUTTON_CLICKED, "ZOOM_INDEX, " + ui->zoomRangePushButton->text());
 

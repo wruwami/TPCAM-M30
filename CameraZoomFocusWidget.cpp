@@ -557,7 +557,11 @@ void CameraZoomFocusWidget::SaveFocusJson()
 
 void CameraZoomFocusWidget::SetLtValue(int index, QJsonArray& ar, QJsonArray& ar2)
 {
-    int A = (ar[5].toInt() - ar[4].toInt()) / 5;
+    bool bStatus = false;
+    int ar4 = ar[4].toString().toInt(&bStatus, 16);
+    int ar5 = ar[5].toString().toInt(&bStatus, 16);
+
+    int A = (ar5 - ar4) / 5;
 
     switch(index)
     {
@@ -590,14 +594,20 @@ void CameraZoomFocusWidget::SetLtValue(int index, QJsonArray& ar, QJsonArray& ar
     case 4:
     {
         ar2[7] = ar[index];
-        ar2[8] = QString::number(ar[index].toInt() + A, 16);
-        ar2[9] = QString::number(ar[index].toInt() + A, 16);
-        ar2[10] = QString::number(ar[index].toInt() + A, 16);
-        ar2[11] = QString::number(ar[index].toInt() + A, 16);
+        int ar7 = ar[index].toString().toInt(&bStatus, 16);
+        ar2[8] = QString::number(ar7 + A, 16);
+        ar2[9] = QString::number(ar7 + A * 2, 16);
+        ar2[10] = QString::number(ar7 + A * 3, 16);
+        ar2[11] = QString::number(ar7 + A * 4, 16);
     }
         break;
     case 5:
     {
+        int ar7 = ar[4].toString().toInt(&bStatus, 16);
+        ar2[8] = QString::number(ar7 + A, 16);
+        ar2[9] = QString::number(ar7 + A * 2, 16);
+        ar2[10] = QString::number(ar7 + A * 3, 16);
+        ar2[11] = QString::number(ar7 + A * 4, 16);
         ar2[12] = ar[index];
     }
         break;
@@ -741,7 +751,7 @@ void CameraZoomFocusWidget::on_pgrsSavePushButton_clicked()
 //    item->setTextColor(Qt::green);
 //    ui->tableWidget->setItem(m_nTableIndex.x(), m_nTableIndex.y(), item);
 
-    ModifyFocusEditJson(m_nTableIndex.x(), m_nTableIndex.y());
+//    ModifyFocusEditJson(m_nTableIndex.x(), m_nTableIndex.y());
 
     SaveFocusJson();
 }

@@ -2030,6 +2030,12 @@ void SerialViscaManager::SetDayMode(QJsonObject object, bool bDay)
     else
         set_infrared_mode_on();
 
+    ConfigManager config3 = ConfigManager("parameter_enforcement.json");
+    QJsonObject object3 = config3.GetConfig();
+
+    int zoom_index = object3["zoom index"].toInt() - 1;
+    SetFocus(zoom_index);
+
 //    show_ICR_OnOff();
 //    object.keys()
 //    if (object > 0 && index < 4)

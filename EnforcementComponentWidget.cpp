@@ -509,8 +509,6 @@ void EnforcementComponentWidget::hudInit()
 void EnforcementComponentWidget::hudClear()
 {
     m_hudManager.HUDEnforcementInit();
-
-
 }
 
 void EnforcementComponentWidget::laserInit()
@@ -919,6 +917,11 @@ void EnforcementComponentWidget::zoomRange()
     m_pSerialViscaManager->SetFocus(m_nZoomIndex);
 
     SetLogMsg(BUTTON_CLICKED, "ZOOM_INDEX, " + ui->zoomRangePushButton->text());
+    ConfigManager con = ConfigManager("parameter_enforcement.json");
+    QJsonObject object = con.GetConfig();
+    object["zoom index"] = (int)m_nZoomIndex + 1;
+    con.SetConfig(object);
+    con.SaveFile();
 
     SetLaserDetectionAreaDistance(m_nZoomIndex + 1);
 }
@@ -1359,6 +1362,7 @@ void EnforcementComponentWidget::on_showDistance(float fDistance, int nSensitivi
 void EnforcementComponentWidget::on_Night()
 {
     m_bNight = true;
+
 }
 
 void EnforcementComponentWidget::on_STMode()

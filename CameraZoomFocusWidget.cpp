@@ -266,6 +266,8 @@ void CameraZoomFocusWidget::on_dayComboBox_currentIndexChanged(int index)
     object["DEFOG"].toBool() ? m_pSerialViscaManager->set_defog_on() : m_pSerialViscaManager->set_defog_off();
     object["HLC"].toBool() ? m_pSerialViscaManager->set_HLC_on() : m_pSerialViscaManager->set_HLC_off();
 
+//    m_pSerialViscaManager->set_focus()
+
     if (m_mTableStatus[std::make_pair(m_nTableIndex.x(), m_nTableIndex.y())] == 1)
         ui->pgrsSavePushButton->setDisabled(false);
     else
@@ -621,19 +623,21 @@ void CameraZoomFocusWidget::SetStValue(int index, QJsonArray& ar, QJsonArray& ar
     {
         ar2[7] = ar[index];
         int ar7 = ar[index].toString().toInt(&bStatus, 16);
-        ar2[8] = QString::number(ar7 + A, 16);
-        ar2[9] = QString::number(ar7 + A * 2, 16);
-        ar2[10] = QString::number(ar7 + A * 3, 16);
-        ar2[11] = QString::number(ar7 + A * 4, 16);
+        QString hex;
+        ar2[8] = hex.sprintf("%04X", ar7 + A);
+        ar2[9] = hex.sprintf("%04X", ar7 + A * 2);
+        ar2[10] = hex.sprintf("%04X", ar7 + A * 3);
+        ar2[11] = hex.sprintf("%04X", ar7 + A * 4);
     }
         break;
     case 5:
     {
         int ar7 = ar[4].toString().toInt(&bStatus, 16);
-        ar2[8] = QString::number(ar7 + A, 16);
-        ar2[9] = QString::number(ar7 + A * 2, 16);
-        ar2[10] = QString::number(ar7 + A * 3, 16);
-        ar2[11] = QString::number(ar7 + A * 4, 16);
+        QString hex;
+        ar2[8] = hex.sprintf("%04X", ar7 + A);
+        ar2[9] = hex.sprintf("%04X", ar7 + A * 2);
+        ar2[10] = hex.sprintf("%04X", ar7 + A * 3);
+        ar2[11] = hex.sprintf("%04X", ar7 + A * 4);
         ar2[12] = ar[index];
     }
         break;

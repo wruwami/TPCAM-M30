@@ -51,6 +51,7 @@ private:
     QString m_strDZoom;
     std::map<std::pair<int,int>, QString> m_MapFocus;
     QTimer m_ClearTimer;
+    QString m_currentFocus;
 
 private slots:
     void on_optPushButton_clicked();

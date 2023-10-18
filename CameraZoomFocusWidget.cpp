@@ -635,7 +635,16 @@ void CameraZoomFocusWidget::EditTableValue()
     {
         for( int j = 0 ; j < 2 ; j++)
         {
-            QString focus = m_MapFocus[std::make_pair(i, j)];
+            QString focus;
+            if (m_nTableIndex.x() == i && m_nTableIndex.y() == j)
+            {
+                focus = m_currentFocus;
+                m_MapFocus[std::make_pair(i, j)] = m_currentFocus;
+            }
+            else
+            {
+                focus = m_MapFocus[std::make_pair(i, j)];
+            }
             QTableWidgetItem *item = new QTableWidgetItem(focus);
             if (m_mTableStatus[std::make_pair(i, j)] == 1)
                 item->setTextColor(Qt::red);
@@ -795,10 +804,11 @@ void CameraZoomFocusWidget::on_show_zoom(QString zoom)
 void CameraZoomFocusWidget::on_show_focus(QString focus)
 {
     ui->focusLabel->setText("F:"+focus);
-    if (m_mTableStatus[std::make_pair(m_nTableIndex.x(), m_nTableIndex.y())] == 0)
-    {
-        m_MapFocus[std::make_pair(m_nTableIndex.x(), m_nTableIndex.y())] = focus;
-    }
+    m_currentFocus = focus;
+//    if (m_mTableStatus[std::make_pair(m_nTableIndex.x(), m_nTableIndex.y())] == 0)
+//    {
+//        m_MapFocus[std::make_pair(m_nTableIndex.x(), m_nTableIndex.y())] = focus;
+//    }
 
 //    EditTableValue();
 //    QTableWidgetItem item(focus);

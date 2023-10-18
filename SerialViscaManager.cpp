@@ -2084,6 +2084,44 @@ void SerialViscaManager::SetFocus(int index)
     }
 }
 
+void SerialViscaManager::SetFocusForZoomFocus(int index, int ndaynight)
+{
+    QJsonObject object = ConfigManager("parameter_setting1.json").GetConfig();
+    int userMode = object["speed selection"].toInt();
+
+//    object = ConfigManager("parameter_setting2.json").GetConfig();
+//    int daynight = object["day&night selection"].toInt();
+    int daynight = ndaynight;
+    object = ConfigManager("focus.json").GetConfig();
+    QJsonArray ar;
+    if (daynight > 0 && daynight < 4)
+    {
+        if (userMode == 1)
+        {
+            ar = object["st day focus"].toArray();
+            this->set_focus(ar[index].toString());
+        }
+        else
+        {
+            ar = object["lt day focus"].toArray();
+            this->set_focus(ar[index].toString());
+        }
+    }
+    else
+    {
+        if (userMode == 1)
+        {
+            ar = object["st night focus"].toArray();
+            this->set_focus(ar[index].toString());
+        }
+        else
+        {
+            ar = object["lt night focus"].toArray();
+            this->set_focus(ar[index].toString());
+        }
+    }
+}
+
 void SerialViscaManager::SetZoom(int index)
 {
     QJsonObject object = ConfigManager("parameter_setting1.json").GetConfig();
@@ -2096,7 +2134,14 @@ void SerialViscaManager::SetZoom(int index)
     }
     else
     {
-        magnification = object["lt zoom"].toArray()[index].toString();
+        if(index==5)
+        {
+            magnification = object["lt zoom"].toArray()[index-1].toString();
+        }
+        else
+        {
+            magnification = object["lt zoom"].toArray()[index].toString();
+        }
     }
     object = ConfigManager("camera_zoom_mag.json").GetConfig();
     this->zoom_from_pqrs(object.value(magnification).toString());

@@ -139,6 +139,7 @@ public:
     void SetDayMode(int index, bool = false);
     void SetDayMode(QJsonObject object, bool bDay, bool = false);
     void SetFocus(int index);
+    void SetFocusForZoomFocus(int index, int ndaynight);
     void SetZoom(int index);
 //    void check_OPT_done();
 

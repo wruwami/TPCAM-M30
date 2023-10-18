@@ -467,6 +467,8 @@ void CameraZoomFocusWidget::setTableDefualtInit()
         QTableWidgetItem *item = new QTableWidgetItem(lt_day_focus[i]);
         ui->tableWidget->setItem(i, 0, item);
     }
+    m_MapFocus[std::make_pair(5, 0)] = "";
+    m_mTableStatus[std::make_pair(5, 0)] = 0;
 
     for (int i = 0; i < lt_night_focus.size(); i++ )
     {
@@ -475,6 +477,9 @@ void CameraZoomFocusWidget::setTableDefualtInit()
         QTableWidgetItem *item = new QTableWidgetItem(lt_night_focus[i]);
         ui->tableWidget->setItem(i, 1, item);
     }
+    m_MapFocus[std::make_pair(5, 1)] = "";
+    m_mTableStatus[std::make_pair(5, 1)] = 0;
+
 
 }
 

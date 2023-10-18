@@ -542,12 +542,12 @@ void CameraZoomFocusWidget::SaveFocusJson()
     if (m_nTableIndex.y() == 0)
     {
         ar[m_nTableIndex.x()] = m_MapFocus[std::make_pair(m_nTableIndex.x(), m_nTableIndex.y())];
-        SetLtValue(m_nTableIndex.x(), ar, ar3);
+        SetStValue(m_nTableIndex.x(), ar, ar3);
     }
     else
     {
         ar2[m_nTableIndex.x()] = m_MapFocus[std::make_pair(m_nTableIndex.x(), m_nTableIndex.y())];
-        SetLtValue(m_nTableIndex.x(), ar2, ar4);
+        SetStValue(m_nTableIndex.x(), ar2, ar4);
     }
 
     object["lt day focus"] = ar;
@@ -560,7 +560,7 @@ void CameraZoomFocusWidget::SaveFocusJson()
 
 }
 
-void CameraZoomFocusWidget::SetLtValue(int index, QJsonArray& ar, QJsonArray& ar2)
+void CameraZoomFocusWidget::SetStValue(int index, QJsonArray& ar, QJsonArray& ar2)
 {
     bool bStatus = false;
     int ar4 = ar[4].toString().toInt(&bStatus, 16);
@@ -600,19 +600,21 @@ void CameraZoomFocusWidget::SetLtValue(int index, QJsonArray& ar, QJsonArray& ar
     {
         ar2[7] = ar[index];
         int ar7 = ar[index].toString().toInt(&bStatus, 16);
-        ar2[8] = QString::number(ar7 + A, 16);
-        ar2[9] = QString::number(ar7 + A * 2, 16);
-        ar2[10] = QString::number(ar7 + A * 3, 16);
-        ar2[11] = QString::number(ar7 + A * 4, 16);
+        QString hex;
+        ar2[8] = hex.sprintf("%04X", ar7 + A);
+        ar2[9] = hex.sprintf("%04X", ar7 + A * 2);
+        ar2[10] = hex.sprintf("%04X", ar7 + A * 3);
+        ar2[11] = hex.sprintf("%04X", ar7 + A * 4);
     }
         break;
     case 5:
     {
         int ar7 = ar[4].toString().toInt(&bStatus, 16);
-        ar2[8] = QString::number(ar7 + A, 16);
-        ar2[9] = QString::number(ar7 + A * 2, 16);
-        ar2[10] = QString::number(ar7 + A * 3, 16);
-        ar2[11] = QString::number(ar7 + A * 4, 16);
+        QString hex;
+        ar2[8] = hex.sprintf("%04X", ar7 + A);
+        ar2[9] = hex.sprintf("%04X", ar7 + A * 2);
+        ar2[10] = hex.sprintf("%04X", ar7 + A * 3);
+        ar2[11] = hex.sprintf("%04X", ar7 + A * 4);
         ar2[12] = ar[index];
     }
         break;

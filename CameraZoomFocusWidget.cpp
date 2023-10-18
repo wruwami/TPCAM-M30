@@ -785,7 +785,7 @@ void CameraZoomFocusWidget::on_show_focus(QString focus)
         m_MapFocus[std::make_pair(m_nTableIndex.x(), m_nTableIndex.y())] = focus;
     }
 
-    EditTableValue();
+//    EditTableValue();
 //    QTableWidgetItem item(focus);
     //    ui->tableWidget->setItem(m_nTableIndex.x(), m_nTableIndex.y(), &item);
 }

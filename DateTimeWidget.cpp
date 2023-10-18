@@ -41,6 +41,8 @@ DateTimeWidget::DateTimeWidget(QWidget *parent) :
         ui->timeZoneComboBox->addItem(id);
     }
     ui->timeZoneComboBox->setCurrentIndex(m_jsonObject["timezone select"].toInt() - 1);
+    ui->timeZoneComboBox->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+
     m_dateTime = m_dateTime.currentDateTime();
     setDateTimeValue();
 }

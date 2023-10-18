@@ -293,7 +293,7 @@ void CameraAlignWidget::paintEvent(QPaintEvent *event)
     }
     else if (m_nMode == Laser)
     {
-        int gap = 1;
+        int gap = 10;
 
         int x = m_LaserPoint.x();
         int y = m_LaserPoint.y();
@@ -304,15 +304,16 @@ void CameraAlignWidget::paintEvent(QPaintEvent *event)
         painter.fillRect(rect, Qt::white);
         painter.fillRect(rect2, Qt::white);
     }
-
 }
 
 void CameraAlignWidget::mousePressEvent(QMouseEvent *event)
 {
     if (m_nMode == Laser)
     {
-        m_LaserPoint.setX(event->x());
-        m_LaserPoint.setY(event->y());
+        int x = (event->x() - Laser_x) / 800 * 1920;
+        int y = (event->y() - Laser_y) / 480 * 1080;
+        m_LaserPoint.setX(x);
+        m_LaserPoint.setY(y);
         SetLaserMode();
     }
 }

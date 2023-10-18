@@ -310,10 +310,10 @@ void CameraAlignWidget::mousePressEvent(QMouseEvent *event)
 {
     if (m_nMode == Laser)
     {
-        int x = (event->x() - Laser_x) / 800 * 1920;
-        int y = (event->y() - Laser_y) / 480 * 1080;
-        m_LaserPoint.setX(x);
-        m_LaserPoint.setY(y);
+        long x = (event->x() - Laser_x) / 800 * 1920;
+        long y = (event->y() - Laser_y) / 480 * 1080;
+        m_LaserPoint.setX((int)x);
+        m_LaserPoint.setY((int)y);
         SetLaserMode();
     }
 }

@@ -36,7 +36,7 @@ private:
     void SaveJpg();
     void ModifyFocusEditJson(int, int, int = 1);
     void SaveFocusJson();
-    void SetLtValue(int index, QJsonArray& ar, QJsonArray& ar2);
+    void SetStValue(int index, QJsonArray& ar, QJsonArray& ar2);
     void SendViscaValue();
     void EditTableValue();
     void SetTableVerticalHeader();
@@ -51,6 +51,7 @@ private:
     QString m_strDZoom;
     std::map<std::pair<int,int>, QString> m_MapFocus;
     QTimer m_ClearTimer;
+    QString m_currentFocus;
 
 private slots:
     void on_optPushButton_clicked();

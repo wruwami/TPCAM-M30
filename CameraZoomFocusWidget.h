@@ -39,6 +39,7 @@ private:
     void SetStValue(int index, QJsonArray& ar, QJsonArray& ar2);
     void SendViscaValue();
     void EditTableValue();
+    void EditTableValue2();
     void SetTableVerticalHeader();
 
 private:

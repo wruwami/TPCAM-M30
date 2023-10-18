@@ -175,10 +175,15 @@ QGridLayout *KeyLayout::initGridLayout(const QJsonArray &iKeysArray)
             font.setPixelSize(23);
             mKey->setFont(font);
 //            mKey->setStyleSheet("QPushButton {color:white;background-color : #7a7a7a;border-radius:10px;}");
-            Q_ASSERT(this->connect(mKey, &Key::keyPressed, [mKey, this]() {
-                emit this->keyPressed(mKey->objectName(), mKey);
-                qDebug() << mKey->objectName();
-            }));
+//            Q_ASSERT(this->connect(mKey, &Key::keyPressed, [mKey, this]() {
+//                emit this->keyPressed(mKey->objectName(), mKey);
+//                qDebug() << mKey->objectName();
+//            }));
+
+            this->connect(mKey, &Key::keyPressed, [mKey, this]() {
+                            emit this->keyPressed(mKey->objectName(), mKey);
+                            qDebug() << mKey->objectName();
+                        });
 
             if (mText == "Enter")
             {

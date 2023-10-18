@@ -266,6 +266,19 @@ void CameraZoomFocusWidget::on_dayComboBox_currentIndexChanged(int index)
     object["DEFOG"].toBool() ? m_pSerialViscaManager->set_defog_on() : m_pSerialViscaManager->set_defog_off();
     object["HLC"].toBool() ? m_pSerialViscaManager->set_HLC_on() : m_pSerialViscaManager->set_HLC_off();
 
+    object = ConfigManager("focus.json").GetConfig();
+    QJsonArray ar;
+    if (index == 0)
+    {
+        ar = object["lt day focus"].toArray();
+        m_pSerialViscaManager->set_focus(ar[m_nLtIndex].toString());
+    }
+    else
+    {
+        ar = object["lt night focus"].toArray();
+        m_pSerialViscaManager->set_focus(ar[m_nLtIndex].toString());
+    }
+
 //    m_pSerialViscaManager->set_focus()
 
     if (m_mTableStatus[std::make_pair(m_nTableIndex.x(), m_nTableIndex.y())] == 1)

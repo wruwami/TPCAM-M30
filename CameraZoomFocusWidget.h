@@ -41,6 +41,8 @@ private:
     void EditTableValue();
     void EditTableValue2();
     void SetTableVerticalHeader();
+    void camInit();
+    void laserInit();
 
 private:
     ConfigManager m_configManager = ConfigManager("exposure.json");

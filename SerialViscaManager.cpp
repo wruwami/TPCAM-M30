@@ -2013,7 +2013,7 @@ void SerialViscaManager::on_show_focus(QString focus)
     m_focus_pqrs = focus;
 }
 
-void SerialViscaManager::SetDayMode(QJsonObject object, bool bDay)
+void SerialViscaManager::SetDayMode(QJsonObject object, bool bDay, bool bFocus)
 {
     set_AE_Mode("03");
     set_iris_from_pq(object["Iris"].toString(), bDay);
@@ -2030,11 +2030,14 @@ void SerialViscaManager::SetDayMode(QJsonObject object, bool bDay)
     else
         set_infrared_mode_on();
 
-    ConfigManager config3 = ConfigManager("parameter_enforcement.json");
-    QJsonObject object3 = config3.GetConfig();
+    if (bFocus)
+    {
+        ConfigManager config3 = ConfigManager("parameter_enforcement.json");
+        QJsonObject object3 = config3.GetConfig();
 
-    int zoom_index = object3["zoom index"].toInt() - 1;
-    SetFocus(zoom_index);
+        int zoom_index = object3["zoom index"].toInt() - 1;
+        SetFocus(zoom_index);
+    }
 
 //    show_ICR_OnOff();
 //    object.keys()
@@ -2099,7 +2102,7 @@ void SerialViscaManager::SetZoom(int index)
     this->zoom_from_pqrs(object.value(magnification).toString());
 }
 
-void SerialViscaManager::SetDayMode(int index)
+void SerialViscaManager::SetDayMode(int index, bool bFocus)
 {
     ConfigManager config = ConfigManager("exposure.json");
     QJsonObject object = config.GetConfig();
@@ -2155,6 +2158,14 @@ void SerialViscaManager::SetDayMode(int index)
     else
         set_infrared_mode_on();
 
+    if (bFocus)
+    {
+        ConfigManager config3 = ConfigManager("parameter_enforcement.json");
+        QJsonObject object3 = config3.GetConfig();
+
+        int zoom_index = object3["zoom index"].toInt() - 1;
+        SetFocus(zoom_index);
+    }
 //    SetZoom
 }
 

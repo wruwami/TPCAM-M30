@@ -161,6 +161,8 @@ CameraZoomFocusWidget::CameraZoomFocusWidget(QWidget *parent) :
 
     connect(&m_ClearTimer, SIGNAL(timeout), this, SLOT(ClearDisplay()));
 
+    camInit();
+    laserInit();
     m_hud.HUDZoomFocusInit();
 }
 
@@ -725,6 +727,70 @@ void CameraZoomFocusWidget::SetTableVerticalHeader()
         columnHeaders.append(item);
     }
     ui->tableWidget->setVerticalHeaderLabels(columnHeaders);
+
+}
+
+void CameraZoomFocusWidget::camInit()
+{
+
+    m_pSerialViscaManager->set_IRCorrection_standard();
+    m_pSerialViscaManager->set_AE_Mode("03");
+
+    m_pSerialViscaManager->SetDayMode(m_object2["day&night selection"].toInt());
+
+    m_pSerialViscaManager->set_manual_focus();
+    //    m_pSerialViscaManager.set_AE_mode2e();
+    m_pSerialViscaManager->separate_zoom_mode();
+
+    //    Config
+    m_pSerialViscaManager->SetZoom(m_nLtIndex);
+    m_pSerialViscaManager->SetFocus(m_nLtIndex);
+
+
+    m_pSerialViscaManager->dzoom_from_pq("00");
+
+    //    ConfigManager config = ConfigManager("parameter_enforcement.json");
+    //    QJsonObject object = config.GetConfig();
+
+}
+
+void CameraZoomFocusWidget::laserInit()
+{
+    ConfigManager config = ConfigManager("parameter_setting1.json");
+    QJsonObject object = config.GetConfig();
+    ConfigManager config2 = ConfigManager("parameter_setting2.json");
+    QJsonObject object2 = config2.GetConfig();
+
+    if (object2["weather selection"].toInt() == 1)
+        m_pSerialLaserManager->set_weather_mode(0);
+    else
+        m_pSerialLaserManager->set_weather_mode(1);
+
+    if (object2["anti-jamming selection"].toInt() == 1)
+        m_pSerialLaserManager->set_AJamming_mode(1);
+    else
+        m_pSerialLaserManager->set_AJamming_mode(0);
+
+    if (object2["buzzer selection"].toInt() == 1)
+        m_pSerialLaserManager->set_buzzer_mode(1);
+    else
+        m_pSerialLaserManager->set_buzzer_mode(0);
+
+
+
+    ConfigManager config3 = ConfigManager("parameter_enforcement.json");
+    QJsonObject object3 = config3.GetConfig();
+
+    int zoom_index = object3["zoom index"].toInt();
+
+    SetLaserDetectionAreaDistance(zoom_index);
+
+    int dn = object["day&night selection"].toInt();
+    if (dn >= 0 && dn <=3)
+        m_pSerialLaserManager->set_night_mode(0);
+    else
+        m_pSerialLaserManager->set_night_mode(1);
+    m_pSerialLaserManager->set_speed_measure_mode(1);
 
 }
 

@@ -24,7 +24,7 @@
       </widget>
      </item>
      <item row="3" column="0">
-      <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="81,81,81,21">
+      <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="81,81,81,10">
        <item>
         <widget class="CustomComboBox" name="dayComboBox"/>
        </item>
@@ -58,7 +58,7 @@
       </layout>
      </item>
      <item row="2" column="0">
-      <layout class="QHBoxLayout" name="horizontalLayout_5" stretch="81,47,47,89">
+      <layout class="QHBoxLayout" name="horizontalLayout_5" stretch="81,47,47,80">
        <item>
         <widget class="CustomPushButton" name="optPushButton">
          <property name="text">

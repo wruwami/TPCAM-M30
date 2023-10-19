@@ -2096,29 +2096,29 @@ void SerialViscaManager::SetFocusForZoomFocus(int index, int ndaynight)
     QJsonArray ar;
     if (daynight > 0 && daynight < 4)
     {
-        if (userMode == 1)
-        {
-            ar = object["st day focus"].toArray();
-            this->set_focus(ar[index].toString());
-        }
-        else
-        {
-            ar = object["lt day focus"].toArray();
-            this->set_focus(ar[index].toString());
-        }
+//        if (userMode == 1)
+//        {
+//            ar = object["st day focus"].toArray();
+//            this->set_focus(ar[index].toString());
+//        }
+//        else
+//        {
+        ar = object["lt day focus"].toArray();
+        this->set_focus(ar[index].toString());
+//        }
     }
     else
     {
-        if (userMode == 1)
-        {
-            ar = object["st night focus"].toArray();
-            this->set_focus(ar[index].toString());
-        }
-        else
-        {
-            ar = object["lt night focus"].toArray();
-            this->set_focus(ar[index].toString());
-        }
+//        if (userMode == 1)
+//        {
+//            ar = object["st night focus"].toArray();
+//            this->set_focus(ar[index].toString());
+//        }
+//        else
+//        {
+        ar = object["lt night focus"].toArray();
+        this->set_focus(ar[index].toString());
+//        }
     }
 }
 
@@ -2143,6 +2143,26 @@ void SerialViscaManager::SetZoom(int index)
             magnification = object["lt zoom"].toArray()[index].toString();
         }
     }
+    object = ConfigManager("camera_zoom_mag.json").GetConfig();
+    this->zoom_from_pqrs(object.value(magnification).toString());
+}
+
+void SerialViscaManager::SetZoomForZoomFocus(int index)
+{
+    QJsonObject object = ConfigManager("parameter_setting1.json").GetConfig();
+    int userMode = object["speed selection"].toInt();
+    object = ConfigManager("zoom.json").GetConfig();
+    QString magnification;
+
+    if(index==5)
+    {
+        magnification = object["lt zoom"].toArray()[index-1].toString();
+    }
+    else
+    {
+        magnification = object["lt zoom"].toArray()[index].toString();
+    }
+
     object = ConfigManager("camera_zoom_mag.json").GetConfig();
     this->zoom_from_pqrs(object.value(magnification).toString());
 }

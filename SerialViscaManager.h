@@ -141,6 +141,7 @@ public:
     void SetFocus(int index);
     void SetFocusForZoomFocus(int index, int ndaynight);
     void SetZoom(int index);
+    void SetZoomForZoomFocus(int index);
 //    void check_OPT_done();
 
 

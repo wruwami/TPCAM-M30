@@ -18,6 +18,8 @@
 #include "Logger.h"
 #include "FtpTransThread.h"
 
+using namespace TPCAM_M30;
+
 extern int g_nCrackDownIndex;
 #define TRIGGER_FILE "/sys/class/gpio/gpio152/value"
 //#define TRIGGER_FILE "a.txt"
@@ -168,8 +170,8 @@ EnforcementComponentWidget::EnforcementComponentWidget(QWidget *parent) :
 
     int x = ConfigManager("setting_reticle.json").GetConfig()["Camera reticle pos"].toArray()[0].toInt();
     int y = ConfigManager("setting_reticle.json").GetConfig()["Camera reticle pos"].toArray()[1].toInt();
-    m_cross.setX(x);
-    m_cross.setY(y);
+    m_cross.setX(x - Laser_x);
+    m_cross.setY(y - Laser_y);
 
     startTimer(1000);
 
@@ -1186,9 +1188,13 @@ void EnforcementComponentWidget::paintEvent(QPaintEvent *event)
         crossPen.setStyle(Qt::SolidLine);
 //        crossPen.setWidth(10);
         int height2 = height() - m_MainMenuWidgetSize.height();;
-        int gap = 10;
-        QRect rect = QRect(QPoint(width() / 2 - 3 * gap, height2 / 2 - gap), QPoint(width() /2 + 3*gap, height2 / 2 + gap));
-        QRect rect2 = QRect(QPoint(width() / 2 - gap, height2 / 2 - 3 * gap), QPoint(width() /2 + gap, height2 / 2 + 3 * gap));
+        int gap = 2;
+        int reticle_width = 10;
+        int x = m_cross.x() * 800 / 1920;
+        int y = m_cross.y() * 480 / 1080;
+
+        QRect rect = QRect(QPoint(((width() / 2 ) + x) - reticle_width * gap, ((height2 / 2) + y) - gap), QPoint(((width() / 2) + x) + reticle_width*gap, ((height2 / 2) + y) + gap));
+        QRect rect2 = QRect(QPoint(((width() / 2) + x) - gap, ((height2 / 2) + y) - reticle_width * gap), QPoint(((width() / 2) + x) + gap, ((height2 / 2) + y) + reticle_width * gap));
 
         if (m_bRedLine)
         {

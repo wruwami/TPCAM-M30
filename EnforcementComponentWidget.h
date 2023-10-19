@@ -17,6 +17,7 @@
 #include "FileManager.h"
 #include "HUDManager.h"
 #include "StorageManager.h"
+#include "base.h"
 
 enum Mode{
     Ready,

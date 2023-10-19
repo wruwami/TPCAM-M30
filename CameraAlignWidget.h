@@ -7,20 +7,11 @@
 
 #include "ConfigManager.h"
 #include "HUDManager.h"
+#include "base.h"
 
 enum AlignMode{
     HUD,
     Laser,
-};
-
-enum DefaultHUDValue {
-    HUD_x = 6,
-    HUD_y = 6,
-};
-
-enum DefaultLaserValue {
-    Laser_x = 960,
-    Laser_y = 540,
 };
 
 class Camera;

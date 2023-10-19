@@ -14,6 +14,8 @@
 #include "camera.h"
 #include "Logger.h"
 
+using namespace TPCAM_M30;
+
 QStringList lt_day_focus = {"1587", "13D8", "11E8", "0FB7", "0FB7"};
 QStringList lt_night_focus = {"1587", "13D8", "11E8", "0FB7", "0FB7"};
 
@@ -164,6 +166,12 @@ CameraZoomFocusWidget::CameraZoomFocusWidget(QWidget *parent) :
     camInit();
     laserInit();
     m_hud.HUDZoomFocusInit();
+
+    ConfigManager configManager = ConfigManager("setting_reticle.json");
+    QJsonObject m_object = configManager.GetConfig();
+    QJsonArray ar = m_object["Camera reticle pos"].toArray();
+    m_LaserPoint = QPoint(ar[0].toInt() - Laser_x, ar[1].toInt() - Laser_y);
+
 }
 
 CameraZoomFocusWidget::~CameraZoomFocusWidget()
@@ -1039,9 +1047,16 @@ void CameraZoomFocusWidget::paintEvent(QPaintEvent *event)
     crossPen.setStyle(Qt::SolidLine);
     //        crossPen.setWidth(10);
     int height2 = height() - m_pMainMenuWidgetSize.height();
-    int gap = 10;
-    QRect rect = QRect(QPoint(width() / 2 - 3 * gap, height2 / 2 - gap), QPoint(width() /2 + 3*gap, height2 / 2 + gap));
-    QRect rect2 = QRect(QPoint(width() / 2 - gap, height2 / 2 - 3 * gap), QPoint(width() /2 + gap, height2 / 2 + 3 * gap));
+    int width1 = width();
+    int height1 = height2;
+    int gap = 2;
+    int reticle_width = 10;
+
+    int x = m_LaserPoint.x() * 800 / 1920;
+    int y = m_LaserPoint.y() * 480 / 1080;
+
+    QRect rect = QRect(QPoint(((width1 / 2 ) + x) - reticle_width * gap, ((height1 / 2) + y) - gap), QPoint(((width1 / 2) + x) + reticle_width*gap, ((height1 / 2) + y) + gap));
+    QRect rect2 = QRect(QPoint(((width1 / 2) + x) - gap, ((height1 / 2) + y) - reticle_width * gap), QPoint(((width1 / 2) + x) + gap, ((height1 / 2) + y) + reticle_width * gap));
 
     painter.fillRect(rect, Qt::white);
     painter.fillRect(rect2, Qt::white);

@@ -1358,6 +1358,7 @@ void MainWindow::on_camera_align_clicked()
 
 void MainWindow::on_camera_zoom_focus()
 {
+    QSize size = m_pMainMenuWidget->size();
     if (m_pMainMenuAdminAlignWidget)
     {
         delete m_pMainMenuAdminAlignWidget;
@@ -1375,7 +1376,7 @@ void MainWindow::on_camera_zoom_focus()
     ui->verticalLayout->removeItem(ui->verticalLayout->itemAt(1));
     CameraZoomFocusWidget* pCameraZoonFocusWidget = new CameraZoomFocusWidget;
     ui->verticalLayout->addWidget(pCameraZoonFocusWidget, 835);
-    pCameraZoonFocusWidget->setMainMenuSize(m_pMainMenuWidget->size());
+    pCameraZoonFocusWidget->setMainMenuSize(size);
 //    pCameraZoonFocusWidget->setPSerialLaserManager(m_pSerialLaserManager);
 //    pCameraZoonFocusWidget->setPSerialViscaManager(m_pSerialViscaManager);
     SetCamera();

@@ -7,6 +7,7 @@
 #include "SerialViscaManager.h"
 #include "ConfigManager.h"
 #include "HUDManager.h"
+#include "base.h"
 
 class Camera;
 class SerialLaserManager;
@@ -60,7 +61,7 @@ private:
     QString m_currentFocus;
 
     QString m_zoomGoal, m_focusGoal, m_dzoomGoal;
-
+    QPoint m_LaserPoint;
 private slots:
     void on_optPushButton_clicked();
 

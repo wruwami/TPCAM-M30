@@ -14,6 +14,8 @@
 #include "SerialPacket.h"
 #include "SpeedUnitManager.h"
 
+using namespace TPCAM_M30;
+
 CameraAlignWidget::CameraAlignWidget(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::CameraAlignWidget)
@@ -122,9 +124,9 @@ void CameraAlignWidget::SetDirection(int x, int y)
     }
     else
     {
-        if ((m_LaserPoint.x() + m_CameraMoveUnit * x) > Laser_x || (m_LaserPoint.x() + m_CameraMoveUnit* x) < -Laser_x)
+        if ((m_LaserPoint.x() + m_CameraMoveUnit * x) + Laser_x > x2 || (m_LaserPoint.x() + m_CameraMoveUnit* x) + Laser_x < x1)
             return;
-        if ((m_LaserPoint.y() + m_CameraMoveUnit * y) > Laser_y || (m_LaserPoint.y() + m_CameraMoveUnit * y) < -Laser_y)
+        if ((m_LaserPoint.y() + m_CameraMoveUnit * y) + Laser_y > y2 || (m_LaserPoint.y() + m_CameraMoveUnit * y) + Laser_y < y1)
             return;
         m_LaserPoint.setX(m_LaserPoint.x() + m_CameraMoveUnit * x);
         m_LaserPoint.setY(m_LaserPoint.y() + m_CameraMoveUnit * y);
@@ -283,23 +285,28 @@ void CameraAlignWidget::paintEvent(QPaintEvent *event)
 //        QRect rect2 = QRect(width() / 2 - 10, height() / 2, 10, 30);
     if (m_nMode == HUD)
     {
-        int gap = 10;
+        int gap = 2;
+        int reticle_width = 10;
 
-        QRect rect = QRect(QPoint(width() / 2 - 3 * gap, height() / 2 - gap), QPoint(width() /2 + 3*gap, height() / 2 + gap));
-        QRect rect2 = QRect(QPoint(width() / 2 - gap, height() / 2 - 3 * gap), QPoint(width() /2 + gap, height() / 2 + 3 * gap));
+        QRect rect = QRect(QPoint(width() / 2 - reticle_width * gap, height() / 2 - gap), QPoint(width() /2 + reticle_width * gap, height() / 2 + gap));
+        QRect rect2 = QRect(QPoint(width() / 2 - gap, height() / 2 - reticle_width * gap), QPoint(width() /2 + gap, height() / 2 + reticle_width * gap));
 
         painter.fillRect(rect, Qt::white);
         painter.fillRect(rect2, Qt::white);
     }
     else if (m_nMode == Laser)
     {
-        int gap = 10;
+        int gap = 2;
+        int reticle_width = 10;
 
-        int x = m_LaserPoint.x();
-        int y = m_LaserPoint.y();
+        int width1 = width();
+        int height1 = height();
 
-        QRect rect = QRect(QPoint(((width() / 2 ) + x) - 3 * gap, ((height() / 2) + y) - gap), QPoint(((width() / 2) + x) + 3*gap, ((height() / 2) + y) + gap));
-        QRect rect2 = QRect(QPoint(((width() / 2) + x) - gap, ((height() / 2) + y) - 3 * gap), QPoint(((width() / 2) + x) + gap, ((height() / 2) + y) + 3 * gap));
+        int x = m_LaserPoint.x() * 800 / 1920;
+        int y = m_LaserPoint.y() * 480 / 1080;
+
+        QRect rect = QRect(QPoint(((width1 / 2 ) + x) - reticle_width * gap, ((height1 / 2) + y) - gap), QPoint(((width1 / 2) + x) + reticle_width*gap, ((height1 / 2) + y) + gap));
+        QRect rect2 = QRect(QPoint(((width1 / 2) + x) - gap, ((height1 / 2) + y) - reticle_width * gap), QPoint(((width1 / 2) + x) + gap, ((height1 / 2) + y) + reticle_width * gap));
 
         painter.fillRect(rect, Qt::white);
         painter.fillRect(rect2, Qt::white);
@@ -310,8 +317,12 @@ void CameraAlignWidget::mousePressEvent(QMouseEvent *event)
 {
     if (m_nMode == Laser)
     {
-        float x = (event->x())  * 1920 / 800;
-        float y = (event->y()) * 1080/ 480;
+        float x = ((event->x())  * 1920 / 800);
+        float y = ((event->y()) * 1080/ 480);
+
+        if (x < x1 || x > x2 || y < y1 || y > y2)
+            return;
+
         m_LaserPoint.setX((int)x - Laser_x);
         m_LaserPoint.setY((int)y - Laser_y);
         SetLaserMode();

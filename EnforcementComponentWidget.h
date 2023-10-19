@@ -103,6 +103,8 @@ private:
     void clearDistance();
     void clearSpeed();
 
+    void SaveDZoomJson();
+
 public:
     SerialLaserManager* m_pSerialLaserManager = nullptr;
     SerialViscaManager* m_pSerialViscaManager = nullptr;

@@ -175,14 +175,14 @@
         </widget>
        </item>
        <item>
-        <widget class="CustomLabel" name="dFocusLabel">
+        <widget class="CustomLabel" name="focusLabel">
          <property name="text">
           <string/>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="CustomLabel" name="focusLabel">
+        <widget class="CustomLabel" name="dFocusLabel">
          <property name="text">
           <string/>
          </property>

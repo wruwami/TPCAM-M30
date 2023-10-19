@@ -334,6 +334,7 @@ void SelfTestWidget::timerEvent(QTimerEvent *event)
     {
         m_nLaser = Status::Pass;
         ui->laserValueLabel->setText(LoadString("IDS_PASS"));
+        ui->laserValueLabel->repaint();
     }
     else if (ReceiveData.Header == 0X00)
     {
@@ -353,6 +354,7 @@ void SelfTestWidget::timerEvent(QTimerEvent *event)
     {
         m_nCamera = Status::Pass;
         ui->cameraValueLabel->setText(LoadString("IDS_PASS"));
+        ui->cameraValueLabel->repaint();
     }
     else if (send_data == 0)
     {
@@ -367,6 +369,7 @@ void SelfTestWidget::timerEvent(QTimerEvent *event)
 
     if (m_nCamera != Status::Check && m_nLaser != Status::Check && m_nBattery != Status::Check && m_nStorage != Status::Check)
     {
+        usleep(1000000);
         emit selftest_finished();
         killTimer(m_id);
     }

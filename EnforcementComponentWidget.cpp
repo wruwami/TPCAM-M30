@@ -247,6 +247,7 @@ void EnforcementComponentWidget::dzPlus()
 {
 //    SerialViscaManager serialViscaManager;
     m_pSerialViscaManager->plus_dzoom();
+    SaveDZoomJson();
 //    if (m_UserModeOn)
 //    {
 //        if (m_nDistance == meter)
@@ -301,6 +302,7 @@ void EnforcementComponentWidget::dzMinus()
 {
 //    SerialViscaManager serialViscaManager;
     m_pSerialViscaManager->minus_dzoom();//    if (m_UserModeOn)
+    SaveDZoomJson();
 //    {
 //        if (m_nStIndex != 0)
 //        {
@@ -481,9 +483,9 @@ void EnforcementComponentWidget::camInit()
     m_nZoomIndex = object["zoom index"].toInt() - 1;
     m_pSerialViscaManager->SetZoom(m_nZoomIndex);
     m_pSerialViscaManager->SetFocus(m_nZoomIndex);
+    m_pSerialViscaManager->SetDZoom(m_nZoomIndex);
 
-
-    m_pSerialViscaManager->dzoom_from_pq("00");
+//    m_pSerialViscaManager->dzoom_from_pq("00");
 
 //    ConfigManager config = ConfigManager("parameter_enforcement.json");
 //    QJsonObject object = config.GetConfig();
@@ -509,8 +511,6 @@ void EnforcementComponentWidget::hudInit()
 void EnforcementComponentWidget::hudClear()
 {
     m_hudManager.HUDEnforcementInit();
-
-
 }
 
 void EnforcementComponentWidget::laserInit()
@@ -917,8 +917,14 @@ void EnforcementComponentWidget::zoomRange()
     qDebug() << "zoom_index" << m_nZoomIndex;
     m_pSerialViscaManager->SetZoom(m_nZoomIndex);
     m_pSerialViscaManager->SetFocus(m_nZoomIndex);
+    m_pSerialViscaManager->SetDZoom(m_nZoomIndex);
 
     SetLogMsg(BUTTON_CLICKED, "ZOOM_INDEX, " + ui->zoomRangePushButton->text());
+    ConfigManager con = ConfigManager("parameter_enforcement.json");
+    QJsonObject object = con.GetConfig();
+    object["zoom index"] = (int)m_nZoomIndex + 1;
+    con.SetConfig(object);
+    con.SaveFile();
 
     SetLaserDetectionAreaDistance(m_nZoomIndex + 1);
 }
@@ -1359,6 +1365,7 @@ void EnforcementComponentWidget::on_showDistance(float fDistance, int nSensitivi
 void EnforcementComponentWidget::on_Night()
 {
     m_bNight = true;
+
 }
 
 void EnforcementComponentWidget::on_STMode()
@@ -1644,3 +1651,26 @@ void EnforcementComponentWidget::on_Hide()
 //    else if (m_triggerStatus == RELEASE)
 //        doReadyMode();
 //}
+
+void EnforcementComponentWidget::SaveDZoomJson()
+{
+    ConfigManager config = ConfigManager("dzoom.json");
+    QJsonObject object = config.GetConfig();
+
+    QJsonArray ar;
+
+    if(m_UserModeOn == 1)
+        ar = object["st dzoom"].toArray();
+    else
+        ar = object["lt dzoom"].toArray();
+
+    ar[m_nZoomIndex] = m_pSerialViscaManager->m_Dzoom_pqrs;
+
+    if(m_UserModeOn == 1)
+        object["st dzoom"] = ar;
+    else
+        object["lt dzoom"] = ar;
+
+    config.SetConfig(object);
+    config.SaveFile();
+}

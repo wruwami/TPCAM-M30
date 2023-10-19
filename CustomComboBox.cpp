@@ -77,11 +77,11 @@ void CustomComboBox::setFontSize(int font_size)
 
 void CustomComboBox::resizeEvent(QResizeEvent *event)
 {
-    QFont font;
-    font.setPointSizeF(this->width()/FontSize::Maximum); // /40은 창크기에 따른 비례 값으로 디버깅하면서 변경해야한다.
-    if(font.pointSizeF()<=FontSize::Minimum) //최소폰트 설정
-        font.setPointSizeF(FontSize::Minimum);
-    this->setFont(font); //설정된 폰트를 위젯에 적용
+//    QFont font;
+//    font.setPointSizeF(this->width()/FontSize::Maximum); // /40은 창크기에 따른 비례 값으로 디버깅하면서 변경해야한다.
+//    if(font.pointSizeF()<=FontSize::Minimum) //최소폰트 설정
+//        font.setPointSizeF(FontSize::Minimum);
+//    this->setFont(font); //설정된 폰트를 위젯에 적용
 
     QFile file(":/style/customComboBox.qss");
     file.open(QFile::ReadOnly);

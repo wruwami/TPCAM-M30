@@ -36,10 +36,16 @@ private:
     void SaveJpg();
     void ModifyFocusEditJson(int, int, int = 1);
     void SaveFocusJson();
+    void SaveDZoomJson();
     void SetStValue(int index, QJsonArray& ar, QJsonArray& ar2);
     void SendViscaValue();
     void EditTableValue();
+    void EditTableValue2();
     void SetTableVerticalHeader();
+    void camInit();
+    void laserInit();
+    void setZoomGoal(int zoom_index);
+    void setFocusGoal(int zoom_index, int ndaynight);
 
 private:
     ConfigManager m_configManager = ConfigManager("exposure.json");
@@ -52,6 +58,8 @@ private:
     std::map<std::pair<int,int>, QString> m_MapFocus;
     QTimer m_ClearTimer;
     QString m_currentFocus;
+
+    QString m_zoomGoal, m_focusGoal, m_dzoomGoal;
 
 private slots:
     void on_optPushButton_clicked();
@@ -83,6 +91,8 @@ private slots:
     void ClearDisplay();
 
     void on_autoTriggerPushButton_clicked(bool checked);
+
+    void on_tableWidget_cellClicked(int row, int column);
 
 private:
     QSize m_pMainMenuWidgetSize;

@@ -312,8 +312,8 @@ void CameraAlignWidget::mousePressEvent(QMouseEvent *event)
     {
         float x = (event->x())  * 1920 / 800;
         float y = (event->y()) * 1080/ 480;
-        m_LaserPoint.setX((int)x);
-        m_LaserPoint.setY((int)y);
+        m_LaserPoint.setX((int)x - Laser_x);
+        m_LaserPoint.setY((int)y - Laser_y);
         SetLaserMode();
     }
 }

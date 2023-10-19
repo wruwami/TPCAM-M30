@@ -220,6 +220,7 @@ void CameraZoomFocusWidget::ZoomRange()
     setZoomGoal(zoom_index);
     m_pSerialViscaManager->SetFocusForZoomFocus(zoom_index, ndaynight);
     setFocusGoal(zoom_index, ndaynight);
+    m_pSerialViscaManager->SetDZoomForZoomFocus(zoom_index);
 
     SetLogMsg(BUTTON_CLICKED, "ZOOM_INDEX, " + ui->zoomRangePushButton->text());
 
@@ -261,12 +262,12 @@ void CameraZoomFocusWidget::on_dayComboBox_currentIndexChanged(int index)
     if (index == 0)
     {
         m_pSerialViscaManager->set_infrared_mode_off();
-        object = m_object["Day"].toObject()["Normal"].toObject();
+        object = m_object["Day"].toObject()["Dark"].toObject();
     }
     else
     {
         m_pSerialViscaManager->set_infrared_mode_on();
-        object = m_object["Night"].toObject()["Normal"].toObject();
+        object = m_object["Night"].toObject()["Dark"].toObject();
     }
     m_pSerialViscaManager->set_AE_Mode("03");
     m_pSerialViscaManager->set_iris(object["Iris"].toInt());
@@ -609,6 +610,20 @@ void CameraZoomFocusWidget::SaveFocusJson()
 
 }
 
+void CameraZoomFocusWidget::SaveDZoomJson()
+{
+    ConfigManager config = ConfigManager("dzoom.json");
+    QJsonObject object = config.GetConfig();
+    QJsonArray ar = object["lt dzoom"].toArray();
+
+    ar[m_nLtIndex] = m_strDZoom;
+
+    object["lt dzoom"] = ar;
+
+    config.SetConfig(object);
+    config.SaveFile();
+}
+
 void CameraZoomFocusWidget::SetStValue(int index, QJsonArray& ar, QJsonArray& ar2)
 {
     bool bStatus = false;
@@ -747,12 +762,6 @@ void CameraZoomFocusWidget::camInit()
     m_pSerialViscaManager->set_IRCorrection_standard();
     m_pSerialViscaManager->set_AE_Mode("03");
 
-    m_pSerialViscaManager->SetDayMode(m_object2["day&night selection"].toInt());
-
-    m_pSerialViscaManager->set_manual_focus();
-    //    m_pSerialViscaManager.set_AE_mode2e();
-    m_pSerialViscaManager->separate_zoom_mode();
-
     int ndaynight;
     if(ui->dayComboBox->currentIndex() == 0)
     {
@@ -762,13 +771,18 @@ void CameraZoomFocusWidget::camInit()
        ndaynight = 4;
     }
 
+    m_pSerialViscaManager->SetDayMode(ndaynight);
+
+    m_pSerialViscaManager->set_manual_focus();
+    //    m_pSerialViscaManager.set_AE_mode2e();
+    m_pSerialViscaManager->separate_zoom_mode();
+
     //    Config
     m_pSerialViscaManager->SetZoomForZoomFocus(m_nLtIndex);
     setZoomGoal(m_nLtIndex);
     m_pSerialViscaManager->SetFocusForZoomFocus(m_nLtIndex, ndaynight);
     setFocusGoal(m_nLtIndex, ndaynight);
-
-    m_pSerialViscaManager->dzoom_from_pq("00");
+    m_pSerialViscaManager->SetDZoomForZoomFocus(m_nLtIndex);
 
     //    ConfigManager config = ConfigManager("parameter_enforcement.json");
     //    QJsonObject object = config.GetConfig();
@@ -990,6 +1004,9 @@ void CameraZoomFocusWidget::on_show_dzoom(QString dzoom)
 {
     ui->dFocusLabel->setText("DZ:"+dzoom.toUpper());
     m_strDZoom = dzoom;
+
+    //save dzoom pq value to dzoom.json
+    SaveDZoomJson();
 }
 
 
@@ -1128,6 +1145,7 @@ void CameraZoomFocusWidget::on_tableWidget_cellClicked(int row, int column)
     setZoomGoal(zoom_index);
     m_pSerialViscaManager->SetFocusForZoomFocus(zoom_index, ndaynight);
     setFocusGoal(zoom_index, ndaynight);
+    m_pSerialViscaManager->SetDZoomForZoomFocus(zoom_index);
 
     SetLogMsg(BUTTON_CLICKED, "ZOOM_INDEX, " + ui->zoomRangePushButton->text());
 

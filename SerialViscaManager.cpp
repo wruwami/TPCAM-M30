@@ -2167,6 +2167,50 @@ void SerialViscaManager::SetZoomForZoomFocus(int index)
     this->zoom_from_pqrs(object.value(magnification).toString());
 }
 
+void SerialViscaManager::SetDZoom(int index)
+{
+    QJsonObject object = ConfigManager("parameter_setting1.json").GetConfig();
+    int userMode = object["speed selection"].toInt();
+    object = ConfigManager("dzoom.json").GetConfig();
+    QString pq;
+    if (userMode == 1)
+    {
+        pq = object["st dzoom"].toArray()[index].toString();
+    }
+    else
+    {
+        if(index==5)
+        {
+            pq = object["lt dzoom"].toArray()[index-1].toString();
+        }
+        else
+        {
+            pq = object["lt dzoom"].toArray()[index].toString();
+        }
+    }
+    this->dzoom_from_pq(pq);
+}
+
+void SerialViscaManager::SetDZoomForZoomFocus(int index)
+{
+    QJsonObject object = ConfigManager("parameter_setting1.json").GetConfig();
+    int userMode = object["speed selection"].toInt();
+    object = ConfigManager("dzoom.json").GetConfig();
+    QString pq;
+
+    if(index==5)
+    {
+        pq = object["lt dzoom"].toArray()[index-1].toString();
+    }
+    else
+    {
+        pq = object["lt dzoom"].toArray()[index].toString();
+    }
+
+    object = ConfigManager("camera_zoom_mag.json").GetConfig();
+    this->dzoom_from_pq(pq);
+}
+
 void SerialViscaManager::SetDayMode(int index, bool bFocus)
 {
     ConfigManager config = ConfigManager("exposure.json");

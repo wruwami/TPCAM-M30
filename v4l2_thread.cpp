@@ -1,5 +1,7 @@
 #include "v4l2_thread.h"
 
+#include "FileManager.h"
+
 #define DEV_NAME "/dev/video0"
 #define INFO_WIDTH 1920
 #define INFO_HEIGHT 120
@@ -143,7 +145,7 @@ v4l2_thread::v4l2_thread()
 	, m_bDeviceValid(false)
 	, m_nFrameCnt(0)
 {
-    QString targetFile = "images/enforcement/target.jpg";
+    QString targetFile = GeteMMCPath() + "/" + "images/enforcement/target.jpg";
     g_matTargetCross = cv::imread(targetFile.toStdString(), cv::IMREAD_COLOR);
 	cv::resize(g_matTargetCross, g_matTargetCross, cv::Size(80,80));
 

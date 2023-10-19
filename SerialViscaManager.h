@@ -39,7 +39,9 @@ private:
     int m_nTTFFFlag = 0;
 
     QString m_zoom_pqrs;
+public:
     QString m_Dzoom_pqrs;
+private:
     QString m_focus_pqrs;
     QString m_shutter_pq;
     QString m_gain_pq;
@@ -141,6 +143,9 @@ public:
     void SetFocus(int index);
     void SetFocusForZoomFocus(int index, int ndaynight);
     void SetZoom(int index);
+    void SetZoomForZoomFocus(int index);
+    void SetDZoom(int index);
+    void SetDZoomForZoomFocus(int index);
 //    void check_OPT_done();
 
 

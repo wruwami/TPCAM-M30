@@ -216,8 +216,11 @@ void CameraZoomFocusWidget::ZoomRange()
        ndaynight = 4;
     }
 
-    m_pSerialViscaManager->SetZoom(zoom_index);
+    m_pSerialViscaManager->SetZoomForZoomFocus(zoom_index);
+    setZoomGoal(zoom_index);
     m_pSerialViscaManager->SetFocusForZoomFocus(zoom_index, ndaynight);
+    setFocusGoal(zoom_index, ndaynight);
+    m_pSerialViscaManager->SetDZoomForZoomFocus(zoom_index);
 
     SetLogMsg(BUTTON_CLICKED, "ZOOM_INDEX, " + ui->zoomRangePushButton->text());
 
@@ -259,12 +262,12 @@ void CameraZoomFocusWidget::on_dayComboBox_currentIndexChanged(int index)
     if (index == 0)
     {
         m_pSerialViscaManager->set_infrared_mode_off();
-        object = m_object["Day"].toObject()["Normal"].toObject();
+        object = m_object["Day"].toObject()["Dark"].toObject();
     }
     else
     {
         m_pSerialViscaManager->set_infrared_mode_on();
-        object = m_object["Night"].toObject()["Normal"].toObject();
+        object = m_object["Night"].toObject()["Dark"].toObject();
     }
     m_pSerialViscaManager->set_AE_Mode("03");
     m_pSerialViscaManager->set_iris(object["Iris"].toInt());
@@ -467,7 +470,7 @@ void CameraZoomFocusWidget::setTableInit()
         m_MapFocus[std::make_pair(i, 0)] = ar[i].toString();
         m_mTableStatus[std::make_pair(i, 0)] = 0;
 
-        QTableWidgetItem *item = new QTableWidgetItem(ar[i].toString());
+        QTableWidgetItem *item = new QTableWidgetItem(ar[i].toString().toUpper());
         ui->tableWidget->setItem(i, 0, item);
     }
 
@@ -476,7 +479,7 @@ void CameraZoomFocusWidget::setTableInit()
     {
         m_MapFocus[std::make_pair(i, 1)] = ar[i].toString();
         m_mTableStatus[std::make_pair(i, 1)] = 0;
-        QTableWidgetItem *item = new QTableWidgetItem(ar[i].toString());
+        QTableWidgetItem *item = new QTableWidgetItem(ar[i].toString().toUpper());
         ui->tableWidget->setItem(i, 1, item);
     }
 }
@@ -490,7 +493,7 @@ void CameraZoomFocusWidget::setTableDefualtInit()
     {
         m_MapFocus[std::make_pair(i, 0)] = lt_day_focus[i];
         m_mTableStatus[std::make_pair(i, 0)] = 0;
-        QTableWidgetItem *item = new QTableWidgetItem(lt_day_focus[i]);
+        QTableWidgetItem *item = new QTableWidgetItem(lt_day_focus[i].toUpper());
         ui->tableWidget->setItem(i, 0, item);
     }
     m_MapFocus[std::make_pair(5, 0)] = "";
@@ -500,7 +503,7 @@ void CameraZoomFocusWidget::setTableDefualtInit()
     {
         m_MapFocus[std::make_pair(i, 1)] = lt_night_focus[i];
         m_mTableStatus[std::make_pair(i, 1)] = 0;
-        QTableWidgetItem *item = new QTableWidgetItem(lt_night_focus[i]);
+        QTableWidgetItem *item = new QTableWidgetItem(lt_night_focus[i].toUpper());
         ui->tableWidget->setItem(i, 1, item);
     }
     m_MapFocus[std::make_pair(5, 1)] = "";
@@ -607,6 +610,20 @@ void CameraZoomFocusWidget::SaveFocusJson()
 
 }
 
+void CameraZoomFocusWidget::SaveDZoomJson()
+{
+    ConfigManager config = ConfigManager("dzoom.json");
+    QJsonObject object = config.GetConfig();
+    QJsonArray ar = object["lt dzoom"].toArray();
+
+    ar[m_nLtIndex] = m_strDZoom;
+
+    object["lt dzoom"] = ar;
+
+    config.SetConfig(object);
+    config.SaveFile();
+}
+
 void CameraZoomFocusWidget::SetStValue(int index, QJsonArray& ar, QJsonArray& ar2)
 {
     bool bStatus = false;
@@ -694,7 +711,7 @@ void CameraZoomFocusWidget::EditTableValue()
             {
                 focus = m_MapFocus[std::make_pair(i, j)];
             }
-            QTableWidgetItem *item = new QTableWidgetItem(focus);
+            QTableWidgetItem *item = new QTableWidgetItem(focus.toUpper());
             if (m_mTableStatus[std::make_pair(i, j)] == 1)
                 item->setTextColor(Qt::red);
             if (m_mTableStatus[std::make_pair(i, j)] == 2)
@@ -717,7 +734,7 @@ void CameraZoomFocusWidget::EditTableValue2()
             QString focus;
             focus = m_MapFocus[std::make_pair(i, j)];
 
-            QTableWidgetItem *item = new QTableWidgetItem(focus);
+            QTableWidgetItem *item = new QTableWidgetItem(focus.toUpper());
             if (m_mTableStatus[std::make_pair(i, j)] == 1)
                 item->setTextColor(Qt::red);
             if (m_mTableStatus[std::make_pair(i, j)] == 2)
@@ -745,18 +762,27 @@ void CameraZoomFocusWidget::camInit()
     m_pSerialViscaManager->set_IRCorrection_standard();
     m_pSerialViscaManager->set_AE_Mode("03");
 
-    m_pSerialViscaManager->SetDayMode(m_object2["day&night selection"].toInt());
+    int ndaynight;
+    if(ui->dayComboBox->currentIndex() == 0)
+    {
+       ndaynight = 1;
+    }else
+    {
+       ndaynight = 4;
+    }
+
+    m_pSerialViscaManager->SetDayMode(ndaynight);
 
     m_pSerialViscaManager->set_manual_focus();
     //    m_pSerialViscaManager.set_AE_mode2e();
     m_pSerialViscaManager->separate_zoom_mode();
 
     //    Config
-    m_pSerialViscaManager->SetZoom(m_nLtIndex);
-    m_pSerialViscaManager->SetFocus(m_nLtIndex);
-
-
-    m_pSerialViscaManager->dzoom_from_pq("00");
+    m_pSerialViscaManager->SetZoomForZoomFocus(m_nLtIndex);
+    setZoomGoal(m_nLtIndex);
+    m_pSerialViscaManager->SetFocusForZoomFocus(m_nLtIndex, ndaynight);
+    setFocusGoal(m_nLtIndex, ndaynight);
+    m_pSerialViscaManager->SetDZoomForZoomFocus(m_nLtIndex);
 
     //    ConfigManager config = ConfigManager("parameter_enforcement.json");
     //    QJsonObject object = config.GetConfig();
@@ -950,12 +976,12 @@ void CameraZoomFocusWidget::on_pgrsSavePushButton_clicked()
 void CameraZoomFocusWidget::on_show_zoom(QString zoom)
 {
 //    ui->zoomLabel->
-    ui->zoomLabel->setText("Z:"+zoom);
+    ui->zoomLabel->setText("Z:"+zoom.toUpper()+"("+m_zoomGoal+")");
 }
 
 void CameraZoomFocusWidget::on_show_focus(QString focus)
 {
-    ui->focusLabel->setText("F:"+focus);
+    ui->focusLabel->setText("F:"+focus.toUpper()+"("+m_focusGoal+")");
     m_currentFocus = focus;
 //    if (m_mTableStatus[std::make_pair(m_nTableIndex.x(), m_nTableIndex.y())] == 0)
 //    {
@@ -976,8 +1002,11 @@ void CameraZoomFocusWidget::ClearDisplay()
 
 void CameraZoomFocusWidget::on_show_dzoom(QString dzoom)
 {
-    ui->dFocusLabel->setText("DZ:"+dzoom);
+    ui->dFocusLabel->setText("DZ:"+dzoom.toUpper());
     m_strDZoom = dzoom;
+
+    //save dzoom pq value to dzoom.json
+    SaveDZoomJson();
 }
 
 
@@ -1026,4 +1055,106 @@ void CameraZoomFocusWidget::setPSerialViscaManager(SerialViscaManager *newPSeria
 void CameraZoomFocusWidget::setMainMenuSize(QSize size)
 {
     m_pMainMenuWidgetSize = size;
+}
+
+
+void CameraZoomFocusWidget::setZoomGoal(int zoom_index)
+{
+    QJsonObject object = ConfigManager("parameter_setting1.json").GetConfig();
+    int userMode = object["speed selection"].toInt();
+    object = ConfigManager("zoom.json").GetConfig();
+    QString magnification;
+
+    if(zoom_index==5)
+    {
+        magnification = object["lt zoom"].toArray()[zoom_index-1].toString();
+    }
+    else
+    {
+        magnification = object["lt zoom"].toArray()[zoom_index].toString();
+    }
+
+    object = ConfigManager("camera_zoom_mag.json").GetConfig();
+    m_zoomGoal = object.value(magnification).toString().toUpper();
+}
+
+void CameraZoomFocusWidget::setFocusGoal(int zoom_index, int ndaynight)
+{
+    QJsonObject object = ConfigManager("parameter_setting1.json").GetConfig();
+    int userMode = object["speed selection"].toInt();
+
+//    object = ConfigManager("parameter_setting2.json").GetConfig();
+//    int daynight = object["day&night selection"].toInt();
+    int daynight = ndaynight;
+    object = ConfigManager("focus.json").GetConfig();
+    QJsonArray ar;
+    if (daynight > 0 && daynight < 4)
+    {
+//        if (userMode == 1)
+//        {
+//            ar = object["st day focus"].toArray();
+//            this->set_focus(ar[index].toString());
+//        }
+//        else
+//        {
+        ar = object["lt day focus"].toArray();
+        m_focusGoal = ar[zoom_index].toString().toUpper();
+//        }
+    }
+    else
+    {
+//        if (userMode == 1)
+//        {
+//            ar = object["st night focus"].toArray();
+//            this->set_focus(ar[index].toString());
+//        }
+//        else
+//        {
+        ar = object["lt night focus"].toArray();
+        m_focusGoal = ar[zoom_index].toString().toUpper();
+//        }
+    }
+}
+
+void CameraZoomFocusWidget::on_tableWidget_cellClicked(int row, int column)
+{
+    int zoom_index = 0;
+
+    m_nLtIndex = row;
+
+    m_nTableIndex.setX(m_nLtIndex);
+
+    zoom_index = m_nLtIndex;
+    ui->zoomRangePushButton->setText(m_ltmetervector[m_nLtIndex]+distanceValue());
+
+    if(column == 0)
+        ui->dayComboBox->setCurrentIndex(0);
+    else
+        ui->dayComboBox->setCurrentIndex(1);
+
+    int ndaynight;
+    if(ui->dayComboBox->currentIndex() == 0)
+    {
+       ndaynight = 1;
+    }else
+    {
+       ndaynight = 4;
+    }
+
+    m_pSerialViscaManager->SetZoomForZoomFocus(zoom_index);
+    setZoomGoal(zoom_index);
+    m_pSerialViscaManager->SetFocusForZoomFocus(zoom_index, ndaynight);
+    setFocusGoal(zoom_index, ndaynight);
+    m_pSerialViscaManager->SetDZoomForZoomFocus(zoom_index);
+
+    SetLogMsg(BUTTON_CLICKED, "ZOOM_INDEX, " + ui->zoomRangePushButton->text());
+
+    SetLaserDetectionAreaDistance(zoom_index);
+
+    if (m_mTableStatus[std::make_pair(m_nTableIndex.x(), m_nTableIndex.y())] == 1)
+        ui->pgrsSavePushButton->setDisabled(false);
+    else
+        ui->pgrsSavePushButton->setDisabled(true);
+
+    SendViscaValue();
 }

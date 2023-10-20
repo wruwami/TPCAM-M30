@@ -177,10 +177,6 @@ CameraZoomFocusWidget::~CameraZoomFocusWidget()
 {
     m_hud.HUDClear();
 
-    disconnect(m_pSerialViscaManager->getVisca_packet(), SIGNAL(sig_show_dzoom(QString)), this, SLOT(on_show_dzoom(QString)));
-    disconnect(m_pSerialViscaManager->getVisca_packet(), SIGNAL(sig_show_zoom(QString)), this, SLOT(on_show_zoom(QString)));
-    disconnect(m_pSerialViscaManager->getVisca_packet(), SIGNAL(sig_show_focus(QString)), this, SLOT(on_show_focus(QString)));
-
     m_pSerialLaserManager->stop_laser();
     m_pSerialLaserManager->request_distance(false);
 

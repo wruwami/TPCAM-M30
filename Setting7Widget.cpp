@@ -16,8 +16,8 @@ Setting7Widget::Setting7Widget(QWidget *parent) :
 
     ui->WifiLabel->setText(LoadString("IDS_WIFI"));
     ui->WifiLabel->setFontSize(23);
-    ui->blueToothLabel->setText(LoadString("IDS_BLUETOOTH"));
-    ui->blueToothLabel->setFontSize(23);
+    ui->gpsLabel->setText(LoadString("IDS_GPS"));
+    ui->gpsLabel->setFontSize(23);
     ui->nineAxisSensorLabel->setText(LoadString("IDS_NINE_AXIS_SENSOR"));
     ui->nineAxisSensorLabel->setFontSize(23);
     ui->micnSpeackerLabel->setText(LoadString("IDS_MIC_N_SPEAKER"));
@@ -37,12 +37,12 @@ Setting7Widget::Setting7Widget(QWidget *parent) :
 
 //    ui->bluetoothComboBox->addItem(LoadString("IDS_ON"));
 //    ui->bluetoothComboBox->addItem(LoadString("IDS_OFF"));
-    foreach (QJsonValue json, m_jsonObject["bluetooth items"].toArray())
+    foreach (QJsonValue json, m_jsonObject["gps items"].toArray())
     {
-        ui->bluetoothComboBox->addItem(json.toString());
+        ui->gpsComboBox->addItem(json.toString());
     }
-    index = m_jsonObject["bluetooth select"].toInt();
-    ui->bluetoothComboBox->setCurrentIndex(index - 1);
+    index = m_jsonObject["gps select"].toInt();
+    ui->gpsComboBox->setCurrentIndex(index - 1);
 
 
 //    ui->nineAxisSensorComboBox->addItem(LoadString("IDS_ON"));
@@ -96,9 +96,14 @@ void Setting7Widget::on_wifiComboBox_currentIndexChanged(int index)
     m_newJsonObject["wifi select"] = index + 1;
 }
 
-void Setting7Widget::on_bluetoothComboBox_currentIndexChanged(int index)
+//void Setting7Widget::on_bluetoothComboBox_currentIndexChanged(int index)
+//{
+//    m_newJsonObject["bluetooth select"] = index + 1;
+//}
+
+void Setting7Widget::on_gpsComboBox_currentIndexChanged(int index)
 {
-    m_newJsonObject["bluetooth select"] = index + 1;
+    m_newJsonObject["gps select"] = index + 1;
 }
 
 void Setting7Widget::on_nineAxisSensorComboBox_currentIndexChanged(int index)

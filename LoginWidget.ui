@@ -18,7 +18,7 @@
   </property>
   <layout class="QGridLayout" name="gridLayout_2">
    <item row="0" column="0">
-    <layout class="QGridLayout" name="gridLayout" rowstretch="100,100,100,100,100,100,185" columnstretch="215,285,100,212">
+    <layout class="QGridLayout" name="gridLayout" rowstretch="100,100,100,100,100,100,180" columnstretch="215,285,100,212">
      <property name="verticalSpacing">
       <number>6</number>
      </property>
@@ -42,16 +42,6 @@
        </property>
       </widget>
      </item>
-     <item row="6" column="0" colspan="4">
-      <widget class="CustomLabel" name="logoLabel">
-       <property name="text">
-        <string>TextLabel</string>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignCenter</set>
-       </property>
-      </widget>
-     </item>
      <item row="3" column="3" rowspan="2">
       <widget class="CustomPushButton" name="loginPushButton">
        <property name="text">
@@ -63,19 +53,6 @@
       <widget class="CustomLineEdit" name="deviceIDLineEdit">
        <property name="readOnly">
         <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="0">
-      <widget class="CustomPushButton" name="dateTimePushButton">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="text">
-        <string>PushButton</string>
        </property>
       </widget>
      </item>
@@ -93,13 +70,16 @@
        </property>
       </widget>
      </item>
-     <item row="4" column="1">
-      <widget class="CustomComboBox" name="userNameComboBox"/>
-     </item>
-     <item row="0" column="3">
-      <widget class="CustomLabel" name="versionLabel">
+     <item row="0" column="0">
+      <widget class="CustomPushButton" name="dateTimePushButton">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
        <property name="text">
-        <string>TextLabel</string>
+        <string>PushButton</string>
        </property>
       </widget>
      </item>
@@ -107,13 +87,6 @@
       <widget class="CustomPushButton" name="lightPushButton">
        <property name="text">
         <string>PushButton</string>
-       </property>
-      </widget>
-     </item>
-     <item row="4" column="0">
-      <widget class="CustomLabel" name="userNameLabel">
-       <property name="text">
-        <string>TextLabel</string>
        </property>
       </widget>
      </item>
@@ -130,6 +103,16 @@
        </property>
       </spacer>
      </item>
+     <item row="0" column="3">
+      <widget class="CustomLabel" name="versionLabel">
+       <property name="text">
+        <string>TextLabel</string>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="1">
+      <widget class="CustomComboBox" name="userNameComboBox"/>
+     </item>
      <item row="0" column="2">
       <spacer name="horizontalSpacer">
        <property name="orientation">
@@ -142,6 +125,65 @@
         </size>
        </property>
       </spacer>
+     </item>
+     <item row="4" column="0">
+      <widget class="CustomLabel" name="userNameLabel">
+       <property name="text">
+        <string>TextLabel</string>
+       </property>
+      </widget>
+     </item>
+     <item row="6" column="0" colspan="4">
+      <layout class="QHBoxLayout" name="horizontalLayout">
+       <item>
+        <spacer name="horizontalSpacer_3">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <widget class="CustomPushButton" name="logoPushButton">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QPushButton {
+	border : none;
+}
+
+QPushButton::pressed {
+	border : 1px solid red;
+}</string>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer name="horizontalSpacer_2">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
      </item>
     </layout>
    </item>

@@ -21,7 +21,7 @@ public:
 private slots:
     void on_wifiComboBox_currentIndexChanged(int index);
 
-    void on_bluetoothComboBox_currentIndexChanged(int index);
+//    void on_bluetoothComboBox_currentIndexChanged(int index);
 
     void on_nineAxisSensorComboBox_currentIndexChanged(int index);
 
@@ -29,6 +29,8 @@ private slots:
 
 
     void on_powerSavingTimeComboBox_currentIndexChanged(int index);
+
+    void on_gpsComboBox_currentIndexChanged(int index);
 
 private:
     QJsonObject m_jsonObject;

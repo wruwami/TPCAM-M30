@@ -9,6 +9,11 @@
 		"On",
 		"Off"
 	],
+	"gps select": 1,
+	"gps items": [
+		"On",
+		"Off"
+	],
 	"9 axis select": 2,
 	"9 axis items": [
 		"On",

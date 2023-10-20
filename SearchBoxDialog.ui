@@ -18,7 +18,7 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_2" stretch="14,0,68">
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="347,130">
+    <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="347,30">
      <item alignment="Qt::AlignHCenter">
       <widget class="CustomLabel" name="titleLabel">
        <property name="text">

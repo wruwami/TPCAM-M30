@@ -29,7 +29,7 @@ MainMenuWidget::MainMenuWidget(QWidget *parent) :
     QString styleSheet = QString::fromLatin1(file.readAll());
     setStyleSheet(styleSheet);
 
-    QSizePolicy sp_retain = sizePolicy();
+    QSizePolicy sp_retain = QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Expanding);
     sp_retain.setRetainSizeWhenHidden(true);
     setSizePolicy(sp_retain);
 
@@ -58,16 +58,12 @@ MainMenuWidget::MainMenuWidget(QWidget *parent) :
     m_pBatteryPercentButton= ui->batteryPercentButton;
 
     ui->batteryPercentButton->setStyleSheet("QToolButton {color:#FFFF00;}");
-
+    ui->batteryPercentButton->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     m_pHomeTitleLabel = new CustomLabel;
     m_pHomeButtonWidget = new HomeButtonWidget;
     ui->stackedWidget->addWidget(m_pHomeTitleLabel);
     ui->stackedWidget->addWidget(m_pHomeButtonWidget);
     ui->stackedWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-
-    m_pSpacerItem = new QSpacerItem(m_pCameraPushbutton->width(), m_pCameraPushbutton->height(), QSizePolicy::Expanding, QSizePolicy::Expanding);
-
-
 
 //    m_pMainMenuTitlePushButton = m_pHomeButtonWidget->m_pHomePushButton;
     m_pHomePushButton = m_pHomeButtonWidget->m_pHomePushButton;
@@ -108,10 +104,6 @@ void MainMenuWidget::showIndicator(bool isShow)
 {
     if (isShow)
     {
-//        for (int i = 1 ; i < 8 ; i++)
-        {
-            ui->horizontalLayout_2->removeItem(m_pSpacerItem);
-        }
         ui->cameraPushButton->show();
         ui->daynNightPushButton->show();
         ui->weatherPushButton->show();
@@ -123,11 +115,6 @@ void MainMenuWidget::showIndicator(bool isShow)
     }
     else
     {
-        for (int i = 1 ; i < 8 ; i++)
-        {
-            ui->horizontalLayout_2->insertItem(i, m_pSpacerItem);
-        }
-
         ui->cameraPushButton->hide();
         ui->daynNightPushButton->hide();
         ui->weatherPushButton->hide();
@@ -217,6 +204,7 @@ void MainMenuWidget::setTransparentBackGround(bool bTransParent)
 
 void MainMenuWidget::hideButton()
 {
+
     ui->cameraPushButton->hide();
     ui->daynNightPushButton->hide();
     ui->weatherPushButton->hide();
@@ -224,6 +212,7 @@ void MainMenuWidget::hideButton()
     ui->speedPushButton->hide();
     ui->wifiPushButton->hide();
     ui->gpsPushButton->hide();
+
 }
 
 void MainMenuWidget::setRedLine(bool bRedLine)

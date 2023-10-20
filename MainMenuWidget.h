@@ -38,7 +38,6 @@ private:
     Ui::MainMenuWidget *ui;
     CustomLabel* m_pHomeTitleLabel;
     HomeButtonWidget* m_pHomeButtonWidget;
-    QSpacerItem* m_pSpacerItem;
     bool m_bRedLine = false;
 public:
     CustomPushButton* m_pCameraPushbutton;

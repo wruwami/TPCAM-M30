@@ -18,7 +18,10 @@
   </property>
   <layout class="QHBoxLayout" name="horizontalLayout">
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="442,87,87,87,87,87,87,87,148,27,374">
+    <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="442,87,87,87,87,87,87,87,148,27,330">
+     <property name="spacing">
+      <number>3</number>
+     </property>
      <property name="sizeConstraint">
       <enum>QLayout::SetFixedSize</enum>
      </property>

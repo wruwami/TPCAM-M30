@@ -15,10 +15,10 @@ SdCardMemoryLack::SdCardMemoryLack(QString msg, QWidget *parent) :
 
     ui->warningLabel->setText(LoadString("IDS_CRACK_DOWN_MESSAGE"));
     ui->warningLabel->setFontSize(23);
-    ui->warningLabel->setColor(Qt::white);
+    ui->warningLabel->setColor(Qt::black);
     ui->warningLabel2->setText(LoadString("IDS_CRACK_DOWN_MESSAGE2"));
     ui->warningLabel2->setFontSize(23);
-    ui->warningLabel2->setColor(Qt::white);
+    ui->warningLabel2->setColor(Qt::black);
     ui->sdCardValueLabel->setText(msg);
     ui->sdCardValueLabel->setFontSize(23);
     ui->sdCardValueLabel->setColor(Qt::red);

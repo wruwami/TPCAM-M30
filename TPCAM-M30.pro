@@ -180,6 +180,7 @@ HEADERS  += MainWindow.h \
     ImageSize.h \
     FileManagerSnapShotDialog.h \
     ViscaPacket.h \
+    base.h \
     camera.h \
     capture_thread.h \
     filter.h \

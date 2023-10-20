@@ -20,7 +20,7 @@
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="442,87,87,87,87,87,87,87,148,27,374">
      <property name="sizeConstraint">
-      <enum>QLayout::SetMinimumSize</enum>
+      <enum>QLayout::SetFixedSize</enum>
      </property>
      <item>
       <widget class="QStackedWidget" name="stackedWidget"/>
@@ -126,7 +126,7 @@
   <customwidget>
    <class>CustomLabel</class>
    <extends>QLabel</extends>
-   <header location="global">CustomLabel.h</header>
+   <header>CustomLabel.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

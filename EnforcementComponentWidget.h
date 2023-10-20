@@ -105,7 +105,6 @@ private:
     void clearSpeed();
 
     void SaveDZoomJson();
-
 public:
     SerialLaserManager* m_pSerialLaserManager = nullptr;
     SerialViscaManager* m_pSerialViscaManager = nullptr;
@@ -159,7 +158,7 @@ private:
     QFileSystemWatcher m_fileSystemWatcher;
     TriggerStatus m_triggerStatus = SKIP;
     QSize m_MainMenuWidgetSize;
-//    QSharedPointer<FtpTransThread> m_pFtpThread;
+    QSharedPointer<FtpTransThread> m_pFtpThread;
 protected slots:
     void on_hidePushButton_clicked();
 //    void doShartAction();
@@ -180,6 +179,8 @@ protected slots:
     void on_EnforceModeA();
     void on_EnforceModeV();
     void do_FileSystemWatcher(const QString&);
+    void closeThread();
+
 protected:
     void timerEvent(QTimerEvent *event);
     void paintEvent(QPaintEvent *event);

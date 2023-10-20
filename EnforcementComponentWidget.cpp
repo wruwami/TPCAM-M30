@@ -100,7 +100,7 @@ EnforcementComponentWidget::EnforcementComponentWidget(QWidget *parent) :
     ConfigManager con = ConfigManager("parameter_setting3.json");
     QJsonObject object = con.GetConfig();
 
-    QSizePolicy sp_retain = ui->hidePushButton->sizePolicy();
+   QSizePolicy sp_retain = ui->hidePushButton->sizePolicy();
     sp_retain.setRetainSizeWhenHidden(true);
     ui->hidePushButton->setSizePolicy(sp_retain);
     ui->readyPushButton->setSizePolicy(sp_retain);
@@ -184,16 +184,15 @@ EnforcementComponentWidget::EnforcementComponentWidget(QWidget *parent) :
 
     doEnforceMode(false);
 
-//    ConfigManager config = ConfigManager("parameter_setting6.json");
-//    QJsonObject jsonObject = config.GetConfig();
+    QJsonObject jsonObject = ConfigManager("parameter_setting6.json").GetConfig();
+    if (jsonObject["ftp select"].toInt() == 3)
+    {
+        m_pFtpThread.reset(new FtpTransThread);
+        connect(m_pFtpThread.data(), &FtpTransThread::finished, m_pFtpThread.data(), &QObject::deleteLater);
+        connect(m_pFtpThread.data(), SIGNAL(sig_exit()), this, SLOT(closeThread()));
 
-//    if (jsonObject["ftp select"].toInt() == 3)
-//    {
-
-//    }
-//    m_pFtpThread.reset(new FtpTransThread);
-//    QObject::connect(m_pFtpThread.data(), &FtpTransThread::finished, m_pFtpThread.data(), &QObject::deleteLater);
-//    m_pFtpThread->start();
+        m_pFtpThread->start();
+    }
 //    m_pSerialLaserManager->show_laser_info();
 #if DEBUG_MODE
     SaveImageVideo();
@@ -349,24 +348,24 @@ void EnforcementComponentWidget::SaveImageVideo()
     case I:
     {
         m_pCamera->SaveImage(AI, enforceInfo, SNAPSHOT);
-//        m_pFtpThread->PushFile(GETSDPATH(SNAPSHOT) + "/" + GetFileName(AI, enforceInfo));
+        m_pFtpThread->PushFile(GETSDPATH(SNAPSHOT) + "/" + GetFileName(AI, enforceInfo));
 
     }
         break;
     case A:
     {
         m_pCamera->SaveImage(AI, enforceInfo, SNAPSHOT);
-//        m_pFtpThread->PushFile(GETSDPATH(SNAPSHOT) + "/" + GetFileName(AI, enforceInfo));
+        m_pFtpThread->PushFile(GETSDPATH(SNAPSHOT) + "/" + GetFileName(AI, enforceInfo));
 
         m_pCamera->SaveVideo(AV, enforceInfo, AUTO);
-//        m_pFtpThread->PushFile(GETSDPATH(AUTO) + "/" + GetFileName(AV, enforceInfo));
+        m_pFtpThread->PushFile(GETSDPATH(AUTO) + "/" + GetFileName(AV, enforceInfo));
 
     }
         break;
     case V:
     {
         m_pCamera->SaveVideo(VV, enforceInfo, VIDEO);
-//        m_pFtpThread->PushFile(GETSDPATH(VIDEO) + "/" + GetFileName(VV, enforceInfo));
+        m_pFtpThread->PushFile(GETSDPATH(VIDEO) + "/" + GetFileName(VV, enforceInfo));
     }
         break;
     }
@@ -1679,4 +1678,13 @@ void EnforcementComponentWidget::SaveDZoomJson()
 
     config.SetConfig(object);
     config.SaveFile();
+}
+
+void EnforcementComponentWidget::closeThread()
+{
+    if (m_pFtpThread->isRunning())
+    {
+        m_pFtpThread->requestInterruption();
+    }
+    m_pFtpThread->exit();
 }

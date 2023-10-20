@@ -15,6 +15,7 @@
 #include "KeypadDialog.h"
 #include "FileManager.h"
 #include "LightManager.h"
+#include "Logger.h"
 
 extern QString g_AppVersion;
 
@@ -48,7 +49,14 @@ LoginWidget::LoginWidget(QWidget *parent) :
     ui->loginPushButton->setFontSize(23);
 
     ui->userNamePushButton->setImage("Login", "keyboard.bmp");
-    ui->logoLabel->setImage("Login", "comlaser_logo.bmp");
+//    ui->logoLabel->setImage("Login", "comlaser_logo.bmp");
+
+    QPixmap pixmap;
+    pixmap.load(GeteMMCPath() + "/" + "images" + "/" + "Main_menu" + "/" + "comlaser_logo.bmp");
+    ui->logoPushButton->setIcon(QIcon(pixmap));
+    ui->logoPushButton->setIconSize(pixmap.rect()/*.adjusted(1, 1, -1, -1)*/.size());
+    ui->logoPushButton->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+
     ui->deviceIDLineEdit->setDisabled(true);
     QJsonObject object = ConfigManager("setting_device_ID.json").GetConfig();
     QJsonObject object2 = object["Device ID"].toObject();
@@ -257,3 +265,15 @@ void LoginWidget::on_userNameComboBox_currentIndexChanged(int index)
     m_nIndex = index;
 }
 
+
+void LoginWidget::on_logoPushButton_clicked()
+{
+    static int nclick = 0;
+    ++nclick;
+    if(nclick >= 3)
+    {
+        //        OS 자동 종료
+        QProcess::startDetached("sudo shutdown -h now");
+        SetLogMsg(POWER_OFF, "logo in loginWidget clicked 3 times");
+    }
+}

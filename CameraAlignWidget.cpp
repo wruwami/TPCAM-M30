@@ -38,9 +38,9 @@ CameraAlignWidget::CameraAlignWidget(QWidget *parent) :
     ui->rightPushButton->setFontSize(23);
     ui->downPushButton->setText(LoadString("IDS_DOWN"));
     ui->downPushButton->setFontSize(23);
-    ui->savePushButton->setText(LoadString("IDS_SAVE"));
+    ui->savePushButton->setText(LoadString("IDS_SAVE_SMALL"));
     ui->savePushButton->setFontSize(23);
-    ui->cancelPushButton->setText(LoadString("IDS_CANCEL"));
+    ui->cancelPushButton->setText(LoadString("IDS_CANCEL_SMALL"));
     ui->cancelPushButton->setFontSize(23);
     ui->cameraPushButton->setText(LoadString("IDS_CAMERA"));
     ui->cameraPushButton->setFontSize(23);
@@ -95,7 +95,7 @@ void CameraAlignWidget::SetHudMode()
 
 void CameraAlignWidget::SetLaserMode()
 {
-    ui->hudLabel->setText(LoadString("IDS_LASER") +"[" +QString("%1").arg(QString::number(m_LaserPoint.x() + Laser_x), 2) + "," + QString("%1").arg(QString::number(m_LaserPoint.y() + Laser_y), 2) + "]");
+    ui->hudLabel->setText(LoadString("IDS_CAM") +"[" +QString("%1").arg(QString::number(m_LaserPoint.x() + Laser_x), 2) + "," + QString("%1").arg(QString::number(m_LaserPoint.y() + Laser_y), 2) + "]");
 }
 
 //void CameraAlignWidget::SetLaserMode2()

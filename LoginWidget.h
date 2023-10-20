@@ -38,6 +38,8 @@ private slots:
 
     void on_userNameComboBox_currentIndexChanged(int index);
 
+    void on_logoPushButton_clicked();
+
 public:
     CustomPushButton* m_loginPushButton;
     CustomPushButton* m_dateTimePushButton;

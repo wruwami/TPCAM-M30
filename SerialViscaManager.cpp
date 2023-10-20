@@ -1515,7 +1515,7 @@ void SerialViscaManager::set_iris_from_pq(QString pq_input,  bool isAutoIris)
     }else{
         iris_count = 0;
     //feedback
-    m_pTimerInquiryIris->start(500);
+    m_pTimerInquiryIris->start(20);
     }
 
     QByteArray data;
@@ -2179,14 +2179,8 @@ void SerialViscaManager::SetDZoom(int index)
     }
     else
     {
-        if(index==5)
-        {
-            pq = object["lt dzoom"].toArray()[index-1].toString();
-        }
-        else
-        {
-            pq = object["lt dzoom"].toArray()[index].toString();
-        }
+        pq = object["lt dzoom"].toArray()[index].toString();
+
     }
     this->dzoom_from_pq(pq);
 }
@@ -2198,14 +2192,7 @@ void SerialViscaManager::SetDZoomForZoomFocus(int index)
     object = ConfigManager("dzoom.json").GetConfig();
     QString pq;
 
-    if(index==5)
-    {
-        pq = object["lt dzoom"].toArray()[index-1].toString();
-    }
-    else
-    {
-        pq = object["lt dzoom"].toArray()[index].toString();
-    }
+    pq = object["lt dzoom"].toArray()[index].toString();
 
     object = ConfigManager("camera_zoom_mag.json").GetConfig();
     this->dzoom_from_pq(pq);

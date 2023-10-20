@@ -16,8 +16,8 @@
 
 using namespace TPCAM_M30;
 
-QStringList lt_day_focus = {"1587", "13D8", "11E8", "0FB7", "0FB7"};
-QStringList lt_night_focus = {"1587", "13D8", "11E8", "0FB7", "0FB7"};
+QStringList lt_day_focus = {"1587", "13D8", "11E8", "0FB7", "0FB7", "0FB7"};
+QStringList lt_night_focus = {"1587", "13D8", "11E8", "0FB7", "0FB7", "0FB7"};
 
 extern SerialLaserManager* g_pSerialLaserManager;
 extern SerialViscaManager* g_pSerialViscaManager;
@@ -159,8 +159,6 @@ CameraZoomFocusWidget::CameraZoomFocusWidget(QWidget *parent) :
     connect(m_pSerialViscaManager->getVisca_packet(), SIGNAL(sig_show_zoom(QString)), this, SLOT(on_show_zoom(QString)));
     connect(m_pSerialViscaManager->getVisca_packet(), SIGNAL(sig_show_focus(QString)), this, SLOT(on_show_focus(QString)));
 
-    SendViscaValue();
-
     connect(&m_ClearTimer, SIGNAL(timeout), this, SLOT(ClearDisplay()));
 
     camInit();
@@ -172,6 +170,7 @@ CameraZoomFocusWidget::CameraZoomFocusWidget(QWidget *parent) :
     QJsonArray ar = m_object["Camera reticle pos"].toArray();
     m_LaserPoint = QPoint(ar[0].toInt() - Laser_x, ar[1].toInt() - Laser_y);
 
+    SendViscaValue();
 }
 
 CameraZoomFocusWidget::~CameraZoomFocusWidget()
@@ -263,24 +262,35 @@ void CameraZoomFocusWidget::on_FocusMinusPushButton_clicked()
     m_pSerialViscaManager->show_focusPosition();
 }
 
+/*
 void CameraZoomFocusWidget::on_dayComboBox_currentIndexChanged(int index)
 {
     m_nTableIndex.setY(index);
-    QJsonObject object;
+    ConfigManager configManager = ConfigManager("exposure.json");
+    QJsonObject object1 = configManager.GetConfig();
+    QJsonObject object2;
+
+    bool isAutoIris = false;
     if (index == 0)
     {
         m_pSerialViscaManager->set_infrared_mode_off();
-        object = m_object["Day"].toObject()["Dark"].toObject();
+        object2 = object1["Day"].toObject()["Dark"].toObject();
+        isAutoIris = true;
     }
     else
     {
         m_pSerialViscaManager->set_infrared_mode_on();
-        object = m_object["Night"].toObject()["Dark"].toObject();
+        object2 = object1["Night"].toObject()["Dark"].toObject();
     }
+//    m_pSerialViscaManager->set_AE_Mode("03");
+//    m_pSerialViscaManager->set_iris(object["Iris"].toInt());
+//    m_pSerialViscaManager->set_shutter_speed(object["Shutter"].toInt());
+//    m_pSerialViscaManager->set_gain(object["Gain"].toInt());
+//    m_pSerialViscaManager->set_AE_Mode(object["Priority"].toString());
     m_pSerialViscaManager->set_AE_Mode("03");
-    m_pSerialViscaManager->set_iris(object["Iris"].toInt());
-    m_pSerialViscaManager->set_shutter_speed(object["Shutter"].toInt());
-    m_pSerialViscaManager->set_gain(object["Gain"].toInt());
+    m_pSerialViscaManager->set_iris_from_pq(object["Iris"].toString(), isAutoIris);
+    m_pSerialViscaManager->set_shutter_speed_from_pq(object["Shutter"].toString());
+    m_pSerialViscaManager->set_gain_from_pq(object["Gain"].toString());
     m_pSerialViscaManager->set_AE_Mode(object["Priority"].toString());
 
     m_pSerialViscaManager->set_noise_reduction_on(object["DNR"].toString());
@@ -309,7 +319,37 @@ void CameraZoomFocusWidget::on_dayComboBox_currentIndexChanged(int index)
         ui->pgrsSavePushButton->setDisabled(true);
 
     SendViscaValue();
+}*/
+
+void CameraZoomFocusWidget::on_dayComboBox_currentIndexChanged(int index)
+{
+    m_pSerialViscaManager->set_IRCorrection_standard();
+    m_pSerialViscaManager->set_AE_Mode("03");
+
+    int ndaynight;
+    if(ui->dayComboBox->currentIndex() == 0)
+    {
+       ndaynight = 1;
+    }else
+    {
+       ndaynight = 4;
+    }
+
+    m_pSerialViscaManager->SetDayMode(ndaynight);
+
+    m_pSerialViscaManager->set_manual_focus();
+    //    m_pSerialViscaManager.set_AE_mode2e();
+    m_pSerialViscaManager->separate_zoom_mode();
+
+    //    Config
+    m_pSerialViscaManager->SetZoomForZoomFocus(m_nLtIndex);
+    setZoomGoal(m_nLtIndex);
+    m_pSerialViscaManager->SetFocusForZoomFocus(m_nLtIndex, ndaynight);
+    setFocusGoal(m_nLtIndex, ndaynight);
+    m_pSerialViscaManager->SetDZoomForZoomFocus(m_nLtIndex);
 }
+
+
 
 void CameraZoomFocusWidget::on_initPushButton_clicked()
 {

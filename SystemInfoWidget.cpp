@@ -32,7 +32,7 @@ SystemInfoWidget::SystemInfoWidget(QWidget *parent) :
 //    ui->alignLabel->setFontSize(23);
     ui->modeLabel->setText(LoadString("IDS_MODE"));
 //    ui->modeLabel->setFontSize(23);
-    ui->camLabel->setText(LoadString("IDS_CAM"));
+    ui->camLabel->setText(LoadString("IDS_CAM_SMALL"));
 //    ui->camLabel->setFontSize(23);
     ui->laserLabel->setText(LoadString("IDS_LASER"));
 //    ui->laserLabel->setFontSize(23);

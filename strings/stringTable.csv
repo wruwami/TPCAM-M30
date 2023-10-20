@@ -15,8 +15,10 @@ IDS_SEARCH,Search,찾기,Procurar,Búsqueda,Chercher,بحث
 IDS_ZOOM,Zoom,줌,Ampliação,Zoom,Zoom,تكبير
 IDS_DELETE,Delete,삭제,Excluir,Borrar,Effacer,حذف
 IDS_SHARE,Share,공유,Compartilhado,Cuota,Partager,يشارك
-IDS_SAVE,SAVE,저장,SALVE ,AHORRAR,SAUVEGARDER,حفظ
+IDS_SAVE,SAVE,저장,SALVE,AHORRAR,SAUVEGARDER,حفظ
 IDS_CANCEL,CANCEL,취소,CANCELAR,CANCELAR,ANNULER,إلغاء
+IDS_SAVE_SMALL,Save,저장,SALVE,AHORRAR,SAUVEGARDER,حفظ
+IDS_CANCEL_SMALL,Cancel,취소,CANCELAR,CANCELAR,ANNULER,إلغاء
 IDS_LOCATION,Location,위치,Localização,Localización,Lieu,موقع
 IDS_SPEED_LIMIT,Speed Limit,규정 제한 속도,Limite de velocidade,Límite de velocidad,Limitation de vitesse,الحد الأقصى للسرعة
 IDS_CAPTURE_LIMIT,Capture Limit,실제 제한 속도,Limite de captura,Límite de captura,Limite de capture,حد الالتقاط
@@ -72,6 +74,7 @@ IDS_MANUAL,Manual,수동,Manual,Manual,Manuel,كتيب
 IDS_Manual,Manual,수동,Manual,Manual,Manuel,كتيب
 IDS_LANUAGE,Language,언어,Língua,Idioma,Langue,لغة
 IDS_BLUETOOTH,Bluetooth,블루투스,Bluetooth,Bluetooth,Bluetooth,بلوتوث
+IDS_GPS,GPS,GPS,GPS,GPS,GPS,GPS
 IDS_FTP,FTP,FTP,FTP,FTP,FTP,FTP
 IDS_DISABLE,Disable,비활성화,Desativar,Deshabilitar,Désactiver,إبطال
 IDS_ENABLE_AUTO,Enable(Auto),활성화(자동),Ativar (Automático),Habilitar (automático),Activer (Auto),تمكين (تلقائي)
@@ -190,7 +193,8 @@ IDS_PAUSE,Pause,정지,Pausa,Pausa,Pause,وقفة
 IDS_PLEASE_INPUT_NETWORK_PASSWORD,"Please, input network password.",네트워크 비밀번호를 입력해주세요.,"Por favor, insira a senha da rede.","Por favor, ingrese la contraseña de la red.",Veuillez saisir le mot de passe du réseau.,"من فضلك ، أدخل كلمة مرور الشبكة."
 IDS_ALIGN,Align,얼라인,Alinhar,Alinear,Aligner,محاذاة
 IDS_MODE,Mode,모드,Modo,Modo,Mode,الوضع
-IDS_CAM,Cam,카메라,câmera,Leva,Came,كام
+IDS_CAM,CAM,카메라,câmera,Leva,Came,كام
+IDS_CAM_SMALL,Cam,카메라,câmera,Leva,Came,كام
 IDS_SERIAL_NUMBER,S/N,S/N,S/N,S/N,S/N,S/N
 IDS_SERIAL_NUMBER2,Serial Number,일련 번호,Número de série,Número de serie,Numéro de série,رقم سري
 IDS_SYSTEM_INFO,System Info,시스템 정보,Informação do sistema,Información del sistema,Information système,معلومات النظام

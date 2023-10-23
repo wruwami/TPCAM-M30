@@ -66,14 +66,7 @@
       </widget>
      </item>
      <item>
-      <widget class="CustomLabel" name="label_5">
-       <property name="text">
-        <string/>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <layout class="QHBoxLayout" name="horizontalLayout" stretch="1,1,1">
+      <layout class="QHBoxLayout" name="horizontalLayout" stretch="232,144,232">
        <item>
         <spacer name="horizontalSpacer">
          <property name="orientation">

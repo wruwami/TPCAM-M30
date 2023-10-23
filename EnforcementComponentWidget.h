@@ -161,6 +161,7 @@ private:
     TriggerStatus m_triggerStatus = SKIP;
     QSize m_MainMenuWidgetSize;
     QSharedPointer<FtpTransThread> m_pFtpThread;
+    bool m_bFtpMode = false;
 protected slots:
     void on_hidePushButton_clicked();
 //    void doShartAction();

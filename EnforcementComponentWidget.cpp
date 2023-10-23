@@ -189,6 +189,7 @@ EnforcementComponentWidget::EnforcementComponentWidget(QWidget *parent) :
     QJsonObject jsonObject = ConfigManager("parameter_setting6.json").GetConfig();
     if (jsonObject["ftp select"].toInt() == 3)
     {
+        m_bFtpMode = true;
         m_pFtpThread.reset(new FtpTransThread);
         connect(m_pFtpThread.data(), &FtpTransThread::finished, m_pFtpThread.data(), &QObject::deleteLater);
         connect(m_pFtpThread.data(), SIGNAL(sig_exit()), this, SLOT(closeThread()));
@@ -361,24 +362,28 @@ void EnforcementComponentWidget::SaveImageVideo()
     case I:
     {
         m_pCamera->SaveImage(AI, enforceInfo, SNAPSHOT);
-        m_pFtpThread->PushFile(GETSDPATH(SNAPSHOT) + "/" + GetFileName(AI, enforceInfo));
+        if (m_bFtpMode)
+            m_pFtpThread->PushFile(GETSDPATH(SNAPSHOT) + "/" + GetFileName(AI, enforceInfo));
 
     }
         break;
     case A:
     {
         m_pCamera->SaveImage(AI, enforceInfo, SNAPSHOT);
-        m_pFtpThread->PushFile(GETSDPATH(SNAPSHOT) + "/" + GetFileName(AI, enforceInfo));
+        if (m_bFtpMode)
+            m_pFtpThread->PushFile(GETSDPATH(SNAPSHOT) + "/" + GetFileName(AI, enforceInfo));
 
         m_pCamera->SaveVideo(AV, enforceInfo, AUTO);
-        m_pFtpThread->PushFile(GETSDPATH(AUTO) + "/" + GetFileName(AV, enforceInfo));
+        if (m_bFtpMode)
+            m_pFtpThread->PushFile(GETSDPATH(AUTO) + "/" + GetFileName(AV, enforceInfo));
 
     }
         break;
     case V:
     {
         m_pCamera->SaveVideo(VV, enforceInfo, VIDEO);
-        m_pFtpThread->PushFile(GETSDPATH(VIDEO) + "/" + GetFileName(VV, enforceInfo));
+        if (m_bFtpMode)
+            m_pFtpThread->PushFile(GETSDPATH(VIDEO) + "/" + GetFileName(VV, enforceInfo));
     }
         break;
     }

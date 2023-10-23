@@ -105,6 +105,8 @@ private:
     void clearSpeed();
 
     void SaveDZoomJson();
+    void doVMode();
+
 public:
     SerialLaserManager* m_pSerialLaserManager = nullptr;
     SerialViscaManager* m_pSerialViscaManager = nullptr;
@@ -204,6 +206,8 @@ private slots:
     void VModeVideoSave();
     void on_Show();
     void on_Hide();
+
+    void doVModeZFControl(float fDistance, int notuse);
 
 //    void on_ManualMode();
 signals:

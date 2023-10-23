@@ -100,7 +100,7 @@ EnforcementComponentWidget::EnforcementComponentWidget(QWidget *parent) :
     ConfigManager con = ConfigManager("parameter_setting3.json");
     QJsonObject object = con.GetConfig();
 
-   QSizePolicy sp_retain = ui->hidePushButton->sizePolicy();
+    QSizePolicy sp_retain = ui->hidePushButton->sizePolicy();
     sp_retain.setRetainSizeWhenHidden(true);
     ui->hidePushButton->setSizePolicy(sp_retain);
     ui->readyPushButton->setSizePolicy(sp_retain);
@@ -167,6 +167,8 @@ EnforcementComponentWidget::EnforcementComponentWidget(QWidget *parent) :
         else
             ui->zoomRangePushButton->setText(QString("%1%2").arg(m_ltfeetvector[m_nZoomIndex]).arg(SpeedUnitManager::GetInstance()->distance()));
     }
+    if(m_nEnforcementMode == V)
+        ui->zoomRangePushButton->setText("Z: AUTO");
 
     int x = ConfigManager("setting_reticle.json").GetConfig()["Camera reticle pos"].toArray()[0].toInt();
     int y = ConfigManager("setting_reticle.json").GetConfig()["Camera reticle pos"].toArray()[1].toInt();
@@ -193,6 +195,17 @@ EnforcementComponentWidget::EnforcementComponentWidget(QWidget *parent) :
 
         m_pFtpThread->start();
     }
+
+//    ConfigManager config = ConfigManager("parameter_setting6.json");
+//    QJsonObject jsonObject = config.GetConfig();
+
+//    if (jsonObject["ftp select"].toInt() == 3)
+//    {
+
+//    }
+//    m_pFtpThread.reset(new FtpTransThread);
+//    QObject::connect(m_pFtpThread.data(), &FtpTransThread::finished, m_pFtpThread.data(), &QObject::deleteLater);
+//    m_pFtpThread->start();
 //    m_pSerialLaserManager->show_laser_info();
 #if DEBUG_MODE
     SaveImageVideo();
@@ -881,6 +894,9 @@ void EnforcementComponentWidget::SetLaserDetectionAreaDistance(int zoom_index)
 
 void EnforcementComponentWidget::zoomRange()
 {
+    if(m_nEnforcementMode == V)
+        return;
+     disconnect(m_pSerialLaserManager->getLaser_packet(), SIGNAL(sig_showDistance(float,int)), this, SLOT(doVModeZFControl(float, int)) );
 //    int zoom_index = 0;
     if (m_UserModeOn)
     {
@@ -1185,10 +1201,10 @@ void EnforcementComponentWidget::paintEvent(QPaintEvent *event)
         }
 
         crossPen.setStyle(Qt::SolidLine);
-//        crossPen.setWidth(10);
+        crossPen.setWidthF(0);
         int height2 = height() - m_MainMenuWidgetSize.height();;
-        int gap = 2;
-        int reticle_width = 10;
+        int gap = 1;
+        int reticle_width = 5;
         int x = m_cross.x() * 800 / 1920;
         int y = m_cross.y() * 480 / 1080;
 
@@ -1391,6 +1407,7 @@ void EnforcementComponentWidget::on_EnforceModeI()
         g_nCrackDownIndex = 1;
     m_nEnforcementMode = I;
     doVModeTimer(false);
+    zoomRange();
 }
 
 void EnforcementComponentWidget::on_EnforceModeA()
@@ -1399,6 +1416,7 @@ void EnforcementComponentWidget::on_EnforceModeA()
         g_nCrackDownIndex = 1;
     m_nEnforcementMode = A;
     doVModeTimer(false);
+    zoomRange();
 }
 
 void EnforcementComponentWidget::on_EnforceModeV()
@@ -1411,6 +1429,9 @@ void EnforcementComponentWidget::on_EnforceModeV()
     {
         doVModeTimer(true);
     }
+    //change zoombutton, disable indicator
+    ui->zoomRangePushButton->setText("Z: AUTO");
+
 }
 
 void EnforcementComponentWidget::do_FileSystemWatcher(const QString &path)
@@ -1678,6 +1699,61 @@ void EnforcementComponentWidget::SaveDZoomJson()
 
     config.SetConfig(object);
     config.SaveFile();
+}
+
+void EnforcementComponentWidget::doVMode()
+{
+    int distance = 1000, area = 1000;
+
+    m_pSerialLaserManager->set_detection_distance(distance);
+    m_pSerialLaserManager->set_detection_area(area);
+
+    connect(m_pSerialLaserManager->getLaser_packet(), SIGNAL(sig_showDistance(float,int)), this, SLOT(doVModeZFControl(float, int)) );
+
+}
+
+void EnforcementComponentWidget::doVModeZFControl(float fDistance, int notuse)
+{
+    static float fDistanceAvg = fDistance, counter = 0;
+    ++counter;
+
+    fDistanceAvg = fDistanceAvg * 0.8 + fDistance * 0.2;
+
+    if(counter<5)
+        return;
+    else if(counter > 100000)
+        counter = 6;
+
+    if(fDistanceAvg >= 3000)
+        return;
+    else if(fDistanceAvg < 10)
+        return;
+
+    int nZoomIndex = 0;
+
+    if(fDistanceAvg >= 10 && fDistanceAvg <36)
+    {
+        nZoomIndex = 0;
+    }
+    else if(fDistanceAvg >= 36 && fDistanceAvg <60)
+    {
+        nZoomIndex = 1;
+    }
+    else if(fDistanceAvg >= 60 && fDistanceAvg <100)
+    {
+        nZoomIndex = 2;
+    }
+    else if(fDistanceAvg >= 100 && fDistanceAvg <160)
+    {
+        nZoomIndex = 3;
+    }
+    else if(fDistanceAvg >= 160)
+    {
+        nZoomIndex = 4;
+    }
+
+    m_pSerialViscaManager->SetZoom(nZoomIndex);
+    m_pSerialViscaManager->SetFocus(nZoomIndex);
 }
 
 void EnforcementComponentWidget::closeThread()

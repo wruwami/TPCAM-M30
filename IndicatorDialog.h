@@ -77,6 +77,7 @@ private slots:
     void on_EthernetPushButton_clicked();
 
     void EnforcementClose();
+    void DisableSpeedMode();
 public:
     CustomPushButton* m_pCameraFocusPushButton = nullptr;
     CustomPushButton* m_pCameraExposePushButton = nullptr;

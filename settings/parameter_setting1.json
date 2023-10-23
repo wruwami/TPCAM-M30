@@ -1,10 +1,10 @@
 {
 	"location selection": 1,
-	"location items": ["seoul ", "busan ", "", "", ""],
+	"location items": ["seoul", "busan", "", "", ""],
 	"speed limit": [100, 80, 60],
 	"capture speed" : [110 , 90 , 70 ],
 	"enforcement selection": 1,
 	"enforcement mode items": ["I(image)", "A(Image+video)", "V(Video)"],
 	"speed selection" : 2,
-	"speed mode items" : ["ST", "LT"]
+	"speed mode items" : ["ST", "LT", "IT"]
 }

@@ -522,6 +522,7 @@ void MainWindow::on_enforcementClicked()
     connect(m_pIndicatorWidget, SIGNAL(sig_EnforcementModeV()), m_pEnforcementWidget->m_pEnforcementComponentWidget, SLOT(on_EnforceModeV()));
     connect(m_pEnforcementWidget->m_pEnforcementComponentWidget, SIGNAL(ShowRedOutLine(bool)), this, SLOT(on_ShowRedOutLine(bool)));
     connect(m_pEnforcementWidget->m_pEnforcementComponentWidget, SIGNAL(sig_exit()), m_pIndicatorWidget, SLOT(EnforcementClose()));
+    connect(m_pEnforcementWidget->m_pEnforcementComponentWidget, SIGNAL(sig_exit()), m_pIndicatorWidget, SLOT(DisableSpeedMode()));
     connect(m_pEnforcementWidget->m_pEnforcementComponentWidget, SIGNAL(sig_exit()), this, SLOT(on_mainMenuHomeClicked()));
 
     if (m_userName == "admin-test")
@@ -611,6 +612,7 @@ void MainWindow::OpenEnforcement()
     connect(m_pIndicatorWidget, SIGNAL(sig_EnforcementModeV()), m_pEnforcementWidget->m_pEnforcementComponentWidget, SLOT(on_EnforceModeV()));
     connect(m_pEnforcementWidget->m_pEnforcementComponentWidget, SIGNAL(ShowRedOutLine(bool)), this, SLOT(on_ShowRedOutLine(bool)));
     connect(m_pEnforcementWidget->m_pEnforcementComponentWidget, SIGNAL(sig_exit()), m_pIndicatorWidget, SLOT(EnforcementClose()));
+    connect(m_pEnforcementWidget->m_pEnforcementComponentWidget, SIGNAL(sig_exit()), m_pIndicatorWidget, SLOT(DisableSpeedMode()));
     connect(m_pEnforcementWidget->m_pEnforcementComponentWidget, SIGNAL(sig_exit()), this, SLOT(on_mainMenuHomeClicked()));
 
 

@@ -742,6 +742,11 @@ void IndicatorDialog::EnforcementClose()
     setFocusExposeDisabled(false);
 }
 
+void IndicatorDialog::DisableSpeedMode()
+{
+//    ui->speedPushButton->
+}
+
 void IndicatorDialog::setPSerialLaserManager(SerialLaserManager *newPSerialLaserManager)
 {
     if (m_pSerialLaserManager == nullptr)

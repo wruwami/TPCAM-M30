@@ -56,7 +56,7 @@
       </layout>
      </item>
      <item>
-      <layout class="QGridLayout" name="gridLayout" rowstretch="1,1,1" columnstretch="3,1,3,2,2,0,0">
+      <layout class="QGridLayout" name="gridLayout" rowstretch="1,1,1" columnstretch="70,154,56,154,50,70,54">
        <item row="1" column="5">
         <widget class="CustomCheckBox" name="checkBox_2">
          <property name="text">

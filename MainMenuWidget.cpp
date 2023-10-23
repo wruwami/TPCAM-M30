@@ -31,7 +31,12 @@ MainMenuWidget::MainMenuWidget(QWidget *parent) :
 
     QSizePolicy sp_retain = QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Expanding);
     sp_retain.setRetainSizeWhenHidden(true);
-    setSizePolicy(sp_retain);
+//    setSizePolicy(sp_retain);
+
+//    QSizePolicy sp_retain_battery = QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Expanding);
+//    sp_retain_battery.setRetainSizeWhenHidden(true);
+//    setSizePolicy(sp_retain);
+
 
     ui->timeLabel->setColor(Qt::white);
     ui->timeLabel->setFontSize(15);

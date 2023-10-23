@@ -16,8 +16,8 @@
 
 using namespace TPCAM_M30;
 
-QStringList lt_day_focus = {"1587", "13D8", "11E8", "0FB7", "0FB7", "0FB7"};
-QStringList lt_night_focus = {"1587", "13D8", "11E8", "0FB7", "0FB7", "0FB7"};
+QStringList lt_day_focus = {"2A83", "2CED", "2DF9", "2DFC", "2D01", "2CA2"};
+QStringList lt_night_focus = {"2A83", "2CED", "2DF9", "2DFC", "2D01", "2CA2"};
 
 extern SerialLaserManager* g_pSerialLaserManager;
 extern SerialViscaManager* g_pSerialViscaManager;
@@ -506,26 +506,45 @@ void CameraZoomFocusWidget::setTableInit()
     ui->tableWidget->setRowCount(6);
 
     SetTableVerticalHeader();
+
+    ConfigManager config = ConfigManager("focus_edit.json");
+    QJsonObject object = config.GetConfig();
+
     QJsonArray ar = m_object3["lt day focus"].toArray();
+    QJsonArray ar_edit = object["lt day focus edit"].toArray();
     for (int i = 0; i < ar.size(); i++ )
     {
 //        int row = ui->tableWidget->rowCount();
 //        ui->tableWidget->insertRow(row);
         m_MapFocus[std::make_pair(i, 0)] = ar[i].toString();
-        m_mTableStatus[std::make_pair(i, 0)] = 0;
-
-        QTableWidgetItem *item = new QTableWidgetItem(ar[i].toString().toUpper());
-        ui->tableWidget->setItem(i, 0, item);
+        if(ar_edit[i] == 0)
+        {
+            m_mTableStatus[std::make_pair(i, 0)] = 0;
+        } else
+        {
+            m_mTableStatus[std::make_pair(i, 0)] = 2;
+        }
+//        QTableWidgetItem *item = new QTableWidgetItem(ar[i].toString().toUpper());
+//        ui->tableWidget->setItem(i, 0, item);
     }
 
     ar = m_object3["lt night focus"].toArray();
+    ar_edit = object["lt night focus edit"].toArray();
     for (int i = 0; i < ar.size(); i++ )
     {
         m_MapFocus[std::make_pair(i, 1)] = ar[i].toString();
-        m_mTableStatus[std::make_pair(i, 1)] = 0;
-        QTableWidgetItem *item = new QTableWidgetItem(ar[i].toString().toUpper());
-        ui->tableWidget->setItem(i, 1, item);
+        if(ar_edit[i] == 0)
+        {
+            m_mTableStatus[std::make_pair(i, 1)] = 0;
+        } else
+        {
+            m_mTableStatus[std::make_pair(i, 1)] = 2;
+        }
+//        QTableWidgetItem *item = new QTableWidgetItem(ar[i].toString().toUpper());
+//        ui->tableWidget->setItem(i, 1, item);
     }
+
+    EditTableValue2();
 }
 
 void CameraZoomFocusWidget::setTableDefualtInit()
@@ -540,8 +559,8 @@ void CameraZoomFocusWidget::setTableDefualtInit()
         QTableWidgetItem *item = new QTableWidgetItem(lt_day_focus[i].toUpper());
         ui->tableWidget->setItem(i, 0, item);
     }
-    m_MapFocus[std::make_pair(5, 0)] = "";
-    m_mTableStatus[std::make_pair(5, 0)] = 0;
+//    m_MapFocus[std::make_pair(5, 0)] = "";
+//    m_mTableStatus[std::make_pair(5, 0)] = 0;
 
     for (int i = 0; i < lt_night_focus.size(); i++ )
     {
@@ -550,8 +569,8 @@ void CameraZoomFocusWidget::setTableDefualtInit()
         QTableWidgetItem *item = new QTableWidgetItem(lt_night_focus[i].toUpper());
         ui->tableWidget->setItem(i, 1, item);
     }
-    m_MapFocus[std::make_pair(5, 1)] = "";
-    m_mTableStatus[std::make_pair(5, 1)] = 0;
+//    m_MapFocus[std::make_pair(5, 1)] = "";
+//    m_mTableStatus[std::make_pair(5, 1)] = 0;
 
 
 }
@@ -568,6 +587,8 @@ void CameraZoomFocusWidget::setFocusEditJsonInit()
     QJsonArray ar = {0, 0, 0, 0, 0, 0};
     object["lt day focus edit"] = ar;
     object["lt night focus edit"] = ar;
+
+    config.SetConfig(object);
     config.SaveFile();
 
 //    ui->tableWidget->clearContents();
@@ -648,6 +669,39 @@ void CameraZoomFocusWidget::SaveFocusJson()
     object["lt night focus"] = ar2;
     object["st day focus"] = ar3;
     object["st night focus"] = ar4;
+
+    config.SetConfig(object);
+    config.SaveFile();
+
+}
+
+void CameraZoomFocusWidget::SaveFocusEditJson()
+{
+    ConfigManager config = ConfigManager("focus_edit.json");
+    QJsonObject object = config.GetConfig();
+    QJsonArray ar = object["lt day focus edit"].toArray();
+    QJsonArray ar2 = object["lt night focus edit"].toArray();
+
+    for (int i = 0 ; i < 6 ; i++)
+    {
+        for( int j = 0 ; j < 2 ; j++)
+        {
+            if (m_mTableStatus[std::make_pair(i, j)] == 2)
+            {
+                if(j == 0)
+                {
+                    ar[i] = 1;
+                }
+                else
+                {
+                    ar2[i] = 1;
+                }
+            }
+        }
+    }
+
+    object["lt day focus edit"] = ar;
+    object["lt night focus edit"] = ar2;
 
     config.SetConfig(object);
     config.SaveFile();
@@ -964,6 +1018,8 @@ void CameraZoomFocusWidget::on_pgrsSavePushButton_clicked()
     }
 
     EditTableValue2();
+
+    SaveFocusEditJson();
 //    QJsonArray ar = m_object3["lt day focus"].toArray();
 //    for (int i = 0; i < ar.size(); i++ )
 //    {

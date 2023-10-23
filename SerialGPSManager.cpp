@@ -229,6 +229,6 @@ QString SerialGPSManager::changeMinuteToDegree(QString Minute)
         Degree = "+";
     else
         Degree = "-";
-    Degree.append(QString::number(nDegree+dDegree));
+    Degree.append(QString::number(nDegree+dDegree, 'f', 6));
     return Degree;
 }

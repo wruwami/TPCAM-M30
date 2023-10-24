@@ -1208,8 +1208,8 @@ void EnforcementComponentWidget::paintEvent(QPaintEvent *event)
         crossPen.setStyle(Qt::SolidLine);
         crossPen.setWidthF(0);
         int height2 = height() - m_MainMenuWidgetSize.height();;
-        int gap = 1;
-        int reticle_width = 5;
+        int gap = 2;
+        int reticle_width = 10;
         int x = m_cross.x() * 800 / 1920;
         int y = m_cross.y() * 480 / 1080;
 

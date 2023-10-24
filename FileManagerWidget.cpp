@@ -272,29 +272,30 @@ void FileManagerWidget::on_deletePushButton_clicked()
 
 void FileManagerWidget::convertValue()
 {
-    snprintf(g_file_elem_for_printer.prefix, 2 + 1, m_currentAVFileFormat.filePrefix);
-    snprintf(g_file_elem_for_printer.file_id, 5 + 1, m_currentAVFileFormat.index);
-    snprintf(g_file_elem_for_printer.year, 4 + 1, &m_currentAVFileFormat.date[0]);
-    snprintf(g_file_elem_for_printer.month, 2 + 1, &m_currentAVFileFormat.date[4]);
-    snprintf(g_file_elem_for_printer.day, 2 + 1, &m_currentAVFileFormat.date[6]);
-    snprintf(g_file_elem_for_printer.hour, 2 + 1, &m_currentAVFileFormat.time[0]);
-    snprintf(g_file_elem_for_printer.minute, 2 + 1, &m_currentAVFileFormat.time[2]);
-    snprintf(g_file_elem_for_printer.second, 2 + 1, &m_currentAVFileFormat.time[4]);
-    snprintf(g_file_elem_for_printer.msec, 1 + 1, &m_currentAVFileFormat.time[6]);
-    snprintf(g_file_elem_for_printer.laser_capture_speed, 5 + 1, m_currentAVFileFormat.captureSpeed.toStdString().c_str());
-    snprintf(g_file_elem_for_printer.display_limit_speed, 4 + 1, m_currentAVFileFormat.speedLimit.toStdString().c_str());
-    snprintf(g_file_elem_for_printer.capture_limit_speed, 4 + 1, m_currentAVFileFormat.captureSpeedLimit.toStdString().c_str());
-    snprintf(g_file_elem_for_printer.laser_capture_distance, 4 + 1, m_currentAVFileFormat.distance.toStdString().c_str());
+    memcpy(g_file_elem_for_printer.prefix, m_currentAVFileFormat.filePrefix, 2);
+    memcpy(g_file_elem_for_printer.file_id, m_currentAVFileFormat.index, 5);
+    memcpy(g_file_elem_for_printer.year, &m_currentAVFileFormat.date[0], 4);
+    memcpy(g_file_elem_for_printer.month, &m_currentAVFileFormat.date[4], 2);
+    memcpy(g_file_elem_for_printer.day, &m_currentAVFileFormat.date[6], 2);
+    memcpy(g_file_elem_for_printer.hour, &m_currentAVFileFormat.time[0], 2);
+    memcpy(g_file_elem_for_printer.minute, &m_currentAVFileFormat.time[2], 2);
+    memcpy(g_file_elem_for_printer.second, &m_currentAVFileFormat.time[4], 2);
+    memcpy(g_file_elem_for_printer.msec, &m_currentAVFileFormat.time[6], 1);
+    memcpy(g_file_elem_for_printer.laser_capture_speed, m_currentAVFileFormat.captureSpeed.toStdString().c_str(), 6);
+    memcpy(g_file_elem_for_printer.display_limit_speed, m_currentAVFileFormat.speedLimit.toStdString().c_str(), 5);
+    memcpy(g_file_elem_for_printer.capture_limit_speed, m_currentAVFileFormat.captureSpeedLimit.toStdString().c_str(), 5);
+    memcpy(g_file_elem_for_printer.laser_capture_distance, m_currentAVFileFormat.distance.toStdString().c_str(), 4);
 //    snprintf(g_file_elem_for_printer.user_mode, 1, m_currentAVFileFormat);
 //    snprintf(g_file_elem_for_printer.enforcement_mode, 1, m_currentAVFileFormat);
 //    snprintf(g_file_elem_for_printer.dual_mode, 1, m_currentAVFileFormat.);
 //    snprintf(g_file_elem_for_printer.zoom_level, 2, m_currentAVFileFormat);
-    snprintf(g_file_elem_for_printer.latitude, 10 + 1, m_currentAVFileFormat.latitude.toStdString().c_str());
-    snprintf(g_file_elem_for_printer.longitude, 11 + 1, m_currentAVFileFormat.longitude.toStdString().c_str());
-    sprintf(g_file_elem_for_printer.location, m_currentAVFileFormat.location.toStdString().c_str());
-    sprintf(g_file_elem_for_printer.user_name, m_currentAVFileFormat.userId.toStdString().c_str());
-    sprintf(g_file_elem_for_printer.device_id, m_currentAVFileFormat.deviceId.toStdString().c_str());
-    sprintf(g_file_elem_for_printer.unit, &m_currentAVFileFormat.unit);
+    memcpy(g_file_elem_for_printer.latitude, m_currentAVFileFormat.latitude.toStdString().c_str(), 10);
+    memcpy(g_file_elem_for_printer.longitude, m_currentAVFileFormat.longitude.toStdString().c_str(), 11);
+    memcpy(g_file_elem_for_printer.location, m_currentAVFileFormat.location.toStdString().c_str(), m_currentAVFileFormat.location.size());
+    memcpy(g_file_elem_for_printer.user_name, m_currentAVFileFormat.userId.toStdString().c_str(), m_currentAVFileFormat.userId.size());
+    memcpy(g_file_elem_for_printer.device_id, m_currentAVFileFormat.deviceId.toStdString().c_str(), m_currentAVFileFormat.deviceId.size());
+    memcpy(g_file_elem_for_printer.unit, &m_currentAVFileFormat.unit, 1);
+//    g_file_elem_for_printer.unit[0] = &m_currentAVFileFormat.unit;
 
 }
 

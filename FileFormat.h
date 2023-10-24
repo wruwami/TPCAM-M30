@@ -30,10 +30,10 @@ static AVFileFormat GetFileFormat(QString file_path)
     QString str = file_path.mid(index + 1, file_path.size() - index - 1);
     AVFileFormat avFileFormat;
     QStringList strList = str.split('_');
-    sprintf(avFileFormat.filePrefix, strList[0].toStdString().c_str());
-    sprintf(avFileFormat.index, strList[1].toStdString().c_str());
-    sprintf(avFileFormat.date, strList[2].toStdString().c_str());
-    sprintf(avFileFormat.time, strList[3].toStdString().c_str());
+    memcpy(avFileFormat.filePrefix, strList[0].toStdString().c_str(), strList[0].size());
+    memcpy(avFileFormat.index, strList[1].toStdString().c_str(), strList[1].size());
+    memcpy(avFileFormat.date, strList[2].toStdString().c_str(), strList[2].size());
+    memcpy(avFileFormat.time, strList[3].toStdString().c_str(), strList[3].size());
     avFileFormat.captureSpeed = strList[4];
     avFileFormat.speedLimit = strList[5];
     avFileFormat.captureSpeedLimit = strList[6];

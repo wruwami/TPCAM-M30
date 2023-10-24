@@ -15,44 +15,164 @@
   </property>
   <layout class="QGridLayout" name="gridLayout_3">
    <item row="0" column="0">
-    <layout class="QGridLayout" name="gridLayout" rowstretch="170,94,216" columnstretch="620,180">
-     <item row="0" column="0">
-      <spacer name="verticalSpacer">
-       <property name="orientation">
-        <enum>Qt::Vertical</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>20</width>
-         <height>40</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-     <item row="2" column="1">
-      <layout class="QGridLayout" name="gridLayout_9" rowstretch="1,1,1" columnstretch="1,1">
-       <item row="1" column="1">
-        <widget class="CustomPushButton" name="bikePushButton">
+    <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="620,180">
+     <item>
+      <layout class="QGridLayout" name="gridLayout_6" rowstretch="130,31,31,108,52,52" columnstretch="90,100,60,358">
+       <item row="3" column="0" colspan="2">
+        <widget class="CustomLabel" name="thumbnailLabel">
+         <property name="styleSheet">
+          <string notr="true">border : solid, white, 1px</string>
+         </property>
          <property name="text">
           <string/>
          </property>
         </widget>
        </item>
        <item row="1" column="0">
-        <widget class="CustomPushButton" name="truckPushButton">
+        <widget class="CustomLabel" name="enforcementCountLabel">
+         <property name="styleSheet">
+          <string notr="true">QLabel {
+	background-color : black;
+	color : white;
+	border : 1px solid white;
+}</string>
+         </property>
+         <property name="text">
+          <string>0</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0" colspan="2">
+        <widget class="CustomLabel" name="enforcementDistanceSpeedLabel">
+         <property name="styleSheet">
+          <string notr="true">QLabel{
+	background-color : rgba(127,127,127,127);
+	color : black;
+}</string>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="2">
+        <widget class="CustomPushButton" name="dzPlusPushButton">
          <property name="text">
           <string/>
          </property>
         </widget>
        </item>
+       <item row="4" column="3" rowspan="2">
+        <widget class="CustomLabel" name="distanceLabel">
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
+       <item row="5" column="2">
+        <widget class="CustomPushButton" name="dzMinusPushButton">
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="0">
+        <widget class="CustomPushButton" name="hidePushButton">
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="1">
+        <widget class="CustomPushButton" name="readyPushButton">
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
+       <item row="5" column="0" colspan="2">
+        <widget class="CustomPushButton" name="zoomRangePushButton">
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="CustomLabel" name="enforcementTimeLabel">
+         <property name="styleSheet">
+          <string notr="true">QLabel{
+	background-color : rgba(127,127,127,127);
+	color : black;
+}</string>
+         </property>
+         <property name="text">
+          <string>00:00:00</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
        <item row="0" column="1">
+        <spacer name="verticalSpacer">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QGridLayout" name="gridLayout_9" rowstretch="110,120,80,80,80" columnstretch="1,1">
+       <item row="2" column="1">
         <widget class="CustomPushButton" name="saveImagePushButton">
          <property name="text">
           <string/>
          </property>
         </widget>
        </item>
-       <item row="2" column="0" colspan="2">
+       <item row="1" column="0" colspan="2">
+        <layout class="QVBoxLayout" name="verticalLayout">
+         <item>
+          <widget class="CustomLabel" name="speedLabel">
+           <property name="text">
+            <string/>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout" stretch="1,1">
+           <item>
+            <widget class="CustomLabel" name="recIconLabel">
+             <property name="text">
+              <string/>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="CustomLabel" name="recLabel">
+             <property name="text">
+              <string/>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+        </layout>
+       </item>
+       <item row="4" column="0" colspan="2">
         <widget class="CustomLabel" name="speedLimitLabel">
          <property name="styleSheet">
           <string notr="true">QLabel {
@@ -75,139 +195,32 @@ QLabel:disabled {
          </property>
         </widget>
        </item>
-      </layout>
-     </item>
-     <item row="1" column="1">
-      <layout class="QVBoxLayout" name="verticalLayout">
-       <item>
-        <widget class="CustomLabel" name="speedLabel">
-         <property name="text">
-          <string/>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <layout class="QHBoxLayout" name="horizontalLayout" stretch="1,1">
-         <item>
-          <widget class="CustomLabel" name="recIconLabel">
-           <property name="text">
-            <string/>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="CustomLabel" name="recLabel">
-           <property name="text">
-            <string/>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-      </layout>
-     </item>
-     <item row="1" column="0" rowspan="2">
-      <layout class="QGridLayout" name="gridLayout_6" rowstretch="31,31,108,52,52" columnstretch="90,100,60,358">
-       <item row="1" column="0" colspan="2">
-        <widget class="CustomLabel" name="enforcementDistanceSpeedLabel">
-         <property name="styleSheet">
-          <string notr="true">QLabel{
-	background-color : rgba(127,127,127,127);
-	color : black;
-}</string>
-         </property>
-         <property name="text">
-          <string/>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="0" colspan="2">
-        <widget class="CustomLabel" name="thumbnailLabel">
-         <property name="styleSheet">
-          <string notr="true">border : solid, white, 1px</string>
-         </property>
+       <item row="3" column="1">
+        <widget class="CustomPushButton" name="bikePushButton">
          <property name="text">
           <string/>
          </property>
         </widget>
        </item>
        <item row="3" column="0">
-        <widget class="CustomPushButton" name="hidePushButton">
+        <widget class="CustomPushButton" name="truckPushButton">
          <property name="text">
           <string/>
-         </property>
-        </widget>
-       </item>
-       <item row="4" column="2">
-        <widget class="CustomPushButton" name="dzMinusPushButton">
-         <property name="text">
-          <string/>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="1">
-        <widget class="CustomLabel" name="enforcementTimeLabel">
-         <property name="styleSheet">
-          <string notr="true">QLabel{
-	background-color : rgba(127,127,127,127);
-	color : black;
-}</string>
-         </property>
-         <property name="text">
-          <string>00:00:00</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
          </property>
         </widget>
        </item>
        <item row="0" column="0">
-        <widget class="CustomLabel" name="enforcementCountLabel">
-         <property name="styleSheet">
-          <string notr="true">QLabel {
-	background-color : black;
-	color : white;
-	border : 1px solid white;
-}</string>
+        <spacer name="verticalSpacer_2">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
          </property>
-         <property name="text">
-          <string>0</string>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
          </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="2">
-        <widget class="CustomPushButton" name="dzPlusPushButton">
-         <property name="text">
-          <string/>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="1">
-        <widget class="CustomPushButton" name="readyPushButton">
-         <property name="text">
-          <string/>
-         </property>
-        </widget>
-       </item>
-       <item row="4" column="0" colspan="2">
-        <widget class="CustomPushButton" name="zoomRangePushButton">
-         <property name="text">
-          <string/>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="3" rowspan="2">
-        <widget class="CustomLabel" name="distanceLabel">
-         <property name="text">
-          <string/>
-         </property>
-        </widget>
+        </spacer>
        </item>
       </layout>
      </item>

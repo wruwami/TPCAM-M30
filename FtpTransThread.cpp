@@ -72,5 +72,6 @@ void FtpTransThread::run()
         msleep(1);
 
     }
+    m_ftp.Quit();
     emit sig_exit();
 }

@@ -162,6 +162,7 @@ private:
     QSize m_MainMenuWidgetSize;
     QSharedPointer<FtpTransThread> m_pFtpThread;
     bool m_bFtpMode = false;
+//    bool m_bTest = false;
 protected slots:
     void on_hidePushButton_clicked();
 //    void doShartAction();

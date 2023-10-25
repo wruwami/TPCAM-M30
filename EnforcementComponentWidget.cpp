@@ -66,6 +66,7 @@ EnforcementComponentWidget::EnforcementComponentWidget(QWidget *parent) :
     ui->recIconLabel->setFontSize(30);
     ui->recLabel->setFontSize(30);
     ui->speedLabel->setFontSize(30);
+
     ui->distanceLabel->setFontSize(30);
     ui->distanceLabel->setAlignment(Qt::AlignCenter);
 
@@ -100,8 +101,12 @@ EnforcementComponentWidget::EnforcementComponentWidget(QWidget *parent) :
     ConfigManager con = ConfigManager("parameter_setting3.json");
     QJsonObject object = con.GetConfig();
 
-    QSizePolicy sp_retain = ui->hidePushButton->sizePolicy();
+    QSizePolicy sp_retain = QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Expanding);
     sp_retain.setRetainSizeWhenHidden(true);
+
+    QSizePolicy sp_retain_label = QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    sp_retain_label.setRetainSizeWhenHidden(true);
+
     ui->hidePushButton->setSizePolicy(sp_retain);
     ui->readyPushButton->setSizePolicy(sp_retain);
     ui->zoomRangePushButton->setSizePolicy(sp_retain);
@@ -112,14 +117,14 @@ EnforcementComponentWidget::EnforcementComponentWidget(QWidget *parent) :
     ui->truckPushButton->setSizePolicy(sp_retain);
     ui->bikePushButton->setSizePolicy(sp_retain);
 
-    ui->speedLimitLabel->setSizePolicy(sp_retain);
+    ui->speedLimitLabel->setSizePolicy(sp_retain_label);
 
-    ui->enforcementCountLabel->setSizePolicy(sp_retain);
-    ui->enforcementDistanceSpeedLabel->setSizePolicy(sp_retain);
-    ui->enforcementTimeLabel->setSizePolicy(sp_retain);
-    ui->recIconLabel->setSizePolicy(sp_retain);
-    ui->recLabel->setSizePolicy(sp_retain);
-    ui->speedLabel->setSizePolicy(sp_retain);
+    ui->enforcementCountLabel->setSizePolicy(sp_retain_label);
+    ui->enforcementDistanceSpeedLabel->setSizePolicy(sp_retain_label);
+    ui->enforcementTimeLabel->setSizePolicy(sp_retain_label);
+    ui->recIconLabel->setSizePolicy(sp_retain_label);
+    ui->recLabel->setSizePolicy(sp_retain_label);
+    ui->speedLabel->setSizePolicy(sp_retain_label);
 
 //    camInit();
     hudInit();
@@ -247,6 +252,12 @@ EnforcementComponentWidget::~EnforcementComponentWidget()
     doVModeTimer(false);
 
     doEnforceMode(false);
+
+    if (m_bFtpMode)
+    {
+        m_pFtpThread->requestInterruption();
+        m_pFtpThread->exit();
+    }
 
 //    m_pFtpThread->requestInterruption();
 //    emit ShowRedOutLine(false);
@@ -961,6 +972,7 @@ void EnforcementComponentWidget::initRec()
     ui->recLabel->setColor(Qt::red);
     ui->recLabel->setText("IDS_REC");
     ui->recIconLabel->setImage("enforcement", "redcircle.png");
+//    ui->recIconLabel->resize(ui->rec)
 }
 
 void EnforcementComponentWidget::setVehicleMode()
@@ -1476,6 +1488,16 @@ void EnforcementComponentWidget::do_FileSystemWatcher(const QString &path)
 
 void EnforcementComponentWidget::timerEvent(QTimerEvent *event)
 {
+//    m_bTest = !m_bTest;
+//    if (m_bTest)
+//    {
+//        displaySpeedDistance(0, 0, Qt::red, true);
+//        doEnforceMode(true);
+//    }
+//    else
+//    {
+//        QTimer::singleShot(500, this, SLOT(RestartSignal()));
+//    }
     StorageManager storageManager;
     if (storageManager.GetSDExitEnforcement())
     {

@@ -131,6 +131,7 @@ QString NetworkManager::getWlanAdapterName()
 
     QString strWlan;
     char  buff[BUFF_SIZE];
+    memset(buff, 0, BUFF_SIZE);
     FILE *fp;
 
     fp = popen("iwconfig | grep WIFI | awk '{print $1}'", "r");
@@ -246,6 +247,9 @@ bool NetworkManager::getNetworkState(QString deviceName)
 
 bool NetworkManager::getNetworkUpDown(QString deviceName)
 {
+    if (deviceName.isEmpty())
+        return false;
+
     bool result = false;  // up true , down flase
     char  buff[BUFF_SIZE];
     FILE *fp;

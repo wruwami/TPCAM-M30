@@ -618,8 +618,12 @@ void IndicatorDialog::doCheckNetwork()
 
     if (networkManager.getNetworkUpDown(networkManager.getLanAdapterName()))
         m_nEthernetState = Active;
+    else
+        m_nEthernetState = InActive;
     if (networkManager.getNetworkUpDown(networkManager.getWlanAdapterName()))
         m_nWifiState = Active;
+    else
+        m_nWifiState = InActive;
 
 
     if (m_nEthernetState == Active || m_nEthernetState == NotConnected)

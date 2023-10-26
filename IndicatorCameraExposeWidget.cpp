@@ -35,11 +35,6 @@ IndicatorCameraExposeWidget::IndicatorCameraExposeWidget(QWidget *parent) :
     ui->disOffPushButton->setFontSize(23);
 //    ui->dnrOnPushButton->setText(LoadString("IDS_DNR_ON"));
 
-    QStringList dayNights = {"IDS_DAY1", "IDS_DAY2", "IDS_DAY3", "IDS_NIGHT1", "IDS_NIGHT2", "IDS_NIGHT3"};
-    for (int i = 0; i < dayNights.size() ; i++)
-    {
-        ui->daynNightComboBox->addItem(LoadString(dayNights[i].toStdString()));
-    }
     ConfigManager gainCon = ConfigManager("gain.json");
     QJsonObject object = gainCon.GetConfig();
 //    int count = object["count"].toInt();
@@ -61,9 +56,9 @@ IndicatorCameraExposeWidget::IndicatorCameraExposeWidget(QWidget *parent) :
         m_gainMap[item.toStdString()] = object.value(item).toString().toInt(&ok, 16);
     }
 
-    std::vector<std::pair<std::string, int>> vec;
-    sort(m_gainMap, vec);
-    for (auto& it : vec)
+//    std::vector<std::pair<std::string, int>> vec;
+    sort(m_gainMap, m_gainVec);
+    for (auto& it : m_gainVec)
     {
         std::string key = it.first;
         int value = it.second;
@@ -82,9 +77,9 @@ IndicatorCameraExposeWidget::IndicatorCameraExposeWidget(QWidget *parent) :
         bool ok;
         m_irisMap[item.toStdString()] = object.value(item).toString().toInt(&ok, 16);
     }
-    vec.clear();
-    sort(m_irisMap, vec);
-    for (auto& it : vec)
+//    vec.clear();
+    sort(m_irisMap, m_irisVec);
+    for (auto& it : m_irisVec)
     {
         std::string key = it.first;
         int value = it.second;
@@ -106,13 +101,13 @@ IndicatorCameraExposeWidget::IndicatorCameraExposeWidget(QWidget *parent) :
         bool ok;
         m_shutterSpeedMap[item.toStdString()] = object.value(item).toString().toInt(&ok, 16);
     }
-    vec.clear();
-    sort(m_shutterSpeedMap, vec);
+//    vec.clear();
+    sort(m_shutterSpeedMap, m_shutterSpeedVec);
 //    foreach (auto item, object.keys())
 //    {
 //        ui->shutterSpeedComboBox->addItem(item, object.value(item));
 //    }
-    for (auto& it : vec)
+    for (auto& it : m_shutterSpeedVec)
     {
         std::string key = it.first;
         int value = it.second;
@@ -128,9 +123,17 @@ IndicatorCameraExposeWidget::IndicatorCameraExposeWidget(QWidget *parent) :
         ui->dnrComboBox->addItem(item.c_str());
     }
 
-    ui->gainComboBox->setCurrentIndex(ui->gainComboBox->count() - 1);
-    ui->irisComboBox->setCurrentIndex(ui->irisComboBox->count() - 1);
-    ui->shutterSpeedComboBox->setCurrentIndex(ui->shutterSpeedComboBox->count() - 1);
+    QStringList dayNights = {"IDS_DAY1", "IDS_DAY2", "IDS_DAY3", "IDS_NIGHT1", "IDS_NIGHT2", "IDS_NIGHT3"};
+    for (int i = 0; i < dayNights.size() ; i++)
+    {
+        ui->daynNightComboBox->addItem(LoadString(dayNights[i].toStdString()));
+    }
+
+    ui->daynNightComboBox->setCurrentIndex(0);
+//    emit
+//    ui->gainComboBox->setCurrentIndex(ui->gainComboBox->count() - 1);
+//    ui->irisComboBox->setCurrentIndex(ui->irisComboBox->count() - 1);
+//    ui->shutterSpeedComboBox->setCurrentIndex(ui->shutterSpeedComboBox->count() - 1);
 }
 
 IndicatorCameraExposeWidget::~IndicatorCameraExposeWidget()
@@ -227,6 +230,8 @@ void IndicatorCameraExposeWidget::on_disOffPushButton_clicked()
     }
 }
 
+#include <QDebug>
+
 void IndicatorCameraExposeWidget::on_daynNightComboBox_currentIndexChanged(int index)
 {
     ConfigManager config = ConfigManager("exposure.json");
@@ -266,24 +271,52 @@ void IndicatorCameraExposeWidget::on_daynNightComboBox_currentIndexChanged(int i
     }
 
     m_serialViscaManager->set_AE_Mode("03");
-    int i = 0;
-    for (auto it = m_gainMap.begin(); it != m_gainMap.end(); ++it, i++)
+
+    bool ok;
+    std::vector<std::pair<std::string, int>>::iterator it;
+
+
+    int GainValue = ret["Gain"].toString().toInt(&ok, 16);
+
+    foreach (auto item, m_gainVec)
     {
-        if (it->second == ret["Gain"].toInt())
-            ui->gainComboBox->setCurrentIndex(i);
+        if (item.second == GainValue)
+            ui->gainComboBox->setCurrentText(QString(item.first.c_str()));
     }
-    i = 0;
-    for (auto it = m_irisMap.begin(); it != m_irisMap.end(); ++it, i++)
+
+    int IrisValue = ret["Iris"].toString().toInt(&ok, 16);
+    foreach (auto item, m_irisVec)
     {
-        if (it->second == ret["Iris"].toInt())
-            ui->irisComboBox->setCurrentIndex(i);
+        if (item.second == IrisValue)
+            ui->irisComboBox->setCurrentText(QString(item.first.c_str()));
     }
-    i = 0;
-    for (auto it = m_shutterSpeedMap.begin(); it != m_shutterSpeedMap.end(); ++it, i++)
+
+
+    int ShutterValue = ret["Shutter"].toString().toInt(&ok, 16);
+//    it = std::find(m_shutterSpeedVec.begin(), m_shutterSpeedVec.end(), ShutterValue);
+    foreach (auto item, m_shutterSpeedVec)
     {
-        if (it->second == ret["Shutter"].toInt())
-            ui->shutterSpeedComboBox->setCurrentIndex(i);
+        if (item.second == ShutterValue)
+            ui->shutterSpeedComboBox->setCurrentText(QString(item.first.c_str()));
     }
+
+//    for (auto it = m_gainMap.begin(); it != m_gainMap.end(); ++it, i++)
+//    {
+//        if (it->second == ret["Gain"].toInt())
+//            ui->gainComboBox->setCurrentIndex(i);
+//    }
+//    i = 0;
+//    for (auto it = m_irisMap.begin(); it != m_irisMap.end(); ++it, i++)
+//    {
+//        if (it->second == ret["Iris"].toInt())
+//            ui->irisComboBox->setCurrentIndex(i);
+//    }
+//    i = 0;
+//    for (auto it = m_shutterSpeedMap.begin(); it != m_shutterSpeedMap.end(); ++it, i++)
+//    {
+//        if (it->second == ret["Shutter"].toInt())
+//            ui->shutterSpeedComboBox->setCurrentIndex(i);
+//    }
 //    m_serialViscaManager->set_iris(ret["Iris"].toInt());
 //    m_serialViscaManager->set_shutter_speed(ret["Shutter"].toInt());
 //    m_serialViscaManager->set_gain(ret["Gain"].toInt());

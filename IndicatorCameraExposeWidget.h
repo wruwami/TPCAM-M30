@@ -30,6 +30,10 @@ private:
     std::map<std::string, int> m_irisMap;
     std::map<std::string, int> m_shutterSpeedMap;
 
+    std::vector<std::pair<std::string, int>> m_gainVec;
+    std::vector<std::pair<std::string, int>> m_irisVec;
+    std::vector<std::pair<std::string, int>> m_shutterSpeedVec;
+
 
     // QWidget interface
 protected:

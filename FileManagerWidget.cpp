@@ -11,6 +11,9 @@
 #include <QByteArray>
 #include <QBuffer>
 #include <QAbstractTableModel>
+#include <QtPrintSupport/QPrinter>
+#include <QtPrintSupport/QPrintDialog>
+#include <QTextDocument>
 
 #include "CustomPushButton.h"
 #include "StringLoader.h"
@@ -119,6 +122,13 @@ FileManagerWidget::FileManagerWidget(QWidget *parent) :
     verticalHeader->setSectionResizeMode(QHeaderView::Stretch);
 
     ui->tableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
+
+    QJsonObject object = ConfigManager("parameter_setting4.json").GetConfig();
+    if (object["printer selection"].toInt() == 3)
+    {
+        m_bA4Print = true;
+        ui->printPushButton->setDisabled(false);
+    }
 
 ////    int width = ui->tableWidget->width();//kui->gridLayout_2->itemAtPosition(1, 0)->geometry().width();
 
@@ -355,7 +365,32 @@ void FileManagerWidget::initTable()
     setTableContent();
 
     emit ui->tableWidget->cellClicked(m_avFileFormatList.size() % 5 - 1, 0);
-//    ui->tableWidget->cellClicked()
+    //    ui->tableWidget->cellClicked()
+}
+
+void FileManagerWidget::printA4()
+{
+    QTextDocument doc;
+    QTextCursor cursor(&doc);
+
+    QPixmap pixmap;
+    pixmap.load(GeteMMCPath() + "/" + "images" + "/" + "booting" + "/" + "comlaser_logo.bmp");
+    QImage logoImage = pixmap.toImage();
+
+    cursor.insertImage(logoImage);
+    cursor.insertText(LoadString("IDS_POLICE_OVER_SPEEDING_TICKET"));
+
+    cursor.insertText(LoadString("IDS_DID"));
+
+
+//    doc.setHtml();
+
+    QPrinter printer;
+    QPrintDialog dialog(&printer);
+    if (dialog.exec() == QDialog::Accepted)
+    {
+        doc.print(&printer);
+    }
 }
 
 //void FileManagerWidget::on_tableWidget_clicked(const QModelIndex &index)
@@ -544,13 +579,14 @@ void FileManagerWidget::on_printPushButton_clicked()
     ImageConverter imageConvert(image);
     imageConvert.Convert();
 
-
-//    QImage image2(image.bits(), 1712, 984, QImage::Format::Format_RGB32);
-//    int sz2 = image2.byteCount();
-//    memcpy(g_print_img_body_buff_file_management , image2.bits(), sz2);
-
-//    pixmap.
-    print_wifi_printer();
+    if (m_bA4Print)
+    {
+        printA4();
+    }
+    else
+    {
+        print_wifi_printer();
+    }
 
     SetLogMsg(FILE_MANAGER, "PRINT");
 }

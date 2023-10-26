@@ -35,10 +35,12 @@ private:
     QMediaPlayer* m_player;
     QString m_dateTime;
     StorageManager m_sdcardManager;
+    bool m_bA4Print = false;
 private:
     void setTableContent();
     void convertValue();
     void initTable();
+    void printA4();
 
 protected:
     void resizeEvent(QResizeEvent *event);

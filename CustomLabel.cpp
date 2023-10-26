@@ -120,8 +120,9 @@ void CustomLabel::setFontSize(int font_size)
 {
 //    int font_size = GetFontSize(ori_font_size);
 
+    int calc_font_size = GetFontSize(font_size);
     QFont font = this->font();
-    font.setPixelSize(font_size);
+    font.setPixelSize(calc_font_size);
     this->setFont(font);
 //      m_styleSheet;
 //    this->setStyleSheet(m_styleSheet);

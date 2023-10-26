@@ -176,7 +176,7 @@ EnforcementComponentWidget::EnforcementComponentWidget(QWidget *parent) :
     if(m_nEnforcementMode == V)
     {
         ui->zoomRangePushButton->setText("Z: AUTO");
-        doVMode();
+//        doVMode();
     }
 
     int x = ConfigManager("setting_reticle.json").GetConfig()["Camera reticle pos"].toArray()[0].toInt();
@@ -551,6 +551,12 @@ void EnforcementComponentWidget::hudClear()
 
 void EnforcementComponentWidget::laserInit()
 {
+    if(m_nEnforcementMode == V)
+    {
+        ui->zoomRangePushButton->setText("Z: AUTO");
+        doVMode();
+        return;
+    }
 //     if (m_pSerialLaserManager == nullptr)
 //        m_pSerialLaserManager = new SerialLaserManager;
     ConfigManager config = ConfigManager("parameter_setting1.json");

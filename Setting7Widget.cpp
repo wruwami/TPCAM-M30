@@ -18,7 +18,7 @@ Setting7Widget::Setting7Widget(QWidget *parent) :
     ui->WifiLabel->setFontSize(23);
     ui->gpsLabel->setText(LoadString("IDS_GPS"));
     ui->gpsLabel->setFontSize(23);
-    ui->nineAxisSensorLabel->setText(LoadString("IDS_NINE_AXIS_SENSOR"));
+    ui->nineAxisSensorLabel->setText(LoadString("IDS_MOTION_SENSOR"));
     ui->nineAxisSensorLabel->setFontSize(23);
     ui->micnSpeackerLabel->setText(LoadString("IDS_MIC_N_SPEAKER"));
     ui->micnSpeackerLabel->setFontSize(23);

@@ -81,6 +81,7 @@ IDS_ENABLE_AUTO,Enable(Auto),활성화(자동),Ativar (Automático),Habilitar (a
 IDS_ENABLE_MANUAL,Enable(Manual),활성화(수동),Ativar (Manual),Habilitar (Manual),Activer (Manuel),تمكين (يدوي)
 IDS_WIFI,WiFi,와이파이,Wi-fi,Wifi,Wifi,واي فاي
 IDS_NINE_AXIS_SENSOR,9 Axis Sensor,9축 센서,Sensor de 9 eixos,Sensor de 9 ejes,Capteur 9 axes,9 محور الاستشعار
+IDS_MOTION_SENSOR,Motion Sensor,모션 센서,sensor de movimento,sensor de movimiento,capteur de mouvement,مستشعر الحركة
 IDS_MIC_N_SPEAKER,MIC & Speaker,마이크 및 스피커,microfone e alto-falante,Micrófono y altavoz,MICRO et haut-parleur,ميكروفون ومكبر صوت
 IDS_POWER_SAVING_TIME,Power Saving Time,절전 시간,Tempo de economia de energia,Tiempo de ahorro de energía,Temps d'économie d'énergie,وقت توفير الطاقة
 IDS_SETTING,Setting,세팅,Contexto,Ajuste,Paramètre,ضبط
@@ -110,8 +111,12 @@ IDS_STORAGE_TITLE,STORAGE,저장소,ARMAZENAR,ALMACENAMIENTO,ESPACE DE RANGEMENT
 IDS_EXPIRED_DATE,Expiry date(service required after):,만료일(이후 서비스 필요):,Data expirada (serviço necessário após):,Fecha de vencimiento (servicio requerido después):,Date d'expiration (service requis après):,تاريخ انتهاء الصلاحية (الخدمة مطلوبة بعد):
 IDS_VERSION,V1.0.0,V1.0.0,V1.0.0,V1.0.0,V1.0.0,V1.0.0
 IDS_MAIN_MENU,Main Menu,메인 메뉴,Menu principal,Menú principal,Menu principal,القائمة الرئيسية
-IDS_CAMERA_ZOOM_FOCUS,CAMERA ZOOM FOCUS,카메라 줌 포커스,FOCO DO ZOOM DA CÂMERA,ENFOQUE DEL ZOOM DE LA CÁMARA,MISE AU POINT DU ZOOM DE LA CAMÉRA,تركيز التكبير / التصغير بالكاميرا
-IDS_CAMERA_HUD_ALIGN,CAMERA HUD ALIGN,카메라 HUD 정렬,ALINHAMENTO DO HUD DA CÂMERA,ALINEACIÓN DEL HUD DE LA CÁMARA,ALIGNEMENT DU HUD DE LA CAMÉRA,محاذاة شاشة عرض الكاميرا
+IDS_CAMERA_ZOOM_FOCUS1,CAMERA,카메라,FOCO DO,ENFOQUE DEL,MISE AU POINT,تركيز التكبير
+IDS_CAMERA_ZOOM_FOCUS2,ZOOM,줌,ZOOM DA,ZOOM DE,DU ZOOM DE,التصغير
+IDS_CAMERA_ZOOM_FOCUS3,FOCUS,포커스,CÂMERA,LA CÁMARA,LA CAMÉRA,بالكاميرا
+IDS_CAMERA_HUD_ALIGN1,CAMERA,카메라,ALINHAMENTO,ALINEACIÓN,ALIGNEMENT,محاذاة
+IDS_CAMERA_HUD_ALIGN2,HUD,HUD,DO HUD DA,DEL HUD DE,DU HUD DE,شاشة عرض
+IDS_CAMERA_HUD_ALIGN3,ALIGN,정렬,CÂMERA,LA CÁMARA,LA CAMÉRA,الكاميرا
 IDS_OK,OK,확인,OK,DE ACUERDO,D'ACCORD,نعم
 IDS_HOME,Home,메인 메뉴,Lar,Casa,Domicile,بيت
 IDS_DEFAULT,Default,중심좌표,Padrão,Defecto,Défaut,تقصير

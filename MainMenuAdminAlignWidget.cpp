@@ -21,9 +21,9 @@ MainMenuAdminAlignWidget::MainMenuAdminAlignWidget(QWidget *parent) :
 
     ui->deviceIDPushButton->setText(LoadString("IDS_DEVICE_ID"));
     ui->deviceIDPushButton->setFontSize(23);
-    ui->cameraZoomFocusPushButton->setText(LoadString("IDS_CAMERA_ZOOM_FOCUS"));
+    ui->cameraZoomFocusPushButton->setText(LoadString("IDS_CAMERA_ZOOM_FOCUS1")+'\n'+LoadString("IDS_CAMERA_ZOOM_FOCUS2")+'\n'+LoadString("IDS_CAMERA_ZOOM_FOCUS3"));
     ui->cameraZoomFocusPushButton->setFontSize(23);
-    ui->cameraHUDAlignPushButton->setText(LoadString("IDS_CAMERA_HUD_ALIGN"));
+    ui->cameraHUDAlignPushButton->setText(LoadString("IDS_CAMERA_HUD_ALIGN1")+'\n'+LoadString("IDS_CAMERA_HUD_ALIGN2")+'\n'+LoadString("IDS_CAMERA_HUD_ALIGN3"));
     ui->cameraHUDAlignPushButton->setFontSize(23);
 
     QString style = "background-color : #f9d979; border = 5px solid #385d8a;";

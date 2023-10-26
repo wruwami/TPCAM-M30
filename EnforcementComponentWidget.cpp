@@ -125,6 +125,7 @@ EnforcementComponentWidget::EnforcementComponentWidget(QWidget *parent) :
     ui->recIconLabel->setSizePolicy(sp_retain_label);
     ui->recLabel->setSizePolicy(sp_retain_label);
     ui->speedLabel->setSizePolicy(sp_retain_label);
+    ui->thumbnailLabel->setSizePolicy(sp_retain_label);
 
 //    camInit();
     hudInit();
@@ -462,6 +463,7 @@ void EnforcementComponentWidget::hide(bool bAll)
     ui->enforcementCountLabel->hide();
     ui->enforcementDistanceSpeedLabel->hide();
     ui->enforcementTimeLabel->hide();
+    ui->thumbnailLabel->hide();
 }
 
 void EnforcementComponentWidget::show(bool bAll)
@@ -482,6 +484,7 @@ void EnforcementComponentWidget::show(bool bAll)
     ui->enforcementCountLabel->show();
     ui->enforcementDistanceSpeedLabel->show();
     ui->enforcementTimeLabel->show();
+    ui->thumbnailLabel->show();
 }
 
 void EnforcementComponentWidget::SetCamera()
@@ -669,12 +672,12 @@ float EnforcementComponentWidget::GetCaptureSpeedLimit()
         break;
     case Truck:
     {
-        return (float)(m_captureSpeed.at(0).toDouble());
+        return (float)(m_captureSpeed.at(1).toDouble());
     }
         break;
     case MotoCycle:
     {
-        return (float)(m_captureSpeed.at(0).toDouble());
+        return (float)(m_captureSpeed.at(2).toDouble());
     }
         break;
     }

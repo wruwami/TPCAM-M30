@@ -59,7 +59,7 @@ char *ImageConverter::Convert()
               outpic->data,
               outpic->linesize);
 
-    memcpy(g_print_img_body_buff_file_management, out_buffer, img.height() * img.width() * 1.5);
+    memcpy(g_print_img_body_buff_file_management, out_buffer, 1712 * 984/*img.height() * img.width() * 1.5*/);
 
     //free memory
     av_free(inpic);

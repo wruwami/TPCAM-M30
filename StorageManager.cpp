@@ -87,14 +87,14 @@ bool StorageManager::GetSDExitSelfTest()
 
 bool StorageManager::GetSDExitEnforcement()
 {
-    if (GetSDAvailable() < m_fSDExitEnforcementPercent)
-        return true;
-    return false;
+    if (GetSDAvailable() / GetSDTotal() * 100 < m_fSDExitEnforcementPercent)
+        return false;
+    return true;
 }
 
 bool StorageManager::GetEMMCExitSelfTest()
 {
-    if (GeteMMCAvailable() < m_fEMMCExitSelfTestPercent)
-        return true;
-    return false;
+    if (GeteMMCAvailable() / GeteMMCTotal() * 100 < m_fEMMCExitSelfTestPercent)
+        return false;
+    return true;
 }

@@ -64,6 +64,10 @@ IndicatorDialog::IndicatorDialog(QWidget *parent) :
 
     initlize();
     startTimer(1000);
+
+    connect(&m_pTimer, SIGNAL(timeout()), this, SLOT(doCheckNetwork()));
+    m_pTimer.start(3000);
+
 }
 
 IndicatorDialog::~IndicatorDialog()
@@ -191,6 +195,7 @@ void IndicatorDialog::on_gpsPushButton_clicked()
 void IndicatorDialog::on_comPushButton_clicked()
 {
     clearSecondRow();
+
     m_pWifiPushButton = new CustomPushButton();
     m_pBTPushButton = new CustomPushButton();
     m_pEthernetPushButton = new CustomPushButton();
@@ -204,9 +209,6 @@ void IndicatorDialog::on_comPushButton_clicked()
     ui->horizontalLayout2->addWidget(m_pWifiPushButton, 2);
     ui->horizontalLayout2->addWidget(m_pBTPushButton, 2);
     ui->horizontalLayout2->addWidget(m_pEthernetPushButton, 2);
-
-    connect(&m_pTimer, SIGNAL(timeout()), this, SLOT(doCheckNetwork()));
-    m_pTimer.start(3000);
 
 	connect(m_pWifiPushButton, SIGNAL(clicked()), this, SLOT(on_wifiPushButton_clicked()));
     connect(m_pBTPushButton, SIGNAL(clicked()), this, SLOT(on_BTPushButton_clicked()));
@@ -387,9 +389,9 @@ void IndicatorDialog::paintEvent(QPaintEvent *event)
     QPainter painter(this);
     painter.setRenderHint(QPainter::Antialiasing);
     painter.setPen(Qt::NoPen);
-    painter.setBrush(QColor(0,0,0,128)); // 4¹øÂ° ÀÎÀÚ¿¡ Àû´çÇÑ Åõ¸íµµ¸¦ ÀÔ·ÂÇÕ´Ï´Ù.
+    painter.setBrush(QColor(0,0,0,128)); // 4ë²ˆì§¸ ì¸ìžì— ì ë‹¹í•œ íˆ¬ëª…ë„ë¥¼ ìž…ë ¥í•©ë‹ˆë‹¤.
     painter.drawRect(GetWidgetSizePos(QRect(0, 125, 1600,  965)));
-//    painter.setBrush(QColor(0,0,0,0)); // 4¹øÂ° ÀÎÀÚ¿¡ Àû´çÇÑ Åõ¸íµµ¸¦ ÀÔ·ÂÇÕ´Ï´Ù.
+//    painter.setBrush(QColor(0,0,0,0)); // 4ë²ˆì§¸ ì¸ìžì— ì ë‹¹í•œ íˆ¬ëª…ë„ë¥¼ ìž…ë ¥í•©ë‹ˆë‹¤.
 //    painter.drawRect(GetWidgetSizePos(QRect(0, 0, 1600,  125)));
 }
 
@@ -410,7 +412,7 @@ void IndicatorDialog::hideEvent(QHideEvent *event)
 
 void IndicatorDialog::clearSecondRow()
 {
-    m_pTimer.stop();
+//    m_pTimer.stop();
 
     if (m_pCameraFocusPushButton != nullptr)
     {
@@ -422,6 +424,24 @@ void IndicatorDialog::clearSecondRow()
     {
         delete m_pCameraExposePushButton;
         m_pCameraExposePushButton = nullptr;
+    }
+
+    if (m_pBTPushButton)
+    {
+        delete m_pBTPushButton;
+        m_pBTPushButton = nullptr;
+    }
+
+    if (m_pWifiPushButton)
+    {
+        delete m_pWifiPushButton;
+        m_pWifiPushButton = nullptr;
+    }
+
+    if (m_pEthernetPushButton)
+    {
+        delete m_pEthernetPushButton;
+        m_pEthernetPushButton = nullptr;
     }
 
     QLayoutItem* item;
@@ -661,9 +681,11 @@ void IndicatorDialog::doCheckNetwork()
 	
 	if (m_nEthernetState == Active && m_nWifiState != Active)
 	{
-		m_pWifiPushButton->setImage("indicator", "wifi_connected.png");
+        if (m_pWifiPushButton)
+            m_pWifiPushButton->setImage("indicator", "wifi_connected.png");
 	    ui->comPushButton->setImage("indicator", "eth_on.png");
-	    m_pMainMenuWidget->setIndicatorImage(m_pMainMenuWidget->m_pWifiPushbutton, "indicator", "eth_on.png");
+        if (m_pMainMenuWidget)
+            m_pMainMenuWidget->setIndicatorImage(m_pMainMenuWidget->m_pWifiPushbutton, "indicator", "eth_on.png");
 	}
 
 
@@ -672,17 +694,20 @@ void IndicatorDialog::doCheckNetwork()
     {
     case Active:
     {
-        m_pEthernetPushButton->setImage("indicator", "eth_on.png");
+        if (m_pEthernetPushButton)
+            m_pEthernetPushButton->setImage("indicator", "eth_on.png");
     }
         break;
     case InActive:
     {
-        m_pEthernetPushButton->setImage("indicator", "eth_down.png");
+        if (m_pEthernetPushButton)
+            m_pEthernetPushButton->setImage("indicator", "eth_down.png");
     }
         break;
     case NotConnected:
     {
-        m_pEthernetPushButton->setImage("indicator", "eth_up.png");
+        if (m_pEthernetPushButton)
+            m_pEthernetPushButton->setImage("indicator", "eth_up.png");
     }
         break;
     }
@@ -691,28 +716,34 @@ void IndicatorDialog::doCheckNetwork()
     {
     case Active:
     {
-        m_pWifiPushButton->setImage("indicator", "wifi_connected.png");
+        if (m_pWifiPushButton)
+            m_pWifiPushButton->setImage("indicator", "wifi_connected.png");
 		ui->comPushButton->setImage("indicator", "wifi_connected.png");
-	    m_pMainMenuWidget->setIndicatorImage(m_pMainMenuWidget->m_pWifiPushbutton, "indicator", "wifi_connected.png");
+        if (m_pMainMenuWidget)
+            m_pMainMenuWidget->setIndicatorImage(m_pMainMenuWidget->m_pWifiPushbutton, "indicator", "wifi_connected.png");
     }
         break;
     case InActive:
     {
-        m_pWifiPushButton->setImage("indicator", "wifi_down.png");
+        if (m_pWifiPushButton)
+            m_pWifiPushButton->setImage("indicator", "wifi_down.png");
 		if (m_nEthernetState != Active )
 			{
 				ui->comPushButton->setImage("indicator", "wifi_down.png");
-			    m_pMainMenuWidget->setIndicatorImage(m_pMainMenuWidget->m_pWifiPushbutton, "indicator", "wifi_down.png");
+                if (m_pMainMenuWidget)
+                    m_pMainMenuWidget->setIndicatorImage(m_pMainMenuWidget->m_pWifiPushbutton, "indicator", "wifi_down.png");
 			}
     }
         break;
     case NotConnected:
     {
-        m_pWifiPushButton->setImage("indicator", "wifi_up.png");
+        if (m_pWifiPushButton)
+            m_pWifiPushButton->setImage("indicator", "wifi_up.png");
 		if (m_nEthernetState != Active )
 			{
 				ui->comPushButton->setImage("indicator", "wifi_up.png");
-			    m_pMainMenuWidget->setIndicatorImage(m_pMainMenuWidget->m_pWifiPushbutton, "indicator", "wifi_up.png");
+                if (m_pMainMenuWidget)
+                    m_pMainMenuWidget->setIndicatorImage(m_pMainMenuWidget->m_pWifiPushbutton, "indicator", "wifi_up.png");
 			}
     }
         break;

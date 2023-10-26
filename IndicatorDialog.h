@@ -108,9 +108,9 @@ private:
     CustomPushButton* m_pImagePushButton;
     CustomPushButton* m_pImageVideoPushButton;
     CustomPushButton* m_pVideoPushButton;
-    CustomPushButton* m_pWifiPushButton;
-    CustomPushButton* m_pBTPushButton;
-    CustomPushButton* m_pEthernetPushButton;
+    CustomPushButton* m_pWifiPushButton = nullptr;
+    CustomPushButton* m_pBTPushButton = nullptr;
+    CustomPushButton* m_pEthernetPushButton = nullptr;
     ConfigManager m_configManager1 = ConfigManager("parameter_setting1.json");
     ConfigManager m_configManager2 = ConfigManager("parameter_setting2.json");
     ConfigManager m_configManager3 = ConfigManager("exposure.json");
@@ -119,7 +119,7 @@ private:
     QJsonObject m_jsonObject2;
     QJsonObject m_jsonObject3;
     QJsonObject m_jsonObject4;
-    MainMenuWidget* m_pMainMenuWidget;
+    MainMenuWidget* m_pMainMenuWidget = nullptr;
     SerialLaserManager* m_pSerialLaserManager = nullptr;
     SerialViscaManager* m_pSerialViscaManager = nullptr;
     bool m_nUserMode = true;

@@ -3,6 +3,7 @@
 
 #include <QDialog>
 #include <QListWidgetItem>
+#include <QThread>
 
 #include "StringLoader.h"
 
@@ -26,7 +27,7 @@ WifiSearchWidget::WifiSearchWidget(QWidget *parent) :
     ui->lineEdit->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     ui->lineEdit->SetMode(KeyboardType);
 
-    startTimer(1000);
+    startTimer(100);
 }
 
 WifiSearchWidget::~WifiSearchWidget()
@@ -52,16 +53,32 @@ void WifiSearchWidget::on_noPushButton_clicked()
 
 void WifiSearchWidget::timerEvent(QTimerEvent *event)
 {
-    m_wifiList = m_networkAccessManager.findActiveWirelesses();
-    foreach(auto item, m_wifiList)
-    {
-        if (!item.contains(m_strFilter))
-            m_wifiList.removeOne(item);
-    }
-    if (!m_wifiList.isEmpty())
-        ui->listWidget->clear();
-    ui->listWidget->addItems(m_wifiList);
+    killTimer(event->timerId());
 
+    static int count = 0;
+    count++;
+
+    if(count % 20 == 1)
+        emit sig_sendConnectingState(true);
+
+    if(count % 20 == 2)
+    {
+        m_wifiList = m_networkAccessManager.findActiveWirelesses();
+        foreach(auto item, m_wifiList)
+        {
+            if (!item.contains(m_strFilter))
+                m_wifiList.removeOne(item);
+        }
+        if (!m_wifiList.isEmpty())
+            ui->listWidget->clear();
+        ui->listWidget->addItems(m_wifiList);
+
+        emit sig_sendConnectingState(false);
+    }
+    if(count >= 1000000)
+        count = 0;
+
+    startTimer(100);
 }
 
 

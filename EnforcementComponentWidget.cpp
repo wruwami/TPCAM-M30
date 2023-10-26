@@ -174,7 +174,10 @@ EnforcementComponentWidget::EnforcementComponentWidget(QWidget *parent) :
             ui->zoomRangePushButton->setText(QString("%1%2").arg(m_ltfeetvector[m_nZoomIndex]).arg(SpeedUnitManager::GetInstance()->distance()));
     }
     if(m_nEnforcementMode == V)
+    {
         ui->zoomRangePushButton->setText("Z: AUTO");
+        doVMode();
+    }
 
     int x = ConfigManager("setting_reticle.json").GetConfig()["Camera reticle pos"].toArray()[0].toInt();
     int y = ConfigManager("setting_reticle.json").GetConfig()["Camera reticle pos"].toArray()[1].toInt();
@@ -609,7 +612,7 @@ void EnforcementComponentWidget::doATMode()
     if (m_nEnforcementMode == V)
     {
         doVModeTimer(true);
-        return;
+//        return;
     }
 
     SerialPacket* laser_packet = m_pSerialLaserManager->getLaser_packet();
@@ -965,6 +968,57 @@ void EnforcementComponentWidget::zoomRange()
     SetLaserDetectionAreaDistance(m_nZoomIndex + 1);
 }
 
+void EnforcementComponentWidget::zoomRangeWithoutIncrement()
+{
+    if(m_nEnforcementMode == V)
+        return;
+     disconnect(m_pSerialLaserManager->getLaser_packet(), SIGNAL(sig_showDistance(float,int)), this, SLOT(doVModeZFControl(float, int)) );
+//    int zoom_index = 0;
+    if (m_UserModeOn)
+    {
+        if (m_nZoomIndex >= m_stmetervector.size())
+            m_nZoomIndex = 0;
+
+//        zoom_index = m_nZoomIndex;
+        if (distance() == meter)
+        {
+            ui->zoomRangePushButton->setText(m_stmetervector[m_nZoomIndex]+distanceValue());
+        }
+        else
+        {
+            ui->zoomRangePushButton->setText(m_stfeetvector[m_nZoomIndex]+distanceValue());
+        }
+    }
+    else
+    {
+        if (m_nZoomIndex >= m_ltmetervector.size())
+            m_nZoomIndex = 0;
+
+//        zoom_index = m_nZoomIndex;
+        if (distance() == meter)
+        {
+            ui->zoomRangePushButton->setText(m_ltmetervector[m_nZoomIndex]+distanceValue());
+        }
+        else
+        {
+            ui->zoomRangePushButton->setText(m_ltfeetvector[m_nZoomIndex]+distanceValue());
+        }
+    }
+
+    qDebug() << "zoom_index" << m_nZoomIndex;
+    m_pSerialViscaManager->SetZoom(m_nZoomIndex);
+    m_pSerialViscaManager->SetFocus(m_nZoomIndex);
+    m_pSerialViscaManager->SetDZoom(m_nZoomIndex);
+
+    SetLogMsg(BUTTON_CLICKED, "ZOOM_INDEX, " + ui->zoomRangePushButton->text());
+    ConfigManager con = ConfigManager("parameter_enforcement.json");
+    QJsonObject object = con.GetConfig();
+    object["zoom index"] = (int)m_nZoomIndex + 1;
+    con.SetConfig(object);
+    con.SaveFile();
+
+    SetLaserDetectionAreaDistance(m_nZoomIndex + 1);
+}
 //void EnforcementComponentWidget::unitInit()
 //{
 
@@ -1141,7 +1195,10 @@ void EnforcementComponentWidget::clearSpeed()
     m_hudManager.HUDEnforcementSpeedClear();
 
     ui->speedLabel->clear();
-    doEnforceMode(false); //REC label clear(false)
+    if(m_nEnforcementMode == V)
+        doEnforceMode(true);
+    else
+        doEnforceMode(false); //REC label clear(false)
 }
 
 void EnforcementComponentWidget::clearDistance()
@@ -1223,8 +1280,8 @@ void EnforcementComponentWidget::paintEvent(QPaintEvent *event)
         crossPen.setStyle(Qt::SolidLine);
         crossPen.setWidthF(0);
         int height2 = height() - m_MainMenuWidgetSize.height();;
-        int gap = 2;
-        int reticle_width = 10;
+        int gap = 1;
+        int reticle_width = 5;
         int x = m_cross.x() * 800 / 1920;
         int y = m_cross.y() * 480 / 1080;
 
@@ -1362,7 +1419,10 @@ void EnforcementComponentWidget::on_showCaptureSpeedDistance(float fSpeed, float
 //        HUD에 속도 및 거리 출력
         m_hudManager.HUDEnforcement(false, fSpeed, fDistance);
 
-        doEnforceMode(false);
+        if(m_nEnforcementMode == V)
+            doEnforceMode(true);
+        else
+            doEnforceMode(false);
         //        m_WhiteClearTimer.start(200);
         m_WhiteSpeedClearTimer.start(200);
         m_WhiteDistanceClearTimer.start(200);
@@ -1380,7 +1440,10 @@ void EnforcementComponentWidget::on_showSpeedDistance(float fSpeed, float fDista
 //        HUD에 속도 및 거리 출력
     m_hudManager.HUDEnforcement(false, fSpeed, fDistance);
 
-    doEnforceMode(false);
+    if(m_nEnforcementMode == V)
+        doEnforceMode(true);
+    else
+        doEnforceMode(false);
 //        로그 저장
 //    m_WhiteClearTimer.start(200);
     m_WhiteSpeedClearTimer.start(200);
@@ -1412,13 +1475,13 @@ void EnforcementComponentWidget::on_Night()
 void EnforcementComponentWidget::on_STMode()
 {
     m_UserModeOn = true;
-    zoomRange();
+    zoomRangeWithoutIncrement();
 }
 
 void EnforcementComponentWidget::on_LTMode()
 {
     m_UserModeOn = false;
-    zoomRange();
+    zoomRangeWithoutIncrement();
 }
 
 void EnforcementComponentWidget::on_EnforceModeI()
@@ -1427,7 +1490,7 @@ void EnforcementComponentWidget::on_EnforceModeI()
         g_nCrackDownIndex = 1;
     m_nEnforcementMode = I;
     doVModeTimer(false);
-    zoomRange();
+    zoomRangeWithoutIncrement();
 }
 
 void EnforcementComponentWidget::on_EnforceModeA()
@@ -1436,7 +1499,7 @@ void EnforcementComponentWidget::on_EnforceModeA()
         g_nCrackDownIndex = 1;
     m_nEnforcementMode = A;
     doVModeTimer(false);
-    zoomRange();
+    zoomRangeWithoutIncrement();
 }
 
 void EnforcementComponentWidget::on_EnforceModeV()
@@ -1451,7 +1514,7 @@ void EnforcementComponentWidget::on_EnforceModeV()
     }
     //change zoombutton, disable indicator
     ui->zoomRangePushButton->setText("Z: AUTO");
-
+    doVMode();
 }
 
 void EnforcementComponentWidget::do_FileSystemWatcher(const QString &path)
@@ -1647,6 +1710,8 @@ void EnforcementComponentWidget::on_saveImagePushButton_clicked()
 
 void EnforcementComponentWidget::StopHUDRec()
 {
+    if(m_nEnforcementMode == V)
+        return;
     m_hudManager.ShowSpeed(true, false);
 }
 
@@ -1754,7 +1819,7 @@ void EnforcementComponentWidget::doVModeZFControl(float fDistance, int notuse)
     else if(counter > 100000)
         counter = 6;
 
-    if(fDistanceAvg >= 3000)
+    if(fDistanceAvg >= 2000)
         return;
     else if(fDistanceAvg < 10)
         return;
@@ -1781,9 +1846,16 @@ void EnforcementComponentWidget::doVModeZFControl(float fDistance, int notuse)
     {
         nZoomIndex = 4;
     }
+    else
+    {
+        return;
+    }
 
-    m_pSerialViscaManager->SetZoom(nZoomIndex);
-    m_pSerialViscaManager->SetFocus(nZoomIndex);
+    QJsonObject object = ConfigManager("parameter_setting2.json").GetConfig();
+    int ndaynight = object["day&night selection"].toInt();
+
+    m_pSerialViscaManager->SetZoomForZoomFocus(nZoomIndex);
+    m_pSerialViscaManager->SetFocusForZoomFocus(nZoomIndex, ndaynight);
 }
 
 void EnforcementComponentWidget::closeThread()

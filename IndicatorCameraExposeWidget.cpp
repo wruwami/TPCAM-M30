@@ -27,7 +27,7 @@ IndicatorCameraExposeWidget::IndicatorCameraExposeWidget(QWidget *parent) :
     ui->showHidePushButton->setFontSize(23);
     ui->speedPushButton->setText(LoadString("IDS_SPEED"));
     ui->speedPushButton->setFontSize(23);
-    ui->hlcOnPushButton->setText(LoadString("IDS_HLC_ON"));
+    ui->hlcOnPushButton->setText(LoadString("IDS_HLC_OFF"));
     ui->hlcOnPushButton->setFontSize(23);
     ui->defogOffPushButton->setText(LoadString("IDS_DEFOG_OFF"));
     ui->defogOffPushButton->setFontSize(23);
@@ -143,7 +143,7 @@ IndicatorCameraExposeWidget::~IndicatorCameraExposeWidget()
 
 void IndicatorCameraExposeWidget::mousePressEvent(QMouseEvent *event)
 {
-    accept();
+//    accept();
 }
 
 void IndicatorCameraExposeWidget::on_showHidePushButton_clicked()
@@ -326,37 +326,37 @@ void IndicatorCameraExposeWidget::on_daynNightComboBox_currentIndexChanged(int i
     {
         m_serialViscaManager->set_DIS_on();
         m_bDIS = true;
-        ui->disOffPushButton->setText(LoadString("IDS_DIS_OFF"));
+        ui->disOffPushButton->setText(LoadString("IDS_DIS_ON"));
     }
     else
     {
         m_serialViscaManager->set_DIS_off();
         m_bDIS = false;
-        ui->disOffPushButton->setText(LoadString("IDS_DIS_ON"));
+        ui->disOffPushButton->setText(LoadString("IDS_DIS_OFF"));
     }
     if (ret["DEFOG"].toBool())
     {
         m_serialViscaManager->set_defog_on();
         m_bDEFOG = true;
-        ui->disOffPushButton->setText(LoadString("IDS_DEFOG_OFF"));
+        ui->defogOffPushButton->setText(LoadString("IDS_DEFOG_ON"));
     }
     else
     {
         m_serialViscaManager->set_defog_off();
         m_bDEFOG = false;
-        ui->disOffPushButton->setText(LoadString("IDS_DEFOG_ON"));
+        ui->defogOffPushButton->setText(LoadString("IDS_DEFOG_OFF"));
     }
     if(ret["HLC"].toBool())
     {
        m_serialViscaManager->set_HLC_on();
        m_bHLC = true;
-       ui->hlcOnPushButton->setText(LoadString("IDS_HLC_OFF"));
+       ui->hlcOnPushButton->setText(LoadString("IDS_HLC_ON"));
     }
     else
     {
         m_serialViscaManager->set_HLC_off();
         m_bHLC = false;
-        ui->hlcOnPushButton->setText(LoadString("IDS_HLC_ON"));
+        ui->hlcOnPushButton->setText(LoadString("IDS_HLC_OFF"));
     }
 
 //    set_AE_shutter_priority();

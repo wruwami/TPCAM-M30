@@ -37,6 +37,7 @@ protected:
 
 signals:
     void sig_sendSSID(QString);
+    void sig_sendConnectingState(bool);
 };
 
 #endif // WIFISEARCHWIDGET_H

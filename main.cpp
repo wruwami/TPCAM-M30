@@ -14,6 +14,7 @@
 #include "StorageManager.h"
 #include "Application.h"
 #include "Logger.h"
+#include "FileManager.h"
 
 QString g_AppVersion = "1.0.0";
 
@@ -48,7 +49,9 @@ int main(int argc, char *argv[])
     CreateWiFiReadThreadAndInitPrinter();
 
 //    system("sudo timedatectl set-ntp 0");
-    system("sudo /home/firefly/start.sh");
+//    system("sudo /home/firefly/start.sh");
+    QString cmd = "sudo "+GeteMMCPath()+"/"+"start.sh";
+    system(cmd.toStdString().c_str());
 
 
     MainWindow w(a.send());

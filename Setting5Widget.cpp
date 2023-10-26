@@ -36,7 +36,16 @@ Setting5Widget::Setting5Widget(QWidget *parent) :
     ui->gatewayLineEdit->SetMode(Mode::KeypadType);
     ui->dnsServerLineEdit->SetMode(Mode::KeypadType);
 
-
+    //disable when ethernet is not connected
+    NetworkManager networkManager;
+    if (!networkManager.getNetworkRunningOrNot(networkManager.getLanAdapterName()))
+    {
+        ui->ipAddressComboBox->setEnabled(false);
+        ui->ipLineEdit->setEnabled(false);
+        ui->subnetMaskLineEdit->setEnabled(false);
+        ui->gatewayLineEdit->setEnabled(false);
+        ui->dnsServerLineEdit->setEnabled(false);
+    }
 
 }
 
@@ -130,7 +139,20 @@ void Setting5Widget::on_ipAddressComboBox_currentIndexChanged(int index)
 
 void Setting5Widget::on_ipLineEdit_textChanged(const QString &arg1)
 {
-    m_newJsonObject["ip"] = arg1;
+    int index = m_newJsonObject["ethernet_mode select"].toInt();
+    switch (index)
+    {
+    case 1:
+    {
+        m_newJsonObject["ip"] = arg1;
+    }
+        break;
+    case 2:
+    {
+        m_newJsonObject["mac address"] = arg1;
+    }
+        break;
+    }
 }
 
 void Setting5Widget::on_subnetMaskLineEdit_textChanged(const QString &arg1)

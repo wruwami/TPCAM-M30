@@ -84,7 +84,7 @@ void IndicatorCameraFocusWidget::show()
 
 void IndicatorCameraFocusWidget::mousePressEvent(QMouseEvent *event)
 {
-    accept();
+//    accept();
 }
 
 void IndicatorCameraFocusWidget::on_showHidePushButton_clicked()

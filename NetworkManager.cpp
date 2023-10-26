@@ -275,6 +275,33 @@ bool NetworkManager::getNetworkUpDown(QString deviceName)
     return result;
 }
 
+bool NetworkManager::getNetworkRunningOrNot(QString deviceName)
+{
+    bool result = false;  // up true , down flase
+    char  buff[BUFF_SIZE];
+    FILE *fp;
+
+    QString cmd = "ifconfig %1 | grep flags= | awk '{print $2}'";
+//    cmd.arg(deviceName);
+    fp = popen(cmd.arg(deviceName).toStdString().c_str(), "r");
+    if (NULL == fp)
+    {
+        perror("popen() failed");
+        return "";
+    }
+
+    while (fgets(buff, BUFF_SIZE, fp))
+        printf("%s", buff);
+
+    QString ret(buff);
+    if (ret.contains("RUNNING"))
+        result = true;
+
+    pclose(fp);
+
+    return result;
+}
+
 void NetworkManager::SetWifiStaMode()
 {
     QString gateway = m_wifi_jsonObject["ip"].toString();

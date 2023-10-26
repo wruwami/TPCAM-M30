@@ -40,11 +40,11 @@ private:
     QElapsedTimer m_timer;
     int m_nSatellitesInView = 0;
     QDateTime m_DateTime;
-    QString m_Latitude;
-    QString m_Longitude;
+    QString m_Latitude = "N000.000000";
+    QString m_Longitude = "E000.000000";
     QString m_sensitivity;
-    float m_fLongitude;
-    float m_fLatitude;
+    float m_fLongitude = 0;
+    float m_fLatitude = 0;
     bool m_bFirstLog = true;
 
 private:

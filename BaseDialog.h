@@ -64,6 +64,7 @@ protected:
     void resizeEvent(QResizeEvent *event);
 private slots:
     void on_closePushButton_clicked();
+    void changeConnectingState(bool);
 };
 
 #endif // BASEDIALOG_H

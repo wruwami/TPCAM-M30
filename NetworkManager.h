@@ -17,6 +17,7 @@ public:
     QString getLanAdapterName();
     bool getNetworkState(QString);
     bool getNetworkUpDown(QString);
+    bool getNetworkRunningOrNot(QString);
 private:
     void SetWifiStaMode();
     void SetWifiAPMode();

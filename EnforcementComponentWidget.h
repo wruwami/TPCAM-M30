@@ -95,6 +95,7 @@ private:
     void displayHudDistance(bool, bool);
     void SetLaserDetectionAreaDistance(int);
     void zoomRange();
+    void zoomRangeWithoutIncrement();
     void initRec();
     void setVehicleMode();
     QString GetMode();

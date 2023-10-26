@@ -62,6 +62,10 @@ Setting6Widget::Setting6Widget(QWidget *parent) : QWidget(parent),
     ui->ftpPortLineEdit->setText(QString::number(m_jsonObject["ftp port"].toInt()));
     ui->userNameLineEdit->setText(m_jsonObject["ftp user name"].toString());
     ui->userPassLineEdit->setText(m_jsonObject["ftp password"].toString());
+
+    //BT disable
+    ui->bluetoothComboBox->setEnabled(false);
+    ui->searchPushButton->setEnabled(false);
 }
 
 Setting6Widget::~Setting6Widget()

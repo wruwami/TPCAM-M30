@@ -192,10 +192,13 @@ BaseDialog::BaseDialog(Dialog dialog, Qt::Alignment align, QString msg, bool isC
         break;
     case Dialog::WifiSearchWidgetType:
     {
-        ui->verticalLayout->addWidget(new WifiSearchWidget(this));
+        WifiSearchWidget* wifiSearchWidget = new WifiSearchWidget(this);
+        ui->verticalLayout->addWidget(wifiSearchWidget);
         ui->titleLabel->setText(LoadString("IDS_WIFI_SEARCH"));
         ui->titleLabel->setAlignment(align);
         setSize(1216, 684);
+
+        connect(wifiSearchWidget, SIGNAL(sig_sendConnectingState(bool)), this, SLOT(changeConnectingState(bool)));
     }
         break;
 
@@ -205,6 +208,13 @@ BaseDialog::BaseDialog(Dialog dialog, Qt::Alignment align, QString msg, bool isC
     }
         break;
     }
+    if(dialog == WifiSearchWidgetType)
+        ui->connectingStateLabel->setText(LoadString(""));
+    else
+        {
+            ui->horizontalLayout->removeWidget(ui->connectingStateLabel);
+            ui->connectingStateLabel->hide();
+        }
 
     this->move(QApplication::desktop()->screen()->rect().center() - this->rect().center());
 
@@ -365,4 +375,12 @@ void BaseDialog::resizeEvent(QResizeEvent *event)
 void BaseDialog::on_closePushButton_clicked()
 {
     accept();
+}
+
+void BaseDialog::changeConnectingState(bool isConnecting)
+{
+    if(isConnecting)
+        ui->connectingStateLabel->setText(LoadString("IDS_WIFI_FINDING"));
+    else
+        ui->connectingStateLabel->setText("");
 }

@@ -80,7 +80,7 @@ QString StorageManager::GetUSBPath()
 
 bool StorageManager::GetSDExitSelfTest()
 {
-    if (GetSDAvailable() < m_fSDExitSelfTestPercent)
+    if (GetSDAvailable() / GetSDTotal() * 100  < m_fSDExitSelfTestPercent)
         return true;
     return false;
 }

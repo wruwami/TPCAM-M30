@@ -1,23 +1,23 @@
 ﻿Index,english,korean,portuguese,spanish,french,arabic
-IDS_DATE_TIME,Date/Time,날짜/시간,Data/hora,Fecha y hora,Date/Heure,التاريخ / الوقت
+IDS_DATE_TIME,Date/Time,날짜/시간,Data/hora,Fecha/hora,Date/Heure,التاريخ / الوقت
 IDS_LIGHT,Light,조명,luz,Luz,Lumière,ضوء
-IDS_DEVICE_ID,Device ID,기기 아이디,ID de dispositivo,Identificación del dispositivo,Reference de l'appareil,معرف الجهاز
-IDS_USER_NAME,User Name,사용자 이름,Nome do usuário,Nombre de usuario,Nom d'utilisateur,اسم االمستخدم
+IDS_DEVICE_ID,Device ID,기기 아이디,ID de disp.,Id. del disp.,Ref. de l'app.,معرف الجهاز
+IDS_USER_NAME,User Name,사용자 이름,Nome do usuár.,Nombre de us.,Nom d'util.,اسم االمستخدم
 IDS_LOGIN,LOGIN,로그인,CONECTE-SE,ACCESO,CONNEXION,تسجيل الدخول
 IDS_I,I,I,I,I,I,I
 IDS_A,A,A,A,A,A,A
 IDS_V,V,V,V,V,V,V
 IDS_DATE,DATE,날짜,DATA,FECHA,DATE,تاريخ
-IDS_CONNECT,Connect,연결,Conectar,Conectar,Relier,يتصل
-IDS_PRINT,Print,인쇄,Impressão,Imprimir,Imprimer,مطبعة
+IDS_CONNECT,Connect,연결,Conect.,Conect.,Relier,يتصل
+IDS_PRINT,Print,인쇄,Impres.,Impri.,Impri.,مطبعة
 IDS_MOVE,Move,전송,Mover,Moverse,Se déplacer,يتحرك
-IDS_SEARCH,Search,찾기,Procurar,Búsqueda,Chercher,بحث
+IDS_SEARCH,Search,찾기,Procu.,Búsque.,Cherch.,بحث
 IDS_ZOOM,Zoom,줌,Ampliação,Zoom,Zoom,تكبير
 IDS_DELETE,Delete,삭제,Excluir,Borrar,Effacer,حذف
-IDS_SHARE,Share,공유,Compartilhado,Cuota,Partager,يشارك
-IDS_SAVE,SAVE,저장,SALVE,AHORRAR,SAUVEGARDER,حفظ
-IDS_CANCEL,CANCEL,취소,CANCELAR,CANCELAR,ANNULER,إلغاء
-IDS_SAVE_SMALL,Save,저장,SALVE,AHORRAR,SAUVEGARDER,حفظ
+IDS_SHARE,Share,공유,Comp.,Cuota,Partager,يشارك
+IDS_SAVE,SAVE,저장,SALVE,AHORRAR,ENREG.,حفظ
+IDS_CANCEL,CANCEL,취소,CANCEL.,CANCEL.,ANNULER,إلغاء
+IDS_SAVE_SMALL,Save,저장,Salve,Ahorrar,Enreg.,حفظ
 IDS_CANCEL_SMALL,Cancel,취소,CANCELAR,CANCELAR,ANNULER,إلغاء
 IDS_LOCATION,Location,위치,Localização,Localización,Lieu,موقع
 IDS_SPEED_LIMIT,Speed Limit,규정 제한 속도,Limite de velocidade,Límite de velocidad,Limitation de vitesse,الحد الأقصى للسرعة
@@ -50,9 +50,9 @@ IDS_OFF,Off,끔,Desligado,Apagado,À l'arrêt,عن
 IDS_LCD_BRIGHTNESS,LCD Brightness,LCD 밝기,Brilho do LCD,Brillo LCD,Luminosité de l'écran LCD,سطوع شاشة LCD
 IDS_UNIT,Unit,단위,Unidade,Unidad,Unité,وحدة
 IDS_DATE_FORMAT,Date format,날짜 형식,Formato de data,Formato de fecha,Format de date,صيغة التاريخ
-IDS_SHOW_INFO,Show Info,정보 표시,Mostrar informações,Mostrar información,Afficher les informations,تظهر المعلومات
-IDS_FACTORY_DEFAULT,Factory Default,공장 초기화,restauração de fábrica,Predeterminado de fábrica,Défaut de fabrication,ضبط المصنع
-IDS_ADMIN_PW,Admin P/W,관리자 비밀번호,Administrador P/W,Contraseña de administrador,Administrateur P/W,المسؤول P / W
+IDS_SHOW_INFO,Show Info,정보 표시,Mostrar info.,Mostrar info.,Afficher les info.,تظهر المعلومات
+IDS_FACTORY_DEFAULT,Factory Default,공장 초기화,Rest. de fábrica,Predet. de fábrica,Défaut de fabr.,ضبط المصنع
+IDS_ADMIN_PW,Admin P/W,관리자 비밀번호,Admin P/W, P/W de admin.,Admin. P/W,المسؤول P / W
 IDS_LEVEL1,Level1,레벨1,Nível 1,Nivel 1,Niveau 1,المستوى 1
 IDS_LEVEL2,Level2,레벨2,Nível 2,Nivel 2,Niveau 2,المستوي 2
 IDS_LEVEL3,Level3,레벨3,Nível 3,Nivel 3,Niveau 3,مستوى 3
@@ -62,9 +62,9 @@ IDS_YYYY_MM_DD,YYYY/MM/DD,YYYY/MM/DD,AAAA/MM/DD,AAAA/MM/DD,AAAA/MM/JJ,YYYY / MM 
 IDS_MM_DD_YYYY,MM/DD/YYYY,MM/DD/YYYY,MM/DD/AAAA,MM/DD/AAAA,MM/JJ/AAAA,MM / DD / YYYY
 IDS_DD_MM_YYYY,DD/MM/YYYY,DD/MM/YYYY,DD/MM/AAAA,DD/MM/AAAA,JJ/MM/AAAA,اليوم / الشهر / السنة
 IDS_MAC_ADDRESS,Mac Address,맥 주소,Endereço MAC,Dirección MAC,Adresse Mac,عنوان ماك
-IDS_WIFISSID_AND_FTP_ID,WiFi SSID & FTP ID,WiFi SSID 및 FTP ID,SSID de Wi-Fi e ID de FTP,WiFi SSID y FTP ID,SSID Wi-Fi et identifiant FTP,WiFi SSID ومعرف FTP
-IDS_IP,IP,IP,IP,IP,IP,IP
-IDS_SUBNET_MASK,Subnet Mask,서브넷 마스크,máscara de sub-rede,Máscara de subred,Masque de sous-réseau,قناع الشبكة الفرعية
+IDS_WIFISSID_AND_FTP_ID,WiFi SSID ,WiFi SSID,SSID de Wi-Fi,WiFi SSID,SSID Wi-Fi,WiFi SSID
+IDS_IP,IP,IP,IP,IP,IP,عنوان IP
+IDS_SUBNET_MASK,Subnet Mask,서브넷 마스크,Subnet Mask,Subnet Mask,Subnet Mask,قناع الشبكة الفرعية
 IDS_PRINTER,Printer,프린터,Impressora,Impresora,Imprimante,طابعة
 IDS_THERMAL_EAST,Thermal(East),열전사(이스트),Térmica (East),Térmica (East),Thermique (East),حراري (شرق)
 IDS_THERMAL_WOOSIM,Thermal(Woosim),열전사(우심),Térmica (Woosim),Térmica (Woosim),Thermique(Woosim),حراري (ووسيم)
@@ -74,16 +74,16 @@ IDS_MANUAL,Manual,수동,Manual,Manual,Manuel,كتيب
 IDS_Manual,Manual,수동,Manual,Manual,Manuel,كتيب
 IDS_LANUAGE,Language,언어,Língua,Idioma,Langue,لغة
 IDS_BLUETOOTH,Bluetooth,블루투스,Bluetooth,Bluetooth,Bluetooth,بلوتوث
-IDS_GPS,GPS,GPS,GPS,GPS,GPS,GPS
-IDS_FTP,FTP,FTP,FTP,FTP,FTP,FTP
+IDS_GPS,GPS,GPS,GPS,GPS,GPS,الجميع GPS
+IDS_FTP,FTP,FTP,FTP,FTP,FTP,عنوان FTP
 IDS_DISABLE,Disable,비활성화,Desativar,Deshabilitar,Désactiver,إبطال
 IDS_ENABLE_AUTO,Enable(Auto),활성화(자동),Ativar (Automático),Habilitar (automático),Activer (Auto),تمكين (تلقائي)
 IDS_ENABLE_MANUAL,Enable(Manual),활성화(수동),Ativar (Manual),Habilitar (Manual),Activer (Manuel),تمكين (يدوي)
 IDS_WIFI,WiFi,와이파이,Wi-fi,Wifi,Wifi,واي فاي
 IDS_NINE_AXIS_SENSOR,9 Axis Sensor,9축 센서,Sensor de 9 eixos,Sensor de 9 ejes,Capteur 9 axes,9 محور الاستشعار
 IDS_MOTION_SENSOR,Motion Sensor,모션 센서,sensor de movimento,sensor de movimiento,capteur de mouvement,مستشعر الحركة
-IDS_MIC_N_SPEAKER,MIC & Speaker,마이크 및 스피커,microfone e alto-falante,Micrófono y altavoz,MICRO et haut-parleur,ميكروفون ومكبر صوت
-IDS_POWER_SAVING_TIME,Power Saving Time,절전 시간,Tempo de economia de energia,Tiempo de ahorro de energía,Temps d'économie d'énergie,وقت توفير الطاقة
+IDS_MIC_N_SPEAKER,Speaker,스피커,Alto-falante,Altavoz,Haut-parleur,مكبر الصوت  
+IDS_POWER_SAVING_TIME,Power Saving Time,절전 시간,Tempo de eco. de energia,Tiempo de ahorro de en.,Temps d'éco. d'énergie,وقت توفير الطاقة
 IDS_SETTING,Setting,세팅,Contexto,Ajuste,Paramètre,ضبط
 IDS_SENSITIVITY,Sensitivity:,감도:,Sensibilidade:,Sensibilidad:,Sensibilité:,حساسية:
 IDS_TIME,Time:,시간:,Tempo:,Hora:,Temps:,وقت:
@@ -107,7 +107,7 @@ IDS_CAMERA_TITLE,CAMERA,카메라,CÂMERA,CÁMARA,CAMÉRA,الة تصوير
 IDS_SELFTEST_CHECK,CHECKING...,확인중...,verificando...,comprobación...,vérification...,تدقيق...
 IDS_LASER_TITLE,LASER,레이저,LASER,LÁSER,LASER,الليزر
 IDS_BATTERY_TITLE,BATTERY,배터리,BATERIA,BATERÍA,BATTERIE,البطارية
-IDS_STORAGE_TITLE,STORAGE,저장소,ARMAZENAR,ALMACENAMIENTO,ESPACE DE RANGEMENT,تخزين
+IDS_STORAGE_TITLE,STORAGE,저장소,ARMAZE.,ALMACE.,ESP. DE RANG.,تخزين
 IDS_EXPIRED_DATE,Expiry date(service required after):,만료일(이후 서비스 필요):,Data expirada (serviço necessário após):,Fecha de vencimiento (servicio requerido después):,Date d'expiration (service requis après):,تاريخ انتهاء الصلاحية (الخدمة مطلوبة بعد):
 IDS_VERSION,V1.0.0,V1.0.0,V1.0.0,V1.0.0,V1.0.0,V1.0.0
 IDS_MAIN_MENU,Main Menu,메인 메뉴,Menu principal,Menú principal,Menu principal,القائمة الرئيسية
@@ -116,8 +116,8 @@ IDS_CAMERA_ZOOM_FOCUS2,ZOOM,줌,ZOOM DA,ZOOM DE,DU ZOOM DE,التصغير
 IDS_CAMERA_ZOOM_FOCUS3,FOCUS,포커스,CÂMERA,LA CÁMARA,LA CAMÉRA,بالكاميرا
 IDS_CAMERA_HUD_ALIGN1,CAMERA,카메라,ALINHAMENTO,ALINEACIÓN,ALIGNEMENT,محاذاة
 IDS_CAMERA_HUD_ALIGN2,HUD,HUD,DO HUD DA,DEL HUD DE,DU HUD DE,شاشة عرض
-IDS_CAMERA_HUD_ALIGN3,ALIGN,정렬,CÂMERA,LA CÁMARA,LA CAMÉRA,الكاميرا
-IDS_OK,OK,확인,OK,DE ACUERDO,D'ACCORD,نعم
+IDS_CAMERA_HUD_ALIGN3,ALIGN,정렬,CÂMERA,LA CÁMARA,LA CAMÉRA,
+IDS_OK,OK,확인,OK,OK,OK,نعم
 IDS_HOME,Home,메인 메뉴,Lar,Casa,Domicile,بيت
 IDS_DEFAULT,Default,중심좌표,Padrão,Defecto,Défaut,تقصير
 IDS_AUTO_TRIGGER,A.T,A.T,A.T,A.T,A.T,A.T
@@ -134,17 +134,17 @@ IDS_BACK,Back,뒤로,De volta,atrás,Arrière,خلف
 IDS_WARNING_MESSAGE,Warning message,경고 메시지,Mensagem de aviso,Mensaje de advertencia,Message d'alerte,رسالة تحذير
 IDS_CONTINUE_QUESTION,Do you continue using it?,계속 사용하시겠습니까?,Você continua a usá-la?,¿Sigues usándola?,Continuez-vous à l'utiliser?,هل تريد الاستمرار في استخدامه؟
 IDS_LASER,Laser,레이저,Laser,Láser,Laser,الليزر
-IDS_STORAGE,Storage,저장소,Armazenar,Almacenamiento,Espace de rangement,تخزين
+IDS_STORAGE,Storage,저장소,Armaze.,Almace.,Esp. de rang.,تخزين
 IDS_BATTERY,Battery,배터리,Bateria,Batería,Batterie,بطارية
 IDS_FAIL,FAIL,실패,Falhou,Fallar,Échouer,يفشل
 IDS_CONTINUE,Continue,계속,Continuar,Continuar,Continuer,يكمل
 IDS_POWER_OFF,Power off,전원 종료,Desligar,Apagado,Éteindre,انقطاع التيار الكهربائي
 IDS_CAMERA,Camera,카메라,Câmera,Cámara,Caméra,الة تصوير
 IDS_M,M,M,M,M,M,م
-IDS_DELETE_ALL_QUESTION,Do you want to delete all searched files?,검색된 파일을 모두 삭제하시겠습니까?,Deseja excluir todos os arquivos pesquisados?,¿Desea eliminar todos los archivos buscados?,Voulez-vous supprimer tous les fichiers recherchés ?,هل تريد حذف جميع الملفات التي تم البحث عنها؟
+IDS_DELETE_ALL_QUESTION,Do you want to delete all files?,검색된 파일을 모두 삭제하시겠습니까?,Deseja excluir todos os arquivos pesquisados?,Desea eliminar todos los archivos buscados?,Voulez-vous supprimer tous les fichiers?,هل تريد حذف جميع الملفات التي تم البحث عنها؟
 IDS_FILEMANAGER_QUESTION_MESSAGE,Question Message,질문 메시지,Pergunta Mensagem,Mensaje de pregunta,Question Message,رسالة استفهام
-IDS_NOT_WORKING_NORMALLY,This unit does not work normally.,본 기기가 정상적으로 작동하지 않습니다.,Esta unidade não funciona normalmente.,Esta unidad no funciona normalmente.,Cet appareil ne fonctionne pas normalement.,هذه الوحدة لا تعمل بشكل طبيعي.
-IDS_FILEMANAGER_FILE_TRANSFER,FTP FILE TRANSFER,FTP 파일 전송,TRANSFERÊNCIA DE ARQUIVOS FTP,TRANSFERENCIA DE ARCHIVOS FTP,TRANSFERT DE FICHIERS FTP,نقل ملفات FTP
+IDS_NOT_WORKING_NORMALLY,This unit is abnormal.,본 기기가 정상적으로 작동하지 않습니다.,Esta unidade é anormal.,Esta unidad es anormal.,Cette unité est anormale.,هذه الوحدة لا تعمل بشكل طبيعي.
+IDS_FILEMANAGER_FILE_TRANSFER,FTP FILE TRANSFER,FTP 파일 전송,TRANS. DE ARQUIVOS FTP,TRANS. DE ARCHIVOS FTP,TRANS.DE FICHIERS FTP,نقل ملفات FTP
 IDS_SELFTEST_SUCCESS,PASS,통과,PASSAR,APROBAR,PASSE,يمر
 IDS_GATEWAY,Gateway,게이트웨이,Porta de entrada,Puerta,passerelle,بوابة
 IDS_DNS_SERVER,DNS Server,DNS 서버,Servidor DNS,Servidor DNS,Serveur DNS,خادم DNS
@@ -166,8 +166,8 @@ IDS_DAY,DAY,주간,DIA,DÍA,JOURNÉE,يوم
 IDS_NIGHT,NIGHT,야간,NOITE,NOCHE,NUIT,ليل
 IDS_INIT,INIT,초기화,INICIAR,INIT,INIT,فيه
 IDS_ZOOM_60_100,Z: 60 ~ 100m,Z: 60 ~ 100m,Z: 60 ~ 100m,Z: 60 ~ 100m,Z : 60 ~ 100 m,Z: 60 ~ 100 م
-IDS_PQRS_SAVE,pqrs SAVE,pqrs 저장,pqrs SALVAR,pqrs GUARDAR,pqrs ENREGISTRER,pqrs حفظ
-IDS_JPG_SAVE,JPG SAVE,JPG 저장,JPG SALVAR,JPG GUARDAR,ENREGISTREMENT JPG,حفظ JPG
+IDS_PQRS_SAVE,pqrs SAVE,pqrs 저장,pqrs S.,pqrs G.,pqrs E.,pqrs حفظ
+IDS_JPG_SAVE,JPG SAVE,JPG 저장,JPG S.,JPG G.,E. JPG,حفظ JPG
 IDS_Z10,Z10,Z10,Z10,Z10,Z10,Z10
 IDS_Z30,Z30,Z30,Z30,Z30,Z30,Z30
 IDS_Z60,Z60,Z60,Z60,Z60,Z60,Z60
@@ -187,8 +187,8 @@ IDS_10_MINUTE,10 minutes,10 분,10 minutos,10 minutos,10 minutes,10 دقائق
 IDS_20_MINUTE,20 minutes,20 분,20 minutos,20 minutos,20 minutes,20 دقيقة
 IDS_30_MINUTE,30 minutes,30 분,30 minutos,30 minutos,30 minutes,30 دقيقة
 IDS_ARE_U_SURE_FACTORY_DEFAILT,Are you sure to set the factory default?,공장 초기화를 실행하시겠습니까?,Tem certeza de definir o padrão de fábrica?,¿Estás seguro de establecer el valor predeterminado de fábrica?,Êtes-vous sûr de définir les paramètres d'usine par défaut ?,هل أنت متأكد من ضبط المصنع الافتراضي؟
-IDS_ARE_U_SURE_FACTORY_DEFAULT,Are you sure to set the factory default?,공장 초기화를 실행하시겠습니까?,Tem certeza de definir o padrão de fábrica?,¿Estás seguro de establecer el valor predeterminado de fábrica?,Êtes-vous sûr de définir les paramètres d'usine par défaut ?,هل أنت متأكد من ضبط المصنع الافتراضي؟
-IDS_PLEASE_INPUT_PW,"Please, input admin password.",관리자 비밀번호를 입력해주세요.,"Por favor, insira a senha do administrador.","Por favor, ingrese la contraseña de administrador.",Veuillez saisir le mot de passe administrateur.,"من فضلك ، أدخل كلمة مرور المسؤول."
+IDS_ARE_U_SURE_FACTORY_DEFAULT,Do you want to set a factory reset?,공장 초기화를 실행하시겠습니까?,Deseja realizar uma redef. de fábrica?,Quieres realizar un restable. de fábrica?,Voulez-vous effectuer une réinit. d'usine ?,هل أنت متأكد من ضبط المصنع الافتراضي؟
+IDS_PLEASE_INPUT_PW,"Please, input admin password.",관리자 비밀번호를 입력해주세요.,"Insira a senha do administrador.","Ingrese la contraseña de administrador.",Veuillez saisir le mot de passe admin.,"من فضلك ، أدخل كلمة مرور المسؤول."
 IDC_SNAPSHOT,Snapshot,스냅샷,Instantâneo,Instantánea,Instantané,لمحة
 IDS_STILL_IMAGE_VIEWER,Still Image Viewer,이미지 뷰어,Visualizador de imagens fixas,Visor de imágenes fijas,Visionneuse d'images fixes,عارض الصور الثابتة
 IDS_QUIT,Quit,종료,Desistir,Dejar,Quitter,استقال
@@ -202,7 +202,7 @@ IDS_CAM,CAM,카메라,câmera,Leva,Came,كام
 IDS_CAM_SMALL,Cam,카메라,câmera,Leva,Came,كام
 IDS_SERIAL_NUMBER,S/N,S/N,S/N,S/N,S/N,S/N
 IDS_SERIAL_NUMBER2,Serial Number,일련 번호,Número de série,Número de serie,Numéro de série,رقم سري
-IDS_SYSTEM_INFO,System Info,시스템 정보,Informação do sistema,Información del sistema,Information système,معلومات النظام
+IDS_SYSTEM_INFO,System Info,시스템 정보,Info. do sistema,Info. del sistema,Info. système,معلومات النظام
 IDS_PRINT_ERROR1,Cannot connect a printer!!,프린터를 연결할 수 없습니다!!,Não é possível conectar uma impressora!!,¡¡No se puede conectar una impresora!!,Impossible de connecter une imprimante !!,لا يمكن توصيل طابعة !!
 IDS_PRINT_ERROR2,Please check settings for the printer,프린터 설정을 확인하십시오,Verifique as configurações da impressora,Compruebe la configuración de la impresora.,Veuillez vérifier les paramètres de l'imprimante,يرجى التحقق من إعدادات الطابعة
 IDS_FILEMANAGER_ERROR_MESSAGE,Error Message,에러 메시지,Mensagem de erro,Mensaje de error,Message d'erreur,رسالة خطأ
@@ -211,9 +211,9 @@ IDS_CURRENT,Current,현재 비밀번호,Atual,Actual,Actuel,حاضِر
 IDS_NEW,New,새 비밀번호,Novo,Nuevo,Nouveau,جديد
 IDS_CONFIRM,Confirm,새 비밀번호 확인,confirme,Confirmar,Confirmer,يتأكد
 IDS_SHOW,Show,보임,Mostrar,Show,Montrer,تبين
-IDS_WIFI_SSID,WIFI SSID & FTP ID,WIFI SSID & FTP ID,WIFI SSID & FTP ID,WIFI SSID & FTP ID,WIFI SSID & FTP ID,WIFI SSID & FTP ID
+IDS_WIFI_SSID,WIFI SSID,WIFI SSID,WIFI SSID,WIFI SSID,WIFI SSID,شكراWIFI SSID
 IDS_WIFI_SEARCH,WIFI Search,WIFI 검색,Pesquisa WIFI,búsqueda WIFI,Recherche WIFI,يبحث WIFI
-IDS_FTP_ID_PW,FTP ID/PW,FTP ID/PW,FTP ID/PW,FTP ID/PW,FTP ID/PW,FTP ID/PW
+IDS_FTP_ID_PW,FTP ID,FTP ID,FTP ID,FTP ID,FTP ID,حسابFTP ID
 IDS_PASS,PASS,PASS,PASSAR,APROBAR,PASSER,يمر
 IDS_CALIBRATION_SERVICE_REQUIRED,Calibration service required,교정 서비스 필요합니다,Serviço de calibração necessário,Servicio de calibración requerido,Service d'étalonnage requis,خدمة المعايرة مطلوبة
 IDS_LOGIN_EXPIRED_DATE,Expired Date,교정 유효기간 만료,Data expirada,Fecha de vencimiento,Date d'expiration,منتهي الصلاحية
@@ -229,6 +229,6 @@ IDS_NIGHT1,Night Dark,야간 어둡게,Noite escura,Noche oscura,Nuit sombre,ل�
 IDS_NIGHT2,Night Standard,야간 표준,Noturno Padrão,Noche Estándar,Norme de nuit,ليلة قياسية
 IDS_NIGHT3,Night Bright,야간 밝게,Noite brilhante,noche brillante,Nuit lumineuse,ليلة مشرقة
 IDS_REC,REC,녹화중,gravação,grabación,enregistrement,تسجيل
-IDS_SAVE_IMAGE1,Save,영상,salvar,guardar,enregistrer,الصورة
+IDS_SAVE_IMAGE1,Save,영상,salvar,guardar,enreg.,الصورة
 IDS_SAVE_IMAGE2,Image,저장,imagem,imagen,l'image,احفظ
 IDS_NETWORK_PASSWORD,Network password,네트워크 비밀번호,Senha da rede,Contraseña de red,Mot de passe réseau,كلمة مرور الشبكة

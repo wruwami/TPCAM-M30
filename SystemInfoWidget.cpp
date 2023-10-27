@@ -110,9 +110,11 @@ SystemInfoWidget::SystemInfoWidget(QWidget *parent) :
     object = ConfigManager("setting_device_ID.json").GetConfig();
     QJsonObject object2 = object["Device ID"].toObject();
     QString SerialNum;
-    if (!QString::compare(object2["Prefix"].toString(), "null", Qt::CaseInsensitive) || !object2["Prefix"].toString().isEmpty())
+    if (QString::compare(object2["Prefix"].toString(), "null", Qt::CaseInsensitive) && !object2["Prefix"].toString().isEmpty())
         SerialNum.append(object2["Prefix"].toString() + "_" + object2["SerialNum"].toString());
-    if (!QString::compare(object2["Postfix"].toString(), "null", Qt::CaseInsensitive) || !object2["Postfix"].toString().isEmpty())
+    else
+        SerialNum.append(object2["SerialNum"].toString());
+    if (QString::compare(object2["Postfix"].toString(), "null", Qt::CaseInsensitive) && !object2["Postfix"].toString().isEmpty())
         SerialNum.append("_" + object2["Postfix"].toString());
 
     ui->serialNumberValueLabel->setText(SerialNum);

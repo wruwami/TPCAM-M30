@@ -224,7 +224,8 @@ HEADERS  += MainWindow.h \
     socket.hh \
     thermal_printer.h \
     v4l2_thread.h \
-    wifi_scan.h
+    wifi_scan.h \
+    version.h
 
 FORMS    += MainWindow.ui \
     IndicatorCameraFocusWidget.ui \

@@ -15,8 +15,9 @@
 #include "Application.h"
 #include "Logger.h"
 #include "FileManager.h"
+#include "version.h"
 
-QString g_AppVersion = "1.0.0";
+QString g_AppVersion = QString(SW_VER);
 
 int main(int argc, char *argv[])
 {

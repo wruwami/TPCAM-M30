@@ -39,6 +39,7 @@ LoginWidget::LoginWidget(QWidget *parent) :
 
 
     // 추후 cfg와 연동하여 수정 필요
+    ui->versionLabel->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
     ui->versionLabel->setText(g_AppVersion);
 
     ui->deviceIDLabel->setText(LoadString("IDS_DEVICE_ID"));

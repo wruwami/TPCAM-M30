@@ -10,6 +10,8 @@ public:
     explicit CustomComboBox(QWidget *parent = 0);
 //    void setText(QString text);
     void setFontSize(int);
+private:
+    QSize m_size;
 signals:
 
 public slots:

@@ -7,6 +7,7 @@
 #include <QFont>
 #include <QAbstractItemView>
 #include <QAbstractScrollArea>
+#include <QScrollBar>
 
 #include "FontSize.h"
 
@@ -49,6 +50,7 @@ CustomComboBox::CustomComboBox(QWidget *parent) : QComboBox(parent)
     this->setSizeAdjustPolicy(QComboBox::AdjustToMinimumContentsLength);
 //    this->view()->setMaximumWidth()
     this->view()->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+    this->view()->verticalScrollBar()->setStyleSheet("width: 15px;");
 //    this->view()->verticalScrollBar().resize();
     setStyle(new AlignComboBoxProxy);
     setItemDelegate(new AlignDelegate(Qt::AlignLeft | Qt::AlignVCenter, this));
@@ -58,6 +60,30 @@ CustomComboBox::CustomComboBox(QWidget *parent) : QComboBox(parent)
     QString styleSheet = QString::fromLatin1(file.readAll());
 
     setStyleSheet(styleSheet);
+
+//    QAbstractItemView *qv = this->view();
+//    QScrollBar *scrollbar = qv->verticalScrollBar();
+//    m_size = scrollbar->size();
+//    m_size.setWidth(m_size.width() * 3);
+//    scrollbar->resize(m_size);
+    this->view()->verticalScrollBar()->setStyleSheet("QScrollBar:vertical { width: 100px; }");
+//    qv->setVerticalScrollBar(
+//    this->setView(qv);
+//    scrollbar->setStyleSheet("QScrollBar:vertical {  }");
+//                             \
+//                         }\
+//                         QScrollBar::handle:vertical{\
+//                             min-height: 20px;\
+//                         }\
+//                         QScrollBar::add-line:vertical {\
+//                             height: 20px;\
+//                             subcontrol-position: bottom;\
+//                             subcontrol-origin: margin;\
+//                         }\
+//                         QScrollBar::sub-line:vertical {\
+//                             height: 20px;\
+//                         }\
+");
     //    this->setEditable(true);
 }
 
@@ -89,4 +115,5 @@ void CustomComboBox::resizeEvent(QResizeEvent *event)
 
     setStyleSheet(QString(styleSheet + "QComboBox QListView {text-align:center;}\
 QListView::item {height: %0px;}").arg(event->size().height()));
+    this->view()->verticalScrollBar()->setStyleSheet("QScrollBar:vertical { width: 100px; }");
 }

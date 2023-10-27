@@ -48,7 +48,7 @@ BaseDialog::BaseDialog(Dialog dialog, Qt::Alignment align, QString msg, bool isC
         ui->closePushButton->show();
 //        ui->closePushButton->resize(ui->closePushButton->width(), ui->closePushButton->width());
 //        ui->closePushButton->setImage("MessageBox", "closeButton.png", QSize(0,0));
-        ui->closePushButton->setStyleSheet("QPushButton {border-image : url(images/MessageBox/closeButton.png); border:none;}");
+        ui->closePushButton->setStyleSheet("QPushButton { image : url(images/MessageBox/closeButton.png); border : 1px solid blue;} QPushButton:pressed {border : 1px solid red;}");
         connect(ui->closePushButton, &QAbstractButton::clicked, this, &QWidget::close);
     }
     else
@@ -249,7 +249,13 @@ BaseDialog::BaseDialog(Dialog dialog, Status isCamera, Status isLaser, Status is
         break;
 
     }
-
+    if(dialog == WifiSearchWidgetType)
+        ui->connectingStateLabel->setText(LoadString(""));
+    else
+        {
+            ui->horizontalLayout->removeWidget(ui->connectingStateLabel);
+            ui->connectingStateLabel->hide();
+        }
 
     this->move(QApplication::desktop()->screen()->rect().center() - this->rect().center());
 

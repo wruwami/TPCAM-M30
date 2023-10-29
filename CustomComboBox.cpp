@@ -8,6 +8,10 @@
 #include <QAbstractItemView>
 #include <QAbstractScrollArea>
 #include <QScrollBar>
+#include <QApplication>
+#include <QDesktopWidget>
+#include <QCompleter>
+#include <QDebug>
 
 #include "FontSize.h"
 
@@ -51,7 +55,12 @@ CustomComboBox::CustomComboBox(QWidget *parent) : QComboBox(parent)
 //    this->view()->setMaximumWidth()
     this->view()->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
     this->view()->verticalScrollBar()->setStyleSheet("width: 15px;");
+    view()->installEventFilter(this);
+
 //    this->view()->verticalScrollBar().resize();
+//    this->setEnabled(true);
+//    completer()->setCompletionMode(QCompleter::PopupCompletion);
+
     setStyle(new AlignComboBoxProxy);
     setItemDelegate(new AlignDelegate(Qt::AlignLeft | Qt::AlignVCenter, this));
 //    setStyleSheet(QString("QComboBox::down-arrow { image: url(images/Main_menu/combobox_drop_down_arrow.jpg);}"));
@@ -59,7 +68,9 @@ CustomComboBox::CustomComboBox(QWidget *parent) : QComboBox(parent)
     file.open(QFile::ReadOnly);
     QString styleSheet = QString::fromLatin1(file.readAll());
 
+
     setStyleSheet(styleSheet);
+    this->setMaxVisibleItems(6);
 
 //    QAbstractItemView *qv = this->view();
 //    QScrollBar *scrollbar = qv->verticalScrollBar();
@@ -94,6 +105,30 @@ void CustomComboBox::setFontSize(int font_size)
     this->setFont(font);
 }
 
+void CustomComboBox::showPopup()
+{
+
+//    QComboBox::showPopup();
+    bool oldAnimationEffects = qApp->isEffectEnabled(Qt::UI_AnimateCombo);
+    qApp->setEffectEnabled(Qt::UI_AnimateCombo, false);
+
+    QComboBox::showPopup();
+    qApp->setEffectEnabled(Qt::UI_AnimateCombo, oldAnimationEffects);
+
+
+
+//    QWidget *popup = this->findChild<QFrame*>(); //    if (popup->rect().y() > 130)
+//    qDebug() << popup->geometry();
+//    popup->move(popup->x(), popup->y()+popup->height());
+//    popup->move(popup->x(),popup->y()-this->height()-popup->height());
+//    popup->move(QApplication::desktop()->screen()->rect().center() - popup->rect().center());
+
+//    QSizePolicy sp = view()->sizePolicy();
+//    sp.setHorizontalPolicy(QSizePolicy::MinimumExpanding);
+//    view()->move(QApplication::desktop()->screen()->rect().center() - view()->rect().center());
+//    view()->    view()->setSizePolicy(sp);
+}
+
 //void CustomComboBox::setText(QString text)
 //{
 //   QLineEdit *displayedText = this->lineEdit();
@@ -101,8 +136,32 @@ void CustomComboBox::setFontSize(int font_size)
 //   displayedText->setReadOnly(true);
 //}
 
+bool CustomComboBox::eventFilter(QObject *o, QEvent *e)
+{
+  bool handled = false;
+  if (e->type() == QEvent::Show)
+  {
+    if (o == view())
+    {
+      QWidget *popup = findChild<QFrame*>();
+      popup->move(QApplication::desktop()->screen()->rect().center() - popup->rect().center());
+
+      //For some reason, the frame's geometry is GLOBAL, not relative to the QComboBox!
+//      frame->move(frame->x(),
+//                  mapToGlobal(lineEdit()->geometry().topLeft()).y() - frame->height());
+    }
+  }
+  /*else if other filters here*/
+
+  if (!handled)
+    handled = QComboBox::eventFilter(o, e);
+
+  return handled;
+}
+
 void CustomComboBox::resizeEvent(QResizeEvent *event)
 {
+     QComboBox::resizeEvent(event);
 //    QFont font;
 //    font.setPointSizeF(this->width()/FontSize::Maximum); // /40은 창크기에 따른 비례 값으로 디버깅하면서 변경해야한다.
 //    if(font.pointSizeF()<=FontSize::Minimum) //최소폰트 설정
@@ -114,6 +173,13 @@ void CustomComboBox::resizeEvent(QResizeEvent *event)
     QString styleSheet = QString::fromLatin1(file.readAll());
 
     setStyleSheet(QString(styleSheet + "QComboBox QListView {text-align:center;}\
-QListView::item {height: %0px;}").arg(event->size().height()));
+QListView::item {height: %0px;}").arg(event->size().height() * 3 / 4));
     this->view()->verticalScrollBar()->setStyleSheet("QScrollBar:vertical { width: 100px; }");
+
+//    QWidget *popup = findChild<QFrame*>();\
+//            popup->resize(event->size().width() ,event->size().height()  * 6);
+
+//    QWidget *popup = this->findChild<QFrame*>(); //    if (popup->rect().y() > 130)
+//    popup->move(QApplication::desktop()->screen()->rect().center() - popup->rect().center());
+//    this->view()->setStyleSheet()
 }

@@ -16,14 +16,14 @@
 		" ",
 		" "
 	],
-	"ftp select": 1,
+	"ftp select": 2,
 	"ftp items": [
 		"disable",
 		"Manual",
 		"Auto"
 	],
-	"ftp server( dns )": "ftp://comlaser.",
-	"ftp port": 6000,
-	"ftp user name": "comlaser",
-	"ftp password": "comlaser"
+	"ftp server( dns )": "ftp://comlaser.iptime.org",
+	"ftp port": 6001,
+	"ftp user name": "comlaser_ftp",
+	"ftp password": "comlaser1029"
 }

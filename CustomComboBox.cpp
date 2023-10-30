@@ -174,7 +174,7 @@ void CustomComboBox::resizeEvent(QResizeEvent *event)
 
     setStyleSheet(QString(styleSheet + "QComboBox QListView {text-align:center;}\
 QListView::item {height: %0px;}").arg(event->size().height() * 3 / 4));
-    this->view()->verticalScrollBar()->setStyleSheet("QScrollBar:vertical { width: 100px; }");
+    this->view()->verticalScrollBar()->setStyleSheet("QScrollBar:vertical { width: 30px; }");
 
 //    QWidget *popup = findChild<QFrame*>();\
 //            popup->resize(event->size().width() ,event->size().height()  * 6);

@@ -206,7 +206,18 @@ QString FileManager::GetFileName(PrefixType prefix, stEnforcementInfo enforceInf
     ConfigManager con = ConfigManager("parameter_login.json");
     QJsonObject object = con.GetConfig();
 
-    QString deviceID = object["Device ID"].toString();
+    ConfigManager con2 = ConfigManager("setting_device_ID.json");
+    QJsonObject object2 = con2.GetConfig();
+    QJsonObject object3 = object2["Device ID"].toObject();
+
+    QString deviceID;
+    if (QString::compare(object3["Prefix"].toString(), "null", Qt::CaseInsensitive) && !object3["Prefix"].toString().isEmpty())
+        deviceID.append(object3["Prefix"].toString() + "_" + object3["SerialNum"].toString());
+    else
+        deviceID.append(object3["SerialNum"].toString());
+    if (QString::compare(object3["Postfix"].toString(), "null", Qt::CaseInsensitive) && !object3["Postfix"].toString().isEmpty())
+        deviceID.append("_" + object3["Postfix"].toString());
+
     int userIndex = object["User Name Select"].toInt() - 1;
     QJsonArray ar = object["User Name items"].toArray();
     QString userID = ar[userIndex].toString();
@@ -317,7 +328,7 @@ QString FileManager::GetSDPath()
 //    return dir.absolutePath();
     StorageManager storageManager;
     return storageManager.GetSDCARDPath();
-//    return "/home/firefly/sdcard";
+//    return "/home/wruwami/sdcard";
 }
 
 QString FileManager::GetUSBPath()

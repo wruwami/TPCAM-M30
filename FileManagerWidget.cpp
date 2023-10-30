@@ -412,22 +412,45 @@ void FileManagerWidget::printA4()
     cursor.insertText(LoadString("IDS_UN") + " : " + m_currentAVFileFormat.userId, textFormat);
     cursor.insertBlock();
     cursor.insertBlock();
-    cursor.insertText(LoadString("IDS_DATE") + " : " + m_currentAVFileFormat.date, textFormat);
+    cursor.insertText(LoadString("IDS_DATE") + " : " + GetDate(QString(m_currentAVFileFormat.date).mid(0, 8)), textFormat);
     cursor.insertBlock();
     cursor.insertBlock();
-    cursor.insertText(LoadString("IDS_TIME") + " : " + m_currentAVFileFormat.time, textFormat);
+    QString time = QString(m_currentAVFileFormat.time).mid(0, 2) + ":" + QString(m_currentAVFileFormat.time).mid(2, 2) + ":" + QString(m_currentAVFileFormat.time).mid(4, 2);
+    cursor.insertText(LoadString("IDS_TIME") + " : " + time, textFormat);
     cursor.insertBlock();
     cursor.insertBlock();
-    cursor.insertText(LoadString("IDS_SPEED_LIMIT") + " : " + m_currentAVFileFormat.captureSpeedLimit, textFormat);
+    QString speedUnit;
+    QString distanceUnit;
+    if (QString(m_currentAVFileFormat.unit) == "S")
+    {
+        speedUnit = "Km/h";
+        distanceUnit = "meter";
+    }
+    else
+    {
+        speedUnit = "mph";
+        distanceUnit = "feet";
+    }
+
+    cursor.insertText(LoadString("IDS_SPEED_LIMIT") + " : " + QString::number(m_currentAVFileFormat.captureSpeedLimit.toInt()) + " " + speedUnit, textFormat);
     cursor.insertBlock();
     cursor.insertBlock();
-    cursor.insertText(LoadString("IDS_VIOLATION_SPEED") + " : "+ m_currentAVFileFormat.captureSpeed, textFormat);
+    int captureSpeed;
+    if (m_currentAVFileFormat.captureSpeed.mid(0,1) == "M")
+    {
+        captureSpeed = -(m_currentAVFileFormat.captureSpeed.mid(1,4).toInt());
+    }
+    else
+    {
+        captureSpeed = (m_currentAVFileFormat.captureSpeed.mid(1,4).toInt());
+    }
+    cursor.insertText(LoadString("IDS_VIOLATION_SPEED") + " : "+ QString::number(captureSpeed) + " " + speedUnit, textFormat);
     cursor.insertBlock();
     cursor.insertBlock();
-    cursor.insertText(LoadString("IDS_RANGE") + " : " + m_currentAVFileFormat.distance, textFormat);
+    cursor.insertText(LoadString("IDS_RANGE") + " : " + QString::number(m_currentAVFileFormat.distance.toInt()) + " " + distanceUnit, textFormat);
     cursor.insertBlock();
     cursor.insertBlock();
-    cursor.insertText(LoadString("IDS_LOCATION") + " : " + m_currentAVFileFormat.location, textFormat);
+    cursor.insertText(LoadString("IDS_LOCATION") + " : " + m_currentAVFileFormat.location + "(" + m_currentAVFileFormat.latitude + "," + m_currentAVFileFormat.longitude + ")", textFormat);
     cursor.insertBlock();
     cursor.insertBlock();
 

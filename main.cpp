@@ -51,7 +51,13 @@ int main(int argc, char *argv[])
 
 //    system("sudo timedatectl set-ntp 0");
 //    system("sudo /home/firefly/start.sh");
-    QString cmd = "sudo "+GeteMMCPath()+"/"+"start.sh";
+    QString cmd = "sudo chmod +x "+GeteMMCPath()+"/"+"start.sh";
+    system(cmd.toStdString().c_str());
+    cmd = "sudo chmod +x "+GeteMMCPath()+"/"+"command_change.sh";
+    system(cmd.toStdString().c_str());
+    cmd = "sudo chmod +x "+GeteMMCPath()+"/"+"command_origin.sh";
+    system(cmd.toStdString().c_str());
+    cmd = "sudo "+GeteMMCPath()+"/"+"start.sh";
     system(cmd.toStdString().c_str());
 
 

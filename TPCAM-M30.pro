@@ -11,6 +11,9 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = TPCAM-M30
 TEMPLATE = app
 
+DEFINES+="QT_AVPLAYER_MULTIMEDIA"
+INCLUDEPATH += .
+include(QtAVPlayer/QtAVPlayer.pri)
 
 SOURCES += main.cpp\
     Application.cpp \
@@ -31,6 +34,7 @@ SOURCES += main.cpp\
     LoginWidget.cpp \
     MainMenuWidget.cpp \
     MovieViewerDialog.cpp \
+    MovieViewerDialogSub.cpp \
     NetworkAccessManager.cpp \
     NetworkManager.cpp \
     RemoteControlWorker.cpp \
@@ -114,7 +118,9 @@ SOURCES += main.cpp\
     socket.cc \
     thermal_printer.cpp \
     v4l2_thread.cpp \
-    wifi_scan.c
+    wifi_scan.c \
+    keyboardwidget.cpp \
+    keypadwidget.cpp
 
 
 HEADERS  += MainWindow.h \
@@ -136,6 +142,7 @@ HEADERS  += MainWindow.h \
     LoginWidget.h \
     MainMenuWidget.h \
     MovieViewerDialog.h \
+    MovieViewerDialogSub.h \
     NetworkAccessManager.h \
     NetworkManager.h \
     RemoteControlWorker.h \
@@ -225,7 +232,14 @@ HEADERS  += MainWindow.h \
     thermal_printer.h \
     v4l2_thread.h \
     wifi_scan.h \
-    version.h
+    version.h \
+    QtAVPlayer/qavandroidsurfacetexture_p.h \
+    keyboardwidget.h \
+    keypadwidget.h \
+    QtAVPlayerHelper/videorenderer.h \
+    QtAVPlayerHelper/mediaservice.h \
+    QtAVPlayerHelper/mediaobject.h \
+    QtAVPlayerHelper/videowidget.h
 
 FORMS    += MainWindow.ui \
     IndicatorCameraFocusWidget.ui \
@@ -235,6 +249,7 @@ FORMS    += MainWindow.ui \
     DateTimeWidget.ui \
     MainMenuContentWidget.ui \
     MovieViewerDialog.ui \
+    MovieViewerDialogSub.ui \
     SdCardMemoryLack.ui \
     SelfTestDialog.ui \
     SelfTestWidget.ui \
@@ -281,6 +296,10 @@ FORMS    += MainWindow.ui \
     FileManagerFileTransferDialog.ui \
     SearchBoxDialog.ui
 
+OTHER_FILES += start.sh \
+               command_change.sh \
+               command_origin.sh
+
 RESOURCES += \
     style.qrc
 
@@ -307,3 +326,19 @@ DEPENDPATH += /usr/local/include
 top_builddir=$$shadowed($$PWD)
 QMAKE_POST_LINK += "rm -rf $$top_builddir/settings/build_date.txt" $$escape_expand(\n\t)
 QMAKE_POST_LINK += "date +"%Y%m%d" >> $$top_builddir/settings/build_date.txt" $$escape_expand(\n\t)
+
+# copies the given files to the destination directory
+defineTest(copyToDestDir) {
+    files = $$1
+    dir = $$2
+
+    for(file, files) {
+        QMAKE_POST_LINK += $$QMAKE_COPY_DIR $$shell_quote($$file) $$shell_quote($$dir) $$escape_expand(\\n\\t)
+    }
+
+    export(QMAKE_POST_LINK)
+}
+#copyToDestDir(srcPath, destPath)
+copyToDestDir($$PWD/start.sh, $$OUT_PWD)
+copyToDestDir($$PWD/command_origin.sh, $$OUT_PWD)
+copyToDestDir($$PWD/command_change.sh, $$OUT_PWD)

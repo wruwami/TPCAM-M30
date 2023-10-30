@@ -730,7 +730,10 @@ void EnforcementComponentWidget::displaySpeedDistance(float fSpeed, float fDista
 void EnforcementComponentWidget::displayDistance(float fDistance)
 {
     ui->distanceLabel->setColor(Qt::white);
-    ui->distanceLabel->setText(QString::number(getDistanceValue(fDistance), 'f', 1) + distanceValue());
+    if(fDistance == 9999.0)
+        ui->distanceLabel->setText("----.-" + distanceValue());
+    else
+        ui->distanceLabel->setText(QString::number(getDistanceValue(fDistance), 'f', 1) + distanceValue());
 
     ui->speedLabel->setText("");
 }

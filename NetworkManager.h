@@ -18,11 +18,12 @@ public:
     bool getNetworkState(QString);
     bool getNetworkUpDown(QString);
     bool getNetworkRunningOrNot(QString);
+    QString GetSubNetMask(QString submask);
+
 private:
     void SetWifiStaMode();
     void SetWifiAPMode();
     void SetEtherNet();
-    QString GetSubNetMask(QString submask);
 
 private:
     QJsonObject m_wifi_jsonObject;

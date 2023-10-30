@@ -57,11 +57,21 @@ Setting4STAWidget::Setting4STAWidget(QWidget *parent) :
     ui->printerComboBox->setCurrentIndex(index);
 
     ui->FTPIDPWLineEdit->setText(m_jsonObject["sta ftp id & p/w"].toString());
-    ui->ipLineEdit->setText(m_jsonObject["ip"].toString());
-    ui->subnetMaskLineEdit->setText(m_jsonObject["subnet mask"].toString());
 
 
 
+    NetworkManager networkManager;
+    QNetworkInterface eth1Ip = QNetworkInterface::interfaceFromName(networkManager.getWlanAdapterName());
+    QList<QNetworkAddressEntry> entries = eth1Ip.addressEntries();
+    if (!entries.isEmpty()) {
+        QNetworkAddressEntry entry = entries.first();
+        ui->ipLineEdit->setText(entry.ip().toString());        
+	    ui->subnetMaskLineEdit->setText(networkManager.GetSubNetMask( entry.ip().toString() ));
+    }
+
+//	ui->ipLineEdit->setText(m_jsonObject["ip"].toString());
+	ui->ipLineEdit->setDisabled(true);
+	ui->subnetMaskLineEdit->setDisabled(true);
 }
 
 Setting4STAWidget::~Setting4STAWidget()

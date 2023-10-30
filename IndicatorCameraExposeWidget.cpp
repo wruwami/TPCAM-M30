@@ -134,6 +134,10 @@ IndicatorCameraExposeWidget::IndicatorCameraExposeWidget(QWidget *parent) :
 //    ui->gainComboBox->setCurrentIndex(ui->gainComboBox->count() - 1);
 //    ui->irisComboBox->setCurrentIndex(ui->irisComboBox->count() - 1);
 //    ui->shutterSpeedComboBox->setCurrentIndex(ui->shutterSpeedComboBox->count() - 1);
+
+    int dnn = ConfigManager("parameter_setting2.json").GetConfig()["day&night selection"].toInt();
+    ui->daynNightComboBox->setCurrentIndex(dnn-1);
+
 }
 
 IndicatorCameraExposeWidget::~IndicatorCameraExposeWidget()
@@ -234,6 +238,8 @@ void IndicatorCameraExposeWidget::on_disOffPushButton_clicked()
 
 void IndicatorCameraExposeWidget::on_daynNightComboBox_currentIndexChanged(int index)
 {
+    emit sig_dnnIndexChanged(index);
+
     ConfigManager config = ConfigManager("exposure.json");
     QJsonObject object = config.GetConfig();
     QJsonObject ret;

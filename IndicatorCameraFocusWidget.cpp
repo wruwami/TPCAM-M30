@@ -130,8 +130,8 @@ void IndicatorCameraFocusWidget::on_forcusPlusPushButton_clicked()
 
 void IndicatorCameraFocusWidget::on_show_focus(QString value)
 {
-    m_FocusValue = value;
-    ui->focusLineEdit->setText("0x"+value);
+    m_FocusValue = value.toUpper();
+    ui->focusLineEdit->setText("0x"+value.toUpper());
 }
 
 void IndicatorCameraFocusWidget::on_autoTriggerPushButton_clicked(bool checked)
@@ -152,7 +152,11 @@ void IndicatorCameraFocusWidget::on_autoTriggerPushButton_clicked(bool checked)
 
 void IndicatorCameraFocusWidget::showDistanceSensitivity(float fSDistance, int nSensitivity)
 {
-    ui->distanceLabel->setText(QString::number(getDistanceValue(fSDistance), 'f', 1) + distanceValue());
+    if(fSDistance == 9999.0)
+        ui->distanceLabel->setText("----.-" + distanceValue());
+    else
+        ui->distanceLabel->setText(QString::number(getDistanceValue(fSDistance), 'f', 1) + distanceValue());
+
     QFont font = ui->distanceLabel->font();
     font.setPixelSize(23);
     ui->distanceLabel->setFont(font);

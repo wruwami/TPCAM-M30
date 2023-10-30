@@ -33,6 +33,8 @@ public:
     bool GetWifiStatus();
     void SetMainMenu(MainMenuWidget*);
     void setIndicatorImage(CustomPushButton* pCustomButton, QString path_name, QString file_name);
+public slots:
+    void dnnComboboxIndexChangedFromExpose(int);
 private:
     void clearSecondRow();
     void initlize();

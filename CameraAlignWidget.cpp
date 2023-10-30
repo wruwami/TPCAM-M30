@@ -260,7 +260,10 @@ void CameraAlignWidget::on_autoTriggerPushButton_toggled(bool checked)
 
 void CameraAlignWidget::on_showDistance(float fDistance, int nSensitivity)
 {
-    ui->speedSensitivitylabel->setText(QString::number(getDistanceValue(fDistance), 'f', 1) + distanceValue() + "(" + QString::number(nSensitivity)+ ")");
+    if(fDistance == 9999.0)
+        ui->speedSensitivitylabel->setText("----.-" + distanceValue() + "(" + QString::number(nSensitivity)+ ")");
+    else
+        ui->speedSensitivitylabel->setText(QString::number(getDistanceValue(fDistance), 'f', 1) + distanceValue() + "(" + QString::number(nSensitivity)+ ")");
 
     m_hud.HUDAlign(fDistance, nSensitivity);
 

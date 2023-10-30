@@ -23,6 +23,7 @@
 #include "KeypadDialog.h"
 #include "StillImageViewerDialog.h"
 #include "MovieViewerDialog.h"
+#include "MovieViewerDialogSub.h"
 #include "FileManagerFileTransferDialog.h"
 //#include "FileManagerFileTransferWidget.h"
 #include "SearchBoxDialog.h"
@@ -607,14 +608,14 @@ void FileManagerWidget::on_zoomPlayPushButton_clicked()
         break;
     case Mode::A_MODE: // A
     {
-        MovieViewerDialog movieViewerDialog(m_currentAVFileFormat);
-        movieViewerDialog.exec();
+        MovieViewerDialogSub movieViewerDialogSub(m_currentAVFileFormat);
+        movieViewerDialogSub.exec();
     }
         break;
     case Mode::V_MODE: // V
     {
-        MovieViewerDialog movieViewerDialog(m_currentAVFileFormat);
-        movieViewerDialog.exec();
+        MovieViewerDialogSub movieViewerDialogSub(m_currentAVFileFormat);
+        movieViewerDialogSub.exec();
     }
         break;
     case Mode::M_MODE: // Manual Capture
@@ -625,8 +626,8 @@ void FileManagerWidget::on_zoomPlayPushButton_clicked()
         break;
     case Mode::S_MODE: // Manual Capture
     {
-        MovieViewerDialog movieViewerDialog(m_currentAVFileFormat);
-        movieViewerDialog.exec();
+        MovieViewerDialogSub movieViewerDialogSub(m_currentAVFileFormat);
+        movieViewerDialogSub.exec();
     }
         break;
 

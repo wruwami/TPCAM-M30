@@ -181,7 +181,7 @@ void SerialViscaManager::set_infrared_mode_on()
 
 void SerialViscaManager::set_infrared_mode_off()
 {
-    SetLogMsg(VISCA_SEND_DATA, "set_infrared_mode_on()");
+    SetLogMsg(VISCA_SEND_DATA, "set_infrared_mode_off()");
     unsigned char header=0x81;
     unsigned char msg[4];
     unsigned char msgSize=4;

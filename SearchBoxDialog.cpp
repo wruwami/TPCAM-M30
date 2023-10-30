@@ -23,7 +23,7 @@ SearchBoxDialog::SearchBoxDialog(QString title, QWidget *parent) :
 
     ui->searchButton->setImage("file_manager", "file_management_search_search_button.bmp");
 //    ui->closePushButton->setText(LoadString("IDS_BACK"));
-    ui->closePushButton->setStyleSheet("QPushButton {border-image : url(images/MessageBox/closeButton.png); border:none;}");
+    ui->closePushButton->setStyleSheet("QPushButton {image : url(images/MessageBox/closeButton.png); border : 1px solid blue;} QPushButton:pressed {border : 1px solid red;}");
     ui->closePushButton->setFontSize(23);
 
     resize(GetWidgetSize(QSize(1208, 702)));

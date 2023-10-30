@@ -49,6 +49,9 @@ private slots:
     void on_irisComboBox_currentIndexChanged(int index);
     void on_shutterSpeedComboBox_currentIndexChanged(int index);
     void on_dnrComboBox_currentIndexChanged(int index);
+
+signals:
+    void sig_dnnIndexChanged(int);
 };
 
 #endif // INDICATORCAMERAEXPOSEWIDGET_H

@@ -260,6 +260,7 @@ void SelfTestWidget::CameraTest()
 
 void SelfTestWidget::LaserTest()
 {
+    m_serialLaserManager.stop_laser();
     m_serialLaserManager.show_laser_info();
 }
 

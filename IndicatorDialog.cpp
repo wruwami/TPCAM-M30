@@ -368,6 +368,7 @@ void IndicatorDialog::on_cameraExposeClicked()
     emit sig_Hide();
 
     IndicatorCameraExposeWidget indicatorCameraExposeWidget;
+    connect(&indicatorCameraExposeWidget, SIGNAL(sig_dnnIndexChanged(int)), this, SLOT(dnnComboboxIndexChangedFromExpose(int)));
 //    m_pIndicatorCameraExposeWidget->lower();
     indicatorCameraExposeWidget.exec();
 
@@ -982,6 +983,86 @@ void IndicatorDialog::on_night3WidgetClicked()
 //    ViscaManager viscaManager;
 //    viscaManager.SetDayMode(object);
 }
+
+void IndicatorDialog::dnnComboboxIndexChangedFromExpose(int dnnIndex)
+{
+    QString strImageFileName="", strBrightness="";
+    bool bNight=false;
+    switch(dnnIndex)
+    {
+    case 0:
+    {
+        strImageFileName="day1";
+        strBrightness="Dark";
+    }
+        break;
+    case 1:
+    {
+        strImageFileName="day2";
+        strBrightness="Normal";
+    }
+        break;
+    case 2:
+    {
+        strImageFileName="day3";
+        strBrightness="Bright";
+    }
+        break;
+    case 3:
+    {
+        strImageFileName="night1";
+        strBrightness="Dark";
+        bNight=true;
+    }
+        break;
+    case 4:
+    {
+        strImageFileName="night2";
+        strBrightness="Normal";
+        bNight=true;
+    }
+        break;
+    case 5:
+    {
+        strImageFileName="night3";
+        strBrightness="Bright";
+        bNight=true;
+    }
+        break;
+    default:
+    {
+        strImageFileName="";
+        strBrightness="";
+    }
+        break;
+    }
+
+    ui->daynNightPushButton->setImage("indicator", strImageFileName);
+    m_jsonObject2["day&night selection"] = dnnIndex + 1;
+    m_pMainMenuWidget->setIndicatorImage(m_pMainMenuWidget->m_pDaynNightPushbutton, "indicator", strImageFileName);
+
+    SetLogMsg(INDICATOR_CLICKED, strBrightness);
+
+    if (!m_bEnforcement)
+        return;
+
+    QJsonObject object;
+    if (bNight)
+        object = m_jsonObject3["Night"].toObject()[strBrightness].toObject();
+    else
+        object = m_jsonObject3["Day"].toObject()[strBrightness].toObject();
+
+    m_pSerialViscaManager->SetDayMode(object, !bNight, true);
+
+    emit sig_Night();
+
+    //saveJson
+    m_configManager2.SetConfig(m_jsonObject2);
+    m_configManager2.SaveFile();
+}
+
+
+
 
 void IndicatorDialog::on_clicked_sunny()
 {

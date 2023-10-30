@@ -28,7 +28,7 @@ FileManagerSnapShotDialog::FileManagerSnapShotDialog(int nMode, QWidget *parent)
     ui->snapShotLabel->setFontSize(23);
     ui->snapShotIconLabel->setImage("file_manager", "file_management_folder_icon_normal.bmp");
 //    ui->backPushButton->setText(LoadString("IDS_BACK"));
-    ui->backPushButton->setStyleSheet("QPushButton {border-image : url(images/MessageBox/closeButton.png); border:none;}");
+    ui->backPushButton->setStyleSheet("QPushButton {image : url(images/MessageBox/closeButton.png); border : 1px solid blue;} QPushButton:pressed {border : 1px solid red;}");
 
 //    ui->backPushButton->setFontSize(23);
 

@@ -16,3 +16,6 @@ ftpclient : https://github.com/mkulke/ftplibpp/tree/master
 - libssl 필요 : sudo apt install libssl-dev
 
 screen capture : scrot사용 ( sudo apt install scrot)
+
+QtAVPlayer
+- libavdevice 필요: sudo apt-get install libavdevice-dev

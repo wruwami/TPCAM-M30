@@ -29,6 +29,7 @@
 #include "ConfigManager.h"
 #include <QJsonArray>
 #include "SerialGPSManager.h"
+#include "GstShmMgr.h"
 
 #define FONT_SIZE 				12
 
@@ -43,12 +44,12 @@
 
 Q_DECLARE_METATYPE(QCameraInfo)
 
-void thread_CommandExcute(QString strCommand)
+/*void thread_CommandExcute(QString strCommand)
 {
     int result = std::system(strCommand.toStdString().c_str());
 
     qDebug() << strCommand << " : " << result;
-}
+}*/
 
 Camera::Camera(QWidget *parent) :
     QGraphicsView(parent)
@@ -86,10 +87,13 @@ Camera::Camera(QWidget *parent) :
 	intro2.write("out");
 	intro2.close();
 
-	if (!setShmsink(SHM_NAME, SHM_DEV))
-	{
-		qDebug() << "gst shared memory sink start failed.";
-	}
+//	if (!setShmsink(SHM_NAME, SHM_DEV))
+//	{
+//		qDebug() << "gst shared memory sink start failed.";
+//	}
+    GstShmMgr::getInstance();
+
+    usleep(200000);
 
 	m_v4l2Capturer.reset(new v4l2_thread());
 	m_v4l2Capturer->initV4l2();
@@ -101,9 +105,9 @@ Camera::Camera(QWidget *parent) :
 Camera::~Camera()
 {
 	//m_pProcess.waitForFinished();
-	m_pProcess->close();
+    /*m_pProcess->close();
 	delete m_pProcess;
-	m_pProcess = nullptr;
+    m_pProcess = nullptr;*/
 
     if (m_capturer) {
 
@@ -239,13 +243,13 @@ void Camera::updateFPS(float fps)
 	qDebug() << "FPS: " << fps;
 }
 
-bool Camera::setShmsink(QString qstrShmName, QString qstrDevice)
+/*bool Camera::setShmsink(QString qstrShmName, QString qstrDevice)
 {
 	m_pProcess = new QProcess;
 	QString strShmsinkCommand = "gst-launch-1.0 rkisp device=" + qstrDevice + " io-mode=1 ! video/x-raw,format=NV12,width=1920,height=1080,framerate=30/1 ! videoconvert ! shmsink socket-path=/tmp/foo name=" + qstrShmName + " sync=false wait-for-connection=false shm-size=20000000";
 	bool bGstShmsink = m_pProcess->startDetached(strShmsinkCommand);
 	return bGstShmsink;
-}
+}*/
 
 void Camera::setViewerToShmsrc(QString qstrShmName, int nFramerate, int nViewerWidth, int nViewerHeight)
 {
@@ -294,7 +298,7 @@ void Camera::setViewerToShmsrc(QString qstrShmName, int nFramerate, int nViewerW
 
 //	return qstrFilename;
 //}
-void Camera::saveVideoUseShmsrc(QString qstrVideoFilename, QString qstrPath, QString qstrShmName, int nRecodeTime, int nFramerate, int nVideoWidth, int nVideoHeight)
+/*void Camera::saveVideoUseShmsrc(QString qstrVideoFilename, QString qstrPath, QString qstrShmName, int nRecodeTime, int nFramerate, int nVideoWidth, int nVideoHeight)
 {
 	if (qstrPath != "")
 	{
@@ -302,24 +306,24 @@ void Camera::saveVideoUseShmsrc(QString qstrVideoFilename, QString qstrPath, QSt
 	}
 
 	int nNumBuffer = nRecodeTime * nFramerate;
-	/*QString qstrTimestamp = (bTimestamp) ? "! clockoverlay valignment=bottom halignment=left font-desc=\"Sans, 12\" time-format=\"%F %X\"" : "";
-	QString qstrTextoverlay = "";
-	if (bTextoverlay)
-	{
-		qstrTextoverlay.sprintf("! textoverlay text=\"%s\" valignment=bottom halignment=right font-desc=\"Sans, 12\"", qstrEnfoceInfo.toStdString().c_str());
-	}
-	QString strCommand = QString("gst-launch-1.0 shmsrc num-buffers=%1 do-timestamp=true socket-path=/tmp/foo name=%2 ! video/x-raw,format=NV12,width=%3,height=%4,framerate=%5/1 %6 %7 ! videoconvert ! jpegenc ! queue ! mux. alsasrc num-buffers=1024 ! audioconvert ! \'audio/x-raw,rate=44100,channels=2\' ! queue ! mux. avimux name=mux ! filesink location=%8%9"
-		).arg(QString::number(nNumBuffer), qstrShmName, QString::number(nVideoWidth), QString::number(nVideoHeight), QString::number(nFramerate), qstrTimestamp, qstrTextoverlay, qstrPath, qstrVideoFilename);
-	*/
+//	QString qstrTimestamp = (bTimestamp) ? "! clockoverlay valignment=bottom halignment=left font-desc=\"Sans, 12\" time-format=\"%F %X\"" : "";
+//	QString qstrTextoverlay = "";
+//	if (bTextoverlay)
+//	{
+//		qstrTextoverlay.sprintf("! textoverlay text=\"%s\" valignment=bottom halignment=right font-desc=\"Sans, 12\"", qstrEnfoceInfo.toStdString().c_str());
+//	}
+//	QString strCommand = QString("gst-launch-1.0 shmsrc num-buffers=%1 do-timestamp=true socket-path=/tmp/foo name=%2 ! video/x-raw,format=NV12,width=%3,height=%4,framerate=%5/1 %6 %7 ! videoconvert ! jpegenc ! queue ! mux. alsasrc num-buffers=1024 ! audioconvert ! \'audio/x-raw,rate=44100,channels=2\' ! queue ! mux. avimux name=mux ! filesink location=%8%9"
+//		).arg(QString::number(nNumBuffer), qstrShmName, QString::number(nVideoWidth), QString::number(nVideoHeight), QString::number(nFramerate), qstrTimestamp, qstrTextoverlay, qstrPath, qstrVideoFilename);
+
 
 	QString strCommand = QString("gst-launch-1.0 shmsrc num-buffers=%1 do-timestamp=true socket-path=/tmp/foo name=%2 ! video/x-raw,format=NV12,width=%3,height=%4,framerate=%5/1 ! queue ! videoconvert ! jpegenc ! avimux ! filesink location=%6%7"
 		).arg(QString::number(nNumBuffer), qstrShmName, QString::number(nVideoWidth), QString::number(nVideoHeight), QString::number(nFramerate), qstrPath, qstrVideoFilename);
 
 	std::thread thread_command(thread_CommandExcute, strCommand);
 	thread_command.detach();
-}
+}*/
 
-void Camera::mkDirs(QString dir_path)
+/*void Camera::mkDirs(QString dir_path)
 {
 	QDir dir(dir_path);
 
@@ -332,7 +336,7 @@ void Camera::mkDirs(QString dir_path)
 		QFile::ReadGroup | QFile::WriteGroup | QFile::ExeGroup |
 		QFile::ReadOther | QFile::WriteOther | QFile::ExeOther;
 	QFile::setPermissions(dir_path, permissions);
-}
+}*/
 
 QString Camera::getTime()
 {
@@ -505,7 +509,8 @@ void Camera::SaveVideo(PrefixType prefix, stEnforcementInfo enforceInfo, SDPath 
     QString qstrFilename = GetFileName(prefix, enforceInfo);
     QString qstrPath = GETSDPATH(sdPath) + "/";
 
-    saveVideoUseShmsrc(qstrFilename, qstrPath, SHM_NAME, recording_time, 30, RAW_IMAGE_WIDTH, RAW_IMAGE_HEIGHT);
+    //saveVideoUseShmsrc(qstrFilename, qstrPath, SHM_NAME, recording_time, 30, RAW_IMAGE_WIDTH, RAW_IMAGE_HEIGHT);
+    GstShmMgr::getInstance()->saveVideoUseShmsrc(qstrFilename, qstrPath, SHM_NAME, recording_time, 30, RAW_IMAGE_WIDTH, RAW_IMAGE_HEIGHT);
 }
 
 void Camera::SaveImage(PrefixType prefix, stEnforcementInfo enforceInfo, SDPath sdPath)

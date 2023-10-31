@@ -120,7 +120,8 @@ SOURCES += main.cpp\
     v4l2_thread.cpp \
     wifi_scan.c \
     keyboardwidget.cpp \
-    keypadwidget.cpp
+    keypadwidget.cpp \
+    GstShmMgr.cpp
 
 
 HEADERS  += MainWindow.h \
@@ -239,7 +240,8 @@ HEADERS  += MainWindow.h \
     QtAVPlayerHelper/videorenderer.h \
     QtAVPlayerHelper/mediaservice.h \
     QtAVPlayerHelper/mediaobject.h \
-    QtAVPlayerHelper/videowidget.h
+    QtAVPlayerHelper/videowidget.h \
+    GstShmMgr.h
 
 FORMS    += MainWindow.ui \
     IndicatorCameraFocusWidget.ui \

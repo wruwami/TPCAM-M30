@@ -72,7 +72,7 @@ public:
         d->wakeRead = false;
         locker.unlock();
         // Reading is done on thread where the object is created
-        QMetaObject::invokeMethod(d->q_ptr, [d] { d->readData(); }, nullptr);
+//        QMetaObject::invokeMethod(d->q_ptr, [d] { d->readData(); }, nullptr);
         locker.relock();
         // Blocks until data is available
         if (!d->wakeRead)
@@ -93,21 +93,21 @@ public:
         int64_t pos = 0;
         bool wake = false;
         locker.unlock();
-        QMetaObject::invokeMethod(d->q_ptr, [&] {
-            QMutexLocker locker(&d->mutex);
-            if (whence == AVSEEK_SIZE) {
-                pos = d->device.size() > 0 ? d->device.size() : 0;
-            } else {
-                if (whence == SEEK_END)
-                    offset = d->device.size() - offset;
-                else if (whence == SEEK_CUR)
-                    offset = d->device.pos() + offset;
+//        QMetaObject::invokeMethod(d->q_ptr, [&] {
+//            QMutexLocker locker(&d->mutex);
+//            if (whence == AVSEEK_SIZE) {
+//                pos = d->device.size() > 0 ? d->device.size() : 0;
+//            } else {
+//                if (whence == SEEK_END)
+//                    offset = d->device.size() - offset;
+//                else if (whence == SEEK_CUR)
+//                    offset = d->device.pos() + offset;
 
-                pos = d->device.seek(offset) ? d->device.pos() : -1;
-            }
-            d->waitCond.wakeAll();
-            wake = true;
-        }, nullptr);
+//                pos = d->device.seek(offset) ? d->device.pos() : -1;
+//            }
+//            d->waitCond.wakeAll();
+//            wake = true;
+//        }, nullptr);
 
         locker.relock();
         if (!wake)

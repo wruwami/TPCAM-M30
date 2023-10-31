@@ -47,7 +47,7 @@ public:
     int send() const;
 
 protected:
-    std::unique_ptr<QAVPacketPrivate> d_ptr;
+    QScopedPointer<QAVPacketPrivate> d_ptr;
 
 private:
     Q_DECLARE_PRIVATE(QAVPacket)

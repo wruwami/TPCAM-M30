@@ -210,7 +210,7 @@ QAVAudioOutput::QAVAudioOutput(QObject *parent)
     , d_ptr(new QAVAudioOutputPrivate)
 {
 #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
-    d_ptr->audioPlayFuture = QtConcurrent::run(&d_ptr->threadPool, d_ptr.get(), &QAVAudioOutputPrivate::doPlayAudio);
+    d_ptr->audioPlayFuture = QtConcurrent::run(&d_ptr->threadPool, d_ptr.data(), &QAVAudioOutputPrivate::doPlayAudio);
 #else
     d_ptr->audioPlayFuture = QtConcurrent::run(&d_ptr->threadPool, &QAVAudioOutputPrivate::doPlayAudio, d_ptr.get());
 #endif

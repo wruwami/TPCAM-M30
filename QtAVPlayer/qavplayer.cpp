@@ -514,13 +514,13 @@ void QAVPlayerPrivate::doLoad()
     }
 
     applyFilters(true, {});
-    dispatch([this] {
-        qCDebug(lcAVPlayer) << "[" << url << "]: Loaded, seekable:" << demuxer.seekable() << ", duration:" << demuxer.duration();
-        setSeekable(demuxer.seekable());
-        setDuration(demuxer.duration());
-        setVideoFrameRate(demuxer.videoFrameRate());
-        step(false);
-    });
+//    dispatch([this] {
+//        qCDebug(lcAVPlayer) << "[" << url << "]: Loaded, seekable:" << demuxer.seekable() << ", duration:" << demuxer.duration();
+//        setSeekable(demuxer.seekable());
+//        setDuration(demuxer.duration());
+//        setVideoFrameRate(demuxer.videoFrameRate());
+//        step(false);
+//    });
 
 #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
     demuxerFuture = QtConcurrent::run(&threadPool, this, &QAVPlayerPrivate::doDemux);

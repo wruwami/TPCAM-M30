@@ -321,7 +321,26 @@ void MainMenuWidget::initImage()
         }
 }
 
-
+void MainMenuWidget::DisableAllButton()
+{
+    ui->cameraPushButton->setEnabled(false);
+    ui->daynNightPushButton->setEnabled(false);
+    ui->weatherPushButton->setEnabled(false);
+    ui->enforcementPushButton->setEnabled(false);
+    ui->speedPushButton->setEnabled(false);
+    ui->wifiPushButton->setEnabled(false);
+    ui->gpsPushButton->setEnabled(false);
+}
+void MainMenuWidget::EnableAllButton()
+{
+    ui->cameraPushButton->setEnabled(true);
+    ui->daynNightPushButton->setEnabled(true);
+    ui->weatherPushButton->setEnabled(true);
+    ui->enforcementPushButton->setEnabled(true);
+    ui->speedPushButton->setEnabled(true);
+    ui->wifiPushButton->setEnabled(true);
+    ui->gpsPushButton->setEnabled(true);
+}
 void MainMenuWidget::setMainMenuTitle(QString title)
 {
     QFile file(":/style/mainmenuWidget.qss");

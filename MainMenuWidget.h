@@ -32,6 +32,9 @@ public:
     void setRedLine(bool);
 private:
     void initImage();
+private slots:
+    void DisableAllButton();
+    void EnableAllButton();
 public:
     CustomPushButton* m_pHomePushButton;
 private:

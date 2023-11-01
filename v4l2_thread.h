@@ -95,17 +95,28 @@ typedef struct _ST_IMG_INFO
 {
     cv::Mat matImg;
     std::string strTime;
-	//stEnforceInfo enforceInfo;
+    //stEnforceInfo enforceInfo;
 }stImgInfo;
 
 typedef struct _ST_IMG_DATA_INFO
 {
-    unsigned char pImg[IMAGE_WIDTH* 1080*3/2];
-	stEnforceInfo enforceInfo;
+    unsigned char pImg[IMAGE_WIDTH * IMAGE_HEIGHT * 3 / 2];
+    stEnforceInfo enforceInfo;
 }stImgDataInfo;
 
 class v4l2_thread : public QThread
 {
+private:
+    static v4l2_thread* m_pInstance;
+public:
+    static v4l2_thread* getInstance()
+    {
+        if (m_pInstance == nullptr)
+        {
+            m_pInstance = new v4l2_thread;
+        }
+        return m_pInstance;
+    }
 public:
     v4l2_thread();
     ~v4l2_thread() override;
@@ -113,7 +124,7 @@ public:
     void setRunning(bool run);
 
 private:
-	bool running;
+    bool running;
 
 private:
     int fd;// = -1;
@@ -130,10 +141,10 @@ private:
 
     bool m_bDeviceValid;
     //bool m_bImageSave;
-	stEnforceInfo m_stEnforceInfo;
-	int m_nFrameCnt;  
+    stEnforceInfo m_stEnforceInfo;
+    int m_nFrameCnt;
 
-	int m_bUseFlash;
+    int m_bUseFlash;
 
 public:
     void initV4l2(int w = IMAGE_WIDTH, int h = IMAGE_HEIGHT);
@@ -148,10 +159,14 @@ public:
     int read_frame(int count);
     unsigned long get_time(void);
     //cv::Mat getEnfoceInfoImage(stEnforceInfo& enforceInfo);
-	void imageGrab(QString qstrFullPath, QString qstrDatetime, QString qstrDeviceID, QString qstrUsername, QString qstrLocation, int nSpeedLimit, int nCaptureDistance, int nSpeed, int nTargetCrossX, int nTargetCrossY);
+    void imageGrab(QString qstrFullPath, QString qstrDatetime, QString qstrDeviceID, QString qstrUsername, QString qstrLocation, int nSpeedLimit, int nCaptureDistance, int nSpeed, int nTargetCrossX, int nTargetCrossY);
 
-	void setUseFlash(bool bUseFlash);
-	void setUseTargetCross(bool bTargetCross);
+    void setUseFlash(bool bUseFlash);
+    void setUseTargetCross(bool bTargetCross);
+
+    void uninit_device(void);
+    void stop_capturing(void);
+    void close_device(void);
 
 public:
     bool isDeviceValid(void) { return m_bDeviceValid; }

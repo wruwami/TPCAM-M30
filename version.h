@@ -4,7 +4,7 @@
 #endif // VERSION_H
 
 
-#define SW_VER          "v0.0.0.1 "
+#define SW_VER          "v0.0.0.3 "
 //#define	SW_BUILDDATE	__DATE__
 //#define	SW_BUILDTIME	__TIME__
 
@@ -19,6 +19,16 @@
 
 /*
 ========================================================================================================
+
+--------------------------------------------------------------------------------------------------------
+2023.11.01  11:30   v0.0.0.3 - LJH
+    1. modified the logic for saving images in v4l2.
+    2. gstreamer shared memory start : main.cpp
+
+--------------------------------------------------------------------------------------------------------
+2023.10.31  17:00   v0.0.0.2 - LJH
+    1. gstreamer shared memory logic modification.
+    2. modified sd card capacity display : available capacity -> used capacity
 
 --------------------------------------------------------------------------------------------------------
 2023.10.27  09:20   v0.0.0.1 - LJH

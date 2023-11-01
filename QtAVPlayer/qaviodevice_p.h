@@ -37,7 +37,7 @@ public:
     void abort(bool aborted);
 
 protected:
-    std::unique_ptr<QAVIODevicePrivate> d_ptr;
+    QScopedPointer<QAVIODevicePrivate> d_ptr;
 
 private:
     Q_DECLARE_PRIVATE(QAVIODevice)

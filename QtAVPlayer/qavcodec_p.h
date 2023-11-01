@@ -51,7 +51,7 @@ public:
 protected:
     QAVCodec();
     QAVCodec(QAVCodecPrivate &d);
-    std::unique_ptr<QAVCodecPrivate> d_ptr;
+    QScopedPointer<QAVCodecPrivate> d_ptr;
     Q_DECLARE_PRIVATE(QAVCodec)
 private:
     Q_DISABLE_COPY(QAVCodec)

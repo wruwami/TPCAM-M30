@@ -143,7 +143,7 @@ Q_SIGNALS:
     void subtitleFrame(const QAVSubtitleFrame &frame);
 
 protected:
-    std::unique_ptr<QAVPlayerPrivate> d_ptr;
+    QScopedPointer<QAVPlayerPrivate> d_ptr;
 
 private:
     Q_DISABLE_COPY(QAVPlayer)

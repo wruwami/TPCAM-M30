@@ -43,7 +43,7 @@ protected:
         const QAVStream &stream,
         const QString &name,
         QAVFilterPrivate &d);
-    std::unique_ptr<QAVFilterPrivate> d_ptr;
+    QScopedPointer<QAVFilterPrivate> d_ptr;
     Q_DECLARE_PRIVATE(QAVFilter)
 private:
     Q_DISABLE_COPY(QAVFilter)

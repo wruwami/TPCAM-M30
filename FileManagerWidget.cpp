@@ -699,7 +699,7 @@ void FileManagerWidget::on_printPushButton_clicked()
 void FileManagerWidget::on_connectPushButton_clicked()
 {
 
-    if (connect_wifi_printer() == 1)
+    if (!connect_wifi_printer())
     {
         BaseDialog baseDialog(FileManagerErrorMessageWidgetType, Qt::AlignmentFlag::AlignCenter);
         baseDialog.exec();

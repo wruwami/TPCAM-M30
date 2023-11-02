@@ -139,7 +139,7 @@ CameraZoomFocusWidget::CameraZoomFocusWidget(QWidget *parent) :
     ui->tableWidget->setVerticalHeaderLabels(columnHeaders);
     ui->pgrsSavePushButton->setDisabled(true);
 
-    m_nTableIndex = QPoint(m_nLtIndex,0);
+    m_nTableIndex = QPoint(m_nLtIndex,m_nDNIndex);
     m_object = config.GetConfig();
 
     ui->zoomRangePushButton->setText(m_ltmetervector[m_nLtIndex]+distanceValue());
@@ -206,6 +206,7 @@ void CameraZoomFocusWidget::ZoomRange()
         m_nLtIndex = 0;
 
     m_nTableIndex.setX(m_nLtIndex);
+    m_nTableIndex.setY(m_nDNIndex);
 
     zoom_index = m_nLtIndex;
     ui->zoomRangePushButton->setText(m_ltmetervector[m_nLtIndex]+distanceValue());
@@ -1232,8 +1233,10 @@ void CameraZoomFocusWidget::on_tableWidget_cellClicked(int row, int column)
     int zoom_index = 0;
 
     m_nLtIndex = row;
+    m_nDNIndex = column;
 
     m_nTableIndex.setX(m_nLtIndex);
+    m_nTableIndex.setY(m_nDNIndex);
 
     zoom_index = m_nLtIndex;
     ui->zoomRangePushButton->setText(m_ltmetervector[m_nLtIndex]+distanceValue());

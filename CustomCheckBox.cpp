@@ -25,8 +25,18 @@ CustomCheckBox::CustomCheckBox(QWidget *parent) : QCheckBox(parent)
 
     this->setStyleSheet(styleSheet);
 
-    this->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+                       this->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 }
+
+void CustomCheckBox::setFontSize(int font_size)
+{
+    int calc_font_size = GetFontSize(font_size);
+    QFont font = this->font();
+    font.setPixelSize(calc_font_size);
+    this->setFont(font);
+}
+
+
 
 void CustomCheckBox::resizeEvent(QResizeEvent *event)
 {

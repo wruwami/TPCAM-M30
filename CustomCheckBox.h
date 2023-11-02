@@ -8,6 +8,7 @@ class CustomCheckBox : public QCheckBox
     Q_OBJECT
 public:
     explicit CustomCheckBox(QWidget *parent = 0);
+    void setFontSize(int);
 
 signals:
 

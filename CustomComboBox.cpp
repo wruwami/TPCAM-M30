@@ -14,6 +14,7 @@
 #include <QDebug>
 
 #include "FontSize.h"
+#include "WidgetSize.h"
 
 class AlignDelegate: public QStyledItemDelegate{
 public:
@@ -54,7 +55,7 @@ CustomComboBox::CustomComboBox(QWidget *parent) : QComboBox(parent)
     this->setSizeAdjustPolicy(QComboBox::AdjustToMinimumContentsLength);
 //    this->view()->setMaximumWidth()
     this->view()->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
-    this->view()->verticalScrollBar()->setStyleSheet("width: 15px;");
+//    this->view()->verticalScrollBar()->setStyleSheet("width: 15px;");
     view()->installEventFilter(this);
 
 //    this->view()->verticalScrollBar().resize();
@@ -77,7 +78,7 @@ CustomComboBox::CustomComboBox(QWidget *parent) : QComboBox(parent)
 //    m_size = scrollbar->size();
 //    m_size.setWidth(m_size.width() * 3);
 //    scrollbar->resize(m_size);
-    this->view()->verticalScrollBar()->setStyleSheet("QScrollBar:vertical { width: 100px; }");
+//    this->view()->verticalScrollBar()->setStyleSheet("QScrollBar:vertical { width: 100px; }");
 //    qv->setVerticalScrollBar(
 //    this->setView(qv);
 //    scrollbar->setStyleSheet("QScrollBar:vertical {  }");
@@ -100,8 +101,9 @@ CustomComboBox::CustomComboBox(QWidget *parent) : QComboBox(parent)
 
 void CustomComboBox::setFontSize(int font_size)
 {
+    int calc_font_size = GetFontSize(font_size);
     QFont font = this->font();
-    font.setPixelSize(font_size);
+    font.setPixelSize(calc_font_size);
     this->setFont(font);
 }
 
@@ -145,6 +147,7 @@ bool CustomComboBox::eventFilter(QObject *o, QEvent *e)
     {
       QWidget *popup = findChild<QFrame*>();
       popup->move(QApplication::desktop()->screen()->rect().center() - popup->rect().center());
+
 
       //For some reason, the frame's geometry is GLOBAL, not relative to the QComboBox!
 //      frame->move(frame->x(),

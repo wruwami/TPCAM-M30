@@ -16,6 +16,7 @@
 #include "Logger.h"
 #include "FileManager.h"
 #include "version.h"
+#include "WidgetSize.h"
 
 QString g_AppVersion = QString(SW_VER);
 
@@ -25,7 +26,7 @@ int main(int argc, char *argv[])
     Application::setAttribute(Qt::AA_EnableHighDpiScaling);
 
     QFont font("NanumGothic");
-    font.setPixelSize(23);
+    font.setPixelSize(GetFontSize(23));
     Application::setFont(font);
 
     SetLogMsg(POWER_ON);

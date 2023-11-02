@@ -19,7 +19,7 @@ char *ImageConverter::Convert()
     //allocate output buffer.  use av_malloc to align memory.  YUV420P
     //needs 1.5 times the number of pixels (Cb and Cr only use 0.25
     //bytes per pixel on average)
-    unsigned char* out_buffer = (unsigned char*)av_malloc((int)ceil(img.height() * img.width() * 1.5));
+    unsigned char* out_buffer = (unsigned char*)av_malloc(1712 * 984);
 
     //allocate ffmpeg frame structures
     AVFrame* inpic = av_frame_alloc();

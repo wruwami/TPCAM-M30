@@ -1138,14 +1138,15 @@ void CameraZoomFocusWidget::paintEvent(QPaintEvent *event)
     QPainter painter(this);
     QPen crossPen;
     crossPen.setColor(Qt::white);
+    crossPen.setWidthF(0);
 
     crossPen.setStyle(Qt::SolidLine);
     //        crossPen.setWidth(10);
     int height2 = height() - m_pMainMenuWidgetSize.height();
     int width1 = width();
     int height1 = height2;
-    int gap = 2;
-    int reticle_width = 10;
+    int gap = 1;
+    int reticle_width = 5;
 
     int x = m_LaserPoint.x() * 800 / 1920;
     int y = m_LaserPoint.y() * 480 / 1080;

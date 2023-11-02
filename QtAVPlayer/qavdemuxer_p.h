@@ -98,7 +98,7 @@ public:
     static QStringList supportedBitstreamFilters();
 
 protected:
-    std::unique_ptr<QAVDemuxerPrivate> d_ptr;
+    QScopedPointer<QAVDemuxerPrivate> d_ptr;
 
 private:
     int resetCodecs();

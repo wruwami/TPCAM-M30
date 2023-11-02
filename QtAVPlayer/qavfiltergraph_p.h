@@ -53,7 +53,7 @@ public:
     QList<QAVAudioOutputFilter> audioOutputFilters() const;
 
 protected:
-    std::unique_ptr<QAVFilterGraphPrivate> d_ptr;
+    QScopedPointer<QAVFilterGraphPrivate> d_ptr;
     Q_DECLARE_PRIVATE(QAVFilterGraph)
 private:
     Q_DISABLE_COPY(QAVFilterGraph)

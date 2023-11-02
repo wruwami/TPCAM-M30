@@ -16,12 +16,15 @@
 #include "Logger.h"
 #include "FileManager.h"
 #include "version.h"
+#include "GstShmMgr.h"
 #include "WidgetSize.h"
 
 QString g_AppVersion = QString(SW_VER);
 
 int main(int argc, char *argv[])
 {
+    GstShmMgr::getInstance();
+
     Application a(argc, argv);
     Application::setAttribute(Qt::AA_EnableHighDpiScaling);
 

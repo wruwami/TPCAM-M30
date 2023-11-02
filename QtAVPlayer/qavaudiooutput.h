@@ -29,7 +29,7 @@ public:
     bool play(const QAVAudioFrame &frame);
 
 protected:
-    std::unique_ptr<QAVAudioOutputPrivate> d_ptr;
+    QScopedPointer<QAVAudioOutputPrivate> d_ptr;
 
 private:
     Q_DISABLE_COPY(QAVAudioOutput)

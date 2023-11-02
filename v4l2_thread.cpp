@@ -14,6 +14,8 @@
 #define COLOR_BLUE		cv::Scalar(255,75,75)
 #define COLOR_WHITE		cv::Scalar(255,255,255)
 
+v4l2_thread* v4l2_thread::m_pInstance = nullptr;
+
 cv::Mat g_matTargetCross;
 cv::Mat g_matEnfoceInfo;
 std::deque<stImgInfo> g_dqYuvImgInfo;
@@ -26,139 +28,165 @@ bool g_bTargetCross = true;
 
 static void thread_CopyImage(struct buffer* buff, int size, stEnforceInfo enforceInfo)
 {
-	try
-	{
-		stImgDataInfo imgDataInfo;
-		imgDataInfo.enforceInfo = enforceInfo;
-		//imgDataInfo.pImg = new unsigned char[size];
-		memcpy(imgDataInfo.pImg, buff->start, size);
-		//DBG("No.%d copied\n", count);
-		/*if (DEBUG_MODE)
-			qDebug() << "No." << count << "copied";*/
+    try
+    {
+        stImgDataInfo imgDataInfo;
+        imgDataInfo.enforceInfo = enforceInfo;
+        //imgDataInfo.pImg = new unsigned char[size];
+        memcpy(imgDataInfo.pImg, buff->start, size);
+        //DBG("No.%d copied\n", count);
+        /*if (DEBUG_MODE)
+            qDebug() << "No." << count << "copied";*/
 
-		g_mutexImgBuf.lock();
-		g_dqYuvImgDataInfo.push_back(imgDataInfo);
-		g_mutexImgBuf.unlock();
-	}
-	catch (std::exception& e)
-	{
-		//DBG("exception : %s\n", e.what());
-		//if(DEBUG_MODE)
-		qDebug() << "exception : " << e.what();
-	}
+        if (g_bSave)
+        {
+            g_mutexImgBuf.lock();
+            g_dqYuvImgDataInfo.push_back(imgDataInfo);
+            g_mutexImgBuf.unlock();
+        }
+    }
+    catch (std::exception& e)
+    {
+        //DBG("exception : %s\n", e.what());
+        //if(DEBUG_MODE)
+        qDebug() << "exception : " << e.what();
+    }
 }
 
 cv::Mat getEnfoceInfoImage(stEnforceInfo& enforceInfo)
 {
-	cv::Mat matInfo = g_matEnfoceInfo.clone();
+    cv::Mat matInfo = g_matEnfoceInfo.clone();
 
-	cv::String strText;
+    cv::String strText;
 
-	strText = cv::format("DT:%s", enforceInfo.qstrDatetime.toStdString().c_str());
-	cv::putText(matInfo, strText, cv::Point(15, INFO_HEIGHT/2 - 15), cv::FONT_HERSHEY_COMPLEX, 1.2, COLOR_WHITE, 2);
+    strText = cv::format("DT:%s", enforceInfo.qstrDatetime.toStdString().c_str());
+    cv::putText(matInfo, strText, cv::Point(15, INFO_HEIGHT/2 - 15), cv::FONT_HERSHEY_COMPLEX, 1.2, COLOR_WHITE, 2);
 
-	strText = cv::format("DID:%s", enforceInfo.qstrDeviceID.toStdString().c_str());
-	cv::putText(matInfo, strText, cv::Point(720, INFO_HEIGHT / 2 - 15), cv::FONT_HERSHEY_COMPLEX, 1.2, COLOR_WHITE, 2);
+    strText = cv::format("DID:%s", enforceInfo.qstrDeviceID.toStdString().c_str());
+    cv::putText(matInfo, strText, cv::Point(800, INFO_HEIGHT / 2 - 15), cv::FONT_HERSHEY_COMPLEX, 1.2, COLOR_WHITE, 2);
 
-	strText = cv::format("UN:%s", enforceInfo.qstrUsername.toStdString().c_str());
-	cv::putText(matInfo, strText, cv::Point(1030, INFO_HEIGHT / 2 - 15), cv::FONT_HERSHEY_COMPLEX, 1.2, COLOR_WHITE, 2);
+    strText = cv::format("UN:%s", enforceInfo.qstrUsername.toStdString().c_str());
+    cv::putText(matInfo, strText, cv::Point(1200, INFO_HEIGHT / 2 - 15), cv::FONT_HERSHEY_COMPLEX, 1.2, COLOR_WHITE, 2);
 
-	strText = cv::format("SL:%dkm/h", enforceInfo.nSpeedLimit);
-	cv::putText(matInfo, strText, cv::Point(1300, INFO_HEIGHT / 2 - 15), cv::FONT_HERSHEY_COMPLEX, 1.2, COLOR_WHITE, 2);
+    strText = cv::format("SL:%dkm/h", enforceInfo.nSpeedLimit);
+    cv::putText(matInfo, strText, cv::Point(1200, INFO_HEIGHT - 20), cv::FONT_HERSHEY_COMPLEX, 1.2, COLOR_WHITE, 2);
 
-	strText = cv::format("Loc:%s", enforceInfo.qstrLocation.toStdString().c_str());
-	cv::putText(matInfo, strText, cv::Point(15, INFO_HEIGHT - 20), cv::FONT_HERSHEY_COMPLEX, 1.2, COLOR_WHITE, 2);
+    strText = cv::format("Loc:%s", enforceInfo.qstrLocation.toStdString().c_str());
+    cv::putText(matInfo, strText, cv::Point(15, INFO_HEIGHT - 20), cv::FONT_HERSHEY_COMPLEX, 1.2, COLOR_WHITE, 2);
 
-	strText = cv::format("CD:%dm", enforceInfo.nCaptureDistance);
-	cv::putText(matInfo, strText, cv::Point(1300, INFO_HEIGHT - 20), cv::FONT_HERSHEY_COMPLEX, 1.2, COLOR_WHITE, 2);
+    strText = cv::format("CD:%dm", enforceInfo.nCaptureDistance);
+    cv::putText(matInfo, strText, cv::Point(800, INFO_HEIGHT - 20), cv::FONT_HERSHEY_COMPLEX, 1.2, COLOR_WHITE, 2);
 
-	strText = cv::format("%dkm/h", enforceInfo.nSpeed);
-	cv::putText(matInfo, strText, cv::Point(1630, INFO_HEIGHT - 40), cv::FONT_HERSHEY_COMPLEX, 1.6, COLOR_WHITE, 3);
-	/*cv::putText();
-	cv::putText();
-	cv::putText();
-	cv::putText();
-	cv::putText();*/
+    strText = cv::format("%dkm/h", enforceInfo.nSpeed);
+    cv::putText(matInfo, strText, cv::Point(1630, INFO_HEIGHT - 40), cv::FONT_HERSHEY_COMPLEX, 1.6, COLOR_WHITE, 3);
+    /*cv::putText();
+    cv::putText();
+    cv::putText();
+    cv::putText();
+    cv::putText();*/
 
-	return matInfo.clone();
+    return matInfo.clone();
 }
 
 static void thread_SaveImgFunc()
 {
-	size_t nSize = 0;
-	cv::Mat matYuv(cv::Size(IMAGE_WIDTH, IMAGE_HEIGHT * 3 / 2), CV_8UC1);
-	cv::Mat rgbmat(cv::Size(IMAGE_WIDTH, IMAGE_HEIGHT), CV_8UC3);
+    size_t nSize = 0;
+    cv::Mat matYuv(cv::Size(IMAGE_WIDTH, IMAGE_HEIGHT * 3 / 2), CV_8UC1);
+    cv::Mat rgbmat(cv::Size(IMAGE_WIDTH, IMAGE_HEIGHT), CV_8UC3);
 
-	while (g_bSave)
-	{
-		try
-		{
-			nSize = g_dqYuvImgDataInfo.size();
-			if (nSize > 0)
-			{
-				g_mutexImgBuf.lock();
-				stImgDataInfo imgInfo = g_dqYuvImgDataInfo.front();
-				g_dqYuvImgDataInfo.pop_front();
-				g_mutexImgBuf.unlock();
+    while (g_bSave)
+    {
+        try
+        {
+            nSize = g_dqYuvImgDataInfo.size();
+            if (nSize > 0)
+            {
+                g_mutexImgBuf.lock();
+                stImgDataInfo imgInfo = g_dqYuvImgDataInfo.front();
+                g_dqYuvImgDataInfo.pop_front();
+                g_mutexImgBuf.unlock();
 
-				memcpy(matYuv.data, imgInfo.pImg, 1920 * 1620);
-				cv::cvtColor(matYuv, rgbmat, cv::COLOR_YUV2BGR_NV12);
+                memcpy(matYuv.data, imgInfo.pImg, IMAGE_WIDTH * IMAGE_HEIGHT * 3 / 2);
+                cv::cvtColor(matYuv, rgbmat, cv::COLOR_YUV2BGR_NV12);
 
-				cv::vconcat(getEnfoceInfoImage(imgInfo.enforceInfo), rgbmat, rgbmat);
+                cv::vconcat(getEnfoceInfoImage(imgInfo.enforceInfo), rgbmat, rgbmat);
 
-				if (g_bTargetCross)
-				{
-					cv::Rect rcROI;
-					rcROI.x = imgInfo.enforceInfo.nTargetCrossX - g_matTargetCross.cols / 2;
-					rcROI.y = imgInfo.enforceInfo.nTargetCrossY - g_matTargetCross.rows / 2 + INFO_HEIGHT;
-					rcROI.width = g_matTargetCross.cols;
-					rcROI.height = g_matTargetCross.rows;
+                if (g_bTargetCross)
+                {
+                    cv::Rect rcROI;
+                    rcROI.x = imgInfo.enforceInfo.nTargetCrossX - g_matTargetCross.cols / 2;
+                    rcROI.y = imgInfo.enforceInfo.nTargetCrossY - g_matTargetCross.rows / 2 + INFO_HEIGHT;
+                    rcROI.width = g_matTargetCross.cols;
+                    rcROI.height = g_matTargetCross.rows;
 
-					if (rcROI.x < 0)	rcROI.x = 0;
-					if (rcROI.y < 0)	rcROI.y = 0;
-					if (rcROI.x + rcROI.width >= rgbmat.cols)	rcROI.x = rgbmat.cols - rcROI.width - 1;
-					if (rcROI.y + rcROI.height >= rgbmat.rows)	rcROI.x = rgbmat.rows - rcROI.height - 1;
+                    if (rcROI.x < 0)	rcROI.x = 0;
+                    if (rcROI.y < 0)	rcROI.y = 0;
+                    if (rcROI.x + rcROI.width >= rgbmat.cols)	rcROI.x = rgbmat.cols - rcROI.width - 1;
+                    if (rcROI.y + rcROI.height >= rgbmat.rows)	rcROI.x = rgbmat.rows - rcROI.height - 1;
 
-					cv::Mat matImgROI(rgbmat, rcROI);
-					cv::addWeighted(matImgROI, 1.0, g_matTargetCross, 0.50, 0.0, matImgROI);
-				}
-				cv::imwrite(imgInfo.enforceInfo.qstrFullPath.toStdString().c_str(), rgbmat);
+                    cv::Mat matImgROI(rgbmat, rcROI);
+                    cv::addWeighted(matImgROI, 1.0, g_matTargetCross, 0.50, 0.0, matImgROI);
+                }
+                cv::imwrite(imgInfo.enforceInfo.qstrFullPath.toStdString().c_str(), rgbmat);
 
-				//qDebug() << "saved image";
-			}
-		}
-		catch (std::exception& e)
-		{
-			//DBG("exception : %s\n", e.what());
-			//if(DEBUG_MODE)
-			qDebug() << "exception : " << e.what();
-			break;
-		}
-		std::this_thread::sleep_for(std::chrono::milliseconds(10));
-	}
+                //qDebug() << "saved image";
+            }
+        }
+        catch (std::exception& e)
+        {
+            //DBG("exception : %s\n", e.what());
+            //if(DEBUG_MODE)
+            qDebug() << "exception : " << e.what();
+            break;
+        }
+        std::this_thread::sleep_for(std::chrono::milliseconds(10));
+    }
 
-	//qDebug() << "saved image thread exit";
+    //qDebug() << "saved image thread exit";
 }
 
 v4l2_thread::v4l2_thread()
     : running(false)
-	, m_bDeviceValid(false)
-	, m_nFrameCnt(0)
+    , m_bDeviceValid(false)
+    , m_nFrameCnt(0)
 {
     QString targetFile = GeteMMCPath() + "/" + "images/enforcement/target.jpg";
     g_matTargetCross = cv::imread(targetFile.toStdString(), cv::IMREAD_COLOR);
-	cv::resize(g_matTargetCross, g_matTargetCross, cv::Size(80,80));
 
-    cv::hconcat(cv::Mat(INFO_HEIGHT, INFO_WIDTH - INFO_SPEED_WIDTH, CV_8UC3, cv::Scalar(16, 16, 16)), cv::Mat(INFO_HEIGHT, INFO_SPEED_WIDTH, CV_8UC3, cv::Scalar(0, 0, 104)), g_matEnfoceInfo);
-	//cv::imwrite("InfoImg.jpg", g_matEnfoceInfo);
+    if (g_matTargetCross.cols > 0 && g_matTargetCross.rows > 0)
+    {
+        cv::resize(g_matTargetCross, g_matTargetCross, cv::Size(80, 80));
+        cv::hconcat(cv::Mat(INFO_HEIGHT, INFO_WIDTH - INFO_SPEED_WIDTH, CV_8UC3, cv::Scalar(16, 16, 16)), cv::Mat(INFO_HEIGHT, INFO_SPEED_WIDTH, CV_8UC3, cv::Scalar(0, 0, 104)), g_matEnfoceInfo);
+        //setUseTargetCross(true);
+    }
+    else
+    {
+        setUseTargetCross(false);
+    }
+    //cv::imwrite("InfoImg.jpg", g_matEnfoceInfo);
 
-	std::thread _t1(thread_SaveImgFunc);
-	_t1.detach();
+    std::thread _t1(thread_SaveImgFunc);
+    _t1.detach();
+
+    initV4l2();
+    //setUseFlash(true);
+    this->start();
 }
 
 v4l2_thread::~v4l2_thread()
 {
     g_bSave = false;
+
+    this->requestInterruption();
+    this->wait();
+
+    g_mutexImgBuf.lock();
+    g_dqYuvImgDataInfo.clear();
+    g_mutexImgBuf.unlock();
+
+    stop_capturing();
+    uninit_device();
+    close_device();
 }
 
 void v4l2_thread::setRunning(bool run)
@@ -175,58 +203,58 @@ void v4l2_thread::run()
     unsigned long read_start_time, read_end_time, ms;
     float fps = 0;
 
-	running = true;
+    running = true;
 
 //    while (running)
     forever{
-		//qDebug() << "m_bDeviceValid : " << m_bDeviceValid;
-		if (m_bDeviceValid)
-		{
-			try
-			{
-				/*if (DEBUG_MODE)
-					qDebug() << "No." << count;*/
-				//DBG("No.%d\n", count);        //Display the current image frame number
+        //qDebug() << "m_bDeviceValid : " << m_bDeviceValid;
+        if (m_bDeviceValid)
+        {
+            try
+            {
+                /*if (DEBUG_MODE)
+                    qDebug() << "No." << count;*/
+                //DBG("No.%d\n", count);        //Display the current image frame number
 
-				if (m_stEnforceInfo.bImageSave)
-				{
-					if (m_bUseFlash)
-					{
-						if (m_nFrameCnt == IMAGE_ACQUISITION_FRAME_NUM)
-						{
-							//qDebug() << "flash on";
-							//flash on
-							setFlash(true);
-						}
-						else if (m_nFrameCnt == IMAGE_ACQUISITION_FRAME_NUM - 1)
-						{
-							//qDebug() << "flash off";
-							//flash off
-							setFlash(false);
-						}
-					}
-					//frame num countdown
-					--m_nFrameCnt;
-				}				
+                if (m_stEnforceInfo.bImageSave)
+                {
+                    if (m_bUseFlash)
+                    {
+                        if (m_nFrameCnt == IMAGE_ACQUISITION_FRAME_NUM)
+                        {
+                            //qDebug() << "flash on";
+                            //flash on
+                            setFlash(true);
+                        }
+                        else if (m_nFrameCnt == IMAGE_ACQUISITION_FRAME_NUM - 1)
+                        {
+                            //qDebug() << "flash off";
+                            //flash off
+                            setFlash(false);
+                        }
+                    }
+                    //frame num countdown
+                    --m_nFrameCnt;
+                }
 
-				read_start_time = get_time();
-				read_frame(count);
-				read_end_time = get_time();
+                read_start_time = get_time();
+                read_frame(count);
+                read_end_time = get_time();
 
-				ms = read_end_time - read_start_time;
-				fps = (1.f / (float)ms) * 1000;
+                ms = read_end_time - read_start_time;
+                fps = (1.f / (float)ms) * 1000;
 
-				/*if (DEBUG_MODE)
-					qDebug() << "take time " << read_end_time - read_start_time << "ms, " << int(fps);*/
-				//DBG("take time %lu ms, %0.0f fps\n", read_end_time - read_start_time, fps);
-				++count;
-			}
-			catch (std::exception& e)
-			{
-				qDebug() << "exception : " << e.what();
-				m_bDeviceValid = false;
-			}
-		}
+                /*if (DEBUG_MODE)
+                    qDebug() << "take time " << read_end_time - read_start_time << "ms, " << int(fps);*/
+                //DBG("take time %lu ms, %0.0f fps\n", read_end_time - read_start_time, fps);
+                ++count;
+            }
+            catch (std::exception& e)
+            {
+                qDebug() << "exception : " << e.what();
+                m_bDeviceValid = false;
+            }
+        }
 
         if ( QThread::currentThread()->isInterruptionRequested() )
         {
@@ -235,41 +263,41 @@ void v4l2_thread::run()
         }
 
     }
-	if (DEBUG_MODE)
-		qDebug() << "READ AND SAVE DONE!";
+    if (DEBUG_MODE)
+        qDebug() << "READ AND SAVE DONE!";
     //DBG("\nREAD AND SAVE DONE!\n");
 }
 
 void v4l2_thread::imageGrab(QString qstrFullPath, QString qstrDatetime, QString qstrDeviceID, QString qstrUsername, QString qstrLocation, int nSpeedLimit, int nCaptureDistance, int nSpeed, int nTargetCrossX, int nTargetCrossY)
 {
-	if (m_nFrameCnt > 0)
-	{
-		if (DEBUG_MODE)
-			qDebug() << "image grab signal ignored because image grab is still in progress.";
+    if (m_nFrameCnt > 0)
+    {
+        if (DEBUG_MODE)
+            qDebug() << "image grab signal ignored because image grab is still in progress.";
 
-		return;
-	}
-	else
-		qDebug() << "imag grab signal recv";
-		
-	m_stEnforceInfo.bImageSave = true;
-	m_stEnforceInfo.qstrFullPath = qstrFullPath;
-	m_stEnforceInfo.qstrDatetime = qstrDatetime;
-	m_stEnforceInfo.qstrDeviceID = qstrDeviceID;
-	m_stEnforceInfo.qstrUsername = qstrUsername;
-	m_stEnforceInfo.qstrLocation = qstrLocation;
-	m_stEnforceInfo.nSpeedLimit = nSpeedLimit;
-	m_stEnforceInfo.nCaptureDistance = nCaptureDistance;
-	m_stEnforceInfo.nSpeed = nSpeed;
-	m_stEnforceInfo.nTargetCrossX = nTargetCrossX;
-	m_stEnforceInfo.nTargetCrossY = nTargetCrossY;
+        return;
+    }
+    else
+        qDebug() << "imag grab signal recv";
 
-	m_nFrameCnt = IMAGE_ACQUISITION_FRAME_NUM;
+    m_stEnforceInfo.bImageSave = true;
+    m_stEnforceInfo.qstrFullPath = qstrFullPath;
+    m_stEnforceInfo.qstrDatetime = qstrDatetime;
+    m_stEnforceInfo.qstrDeviceID = qstrDeviceID;
+    m_stEnforceInfo.qstrUsername = qstrUsername;
+    m_stEnforceInfo.qstrLocation = qstrLocation;
+    m_stEnforceInfo.nSpeedLimit = nSpeedLimit;
+    m_stEnforceInfo.nCaptureDistance = nCaptureDistance;
+    m_stEnforceInfo.nSpeed = nSpeed;
+    m_stEnforceInfo.nTargetCrossX = nTargetCrossX;
+    m_stEnforceInfo.nTargetCrossY = nTargetCrossY;
+
+    m_nFrameCnt = IMAGE_ACQUISITION_FRAME_NUM;
 }
 
 void v4l2_thread::initV4l2(int w, int h)
 {
-	m_bDeviceValid = true;
+    m_bDeviceValid = true;
     fd = -1;
     fp = NULL;
     silent = 0;
@@ -278,13 +306,13 @@ void v4l2_thread::initV4l2(int w, int h)
     buf_type = V4L2_BUF_TYPE_VIDEO_CAPTURE;
     format = V4L2_PIX_FMT_NV12;
 
-	//m_stEnforceInfo = stEnforceInfo();
-	m_nFrameCnt = 0;
+    //m_stEnforceInfo = stEnforceInfo();
+    m_nFrameCnt = 0;
 
     g_dqYuvImgInfo.clear();
     g_dqYuvImgDataInfo.clear();
 
-	m_bUseFlash = true;
+    m_bUseFlash = true;
 
     open_device();
     init_device();
@@ -293,11 +321,15 @@ void v4l2_thread::initV4l2(int w, int h)
 
 void v4l2_thread::setUseFlash(bool bUseFlash)
 {
-	m_bUseFlash = bUseFlash;
+    m_bUseFlash = bUseFlash;
 }
 void v4l2_thread::setUseTargetCross(bool bTargetCross)
 {
-	g_bTargetCross = bTargetCross;
+    g_bTargetCross = bTargetCross;
+    if (g_matTargetCross.cols == 0 && g_matTargetCross.rows == 0)
+    {
+        g_bTargetCross = false;
+    }
 }
 
 void v4l2_thread::errno_exit(const char* s)
@@ -320,30 +352,30 @@ void v4l2_thread::open_device(void)
     fd = open(DEV_NAME, O_RDWR /* required */ /*| O_NONBLOCK*/, 0);
 
     if (-1 == fd) {
-		qDebug() << "Cannot open" << DEV_NAME << " : " << errno << ", " << strerror(errno);
-		//ERR("Cannot open '%s': %d, %s\n", DEV_NAME, errno, strerror(errno));
+        qDebug() << "Cannot open" << DEV_NAME << " : " << errno << ", " << strerror(errno);
+        //ERR("Cannot open '%s': %d, %s\n", DEV_NAME, errno, strerror(errno));
         m_bDeviceValid = false; //exit(EXIT_FAILURE);
     }
 }
 void v4l2_thread::setFlash(bool bFlash)
 {
-	/*if(bFlash)
-		system("echo firefly | echo 1 > /sys/class/leds/green/user/brightness");
-	else
-		system("echo firefly | echo 0 > /sys/class/leds/green/user/brightness");*/
+    /*if(bFlash)
+        system("echo firefly | echo 1 > /sys/class/leds/green/user/brightness");
+    else
+        system("echo firefly | echo 0 > /sys/class/leds/green/user/brightness");*/
 
-	QFile file("/sys/class/gpio/gpio154/value");
-	if (bFlash)
-	{
-		file.open(QIODevice::WriteOnly | QIODevice::Truncate | QIODevice::Text);
-		file.write("1");
-	}
-	else
-	{
-		file.open(QIODevice::WriteOnly | QIODevice::Truncate | QIODevice::Text);
-		file.write("0");
-	}
-	file.close();
+    QFile file("/sys/class/gpio/gpio154/value");
+    if (bFlash)
+    {
+        file.open(QIODevice::WriteOnly | QIODevice::Truncate | QIODevice::Text);
+        file.write("1");
+    }
+    else
+    {
+        file.open(QIODevice::WriteOnly | QIODevice::Truncate | QIODevice::Text);
+        file.write("0");
+    }
+    file.close();
 }
 void v4l2_thread::init_mmap(void)
 {
@@ -526,22 +558,22 @@ int v4l2_thread::read_frame(int count)
     else
         bytesused = buf.bytesused;
 
-  
-	if (m_stEnforceInfo.bImageSave && m_nFrameCnt == 0)
-	{
-		//qDebug() << "SaveImage start";
-		std::thread thread0(thread_CopyImage, &(buffers[i]), bytesused, m_stEnforceInfo);
-		thread0.detach();
 
-		m_stEnforceInfo.bImageSave = false;
-	}
+    if (m_stEnforceInfo.bImageSave && m_nFrameCnt == 0)
+    {
+        //qDebug() << "SaveImage start";
+        std::thread thread0(thread_CopyImage, &(buffers[i]), bytesused, m_stEnforceInfo);
+        thread0.detach();
 
-	/*if (DEBUG_MODE)
-		qDebug() << "bytesused " <<  bytesused;*/
+        m_stEnforceInfo.bImageSave = false;
+    }
+
+    /*if (DEBUG_MODE)
+        qDebug() << "bytesused " <<  bytesused;*/
     //DBG("bytesused %d\n", bytesused);
 
     if (-1 == xioctl(fd, VIDIOC_QBUF, &buf))
-        errno_exit("VIDIOC_QBUF");   
+        errno_exit("VIDIOC_QBUF");
 
     return 1;
 }
@@ -550,4 +582,42 @@ unsigned long v4l2_thread::get_time(void)
     struct timeval ts;
     gettimeofday(&ts, NULL);
     return (ts.tv_sec * 1000 + ts.tv_usec / 1000);
+}
+
+void v4l2_thread::uninit_device(void)
+{
+    unsigned int i;
+    for (i = 0; i < n_buffers; ++i)
+    {
+        if (-1 == munmap(buffers[i].start, buffers[i].length))
+        {
+            errno_exit("munmap");
+            qDebug() << "error(uninit_device)";
+        }
+    }
+    qDebug() << "uninit_device";
+    free(buffers);
+}
+
+void v4l2_thread::stop_capturing(void)
+{
+    //enum v4l2_buf_type type;
+    //type = V4L2_BUF_TYPE_VIDEO_CAPTURE;
+    if (-1 == xioctl(fd, VIDIOC_STREAMOFF, &buf_type))
+    {
+        errno_exit("VIDIOC_STREAMOFF");
+        qDebug() << "error(stop_capturing)";
+    }
+    qDebug() << "stop_capturing";
+}
+
+void v4l2_thread::close_device(void)
+{
+    if (-1 == close(fd))
+    {
+        errno_exit("close");
+        qDebug() << "error(close_device)";
+    }
+    fd = -1;
+    qDebug() << "close_device";
 }

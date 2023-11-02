@@ -86,8 +86,14 @@ SelfTestWidget::SelfTestWidget(QWidget *parent) :
         QByteArray ba = expired_file.readAll();
         QString str = QString(ba);
         str.replace(" ", "");
-        ui->expiredDateLabel->setText(LoadString("IDS_EXPIRED_DATE") + GetDate(str));
-        ui->expiredDateLabel->setFontSize(23);
+        if(str.length() == 8)
+        {
+            ui->expiredDateLabel->setText(LoadString("IDS_EXPIRED_DATE") + GetDate(str));
+            ui->expiredDateLabel->setFontSize(23);
+        }
+        else
+        {
+        }
     }
     expired_file.close();
 

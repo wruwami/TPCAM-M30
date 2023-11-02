@@ -36,6 +36,7 @@
 #include "SerialLaserManager.h"
 #include "EnforcementComponentWidget.h"
 #include "Logger.h"
+//#include "EncryptionManager.h"
 
 template <typename T>
 inline void removeSecondItem(T*& pointer) {
@@ -164,6 +165,8 @@ MainWindow::MainWindow(screensaver* screensaver, QWidget *parent) :
     m_p500msTimer = new QTimer();
     connect(m_p500msTimer, SIGNAL(timeout()), this, SLOT(OnTimer500msFunc()));
     m_p500msTimer->start(500);
+
+//    EncryptionManager::GetInstance()->startEncrypt(GETSDPATH(AUTO));//바꿔야 함
 }
 
 MainWindow::~MainWindow()
@@ -524,6 +527,9 @@ void MainWindow::on_enforcementClicked()
     connect(m_pEnforcementWidget->m_pEnforcementComponentWidget, SIGNAL(sig_exit()), m_pIndicatorWidget, SLOT(EnforcementClose()));
     connect(m_pEnforcementWidget->m_pEnforcementComponentWidget, SIGNAL(sig_exit()), m_pIndicatorWidget, SLOT(DisableSpeedMode()));
     connect(m_pEnforcementWidget->m_pEnforcementComponentWidget, SIGNAL(sig_exit()), this, SLOT(on_mainMenuHomeClicked()));
+    connect(m_pEnforcementWidget->m_pEnforcementComponentWidget, SIGNAL(sig_ATmodeOn()), m_pMainMenuWidget, SLOT(DisableAllButton()));
+    connect(m_pEnforcementWidget->m_pEnforcementComponentWidget, SIGNAL(sig_ATmodeOff()), m_pMainMenuWidget, SLOT(EnableAllButton()));
+
 
     if (m_userName == "admin-test")
         m_pEnforcementWidget->m_pEnforcementComponentWidget->m_bVirtualMode = true;
@@ -817,7 +823,7 @@ void MainWindow::CheckLoginExpired()
     }
     expired_file.close();
 
-    if (str.isEmpty())
+    if (str.isEmpty() || str.length() != 8)
         return;
 
     if (str.at(str.size() - 1) == '\n')
@@ -1181,7 +1187,7 @@ void MainWindow::do9thAction()
         QString cmd;
         QString resolution = "800x480";
         QString file_name = GetSubPath("/screen", SD) + "/" + GetFileName(SR);
-        cmd = QString("ffmpeg -hwaccel opencl -y -f x11grab -framerate 10 -video_size %1 -i :0.0+0,0 -c:v libx264 -pix_fmt yuv420p -qp 0 -preset ultrafast %2 &").arg(resolution).arg(file_name);
+        cmd = QString("ffmpeg -hwaccel opencl -y -f x11grab -framerate 10 -video_size %1 -i :0.0+0,0 -c:v mjpeg -pix_fmt yuv420p -qp 0 -preset ultrafast %2 &").arg(resolution).arg(file_name);
         system(cmd.toStdString().c_str());
     }
     else

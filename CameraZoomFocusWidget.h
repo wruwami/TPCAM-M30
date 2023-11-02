@@ -102,6 +102,7 @@ private:
     SerialViscaManager* m_pSerialViscaManager;
     Camera* m_pCamera;
     size_t m_nLtIndex = 2;
+    size_t m_nDNIndex = 0;
     SerialLaserManager* m_pSerialLaserManager = nullptr;
     bool m_UserModeOn;
     std::vector<QString> m_ltmetervector;// = {"10~36", "30~60", "60~100", "100~160", "160~260", "260+"};

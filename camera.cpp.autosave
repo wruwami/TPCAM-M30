@@ -92,6 +92,7 @@ Camera::Camera(QWidget *parent) :
 //		qDebug() << "gst shared memory sink start failed.";
 //	}
     GstShmMgr::getInstance();
+    v4l2_thread::getInstance()->resetStatus();
     v4l2_thread::getInstance()->setUseFlash(true);
     usleep(200000);
 

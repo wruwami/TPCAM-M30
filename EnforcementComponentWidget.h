@@ -216,6 +216,8 @@ private slots:
 signals:
     void ShowRedOutLine(bool);
     void sig_exit();
+    void sig_ATmodeOn();
+    void sig_ATmodeOff();
 private:
     Ui::EnforcementComponentWidget *ui;
 };

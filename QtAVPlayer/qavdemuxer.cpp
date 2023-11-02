@@ -13,13 +13,13 @@
 #include "qaviodevice_p.h"
 #include <QtAVPlayer/qtavplayerglobal.h>
 
-#if defined(QT_AVPLAYER_VA_X11) && QT_CONFIG(opengl)
-#include "qavhwdevice_vaapi_x11_glx_p.h"
-#endif
+//#if defined(QT_AVPLAYER_VA_X11) && QT_CONFIG(opengl)
+//#include "qavhwdevice_vaapi_x11_glx_p.h"
+//#endif
 
-#if defined(QT_AVPLAYER_VA_DRM) && QT_CONFIG(egl)
-#include "qavhwdevice_vaapi_drm_egl_p.h"
-#endif
+//#if defined(QT_AVPLAYER_VA_DRM) && QT_CONFIG(egl)
+//#include "qavhwdevice_vaapi_drm_egl_p.h"
+//#endif
 
 #if defined(QT_AVPLAYER_VDPAU)
 #include "qavhwdevice_vdpau_p.h"
@@ -141,16 +141,16 @@ static int setup_video_codec(const QString &inputVideoCodec, AVStream *stream, Q
     AVDictionary *opts = NULL;
     Q_UNUSED(opts);
 
-#if defined(QT_AVPLAYER_VA_X11) && QT_CONFIG(opengl)
-    devices.append(QSharedPointer<QAVHWDevice>(new QAVHWDevice_VAAPI_X11_GLX));
-    av_dict_set(&opts, "connection_type", "x11", 0);
-#endif
+//#if defined(QT_AVPLAYER_VA_X11) && QT_CONFIG(opengl)
+//    devices.append(QSharedPointer<QAVHWDevice>(new QAVHWDevice_VAAPI_X11_GLX));
+//    av_dict_set(&opts, "connection_type", "x11", 0);
+//#endif
 #if defined(QT_AVPLAYER_VDPAU)
     devices.append(QSharedPointer<QAVHWDevice>(new QAVHWDevice_VDPAU));
 #endif
-#if defined(QT_AVPLAYER_VA_DRM) && QT_CONFIG(egl)
-    devices.append(QSharedPointer<QAVHWDevice>(new QAVHWDevice_VAAPI_DRM_EGL));
-#endif
+//#if defined(QT_AVPLAYER_VA_DRM) && QT_CONFIG(egl)
+//    devices.append(QSharedPointer<QAVHWDevice>(new QAVHWDevice_VAAPI_DRM_EGL));
+//#endif
 #if defined(Q_OS_MACOS) || defined(Q_OS_IOS)
     devices.append(QSharedPointer<QAVHWDevice>(new QAVHWDevice_VideoToolbox));
 #endif
@@ -236,10 +236,19 @@ QStringList QAVDemuxer::supportedVideoCodecs()
     if (values.isEmpty()) {
         const AVCodec *c = nullptr;
         void *it = nullptr;
-        while ((c = av_codec_iterate(&it))) {
-            if (!av_codec_is_decoder(c) || c->type != AVMEDIA_TYPE_VIDEO)
-                continue;
-            values.append(QString::fromLatin1(c->name));
+//        while ((c = av_codec_iterate(&it))) {
+//            if (!av_codec_is_decoder(c) || c->type != AVMEDIA_TYPE_VIDEO)
+//                continue;
+//            values.append(QString::fromLatin1(c->name));
+//        }
+        // Iterate through the decoders
+        while ((c = av_codec_next(c))) {
+            if (av_codec_is_decoder(c)) {
+                // This is a decoder
+                if (!av_codec_is_decoder(c) || c->type != AVMEDIA_TYPE_VIDEO)
+                    continue;
+                values.append(QString::fromLatin1(c->name));
+            }
         }
     }
 
@@ -426,7 +435,7 @@ int QAVDemuxer::resetCodecs()
                 break;
             default:
                 // Adding default stream
-                d->availableStreams.push_back({ int(i), d->ctx, nullptr });
+                d->availableStreams.push_back({ int(i), d->ctx, QSharedPointer<QAVCodec>(nullptr) });
                 break;
         }
         auto &s = d->availableStreams[int(i)];

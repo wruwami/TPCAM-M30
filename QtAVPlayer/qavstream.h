@@ -65,7 +65,7 @@ public:
     };
 
 private:
-    std::unique_ptr<QAVStreamPrivate> d_ptr;
+    QScopedPointer<QAVStreamPrivate> d_ptr;
     Q_DECLARE_PRIVATE(QAVStream)
 };
 

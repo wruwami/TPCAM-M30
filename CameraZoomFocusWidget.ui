@@ -15,7 +15,7 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout" stretch="306,268,217">
+    <layout class="QHBoxLayout" name="horizontalLayout" stretch="306,208,277">
      <item>
       <layout class="QVBoxLayout" name="verticalLayout_4" stretch="100,80,56,56,56">
        <item>
@@ -180,7 +180,7 @@
       </layout>
      </item>
      <item>
-      <layout class="QVBoxLayout" name="verticalLayout_5" stretch="150,173,56">
+      <layout class="QVBoxLayout" name="verticalLayout_5" stretch="50,273,56">
        <item>
         <spacer name="verticalSpacer_3">
          <property name="orientation">

@@ -21,6 +21,7 @@
 
 #include <QtAVPlayer/qtavplayerglobal.h>
 #include <memory>
+#include <QScopedPointer>
 
 QT_BEGIN_NAMESPACE
 
@@ -40,7 +41,7 @@ public:
     QString name() const;
 
 protected:
-    std::unique_ptr<QAVInOutFilterPrivate> d_ptr;
+    QScopedPointer<QAVInOutFilterPrivate> d_ptr;
     QAVInOutFilter(QAVInOutFilterPrivate &d);
     Q_DECLARE_PRIVATE(QAVInOutFilter)
 };

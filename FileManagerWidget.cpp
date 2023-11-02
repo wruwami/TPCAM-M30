@@ -246,7 +246,7 @@ void FileManagerWidget::timerEvent(QTimerEvent *event)
 {
     float percent = 0;
     if (m_sdcardManager.GetSDAvailable() != 0 && m_sdcardManager.GetSDTotal() != 0)
-        percent = m_sdcardManager.GetSDAvailable() / m_sdcardManager.GetSDTotal() * 100;
+        percent = 100 - (m_sdcardManager.GetSDAvailable() / m_sdcardManager.GetSDTotal() * 100);
     ui->percentPushButton->setText(QString("S:%1%").arg(QString::number(percent, 'f', 0)));
     ui->percentPushButton->setFontSize(23);
 }

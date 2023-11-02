@@ -36,7 +36,7 @@ public:
 protected:
     QAVStreamFrame(QAVStreamFramePrivate &d);
 
-    std::unique_ptr<QAVStreamFramePrivate> d_ptr;
+    QScopedPointer<QAVStreamFramePrivate> d_ptr;
     Q_DECLARE_PRIVATE(QAVStreamFrame)
 };
 

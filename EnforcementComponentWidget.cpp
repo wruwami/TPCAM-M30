@@ -609,6 +609,7 @@ void EnforcementComponentWidget::setMainMenuSize(QSize size)
 
 void EnforcementComponentWidget::doATMode()
 {
+    emit sig_ATmodeOn();
 //    emit ShowRedOutLine(true);
     hudClear();
 
@@ -652,6 +653,8 @@ void EnforcementComponentWidget::doATMode()
 
 void EnforcementComponentWidget::doReadyMode()
 {
+    emit sig_ATmodeOff();
+
     doEnforceMode(false);
     doVModeTimer(false);
     SerialPacket* laser_packet = m_pSerialLaserManager->getLaser_packet();

@@ -47,6 +47,7 @@ Setting5Widget::Setting5Widget(QWidget *parent) :
         ui->dnsServerLineEdit->setEnabled(false);
     }
 
+    startTimer(3000);
 }
 
 Setting5Widget::~Setting5Widget()
@@ -168,4 +169,26 @@ void Setting5Widget::on_gatewayLineEdit_textChanged(const QString &arg1)
 void Setting5Widget::on_dnsServerLineEdit_textChanged(const QString &arg1)
 {
     m_newJsonObject["dns server"] = arg1;
+}
+
+void Setting5Widget::timerEvent(QTimerEvent *event)
+{
+    //disable when ethernet is not connected
+    NetworkManager networkManager;
+    if (!networkManager.getNetworkRunningOrNot(networkManager.getLanAdapterName()))
+    {
+        ui->ipAddressComboBox->setEnabled(false);
+        ui->ipLineEdit->setEnabled(false);
+        ui->subnetMaskLineEdit->setEnabled(false);
+        ui->gatewayLineEdit->setEnabled(false);
+        ui->dnsServerLineEdit->setEnabled(false);
+    }
+    else
+    {
+        ui->ipAddressComboBox->setEnabled(true);
+        ui->ipLineEdit->setEnabled(true);
+        ui->subnetMaskLineEdit->setEnabled(true);
+        ui->gatewayLineEdit->setEnabled(true);
+        ui->dnsServerLineEdit->setEnabled(true);
+    }
 }

@@ -30,7 +30,7 @@
     <number>0</number>
    </property>
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout" stretch="100,355">
+    <layout class="QHBoxLayout" name="horizontalLayout" stretch="300,155">
      <property name="spacing">
       <number>0</number>
      </property>

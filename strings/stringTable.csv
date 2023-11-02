@@ -232,3 +232,13 @@ IDS_REC,REC,녹화중,gravação,grabación,enregistrement,تسجيل
 IDS_SAVE_IMAGE1,Save,영상,salvar,guardar,enreg.,الصورة
 IDS_SAVE_IMAGE2,Image,저장,imagem,imagen,l'image,احفظ
 IDS_NETWORK_PASSWORD,Network password,네트워크 비밀번호,Senha da rede,Contraseña de red,Mot de passe réseau,كلمة مرور الشبكة
+IDS_POLICE_OVER_SPEEDING_TICKET,POLICE OVER_SPEEDING TICKET,경찰 과속 단속장,BILHETE DE EXCESSO DE VELOCIDADE DA POLÍCIA,MULTA POR EXCESO DE VELOCIDAD DE LA POLICÍA,AVERTISSEMENT DE POLICE POUR excès de vitesse,تذكرة الشرطة بسبب السرعة الزائدة
+IDS_DEVICE_ID,Device ID,디바이스 아이디,ID DE DISPOSITIVO,ID DEL DISPOSITIVO,REFERENCE DE L'APPAREIL,معرف الجهاز
+IDS_UN,User Name,담당자명,Nome do responsável,Nombre del responsable,Nom du responsable,اسم الشخص المسؤول
+IDS_VIOLATION_SPEED,Violation Speed,위반시 속도,Velocidade de violação,Velocidad de violación,Vitesse de violation,سرعة المخالفة
+IDS_RANGE,Range,단속 거리,Faixa,Rango,Gamme,يتراوح
+IDS_PRINT_DATE,Print Date,출력일자,Data de impressão,Fecha de impresion,Date d'impression,تاريخ الطباعة
+IDS_OFFIEC_ID,Officer's ID,공무원 ID,ID do oficial,identificación del oficial,Carte d'identité de l'officier,هوية الضابط
+IDS_SIGNATURE,Signature,서명,Assinatura,Firma,Signature,إمضاء
+
+

@@ -88,6 +88,9 @@ MovieViewerDialogSub::MovieViewerDialogSub(AVFileFormat avFileFormat, QWidget *p
     });
 
 
+    //temp
+    ui->previousPushButton->setEnabled(false);
+    ui->nextPushButton->setEnabled(false);
 }
 
 MovieViewerDialogSub::~MovieViewerDialogSub()

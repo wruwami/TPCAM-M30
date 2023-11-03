@@ -144,6 +144,17 @@ bool CustomComboBox::eventFilter(QObject *o, QEvent *e)
     if (o == view())
     {
       QWidget *popup = findChild<QFrame*>();
+
+      QString qstrObjName = o->parent()->parent()->objectName();
+
+      if(qstrObjName == "timeZoneComboBox")
+        popup->resize(int(popup->width()*2.2f), popup->height());
+      else if(qstrObjName == "gainComboBox"
+        || qstrObjName == "irisComboBox"
+        || qstrObjName == "shutterSpeedComboBox"
+        || qstrObjName == "dnrComboBox")
+        popup->resize(int(popup->width()*1.4f), popup->height());
+
       popup->move(QApplication::desktop()->screen()->rect().center() - popup->rect().center());
 
       //For some reason, the frame's geometry is GLOBAL, not relative to the QComboBox!

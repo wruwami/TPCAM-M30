@@ -1,5 +1,7 @@
 #include "ImageConverter.h"
 
+#include <QDebug>
+
 extern "C" {
 #include <libswscale/swscale.h>
 #include <libavformat/avformat.h>
@@ -19,7 +21,7 @@ char *ImageConverter::Convert()
     //allocate output buffer.  use av_malloc to align memory.  YUV420P
     //needs 1.5 times the number of pixels (Cb and Cr only use 0.25
     //bytes per pixel on average)
-    unsigned char* out_buffer = (unsigned char*)av_malloc((int)ceil(img.height() * img.width() * 1.5));
+    unsigned char* out_buffer = (unsigned char*)av_malloc(1712 * 984 * 1.5/*img.height() * img.width() * 1.5)*/);
 
     //allocate ffmpeg frame structures
     AVFrame* inpic = av_frame_alloc();
@@ -36,16 +38,16 @@ char *ImageConverter::Convert()
     avpicture_fill((AVPicture*)outpic,
                    out_buffer,
                    AV_PIX_FMT_YUV420P,
-                   img.width(),
-                   img.height());
+                   1712,
+                   984);
 
     //create the conversion context.  you only need to do this once if
     //you are going to do the same conversion multiple times.
     SwsContext* ctx = sws_getContext(img.width(),
                                      img.height(),
                                      AV_PIX_FMT_ARGB,
-                                     img.width(),
-                                     img.height(),
+                                     1712,
+                                     984,
                                      AV_PIX_FMT_YUV420P,
                                      SWS_BICUBIC,
                                      NULL, NULL, NULL);
@@ -60,6 +62,8 @@ char *ImageConverter::Convert()
               outpic->linesize);
 
     memcpy(g_print_img_body_buff_file_management, out_buffer, 1712 * 984/*img.height() * img.width() * 1.5*/);
+    qDebug() << img.height() * img.width() * 1.5;
+    qDebug() << 1712 * 984;
 
     //free memory
     av_free(inpic);

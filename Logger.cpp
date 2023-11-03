@@ -96,6 +96,11 @@ void Logger::SetLogMsg(SystemLogType logType, QString msg)
         logString.append("FILE_MANAGER : " + msg + "\n");
     }
         break;
+    case DEFAULT:
+    {
+        logString.append(msg + "\n");
+    }
+        break;
     }
     QString full_file_name = GETSDPATH(SYSTEM_LOG) + "/" +  GetFileName(SYSTEM_LOG);
     QFile file(full_file_name);

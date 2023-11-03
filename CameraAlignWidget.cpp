@@ -288,8 +288,8 @@ void CameraAlignWidget::paintEvent(QPaintEvent *event)
 //        QRect rect2 = QRect(width() / 2 - 10, height() / 2, 10, 30);
     if (m_nMode == HUD)
     {
-        int gap = 2;
-        int reticle_width = 10;
+        int gap = 1;
+        int reticle_width = 5;
         QRect rect = QRect(QPoint(width() / 2 - reticle_width * gap, height() / 2 - gap), QPoint(width() /2 + reticle_width * gap, height() / 2 + gap));
         QRect rect2 = QRect(QPoint(width() / 2 - gap, height() / 2 - reticle_width * gap), QPoint(width() /2 + gap, height() / 2 + reticle_width * gap));
 
@@ -298,8 +298,8 @@ void CameraAlignWidget::paintEvent(QPaintEvent *event)
     }
     else if (m_nMode == Laser)
     {
-        int gap = 2;
-        int reticle_width = 10;
+        int gap = 1;
+        int reticle_width = 5;
         int width1 = width();
         int height1 = height();
 

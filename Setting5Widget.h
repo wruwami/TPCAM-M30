@@ -18,6 +18,7 @@ public:
     explicit Setting5Widget(QWidget *parent = 0);
     ~Setting5Widget();
     void SaveConfig();
+    void timerEvent(QTimerEvent *event);
 private:
     void setDHCPMode();
     void setManualMode();

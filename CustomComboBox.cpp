@@ -81,22 +81,23 @@ CustomComboBox::CustomComboBox(QWidget *parent) : QComboBox(parent)
 //    this->view()->verticalScrollBar()->setStyleSheet("QScrollBar:vertical { width: 100px; }");
 //    qv->setVerticalScrollBar(
 //    this->setView(qv);
-//    scrollbar->setStyleSheet("QScrollBar:vertical {  }");
-//                             \
-//                         }\
-//                         QScrollBar::handle:vertical{\
-//                             min-height: 20px;\
-//                         }\
-//                         QScrollBar::add-line:vertical {\
-//                             height: 20px;\
-//                             subcontrol-position: bottom;\
-//                             subcontrol-origin: margin;\
-//                         }\
-//                         QScrollBar::sub-line:vertical {\
-//                             height: 20px;\
-//                         }\
-");
-    //    this->setEditable(true);
+//    this->view()->verticalScrollBar()->setStyleSheet("QScrollBar:vertical { width: 30px; }\
+//                                           QScrollBar::handle:vertical{\
+//                                               min-height: 50px;\
+//                                           }\
+//                                           QScrollBar::add-line:vertical {\
+//                                               border: solid 1px black;\
+//                                               height: 30px;\
+//                                               subcontrol-position: bottom;\
+//                                               subcontrol-origin: margin;\
+//                                           }\
+//                                           QScrollBar::sub-line:vertical {\
+//                                               border: solid 1px black;\
+//                                               height: 30px;\
+//                                             subcontrol-position: top;\
+//                                             subcontrol-origin: margin;\
+//                                           }");
+                                                     qDebug() << this->view()->verticalScrollBar()->styleSheet();
 }
 
 void CustomComboBox::setFontSize(int font_size)
@@ -177,7 +178,20 @@ void CustomComboBox::resizeEvent(QResizeEvent *event)
 
     setStyleSheet(QString(styleSheet + "QComboBox QListView {text-align:center;}\
 QListView::item {height: %0px;}").arg(event->size().height() * 3 / 4));
-    this->view()->verticalScrollBar()->setStyleSheet("QScrollBar:vertical { width: 30px; }");
+//    this->view()->verticalScrollBar()->setStyleSheet("QScrollBar:vertical { width: 30px; }\
+//                                           QScrollBar::handle:vertical{\
+//                                               min-height: 30px;\
+//                                           }\
+//                                           QScrollBar::add-line:vertical {\
+//                                               height: 30px;\
+//                                               subcontrol-position: bottom;\
+//                                               subcontrol-origin: margin;\
+//                                           }\
+//                                           QScrollBar::sub-line:vertical {\
+//                                               height: 30px;\
+//                                             subcontrol-position: up;\
+//                                             subcontrol-origin: margin;\
+//                                           }");
 
 //    QWidget *popup = findChild<QFrame*>();\
 //            popup->resize(event->size().width() ,event->size().height()  * 6);

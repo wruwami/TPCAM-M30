@@ -4,7 +4,7 @@
 #endif // VERSION_H
 
 
-#define SW_VER          "v0.0.0.3 "
+#define SW_VER          "v0.0.0.4 "
 //#define	SW_BUILDDATE	__DATE__
 //#define	SW_BUILDTIME	__TIME__
 
@@ -19,6 +19,13 @@
 
 /*
 ========================================================================================================
+
+--------------------------------------------------------------------------------------------------------
+2023.11.03  16:00   v0.0.0.4 - LJH
+    1. add system log case(DEFAULT).
+    2. mod combobox UI(CustomComboBox.h)
+    3. mod widget position & ratio(IndicatorCameraExposeWidget.ui, IndicatorCameraFocusWidget.ui)
+    4. CPU clock to system log when program starts.(main.cpp)
 
 --------------------------------------------------------------------------------------------------------
 2023.11.01  11:30   v0.0.0.3 - LJH

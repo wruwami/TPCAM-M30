@@ -6,6 +6,7 @@
 #include <QJsonObject>
 #include <QJsonArray>
 #include <QNetworkInterface>
+#include <QProcess>
 
 #include "ConfigManager.h"
 #include "StringLoader.h"
@@ -21,8 +22,20 @@
 
 QString g_AppVersion = QString(SW_VER);
 
+void CheckCpuClock()
+{
+    QProcess process;
+    //process.start("cpufreq-info | grep current");
+    process.start("cat /sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_cur_freq");
+    process.waitForFinished(-1);
+
+    SetLogMsg(DEFAULT, "CPU clock : " + process.readAllStandardOutput());
+    SetLogMsg(DEFAULT, "CPU clock err : " + process.readAllStandardError());
+}
+
 int main(int argc, char *argv[])
 {
+    CheckCpuClock();
     GstShmMgr::getInstance();
 
     Application a(argc, argv);

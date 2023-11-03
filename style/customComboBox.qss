@@ -28,12 +28,12 @@ QScrollBar::add-line:vertical {
  height: 50px;
  subcontrol-position: bottom;
  subcontrol-origin: margin;
- image: url(images/Main_menu/combobox_drop_up_arrow.jpg);
+ image: url(images/Main_menu/combobox_drop_down_arrow.jpg);
 }
 QScrollBar::sub-line:vertical {
   border: 1px solid black;
  height: 50px;
  subcontrol-position: top;
  subcontrol-origin: margin;
- image: url(images/Main_menu/combobox_drop_down_arrow.jpg);
+ image: url(images/Main_menu/combobox_drop_up_arrow.jpg);
 }

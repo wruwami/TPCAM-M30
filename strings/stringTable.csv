@@ -228,7 +228,7 @@ IDS_DAY3,Day3,주간3,Dia 3,Día 3,Jour3,اليوم 3
 IDS_NIGHT1,Night1,야간1,Noite1,Noche1,Nuit1,ليلة1
 IDS_NIGHT2,Night2,야간2,Noite2,Noche2,Nuit2,ليلة2
 IDS_NIGHT3,Night3,야간3,Noite3,Noche3,Nuit3,ليلة3
-IDS_REC,REC,녹화중,gravação,grabación,enregistrement,تسجيل
+IDS_REC,REC,녹화중,GRA,GRA,ENR,تسجيل
 IDS_SAVE_IMAGE1,Save,영상,salvar,guardar,enreg.,الصورة
 IDS_SAVE_IMAGE2,Image,저장,imagem,imagen,l'image,احفظ
 IDS_NETWORK_PASSWORD,Network password,네트워크 비밀번호,Senha da rede,Contraseña de red,Mot de passe réseau,كلمة مرور الشبكة

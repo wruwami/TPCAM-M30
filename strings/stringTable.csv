@@ -24,9 +24,9 @@ IDS_SPEED_LIMIT,Speed Limit,규정 제한 속도,Limite de velocidade,Límite de
 IDS_CAPTURE_LIMIT,Capture Limit,실제 제한 속도,Limite de captura,Límite de captura,Limite de capture,حد الالتقاط
 IDS_ENFORCEMENT_MODE,Enforcement Mode,단속 모드,Modo de execução,Modo de cumplimiento,Mode d'application,وضع الإنفاذ
 IDS_SPEED_MODE,Speed Mode,속도 모드,Modo de velocidade,Modo de velocidad,Mode Vitesse,وضع السرعة
-IDS_ALL_IMAGE_VIDEO,All(Image+Video),전체(이미지+동영상),Todos(imagem+vídeo),Todo(Imagen+Video),Tout (Image+Vidéo),الكل (صورة + فيديو)
+IDS_ALL_IMAGE_VIDEO,A(Image+Video),A(이미지+동영상),A(imagem+vídeo),A(Imagen+Video),A(Image+Vidéo),A(صورة + فيديو)
 IDS_AUTO_IMAGE,Auto(Image),자동(이미지),Auto(Imagem),Automático (Imagen),Auto(Image),تلقائي (صورة)
-IDS_VIDEO,Video,동영상,Vídeo,Video,Vidéo,فيديو
+IDS_VIDEO,V(Video),V(동영상),V(Vídeo),V(Video),V(Vidéo),V(فيديو)
 IDS_LT,LT,LT,LT,LT,LT,LT
 IDS_ST,ST,ST,ST,ST,ST,ST
 IDS_RETICLE_SHAPE,Reticle Shape,조준점 모양,Forma de retículo,Forma de retícula,Forme du réticule,شكل شبكاني
@@ -39,12 +39,12 @@ IDS_DOT,Dot,점,Ponto,Punto,Point,نقطة
 IDS_ROUND,Round,원형,Volta,Ronda,Rond,مستدير
 IDS_RECTANGLE,Rectangle,사각형,Retângulo,Rectángulo,Rectangle,مستطيل
 IDS_SUNNY,Sunny,맑음,Ensolarado,Soleado,Ensoleillé,مشمس
-IDS_DAY_DARK,Day Dark,주간 어둡게,Dia escuro,día oscuro,Jour sombre,يوم مظلم
-IDS_DAY_STANDARD,Day Standard,주간 표준,Dia Padrão,Estándar de día,Norme de jour,معيار اليوم
-IDS_DAY_BRIGHT,Day Bright,주간 밝게,Dia brilhante,día brillante,Jour lumineux,يوم مشرق
-IDS_NIGHT_DARK,Night Dark,야간 어둡게,Noite escura,Noche oscura,Nuit sombre,ليلة مظلمة
-IDS_NIGHT_STANDARD,Night Standard,야간 표준,Noturno Padrão,Noche Estándar,Norme de nuit,ليلة قياسية
-IDS_NIGHT_BRIGHT,Night Bright,야간 밝게,Noite brilhante,noche brillante,Nuit lumineuse,ليلة مشرقة
+IDS_DAY_DARK,Day1,주간1,Dia 1,Día 1,Jour1,اليوم 1
+IDS_DAY_STANDARD,Day2,주간2,Dia 2,Día 2,Jour2,اليوم 2
+IDS_DAY_BRIGHT,Day3,주간3,Dia 3,Día 3,Jour3,اليوم 3
+IDS_NIGHT_DARK,Night1,야간1,Noite1,Noche1,Nuit1,ليلة1
+IDS_NIGHT_STANDARD,Night2,야간2,Noite2,Noche2,Nuit2,ليلة2
+IDS_NIGHT_BRIGHT,Night3,야간3,Noite3,Noche3,Nuit3,ليلة3
 IDS_ON,On,켬,Sobre,Sobre,Au,تشغيل
 IDS_OFF,Off,끔,Desligado,Apagado,À l'arrêt,عن
 IDS_LCD_BRIGHTNESS,LCD Brightness,LCD 밝기,Brilho do LCD,Brillo LCD,Luminosité de l'écran LCD,سطوع شاشة LCD
@@ -69,7 +69,7 @@ IDS_PRINTER,Printer,프린터,Impressora,Impresora,Imprimante,طابعة
 IDS_THERMAL_EAST,Thermal(East),열전사(이스트),Térmica (East),Térmica (East),Thermique (East),حراري (شرق)
 IDS_THERMAL_WOOSIM,Thermal(Woosim),열전사(우심),Térmica (Woosim),Térmica (Woosim),Thermique(Woosim),حراري (ووسيم)
 IDS_BT_HP,BT(HP),BT(HP),BT(HP),BT (HP),BT(HP),BT (HP)
-IDS_DHCP,DHCP,DHCP,DHCP,DHCP,DHCP,DHCP
+IDS_DHCP,DHCP,자동할당,alocação automática,asignación automática,allocation automatique,التخصيص التلقائي
 IDS_MANUAL,Manual,수동,Manual,Manual,Manuel,كتيب
 IDS_Manual,Manual,수동,Manual,Manual,Manuel,كتيب
 IDS_LANUAGE,Language,언어,Língua,Idioma,Langue,لغة
@@ -222,12 +222,12 @@ IDS_SCREEN,S,S,S,S,S,S
 IDS_SEARCH_TEXT,Enter the minute interval to search,분단위로 검색하세요,Digite o intervalo de minutos para pesquisar,Ingrese el intervalo de minutos para buscar,Entrez l'intervalle de minutes à rechercher,أدخل الفاصل الزمني للبحث
 IDS_FTP_TRANSFER,FTP file transfering,FTP 파일 전송,Transferência de arquivo FTP,Transferencia de archivos FTP,Transfert de fichiers FTP,قل ملف FTP
 IDS_FILE_TRANSFER,USB File transfering,USB 파일 전송,Transferência de arquivo USB,Transferencia de archivos USB,Transfert de fichiers USB,قل ملف USB
-IDS_DAY1,Day Dark,주간 어둡게,Dia escuro,día oscuro,Jour sombre,يوم مظلم
-IDS_DAY2,Day Standard,주간 표준,Dia Padrão,Estándar de día,Norme de jour,معيار اليوم
-IDS_DAY3,Day Bright,주간 밝게,Dia brilhante,día brillante,Jour lumineux,يوم مشرق
-IDS_NIGHT1,Night Dark,야간 어둡게,Noite escura,Noche oscura,Nuit sombre,ليلة مظلمة
-IDS_NIGHT2,Night Standard,야간 표준,Noturno Padrão,Noche Estándar,Norme de nuit,ليلة قياسية
-IDS_NIGHT3,Night Bright,야간 밝게,Noite brilhante,noche brillante,Nuit lumineuse,ليلة مشرقة
+IDS_DAY1,Day1,주간1,Dia 1,Día 1,Jour1,اليوم 1
+IDS_DAY2,Day2,주간2,Dia 2,Día 2,Jour2,اليوم 2
+IDS_DAY3,Day3,주간3,Dia 3,Día 3,Jour3,اليوم 3
+IDS_NIGHT1,Night1,야간1,Noite1,Noche1,Nuit1,ليلة1
+IDS_NIGHT2,Night2,야간2,Noite2,Noche2,Nuit2,ليلة2
+IDS_NIGHT3,Night3,야간3,Noite3,Noche3,Nuit3,ليلة3
 IDS_REC,REC,녹화중,gravação,grabación,enregistrement,تسجيل
 IDS_SAVE_IMAGE1,Save,영상,salvar,guardar,enreg.,الصورة
 IDS_SAVE_IMAGE2,Image,저장,imagem,imagen,l'image,احفظ
@@ -240,3 +240,11 @@ IDS_RANGE,Range,단속 거리,Faixa,Rango,Gamme,يتراوح
 IDS_PRINT_DATE,Print Date,출력일자,Data de impressão,Fecha de impresion,Date d'impression,تاريخ الطباعة
 IDS_OFFIEC_ID,Officer's ID,공무원 ID,ID do oficial,identificación del oficial,Carte d'identité de l'officier,هوية الضابط
 IDS_SIGNATURE,Signature,서명,Assinatura,Firma,Signature,إمضاء
+IDS_RAINY,Rainy,비,Chuvoso,Lluvioso,Pluvieux,ماطر
+IDS_IMAGE,I(Image),I(이미지),I(imagem),I(imagen),I(image),I(صورة)
+IDS_ENGLISH,english,영어,inglês,inglés,Anglais,إنجليزي
+IDS_FRENCH,french,프랑스어,francês,francés,Français,فرنسي
+IDS_ARABIC,arabic,아랍어,árabe,Arábica,arabe,عربي
+IDS_PORTUGUESE,portuguese,포르투갈어,português,portugués,Portugais,البرتغالية
+IDS_SPANISH,spanish,스페인어,espanhol,español,Espagnol,الأسبانية
+IDS_KOREAN,korean,한국어,coreano,coreano,coréen,الكورية

@@ -13,6 +13,8 @@ HomeButtonWidget::HomeButtonWidget(QWidget *parent) :
 
     m_pHomePushButton = ui->homePushButton;
     ui->homePushButton->setImage("Main_menu", "home_big_n.bmp");
+    ui->homePushButton->setFixedSize(61,61);
+//    ui->homePushButton->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Expanding);
 //    ui->homePushButton->setFixedSize(ui->homePushButton->height(), ui->homePushButton->height());
 }
 

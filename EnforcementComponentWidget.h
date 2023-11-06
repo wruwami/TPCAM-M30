@@ -165,6 +165,9 @@ private:
     QScopedPointer<FtpTransThread> m_pFtpThread;
     bool m_bFtpMode = false;
 //    bool m_bTest = false;
+
+    QMutex m_mutex;
+    bool m_isZFWorking = false;
 protected slots:
     void on_hidePushButton_clicked();
 //    void doShartAction();

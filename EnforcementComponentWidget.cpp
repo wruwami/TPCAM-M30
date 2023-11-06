@@ -580,7 +580,19 @@ void EnforcementComponentWidget::laserInit()
     else
         m_pSerialLaserManager->set_buzzer_mode(0);
 
+    if(m_nEnforcementMode == V)
+    {
+        int dn = object["day&night selection"].toInt();
+        if (dn >= 0 && dn <=3)
+            m_pSerialLaserManager->set_night_mode(0);
+        else
+            m_pSerialLaserManager->set_night_mode(1);
+        m_pSerialLaserManager->set_speed_measure_mode(1);
 
+        ui->zoomRangePushButton->setText("Z: AUTO");
+        doVMode();
+        return;
+    }
 
     ConfigManager config3 = ConfigManager("parameter_enforcement.json");
     QJsonObject object3 = config3.GetConfig();
@@ -612,6 +624,7 @@ void EnforcementComponentWidget::doATMode()
 {
     emit sig_ATmodeOn();
 //    emit ShowRedOutLine(true);
+    ui->distanceLabel->show();
     hudClear();
 
     m_pSerialLaserManager->stop_laser();
@@ -655,6 +668,8 @@ void EnforcementComponentWidget::doATMode()
 void EnforcementComponentWidget::doReadyMode()
 {
     emit sig_ATmodeOff();
+    ui->distanceLabel->hide();
+    m_WhiteSpeedClearTimer.stop();//prevent from being RED when entering Vmode
 
     doEnforceMode(false);
     doVModeTimer(false);
@@ -1041,7 +1056,9 @@ void EnforcementComponentWidget::initRec()
 {
     ui->recLabel->setColor(Qt::red);
     ui->recLabel->setText(LoadString("IDS_REC"));
+    ui->recLabel->setAlignment(Qt::AlignLeft);
     ui->recIconLabel->setImage("enforcement", "redcircle.png");
+    ui->recIconLabel->setAlignment(Qt::AlignRight);
 //    ui->recIconLabel->resize(ui->rec)
 }
 
@@ -1383,6 +1400,10 @@ void EnforcementComponentWidget::on_showCaptureSpeedDistance(float fSpeed, float
     m_fSpeed = fSpeed;
     m_fDistance = fDistance;
 
+    if (m_nEnforcementMode == V)
+    {
+        return; //v mode 일 시 단속 x
+    }
 
     if (fSpeed >= GetCaptureSpeedLimit())
     {
@@ -1521,10 +1542,6 @@ void EnforcementComponentWidget::on_EnforceModeV()
         g_nCrackDownIndex = 1;
     m_nEnforcementMode = V;
 
-    if (m_nMode == AT)
-    {
-        doVModeTimer(true);
-    }
     //change zoombutton, disable indicator
     ui->zoomRangePushButton->setText("Z: AUTO");
     doVMode();
@@ -1822,22 +1839,38 @@ void EnforcementComponentWidget::doVMode()
 
 void EnforcementComponentWidget::doVModeZFControl(float fDistance, int notuse)
 {
-    static float fDistanceAvg = fDistance, counter = 0;
+    if(m_isZFWorking == true)
+    {
+        return;
+    }
+    m_isZFWorking = true;
+    static float fDistanceAvg = fDistance;
+    static int counter = 0;
     ++counter;
 
-    fDistanceAvg = fDistanceAvg * 0.8 + fDistance * 0.2;
+    fDistanceAvg = fDistanceAvg * (2.0/3.0) + fDistance * (1.0/3.0);
 
     if(counter<5)
+    {
+        m_isZFWorking = false;
         return;
+    }
     else if(counter > 100000)
         counter = 6;
 
     if(fDistanceAvg >= 2000)
+    {
+        m_isZFWorking = false;
         return;
+    }
     else if(fDistanceAvg < 10)
+    {
+        m_isZFWorking = false;
         return;
+    }
 
     int nZoomIndex = 0;
+    static int nFormalZoomIndex = 0;
 
     if(fDistanceAvg >= 10 && fDistanceAvg <36)
     {
@@ -1861,14 +1894,35 @@ void EnforcementComponentWidget::doVModeZFControl(float fDistance, int notuse)
     }
     else
     {
+        m_isZFWorking = false;
         return;
     }
+
 
     QJsonObject object = ConfigManager("parameter_setting2.json").GetConfig();
     int ndaynight = object["day&night selection"].toInt();
 
-    m_pSerialViscaManager->SetZoomForZoomFocus(nZoomIndex);
-    m_pSerialViscaManager->SetFocusForZoomFocus(nZoomIndex, ndaynight);
+    if(nFormalZoomIndex == nZoomIndex)
+    {
+
+    }
+    else
+    {
+        m_pSerialViscaManager->setZFcontrolThread(nZoomIndex, ndaynight);
+//        m_pSerialViscaManager->SetZoomForVmode(nZoomIndex);
+//        m_pSerialViscaManager->SetFocusForVmode(nZoomIndex, ndaynight);
+    }
+
+//    if(count % 10 == 1)
+//    {
+//        QJsonObject object = ConfigManager("parameter_setting2.json").GetConfig();
+//        int ndaynight = object["day&night selection"].toInt();
+
+//        m_pSerialViscaManager->SetZoomForZoomFocus(nZoomIndex);
+//        m_pSerialViscaManager->SetFocusForZoomFocus(nZoomIndex, ndaynight);
+//    }
+    nFormalZoomIndex = nZoomIndex;
+    m_isZFWorking = false;
 }
 
 void EnforcementComponentWidget::closeThread()

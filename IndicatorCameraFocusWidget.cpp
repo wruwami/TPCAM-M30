@@ -32,7 +32,7 @@ IndicatorCameraFocusWidget::IndicatorCameraFocusWidget(QWidget *parent) :
     ui->showHidePushButton->setFontSize(23);
     ui->speedPushButton->setText(LoadString("IDS_SPEED"));
     ui->speedPushButton->setFontSize(23);
-    ui->autoTriggerPushButton->setText(LoadString("IDS_AT"));
+    ui->autoTriggerPushButton->setText(LoadString("IDS_READY"));
     ui->autoTriggerPushButton->setFontSize(23);
     ui->onePushTriggerPushButton->setText(LoadString("IDS_OPT"));
     ui->onePushTriggerPushButton->setFontSize(23);
@@ -140,13 +140,17 @@ void IndicatorCameraFocusWidget::on_autoTriggerPushButton_clicked(bool checked)
     {
         m_pserialLaserManager->start_laser();
         m_pserialLaserManager->request_distance(true);
+        ui->autoTriggerPushButton->setText(LoadString("IDS_AT"));
         ui->autoTriggerPushButton->setStyleSheet("border-color : red;");
+        ui->distanceLabel->show();
     }
     else
     {
         m_pserialLaserManager->stop_laser();
         m_pserialLaserManager->request_distance(false);
+        ui->autoTriggerPushButton->setText(LoadString("IDS_READY"));
         ui->autoTriggerPushButton->setStyleSheet("border-color : blue;");
+        ui->distanceLabel->hide();
     }
 }
 

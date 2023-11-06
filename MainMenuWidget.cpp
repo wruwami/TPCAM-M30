@@ -7,6 +7,8 @@
 #include "qdir.h"
 #include <QDebug>
 #include <QPainter>
+#include <QFont>
+#include <QFontDatabase>
 
 #include "Color.h"
 #include "IndicatorDialog.h"
@@ -39,7 +41,19 @@ MainMenuWidget::MainMenuWidget(QWidget *parent) :
 
 
     ui->timeLabel->setColor(Qt::white);
-    ui->timeLabel->setFontSize(15);
+    //Add font
+//    int fontId = QFontDatabase::addApplicationFont(GeteMMCPath()+"/font/"+"led_real.ttf");
+    int fontId = QFontDatabase::addApplicationFont(GeteMMCPath()+"/font/"+"LOOPY___.ttf");
+    if (fontId != -1) {
+        QString strled_real = QFontDatabase::applicationFontFamilies(fontId).at(0);
+
+        // Now you can use the custom font in your application
+        QFont led_real(strled_real, 48); // Replace "12" with your desired font size
+        led_real.setBold(true);
+        led_real.setItalic(true);
+        ui->timeLabel->setFont(led_real);
+    }
+    ui->timeLabel->setFontSize(48);
 
     ui->cameraPushButton->setSizePolicy(sp_retain);
     ui->daynNightPushButton->setSizePolicy(sp_retain);
@@ -393,7 +407,7 @@ void MainMenuWidget::updateStretch()
 void MainMenuWidget::timerEvent(QTimerEvent *event)
 {
     ui->timeLabel->setText(QTime::currentTime().toString("hh:mm:ss"));
-    ui->timeLabel->setFontSize(23);
+    ui->timeLabel->setFontSize(48);
 //    if (SerialGPSManager::GetInstance()->GetSatellitesInView() >= 3)
 //        ui->gpsPushButton->setImage("indicator", "indicator_gps_on.jpg");
 //    else

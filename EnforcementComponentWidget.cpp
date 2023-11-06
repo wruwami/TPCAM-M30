@@ -1039,7 +1039,7 @@ void EnforcementComponentWidget::zoomRangeWithoutIncrement()
 void EnforcementComponentWidget::initRec()
 {
     ui->recLabel->setColor(Qt::red);
-    ui->recLabel->setText("IDS_REC");
+    ui->recLabel->setText(LoadString("IDS_REC"));
     ui->recIconLabel->setImage("enforcement", "redcircle.png");
 //    ui->recIconLabel->resize(ui->rec)
 }

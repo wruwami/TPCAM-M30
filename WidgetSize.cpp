@@ -104,7 +104,7 @@ QPoint WidgetSize::GetWidgetPos(QPoint pos, QPoint oripos)
 
 int WidgetSize::GetFontSize(int fontsize)
 {
-    int x = fontsize * m_rec.width() / Width;
-    int y = fontsize * m_rec.height() / Height;
+    int x = fontsize * m_rec.width() / Width * 2;
+    int y = fontsize * m_rec.height() / Height * 2;
     return x;
 }

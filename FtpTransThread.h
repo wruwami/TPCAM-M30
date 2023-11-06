@@ -12,6 +12,7 @@
 
 class FtpTransThread : public QThread
 {
+    Q_OBJECT
 public:
     explicit FtpTransThread(QObject *parent = nullptr);
     virtual ~FtpTransThread();

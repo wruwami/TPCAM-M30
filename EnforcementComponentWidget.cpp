@@ -257,9 +257,10 @@ EnforcementComponentWidget::~EnforcementComponentWidget()
 
     doEnforceMode(false);
 
-    if (m_bFtpMode)
+    if (m_bFtpMode && m_pFtpThread->isRunning())
     {
         m_pFtpThread->requestInterruption();
+        sleep(1);
         m_pFtpThread->exit();
     }
 

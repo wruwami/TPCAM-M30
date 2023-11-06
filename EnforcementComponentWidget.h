@@ -7,6 +7,7 @@
 #include <QQueue>
 #include <QSharedPointer>
 #include <QFileSystemWatcher>
+#include <QScopedPointer>
 
 #include <list>
 #include <vector>
@@ -161,7 +162,7 @@ private:
     QFileSystemWatcher m_fileSystemWatcher;
     TriggerStatus m_triggerStatus = SKIP;
     QSize m_MainMenuWidgetSize;
-    QSharedPointer<FtpTransThread> m_pFtpThread;
+    QScopedPointer<FtpTransThread> m_pFtpThread;
     bool m_bFtpMode = false;
 //    bool m_bTest = false;
 protected slots:

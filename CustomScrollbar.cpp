@@ -52,6 +52,4 @@ CustomScrollbar::CustomScrollbar(int width, QWidget *parent) : QScrollBar(parent
                             ").arg(width));
 
     }
-
-
 }

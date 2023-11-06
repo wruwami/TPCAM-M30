@@ -34,6 +34,7 @@ enum SystemLogType
     BUTTON_CLICKED,
     INDICATOR_CLICKED,
     FILE_MANAGER,
+    DEFAULT,
 
 };
 

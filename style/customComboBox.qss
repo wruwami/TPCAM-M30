@@ -15,16 +15,25 @@ QComboBox::down-arrow {
 }
 
 QScrollBar:vertical {
- width: 15px;
+border: 1px solid black;
+ width: 50px;
+ margin : 52px 0 52px 0;
+ background : white;
 }
 QScrollBar::handle:vertical{
  min-height: 20px;
 }
 QScrollBar::add-line:vertical {
- height: 20px;
+  border: 1px solid black;
+ height: 50px;
  subcontrol-position: bottom;
  subcontrol-origin: margin;
+ image: url(images/Main_menu/combobox_drop_down_arrow.jpg);
 }
 QScrollBar::sub-line:vertical {
- height: 20px;
+  border: 1px solid black;
+ height: 50px;
+ subcontrol-position: top;
+ subcontrol-origin: margin;
+ image: url(images/Main_menu/combobox_drop_up_arrow.jpg);
 }

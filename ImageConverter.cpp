@@ -1,7 +1,5 @@
 #include "ImageConverter.h"
 
-#include <QDebug>
-
 extern "C" {
 #include <libswscale/swscale.h>
 #include <libavformat/avformat.h>
@@ -62,8 +60,6 @@ char *ImageConverter::Convert()
               outpic->linesize);
 
     memcpy(g_print_img_body_buff_file_management, out_buffer, 1712 * 984/*img.height() * img.width() * 1.5*/);
-    qDebug() << img.height() * img.width() * 1.5;
-    qDebug() << 1712 * 984;
 
     //free memory
     av_free(inpic);

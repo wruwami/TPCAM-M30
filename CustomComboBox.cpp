@@ -14,6 +14,7 @@
 #include <QDebug>
 
 #include "FontSize.h"
+#include "WidgetSize.h"
 
 class AlignDelegate: public QStyledItemDelegate{
 public:
@@ -54,7 +55,7 @@ CustomComboBox::CustomComboBox(QWidget *parent) : QComboBox(parent)
     this->setSizeAdjustPolicy(QComboBox::AdjustToMinimumContentsLength);
 //    this->view()->setMaximumWidth()
     this->view()->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
-    this->view()->verticalScrollBar()->setStyleSheet("width: 15px;");
+//    this->view()->verticalScrollBar()->setStyleSheet("width: 15px;");
     view()->installEventFilter(this);
 
 //    this->view()->verticalScrollBar().resize();
@@ -77,31 +78,33 @@ CustomComboBox::CustomComboBox(QWidget *parent) : QComboBox(parent)
 //    m_size = scrollbar->size();
 //    m_size.setWidth(m_size.width() * 3);
 //    scrollbar->resize(m_size);
-    this->view()->verticalScrollBar()->setStyleSheet("QScrollBar:vertical { width: 100px; }");
+//    this->view()->verticalScrollBar()->setStyleSheet("QScrollBar:vertical { width: 100px; }");
 //    qv->setVerticalScrollBar(
 //    this->setView(qv);
-//    scrollbar->setStyleSheet("QScrollBar:vertical {  }");
-//                             \
-//                         }\
-//                         QScrollBar::handle:vertical{\
-//                             min-height: 20px;\
-//                         }\
-//                         QScrollBar::add-line:vertical {\
-//                             height: 20px;\
-//                             subcontrol-position: bottom;\
-//                             subcontrol-origin: margin;\
-//                         }\
-//                         QScrollBar::sub-line:vertical {\
-//                             height: 20px;\
-//                         }\
-");
-    //    this->setEditable(true);
+//    this->view()->verticalScrollBar()->setStyleSheet("QScrollBar:vertical { width: 30px; }\
+//                                           QScrollBar::handle:vertical{\
+//                                               min-height: 50px;\
+//                                           }\
+//                                           QScrollBar::add-line:vertical {\
+//                                               border: solid 1px black;\
+//                                               height: 30px;\
+//                                               subcontrol-position: bottom;\
+//                                               subcontrol-origin: margin;\
+//                                           }\
+//                                           QScrollBar::sub-line:vertical {\
+//                                               border: solid 1px black;\
+//                                               height: 30px;\
+//                                             subcontrol-position: top;\
+//                                             subcontrol-origin: margin;\
+//                                           }");
+                                                     qDebug() << this->view()->verticalScrollBar()->styleSheet();
 }
 
 void CustomComboBox::setFontSize(int font_size)
 {
+    int calc_font_size = GetFontSize(font_size);
     QFont font = this->font();
-    font.setPixelSize(font_size);
+    font.setPixelSize(calc_font_size);
     this->setFont(font);
 }
 
@@ -144,7 +147,19 @@ bool CustomComboBox::eventFilter(QObject *o, QEvent *e)
     if (o == view())
     {
       QWidget *popup = findChild<QFrame*>();
+
+      QString qstrObjName = o->parent()->parent()->objectName();
+
+      if(qstrObjName == "timeZoneComboBox")
+        popup->resize(int(popup->width()*2.2f), popup->height());
+      else if(qstrObjName == "gainComboBox"
+        || qstrObjName == "irisComboBox"
+        || qstrObjName == "shutterSpeedComboBox"
+        || qstrObjName == "dnrComboBox")
+        popup->resize(int(popup->width()*1.4f), popup->height());
+
       popup->move(QApplication::desktop()->screen()->rect().center() - popup->rect().center());
+
 
       //For some reason, the frame's geometry is GLOBAL, not relative to the QComboBox!
 //      frame->move(frame->x(),
@@ -174,7 +189,20 @@ void CustomComboBox::resizeEvent(QResizeEvent *event)
 
     setStyleSheet(QString(styleSheet + "QComboBox QListView {text-align:center;}\
 QListView::item {height: %0px;}").arg(event->size().height() * 3 / 4));
-    this->view()->verticalScrollBar()->setStyleSheet("QScrollBar:vertical { width: 30px; }");
+//    this->view()->verticalScrollBar()->setStyleSheet("QScrollBar:vertical { width: 30px; }\
+//                                           QScrollBar::handle:vertical{\
+//                                               min-height: 30px;\
+//                                           }\
+//                                           QScrollBar::add-line:vertical {\
+//                                               height: 30px;\
+//                                               subcontrol-position: bottom;\
+//                                               subcontrol-origin: margin;\
+//                                           }\
+//                                           QScrollBar::sub-line:vertical {\
+//                                               height: 30px;\
+//                                             subcontrol-position: up;\
+//                                             subcontrol-origin: margin;\
+//                                           }");
 
 //    QWidget *popup = findChild<QFrame*>();\
 //            popup->resize(event->size().width() ,event->size().height()  * 6);

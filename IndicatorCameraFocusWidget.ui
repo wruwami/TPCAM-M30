@@ -18,7 +18,7 @@
   </property>
   <layout class="QGridLayout" name="gridLayout_2">
    <item row="0" column="0">
-    <layout class="QGridLayout" name="gridLayout" rowstretch="487,87,87,87" columnstretch="1,1,1,1,1,1,1">
+    <layout class="QGridLayout" name="gridLayout" rowstretch="487,87,87,87" columnstretch="9,7,7,7,7,9,0">
      <item row="0" column="0">
       <spacer name="verticalSpacer">
        <property name="orientation">

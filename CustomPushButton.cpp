@@ -9,6 +9,7 @@
 #include "FontSize.h"
 #include "ImageSize.h"
 #include "FileManager.h"
+#include "WidgetSize.h"
 
 #define DEFAULT_PATH    "images"
 
@@ -148,8 +149,9 @@ void CustomPushButton::setImage(QString path_name, QString file_name, QSize size
 
 void CustomPushButton::setFontSize(int font_size)
 {
+    int calc_font_size = GetFontSize(font_size);
     QFont font = this->font();
-    font.setPixelSize(font_size);
+    font.setPixelSize(calc_font_size);
     this->setFont(font);
 }
 

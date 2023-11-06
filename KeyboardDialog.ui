@@ -55,7 +55,7 @@
        <item>
         <widget class="CustomPushButton" name="deleteAllPushButton">
          <property name="text">
-          <string>PushButton</string>
+          <string/>
          </property>
         </widget>
        </item>

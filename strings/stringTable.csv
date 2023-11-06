@@ -92,7 +92,7 @@ IDS_LONGITUDE,Longtitude:,경도:,Longitude:,Longitud:,Longitude :,خط الط�
 IDS_NUMBER_OF_SATELLITES,Number of Satellites:,위성 수:,Número de satélites:,Número de satélites:,Nombre de Satellite :,عدد الأقمار الصناعية:
 IDS_INDICATOR_GPS,GPS,GPS,GPS,GPS,GPS,GPS
 IDS_HIDE,Hide,숨김,Esconder,Ocultar,Cacher,إخفاء
-IDS_SPEED,Return,돌아감,retornar,devolver,retour,يعود
+IDS_SPEED,Back,뒤로,Voltar,Atrás,Dos,خلف
 IDS_AT,A.T,A.T,A.T,A.T,A.T,في
 IDS_OPT,OPT,OPT,OPT,OPT,OPT,"يختار، يقرر"
 IDS_FOCUS_DOWN,F-,F-,F-,F-,F-,F-

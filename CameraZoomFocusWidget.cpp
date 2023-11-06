@@ -45,7 +45,7 @@ CameraZoomFocusWidget::CameraZoomFocusWidget(QWidget *parent) :
     ui->dayComboBox->addItem(LoadString("IDS_NIGHT"));
     ui->dayComboBox->setFontSize(23);
 
-    ui->autoTriggerPushButton->setText(LoadString("IDS_AT"));
+    ui->autoTriggerPushButton->setText(LoadString("IDS_READY"));
     ui->autoTriggerPushButton->setFontSize(23);
     ui->initPushButton->setText(LoadString("IDS_INIT"));
     ui->initPushButton->setFontSize(23);
@@ -133,7 +133,7 @@ CameraZoomFocusWidget::CameraZoomFocusWidget(QWidget *parent) :
 //    columnHeaders.append(LoadString("IDS_Z160"));
 //    columnHeaders.append(LoadString("IDS_Z260"));
     QFont font = ui->tableWidget->horizontalHeader()->font();
-    font.setPixelSize( 8 );
+    font.setPixelSize( 12 );
     ui->tableWidget->horizontalHeader()->setFont( font );
     ui->tableWidget->verticalHeader()->setFont( font );
     ui->tableWidget->setVerticalHeaderLabels(columnHeaders);
@@ -1119,6 +1119,8 @@ void CameraZoomFocusWidget::on_autoTriggerPushButton_clicked(bool checked)
     if (checked)
     {
         ui->autoTriggerPushButton->setStyleSheet("border-color: red;");
+        ui->autoTriggerPushButton->setText(LoadString("IDS_AT"));
+        ui->speedSensitivitylabel->show();
         m_pSerialLaserManager->start_laser();
         m_pSerialLaserManager->request_distance(true);
 //        m_pSerialLaserManager->start_virtualSpeed();
@@ -1126,6 +1128,8 @@ void CameraZoomFocusWidget::on_autoTriggerPushButton_clicked(bool checked)
     else
     {
         ui->autoTriggerPushButton->setStyleSheet("border-color: blue;");
+        ui->autoTriggerPushButton->setText(LoadString("IDS_READY"));
+        ui->speedSensitivitylabel->hide();
         m_pSerialLaserManager->stop_laser();
         m_pSerialLaserManager->request_distance(false);
     }

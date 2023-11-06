@@ -26,7 +26,7 @@ CameraAlignWidget::CameraAlignWidget(QWidget *parent) :
     ui->homePushButton->setFontSize(23);
     ui->defaultPushButton->setText(LoadString("IDS_DEFAULT"));
     ui->defaultPushButton->setFontSize(23);
-    ui->autoTriggerPushButton->setText(LoadString("IDS_AUTO_TRIGGER"));
+    ui->autoTriggerPushButton->setText(LoadString("IDS_READY"));
     ui->autoTriggerPushButton->setFontSize(23);
     ui->hudPushButton->setText(LoadString("IDS_HUD"));
     ui->hudPushButton->setFontSize(23);
@@ -240,6 +240,7 @@ void CameraAlignWidget::on_autoTriggerPushButton_toggled(bool checked)
     if (checked)
     {
         ui->autoTriggerPushButton->setStyleSheet("border-color: red;");
+        ui->autoTriggerPushButton->setText(LoadString("IDS_AT"));
         m_pSerialLaserManager->start_laser();
         m_pSerialLaserManager->request_distance(true);
 //        m_pSerialLaserManager->start_virtualSpeed(); // test
@@ -250,6 +251,7 @@ void CameraAlignWidget::on_autoTriggerPushButton_toggled(bool checked)
     {
         ui->speedSensitivitylabel->setText("");
         ui->autoTriggerPushButton->setStyleSheet("border-color: blue;");
+        ui->autoTriggerPushButton->setText(LoadString("IDS_READY"));
         SerialPacket* laser_packet = m_pSerialLaserManager->getLaser_packet();
         disconnect(laser_packet, SIGNAL(sig_showDistance(float,int)), this, SLOT(on_showDistance(float,int)));
 

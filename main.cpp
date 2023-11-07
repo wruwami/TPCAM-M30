@@ -25,12 +25,29 @@ QString g_AppVersion = QString(SW_VER);
 void CheckCpuClock()
 {
     QProcess process;
-    //process.start("cpufreq-info | grep current");
     process.start("cat /sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_cur_freq");
     process.waitForFinished(-1);
+    SetLogMsg(DEFAULT, "CPU0 clock : " + process.readAllStandardOutput());
 
-    SetLogMsg(DEFAULT, "CPU clock : " + process.readAllStandardOutput());
-    SetLogMsg(DEFAULT, "CPU clock err : " + process.readAllStandardError());
+    process.start("cat /sys/devices/system/cpu/cpu1/cpufreq/cpuinfo_cur_freq");
+    process.waitForFinished(-1);
+    SetLogMsg(DEFAULT, "CPU1 clock : " + process.readAllStandardOutput());
+
+    process.start("cat /sys/devices/system/cpu/cpu2/cpufreq/cpuinfo_cur_freq");
+    process.waitForFinished(-1);
+    SetLogMsg(DEFAULT, "CPU2 clock : " + process.readAllStandardOutput());
+
+    process.start("cat /sys/devices/system/cpu/cpu3/cpufreq/cpuinfo_cur_freq");
+    process.waitForFinished(-1);
+    SetLogMsg(DEFAULT, "CPU3 clock : " + process.readAllStandardOutput());
+
+    process.start("cat /sys/devices/system/cpu/cpu4/cpufreq/cpuinfo_cur_freq");
+    process.waitForFinished(-1);
+    SetLogMsg(DEFAULT, "CPU4 clock : " + process.readAllStandardOutput());
+
+    process.start("cat /sys/devices/system/cpu/cpu5/cpufreq/cpuinfo_cur_freq");
+    process.waitForFinished(-1);
+    SetLogMsg(DEFAULT, "CPU5 clock : " + process.readAllStandardOutput());
 }
 
 int main(int argc, char *argv[])
@@ -54,7 +71,27 @@ int main(int argc, char *argv[])
 
     ConfigManager config = ConfigManager("parameter_setting3.json");
     QJsonObject json = config.GetConfig();
-    SetDateFormat(json["date format items"].toArray()[json["date format selection"].toInt() - 1].toString());
+    DateFormat dateformat;
+    switch (json["date format selection"].toInt() - 1)
+    {
+    case 0:
+    {
+        dateformat = YYYYMMDD;
+    }
+        break;
+    case 1:
+    {
+        dateformat = MMDDYYYY;
+    }
+        break;
+    case 2:
+    {
+        dateformat = DDMMYYYY;
+    }
+        break;
+    }
+
+    SetDateFormat(dateformat);
 
     a.setStyleSheet(styleSheet);
     ConfigManager config2 = ConfigManager("parameter_setting6.json");

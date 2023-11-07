@@ -60,7 +60,7 @@ MovieViewerDialogSub::MovieViewerDialogSub(AVFileFormat avFileFormat, QWidget *p
 //    ui->dateLabel->setFontSize(23);
     ui->timeLabel->setText(QString(avFileFormat.time).mid(0,6));
 //    ui->timeLabel->setFontSize(23);
-    ui->rtLabel->setText(QString("RT - - - %1, - - - - -%2").arg(speedUnitValue().arg(distanceValue())));
+    ui->rtLabel->setText(QString("RT %0 %1, %2 %3").arg(avFileFormat.captureSpeed).arg(speedUnitValue().arg(avFileFormat.distance).arg(distanceValue())));
 //    ui->rtLabel->setFontSize(23);
 
 

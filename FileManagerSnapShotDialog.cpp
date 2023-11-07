@@ -14,8 +14,7 @@
 #include "FileManager.h"
 
 FileManagerSnapShotDialog::FileManagerSnapShotDialog(int nMode, QWidget *parent) :
-    QDialog(parent),
-    ui(new Ui::FileManagerSnapShotDialog)
+    QDialog(parent), ui(new Ui::FileManagerSnapShotDialog)
 {
     ui->setupUi(this);
 
@@ -24,7 +23,6 @@ FileManagerSnapShotDialog::FileManagerSnapShotDialog(int nMode, QWidget *parent)
     setWindowFlags(Qt::FramelessWindowHint);
     setBackGroundColor(this, 0xffffff);
 
-    ui->snapShotLabel->setText(LoadString("IDC_SNAPSHOT"));
     ui->snapShotLabel->setFontSize(23);
     ui->snapShotIconLabel->setImage("file_manager", "file_management_folder_icon_normal.bmp");
 //    ui->backPushButton->setText(LoadString("IDS_BACK"));
@@ -44,26 +42,31 @@ FileManagerSnapShotDialog::FileManagerSnapShotDialog(int nMode, QWidget *parent)
         case 0:
     {
         folder_path = GetPath("/snapshot/", SD);
+        ui->snapShotLabel->setText(LoadString("IDC_SNAPSHOT"));
     }
         break;
     case 1:
     {
         folder_path = GetPath("/auto/", SD);
+        ui->snapShotLabel->setText(LoadString("IDC_AUTO"));
     }
         break;
     case 2:
     {
         folder_path = GetPath("/video/", SD);
+        ui->snapShotLabel->setText(LoadString("IDC_VIDEO"));
     }
         break;
     case 3:
     {
         folder_path = GetPath("/manual_capture/", SD);
+        ui->snapShotLabel->setText(LoadString("IDC_MANUAL_CAPTURE"));
     }
         break;
     case 4:
     {
         folder_path = GetPath("/screen/", SD);
+        ui->snapShotLabel->setText(LoadString("IDC_SCREEN"));
     }
         break;
 

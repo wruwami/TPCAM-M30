@@ -5,6 +5,7 @@
 #include <QElapsedTimer>
 #include <QTimer>
 #include <QJsonObject>
+#include <QMutex>
 
 #define CHECK_OPT_DONE_COUNTER 3
 
@@ -49,6 +50,8 @@ private:
 
     QString m_lastQstrFocus;
 
+    QMutex m_writeMutex;
+
     QTimer* m_pTimerInquiryZoom = new QTimer(this);
     QTimer* m_pTimerInquiryFocus = new QTimer(this);
     QTimer* m_pTimerInquiryIris = new QTimer(this);
@@ -58,6 +61,8 @@ private:
     int focus_count = 0;
     int iris_count = 0;
     int opt_count = 0;
+
+    int m_waitTimeout = 1000;
 public:
     void show_camera_version();
     void show_camera_model();
@@ -82,6 +87,7 @@ public:
     void plus_zoom();
     void minus_zoom();
     void zoom_from_pqrs(QString pqrs_input);
+    void zoom_from_pqrs_noFeedback(QString pqrs_input);
     void dzoom_from_pq(QString pq_input);
 
     void dzoom(int currentIndex);
@@ -89,6 +95,7 @@ public:
     void minus_dzoom();
 
     void set_focus(QString a_pqrs);
+    void set_focus_noFeedback(QString a_pqrs);
     void plus_focus();
     void minus_focus();
 //    void focus_from_pqrs(QString pqrs_input);
@@ -142,12 +149,15 @@ public:
     void SetDayMode(QJsonObject object, bool bDay, bool = false);
     void SetFocus(int index);
     void SetFocusForZoomFocus(int index, int ndaynight);
+    void SetFocusForVmode(int index, int ndaynight);
     void SetZoom(int index);
     void SetZoomForZoomFocus(int index);
+    void SetZoomForVmode(int index);
     void SetDZoom(int index);
     void SetDZoomForZoomFocus(int index);
 //    void check_OPT_done();
 
+    void setZFcontrolThread(int index, int daynight);
 
     ViscaPacket *getVisca_packet() const;
 signals:

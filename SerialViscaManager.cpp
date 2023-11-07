@@ -1,5 +1,7 @@
 #include "SerialViscaManager.h"
 #include <QSerialPort>
+#include <QThread>
+#include <QtConcurrent>
 #include "ViscaPacket.h"
 
 #include <QDebug>
@@ -127,8 +129,9 @@ void SerialViscaManager::show_camera_version()
 
     qDebug() << data;
 
+    QMutexLocker locker(&m_writeMutex);
     if(serial_visca)
-        serial_visca->write(data);
+        {serial_visca->write(data); serial_visca->waitForBytesWritten(m_waitTimeout); QThread::msleep(40); }
 
 }
 
@@ -151,8 +154,9 @@ void SerialViscaManager::show_camera_model()
 
     qDebug() << data;
 
+    QMutexLocker locker(&m_writeMutex);
     if(serial_visca)
-        serial_visca->write(data);
+        {serial_visca->write(data); serial_visca->waitForBytesWritten(m_waitTimeout); QThread::msleep(40); }
 
 }
 
@@ -175,8 +179,9 @@ void SerialViscaManager::set_infrared_mode_on()
 
     qDebug() << data;
 
+    QMutexLocker locker(&m_writeMutex);
     if(serial_visca)
-        serial_visca->write(data);
+        {serial_visca->write(data); serial_visca->waitForBytesWritten(m_waitTimeout); QThread::msleep(40); }
 }
 
 void SerialViscaManager::set_infrared_mode_off()
@@ -197,8 +202,9 @@ void SerialViscaManager::set_infrared_mode_off()
 
     qDebug() << data;
 
+    QMutexLocker locker(&m_writeMutex);
     if(serial_visca)
-        serial_visca->write(data);
+        {serial_visca->write(data); serial_visca->waitForBytesWritten(m_waitTimeout); QThread::msleep(40); }
 }
 
 void SerialViscaManager::set_infrared_mode_auto()
@@ -219,8 +225,9 @@ void SerialViscaManager::set_infrared_mode_auto()
 
     qDebug() << data;
 
+    QMutexLocker locker(&m_writeMutex);
     if(serial_visca)
-        serial_visca->write(data);
+        {serial_visca->write(data); serial_visca->waitForBytesWritten(m_waitTimeout); QThread::msleep(40); }
 }
 
 void SerialViscaManager::set_noise_reduction_on(QString p)
@@ -250,8 +257,9 @@ void SerialViscaManager::set_noise_reduction_on(QString p)
 
     qDebug() << data;
 
+    QMutexLocker locker(&m_writeMutex);
     if(serial_visca)
-        serial_visca->write(data);
+        {serial_visca->write(data); serial_visca->waitForBytesWritten(m_waitTimeout); QThread::msleep(40); }
 }
 
 void SerialViscaManager::set_defog_off()
@@ -274,8 +282,9 @@ void SerialViscaManager::set_defog_off()
 
     qDebug() << data;
 
+    QMutexLocker locker(&m_writeMutex);
     if(serial_visca)
-        serial_visca->write(data);
+        {serial_visca->write(data); serial_visca->waitForBytesWritten(m_waitTimeout); QThread::msleep(40); }
 }
 
 void SerialViscaManager::set_defog_on()
@@ -298,8 +307,9 @@ void SerialViscaManager::set_defog_on()
 
     qDebug() << data;
 
+    QMutexLocker locker(&m_writeMutex);
     if(serial_visca)
-        serial_visca->write(data);
+        {serial_visca->write(data); serial_visca->waitForBytesWritten(m_waitTimeout); QThread::msleep(40); }
 }
 
 QString SerialViscaManager::change_defog_mode()
@@ -332,8 +342,9 @@ QString SerialViscaManager::change_defog_mode()
 
     qDebug() << data;
 
+    QMutexLocker locker(&m_writeMutex);
     if(serial_visca)
-        serial_visca->write(data);
+        {serial_visca->write(data); serial_visca->waitForBytesWritten(m_waitTimeout); QThread::msleep(40); }
 
 
     if(toggle==1)
@@ -365,8 +376,9 @@ void SerialViscaManager::set_DIS_off()
 
     qDebug() << data;
 
+    QMutexLocker locker(&m_writeMutex);
     if(serial_visca)
-        serial_visca->write(data);
+        {serial_visca->write(data); serial_visca->waitForBytesWritten(m_waitTimeout); QThread::msleep(40); }
 }
 
 void SerialViscaManager::set_DIS_on()
@@ -388,8 +400,9 @@ void SerialViscaManager::set_DIS_on()
 
     qDebug() << data;
 
+    QMutexLocker locker(&m_writeMutex);
     if(serial_visca)
-        serial_visca->write(data);
+        {serial_visca->write(data); serial_visca->waitForBytesWritten(m_waitTimeout); QThread::msleep(40); }
 }
 
 void SerialViscaManager::set_HLC_off()
@@ -412,8 +425,9 @@ void SerialViscaManager::set_HLC_off()
 
     qDebug() << data;
 
+    QMutexLocker locker(&m_writeMutex);
     if(serial_visca)
-        serial_visca->write(data);
+        {serial_visca->write(data); serial_visca->waitForBytesWritten(m_waitTimeout); QThread::msleep(40); }
 }
 
 void SerialViscaManager::set_HLC_on()
@@ -436,8 +450,9 @@ void SerialViscaManager::set_HLC_on()
 
     qDebug() << data;
 
+    QMutexLocker locker(&m_writeMutex);
     if(serial_visca)
-        serial_visca->write(data);
+        {serial_visca->write(data); serial_visca->waitForBytesWritten(m_waitTimeout); QThread::msleep(40); }
 }
 
 void SerialViscaManager::zoom(int currentIndex)
@@ -495,8 +510,9 @@ void SerialViscaManager::zoom(int currentIndex)
 
     qDebug() << data;
 
+    QMutexLocker locker(&m_writeMutex);
     if(serial_visca)
-        serial_visca->write(data);
+        {serial_visca->write(data); serial_visca->waitForBytesWritten(m_waitTimeout); QThread::msleep(40); }
 }
 
 void SerialViscaManager::plus_zoom()
@@ -549,8 +565,9 @@ void SerialViscaManager::plus_zoom()
 
     qDebug() << data;
 
+    QMutexLocker locker(&m_writeMutex);
     if(serial_visca)
-        serial_visca->write(data);
+        {serial_visca->write(data); serial_visca->waitForBytesWritten(m_waitTimeout); QThread::msleep(40); }
 }
 
 void SerialViscaManager::minus_zoom()
@@ -602,8 +619,9 @@ void SerialViscaManager::minus_zoom()
 
     qDebug() << data;
 
+    QMutexLocker locker(&m_writeMutex);
     if(serial_visca)
-        serial_visca->write(data);
+        {serial_visca->write(data); serial_visca->waitForBytesWritten(m_waitTimeout); QThread::msleep(40); }
 }
 
 void SerialViscaManager::zoom_from_pqrs(QString pqrs_input)
@@ -653,8 +671,58 @@ void SerialViscaManager::zoom_from_pqrs(QString pqrs_input)
 
     qDebug() << data;
 
+    QMutexLocker locker(&m_writeMutex);
     if(serial_visca)
-        serial_visca->write(data);
+        {serial_visca->write(data); serial_visca->waitForBytesWritten(m_waitTimeout); QThread::msleep(40); }
+}
+
+void SerialViscaManager::zoom_from_pqrs_noFeedback(QString pqrs_input)
+{
+    SetLogMsg(VISCA_SEND_DATA, QString("zoom_from_pqrs_noFeedback(%1)").arg(pqrs_input));
+
+    unsigned char header=0x81;
+    unsigned char msg[10];
+    unsigned char msgSize=7;
+    msg[0]=0x01;
+    msg[1]=0x04;
+    msg[2]=0x47;
+    msg[3]=0x00;
+    msg[4]=0x00;
+    msg[5]=0x00;
+    msg[6]=0x00;
+    int p=0,q=0,r=0,s=0;
+
+    QString pqrs = pqrs_input;
+
+
+    bool ok;
+    p = pqrs.mid(0,1).toInt(&ok, 16);
+    q = pqrs.mid(1,1).toInt(&ok, 16);
+    r = pqrs.mid(2,1).toInt(&ok, 16);
+    s = pqrs.mid(3,1).toInt(&ok, 16);
+//    qDebug() << pqrs;
+
+    QString dd;
+    dd.sprintf("set zoom P%X, Q%X, R%X, S%X", p,q,r,s);
+    qDebug() << dd;
+    msg[3]=0x00 | p;
+    msg[4]=0x00 | q;
+    msg[5]=0x00 | r;
+    msg[6]=0x00 | s;
+
+    m_zoom_pqrs = pqrs;
+
+    zoom_count = 0;
+
+    QByteArray data;
+    if(visca_packet)
+        data= visca_packet->BlockCamMakePacket(header, msg, msgSize);
+
+    qDebug() << data;
+
+    QMutexLocker locker(&m_writeMutex);
+    if(serial_visca)
+        {serial_visca->write(data); serial_visca->waitForBytesWritten(m_waitTimeout); QThread::msleep(40); }
 }
 
 void SerialViscaManager::dzoom_from_pq(QString pq_input)
@@ -697,8 +765,9 @@ void SerialViscaManager::dzoom_from_pq(QString pq_input)
 
     qDebug() << data;
 
+    QMutexLocker locker(&m_writeMutex);
     if(serial_visca)
-        serial_visca->write(data);
+        {serial_visca->write(data); serial_visca->waitForBytesWritten(m_waitTimeout); QThread::msleep(40); }
 }
 
 void SerialViscaManager::dzoom(int currentIndex)
@@ -750,8 +819,9 @@ void SerialViscaManager::dzoom(int currentIndex)
 
     qDebug() << data;
 
+    QMutexLocker locker(&m_writeMutex);
     if(serial_visca)
-        serial_visca->write(data);
+        {serial_visca->write(data); serial_visca->waitForBytesWritten(m_waitTimeout); QThread::msleep(40); }
 }
 
 void SerialViscaManager::plus_dzoom()
@@ -801,8 +871,9 @@ void SerialViscaManager::plus_dzoom()
 
     qDebug() << data;
 
+    QMutexLocker locker(&m_writeMutex);
     if(serial_visca)
-        serial_visca->write(data);
+        {serial_visca->write(data); serial_visca->waitForBytesWritten(m_waitTimeout); QThread::msleep(40); }
 }
 
 void SerialViscaManager::minus_dzoom()
@@ -851,8 +922,9 @@ void SerialViscaManager::minus_dzoom()
 
     qDebug() << data;
 
+    QMutexLocker locker(&m_writeMutex);
     if(serial_visca)
-        serial_visca->write(data);
+        {serial_visca->write(data); serial_visca->waitForBytesWritten(m_waitTimeout); QThread::msleep(40); }
 }
 void SerialViscaManager::set_focus(QString a_pqrs)
 {
@@ -912,9 +984,68 @@ void SerialViscaManager::set_focus(QString a_pqrs)
 
     qDebug() << data;
 
+    QMutexLocker locker(&m_writeMutex);
     if(serial_visca)
-        serial_visca->write(data);}
+        {serial_visca->write(data); serial_visca->waitForBytesWritten(m_waitTimeout); QThread::msleep(40); }
+}
+void SerialViscaManager::set_focus_noFeedback(QString a_pqrs)
+{
+    SetLogMsg(VISCA_SEND_DATA, QString("set_focus_noFeedback(%1)").arg(a_pqrs));
 
+    unsigned char header=0x81;
+    unsigned char msg[10];
+    unsigned char msgSize=7;
+    msg[0]=0x01;
+    msg[1]=0x04;
+    msg[2]=0x48;
+    msg[3]=0x00;
+    msg[4]=0x00;
+    msg[5]=0x00;
+    msg[6]=0x00;
+    int p=0,q=0,r=0,s=0;
+    //int index = ui->comboBox_Zoom->currentIndex();
+    int int_pqrs = a_pqrs.toInt(nullptr, 16);
+    if(int_pqrs<100)
+    {
+        int_pqrs=0x0100;
+    }
+    else if(int_pqrs>0xFF00)
+    {
+        int_pqrs=0xFF00;
+    }
+    QString pqrs = QString("%1").arg(int_pqrs, 4, 16, QChar('0'));
+//    QString pqrs = a_pqrs;// g_Optical_Zoom_Value[index];
+    bool ok;
+    p = pqrs.mid(0,1).toInt(&ok, 16);
+    q = pqrs.mid(1,1).toInt(&ok, 16);
+    r = pqrs.mid(2,1).toInt(&ok, 16);
+    s = pqrs.mid(3,1).toInt(&ok, 16);
+    qDebug() << pqrs;
+
+    SetLogMsg(VISCA_SEND_DATA, QString("set_focus("+ pqrs + ")2"));
+
+    QString dd;
+    dd.sprintf("P%X, Q%X, R%X, S%X", p,q,r,s);
+    qDebug() << dd;
+    msg[3]=0x00 | p;
+    msg[4]=0x00 | q;
+    msg[5]=0x00 | r;
+    msg[6]=0x00 | s;
+
+    m_focus_pqrs = pqrs;
+
+    focus_count = 0;
+
+    QByteArray data;
+    if(visca_packet)
+        data= visca_packet->BlockCamMakePacket(header, msg, msgSize);
+
+    qDebug() << data;
+
+    QMutexLocker locker(&m_writeMutex);
+    if(serial_visca)
+        {serial_visca->write(data); serial_visca->waitForBytesWritten(m_waitTimeout); QThread::msleep(40); }
+}
 void SerialViscaManager::plus_focus()
 {
     SetLogMsg(VISCA_SEND_DATA, "plus_focus");
@@ -973,8 +1104,9 @@ void SerialViscaManager::plus_focus()
 
     qDebug() << data;
 
+    QMutexLocker locker(&m_writeMutex);
     if(serial_visca)
-        serial_visca->write(data);
+        {serial_visca->write(data); serial_visca->waitForBytesWritten(m_waitTimeout); QThread::msleep(40); }
 }
 
 void SerialViscaManager::minus_focus()
@@ -1032,8 +1164,9 @@ void SerialViscaManager::minus_focus()
 
     qDebug() << data;
 
+    QMutexLocker locker(&m_writeMutex);
     if(serial_visca)
-        serial_visca->write(data);
+        {serial_visca->write(data); serial_visca->waitForBytesWritten(m_waitTimeout); QThread::msleep(40); }
 }
 
 void SerialViscaManager::separate_zoom_mode()
@@ -1055,8 +1188,9 @@ void SerialViscaManager::separate_zoom_mode()
 
     qDebug() << data;
 
+    QMutexLocker locker(&m_writeMutex);
     if(serial_visca)
-        serial_visca->write(data);
+        {serial_visca->write(data); serial_visca->waitForBytesWritten(m_waitTimeout); QThread::msleep(40); }
 }
 
 void SerialViscaManager::combine_zoom_mode()
@@ -1076,8 +1210,9 @@ void SerialViscaManager::combine_zoom_mode()
 
     qDebug() << data;
 
+    QMutexLocker locker(&m_writeMutex);
     if(serial_visca)
-        serial_visca->write(data);
+        {serial_visca->write(data); serial_visca->waitForBytesWritten(m_waitTimeout); QThread::msleep(40); }
 }
 
 void SerialViscaManager::set_manual_focus()
@@ -1098,8 +1233,9 @@ void SerialViscaManager::set_manual_focus()
 
     qDebug() << data;
 
+    QMutexLocker locker(&m_writeMutex);
     if(serial_visca)
-        serial_visca->write(data);
+        {serial_visca->write(data); serial_visca->waitForBytesWritten(m_waitTimeout); QThread::msleep(40); }
 }
 
 void SerialViscaManager::set_auto_focus()
@@ -1118,8 +1254,9 @@ void SerialViscaManager::set_auto_focus()
 
     qDebug() << data;
 
+    QMutexLocker locker(&m_writeMutex);
     if(serial_visca)
-        serial_visca->write(data);
+        {serial_visca->write(data); serial_visca->waitForBytesWritten(m_waitTimeout); QThread::msleep(40); }
 }
 
 void SerialViscaManager::set_AF_one_push_trigger()
@@ -1144,8 +1281,9 @@ void SerialViscaManager::set_AF_one_push_trigger()
 
     qDebug() << data;
 
+    QMutexLocker locker(&m_writeMutex);
     if(serial_visca)
-        serial_visca->write(data);
+        {serial_visca->write(data); serial_visca->waitForBytesWritten(m_waitTimeout); QThread::msleep(40); }
 }
 
 void SerialViscaManager::set_AE_shutter_priority()
@@ -1166,8 +1304,9 @@ void SerialViscaManager::set_AE_shutter_priority()
 
     qDebug() << data;
 
+    QMutexLocker locker(&m_writeMutex);
     if(serial_visca)
-        serial_visca->write(data);
+        {serial_visca->write(data); serial_visca->waitForBytesWritten(m_waitTimeout); QThread::msleep(40); }
 }
 
 void SerialViscaManager::set_AE_manual()
@@ -1189,8 +1328,9 @@ void SerialViscaManager::set_AE_manual()
 
     qDebug() << data;
 
+    QMutexLocker locker(&m_writeMutex);
     if(serial_visca)
-        serial_visca->write(data);
+        {serial_visca->write(data); serial_visca->waitForBytesWritten(m_waitTimeout); QThread::msleep(40); }
 }
 
 void SerialViscaManager::set_AE_Mode(QString p)
@@ -1211,8 +1351,9 @@ void SerialViscaManager::set_AE_Mode(QString p)
 
     qDebug() << data;
 
+    QMutexLocker locker(&m_writeMutex);
     if(serial_visca)
-        serial_visca->write(data);
+        {serial_visca->write(data); serial_visca->waitForBytesWritten(m_waitTimeout); QThread::msleep(40); }
 }
 
 void SerialViscaManager::read_AE_mode()
@@ -1230,8 +1371,9 @@ void SerialViscaManager::read_AE_mode()
 
     qDebug() << data;
 
+    QMutexLocker locker(&m_writeMutex);
     if(serial_visca)
-        serial_visca->write(data);
+        {serial_visca->write(data); serial_visca->waitForBytesWritten(m_waitTimeout); QThread::msleep(40); }
 }
 
 void SerialViscaManager::set_shutter_speed(int currentIndex)
@@ -1281,8 +1423,9 @@ void SerialViscaManager::set_shutter_speed(int currentIndex)
 
     qDebug() << data;
 
+    QMutexLocker locker(&m_writeMutex);
     if(serial_visca)
-        serial_visca->write(data);
+        {serial_visca->write(data); serial_visca->waitForBytesWritten(m_waitTimeout); QThread::msleep(40); }
 }
 
 void SerialViscaManager::set_shutter_speed_from_pq(QString pq_input)
@@ -1323,8 +1466,9 @@ void SerialViscaManager::set_shutter_speed_from_pq(QString pq_input)
 
     qDebug() << data;
 
+    QMutexLocker locker(&m_writeMutex);
     if(serial_visca)
-        serial_visca->write(data);
+        {serial_visca->write(data); serial_visca->waitForBytesWritten(m_waitTimeout); QThread::msleep(40); }
 }
 
 void SerialViscaManager::set_gain(int currentIndex)
@@ -1374,8 +1518,9 @@ void SerialViscaManager::set_gain(int currentIndex)
 
     qDebug() << data;
 
+    QMutexLocker locker(&m_writeMutex);
     if(serial_visca)
-        serial_visca->write(data);
+        {serial_visca->write(data); serial_visca->waitForBytesWritten(m_waitTimeout); QThread::msleep(40); }
 }
 
 void SerialViscaManager::set_gain_from_pq(QString pq_input)
@@ -1416,8 +1561,9 @@ void SerialViscaManager::set_gain_from_pq(QString pq_input)
 
     qDebug() << data;
 
+    QMutexLocker locker(&m_writeMutex);
     if(serial_visca)
-        serial_visca->write(data);
+        {serial_visca->write(data); serial_visca->waitForBytesWritten(m_waitTimeout); QThread::msleep(40); }
 }
 
 void SerialViscaManager::set_iris(int currentIndex)
@@ -1472,8 +1618,9 @@ void SerialViscaManager::set_iris(int currentIndex)
 
     qDebug() << data;
 
+    QMutexLocker locker(&m_writeMutex);
     if(serial_visca)
-        serial_visca->write(data);
+        {serial_visca->write(data); serial_visca->waitForBytesWritten(m_waitTimeout); QThread::msleep(40); }
 }
 
 void SerialViscaManager::set_iris_from_pq(QString pq_input,  bool isAutoIris)
@@ -1524,8 +1671,9 @@ void SerialViscaManager::set_iris_from_pq(QString pq_input,  bool isAutoIris)
 
     qDebug() << data;
 
+    QMutexLocker locker(&m_writeMutex);
     if(serial_visca)
-        serial_visca->write(data);
+        {serial_visca->write(data); serial_visca->waitForBytesWritten(m_waitTimeout); QThread::msleep(40); }
 }
 
 void SerialViscaManager::read_shutter_speed()
@@ -1543,8 +1691,9 @@ void SerialViscaManager::read_shutter_speed()
 
     qDebug() << data;
 
+    QMutexLocker locker(&m_writeMutex);
     if(serial_visca)
-        serial_visca->write(data);
+        {serial_visca->write(data); serial_visca->waitForBytesWritten(m_waitTimeout); QThread::msleep(40); }
 }
 
 void SerialViscaManager::read_gain()
@@ -1562,8 +1711,9 @@ void SerialViscaManager::read_gain()
 
     qDebug() << data;
 
+    QMutexLocker locker(&m_writeMutex);
     if(serial_visca)
-        serial_visca->write(data);
+        {serial_visca->write(data); serial_visca->waitForBytesWritten(m_waitTimeout); QThread::msleep(40); }
 }
 
 void SerialViscaManager::set_IRCorrection_standard()
@@ -1582,8 +1732,9 @@ void SerialViscaManager::set_IRCorrection_standard()
 
     qDebug() << data;
 
+    QMutexLocker locker(&m_writeMutex);
     if(serial_visca)
-        serial_visca->write(data);
+        {serial_visca->write(data); serial_visca->waitForBytesWritten(m_waitTimeout); QThread::msleep(40); }
 }
 
 void SerialViscaManager::set_IRCorrection_IRlight()
@@ -1602,8 +1753,9 @@ void SerialViscaManager::set_IRCorrection_IRlight()
 
     qDebug() << data;
 
+    QMutexLocker locker(&m_writeMutex);
     if(serial_visca)
-        serial_visca->write(data);
+        {serial_visca->write(data); serial_visca->waitForBytesWritten(m_waitTimeout); QThread::msleep(40); }
 }
 
 
@@ -1623,8 +1775,9 @@ void SerialViscaManager::show_wideDynamicMode()
 
     qDebug() << data;
 
+    QMutexLocker locker(&m_writeMutex);
     if(serial_visca)
-        serial_visca->write(data);
+        {serial_visca->write(data); serial_visca->waitForBytesWritten(m_waitTimeout); QThread::msleep(40); }
 }
 
 void SerialViscaManager::show_DISMode()
@@ -1642,8 +1795,9 @@ void SerialViscaManager::show_DISMode()
 
     qDebug() << data;
 
+    QMutexLocker locker(&m_writeMutex);
     if(serial_visca)
-        serial_visca->write(data);
+        {serial_visca->write(data); serial_visca->waitForBytesWritten(m_waitTimeout); QThread::msleep(40); }
 }
 
 void SerialViscaManager::show_IRCorrection()
@@ -1661,8 +1815,9 @@ void SerialViscaManager::show_IRCorrection()
 
     qDebug() << data;
 
+    QMutexLocker locker(&m_writeMutex);
     if(serial_visca)
-        serial_visca->write(data);
+        {serial_visca->write(data); serial_visca->waitForBytesWritten(m_waitTimeout); QThread::msleep(40); }
 }
 
 void SerialViscaManager::show_AFMode()
@@ -1680,8 +1835,9 @@ void SerialViscaManager::show_AFMode()
 
     qDebug() << data;
 
+    QMutexLocker locker(&m_writeMutex);
     if(serial_visca)
-        serial_visca->write(data);
+        {serial_visca->write(data); serial_visca->waitForBytesWritten(m_waitTimeout); QThread::msleep(40); }
 }
 
 void SerialViscaManager::show_ICR_OnOff()
@@ -1699,8 +1855,9 @@ void SerialViscaManager::show_ICR_OnOff()
 
     qDebug() << data;
 
+    QMutexLocker locker(&m_writeMutex);
     if(serial_visca)
-        serial_visca->write(data);
+        {serial_visca->write(data); serial_visca->waitForBytesWritten(m_waitTimeout); QThread::msleep(40); }
 }
 
 void SerialViscaManager::show_AutoICR()
@@ -1718,8 +1875,9 @@ void SerialViscaManager::show_AutoICR()
 
     qDebug() << data;
 
+    QMutexLocker locker(&m_writeMutex);
     if(serial_visca)
-        serial_visca->write(data);
+        {serial_visca->write(data); serial_visca->waitForBytesWritten(m_waitTimeout); QThread::msleep(40); }
 }
 
 void SerialViscaManager::show_WBMode()
@@ -1737,8 +1895,9 @@ void SerialViscaManager::show_WBMode()
 
     qDebug() << data;
 
+    QMutexLocker locker(&m_writeMutex);
     if(serial_visca)
-        serial_visca->write(data);
+        {serial_visca->write(data); serial_visca->waitForBytesWritten(m_waitTimeout); QThread::msleep(40); }
 }
 
 void SerialViscaManager::show_AEMode()
@@ -1756,8 +1915,9 @@ void SerialViscaManager::show_AEMode()
 
     qDebug() << data;
 
+    QMutexLocker locker(&m_writeMutex);
     if(serial_visca)
-        serial_visca->write(data);
+        {serial_visca->write(data); serial_visca->waitForBytesWritten(m_waitTimeout); QThread::msleep(40); }
 }
 
 void SerialViscaManager::show_focusPosition()
@@ -1775,8 +1935,9 @@ void SerialViscaManager::show_focusPosition()
 
     qDebug() << data;
 
+    QMutexLocker locker(&m_writeMutex);
     if(serial_visca)
-        serial_visca->write(data);
+        {serial_visca->write(data); serial_visca->waitForBytesWritten(m_waitTimeout); QThread::msleep(40); }
 }
 
 void SerialViscaManager::show_focusMode()
@@ -1794,8 +1955,9 @@ void SerialViscaManager::show_focusMode()
 
     qDebug() << data;
 
+    QMutexLocker locker(&m_writeMutex);
     if(serial_visca)
-        serial_visca->write(data);
+        {serial_visca->write(data); serial_visca->waitForBytesWritten(m_waitTimeout); QThread::msleep(40); }
 }
 
 void SerialViscaManager::show_zoomPosition()
@@ -1813,8 +1975,9 @@ void SerialViscaManager::show_zoomPosition()
 
     qDebug() << data;
 
+    QMutexLocker locker(&m_writeMutex);
     if(serial_visca)
-        serial_visca->write(data);
+        {serial_visca->write(data); serial_visca->waitForBytesWritten(m_waitTimeout); QThread::msleep(40); }
 }
 
 void SerialViscaManager::show_dzoomOnOff()
@@ -1832,8 +1995,9 @@ void SerialViscaManager::show_dzoomOnOff()
 
     qDebug() << data;
 
+    QMutexLocker locker(&m_writeMutex);
     if(serial_visca)
-        serial_visca->write(data);
+        {serial_visca->write(data); serial_visca->waitForBytesWritten(m_waitTimeout); QThread::msleep(40); }
 }
 
 void SerialViscaManager::show_dzoomPosition()
@@ -1851,8 +2015,9 @@ void SerialViscaManager::show_dzoomPosition()
 
     qDebug() << data;
 
+    QMutexLocker locker(&m_writeMutex);
     if(serial_visca)
-        serial_visca->write(data);
+        {serial_visca->write(data); serial_visca->waitForBytesWritten(m_waitTimeout); QThread::msleep(40); }
 }
 
 void SerialViscaManager::show_dZoomMode()
@@ -1870,8 +2035,9 @@ void SerialViscaManager::show_dZoomMode()
 
     qDebug() << data;
 
+    QMutexLocker locker(&m_writeMutex);
     if(serial_visca)
-        serial_visca->write(data);
+        {serial_visca->write(data); serial_visca->waitForBytesWritten(m_waitTimeout); QThread::msleep(40); }
 }
 
 void SerialViscaManager::read_iris()
@@ -1889,8 +2055,9 @@ void SerialViscaManager::read_iris()
 
     qDebug() << data;
 
+    QMutexLocker locker(&m_writeMutex);
     if(serial_visca)
-        serial_visca->write(data);
+        {serial_visca->write(data); serial_visca->waitForBytesWritten(m_waitTimeout); QThread::msleep(40); }
 }
 
 void SerialViscaManager::show_noiseReduction()
@@ -1908,8 +2075,9 @@ void SerialViscaManager::show_noiseReduction()
 
     qDebug() << data;
 
+    QMutexLocker locker(&m_writeMutex);
     if(serial_visca)
-        serial_visca->write(data);
+        {serial_visca->write(data); serial_visca->waitForBytesWritten(m_waitTimeout); QThread::msleep(40); }
 }
 
 void SerialViscaManager::get_inquiry_zoom()
@@ -2089,36 +2257,38 @@ void SerialViscaManager::SetFocusForZoomFocus(int index, int ndaynight)
     QJsonObject object = ConfigManager("parameter_setting1.json").GetConfig();
     int userMode = object["speed selection"].toInt();
 
-//    object = ConfigManager("parameter_setting2.json").GetConfig();
-//    int daynight = object["day&night selection"].toInt();
     int daynight = ndaynight;
     object = ConfigManager("focus.json").GetConfig();
     QJsonArray ar;
     if (daynight > 0 && daynight < 4)
     {
-//        if (userMode == 1)
-//        {
-//            ar = object["st day focus"].toArray();
-//            this->set_focus(ar[index].toString());
-//        }
-//        else
-//        {
         ar = object["lt day focus"].toArray();
         this->set_focus(ar[index].toString());
-//        }
     }
     else
     {
-//        if (userMode == 1)
-//        {
-//            ar = object["st night focus"].toArray();
-//            this->set_focus(ar[index].toString());
-//        }
-//        else
-//        {
         ar = object["lt night focus"].toArray();
         this->set_focus(ar[index].toString());
-//        }
+    }
+}
+
+void SerialViscaManager::SetFocusForVmode(int index, int ndaynight)
+{
+    QJsonObject object = ConfigManager("parameter_setting1.json").GetConfig();
+    int userMode = object["speed selection"].toInt();
+
+    int daynight = ndaynight;
+    object = ConfigManager("focus.json").GetConfig();
+    QJsonArray ar;
+    if (daynight > 0 && daynight < 4)
+    {
+        ar = object["lt day focus"].toArray();
+        this->set_focus_noFeedback(ar[index].toString());
+    }
+    else
+    {
+        ar = object["lt night focus"].toArray();
+        this->set_focus_noFeedback(ar[index].toString());
     }
 }
 
@@ -2165,6 +2335,26 @@ void SerialViscaManager::SetZoomForZoomFocus(int index)
 
     object = ConfigManager("camera_zoom_mag.json").GetConfig();
     this->zoom_from_pqrs(object.value(magnification).toString());
+}
+
+void SerialViscaManager::SetZoomForVmode(int index)
+{
+    QJsonObject object = ConfigManager("parameter_setting1.json").GetConfig();
+    int userMode = object["speed selection"].toInt();
+    object = ConfigManager("zoom.json").GetConfig();
+    QString magnification;
+
+    if(index==5)
+    {
+        magnification = object["lt zoom"].toArray()[index-1].toString();
+    }
+    else
+    {
+        magnification = object["lt zoom"].toArray()[index].toString();
+    }
+
+    object = ConfigManager("camera_zoom_mag.json").GetConfig();
+    this->zoom_from_pqrs_noFeedback(object.value(magnification).toString());
 }
 
 void SerialViscaManager::SetDZoom(int index)
@@ -2290,4 +2480,13 @@ void SerialViscaManager::check_OPT_done()
 
 //    label_focus_pqrs->setText(qstrFocus);
 
+}
+
+
+void SerialViscaManager::setZFcontrolThread(int index, int daynight)
+{
+
+    // Use QtConcurrent::run to execute the member function in a separate thread
+    QFuture<void> future = QtConcurrent::run(this, &SerialViscaManager::SetZoomForVmode, index);
+    QFuture<void> future2 = QtConcurrent::run(this, &SerialViscaManager::SetFocusForVmode, index, daynight);
 }

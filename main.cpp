@@ -54,7 +54,27 @@ int main(int argc, char *argv[])
 
     ConfigManager config = ConfigManager("parameter_setting3.json");
     QJsonObject json = config.GetConfig();
-    SetDateFormat(json["date format items"].toArray()[json["date format selection"].toInt() - 1].toString());
+    DateFormat dateformat;
+    switch (json["date format selection"].toInt() - 1)
+    {
+    case 0:
+    {
+        dateformat = YYYYMMDD;
+    }
+        break;
+    case 1:
+    {
+        dateformat = MMDDYYYY;
+    }
+        break;
+    case 2:
+    {
+        dateformat = DDMMYYYY;
+    }
+        break;
+    }
+
+    SetDateFormat(dateformat);
 
     a.setStyleSheet(styleSheet);
     ConfigManager config2 = ConfigManager("parameter_setting6.json");

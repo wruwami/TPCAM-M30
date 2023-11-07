@@ -3,13 +3,12 @@
 
 #include <QString>
 
-//enum DateFormat
-//{
-//    YYYYMMDD,
-//    MMDDYYYY,
-//    DDMMYYYY,
-//    MMMDDYYY,
-//};
+enum DateFormat
+{
+    YYYYMMDD = 0,
+    MMDDYYYY = 1,
+    DDMMYYYY = 2,
+};
 
 namespace ResourceLoader{
 class DateFormatManager
@@ -25,7 +24,7 @@ public:
         if(instance == nullptr) instance = new DateFormatManager();
         return instance;
     }
-    void SetDateFormat(QString);
+    void SetDateFormat(DateFormat);
     QString GetDateFormat();
     QString GetDate(QString str);
 private:
@@ -33,7 +32,7 @@ private:
 };
 }
 
-static void SetDateFormat(QString dateFormat)
+static void SetDateFormat(DateFormat dateFormat)
 {
     ResourceLoader::DateFormatManager::GetInstance()->SetDateFormat(dateFormat);
 }

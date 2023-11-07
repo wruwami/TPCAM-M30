@@ -54,7 +54,7 @@ MovieViewerDialog::MovieViewerDialog(AVFileFormat avFileFormat, QWidget *parent)
     ui->dateLabel->setText(GetDate(avFileFormat.date));
     ui->dateLabel->setFontSize(15);
 //    ui->dateLabel->setFontSize(23);
-    ui->timeLabel->setText(QString(avFileFormat.time).mid(0,6));
+    ui->timeLabel->setText(QString(avFileFormat.time).mid(0,2) + ":" + QString(avFileFormat.time).mid(2,2) + ":" + QString(avFileFormat.time).mid(4,2));
     ui->timeLabel->setFontSize(15);
 //    ui->timeLabel->setFontSize(23);
     QString captureSpeed = QString::number(avFileFormat.captureSpeedLimit.mid(1,4).toInt());

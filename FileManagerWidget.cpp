@@ -366,7 +366,10 @@ void FileManagerWidget::initTable()
 
     setTableContent();
 
-    emit ui->tableWidget->cellClicked(m_avFileFormatList.size() % 5 - 1, 0);
+    int row = m_avFileFormatList.size() % 5 - 1;
+     if (row == -1)
+         row = 0;
+     emit ui->tableWidget->cellClicked(row, 0);
     //    ui->tableWidget->cellClicked()
 }
 

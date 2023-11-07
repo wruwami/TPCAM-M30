@@ -289,6 +289,10 @@ void KeyboardDialog::onKeyPressed(const QString &iKey, Key *mKey)
     {
         ui->lineEdit->insert(" ");
     }
+    else if (iKey == "&&")
+    {
+        ui->lineEdit->insert("&");
+    }
     else if (iKey == "return")
     {
 #ifdef Q_OS_LINUX

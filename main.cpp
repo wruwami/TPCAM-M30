@@ -60,7 +60,7 @@ int main(int argc, char *argv[])
     ConfigManager config2 = ConfigManager("parameter_setting6.json");
     json = config2.GetConfig();
     using namespace ResourceLoader;
-    QJsonArray ja= json["language items"].toArray();
+    QJsonArray ja= json["start language items"].toArray();
     int lang = json["language select"].toInt();
     StringLoader::GetInstance()->Initialize("strings", "stringTable.csv", ja[lang - 1].toString().toStdString());
 
@@ -77,6 +77,36 @@ int main(int argc, char *argv[])
     cmd = "sudo "+GeteMMCPath()+"/"+"start.sh";
     system(cmd.toStdString().c_str());
 
+
+//    //generate key
+//    QFile fileAES256Key(GETSDPATH(KEY) + "/comlaser-AES256-key.txt");
+//    QFileInfo fileInfoAES256Key(fileAES256Key);
+//    if(fileAES256Key.exists() && fileInfoAES256Key.size() >= 1000)
+//    {
+//        //file exists, do nothing
+//        qDebug() << "key already exists";
+//    }
+//    else
+//    {
+//        //generate AES256 key
+//        QString strCmd = "openssl rand -out "+GETSDPATH(KEY)+"/comlaser-AES256-key.txt"+" 32";
+//        system(strCmd.toStdString().c_str());
+
+//        //copy AES256 key to eMMc
+//        strCmd = "sudo cp "+GETSDPATH(KEY)+"/comlaser-AES256-key.txt "+GeteMMCPath()+"/comlaser-AES256-key.txt";
+//        system(strCmd.toStdString().c_str());
+
+//        //generate RSA key pair
+//        strCmd = "openssl genpkey -algorithm RSA -out "+GETSDPATH(KEY)+"/comlaser-secret-key.pem";
+//        system(strCmd.toStdString().c_str());
+//        strCmd = "openssl rsa -pubout -in "+GETSDPATH(KEY)+"/comlaser-secret-key.pem -out "+GETSDPATH(KEY)+"/comlaser-public-key.pem";
+//        system(strCmd.toStdString().c_str());
+
+//        //encrypt AES256 key using RSA key
+//        strCmd = "openssl rsautl -encrypt -pubin -inkey "+GETSDPATH(KEY)+"/comlaser-public-key.pem"+" -in "
+//                +GETSDPATH(KEY)+"/comlaser-AES256-key.txt"+" -out "+GETSDPATH(KEY)+"/comlaser-AES256-key.txt"+".en";
+//        system(strCmd.toStdString().c_str());
+//    }
 
     MainWindow w(a.send());
 //    w.get(a.send());

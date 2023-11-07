@@ -184,7 +184,7 @@
        </property>
       </widget>
      </item>
-     <item row="7" column="2" colspan="3">
+     <item row="5" column="2" colspan="3" alignment="Qt::AlignHCenter">
       <widget class="CustomLabel" name="speedSensitivitylabel">
        <property name="text">
         <string/>
@@ -204,7 +204,7 @@
   <customwidget>
    <class>CustomLabel</class>
    <extends>QLabel</extends>
-   <header location="global">CustomLabel.h</header>
+   <header>CustomLabel.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

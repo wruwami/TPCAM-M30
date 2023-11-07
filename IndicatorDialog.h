@@ -128,6 +128,7 @@ private:
     QTimer m_pTimer;
     NetworkState m_nEthernetState;
     NetworkState m_nWifiState;
+    QString m_srFileFullName="";
 
 //    SerialLaserManager* m_pSerialLaserManager;
     // QWidget interface

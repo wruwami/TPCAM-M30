@@ -9,6 +9,8 @@
 #include <QDateTime>
 #include "qdir.h"
 #include <QWindow>
+#include <fcntl.h>
+#include <sys/file.h>
 
 #include "BaseDialog.h"
 #include "Color.h"
@@ -604,17 +606,39 @@ void IndicatorDialog::on_screenRecordingPushButton_clicked()
         QString strCommand;
         QString resolution = "800x480";
         QString file_name = GetSubPath("/screen", SD) + "/" + GetFileName(SR);
+        m_srFileFullName = file_name;
+
+        int fileDescriptor = ::open(file_name.toStdString().c_str(), O_CREAT | O_WRONLY, 0666);
+        if (flock(fileDescriptor, LOCK_EX) != 0) {
+//            return;
+        }
+
         strCommand = QString("sudo ffmpeg -hwaccel opencl -y -f x11grab -framerate 10 -video_size %1 -i :0.0+0,0 -c:v libx264 -pix_fmt yuv420p -qp 0 -preset ultrafast %2 &").arg(resolution).arg(file_name);
         std::thread thread_command(thread_CommandExcute2, strCommand);
         thread_command.detach();
         ui->screenRecordingPushButton->setImage("indicator", "screen recording_off.jpg");
 //        system(strCommand.toStdString().c_str());
+
+        // Close the file descriptor
+        if (::close(fileDescriptor) == -1) {
+            perror("close");
+//            return 1;
+        }
     }
     else
     {
+        int fileDescriptor = ::open(m_srFileFullName.toStdString().c_str(), O_CREAT | O_WRONLY, 0666);
+
         std::string cmd("sudo kill -9 ");
         cmd.append(buff);
         system(cmd.c_str());
+
+        flock(fileDescriptor, LOCK_UN);
+        // Close the file descriptor
+        if (::close(fileDescriptor) == -1) {
+//            return;
+        }
+
 //        system("ps -ef | grep ffmpeg | awk '{print $2}' | xargs kill -9");
         ui->screenRecordingPushButton->setImage("indicator", "screen_recording.jpg");
     }

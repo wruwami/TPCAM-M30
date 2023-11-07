@@ -4,10 +4,22 @@
 #include <QDebug>
 #include <QDir>
 #include <QFile>
+#include <fcntl.h>
+#include <sys/file.h>
+#include <unistd.h>
 
-void thread_CommandExcute(QString strCommand)
+
+void thread_CommandExcute(QString strCommand, QString strFileFullName)
 {
+    int fileDescriptor = ::open(strFileFullName.toStdString().c_str(), O_CREAT | O_WRONLY, 0666);
+
     int result = std::system(strCommand.toStdString().c_str());
+
+    flock(fileDescriptor, LOCK_UN);
+    // Close the file descriptor
+    if (::close(fileDescriptor) == -1) {
+//            return;
+    }
 
     qDebug() << strCommand << " : " << result;
 }
@@ -60,8 +72,18 @@ void GstShmMgr::saveVideoUseShmsrc(QString qstrVideoFilename, QString qstrPath, 
     QString strCommand = QString("gst-launch-1.0 shmsrc num-buffers=%1 do-timestamp=true socket-path=/tmp/foo name=%2 ! video/x-raw,format=NV12,width=%3,height=%4,framerate=%5/1 ! queue ! videoconvert ! jpegenc ! avimux ! filesink location=%6%7"
         ).arg(QString::number(nNumBuffer), qstrShmName, QString::number(nVideoWidth), QString::number(nVideoHeight), QString::number(nFramerate), qstrPath, qstrVideoFilename);
 
-    std::thread thread_command(thread_CommandExcute, strCommand);
+    int fileDescriptor = ::open((qstrPath+qstrShmName).toStdString().c_str(), O_CREAT | O_WRONLY, 0666);
+    if (flock(fileDescriptor, LOCK_EX) != 0) {
+//            return;
+    }
+
+    std::thread thread_command(thread_CommandExcute, strCommand, qstrPath+qstrShmName);
     thread_command.detach();
+
+    // Close the file descriptor
+    if (::close(fileDescriptor) == -1) {
+//        return;
+    }
 }
 
 void GstShmMgr::mkDirs(QString dir_path)

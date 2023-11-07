@@ -126,7 +126,7 @@ FileManagerWidget::FileManagerWidget(QWidget *parent) :
     ui->tableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
 
     QJsonObject object = ConfigManager("parameter_setting4.json").GetConfig();
-    if (object["printer selection"].toInt() == 3)
+    if (object["printer selection"].toInt() == 2)
     {
         m_bA4Print = true;
         ui->printPushButton->setDisabled(false);
@@ -433,7 +433,7 @@ void FileManagerWidget::printA4()
         distanceUnit = "feet";
     }
 
-    cursor.insertText(LoadString("IDS_SPEED_LIMIT") + " : " + QString::number(m_currentAVFileFormat.captureSpeedLimit.toInt()) + " " + speedUnit, textFormat);
+    cursor.insertText(LoadString("IDS_SPEED_LIMIT") + " : " + QString::number(m_currentAVFileFormat.speedLimit.toInt()) + " " + speedUnit, textFormat);
     cursor.insertBlock();
     cursor.insertBlock();
     int captureSpeed;

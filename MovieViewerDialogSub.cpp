@@ -50,19 +50,26 @@ MovieViewerDialogSub::MovieViewerDialogSub(AVFileFormat avFileFormat, QWidget *p
     ui->printPushButton->setText(LoadString("IDS_PRINT"));
     ui->printPushButton->setFontSize(23);
 
-    ui->laserSpeedLabel->setText(QString("C %1%2").arg(avFileFormat.captureSpeedLimit).arg(speedUnitValue()));
+    QString captureSpeedLimit = QString::number(avFileFormat.captureSpeedLimit.toInt());
+    ui->laserSpeedLabel->setText(QString("C %1%2").arg(captureSpeedLimit).arg(speedUnitValue()));
+    ui->laserSpeedLabel->setFontSize(15);
 //    ui->laserSpeedLabel->setFontSize(23);
-    ui->laserDistanceLabel->setText(QString("%1%2").arg(avFileFormat.distance).arg(distanceValue()));
+    QString distance = QString::number(avFileFormat.distance.toInt());
+    ui->laserDistanceLabel->setText(QString("%1%2").arg(distance).arg(distanceValue()));
+    ui->laserDistanceLabel->setFontSize(15);
 //    ui->laserDistanceLabel->setFontSize(23);
     ui->indexLabel->setText("[" + QString(avFileFormat.index).mid(0,5) + "]");
+    ui->indexLabel->setFontSize(15);
 //    ui->indexLabel->setFontSize(23);
     ui->dateLabel->setText(GetDate(avFileFormat.date));
+    ui->dateLabel->setFontSize(15);
 //    ui->dateLabel->setFontSize(23);
     ui->timeLabel->setText(QString(avFileFormat.time).mid(0,6));
+    ui->timeLabel->setFontSize(15);
 //    ui->timeLabel->setFontSize(23);
-    ui->rtLabel->setText(QString("RT %0 %1, %2 %3").arg(avFileFormat.captureSpeed).arg(speedUnitValue().arg(avFileFormat.distance).arg(distanceValue())));
-//    ui->rtLabel->setFontSize(23);
-
+    QString captureSpeed = QString::number(avFileFormat.captureSpeedLimit.mid(1,4).toInt());
+    ui->rtLabel->setText(QString("RT %0 %1, %2 %3").arg(captureSpeed).arg(speedUnitValue()).arg(distance).arg(distanceValue()));
+    ui->rtLabel->setFontSize(15);
 
 
 //    ui->horizontalSlider->setRange(0, m_player->duration() / 1000);

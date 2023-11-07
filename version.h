@@ -4,7 +4,7 @@
 #endif // VERSION_H
 
 
-#define SW_VER          "v0.0.0.4 "
+#define SW_VER          "v0.0.0.5 "
 //#define	SW_BUILDDATE	__DATE__
 //#define	SW_BUILDTIME	__TIME__
 
@@ -19,6 +19,13 @@
 
 /*
 ========================================================================================================
+
+
+2023.11.07  09:00   v0.0.0.5 - KMS
+    1. modify ui
+    2. add font
+    3. apply multi-language to setting's combobox
+    4. lock video file when it is being created
 
 --------------------------------------------------------------------------------------------------------
 2023.11.03  16:00   v0.0.0.4 - LJH

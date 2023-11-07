@@ -25,7 +25,7 @@ Setting5Widget::Setting5Widget(QWidget *parent) :
 //    ui->ipAddressComboBox->setCurrentIndex(0);
     foreach (QJsonValue json, m_jsonObject["ethernet_mode items"].toArray())
     {
-        ui->ipAddressComboBox->addItem(json.toString());
+        ui->ipAddressComboBox->addItem(LoadString(json.toString().toStdString()));
     }
 
     int index = m_jsonObject["ethernet_mode select"].toInt();

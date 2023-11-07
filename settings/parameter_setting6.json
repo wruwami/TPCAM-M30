@@ -1,6 +1,14 @@
 {
 	"language select": 1,
 	"language items": [
+		"IDS_ENGLISH",
+		"IDS_FRENCH",
+		"IDS_ARABIC",
+		"IDS_PORTUGUESE",
+		"IDS_SPANISH",
+		"IDS_KOREAN"
+	],	
+	"start language items": [
 		"english",
 		"french",
 		"arabic",
@@ -18,11 +26,11 @@
 	],
 	"ftp select": 2,
 	"ftp items": [
-		"disable",
-		"Manual",
-		"Auto"
+		"IDS_DISABLE",
+		"IDS_ENABLE_MANUAL",
+		"IDS_ENABLE_AUTO"
 	],
-	"ftp server( dns )": "ftp://comlaser.iptime.org",
+	"ftp server( dns )": "comlaser.iptime.org",
 	"ftp port": 6001,
 	"ftp user name": "comlaser_ftp",
 	"ftp password": "comlaser1029"

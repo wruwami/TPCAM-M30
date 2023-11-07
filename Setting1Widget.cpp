@@ -38,7 +38,7 @@ Setting1Widget::Setting1Widget(QWidget *parent) :
 //    ui->enforcementModeComboBox->addItem(LoadString("IDS_VIDEO"));
     foreach (QJsonValue json, m_jsonObject["enforcement mode items"].toArray())
     {
-        ui->enforcementModeComboBox->addItem(json.toString());
+        ui->enforcementModeComboBox->addItem(LoadString(json.toString().toStdString()));
     }
     int index = m_jsonObject["enforcement selection"].toInt();
     ui->enforcementModeComboBox->setCurrentIndex(index - 1);

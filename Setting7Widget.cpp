@@ -29,7 +29,7 @@ Setting7Widget::Setting7Widget(QWidget *parent) :
 //    ui->wifiComboBox->addItem(LoadString("IDS_OFF"));
     foreach (QJsonValue json, m_jsonObject["wifi items"].toArray())
     {
-        ui->wifiComboBox->addItem(json.toString());
+        ui->wifiComboBox->addItem(LoadString(json.toString().toStdString()));
     }
     int index = m_jsonObject["wifi select"].toInt();
     ui->wifiComboBox->setCurrentIndex(index - 1);
@@ -39,7 +39,7 @@ Setting7Widget::Setting7Widget(QWidget *parent) :
 //    ui->bluetoothComboBox->addItem(LoadString("IDS_OFF"));
     foreach (QJsonValue json, m_jsonObject["gps items"].toArray())
     {
-        ui->gpsComboBox->addItem(json.toString());
+        ui->gpsComboBox->addItem(LoadString(json.toString().toStdString()));
     }
     index = m_jsonObject["gps select"].toInt();
     ui->gpsComboBox->setCurrentIndex(index - 1);
@@ -49,7 +49,7 @@ Setting7Widget::Setting7Widget(QWidget *parent) :
 //    ui->nineAxisSensorComboBox->addItem(LoadString("IDS_OFF"));
     foreach (QJsonValue json, m_jsonObject["9 axis items"].toArray())
     {
-        ui->nineAxisSensorComboBox->addItem(json.toString());
+        ui->nineAxisSensorComboBox->addItem(LoadString(json.toString().toStdString()));
     }
     index = m_jsonObject["9 axis select"].toInt();
     ui->nineAxisSensorComboBox->setCurrentIndex(index - 1);
@@ -59,7 +59,7 @@ Setting7Widget::Setting7Widget(QWidget *parent) :
 //    ui->micnSpeackerComboBox->addItem(LoadString("IDS_OFF"));
     foreach (QJsonValue json, m_jsonObject["mic_speaker items"].toArray())
     {
-        ui->micnSpeackerComboBox->addItem(json.toString());
+        ui->micnSpeackerComboBox->addItem(LoadString(json.toString().toStdString()));
     }
     index = m_jsonObject["mic_speaker select"].toInt();
     ui->micnSpeackerComboBox->setCurrentIndex(index - 1);
@@ -72,7 +72,7 @@ Setting7Widget::Setting7Widget(QWidget *parent) :
 //    ui->powerSavingTimeComboBox->setCurrentIndex(2);
     foreach (QJsonValue json, m_jsonObject["power saving items"].toArray())
     {
-        ui->powerSavingTimeComboBox->addItem(json.toString());
+        ui->powerSavingTimeComboBox->addItem(LoadString(json.toString().toStdString()));
     }
     index = m_jsonObject["power saving select"].toInt();
     ui->powerSavingTimeComboBox->setCurrentIndex(index - 1);

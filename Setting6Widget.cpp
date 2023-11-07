@@ -33,7 +33,7 @@ Setting6Widget::Setting6Widget(QWidget *parent) : QWidget(parent),
 //    ui->languageComboBox->addItems(LoadLangaugeList());
     foreach (QJsonValue json, m_jsonObject["language items"].toArray())
     {
-        ui->languageComboBox->addItem(json.toString());
+        ui->languageComboBox->addItem(LoadString(json.toString().toStdString()));
     }
     int index = m_jsonObject["language select"].toInt();
     ui->languageComboBox->setCurrentIndex(index - 1);
@@ -53,7 +53,7 @@ Setting6Widget::Setting6Widget(QWidget *parent) : QWidget(parent),
 
     foreach (QJsonValue json, m_jsonObject["ftp items"].toArray())
     {
-        ui->ftpComboBox->addItem(json.toString());
+        ui->ftpComboBox->addItem(LoadString(json.toString().toStdString()));
     }
     index = m_jsonObject["ftp select"].toInt();
     ui->ftpComboBox->setCurrentIndex(index - 1);
@@ -88,13 +88,14 @@ void Setting6Widget::on_searchPushButton_clicked()
 
 void Setting6Widget::on_languageComboBox_currentIndexChanged(const QString &arg1)
 {
-    ResourceLoader::StringLoader::GetInstance()->Initialize("strings", "stringTable.csv", arg1.toStdString());
+//    ResourceLoader::StringLoader::GetInstance()->Initialize("strings", "stringTable.csv", arg1.toStdString());
 
 }
 
 void Setting6Widget::on_languageComboBox_currentIndexChanged(int index)
 {
     m_newJsonObject["language select"] = index + 1;
+    ResourceLoader::StringLoader::GetInstance()->Initialize("strings", "stringTable.csv", m_jsonObject["start language items"].toArray()[index].toString().toStdString());
 }
 
 void Setting6Widget::on_bluetoothComboBox_currentIndexChanged(int index)

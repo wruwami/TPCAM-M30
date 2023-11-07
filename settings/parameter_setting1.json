@@ -4,7 +4,7 @@
 	"speed limit": [100, 80, 60],
 	"capture speed" : [110 , 90 , 70 ],
 	"enforcement selection": 1,
-	"enforcement mode items": ["I(image)", "A(Image+video)", "V(Video)"],
+	"enforcement mode items": ["IDS_IMAGE", "IDS_ALL_IMAGE_VIDEO", "IDS_VIDEO"],
 	"speed selection" : 2,
 	"speed mode items" : ["ST", "LT", "IT"]
 }

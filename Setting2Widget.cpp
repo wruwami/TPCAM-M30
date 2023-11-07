@@ -32,7 +32,7 @@ Setting2Widget::Setting2Widget(QWidget *parent) :
 //    ui->reticleShapeComboBox->addItem(LoadString("IDS_RECTANGLE"));
     foreach (QJsonValue json, m_jsonObject["reticle items"].toArray())
     {
-        ui->reticleShapeComboBox->addItem(json.toString());
+        ui->reticleShapeComboBox->addItem(LoadString(json.toString().toStdString()));
     }
     int index = m_jsonObject["reticle selection"].toInt() - 1;
     ui->reticleShapeComboBox->setCurrentIndex(index);
@@ -40,7 +40,7 @@ Setting2Widget::Setting2Widget(QWidget *parent) :
 //    ui->weatherModeComboBox->addItem(LoadString("IDS_SUNNY"));
     foreach (QJsonValue json, m_jsonObject["weather mode items"].toArray())
     {
-        ui->weatherModeComboBox->addItem(json.toString());
+        ui->weatherModeComboBox->addItem(LoadString(json.toString().toStdString()));
     }
     index = m_jsonObject["weather selection"].toInt() - 1;
     ui->weatherModeComboBox->setCurrentIndex(index);
@@ -54,7 +54,7 @@ Setting2Widget::Setting2Widget(QWidget *parent) :
 //    ui->daynNightComboBox->addItem(LoadString("IDS_NIGHT_BRIGHT"));
     foreach (QJsonValue json, m_jsonObject["day&night mode items"].toArray())
     {
-        ui->daynNightComboBox->addItem(json.toString());
+        ui->daynNightComboBox->addItem(LoadString(json.toString().toStdString()));
     }
     index = m_jsonObject["day&night selection"].toInt() - 1;
     ui->daynNightComboBox->setCurrentIndex(index);
@@ -63,7 +63,7 @@ Setting2Widget::Setting2Widget(QWidget *parent) :
 //    ui->buzzerComboBox->addItem(LoadString("IDS_OFF"));
     foreach (QJsonValue json, m_jsonObject["buzzer items"].toArray())
     {
-        ui->buzzerComboBox->addItem(json.toString());
+        ui->buzzerComboBox->addItem(LoadString(json.toString().toStdString()));
     }
     index = m_jsonObject["buzzer selection"].toInt() - 1;
     ui->buzzerComboBox->setCurrentIndex(index);
@@ -72,7 +72,7 @@ Setting2Widget::Setting2Widget(QWidget *parent) :
 //    ui->antiJammingModeComboBox->addItem(LoadString("IDS_OFF"));
     foreach (QJsonValue json, m_jsonObject["anti-jamming items"].toArray())
     {
-        ui->antiJammingModeComboBox->addItem(json.toString());
+        ui->antiJammingModeComboBox->addItem(LoadString(json.toString().toStdString()));
     }
     index = m_jsonObject["anti-jamming selection"].toInt() - 1;
     ui->antiJammingModeComboBox->setCurrentIndex(index);

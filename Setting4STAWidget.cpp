@@ -51,7 +51,7 @@ Setting4STAWidget::Setting4STAWidget(QWidget *parent) :
 
     foreach (QJsonValue json, m_jsonObject["printer items"].toArray())
     {
-        ui->printerComboBox->addItem(json.toString());
+        ui->printerComboBox->addItem(LoadString(json.toString().toStdString()));
     }
     int index = m_jsonObject["printer selection"].toInt() - 1;
     ui->printerComboBox->setCurrentIndex(index);

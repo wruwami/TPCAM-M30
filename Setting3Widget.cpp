@@ -38,7 +38,7 @@ Setting3Widget::Setting3Widget(QWidget *parent) :
 //    ui->lcdBrightnessComboBox->addItem(LoadString("IDS_LEVEL3"));
     foreach (QJsonValue json, m_jsonObject["lcd brightness items"].toArray())
     {
-        ui->lcdBrightnessComboBox->addItem(json.toString());
+        ui->lcdBrightnessComboBox->addItem(LoadString(json.toString().toStdString()));
     }
     int index = m_jsonObject["lcd brightness selection"].toInt() - 1;
     ui->lcdBrightnessComboBox->setCurrentIndex(index);
@@ -49,7 +49,7 @@ Setting3Widget::Setting3Widget(QWidget *parent) :
 //    ui->unitComboBox->setCurrentIndex(0);
     foreach (QJsonValue json, m_jsonObject["unit items"].toArray())
     {
-        ui->unitComboBox->addItem(json.toString());
+        ui->unitComboBox->addItem(LoadString(json.toString().toStdString()));
     }
     index = m_jsonObject["unit selection"].toInt() - 1;
     ui->unitComboBox->setCurrentIndex(index);
@@ -62,7 +62,7 @@ Setting3Widget::Setting3Widget(QWidget *parent) :
 //    ui->dateFormatComboBox->setCurrentIndex(0);
     foreach (QJsonValue json, m_jsonObject["date format items"].toArray())
     {
-        ui->dateFormatComboBox->addItem(json.toString());
+        ui->dateFormatComboBox->addItem(LoadString(json.toString().toStdString()));
     }
     index = m_jsonObject["date format selection"].toInt() - 1;
     ui->dateFormatComboBox->setCurrentIndex(index);

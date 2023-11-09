@@ -132,8 +132,9 @@ FileManagerWidget::FileManagerWidget(QWidget *parent) :
     QJsonObject object = ConfigManager("parameter_setting4.json").GetConfig();
     if (object["printer selection"].toInt() == 2)
     {
+
         m_bA4Print = true;
-        ui->printPushButton->setDisabled(false);
+        SetPrintEnabled();
     }
 
 ////    int width = ui->tableWidget->width();//kui->gridLayout_2->itemAtPosition(1, 0)->geometry().width();
@@ -188,18 +189,38 @@ void FileManagerWidget::setTableContent()
     if (m_avFileFormatList.size() == 0)
         return;
 
-    for (int i = m_AVFileFormatIndex ; i < m_AVFileFormatIndex + 5 ; i++, j++)
+    if (m_nMode != S_MODE)
     {
-        if (i >= m_avFileFormatList.size())
-            break;
-        AVFileFormat avfileFormat = m_avFileFormatList[i];
-        QString index;
-        index.sprintf("%05d", i+1);
-        QTableWidgetItem* indexItem = new QTableWidgetItem(index);
-        float nCaptureSpeed = getSpeedValue(avfileFormat.captureSpeed.mid(1,4).toFloat());
-        QTableWidgetItem* item = new QTableWidgetItem(QString::number(nCaptureSpeed, 'f', 0) + speedUnitValue() +", " + QString("%0%1:%2%3:%4%5").arg(avfileFormat.time[0]).arg(avfileFormat.time[1]).arg(avfileFormat.time[2]).arg(avfileFormat.time[3]).arg(avfileFormat.time[4]).arg(avfileFormat.date[5]));
-        ui->tableWidget->setItem(j, 0, indexItem);
-        ui->tableWidget->setItem(j, 1, item);
+        for (int i = m_AVFileFormatIndex ; i < m_AVFileFormatIndex + 5 ; i++, j++)
+        {
+            if (i >= m_avFileFormatList.size())
+                break;
+            AVFileFormat avfileFormat = m_avFileFormatList[i];
+            QString index;
+            index.sprintf("%05d", i+1);
+            QTableWidgetItem* indexItem = new QTableWidgetItem(index);
+            float nCaptureSpeed = getSpeedValue(avfileFormat.captureSpeed.mid(1,4).toFloat());
+            QTableWidgetItem* item = new QTableWidgetItem(QString::number(nCaptureSpeed, 'f', 0) + speedUnitValue() +", " + QString("%0%1:%2%3:%4%5").arg(avfileFormat.time[0]).arg(avfileFormat.time[1]).arg(avfileFormat.time[2]).arg(avfileFormat.time[3]).arg(avfileFormat.time[4]).arg(avfileFormat.date[5]));
+            ui->tableWidget->setItem(j, 0, indexItem);
+            ui->tableWidget->setItem(j, 1, item);
+        }
+    }
+    else
+    {
+        for (int i = m_AVFileFormatIndex ; i < m_AVFileFormatIndex + 5 ; i++, j++)
+        {
+            if (i >= m_avFileFormatList.size())
+                break;
+            AVFileFormat avfileFormat = m_avFileFormatList[i];
+            QString index;
+            index.sprintf("%05d", i+1);
+            QTableWidgetItem* indexItem = new QTableWidgetItem(index);
+            QString date = QString(avfileFormat.date);
+            QTableWidgetItem* item = new QTableWidgetItem(date);
+            ui->tableWidget->setItem(j, 0, indexItem);
+            ui->tableWidget->setItem(j, 1, item);
+        }
+
     }
 }
 
@@ -511,6 +532,20 @@ void FileManagerWidget::printA4()
     }
 }
 
+void FileManagerWidget::SetPrintEnabled()
+{
+    if (m_bA4Print)
+    {
+        ui->connectPushButton->setDisabled(true);
+        ui->printPushButton->setDisabled(false);
+    }
+    else
+    {
+        ui->connectPushButton->setDisabled(false);
+        ui->printPushButton->setDisabled(true);
+    }
+}
+
 //void FileManagerWidget::on_tableWidget_clicked(const QModelIndex &index)
 //{
 //    if (m_avFileFormatList.size() >= (index.row() + m_AVFileFormatIndex))
@@ -639,8 +674,16 @@ void FileManagerWidget::on_zoomPlayPushButton_clicked()
         break;
     case Mode::S_MODE: // Manual Capture
     {
-        MovieViewerDialogSub movieViewerDialogSub(m_currentAVFileFormat);
-        movieViewerDialogSub.exec();
+        if (!strcmp(m_currentAVFileFormat.filePrefix, "SC"))
+        {
+            StillImageViewerDialog stillImageViewDialog(m_currentAVFileFormat);
+            stillImageViewDialog.exec();
+        }
+        else
+        {
+            MovieViewerDialogSub movieViewerDialogSub(m_currentAVFileFormat);
+            movieViewerDialogSub.exec();
+        }
     }
         break;
 
@@ -738,30 +781,36 @@ void FileManagerWidget::on_ImageVideoComboBox_currentIndexChanged(int index)
     {
         m_nMode = Mode::I_MODE;
         ui->zoomPlayPushButton->setImage("file_manager", "file_management_zoom.png");
+        SetPrintEnabled();
     }
         break;
     case 1: // A
     {
         m_nMode = Mode::A_MODE;
         ui->zoomPlayPushButton->setImage("file_manager", "file_management_play.png");
+        SetPrintEnabled();
     }
         break;
     case 2: // V
     {
         m_nMode = Mode::V_MODE;
         ui->zoomPlayPushButton->setImage("file_manager", "file_management_play.png");
+        SetPrintEnabled();
     }
         break;
     case 3: // M
     {
         m_nMode = Mode::M_MODE;
         ui->zoomPlayPushButton->setImage("file_manager", "file_management_zoom.png");
+        SetPrintEnabled();
     }
         break;
     case 4: // S
     {
         m_nMode = Mode::S_MODE;
         ui->zoomPlayPushButton->setImage("file_manager", "file_management_zoom.png");
+        ui->connectPushButton->setDisabled(true);
+        ui->printPushButton->setDisabled(true);
     }
         break;
     }

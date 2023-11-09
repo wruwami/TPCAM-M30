@@ -41,6 +41,7 @@ private:
     void convertValue();
     void initTable();
     void printA4();
+    void SetPrintEnabled();
 
 protected:
     void resizeEvent(QResizeEvent *event);

@@ -30,6 +30,7 @@
 #include <QJsonArray>
 #include "SerialGPSManager.h"
 #include "GstShmMgr.h"
+#include "DateFormatManager.h"
 
 #define FONT_SIZE 				12
 
@@ -537,7 +538,7 @@ void Camera::SaveImage(PrefixType prefix, stEnforcementInfo enforceInfo, SDPath 
     float fLatitude = SerialGPSManager::GetInstance()->GetLatitudeValue();
     float fLongitude = SerialGPSManager::GetInstance()->GetLongitudeValue();
 
-    QString qstrDatetimeInfo = QString("%1/%2/%3 %4:%5:%6.%7").arg(qstrCurTime.left(4), qstrCurTime.mid(4, 2), qstrCurTime.mid(6, 2), qstrCurTime.mid(9, 2), qstrCurTime.mid(11, 2), qstrCurTime.mid(13, 2), qstrCurTime.right(3));
+    QString qstrDatetimeInfo = QString("%1 %2:%3:%4.%5").arg(GetDate(qstrCurTime.left(8)), qstrCurTime.mid(9, 2), qstrCurTime.mid(11, 2), qstrCurTime.mid(13, 2), qstrCurTime.right(3));
     QString qstrLocInfo;
     qstrLocInfo.sprintf("%s (%.6f, %.6f)", qstrLocation.toStdString().c_str(), fLatitude, fLongitude);
     QString qstrFullPath = GETSDPATH(sdPath) + "/" + GetFileName(prefix, enforceInfo);

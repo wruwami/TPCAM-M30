@@ -8,6 +8,8 @@
 
 #include "ConfigManager.h"
 
+
+class CustomLabel;
 class CustomPushButton;
 class CustomCheckBox;
 namespace Ui {
@@ -29,6 +31,16 @@ public:
     QWidget* m_pCancelPushButton;
     QWidget* m_pParent;
     CustomCheckBox* m_pGPSCheckBox;
+    CustomLabel* m_pYearLabel;// = new CustomLabel;
+    CustomLabel* m_pMonthLabel;// = new CustomLabel;
+    CustomLabel* m_pDayLabel;// = new CustomLabel;
+    CustomPushButton* m_pYearPlusButton;// = new CustomPushButton;
+    CustomPushButton* m_pYearMinusButton;// = new CustomPushButton;
+    CustomPushButton* m_pMonthPlusButton;// = new CustomPushButton;
+    CustomPushButton* m_pMonthMinusButton;// = new CustomPushButton;
+    CustomPushButton* m_pDayPlusButton;// = new CustomPushButton;
+    CustomPushButton* m_pDayMinusButton;// = new CustomPushButton;
+
 private slots:
     void on_yearPlusPushButton_clicked();
     void on_yearMinusPushButton_clicked();

@@ -9,7 +9,25 @@ DateFormatManager::DateFormatManager()
 {
     ConfigManager config = ConfigManager("parameter_setting3.json");
     QJsonObject object = config.GetConfig();
-    m_DateFormat = object["date format items"].toArray()[object["date format selection"].toInt() - 1].toString();
+    switch(object["date format selection"].toInt() - 1)
+    {
+    case 0:
+    {
+        m_DateFormat = YYYYMMDD;
+    }
+        break;
+    case 1:
+    {
+        m_DateFormat = MMDDYYYY;
+    }
+        break;
+    case 2:
+    {
+        m_DateFormat = DDMMYYYY;
+    }
+        break;
+
+    }
 }
 
 void DateFormatManager::SetDateFormat(DateFormat dateFormat)
@@ -17,7 +35,7 @@ void DateFormatManager::SetDateFormat(DateFormat dateFormat)
     m_DateFormat = dateFormat;
 }
 
-QString DateFormatManager::GetDateFormat()
+DateFormat DateFormatManager::GetDateFormat()
 {
     return m_DateFormat;
 }

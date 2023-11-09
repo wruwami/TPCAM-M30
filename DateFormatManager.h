@@ -25,10 +25,10 @@ public:
         return instance;
     }
     void SetDateFormat(DateFormat);
-    QString GetDateFormat();
+    DateFormat GetDateFormat();
     QString GetDate(QString str);
 private:
-    QString m_DateFormat;
+    DateFormat m_DateFormat;
 };
 }
 
@@ -37,7 +37,7 @@ static void SetDateFormat(DateFormat dateFormat)
     ResourceLoader::DateFormatManager::GetInstance()->SetDateFormat(dateFormat);
 }
 
-static QString GetDateFormat()
+static DateFormat GetDateFormat()
 {
     return ResourceLoader::DateFormatManager::GetInstance()->GetDateFormat();
 }

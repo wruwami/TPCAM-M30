@@ -158,20 +158,21 @@ void SystemInfoWidget::MoveFactorySetting()
 //            QFile::remove(GeteMMCPath() + "/settings/" + item.fileName());
 //        }
         QDateTime datetime = datetime.currentDateTime();
-        QDir qdir(GeteMMCPath() + "/factory");
+        QString targetDir = GetSDPath() + "/factory";
+        QDir qdir(targetDir);
         if (!qdir.exists())
-            qdir.mkdir(GeteMMCPath() + "/factory");
+            qdir.mkdir(targetDir);
 
-        qdir = QDir(GeteMMCPath() + "/factory/" + datetime.toString("yyMMddhh"));
+        qdir = QDir(targetDir + "/" + datetime.toString("yyMMddhh"));
         if (!qdir.exists())
-            qdir.mkdir(GeteMMCPath() + "/factory/" + datetime.toString("yyMMddhh"));
+            qdir.mkdir(targetDir + "/" + datetime.toString("yyMMddhh"));
 
-        if (QFile::exists(GeteMMCPath() + "/factory/" + datetime.toString("yyMMddhh") + "/" + item.fileName()))
+        if (QFile::exists(targetDir + "/" + datetime.toString("yyMMddhh") + "/" + item.fileName()))
         {
-            QFile::remove(GeteMMCPath() + "/factory/" + datetime.toString("yyMMddhh") + "/" + item.fileName());
+            QFile::remove(targetDir + "/" + datetime.toString("yyMMddhh") + "/" + item.fileName());
         }
 
-        QFile::copy(GeteMMCPath() + "/settings/" +item.fileName(), GeteMMCPath() + "/factory/" + datetime.toString("yyMMddhh") + "/" + item.fileName());
+        QFile::copy(GeteMMCPath() + "/settings/" +item.fileName(), targetDir + "/" + datetime.toString("yyMMddhh") + "/" + item.fileName());
 //        qDebug() << GeteMMCPath() + "/settings/" +item.fileName();
 //        qDebug () << GeteMMCPath() + "/factory/" + datetime.toString("yyMMddhh") + "/" + item.fileName();
     }

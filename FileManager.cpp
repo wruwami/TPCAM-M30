@@ -218,9 +218,9 @@ QString FileManager::GetFileName(PrefixType prefix, stEnforcementInfo enforceInf
     if (QString::compare(object3["Postfix"].toString(), "null", Qt::CaseInsensitive) && !object3["Postfix"].toString().isEmpty())
         deviceID.append("_" + object3["Postfix"].toString());
 
-    int userIndex = object["User Name Select"].toInt() - 1;
-    QJsonArray ar = object["User Name items"].toArray();
-    QString userID = ar[userIndex].toString();
+//    int userIndex = object["User Name Select"].toInt() - 1;
+//    QJsonArray ar = object["User Name items"].toArray();
+    QString userID = FileManager::GetInstance()->userName();
     con = ConfigManager("parameter_setting1.json");
     object = con.GetConfig();
     int locationIndex = object["location selection"].toInt() - 1;
@@ -358,6 +358,16 @@ QString FileManager::MakeSDPath(QString path)
     }
 
     return dir.absolutePath();
+}
+
+const QString &FileManager::userName() const
+{
+    return m_userName;
+}
+
+void FileManager::setUserName(const QString &newUserName)
+{
+    m_userName = newUserName;
 }
 
 //QString FileManager::GetDeviceID(QJsonObject object)

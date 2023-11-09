@@ -89,8 +89,13 @@ public:
     QString GeteMMCPath();
     QString GetSDPath();
     QString GetUSBPath();
+    const QString &userName() const;
+    void setUserName(const QString &newUserName);
+
 private:
     QString MakeSDPath(QString);
+private:
+    QString m_userName;
 
 //private:
 //    QString GetDeviceID(QJsonObject);

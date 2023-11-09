@@ -97,6 +97,10 @@ FileManagerWidget::FileManagerWidget(QWidget *parent) :
     ui->datePushButton->setFontSize(23);
 
     ui->tableWidget->setSizePolicy(QSizePolicy::Ignored, QSizePolicy::Expanding);
+    ui->tableWidget->horizontalHeader()->setSectionResizeMode(0, QHeaderView::Fixed);
+    ui->tableWidget->horizontalHeader()->setSectionResizeMode(1, QHeaderView::Fixed);
+
+//    ui->tableWidget->setSectionResizeMode(0, QHeaderView.Stretch);
 
 //    ui->horizontalLayout_9->setMargin(GetWidthWidth(15));
 //    ui->horizontalLayout_9->setSpacing(GetWidthWidth(30));
@@ -303,9 +307,15 @@ void FileManagerWidget::convertValue()
 //    snprintf(g_file_elem_for_printer.zoom_level, 2, m_currentAVFileFormat);
     memcpy(g_file_elem_for_printer.latitude, m_currentAVFileFormat.latitude.toStdString().c_str(), 10);
     memcpy(g_file_elem_for_printer.longitude, m_currentAVFileFormat.longitude.toStdString().c_str(), 11);
-    memcpy(g_file_elem_for_printer.location, m_currentAVFileFormat.location.toStdString().c_str(), m_currentAVFileFormat.location.size());
-    memcpy(g_file_elem_for_printer.user_name, m_currentAVFileFormat.userId.toStdString().c_str(), m_currentAVFileFormat.userId.size());
-    memcpy(g_file_elem_for_printer.device_id, m_currentAVFileFormat.deviceId.toStdString().c_str(), m_currentAVFileFormat.deviceId.size());
+    g_file_elem_for_printer.location = m_currentAVFileFormat.location.toStdString();
+    g_file_elem_for_printer.user_name = m_currentAVFileFormat.userId.toStdString();
+    g_file_elem_for_printer.device_id = m_currentAVFileFormat.deviceId.toStdString();
+//    memcpy(g_file_elem_for_printer.location, m_currentAVFileFormat.location.toStdString().c_str(), m_currentAVFileFormat.location.size());
+//    char location[LOCATION_MAX_LENGTH];
+//    memset(location, 0, LOCATION_MAX_LENGTH);
+//    memcpy(location, m_currentAVFileFormat.userId.toStdString().c_str(), m_currentAVFileFormat.userId.size());
+//    memcpy(g_file_elem_for_printer.user_name, m_currentAVFileFormat.userId.toStdStrin\g().c_str(), m_currentAVFileFormat.userId.size());
+//    memcpy(g_file_elem_for_printer.device_id, m_currentAVFileFormat.deviceId.toStdString().c_str(), m_currentAVFileFormat.deviceId.size());
     memcpy(g_file_elem_for_printer.unit, &m_currentAVFileFormat.unit, 1);
 //    g_file_elem_for_printer.unit[0] = &m_currentAVFileFormat.unit;
 

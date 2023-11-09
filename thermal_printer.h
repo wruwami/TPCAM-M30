@@ -15,6 +15,7 @@ C0001 -
 #include <pthread.h>
 #include <sys/ioctl.h>
 #include <arpa/inet.h>
+#include <string>
 
 #define WIFI_PRINTER_MAX_BUFFER					4096
 #define DEVICE_ID_MAX_LENGTH							7
@@ -48,30 +49,30 @@ typedef struct {
     int		unit;											// 1 : Standard unit(km/h, m), 2 : British unit (mph, feet)
 } ST_ENFORCEMENT_INFO_ELEMENT;
 */
-typedef struct {
-    char 	prefix[2+1];									//AI, AV, VV
-    char	file_id[5+1];									//00001
-    char	year[4+1];										//2018
-    char	month[2+1];										//12
-    char	day[2+1];										//11
-    char	hour[2+1];										//23
-    char	minute[2+1];									//15
-    char	second[2+1];									//49
-    char	msec[1+1];										//1/10 sec
-    char	laser_capture_speed[5+1];						//+9999 (km/h or MPH)
-    char	display_limit_speed[4+1];						//9999 (km/h or MPH)
-    char	capture_limit_speed[4+1];						//9999 (km/h or MPH)
-    char	laser_capture_distance[4+1];					//9999 (meter or feet)
-    char	user_mode[1+1];									//N (user mode off), U(user mode on), V(video mode)
-    char	enforcement_mode[1+1];							//I (image only), A(image + video), V(video only)
-    char	dual_mode[1+1];									//N (normal), T (truck)
-    char	zoom_level[2+1];								//01~11 (zoom level)
-    char	latitude[10+1];									//+37.347327
-    char	longitude[11+1];								//+126.955778
-    char	location[LOCATION_MAX_LENGTH+1];				//SEOUL
-    char	user_name[USER_NAME_MAX_LENGTH+1];				//Mike
-    char	device_id[DEVICE_ID_MAX_LENGTH+1];				//TP00001
-    char	unit[1+1];										//S: Standard unit(km/h, m), B: British unit (mph, feet)
+typedef struct ST_ENFORCEMENT_FILENAME_ELEMENT{
+    char 	prefix[2];									//AI, AV, VV
+    char	file_id[5];									//00001
+    char	year[4];										//2018
+    char	month[2];										//12
+    char	day[2];										//11
+    char	hour[2];										//23
+    char	minute[2];									//15
+    char	second[2];									//49
+    char	msec[1];										//1/10 sec
+    char	laser_capture_speed[5];						//+9999 (km/h or MPH)
+    char	display_limit_speed[4];						//9999 (km/h or MPH)
+    char	capture_limit_speed[4];						//9999 (km/h or MPH)
+    char	laser_capture_distance[4];					//9999 (meter or feet)
+    char	user_mode[1];									//N (user mode off), U(user mode on), V(video mode)
+    char	enforcement_mode[1];							//I (image only), A(image + video), V(video only)
+    char	dual_mode[1];									//N (normal), T (truck)
+    char	zoom_level[2];								//01~11 (zoom level)
+    char	latitude[10];									//+37.347327
+    char	longitude[11];								//+126.955778
+    std::string location;				//SEOUL
+    std::string	user_name;				//Mike
+    std::string	device_id;				//TP00001
+    char	unit[1];										//S: Standard unit(km/h, m), B: British unit (mph, feet)
 } ST_ENFORCEMENT_FILENAME_ELEMENT;
 
 

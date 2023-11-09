@@ -1391,144 +1391,144 @@ void WiFi_Printf(int sock, char* fmt, ...)
     }
 }
 
-static int parse_filename(char *filename)
-{
-    int nCount = 0;
-    char *result;
+//static int parse_filename(char *filename)
+//{
+//    int nCount = 0;
+//    char *result;
 
-    if (filename == NULL)
-    {
-        //fprintf(stdout, "=== Pasering Error : File name is NULL ===\n");
-    }
-    else
-    {
-        result = strtok(filename, "_");
-        while (result != NULL)
-        {
-            //fprintf(stdout, "=== Parsering : %s ===\n", result);
-            switch (nCount)
-            {
-            case 0: // prefix
-            {
-                if (!strncmp(result, "AI", 2))
-                {
-                    sprintf(g_file_elem_for_printer.prefix, "%s", "AI");
-                }
-                else if (!strncmp(result, "AV", 2))
-                {
-                    sprintf(g_file_elem_for_printer.prefix, "%s", "AV");
-                }
-                else if (!strncmp(result, "VV", 2))
-                {
-                    sprintf(g_file_elem_for_printer.prefix, "%s", "VV");
-                }
-                else if (!strncmp(result, "MC", 2))
-                {
-                    sprintf(g_file_elem_for_printer.prefix, "%s", "MC");
-                }
-            }
-            break;
-            case 1: // file index
-            {
-                sprintf(g_file_elem_for_printer.file_id, "%s", result);
-            }
-            break;
-            case 2: // date
-            {
-                char year[5] = { 0 }; char month[3] = { 0 }; char day[3] = { 0 };
+//    if (filename == NULL)
+//    {
+//        //fprintf(stdout, "=== Pasering Error : File name is NULL ===\n");
+//    }
+//    else
+//    {
+//        result = strtok(filename, "_");
+//        while (result != NULL)
+//        {
+//            //fprintf(stdout, "=== Parsering : %s ===\n", result);
+//            switch (nCount)
+//            {
+//            case 0: // prefix
+//            {
+//                if (!strncmp(result, "AI", 2))
+//                {
+//                    sprintf(g_file_elem_for_printer.prefix, "%s", "AI");
+//                }
+//                else if (!strncmp(result, "AV", 2))
+//                {
+//                    sprintf(g_file_elem_for_printer.prefix, "%s", "AV");
+//                }
+//                else if (!strncmp(result, "VV", 2))
+//                {
+//                    sprintf(g_file_elem_for_printer.prefix, "%s", "VV");
+//                }
+//                else if (!strncmp(result, "MC", 2))
+//                {
+//                    sprintf(g_file_elem_for_printer.prefix, "%s", "MC");
+//                }
+//            }
+//            break;
+//            case 1: // file index
+//            {
+//                sprintf(g_file_elem_for_printer.file_id, "%s", result);
+//            }
+//            break;
+//            case 2: // date
+//            {
+//                char year[5] = { 0 }; char month[3] = { 0 }; char day[3] = { 0 };
 
-                year[0] = result[0]; year[1] = result[1]; year[2] = result[2]; year[3] = result[3];
-                month[0] = result[4]; month[1] = result[5];
-                day[0] = result[6]; day[1] = result[7];
+//                year[0] = result[0]; year[1] = result[1]; year[2] = result[2]; year[3] = result[3];
+//                month[0] = result[4]; month[1] = result[5];
+//                day[0] = result[6]; day[1] = result[7];
 
-                sprintf(g_file_elem_for_printer.year, "%s", year);
-                sprintf(g_file_elem_for_printer.month, "%s", month);
-                sprintf(g_file_elem_for_printer.day, "%s", day);
-            }
-            break;
-            case 3: // time
-            {
-                char hour[3] = { 0 }; char minute[3] = { 0 }; char sec[3] = { 0 }; char msec[2] = { 0 };
-                hour[0] = result[0]; hour[1] = result[1];
-                minute[0] = result[2]; minute[1] = result[3];
-                sec[0] = result[4]; sec[1] = result[5];
-                msec[0] = result[6];
+//                sprintf(g_file_elem_for_printer.year, "%s", year);
+//                sprintf(g_file_elem_for_printer.month, "%s", month);
+//                sprintf(g_file_elem_for_printer.day, "%s", day);
+//            }
+//            break;
+//            case 3: // time
+//            {
+//                char hour[3] = { 0 }; char minute[3] = { 0 }; char sec[3] = { 0 }; char msec[2] = { 0 };
+//                hour[0] = result[0]; hour[1] = result[1];
+//                minute[0] = result[2]; minute[1] = result[3];
+//                sec[0] = result[4]; sec[1] = result[5];
+//                msec[0] = result[6];
 
-                sprintf(g_file_elem_for_printer.hour, "%s", hour);
-                sprintf(g_file_elem_for_printer.minute, "%s", minute);
-                sprintf(g_file_elem_for_printer.second, "%s", sec);
-                sprintf(g_file_elem_for_printer.msec, "%s", msec);
-            }
-            break;
-            case 4: // laser captured speed
-            {
-                sprintf(g_file_elem_for_printer.laser_capture_speed, "%s", result);
-            }
-            break;
-            case 5: // display speed limit
-            {
-                sprintf(g_file_elem_for_printer.display_limit_speed, "%s", result);
-            }
-            break;
-            case 6: // capture speed limit
-            {
-                sprintf(g_file_elem_for_printer.capture_limit_speed, "%s", result);
-            }
-            break;
-            case 7: // captured distance
-            {
-                sprintf(g_file_elem_for_printer.laser_capture_distance, "%s", result);
-            }
-            break;
-            case 8: // user mode, enforcement mode, dual mode, zoom level
-            {
-                char user_mode[2] = { 0, }; char enforce_mode[2] = { 0, };
-                char dual_mode[2] = { 0, }; char zoom_level[2] = { 0, };
-                user_mode[0] = result[0]; enforce_mode[0] = result[1];
-                dual_mode[0] = result[2]; zoom_level[0] = result[3];
-                sprintf(g_file_elem_for_printer.user_mode, "%s", user_mode);
-                sprintf(g_file_elem_for_printer.enforcement_mode, "%s", enforce_mode);
-                sprintf(g_file_elem_for_printer.dual_mode, "%s", dual_mode);
-                sprintf(g_file_elem_for_printer.zoom_level, "%s", zoom_level);
-            }
-            break;
-            case 9: // latitude
-            {
-                sprintf(g_file_elem_for_printer.latitude, "%s", result);
-            }
-            break;
-            case 10: // longitude
-            {
-                sprintf(g_file_elem_for_printer.longitude, "%s", result);
-            }
-            break;
-            case 11: // location
-            {
-                sprintf(g_file_elem_for_printer.location, "%s", result);
-            }
-            break;
-            case 12: // user name
-            {
-                sprintf(g_file_elem_for_printer.user_name, "%s", result);
-            }
-            break;
-            case 13: // device id
-            {
-                sprintf(g_file_elem_for_printer.device_id, "%s", result);
-            }
-            break;
-            case 14: // unit
-            {
-                sprintf(g_file_elem_for_printer.unit, "%c", result[0]);
-            }
-            break;
-            }
-            nCount++;
-            result = strtok(NULL, "_");
-        }
-    }
-    return nCount;
-}
+//                sprintf(g_file_elem_for_printer.hour, "%s", hour);
+//                sprintf(g_file_elem_for_printer.minute, "%s", minute);
+//                sprintf(g_file_elem_for_printer.second, "%s", sec);
+//                sprintf(g_file_elem_for_printer.msec, "%s", msec);
+//            }
+//            break;
+//            case 4: // laser captured speed
+//            {
+//                sprintf(g_file_elem_for_printer.laser_capture_speed, "%s", result);
+//            }
+//            break;
+//            case 5: // display speed limit
+//            {
+//                sprintf(g_file_elem_for_printer.display_limit_speed, "%s", result);
+//            }
+//            break;
+//            case 6: // capture speed limit
+//            {
+//                sprintf(g_file_elem_for_printer.capture_limit_speed, "%s", result);
+//            }
+//            break;
+//            case 7: // captured distance
+//            {
+//                sprintf(g_file_elem_for_printer.laser_capture_distance, "%s", result);
+//            }
+//            break;
+//            case 8: // user mode, enforcement mode, dual mode, zoom level
+//            {
+//                char user_mode[2] = { 0, }; char enforce_mode[2] = { 0, };
+//                char dual_mode[2] = { 0, }; char zoom_level[2] = { 0, };
+//                user_mode[0] = result[0]; enforce_mode[0] = result[1];
+//                dual_mode[0] = result[2]; zoom_level[0] = result[3];
+//                sprintf(g_file_elem_for_printer.user_mode, "%s", user_mode);
+//                sprintf(g_file_elem_for_printer.enforcement_mode, "%s", enforce_mode);
+//                sprintf(g_file_elem_for_printer.dual_mode, "%s", dual_mode);
+//                sprintf(g_file_elem_for_printer.zoom_level, "%s", zoom_level);
+//            }
+//            break;
+//            case 9: // latitude
+//            {
+//                sprintf(g_file_elem_for_printer.latitude, "%s", result);
+//            }
+//            break;
+//            case 10: // longitude
+//            {
+//                sprintf(g_file_elem_for_printer.longitude, "%s", result);
+//            }
+//            break;
+//            case 11: // location
+//            {
+//                sprintf(g_file_elem_for_printer.location, "%s", result);
+//            }
+//            break;
+//            case 12: // user name
+//            {
+//                sprintf(g_file_elem_for_printer.user_name, "%s", result);
+//            }
+//            break;
+//            case 13: // device id
+//            {
+//                sprintf(g_file_elem_for_printer.device_id, "%s", result);
+//            }
+//            break;
+//            case 14: // unit
+//            {
+//                sprintf(g_file_elem_for_printer.unit, "%c", result[0]);
+//            }
+//            break;
+//            }
+//            nCount++;
+//            result = strtok(NULL, "_");
+//        }
+//    }
+//    return nCount;
+//}
 
 int json_data_manager_get_ip_address_1()
 {

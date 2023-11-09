@@ -10,6 +10,7 @@
 #include "CustomPushButton.h"
 #include "FactoryDefaultWidget.h"
 #include "PasswordChangingWidget.h"
+#include "DateFormatManager.h"
 
 Setting3Widget::Setting3Widget(QWidget *parent) :
     QWidget(parent),
@@ -89,6 +90,25 @@ void Setting3Widget::SaveConfig()
     {
         SpeedUnitManager::GetInstance()->setSpeedUnit(mile);
         SpeedUnitManager::GetInstance()->setDistance(feet);
+    }
+    switch (m_newJsonObject["date format selection"].toInt() - 1)
+    {
+    case 0:
+    {
+        SetDateFormat(YYYYMMDD);
+    }
+        break;
+    case 1:
+    {
+        SetDateFormat(MMDDYYYY);
+    }
+        break;
+    case 2:
+    {
+        SetDateFormat(DDMMYYYY);
+    }
+        break;
+
     }
 }
 

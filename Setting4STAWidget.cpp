@@ -58,6 +58,11 @@ Setting4STAWidget::Setting4STAWidget(QWidget *parent) :
 
     ui->FTPIDPWLineEdit->setText(m_jsonObject["sta ftp id & p/w"].toString());
 
+    NetworkManager netWorkManager;
+    if (netWorkManager.getWlanAdapterName().isEmpty())
+    {
+        ui->searchPushButton->setDisabled(true);
+    }
 
 
     NetworkManager networkManager;
@@ -161,10 +166,34 @@ void Setting4STAWidget::on_searchPushButton_clicked()
 
 }
 
+int Setting4STAWidget::CheckComboxBoxItem(QString str)
+{
+    for (int i = 0 ; i < ui->wifiSSIDComboBox->count() ; i++)
+    {
+        if ( str  == ui->wifiSSIDComboBox->itemText(i))
+            return i;
+    }
+
+    return -1;
+}
+
 void Setting4STAWidget::on_sendSSID(QString strSSID)
 {
-    ui->wifiSSIDComboBox->removeItem(4);
-    ui->wifiSSIDComboBox->insertItem(0, strSSID);
+
+    int index = -1;
+    if ((index = CheckComboxBoxItem(strSSID)) == -1)
+    {
+        ui->wifiSSIDComboBox->removeItem(4);
+        ui->wifiSSIDComboBox->insertItem(0, strSSID);
+    }
+    else
+    {
+        ui->wifiSSIDComboBox->removeItem(index);
+        ui->wifiSSIDComboBox->insertItem(0, strSSID);
+    }
+
+//    ui->wifiSSIDComboBox->removeItem(4);
+//    ui->wifiSSIDComboBox->insertItem(0, strSSID);
 
     QJsonArray array = m_jsonObject["sta ssid"].toArray();
     while(array.count()) {

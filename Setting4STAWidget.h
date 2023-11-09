@@ -18,6 +18,8 @@ public:
     explicit Setting4STAWidget(QWidget *parent = 0);
     ~Setting4STAWidget();
     void SaveConfig();
+private:
+    int CheckComboxBoxItem(QString);
 private slots:
     void on_pwPushButton_clicked();
     void on_FTPIDPWLineEdit_textChanged(const QString &arg1);

@@ -12,7 +12,7 @@ ImageConverter::ImageConverter(QImage image)
     m_image = image;
 }
 
-char *ImageConverter::Convert()
+void ImageConverter::Convert()
 {
     QImage img = m_image;//your image in RGB32
 

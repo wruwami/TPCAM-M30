@@ -7,7 +7,7 @@ class ImageConverter
 {
 public:
     ImageConverter(QImage image);
-    char* Convert();
+    void Convert();
 private:
     QImage m_image;
 };

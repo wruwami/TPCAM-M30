@@ -340,6 +340,9 @@ defineTest(copyToDestDir) {
 
     export(QMAKE_POST_LINK)
 }
+
+CONFIG += force_debug_info
+
 #copyToDestDir(srcPath, destPath)
 copyToDestDir($$PWD/start.sh, $$OUT_PWD)
 copyToDestDir($$PWD/command_origin.sh, $$OUT_PWD)

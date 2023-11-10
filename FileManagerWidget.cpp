@@ -147,7 +147,13 @@ FileManagerWidget::FileManagerWidget(QWidget *parent) :
         // QAVVideoFrame is comppatible with QVideoFrame
         QVideoFrame videoFrame = frame;
         QPixmap pixmap;
-        QImage image = videoFrame.image();
+        QImage::Format imageFormat = QVideoFrame::imageFormatFromPixelFormat(videoFrame.pixelFormat());
+        QImage image( videoFrame.bits(),
+                    videoFrame.width(),
+                    videoFrame.height(),
+                    videoFrame.bytesPerLine(),
+                    imageFormat);
+//        QImage image = videoFrame.image();
 //        pixmap.fromImage(videoFrame.image().scaled(ui->frameLabel->size(), Qt::IgnoreAspectRatio, Qt::FastTransformation));
         ui->frameLabel->setPixmap(QPixmap::fromImage(image).scaled(ui->frameLabel->size(), Qt::IgnoreAspectRatio, Qt::FastTransformation));
 

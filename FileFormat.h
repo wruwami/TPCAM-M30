@@ -33,11 +33,11 @@ struct AVFileFormat {
 
 static AVFileFormat GetFileFormat(QString file_path)
 {
-//    \int index = file_path.lastIndexOf('/');\
-//    int index2 = file_path.lastIndexOf('.');
+    int index = file_path.lastIndexOf('/');
+    int index2 = file_path.lastIndexOf('.');
 
-//    QString str = file_path.mid(index + 1, file_path.size() - index - index2 - 1);
-    QString file_base_name = QFileInfo(file_path).baseName();
+    QString file_base_name = file_path.mid(index + 1, file_path.size() - index - file_path.size() + index2 - 1);
+//    QString file_base_name = QFileInfo(file_path).baseName();
 
     AVFileFormat avFileFormat;
     QStringList strList = file_base_name.split('_');

@@ -103,13 +103,6 @@
        </property>
       </spacer>
      </item>
-     <item row="1" column="3" rowspan="2" colspan="2">
-      <widget class="CustomLabel" name="distanceLabel">
-       <property name="text">
-        <string>----.-m</string>
-       </property>
-      </widget>
-     </item>
     </layout>
    </item>
   </layout>
@@ -124,11 +117,6 @@
    <class>CustomLineEdit</class>
    <extends>QLineEdit</extends>
    <header>CustomLineEdit.h</header>
-  </customwidget>
-  <customwidget>
-   <class>CustomLabel</class>
-   <extends>QLabel</extends>
-   <header>CustomLabel.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

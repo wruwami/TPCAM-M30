@@ -10,6 +10,7 @@
 #include "base.h"
 
 class Camera;
+class CustomLabel;
 class SerialLaserManager;
 namespace Ui {
 class CameraZoomFocusWidget;
@@ -63,6 +64,7 @@ private:
 
     QString m_zoomGoal, m_focusGoal, m_dzoomGoal;
     QPoint m_LaserPoint;
+    CustomLabel* m_pSpeedSensitivitylabel;
 private slots:
     void on_optPushButton_clicked();
 

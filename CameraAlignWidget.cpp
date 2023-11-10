@@ -13,6 +13,7 @@
 #include "SerialLaserManager.h"
 #include "SerialPacket.h"
 #include "SpeedUnitManager.h"
+#include "WidgetSize.h"
 
 using namespace TPCAM_M30;
 
@@ -51,13 +52,16 @@ CameraAlignWidget::CameraAlignWidget(QWidget *parent) :
 
     ui->hudPushButton->setDown(true);
 
-    ui->speedSensitivitylabel->setColor(Qt::white);
+    m_pSpeedSensitivitylabel = new CustomLabel;
+    m_pSpeedSensitivitylabel->setColor(Qt::white);
+    m_pSpeedSensitivitylabel->setAlignment(Qt::AlignCenter);
+    m_pSpeedSensitivitylabel->setGeometry(GetWidgetSizePos(QRect(QPoint(464,595), QSize(678, 115))));
+
+//    ui->speedSensitivitylabel->setColor(Qt::white);
 
     m_pHomeButton = ui->homePushButton;
     m_pSaveButton = ui->savePushButton;
     m_pCancelButton = ui->cancelPushButton;
-
-    ui->speedSensitivitylabel->setColor(Qt::white);
 
     m_object = m_configManager.GetConfig();
     QJsonArray ar = m_object["HUD reticle pos"].toArray();
@@ -79,6 +83,7 @@ CameraAlignWidget::~CameraAlignWidget()
 {
     m_hud.HUDClear();
 
+    delete m_pSpeedSensitivitylabel;
     delete ui;
 }
 
@@ -249,7 +254,7 @@ void CameraAlignWidget::on_autoTriggerPushButton_toggled(bool checked)
     }
     else
     {
-        ui->speedSensitivitylabel->setText("");
+        m_pSpeedSensitivitylabel->setText("");
         ui->autoTriggerPushButton->setStyleSheet("border-color: blue;");
         ui->autoTriggerPushButton->setText(LoadString("IDS_READY"));
         SerialPacket* laser_packet = m_pSerialLaserManager->getLaser_packet();
@@ -263,9 +268,9 @@ void CameraAlignWidget::on_autoTriggerPushButton_toggled(bool checked)
 void CameraAlignWidget::on_showDistance(float fDistance, int nSensitivity)
 {
     if(fDistance == 9999.0)
-        ui->speedSensitivitylabel->setText("----.-" + distanceValue() + "(" + QString::number(nSensitivity)+ ")");
+        m_pSpeedSensitivitylabel->setText("----.-" + distanceValue() + "(" + QString::number(nSensitivity)+ ")");
     else
-        ui->speedSensitivitylabel->setText(QString::number(getDistanceValue(fDistance), 'f', 1) + distanceValue() + "(" + QString::number(nSensitivity)+ ")");
+        m_pSpeedSensitivitylabel->setText(QString::number(getDistanceValue(fDistance), 'f', 1) + distanceValue() + "(" + QString::number(nSensitivity)+ ")");
 
     m_hud.HUDAlign(fDistance, nSensitivity);
 
@@ -274,7 +279,7 @@ void CameraAlignWidget::on_showDistance(float fDistance, int nSensitivity)
 
 void CameraAlignWidget::ClearDisplay()
 {
-    ui->speedSensitivitylabel->setText("----.-" + distanceValue() + "(" + "(0)");
+    m_pSpeedSensitivitylabel->setText("----.-" + distanceValue() + "(" + "(0)");
 
     m_hud.HUDAlignClear();
 }
@@ -330,4 +335,9 @@ void CameraAlignWidget::mousePressEvent(QMouseEvent *event)
         m_LaserPoint.setY((int)y - Laser_y);
         SetLaserMode();
     }
+}
+
+void CameraAlignWidget::resizeEvent(QResizeEvent *event)
+{
+    qDebug() << m_pSpeedSensitivitylabel->geometry();
 }

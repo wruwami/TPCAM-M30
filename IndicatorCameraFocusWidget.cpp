@@ -8,6 +8,7 @@
 #include "SerialLaserManager.h"
 #include "SpeedUnitManager.h"
 #include "CustomLineEdit.h"
+#include "CustomLabel.h"
 
 extern SerialViscaManager* g_pSerialViscaManager;
 extern SerialLaserManager* g_pSerialLaserManager;
@@ -43,12 +44,18 @@ IndicatorCameraFocusWidget::IndicatorCameraFocusWidget(QWidget *parent) :
     ui->autoTriggerPushButton->setCheckable(true);
     ui->focusLineEdit->setAlignment(Qt::AlignCenter);
 
-    ui->distanceLabel->setColor(Qt::white);
+//    ui->distanceLabel->setColor(Qt::white);
 //    ui->autoTriggerPushButton->setStyleSheet("background: transparent;");
 
     ui->focusLineEdit->SetMode(KeyboardType);
     m_pAutoTriggerPushButton = ui->autoTriggerPushButton;
-    ui->distanceLabel->setStyleSheet("background: transparent;");
+
+    m_pDistanceLabel = new CustomLabel;
+    m_pDistanceLabel->setColor(Qt::white);
+    m_pDistanceLabel->setAlignment(Qt::AlignCenter);
+    m_pDistanceLabel->setGeometry(GetWidgetSizePos(QRect(QPoint(464,595), QSize(678, 115))));
+    m_pDistanceLabel->setStyleSheet("background: transparent;");
+    m_pDistanceLabel->setText("----.-m");
 
     connect(m_pserialViscaManager->getVisca_packet(), SIGNAL(sig_show_focus(QString)), this, SLOT(on_show_focus(QString)));
     connect(m_pserialLaserManager->getLaser_packet(), SIGNAL(sig_showDistance(float,int)), this, SLOT(showDistanceSensitivity(float, int)));
@@ -142,7 +149,7 @@ void IndicatorCameraFocusWidget::on_autoTriggerPushButton_clicked(bool checked)
         m_pserialLaserManager->request_distance(true);
         ui->autoTriggerPushButton->setText(LoadString("IDS_AT"));
         ui->autoTriggerPushButton->setStyleSheet("border-color : red;");
-        ui->distanceLabel->show();
+        m_pDistanceLabel->show();
     }
     else
     {
@@ -150,20 +157,18 @@ void IndicatorCameraFocusWidget::on_autoTriggerPushButton_clicked(bool checked)
         m_pserialLaserManager->request_distance(false);
         ui->autoTriggerPushButton->setText(LoadString("IDS_READY"));
         ui->autoTriggerPushButton->setStyleSheet("border-color : blue;");
-        ui->distanceLabel->hide();
+        m_pDistanceLabel->hide();
     }
 }
 
 void IndicatorCameraFocusWidget::showDistanceSensitivity(float fSDistance, int nSensitivity)
 {
     if(fSDistance == 9999.0)
-        ui->distanceLabel->setText("----.-" + distanceValue());
+        m_pDistanceLabel->setText("----.-" + distanceValue());
     else
-        ui->distanceLabel->setText(QString::number(getDistanceValue(fSDistance), 'f', 1) + distanceValue());
+        m_pDistanceLabel->setText(QString::number(getDistanceValue(fSDistance), 'f', 1) + distanceValue());
 
-    QFont font = ui->distanceLabel->font();
-    font.setPixelSize(23);
-    ui->distanceLabel->setFont(font);
+    m_pDistanceLabel->setFontSize(23);
 }
 
 void IndicatorCameraFocusWidget::on_test(QString value)

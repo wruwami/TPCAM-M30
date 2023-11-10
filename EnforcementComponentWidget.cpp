@@ -67,8 +67,15 @@ EnforcementComponentWidget::EnforcementComponentWidget(QWidget *parent) :
     ui->recLabel->setFontSize(30);
     ui->speedLabel->setFontSize(30);
 
-    ui->distanceLabel->setFontSize(30);
-    ui->distanceLabel->setAlignment(Qt::AlignCenter);
+//    m_pDistanceLabel = new CustomLabel;
+    m_pDistanceLabel = new CustomLabel;
+    m_pDistanceLabel->setColor(Qt::white);
+    m_pDistanceLabel->setAlignment(Qt::AlignCenter);
+    m_pDistanceLabel->setGeometry(GetWidgetSizePos(QRect(QPoint(464,595), QSize(678, 115))));
+    m_pDistanceLabel->setFontSize(30);
+
+//    ui->distanceLabel->setFontSize(30);
+//    ui->distanceLabel->setAlignment(Qt::AlignCenter);
 
     m_SpeedLimit = m_object["speed limit"].toArray();
 
@@ -624,7 +631,7 @@ void EnforcementComponentWidget::doATMode()
 {
     emit sig_ATmodeOn();
 //    emit ShowRedOutLine(true);
-    ui->distanceLabel->show();
+    m_pDistanceLabel->show();
     hudClear();
 
     m_pSerialLaserManager->stop_laser();
@@ -668,7 +675,7 @@ void EnforcementComponentWidget::doATMode()
 void EnforcementComponentWidget::doReadyMode()
 {
     emit sig_ATmodeOff();
-    ui->distanceLabel->hide();
+    m_pDistanceLabel->hide();
     m_WhiteSpeedClearTimer.stop();//prevent from being RED when entering Vmode
 
     doEnforceMode(false);
@@ -718,8 +725,8 @@ void EnforcementComponentWidget::initStyle()
 
 void EnforcementComponentWidget::displaySpeedDistance(float fSpeed, float fDistance, QColor color, bool nRec)
 {
-    ui->distanceLabel->setColor(color);
-    ui->distanceLabel->setText(QString::number(getDistanceValue(fDistance), 'f', 1) + distanceValue());
+    m_pDistanceLabel->setColor(color);
+    m_pDistanceLabel->setText(QString::number(getDistanceValue(fDistance), 'f', 1) + distanceValue());
     // REC
     ui->speedLabel->setColor(color);
     ui->speedLabel->setText(QString::number(getSpeedValue(fSpeed))+speedUnitValue());
@@ -748,11 +755,11 @@ void EnforcementComponentWidget::displaySpeedDistance(float fSpeed, float fDista
 
 void EnforcementComponentWidget::displayDistance(float fDistance)
 {
-    ui->distanceLabel->setColor(Qt::white);
+    m_pDistanceLabel->setColor(Qt::white);
     if(fDistance == 9999.0)
-        ui->distanceLabel->setText("----.-" + distanceValue());
+        m_pDistanceLabel->setText("----.-" + distanceValue());
     else
-        ui->distanceLabel->setText(QString::number(getDistanceValue(fDistance), 'f', 1) + distanceValue());
+        m_pDistanceLabel->setText(QString::number(getDistanceValue(fDistance), 'f', 1) + distanceValue());
 
     ui->speedLabel->setText("");
 }
@@ -1233,8 +1240,8 @@ void EnforcementComponentWidget::clearSpeed()
 
 void EnforcementComponentWidget::clearDistance()
 {
-    ui->distanceLabel->setColor(Qt::white);
-    ui->distanceLabel->setText("----.-" + distanceValue());
+    m_pDistanceLabel->setColor(Qt::white);
+    m_pDistanceLabel->setText("----.-" + distanceValue());
 
     m_hudManager.HUDEnforcementDistanceClear();
 

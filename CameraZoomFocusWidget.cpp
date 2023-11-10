@@ -13,6 +13,7 @@
 #include "FileManager.h"
 #include "camera.h"
 #include "Logger.h"
+#include "WidgetSize.h"
 
 using namespace TPCAM_M30;
 
@@ -67,7 +68,13 @@ CameraZoomFocusWidget::CameraZoomFocusWidget(QWidget *parent) :
     ui->focusLabel->setColor(Qt::white);
     ui->dFocusLabel->setColor(Qt::white);
     ui->zoomLabel->setColor(Qt::white);
-    ui->speedSensitivitylabel->setColor(Qt::white);
+
+    m_pSpeedSensitivitylabel = new CustomLabel;
+    m_pSpeedSensitivitylabel->setColor(Qt::white);
+    m_pSpeedSensitivitylabel->setAlignment(Qt::AlignCenter);
+    m_pSpeedSensitivitylabel->setGeometry(GetWidgetSizePos(QRect(QPoint(464,595), QSize(678, 115))));
+
+//    ui->speedSensitivitylabel->setColor(Qt::white);
 
 //    ui->autoTriggerPushButton->setEnabled(true);
 
@@ -182,6 +189,7 @@ CameraZoomFocusWidget::~CameraZoomFocusWidget()
 
 //    delete m_pSerialLaserManager;
 //    m_serialViscaManager.close();
+    delete m_pSpeedSensitivitylabel;
     delete ui;
 }
 
@@ -951,9 +959,9 @@ void CameraZoomFocusWidget::on_dzMinusPushButton_clicked()
 void CameraZoomFocusWidget::on_showDistance(float fDistance, int nSensitivity)
 {
     if(fDistance == 9999.0)
-        ui->speedSensitivitylabel->setText("----.-" + distanceValue() + "(" + QString::number(nSensitivity)+ ")");
+        m_pSpeedSensitivitylabel->setText("----.-" + distanceValue() + "(" + QString::number(nSensitivity)+ ")");
     else
-        ui->speedSensitivitylabel->setText(QString::number(getDistanceValue(fDistance), 'f', 1) + distanceValue() + "(" + QString::number(nSensitivity)+ ")");
+        m_pSpeedSensitivitylabel->setText(QString::number(getDistanceValue(fDistance), 'f', 1) + distanceValue() + "(" + QString::number(nSensitivity)+ ")");
 
     m_hud.HUDZoomFocus(fDistance);
 
@@ -1101,7 +1109,7 @@ void CameraZoomFocusWidget::ClearDisplay()
 {
     m_hud.HUDZoomFocusClear();
 
-    ui->speedSensitivitylabel->setText("----.-" + distanceValue() + "(0)");
+    m_pSpeedSensitivitylabel->setText("----.-" + distanceValue() + "(0)");
 }
 
 void CameraZoomFocusWidget::on_show_dzoom(QString dzoom)
@@ -1120,7 +1128,7 @@ void CameraZoomFocusWidget::on_autoTriggerPushButton_clicked(bool checked)
     {
         ui->autoTriggerPushButton->setStyleSheet("border-color: red;");
         ui->autoTriggerPushButton->setText(LoadString("IDS_AT"));
-        ui->speedSensitivitylabel->show();
+        m_pSpeedSensitivitylabel->show();
         m_pSerialLaserManager->start_laser();
         m_pSerialLaserManager->request_distance(true);
 //        m_pSerialLaserManager->start_virtualSpeed();
@@ -1129,7 +1137,7 @@ void CameraZoomFocusWidget::on_autoTriggerPushButton_clicked(bool checked)
     {
         ui->autoTriggerPushButton->setStyleSheet("border-color: blue;");
         ui->autoTriggerPushButton->setText(LoadString("IDS_READY"));
-        ui->speedSensitivitylabel->hide();
+        m_pSpeedSensitivitylabel->hide();
         m_pSerialLaserManager->stop_laser();
         m_pSerialLaserManager->request_distance(false);
     }

@@ -50,11 +50,11 @@ IndicatorCameraFocusWidget::IndicatorCameraFocusWidget(QWidget *parent) :
     ui->focusLineEdit->SetMode(KeyboardType);
     m_pAutoTriggerPushButton = ui->autoTriggerPushButton;
 
-    m_pDistanceLabel = new CustomLabel;
-    m_pDistanceLabel->setColor(Qt::white);
+    m_pDistanceLabel = new CustomLabel(this);
+//    m_pDistanceLabel->setColor(Qt::white);
     m_pDistanceLabel->setAlignment(Qt::AlignCenter);
     m_pDistanceLabel->setGeometry(GetWidgetSizePos(QRect(QPoint(464,595), QSize(678, 115))));
-    m_pDistanceLabel->setStyleSheet("background: transparent;");
+    m_pDistanceLabel->setStyleSheet("color: white; background: transparent;");
     m_pDistanceLabel->setText("----.-m");
 
     connect(m_pserialViscaManager->getVisca_packet(), SIGNAL(sig_show_focus(QString)), this, SLOT(on_show_focus(QString)));

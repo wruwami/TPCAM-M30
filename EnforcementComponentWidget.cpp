@@ -68,8 +68,8 @@ EnforcementComponentWidget::EnforcementComponentWidget(QWidget *parent) :
     ui->speedLabel->setFontSize(30);
 
 //    m_pDistanceLabel = new CustomLabel;
-    m_pDistanceLabel = new CustomLabel;
-    m_pDistanceLabel->setColor(Qt::white);
+    m_pDistanceLabel = new CustomLabel(this);
+    m_pDistanceLabel->setStyleSheet("color: white; background: transparent;");
     m_pDistanceLabel->setAlignment(Qt::AlignCenter);
     m_pDistanceLabel->setGeometry(GetWidgetSizePos(QRect(QPoint(464,595), QSize(678, 115))));
     m_pDistanceLabel->setFontSize(30);

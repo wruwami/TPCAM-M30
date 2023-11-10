@@ -52,8 +52,8 @@ CameraAlignWidget::CameraAlignWidget(QWidget *parent) :
 
     ui->hudPushButton->setDown(true);
 
-    m_pSpeedSensitivitylabel = new CustomLabel;
-    m_pSpeedSensitivitylabel->setColor(Qt::white);
+    m_pSpeedSensitivitylabel = new CustomLabel(this);
+    m_pSpeedSensitivitylabel->setStyleSheet("color: white; background: transparent;");
     m_pSpeedSensitivitylabel->setAlignment(Qt::AlignCenter);
     m_pSpeedSensitivitylabel->setGeometry(GetWidgetSizePos(QRect(QPoint(464,595), QSize(678, 115))));
 

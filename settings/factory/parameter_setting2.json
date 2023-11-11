@@ -1,34 +1,34 @@
 {
-	"reticle selection": 2,
-	"reticle items": [
-		"Dot",
-		"Cross",
-		"Round",
-		"Rectangle",
-		"Off"
-	],
-	"weather selection": 1,
-	"weather mode items": [
-		"Sunny",
-		"Rainy"
-	],
-	"day&night selection": 2,
-	"day&night mode items": [
-		"Day Dark",
-		"Day Standard",
-		"Day Bright",
-		"Night Dark",
-		"Night Standard",
-		"Night Bright"
-	],
-	"buzzer selection": 1,
-	"buzzer items": [
-		"On",
-		"Off"
-	],
-	"anti-jamming selection": 2,
-	"anti-jamming items": [
-		"On",
-		"Off"
-	]
+    "anti-jamming items": [
+        "IDS_ON",
+        "IDS_OFF"
+    ],
+    "anti-jamming selection": 2,
+    "buzzer items": [
+        "IDS_ON",
+        "IDS_OFF"
+    ],
+    "buzzer selection": 2,
+    "day&night mode items": [
+        "IDS_DAY_DARK",
+        "IDS_DAY_STANDARD",
+        "IDS_DAY_BRIGHT",
+        "IDS_NIGHT_DARK",
+        "IDS_NIGHT_STANDARD",
+        "IDS_NIGHT_BRIGHT"
+    ],
+    "day&night selection": 5,
+    "reticle items": [
+        "IDS_DOT",
+        "IDS_CROSS",
+        "IDS_ROUND",
+        "IDS_RECTANGLE",
+        "IDS_OFF"
+    ],
+    "reticle selection": 2,
+    "weather mode items": [
+        "IDS_SUNNY",
+        "IDS_RAINY"
+    ],
+    "weather selection": 1
 }

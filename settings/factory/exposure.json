@@ -3,7 +3,7 @@
 		"Dark": {
 			"Priority": "0A",
 			"Iris": "00",
-			"Shutter": "04",
+			"Shutter": "10",
 			"Gain": "00",
 			"DNR": "0",
 			"DIS": "0",
@@ -13,7 +13,7 @@
 		"Normal": {
 			"Priority": "0A",
 			"Iris": "00",
-			"Shutter": "05",
+			"Shutter": "0F",
 			"Gain": "00",
 			"DNR": "0",
 			"DIS": "0",
@@ -23,7 +23,7 @@
 		"Bright": {
 			"Priority": "0A",
 			"Iris": "00",
-			"Shutter": "06",
+			"Shutter": "0D",
 			"Gain": "00",
 			"DNR": "0",
 			"DIS": "0",
@@ -35,7 +35,7 @@
 		"Dark": {
 			"Priority": "03",
 			"Iris": "11",
-			"Shutter": "05",
+			"Shutter": "10",
 			"Gain": "03",
 			"DNR": "0",
 			"DIS": "0",
@@ -45,18 +45,18 @@
 		"Normal": {
 			"Priority": "03",
 			"Iris": "11",
-			"Shutter": "05",
-			"Gain": "04",
+			"Shutter": "0F",
+			"Gain": "03",
 			"DNR": "0",
 			"DIS": "0",
 			"DEFOG": "0",
 			"HLC": "0"
 		},
 		"Bright": {
-			"Priority": "0A",
-			"Iris": "00",
-			"Shutter": "06",
-			"Gain": "00",
+			"Priority": "03",
+			"Iris": "11",
+			"Shutter": "0D",
+			"Gain": "03",
 			"DNR": "0",
 			"DIS": "0",
 			"DEFOG": "0",

@@ -1,12 +1,12 @@
 {
 	"ethernet_mode select": 2,
 	"ethernet_mode items": [
-		"Manual",
-		"DHCP"
+		"IDS_MANUAL",
+		"IDS_DHCP"
 	],
 	"mac address": "20:0D:B0:1E:1C:58",
-	"ip": "192.168.10.40",
-	"subnet mask": "255.255.255.0",
+	"ip": "192.168.100.10",
+	"subnet mask": "255.255.0.0",
 	"gateway": "192.168.0.1",
-	"dns server": "168.126.20.1"
+	"dns server": "8.8.8.8"
 }

@@ -1,29 +1,35 @@
 {
 	"wifi select": 1,
 	"wifi items": [
-		"On",
-		"Off"
+		"IDS_ON",
+		"IDS_OFF"
 	],
 	"bluetooth select": 1,
 	"bluetooth items": [
-		"On",
-		"Off"
+		"IDS_ON",
+		"IDS_OFF"
+	],
+	"gps select": 1,
+	"gps items": [
+		"IDS_ON",
+		"IDS_OFF"
 	],
 	"9 axis select": 2,
 	"9 axis items": [
-		"On",
-		"Off"
+		"IDS_ON",
+		"IDS_OFF"
 	],
 	"mic_speaker select": 2,
 	"mic_speaker items": [
-		"On",
-		"Off"
+		"IDS_ON",
+		"IDS_OFF"
 	],
-	"power saving select": 2,
+	"power saving select": 1,
 	"power saving items": [
-		"Off",
-		"10 min",
-		"20 min",
-		"30 min"
+		"IDS_OFF",
+		"IDS_10_MINUTE",
+		"IDS_20_MINUTE",
+		"IDS_30_MINUTE",
+		"APS"
 	]
 }

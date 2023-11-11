@@ -10,7 +10,7 @@ class FileTransThread : public QThread
     Q_OBJECT
 public:
     explicit FileTransThread(QObject *parent = nullptr);
-//    virtual ~FileTransThread();
+    virtual ~FileTransThread();
 private:
     QSharedPointer<QMutex> m_mutex;
     int m_count = 0;
@@ -19,7 +19,7 @@ signals:
     void setValue(int);
     void setFileNameText(QString);
     void setFileCountText(QString);
-    void sig_exit();
+//    void sig_exit();
 //    void close2();
 protected:
     void run() override;

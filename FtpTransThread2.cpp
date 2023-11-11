@@ -13,6 +13,12 @@ FtpTransThread2::FtpTransThread2(QObject *parent)
 
 }
 
+FtpTransThread2::~FtpTransThread2()
+{
+    quit();
+    wait();
+}
+
 void FtpTransThread2::run()
 {
     //    ui->oneProgressBar->setValue(0);
@@ -121,7 +127,7 @@ void FtpTransThread2::run()
     //        connect(reply, SIGNAL(uploadProgress(qint64 ,qint64)), SLOT(loadProgress(qint64 ,qint64)));
         }
         ftp.Quit();
-        emit sig_exit();
+//        emit sig_exit();
 }
 
 //void FtpTransThread2::close2()

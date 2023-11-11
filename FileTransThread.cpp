@@ -14,6 +14,12 @@ FileTransThread::FileTransThread(QObject *parent)
         this->requestInterruption();
 }
 
+FileTransThread::~FileTransThread()
+{
+    quit();
+    wait();
+}
+
 void FileTransThread::run()
 {
     emit setValue(0);
@@ -78,7 +84,7 @@ void FileTransThread::run()
                 return;
 
         }
-	emit sig_exit();
+//	emit sig_exit();
 }
 
 //void FileTransThread::close2()

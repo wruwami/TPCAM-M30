@@ -18,14 +18,14 @@ public:
     virtual ~FtpTransThread();
     void PushFile(QString);
 private:
-    void DoFtpTrans(QString);
+    int DoFtpTrans(QString);
 private:
      QQueue<QString> m_FileQueue;
      QSharedPointer<QMutex> m_mutex;
      ConfigManager m_config = ConfigManager("parameter_setting6.json");
      ftplib m_ftp;/* = new ftplib();*/
 signals:
-     void sig_exit();
+//     void sig_exit();
 protected:
     void run() override;
 };

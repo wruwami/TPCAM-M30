@@ -21,6 +21,8 @@ FtpTransThread::FtpTransThread(QObject *parent)
 FtpTransThread::~FtpTransThread()
 {
 //    m_ftp.Quit();
+    quit();
+    wait();
 }
 
 void FtpTransThread::PushFile(QString file_name)
@@ -30,14 +32,14 @@ void FtpTransThread::PushFile(QString file_name)
     m_mutex->unlock();
 }
 
-void FtpTransThread::DoFtpTrans(QString file_name)
+int FtpTransThread::DoFtpTrans(QString file_name)
 {
     char targetDir[1024];
-
+    int ret = 1;
 
     if (!m_ftp.Pwd(targetDir, 1024))
     {
-        emit sig_exit();
+        return 0;
     }
 
     QString target_file_name = file_name;
@@ -49,12 +51,12 @@ void FtpTransThread::DoFtpTrans(QString file_name)
     dir2 = dir2.substr(0, dir2.rfind("/"));
     if (!m_ftp.Mkdir(dir2.c_str()))
     {
-        emit sig_exit();
+        return 0;
     }
 
     if (!m_ftp.Mkdir(dir.toStdString().c_str()))
     {
-        emit sig_exit();
+        return 0;
     }
 
 
@@ -63,9 +65,9 @@ void FtpTransThread::DoFtpTrans(QString file_name)
 
     if (!m_ftp.Put(file_name.toStdString().c_str(), target_file_name.toStdString().c_str(), ftplib::image))
     {
-        emit sig_exit();
+        return 0;
     }
-
+    return ret;
 }
 
 void FtpTransThread::run()
@@ -74,10 +76,10 @@ void FtpTransThread::run()
 
     int ret = m_ftp.Connect(QString(jsonObject["ftp server( dns )"].toString() + ":" + std::to_string(jsonObject["ftp port"].toInt()).c_str()).toStdString().c_str());
     if (ret == 0)
-        emit sig_exit();
+        return;
     ret = m_ftp.Login(jsonObject["ftp user name"].toString().toStdString().c_str(), jsonObject["ftp password"].toString().toStdString().c_str());
     if (ret == 0)
-        emit sig_exit();
+        return;
 
     forever{
 
@@ -100,8 +102,11 @@ void FtpTransThread::run()
         msleep(1);
 
         if ( QThread::currentThread()->isInterruptionRequested() )
+        {
+            m_ftp.Quit();
             return;
+        }
     }
-    m_ftp.Quit();
-    emit sig_exit();
+
+    return;
 }

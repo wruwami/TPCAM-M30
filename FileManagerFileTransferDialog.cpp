@@ -426,7 +426,7 @@ void FileManagerFileTransferDialog::closeThread()
     {
     case FTPType:
     {
-        if (m_FtpTransThread->isRunning())
+        if (!m_FtpTransThread.isNull() && m_FtpTransThread->isRunning())
         {
             disconnect(m_FtpTransThread.data(), SIGNAL(setValue(int)), this, SLOT(setValue(int)));
             disconnect(m_FtpTransThread.data(), SIGNAL(setMaximum(int)), this, SLOT(setMaximum(int)));
@@ -434,14 +434,19 @@ void FileManagerFileTransferDialog::closeThread()
             disconnect(m_FtpTransThread.data(), SIGNAL(setFileCountText(QString)), this, SLOT(setFileCountText(QString)));
 
             m_FtpTransThread->requestInterruption();
+            m_FtpTransThread->exit();
         }
-        m_FtpTransThread->exit();
+        else if (!m_FtpTransThread.isNull())
+        {
+            m_FtpTransThread->exit();
+        }
+
     }
         break;
     case FileType:
     {
 
-        if (m_FileTransThread->isRunning())
+        if (!m_FileTransThread.isNull() && m_FileTransThread->isRunning())
         {
             disconnect(m_FileTransThread.data(), SIGNAL(setValue(int)), this, SLOT(setValue(int)));
             disconnect(m_FileTransThread.data(), SIGNAL(setMaximum(int)), this, SLOT(setMaximum(int)));
@@ -449,8 +454,13 @@ void FileManagerFileTransferDialog::closeThread()
             disconnect(m_FileTransThread.data(), SIGNAL(setFileCountText(QString)), this, SLOT(setFileCountText(QString)));
 
             m_FileTransThread->requestInterruption();
+            m_FileTransThread->exit();
         }
-        m_FileTransThread->exit();
+        else if (!m_FileTransThread.isNull())
+        {
+            m_FileTransThread->exit();
+        }
+
     }
         break;
     }

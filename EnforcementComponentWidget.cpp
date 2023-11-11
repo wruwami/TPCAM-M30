@@ -71,7 +71,7 @@ EnforcementComponentWidget::EnforcementComponentWidget(QWidget *parent) :
     m_pDistanceLabel = new CustomLabel(this);
     m_pDistanceLabel->setStyleSheet("color: white; background: transparent;");
     m_pDistanceLabel->setAlignment(Qt::AlignCenter);
-    m_pDistanceLabel->setGeometry(GetWidgetSizePos(QRect(QPoint(464,518), QSize(678, 100))));
+    m_pDistanceLabel->setGeometry(GetWidgetSizePos(QRect(QPoint(464,595-125), QSize(678, 115))));
     m_pDistanceLabel->setFontSize(30);
 
 //    ui->distanceLabel->setFontSize(30);

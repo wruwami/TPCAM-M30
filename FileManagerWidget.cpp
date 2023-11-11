@@ -35,6 +35,8 @@
 #include "Logger.h"
 #include "ConfigManager.h"
 #include "DateFormatManager.h"
+#include "QtAVPlayer/qavplayer.h"
+#include "QtAVPlayerHelper/videowidget.h"
 
 enum Mode
 {
@@ -109,14 +111,18 @@ FileManagerWidget::FileManagerWidget(QWidget *parent) :
 
     ui->frameLabel->setText(LoadString("IDS_STILL_IMAGE_AND_MOVIE_VIEWER"));
 //    ui->frameLabel->setFontSize(23);
-    m_videoWidget = new QVideoWidget;
-    ui->verticalLayout->insertWidget(1, m_videoWidget, 335);
-//    m_videoWidget->setGeometry(ui->frameLabel->geometry());
-    m_videoWidget->hide();
+//    m_videoWidget\\ = new QVideoWidget;
+//    ui->verticalLayout->insertWidget(1, m_videoWidget, 335);
+////    m_videoWidget->setGeometry(ui->frameLabel->geometry());
+//    m_videoWidget->hide();
+//    m_pVideoWidget = new VideoWidget;
+    //    ui->verticalLayout->insertWidget(1, m_videoWidget, 335);
+    ////    m_videoWidget->setGeometry(ui->frameLabel->geometry());
+    //    m_videoWidget->hide();
 
 
-    m_player = new QMediaPlayer(this);
-    m_player->setVideoOutput(m_videoWidget);
+    m_player = new QAVPlayer(this);
+//    m_player->setVideoOutput(m_pVideoWidget);
 
 //    CreateWiFiReadThreadAndInitPrinter();
 
@@ -136,6 +142,31 @@ FileManagerWidget::FileManagerWidget(QWidget *parent) :
         m_bA4Print = true;
         SetPrintEnabled();
     }
+
+    QObject::connect(m_player, &QAVPlayer::videoFrame, [&](const QAVVideoFrame &frame) {
+        // QAVVideoFrame is comppatible with QVideoFrame
+        QVideoFrame videoFrame = frame;
+        QPixmap pixmap;
+        QImage::Format imageFormat = QVideoFrame::imageFormatFromPixelFormat(videoFrame.pixelFormat());
+        QImage image( videoFrame.bits(),
+                    videoFrame.width(),
+                    videoFrame.height(),
+                    videoFrame.bytesPerLine(),
+                    imageFormat);
+//        QImage image = videoFrame.image();
+//        pixmap.fromImage(videoFrame.image().scaled(ui->frameLabel->size(), Qt::IgnoreAspectRatio, Qt::FastTransformation));
+        ui->frameLabel->setPixmap(QPixmap::fromImage(image).scaled(ui->frameLabel->size(), Qt::IgnoreAspectRatio, Qt::FastTransformation));
+
+        // QAVVideoFrame can be converted to various pixel formats
+//        auto convertedFrame = frame.convert(AV_PIX_FMT_YUV420P);
+
+        // Easy getting data from video frame
+//        auto mapped = videoFrame.map(); // downloads data if it is in GPU
+//        qDebug() << mapped.format << mapped.size;
+
+        // The frame might contain OpenGL or MTL textures, for copy-free rendering
+//        qDebug() << frame.handleType() << frame.handle();
+    });
 
 ////    int width = ui->tableWidget->width();//kui->gridLayout_2->itemAtPosition(1, 0)->geometry().width();
 
@@ -177,7 +208,7 @@ FileManagerWidget::FileManagerWidget(QWidget *parent) :
 FileManagerWidget::~FileManagerWidget()
 {
     delete m_player;
-    delete m_videoWidget;
+//    delete m_videoWidget;
     delete ui;
 }
 
@@ -309,25 +340,25 @@ void FileManagerWidget::on_deletePushButton_clicked()
 
 void FileManagerWidget::convertValue()
 {
-    memcpy(g_file_elem_for_printer.prefix, m_currentAVFileFormat.filePrefix, 2);
-    memcpy(g_file_elem_for_printer.file_id, m_currentAVFileFormat.index, 5);
-    memcpy(g_file_elem_for_printer.year, &m_currentAVFileFormat.date[0], 4);
-    memcpy(g_file_elem_for_printer.month, &m_currentAVFileFormat.date[4], 2);
-    memcpy(g_file_elem_for_printer.day, &m_currentAVFileFormat.date[6], 2);
-    memcpy(g_file_elem_for_printer.hour, &m_currentAVFileFormat.time[0], 2);
-    memcpy(g_file_elem_for_printer.minute, &m_currentAVFileFormat.time[2], 2);
-    memcpy(g_file_elem_for_printer.second, &m_currentAVFileFormat.time[4], 2);
-    memcpy(g_file_elem_for_printer.msec, &m_currentAVFileFormat.time[6], 1);
-    memcpy(g_file_elem_for_printer.laser_capture_speed, m_currentAVFileFormat.captureSpeed.toStdString().c_str(), 6);
-    memcpy(g_file_elem_for_printer.display_limit_speed, m_currentAVFileFormat.speedLimit.toStdString().c_str(), 5);
-    memcpy(g_file_elem_for_printer.capture_limit_speed, m_currentAVFileFormat.captureSpeedLimit.toStdString().c_str(), 5);
-    memcpy(g_file_elem_for_printer.laser_capture_distance, m_currentAVFileFormat.distance.toStdString().c_str(), 4);
+    memcpy(g_file_elem_for_printer.prefix, m_currentAVFileFormat.filePrefix, 2 + 1);
+    memcpy(g_file_elem_for_printer.file_id, m_currentAVFileFormat.index, 5 + 1);
+    memcpy(g_file_elem_for_printer.year, &m_currentAVFileFormat.date[0], 4 + 1);
+    memcpy(g_file_elem_for_printer.month, &m_currentAVFileFormat.date[4], 2 + 1);
+    memcpy(g_file_elem_for_printer.day, &m_currentAVFileFormat.date[6], 2 + 1);
+    memcpy(g_file_elem_for_printer.hour, &m_currentAVFileFormat.time[0], 2 + 1);
+    memcpy(g_file_elem_for_printer.minute, &m_currentAVFileFormat.time[2], 2 + 1);
+    memcpy(g_file_elem_for_printer.second, &m_currentAVFileFormat.time[4], 2 + 1);
+    memcpy(g_file_elem_for_printer.msec, &m_currentAVFileFormat.time[6], 1 + 1);
+    memcpy(g_file_elem_for_printer.laser_capture_speed, m_currentAVFileFormat.captureSpeed.toStdString().c_str(), 5 + 1);
+    memcpy(g_file_elem_for_printer.display_limit_speed, m_currentAVFileFormat.speedLimit.toStdString().c_str(), 4 + 1);
+    memcpy(g_file_elem_for_printer.capture_limit_speed, m_currentAVFileFormat.captureSpeedLimit.toStdString().c_str(), 4 + 1);
+    memcpy(g_file_elem_for_printer.laser_capture_distance, m_currentAVFileFormat.distance.toStdString().c_str(), 4 + 1);
 //    snprintf(g_file_elem_for_printer.user_mode, 1, m_currentAVFileFormat);
 //    snprintf(g_file_elem_for_printer.enforcement_mode, 1, m_currentAVFileFormat);
 //    snprintf(g_file_elem_for_printer.dual_mode, 1, m_currentAVFileFormat.);
 //    snprintf(g_file_elem_for_printer.zoom_level, 2, m_currentAVFileFormat);
-    memcpy(g_file_elem_for_printer.latitude, m_currentAVFileFormat.latitude.toStdString().c_str(), 10);
-    memcpy(g_file_elem_for_printer.longitude, m_currentAVFileFormat.longitude.toStdString().c_str(), 11);
+    memcpy(g_file_elem_for_printer.latitude, m_currentAVFileFormat.latitude.toStdString().c_str(), 10 + 1);
+    memcpy(g_file_elem_for_printer.longitude, m_currentAVFileFormat.longitude.toStdString().c_str(), 11 + 1);
     g_file_elem_for_printer.location = m_currentAVFileFormat.location.toStdString();
     g_file_elem_for_printer.user_name = m_currentAVFileFormat.userId.toStdString();
     g_file_elem_for_printer.device_id = m_currentAVFileFormat.deviceId.toStdString();
@@ -337,7 +368,7 @@ void FileManagerWidget::convertValue()
 //    memcpy(location, m_currentAVFileFormat.userId.toStdString().c_str(), m_currentAVFileFormat.userId.size());
 //    memcpy(g_file_elem_for_printer.user_name, m_currentAVFileFormat.userId.toStdStrin\g().c_str(), m_currentAVFileFormat.userId.size());
 //    memcpy(g_file_elem_for_printer.device_id, m_currentAVFileFormat.deviceId.toStdString().c_str(), m_currentAVFileFormat.deviceId.size());
-    memcpy(g_file_elem_for_printer.unit, &m_currentAVFileFormat.unit, 1);
+    memcpy(g_file_elem_for_printer.unit, &m_currentAVFileFormat.unit, 1 + 1);
 //    g_file_elem_for_printer.unit[0] = &m_currentAVFileFormat.unit;
 
 }
@@ -506,7 +537,6 @@ void FileManagerWidget::printA4()
 
 //    cursor.insertFrame(frameFormat);
 
-    cursor.insertBlock();
     cursor.insertBlock();
     cursor.insertText(LoadString("IDS_PRINT_DATE") + " : " + GetDate(QDate::currentDate().toString("yyyyMMdd")), textFormat);
     cursor.insertBlock();
@@ -735,9 +765,9 @@ void FileManagerWidget::on_movePushButton_clicked()
 
 void FileManagerWidget::on_printPushButton_clicked()
 {
-    QImage image(m_currentAVFileFormat.file_path);
-    image.convertToFormat(QImage::Format::Format_RGB32);
-    ImageConverter imageConvert(image);
+//    QImage image(m_currentAVFileFormat.file_path);
+//    image.convertToFormat(QImage::Format::Format_RGB32);
+    ImageConverter imageConvert(ui->frameLabel->pixmap()->toImage());
     imageConvert.Convert();
 
     if (m_bA4Print)
@@ -1004,46 +1034,46 @@ void FileManagerWidget::on_tableWidget_cellClicked(int row, int column)
 
     if (!strncmp(m_currentAVFileFormat.filePrefix, "VV", 2))
     {
-        m_videoWidget->show();
-        ui->frameLabel->hide();
-        m_player->setMedia(QUrl::fromLocalFile(m_avFileFormatList[row+ m_AVFileFormatIndex].file_path));
+//        m_videoWidget->show();
+//        ui->frameLabel->hide();
+        m_player->setSource(m_avFileFormatList[row+ m_AVFileFormatIndex].file_path);
         m_player->play();
         m_player->pause();
     }
     else if (!strncmp(m_currentAVFileFormat.filePrefix, "AV", 2))
     {
-        m_videoWidget->show();
-        ui->frameLabel->hide();
-        m_player->setMedia(QUrl::fromLocalFile(m_avFileFormatList[row+ m_AVFileFormatIndex].file_path));
+//        m_videoWidget->show();
+//        ui->frameLabel->hide();
+        m_player->setSource(m_avFileFormatList[row+ m_AVFileFormatIndex].file_path);
         m_player->play();
         m_player->pause();
     }
     else if (!strncmp(m_currentAVFileFormat.filePrefix, "SR", 2))
     {
-        m_videoWidget->show();
-        ui->frameLabel->hide();
-        m_player->setMedia(QUrl::fromLocalFile(m_avFileFormatList[row+ m_AVFileFormatIndex].file_path));
+//        m_videoWidget->show();
+//        ui->frameLabel->hide();
+        m_player->setSource(m_avFileFormatList[row+ m_AVFileFormatIndex].file_path);
         m_player->play();
         m_player->pause();
     }
     else if (!strncmp(m_currentAVFileFormat.filePrefix, "MV", 2))
     {
-        m_videoWidget->show();
-        ui->frameLabel->hide();
-        m_player->setMedia(QUrl::fromLocalFile(m_avFileFormatList[row+ m_AVFileFormatIndex].file_path));
+//        m_videoWidget->show();
+//        ui->frameLabel->show();
+        m_player->setSource(m_avFileFormatList[row+ m_AVFileFormatIndex].file_path);
         m_player->play();
         m_player->pause();
     }
     else if (!strncmp(m_currentAVFileFormat.filePrefix, "AI", 2))
     {
-        ui->frameLabel->show();
-        m_videoWidget->hide();
+//        ui->frameLabel->show();
+//        m_videoWidget->hide();
         ui->frameLabel->setImage(m_avFileFormatList[row+ m_AVFileFormatIndex].file_path, ui->frameLabel->size());
     }
     else if (!strncmp(m_currentAVFileFormat.filePrefix, "SC", 2))
     {
-        ui->frameLabel->show();
-        m_videoWidget->hide();
+//        ui->frameLabel->show();
+//        m_videoWidget->hide();
         ui->frameLabel->setImage(m_avFileFormatList[row+ m_AVFileFormatIndex].file_path, ui->frameLabel->size());
     }
 }

@@ -780,7 +780,7 @@ void print_wifi_body(int socket)
     {
     case 2:		// 2 inch printer
     {
-        WiFi_Printf(socket, "Location : %s\r\n", g_file_elem_for_printer.location);
+        WiFi_Printf(socket, "Location : %s\r\n", g_file_elem_for_printer.location.c_str());
         WiFi_Printf(socket, "  GPS(%s, %s)\r\n\r\n", g_file_elem_for_printer.latitude, g_file_elem_for_printer.longitude);
 
         if (json_data_manager_get_print_option_body())	// +- David, printOption print
@@ -791,7 +791,7 @@ void print_wifi_body(int socket)
             WiFi_Printf(socket, "_ _ _ _ _ _ _ _ _ _ _ _ _ _\r\n");
             WiFi_Printf(socket, "Driver's License No. \r\n\r\n");
             WiFi_Printf(socket, "_ _ _ _ _ _ _ _ _ _ _ _ _ _\r\n");
-            WiFi_Printf(socket, "Officer's ID %s\r\n\r\n", g_file_elem_for_printer.user_name);
+            WiFi_Printf(socket, "Officer's ID %s\r\n\r\n", g_file_elem_for_printer.user_name.c_str());
             WiFi_Printf(socket, "_ _ _ _ _ _ _ _ _ _ _ _ _ _\r\n");
             WiFi_Printf(socket, "Signature of Driver \r\n\r\n");
             WiFi_Printf(socket, "_ _ _ _ _ _ _ _ _ _ _ _ _ _\r\n");
@@ -804,7 +804,7 @@ void print_wifi_body(int socket)
     break;
     case 3:		// 3 inch printer
     {
-        WiFi_Printf(socket, "Location : %s(%s, %s)\r\n\r\n", g_file_elem_for_printer.location, g_file_elem_for_printer.latitude, g_file_elem_for_printer.longitude);
+        WiFi_Printf(socket, "Location : %s(%s, %s)\r\n\r\n", g_file_elem_for_printer.location.c_str(), g_file_elem_for_printer.latitude, g_file_elem_for_printer.longitude);
 
         if (json_data_manager_get_print_option_body())	// +- David, printOption print
         {
@@ -814,7 +814,7 @@ void print_wifi_body(int socket)
             WiFi_Printf(socket, "_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\r\n");
             WiFi_Printf(socket, "Driver's License No. \r\n\r\n");
             WiFi_Printf(socket, "_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\r\n");
-            WiFi_Printf(socket, "Officer's ID    : %s\r\n\r\n", g_file_elem_for_printer.user_name);
+            WiFi_Printf(socket, "Officer's ID    : %s\r\n\r\n", g_file_elem_for_printer.user_name.c_str());
             WiFi_Printf(socket, "_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\r\n");
             WiFi_Printf(socket, "Signature of Driver \r\n\r\n");
             WiFi_Printf(socket, "_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\r\n");
@@ -827,7 +827,7 @@ void print_wifi_body(int socket)
     break;
     case 4:		// 4 inch printer
     {
-        WiFi_Printf(socket, "Location : %s(%s, %s)\r\n\r\n", g_file_elem_for_printer.location, g_file_elem_for_printer.latitude, g_file_elem_for_printer.longitude);
+        WiFi_Printf(socket, "Location : %s(%s, %s)\r\n\r\n", g_file_elem_for_printer.location.c_str(), g_file_elem_for_printer.latitude, g_file_elem_for_printer.longitude);
 
         if (json_data_manager_get_print_option_body())	// +- David, printOption print
         {
@@ -837,7 +837,7 @@ void print_wifi_body(int socket)
             WiFi_Printf(socket, "_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\r\n");
             WiFi_Printf(socket, "Driver's License No. \r\n\r\n");
             WiFi_Printf(socket, "_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\r\n");
-            WiFi_Printf(socket, "Officer's ID %s\r\n\r\n", g_file_elem_for_printer.user_name);
+            WiFi_Printf(socket, "Officer's ID %s\r\n\r\n", g_file_elem_for_printer.user_name.c_str());
             WiFi_Printf(socket, "_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\r\n");
             WiFi_Printf(socket, "Signature of Driver \r\n\r\n");
             WiFi_Printf(socket, "_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\r\n");
@@ -850,7 +850,7 @@ void print_wifi_body(int socket)
     break;
     default:
     {
-        WiFi_Printf(socket, "Location : %s(%s, %s)\r\n\r\n", g_file_elem_for_printer.location, g_file_elem_for_printer.latitude, g_file_elem_for_printer.longitude);
+        WiFi_Printf(socket, "Location : %s(%s, %s)\r\n\r\n", g_file_elem_for_printer.location.c_str(), g_file_elem_for_printer.latitude, g_file_elem_for_printer.longitude);
 
         if (json_data_manager_get_print_option_body())	// +- David, printOption print
         {
@@ -860,7 +860,7 @@ void print_wifi_body(int socket)
             WiFi_Printf(socket, "_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\r\n");
             WiFi_Printf(socket, "Driver's License No. \r\n\r\n");
             WiFi_Printf(socket, "_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\r\n");
-            WiFi_Printf(socket, "Officer's ID    : %s\r\n\r\n", g_file_elem_for_printer.user_name);
+            WiFi_Printf(socket, "Officer's ID    : %s\r\n\r\n", g_file_elem_for_printer.user_name.c_str());
             WiFi_Printf(socket, "_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\r\n");
             WiFi_Printf(socket, "Signature of Driver \r\n\r\n");
             WiFi_Printf(socket, "_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\r\n");

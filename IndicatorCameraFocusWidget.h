@@ -5,6 +5,7 @@
 
 class SerialLaserManager;
 class SerialViscaManager;
+class CustomLabel;
 class CustomPushButton;
 namespace Ui {
 class IndicatorCameraFocusWidget;
@@ -28,6 +29,7 @@ private:
     SerialViscaManager* m_pserialViscaManager;
     SerialLaserManager* m_pserialLaserManager;
     QString m_FocusValue;
+    CustomLabel* m_pDistanceLabel;
     // QWidget interface
 protected:
     void mousePressEvent(QMouseEvent *event);

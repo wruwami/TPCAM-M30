@@ -12,7 +12,9 @@ class FileManagerWidget;
 }
 
 class QPushButton;
-class QMediaPlayer;
+class QAVPlayer;
+class VideoWidget;
+//class QMediaPlayer;
 class QVideoWidget;
 class FileManagerWidget : public QWidget
 {
@@ -31,8 +33,9 @@ private:
     QList<AVFileFormat> m_avFileFormatList;
     AVFileFormat m_currentAVFileFormat;
     int m_AVFileFormatIndex = 0;
-    QVideoWidget *m_videoWidget;
-    QMediaPlayer* m_player;
+//    QVideoWidget *m_videoWidget;
+    VideoWidget* m_pVideoWidget;
+    QAVPlayer* m_player;
     QString m_dateTime;
     StorageManager m_sdcardManager;
     bool m_bA4Print = false;

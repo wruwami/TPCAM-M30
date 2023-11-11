@@ -184,13 +184,6 @@
        </property>
       </widget>
      </item>
-     <item row="5" column="2" colspan="3" alignment="Qt::AlignHCenter">
-      <widget class="CustomLabel" name="speedSensitivitylabel">
-       <property name="text">
-        <string/>
-       </property>
-      </widget>
-     </item>
     </layout>
    </item>
   </layout>

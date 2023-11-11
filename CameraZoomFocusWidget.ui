@@ -156,7 +156,7 @@
       </layout>
      </item>
      <item>
-      <layout class="QVBoxLayout" name="verticalLayout_6" stretch="335,83">
+      <layout class="QVBoxLayout" name="verticalLayout_6" stretch="335">
        <item>
         <spacer name="verticalSpacer_2">
          <property name="orientation">
@@ -169,13 +169,6 @@
           </size>
          </property>
         </spacer>
-       </item>
-       <item>
-        <widget class="CustomLabel" name="speedSensitivitylabel">
-         <property name="text">
-          <string/>
-         </property>
-        </widget>
        </item>
       </layout>
      </item>

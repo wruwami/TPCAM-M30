@@ -44,6 +44,7 @@ enum TriggerStatus{
     SKIP,
 };
 
+class CustomLabel;
 class FtpTransThread;
 class SerialLaserManager;
 class SerialViscaManager;
@@ -168,6 +169,7 @@ private:
 
     QMutex m_mutex;
     bool m_isZFWorking = false;
+    CustomLabel* m_pDistanceLabel;
 protected slots:
     void on_hidePushButton_clicked();
 //    void doShartAction();

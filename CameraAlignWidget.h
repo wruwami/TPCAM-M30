@@ -15,6 +15,7 @@ enum AlignMode{
 };
 
 class Camera;
+class CustomLabel;
 class CustomPushButton;
 class SerialLaserManager;
 namespace Ui {
@@ -51,6 +52,7 @@ private:
     SerialLaserManager* m_pSerialLaserManager = nullptr;
     int m_CameraMoveUnit = 1;
     QTimer m_ClearTimer;
+    CustomLabel* m_pSpeedSensitivitylabel;
 private slots:
     void on_hudPushButton_clicked();
 
@@ -76,6 +78,7 @@ private slots:
 protected:
     void paintEvent(QPaintEvent *event);
     void mousePressEvent(QMouseEvent *event);
+    void resizeEvent(QResizeEvent* event);
 
 private:
     Ui::CameraAlignWidget *ui;

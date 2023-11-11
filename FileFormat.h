@@ -6,10 +6,10 @@
 #include <QFileInfo>
 
 struct AVFileFormat {
-    char filePrefix[2]; //    1.      AV : Prefix for file (AV : Image + Video, AI : Only Image, VV : Only Video)
-    char index[5];//    2.      00007 : Captured index during the day									파일 관리에서 인덱스
-    char date[8];//    3.      20190109 : Date									날짜
-    char time[7];//    4.      1644458 : 16(Hour), 44(Minute), 45(Second), 8 (1/10 Second)									시분초_1/10ms
+    char filePrefix[2 + 1]; //    1.      AV : Prefix for file (AV : Image + Video, AI : Only Image, VV : Only Video)
+    char index[5 + 1];//    2.      00007 : Captured index during the day									파일 관리에서 인덱스
+    char date[8 + 1];//    3.      20190109 : Date									날짜
+    char time[7 + 1];//    4.      1644458 : 16(Hour), 44(Minute), 45(Second), 8 (1/10 Second)									시분초_1/10ms
     QString captureSpeed;//    5.      +0200 : Captured Speed (measured by laser)									단속 속도
     QString speedLimit;//    6.      0100 : Speed Limit									제한 속도
     QString captureSpeedLimit;//    7.      0100 : Capture Speed Limit									갭쳐 속도
@@ -20,7 +20,7 @@ struct AVFileFormat {
     QString location;//    12.   SEOUL : Location input by user									Location
     QString userId;//    13.   Mike : User ID									유저 ID
     QString deviceId;//    14.   TP00001 : Device ID									디바이스 ID
-    char unit;//    15.   S : Unit (S is Standard, B is British)									단위
+    char unit[1 + 1];//    15.   S : Unit (S is Standard, B is British)									단위
     QString file_path;
 };
 
@@ -33,30 +33,36 @@ struct AVFileFormat {
 
 static AVFileFormat GetFileFormat(QString file_path)
 {
-//    \int index = file_path.lastIndexOf('/');\
-//    int index2 = file_path.lastIndexOf('.');
+    int index = file_path.lastIndexOf('/');
+    int index2 = file_path.lastIndexOf('.');
 
-//    QString str = file_path.mid(index + 1, file_path.size() - index - index2 - 1);
-    QString file_base_name = QFileInfo(file_path).baseName();
+    QString file_base_name = file_path.mid(index + 1, file_path.size() - index - file_path.size() + index2 - 1);
+//    QString file_base_name = QFileInfo(file_path).baseName();
 
     AVFileFormat avFileFormat;
     QStringList strList = file_base_name.split('_');
     memcpy(avFileFormat.filePrefix, strList[0].toStdString().c_str(), strList[0].size());
+    avFileFormat.filePrefix[2] = '\0';
     if (!strcmp(avFileFormat.filePrefix, "SC") || !strcmp(avFileFormat.filePrefix, "SR"))
     {
         memcpy(avFileFormat.date, strList[1].toStdString().c_str(), strList[1].size());
-        QString time = strList[2] + "0";
-        memcpy(avFileFormat.time, time.toStdString().c_str(), time.size());
+        avFileFormat.date[8] = '\0';
+        memcpy(avFileFormat.time, strList[2].toStdString().c_str(), strList[2].size());
+        avFileFormat.time[6] = '\0';
+        avFileFormat.time[7] = '\0';
         memset(avFileFormat.index, 0, 5);
-        avFileFormat.unit = ' ';
+        memset(avFileFormat.unit, 0, 2);
 
         avFileFormat.file_path = file_path;
     }
     else
     {
         memcpy(avFileFormat.index, strList[1].toStdString().c_str(), strList[1].size());
+        avFileFormat.index[5] = '\0';
         memcpy(avFileFormat.date, strList[2].toStdString().c_str(), strList[2].size());
+        avFileFormat.date[8] = '\0';
         memcpy(avFileFormat.time, strList[3].toStdString().c_str(), strList[3].size());
+        avFileFormat.time[7] = '\0';
         avFileFormat.captureSpeed = strList[4];
         avFileFormat.speedLimit = strList[5];
         avFileFormat.captureSpeedLimit = strList[6];
@@ -81,7 +87,8 @@ static AVFileFormat GetFileFormat(QString file_path)
 
 
         avFileFormat.file_path = file_path;
-        avFileFormat.unit = 'S';
+        strcpy(avFileFormat.unit, "S");
+//         = 'S';
 
     }
     return avFileFormat;

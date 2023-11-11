@@ -64,8 +64,8 @@ private slots:
 
 private:
     Ui::MovieViewerDialogSub*ui;
-    QVideoWidget* m_videoWidget;
-    QMediaPlayer* m_player;
+//    QVideoWidget* m_videoWidget;
+//    QMediaPlayer* m_player;
     qint64 duration;
 
     QAVPlayer m_AVplayer;

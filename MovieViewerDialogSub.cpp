@@ -24,8 +24,8 @@ MovieViewerDialogSub::MovieViewerDialogSub(AVFileFormat avFileFormat, QWidget *p
     this->setWindowFlags(Qt::FramelessWindowHint);
     setGeometry(GetWidgetSizePos(QRect(0,0, 1600, 960)));
 
-    m_player = new QMediaPlayer(this);
-    m_videoWidget = new QVideoWidget(this);
+//    m_player = new QMediaPlayer(this);
+//    m_videoWidget = new QVideoWidget(this);
     ui->verticalLayout->insertWidget(0, m_pVideoWidget, 390);
     m_pVideoWidget->show();
 //    m_player->setVideoOutput(m_videoWidget);
@@ -103,8 +103,8 @@ MovieViewerDialogSub::MovieViewerDialogSub(AVFileFormat avFileFormat, QWidget *p
 MovieViewerDialogSub::~MovieViewerDialogSub()
 {
     delete m_pVideoWidget;
-    delete m_videoWidget;
-    delete m_player;
+//    delete m_videoWidget;
+//    delete m_player;
     delete m_MediaObject;
 
     delete ui;

@@ -71,7 +71,12 @@ m_file_name = dir_qstr.toStdString() + "\\" + file_name;
 
     std::vector<std::string> col = doc.GetColumn<std::string>(-1);
     foreach (std::string index, col) {
-        m_StringResource[index] = QString::fromStdString(doc.GetCell<std::string>(language, index));
+        try {
+            m_StringResource[index] = QString::fromStdString(doc.GetCell<std::string>(language, index));
+        }  catch (...) {
+            m_StringResource[index] = QString::fromStdString(index);
+        }
+
     }
 
     m_Language = QString::fromStdString(language);

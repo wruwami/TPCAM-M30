@@ -83,7 +83,10 @@ void FtpTransThread2::run()
             emit setFileNameText(fileName);
 
             if ( QThread::currentThread()->isInterruptionRequested() )
+            {
+                ftp.Quit();
                 return;
+            }
 
     //        ftp.put_file(fileName.toStdString().c_str());
 

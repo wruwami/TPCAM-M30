@@ -71,24 +71,25 @@ static AVFileFormat GetFileFormat(QString file_path)
         avFileFormat.latitude = strList[9];
         avFileFormat.longitude = strList[10];
         avFileFormat.location = strList[11];
-        avFileFormat.userId = strList[12];
         if (strList.size() == 15)
         {
-            avFileFormat.deviceId = strList[13];
+            avFileFormat.deviceId = strList[12];
+            avFileFormat.userId = strList[13];
         }
         else if (strList.size() == 16)
         {
-            avFileFormat.deviceId = strList[13] + "_" + strList[14];
+            avFileFormat.deviceId = strList[12] + "_" + strList[13];
+            avFileFormat.userId = strList[14];
         }
         else if (strList.size() == 17)
         {
-            avFileFormat.deviceId = strList[13] + "_" + strList[14] + "_" + strList[15];
+            avFileFormat.deviceId = strList[12] + "_" + strList[13] + "_" + strList[14];
+            avFileFormat.userId = strList[15];
         }
 
 
         avFileFormat.file_path = file_path;
         strcpy(avFileFormat.unit, "S");
-//         = 'S';
 
     }
     return avFileFormat;

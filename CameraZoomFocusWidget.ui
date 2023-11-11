@@ -95,7 +95,7 @@
         </layout>
        </item>
        <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="81,81,81,10">
+        <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="91,81,81,0">
          <item>
           <widget class="CustomComboBox" name="dayComboBox"/>
          </item>
@@ -120,8 +120,8 @@
            </property>
            <property name="sizeHint" stdset="0">
             <size>
-             <width>40</width>
-             <height>20</height>
+             <width>0</width>
+             <height>0</height>
             </size>
            </property>
           </spacer>
@@ -156,7 +156,7 @@
       </layout>
      </item>
      <item>
-      <layout class="QVBoxLayout" name="verticalLayout_6" stretch="335">
+      <layout class="QVBoxLayout" name="verticalLayout_6" stretch="335,83">
        <item>
         <spacer name="verticalSpacer_2">
          <property name="orientation">
@@ -169,6 +169,13 @@
           </size>
          </property>
         </spacer>
+       </item>
+       <item>
+        <widget class="CustomLabel" name="speedSensitivitylabel">
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
        </item>
       </layout>
      </item>

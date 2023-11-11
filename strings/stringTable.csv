@@ -116,7 +116,7 @@ IDS_CAMERA_ZOOM_FOCUS2,ZOOM,줌,ZOOM DA,ZOOM DE,DU ZOOM DE,التصغير
 IDS_CAMERA_ZOOM_FOCUS3,FOCUS,포커스,CÂMERA,LA CÁMARA,LA CAMÉRA,بالكاميرا
 IDS_CAMERA_HUD_ALIGN1,CAMERA,카메라,ALINHAMENTO,ALINEACIÓN,ALIGNEMENT,محاذاة
 IDS_CAMERA_HUD_ALIGN2,HUD,HUD,DO HUD DA,DEL HUD DE,DU HUD DE,شاشة عرض
-IDS_CAMERA_HUD_ALIGN3,ALIGN,정렬,CÂMERA,LA CÁMARA,LA CAMÉRA,
+IDS_CAMERA_HUD_ALIGN3,ALIGN,정렬,CÂMERA,LA CÁMARA,LA CAMÉRA,IDS_CAMERA_HUD_ALIGN3
 IDS_OK,OK,확인,OK,OK,OK,نعم
 IDS_HOME,Home,메인 메뉴,Lar,Casa,Domicile,بيت
 IDS_DEFAULT,Default,중심좌표,Padrão,Defecto,Défaut,تقصير
@@ -188,7 +188,7 @@ IDS_20_MINUTE,20 minutes,20 분,20 minutos,20 minutos,20 minutes,20 دقيقة
 IDS_30_MINUTE,30 minutes,30 분,30 minutos,30 minutos,30 minutes,30 دقيقة
 IDS_ARE_U_SURE_FACTORY_DEFAILT,Are you sure to set the factory default?,공장 초기화를 실행하시겠습니까?,Tem certeza de definir o padrão de fábrica?,¿Estás seguro de establecer el valor predeterminado de fábrica?,Êtes-vous sûr de définir les paramètres d'usine par défaut ?,هل أنت متأكد من ضبط المصنع الافتراضي؟
 IDS_ARE_U_SURE_FACTORY_DEFAULT,Do you want to set a factory reset?,공장 초기화를 실행하시겠습니까?,Deseja realizar uma redef. de fábrica?,Quieres realizar un restable. de fábrica?,Voulez-vous effectuer une réinit. d'usine ?,هل أنت متأكد من ضبط المصنع الافتراضي؟
-IDS_PLEASE_INPUT_PW,"Please, input admin password.",관리자 비밀번호를 입력해주세요.,"Insira a senha do administrador.","Ingrese la contraseña de administrador.",Veuillez saisir le mot de passe admin.,"من فضلك ، أدخل كلمة مرور المسؤول."
+IDS_PLEASE_INPUT_PW,"Please, input admin password.",관리자 비밀번호를 입력해주세요.,Insira a senha do administrador.,Ingrese la contraseña de administrador.,Veuillez saisir le mot de passe admin.,"من فضلك ، أدخل كلمة مرور المسؤول."
 IDC_SNAPSHOT,Snapshot,스냅샷,Instantâneo,Instantánea,Instantané,لمحة
 IDS_STILL_IMAGE_VIEWER,Still Image Viewer,이미지 뷰어,Visualizador de imagens fixas,Visor de imágenes fijas,Visionneuse d'images fixes,عارض الصور الثابتة
 IDS_QUIT,Quit,종료,Desistir,Dejar,Quitter,استقال

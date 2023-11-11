@@ -43,7 +43,7 @@ int FtpTransThread::DoFtpTrans(QString file_name)
     }
 
     QString target_file_name = file_name;
-    QString dir = target_file_name.replace(GetSDPath(), QString(targetDir));
+    QString dir = target_file_name.replace(GetSDPath() + "/", QString(targetDir));
     QFileInfo fi(dir);
     dir = fi.absoluteFilePath();
     dir.replace("\"", "");

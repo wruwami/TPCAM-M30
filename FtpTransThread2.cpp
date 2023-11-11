@@ -63,7 +63,7 @@ void FtpTransThread2::run()
         QDirIterator iterDir3(GetSDPath(), QDir::Dirs | QDir::NoDotAndDotDot | QDir::NoSymLinks, QDirIterator::Subdirectories);
         while (iterDir3.hasNext())
         {
-            QString dir = iterDir3.next().replace(GetSDPath(), QString(targetDir));
+            QString dir = iterDir3.next().replace(GetSDPath() + "/", QString(targetDir));
             dir.replace("\"", "");
             ftp.Mkdir(dir.toStdString().c_str());
          }
@@ -80,10 +80,10 @@ void FtpTransThread2::run()
     //        i++;
             QString fileName = iterDir2.next();
             QString targetFileName = fileName;
-            targetFileName = targetFileName.replace(GetSDPath(), QString(targetDir));
+            targetFileName = targetFileName.replace(GetSDPath() + "/", QString(targetDir));
             targetFileName.replace("\"", "");
             QString filePath;
-            ftp.Put(fileName.toStdString().c_str(), fileName.toStdString().c_str(), ftplib::image);
+            ftp.Put(fileName.toStdString().c_str(), targetFileName.toStdString().c_str(), ftplib::image);
             emit setValue((++i) / m_count);
             emit setFileCountText(QString("%1 / %2").arg(i).arg(m_count));
             emit setFileNameText(fileName);

@@ -14,6 +14,7 @@
 
 #include <QDebug>
 #include <QJsonObject>
+#include <QJsonArray>
 
 #include "NetworkManager.h"
 #include "LcdBrightManager.h"
@@ -69,7 +70,7 @@ SettingWidget::SettingWidget(QWidget *parent) :
     m_pCancelPushButton = ui->cancelPushButton;
 
     clearStyleSheet();
-    ui->setting1PushButton->setStyleSheet("QPushButton{ color : black; background-color :white; border-style: solid; border-width: 1px; border-color : red;}");
+    ui->setting1PushButton->setStyleSheet("QPushButton{ color : black; background-color :white; border-style: solid; border-width: 2px; border-color : red;}");
 
     m_pSetting3SystemButton = m_pSetting3Widget->m_pSystemInfoButton;
 }
@@ -98,62 +99,62 @@ SettingWidget::~SettingWidget()
 
 void SettingWidget::clearStyleSheet()
 {
-    ui->setting1PushButton->setStyleSheet("QPushButton { color: black; background-color: white; border-width: 1px; border-color: blue; border-style: solid;}");
-    ui->setting2PushButton->setStyleSheet("QPushButton { color: black; background-color: white; border-width: 1px; border-color: blue; border-style: solid;}");
-    ui->setting3PushButton->setStyleSheet("QPushButton { color: black; background-color: white; border-width: 1px; border-color: blue; border-style: solid;}");
-    ui->setting4PushButton->setStyleSheet("QPushButton { color: black; background-color: white; border-width: 1px; border-color: blue; border-style: solid;}");
-    ui->setting5PushButton->setStyleSheet("QPushButton { color: black; background-color: white; border-width: 1px; border-color: blue; border-style: solid;}");
-    ui->setting6PushButton->setStyleSheet("QPushButton { color: black; background-color: white; border-width: 1px; border-color: blue; border-style: solid;}");
-    ui->setting7PushButton->setStyleSheet("QPushButton { color: black; background-color: white; border-width: 1px; border-color: blue; border-style: solid;}");
+    ui->setting1PushButton->setStyleSheet("QPushButton { color: black; background-color: white; border-width: 2px; border-color: blue; border-style: solid;}");
+    ui->setting2PushButton->setStyleSheet("QPushButton { color: black; background-color: white; border-width: 2px; border-color: blue; border-style: solid;}");
+    ui->setting3PushButton->setStyleSheet("QPushButton { color: black; background-color: white; border-width: 2px; border-color: blue; border-style: solid;}");
+    ui->setting4PushButton->setStyleSheet("QPushButton { color: black; background-color: white; border-width: 2px; border-color: blue; border-style: solid;}");
+    ui->setting5PushButton->setStyleSheet("QPushButton { color: black; background-color: white; border-width: 2px; border-color: blue; border-style: solid;}");
+    ui->setting6PushButton->setStyleSheet("QPushButton { color: black; background-color: white; border-width: 2px; border-color: blue; border-style: solid;}");
+    ui->setting7PushButton->setStyleSheet("QPushButton { color: black; background-color: white; border-width: 2px; border-color: blue; border-style: solid;}");
 }
 
 void SettingWidget::on_setting1PushButton_clicked()
 {
     ui->stackedWidget->setCurrentIndex(0);
     clearStyleSheet();
-    ui->setting1PushButton->setStyleSheet("QPushButton{ color : black; background-color :white; border-style: solid; border-width: 1px; border-color : red;}");
+    ui->setting1PushButton->setStyleSheet("QPushButton{ color : black; background-color :white; border-style: solid; border-width: 2px; border-color : red;}");
 }
 
 void SettingWidget::on_setting2PushButton_clicked()
 {
     ui->stackedWidget->setCurrentIndex(1);
     clearStyleSheet();
-    ui->setting2PushButton->setStyleSheet("QPushButton{ color : black; background-color :white; border-style: solid; border-width: 1px; border-color : red;}");
+    ui->setting2PushButton->setStyleSheet("QPushButton{ color : black; background-color :white; border-style: solid; border-width: 2px; border-color : red;}");
 }
 
 void SettingWidget::on_setting3PushButton_clicked()
 {
     ui->stackedWidget->setCurrentIndex(2);
     clearStyleSheet();
-    ui->setting3PushButton->setStyleSheet("QPushButton{ color : black; background-color :white; border-style: solid; border-width: 1px; border-color : red;}");
+    ui->setting3PushButton->setStyleSheet("QPushButton{ color : black; background-color :white; border-style: solid; border-width: 2px; border-color : red;}");
 }
 
 void SettingWidget::on_setting4PushButton_clicked()
 {
     ui->stackedWidget->setCurrentIndex(3);
     clearStyleSheet();
-    ui->setting4PushButton->setStyleSheet("QPushButton{ color : black; background-color :white; border-style: solid; border-width: 1px; border-color : red;}");
+    ui->setting4PushButton->setStyleSheet("QPushButton{ color : black; background-color :white; border-style: solid; border-width: 2px; border-color : red;}");
 }
 
 void SettingWidget::on_setting5PushButton_clicked()
 {
     ui->stackedWidget->setCurrentIndex(4);
     clearStyleSheet();
-    ui->setting5PushButton->setStyleSheet("QPushButton{ color : black; background-color :white; border-style: solid; border-width: 1px; border-color : red;}");
+    ui->setting5PushButton->setStyleSheet("QPushButton{ color : black; background-color :white; border-style: solid; border-width: 2px; border-color : red;}");
 }
 
 void SettingWidget::on_setting6PushButton_clicked()
 {
     ui->stackedWidget->setCurrentIndex(5);
     clearStyleSheet();
-    ui->setting6PushButton->setStyleSheet("QPushButton{ color : black; background-color :white; border-style: solid; border-width: 1px; border-color : red;}");
+    ui->setting6PushButton->setStyleSheet("QPushButton{ color : black; background-color :white; border-style: solid; border-width: 2px; border-color : red;}");
 }
 
 void SettingWidget::on_setting7PushButton_clicked()
 {
     ui->stackedWidget->setCurrentIndex(6);
     clearStyleSheet();
-    ui->setting7PushButton->setStyleSheet("QPushButton{ color : black; background-color :white; border-style: solid; border-width: 1px; border-color : red;}");
+    ui->setting7PushButton->setStyleSheet("QPushButton{ color : black; background-color :white; border-style: solid; border-width: 2px; border-color : red;}");
 }
 
 void SettingWidget::on_stackedWidget_currentChanged(int arg1)
@@ -193,8 +194,10 @@ void SettingWidget::on_savePushButton_clicked()
 
 //    ConfigManager configManaer1 = ConfigManager("parameter_settings1.json");
 //    QJsonObject object = configManaer1.GetConfig();
-
-
+    m_pSetting6Widget->initializeStringTable();
+//    QJsonObject jsonObject = ConfigManager("parameter_settings6.json").GetConfig();
+//    int index = jsonObject["language select"].toInt() - 1;
+//    ResourceLoader::StringLoader::GetInstance()->Initialize("strings", "stringTable.csv", jsonObject["start language items"].toArray()[index].toString().toStdString());
 }
 
 void SettingWidget::on_cancelPushButton_clicked()

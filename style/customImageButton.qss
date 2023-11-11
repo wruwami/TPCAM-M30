@@ -1,11 +1,14 @@
 .QWidget {
     color: black;
     background-color: white;
-    border-width: 1px;
+    border-width: 2px;
     border-color: blue;
     border-style: solid;
+    padding: 0px;
 }
 
 .QWidget:pressed {
     border-color: red;
+    border-width: 2px;
+    padding: 0px;
 }

@@ -5,13 +5,14 @@
 QPushButton {
     color: white;
     bacground-color: black;
-    border-width: 1px;
+    border-width: 2px;
     border-color: blue;
     border-style: solid;
 }
 
 QPushButton:pressed {
     color: red;
+    border-width: 2px;
 }
 
 QLabel {

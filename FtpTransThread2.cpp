@@ -29,16 +29,22 @@ void FtpTransThread2::run()
     //    qDebug() << QString(jsonObject["ftp server( dns )"].toString() + ":" + ;
         int ret = ftp.Connect(QString(jsonObject["ftp server( dns )"].toString() + ":" + std::to_string(jsonObject["ftp port"].toInt()).c_str()).toStdString().c_str());
         if (ret == 0)
-            emit sig_exit();
+        {
+            return;
+        }
 
         ret = ftp.Login(jsonObject["ftp user name"].toString().toStdString().c_str(), jsonObject["ftp password"].toString().toStdString().c_str());
         if (ret == 0)
-            emit sig_exit();
+        {
+            return;
+        }
 
         char targetDir[1024];
         ftp.Pwd(targetDir, 1024);
         if (!strcmp(targetDir, ""))
-            emit sig_exit();
+        {
+            return;
+        }
 
         QDir qdir(GetSDPath());
         QDirIterator iterDir(GetSDPath(), QDir::Files | QDir::NoSymLinks, QDirIterator::Subdirectories);
@@ -64,8 +70,6 @@ void FtpTransThread2::run()
         int i = 0;
         while (iterDir2.hasNext())
         {
-            if ( QThread::currentThread()->isInterruptionRequested() )
-                return;
 
     //        i++;
             QString fileName = iterDir2.next();
@@ -77,6 +81,10 @@ void FtpTransThread2::run()
             emit setValue((++i) / m_count);
             emit setFileCountText(QString("%1 / %2").arg(i).arg(m_count));
             emit setFileNameText(fileName);
+
+            if ( QThread::currentThread()->isInterruptionRequested() )
+                return;
+
     //        ftp.put_file(fileName.toStdString().c_str());
 
     //        QString iterDir2.next();

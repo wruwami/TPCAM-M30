@@ -33,7 +33,12 @@ void FtpTransThread::PushFile(QString file_name)
 void FtpTransThread::DoFtpTrans(QString file_name)
 {
     char targetDir[1024];
-    m_ftp.Pwd(targetDir, 1024);
+
+
+    if (!m_ftp.Pwd(targetDir, 1024))
+    {
+        emit sig_exit();
+    }
 
     QString target_file_name = file_name;
     QString dir = target_file_name.replace(GetSDPath(), QString(targetDir));
@@ -42,14 +47,24 @@ void FtpTransThread::DoFtpTrans(QString file_name)
     dir.replace("\"", "");
     std::string dir2 = dir.toStdString();
     dir2 = dir2.substr(0, dir2.rfind("/"));
-    m_ftp.Mkdir(dir2.c_str());
+    if (!m_ftp.Mkdir(dir2.c_str()))
+    {
+        emit sig_exit();
+    }
 
-    m_ftp.Mkdir(dir.toStdString().c_str());
+    if (!m_ftp.Mkdir(dir.toStdString().c_str()))
+    {
+        emit sig_exit();
+    }
+
 
 //    QString fileName = file_name.replace(GetSDPath(), QString(targetDir));
     target_file_name.replace("\"", "");
 
-    m_ftp.Put(file_name.toStdString().c_str(), target_file_name.toStdString().c_str(), ftplib::image);
+    if (!m_ftp.Put(file_name.toStdString().c_str(), target_file_name.toStdString().c_str(), ftplib::image))
+    {
+        emit sig_exit();
+    }
 
 }
 
@@ -65,10 +80,6 @@ void FtpTransThread::run()
         emit sig_exit();
 
     forever{
-        if ( QThread::currentThread()->isInterruptionRequested() )
-        {
-            return;
-        }
 
         m_mutex->lock();
         QString file_name;
@@ -88,6 +99,8 @@ void FtpTransThread::run()
         }
         msleep(1);
 
+        if ( QThread::currentThread()->isInterruptionRequested() )
+            return;
     }
     m_ftp.Quit();
     emit sig_exit();

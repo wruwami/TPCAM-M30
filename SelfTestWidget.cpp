@@ -65,9 +65,9 @@ SelfTestWidget::SelfTestWidget(QWidget *parent) :
     if (SerialGPSManager::GetInstance()->GetSatellitesInView() >= 3)
     {
         QDateTime datetime = SerialGPSManager::GetInstance()->GetDateTime();
-        QString string = datetime.toString("\"yyyy-MM-dd hh:mm:ss\"");
-        QString dateTimeString ("date -s ");
-        dateTimeString.append(string);
+        ;
+        QString dateTimeString ("sudo date +%s -s @");
+        dateTimeString.append(QString::number(datetime.toSecsSinceEpoch()));
 
         system(dateTimeString.toStdString().c_str());
     }

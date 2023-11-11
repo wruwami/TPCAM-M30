@@ -94,19 +94,30 @@ FileManagerFileTransferDialog::FileManagerFileTransferDialog(TransType type, QWi
 
 FileManagerFileTransferDialog::~FileManagerFileTransferDialog()
 {
-    switch (m_type)
-    {
-    case FTPType:
-    {
-        m_FtpTransThread->requestInterruption();
-    }
-        break;
-    case FileType:
-    {
-        m_FileTransThread->requestInterruption();
-    }
-        break;
-    }
+//    switch (m_type)
+//    {
+//    case FTPType:
+//    {
+//        if (m_FtpTransThread->isRunning())
+//        {
+//            m_FtpTransThread->requestInterruption();
+//            m_FtpTransThread->wait(1);
+//            m_FtpTransThread->exit();
+
+//        }
+//    }
+//        break;
+//    case FileType:
+//    {
+//        if (m_FileTransThread->isRunning())
+//        {
+//            m_FileTransThread->requestInterruption();
+//            m_FileTransThread->wait(1);
+//            m_FileTransThread->exit();
+//        }
+//    }
+//        break;
+//    }
 
     delete ui;
 }

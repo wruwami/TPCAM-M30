@@ -267,7 +267,7 @@ void DateTimeWidget::on_savePushButton_clicked()
 
 #ifdef  Q_OS_LINUX
     QString string = m_dateTime.toString("yyyy-MM-dd hh:mm:ss");
-    QString dateTimeString ("date -s \"");
+    QString dateTimeString;
 
 //    string.remove(0, 1)\;
 //    string.remove(string.size() - 1, 1);
@@ -275,10 +275,12 @@ void DateTimeWidget::on_savePushButton_clicked()
 
     if (isChecked)
     {
-        dateTimeString.append(SerialGPSManager::GetInstance()->GetDateTimeString());
+        dateTimeString = ("sudo date +%s -s @");
+        dateTimeString.append(QString::number(SerialGPSManager::GetInstance()->GetDateTime().toSecsSinceEpoch()));
     }
     else
     {
+        dateTimeString = ("sudo date -s");
         dateTimeString.append(string);
     }
     dateTimeString.append("\"");

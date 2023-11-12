@@ -1,19 +1,19 @@
 {
 	"lcd brightness selection": 2,
 	"lcd brightness items": [
-		"Level1",
-		"Level2",
-		"Level3"
+		"IDS_LEVEL1",
+		"IDS_LEVEL2",
+		"IDS_LEVEL3"
 	],
 	"unit selection": 1,
 	"unit items": [
-		"km/h, m",
-		"mph, ft"
+		"IDS_KM_PER_H",
+		"IDS_MPH_FT"
 	],
 	"date format selection": 2,
 	"date format items": [
-		"YYYY/MM/DD",
-		"MM/DD/YYYY",
-		"DD/MM/YYYY"
+		"IDS_YYYY_MM_DD",
+		"IDS_MM_DD_YYYY",
+		"IDS_DD_MM_YYYY"
 	]
 }

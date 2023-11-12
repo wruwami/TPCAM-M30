@@ -59,13 +59,18 @@ Setting6Widget::Setting6Widget(QWidget *parent) : QWidget(parent),
     ui->ftpComboBox->setCurrentIndex(index - 1);
 
     ui->ftpAddressLineEdit->setText(m_jsonObject["ftp server( dns )"].toString());
+    ui->ftpAddressLineEdit->setAlignment(Qt::AlignLeft);
     ui->ftpPortLineEdit->setText(QString::number(m_jsonObject["ftp port"].toInt()));
+    ui->ftpPortLineEdit->setAlignment(Qt::AlignLeft);
     ui->userNameLineEdit->setText(m_jsonObject["ftp user name"].toString());
+    ui->userNameLineEdit->setAlignment(Qt::AlignLeft);
     ui->userPassLineEdit->setText(m_jsonObject["ftp password"].toString());
+    ui->userPassLineEdit->setAlignment(Qt::AlignLeft);
 
     //BT disable
     ui->bluetoothComboBox->setEnabled(false);
     ui->searchPushButton->setEnabled(false);
+    ui->bludtoothLabel->setEnabled(false);
 }
 
 Setting6Widget::~Setting6Widget()
@@ -95,7 +100,7 @@ void Setting6Widget::on_languageComboBox_currentIndexChanged(const QString &arg1
 void Setting6Widget::on_languageComboBox_currentIndexChanged(int index)
 {
     m_newJsonObject["language select"] = index + 1;
-    ResourceLoader::StringLoader::GetInstance()->Initialize("strings", "stringTable.csv", m_jsonObject["start language items"].toArray()[index].toString().toStdString());
+//    ResourceLoader::StringLoader::GetInstance()->Initialize("strings", "stringTable.csv", m_jsonObject["start language items"].toArray()[index].toString().toStdString());
 }
 
 void Setting6Widget::on_bluetoothComboBox_currentIndexChanged(int index)
@@ -141,4 +146,9 @@ void Setting6Widget::on_userNameLineEdit_textChanged(const QString &arg1)
 void Setting6Widget::on_userPassLineEdit_textChanged(const QString &arg1)
 {
     m_newJsonObject["ftp password"] = arg1;
+}
+
+void Setting6Widget::initializeStringTable()
+{
+    ResourceLoader::StringLoader::GetInstance()->Initialize("strings", "stringTable.csv", m_jsonObject["start language items"].toArray()[ui->languageComboBox->currentIndex()].toString().toStdString());
 }

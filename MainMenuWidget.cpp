@@ -14,6 +14,7 @@
 #include "IndicatorDialog.h"
 #include "StringLoader.h"
 #include "ConfigManager.h"
+#include "WidgetSize.h"
 
 #include "HomeButtonWidget.h"
 #include "SerialGPSManager.h"
@@ -26,12 +27,14 @@ MainMenuWidget::MainMenuWidget(QWidget *parent) :
     ui->setupUi(this);
     setBackGroundColor(this, 0x000000);
 
+    WidgetSize* ws = WidgetSize::GetInstance();
+
     QFile file(":/style/mainmenuWidget.qss");
     file.open(QFile::ReadOnly);
     QString styleSheet = QString::fromLatin1(file.readAll());
     setStyleSheet(styleSheet);
 
-    QSizePolicy sp_retain = QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Expanding);
+    QSizePolicy sp_retain = QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     sp_retain.setRetainSizeWhenHidden(true);
 //    setSizePolicy(sp_retain);
 
@@ -43,17 +46,22 @@ MainMenuWidget::MainMenuWidget(QWidget *parent) :
     ui->timeLabel->setColor(Qt::white);
     //Add font
 //    int fontId = QFontDatabase::addApplicationFont(GeteMMCPath()+"/font/"+"led_real.ttf");
-    int fontId = QFontDatabase::addApplicationFont(GeteMMCPath()+"/font/"+"LOOPY___.ttf");
+//    int fontId = QFontDatabase::addApplicationFont(GeteMMCPath()+"/font/"+"LOOPY___.ttf");
+//    int fontId = QFontDatabase::addApplicationFont(GeteMMCPath()+"/font/"+"DIGITALDREAMFAT.ttf");
+    int fontId = QFontDatabase::addApplicationFont(GeteMMCPath()+"/font/"+"E1234.ttf");
     if (fontId != -1) {
         QString strled_real = QFontDatabase::applicationFontFamilies(fontId).at(0);
 
         // Now you can use the custom font in your application
-        QFont led_real(strled_real, 48); // Replace "12" with your desired font size
+        QFont led_real(strled_real, 28); // Replace "12" with your desired font size
         led_real.setBold(true);
-        led_real.setItalic(true);
+        led_real.setItalic(false);
         ui->timeLabel->setFont(led_real);
     }
-    ui->timeLabel->setFontSize(48);
+    ui->timeLabel->setFontSize(28);
+    ui->timeLabel->setAlignment(Qt::AlignRight | Qt::AlignVCenter );
+    ui->timeLabel->setSizePolicy(QSizePolicy::Ignored, QSizePolicy::Expanding);
+    ui->timeLabel->setStyleSheet(QString("QLabel { letter-spacing: -2px; line-height: 2px; letter-spacing: 0px}"));
 
     ui->cameraPushButton->setSizePolicy(sp_retain);
     ui->daynNightPushButton->setSizePolicy(sp_retain);
@@ -65,6 +73,15 @@ MainMenuWidget::MainMenuWidget(QWidget *parent) :
     ui->batteryPercentButton->setSizePolicy(sp_retain);
     ui->batteryStatusLabel->setSizePolicy(sp_retain);
     ui->stackedWidget->setSizePolicy(sp_retain);
+
+    ui->cameraPushButton->setFixedSize(ws->GetWidgetWidth(100), ws->GetWidgetHeight(100));
+    ui->daynNightPushButton->setFixedSize(ws->GetWidgetWidth(100), ws->GetWidgetHeight(100));
+    ui->weatherPushButton->setFixedSize(ws->GetWidgetWidth(100), ws->GetWidgetHeight(100));
+    ui->enforcementPushButton->setFixedSize(ws->GetWidgetWidth(100), ws->GetWidgetHeight(100));
+    ui->speedPushButton->setFixedSize(ws->GetWidgetWidth(100), ws->GetWidgetHeight(100));
+    ui->wifiPushButton->setFixedSize(ws->GetWidgetWidth(100), ws->GetWidgetHeight(100));
+    ui->gpsPushButton->setFixedSize(ws->GetWidgetWidth(100), ws->GetWidgetHeight(100));
+
 
     m_pCameraPushbutton = ui->cameraPushButton;
     m_pDaynNightPushbutton = ui->daynNightPushButton;
@@ -407,7 +424,7 @@ void MainMenuWidget::updateStretch()
 void MainMenuWidget::timerEvent(QTimerEvent *event)
 {
     ui->timeLabel->setText(QTime::currentTime().toString("hh:mm:ss"));
-    ui->timeLabel->setFontSize(48);
+    ui->timeLabel->setFontSize(22);
     ui->timeLabel->setColor(Qt::white);
 //    if (SerialGPSManager::GetInstance()->GetSatellitesInView() >= 3)
 //        ui->gpsPushButton->setImage("indicator", "indicator_gps_on.jpg");

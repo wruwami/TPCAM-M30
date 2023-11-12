@@ -2,10 +2,10 @@
 	"Device ID": "TM_30000_",
 	"User Name Select": 1,
 	"User Name items": [
+		"admin-test1",
 		"comlaser1",
-		"comlaser2",
-		"admin",
-		"",
-		""
+		"admin-align1",
+		"comla2",
+		"comla3"
 	]
 }

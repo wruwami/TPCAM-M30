@@ -86,6 +86,12 @@ FileManagerWidget::FileManagerWidget(QWidget *parent) :
     ui->connectPushButton->setText(LoadString("IDS_CONNECT"));
     ui->connectPushButton->setFontSize(23);
 
+    QJsonObject object = ConfigManager("parameter_setting4.json").GetConfig();
+    if(object["printer items"].toArray()[object["printer selection"].toInt()-1].toString() == "IDS_A4")
+        ui->connectPushButton->setEnabled(false);
+    else
+        ui->connectPushButton->setEnabled(true);
+
     ui->printPushButton->setText(LoadString("IDS_PRINT"));
     ui->printPushButton->setFontSize(23);
     ui->printPushButton->setDisabled(true);
@@ -135,12 +141,13 @@ FileManagerWidget::FileManagerWidget(QWidget *parent) :
 
     ui->tableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
 
-    QJsonObject object = ConfigManager("parameter_setting4.json").GetConfig();
+    object = ConfigManager("parameter_setting4.json").GetConfig();
     if (object["printer selection"].toInt() == 2)
     {
 
         m_bA4Print = true;
         SetPrintEnabled();
+        ui->printPushButton->setDisabled(false);
     }
 
     QObject::connect(m_player, &QAVPlayer::videoFrame, [&](const QAVVideoFrame &frame) {

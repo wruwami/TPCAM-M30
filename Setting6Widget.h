@@ -18,6 +18,7 @@ public:
     explicit Setting6Widget(QWidget *parent = 0);
     ~Setting6Widget();
     void SaveConfig();
+    void initializeStringTable();
 private slots:
     void on_searchPushButton_clicked();
 

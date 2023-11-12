@@ -16,6 +16,7 @@ public:
     ~IndicatorGPSWidget();
 private:
     Ui::IndicatorGPSWidget *ui;
+    QByteArray m_tz;
     // QWidget interface
 protected:
     void paintEvent(QPaintEvent *event);

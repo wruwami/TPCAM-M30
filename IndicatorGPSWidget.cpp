@@ -3,9 +3,11 @@
 
 #include <QPen>
 #include <QPainter>
+#include <QTimeZone>
 
 #include "StringLoader.h"
 #include "SerialGPSManager.h"
+#include "ConfigManager.h"
 
 IndicatorGPSWidget::IndicatorGPSWidget(QWidget *parent) :
     QWidget(parent),
@@ -25,6 +27,10 @@ IndicatorGPSWidget::IndicatorGPSWidget(QWidget *parent) :
 //    ui->longitudeLabel->setFontSize(23);
     ui->numberOfSatellitesLabel->setText(LoadString("IDS_NUMBER_OF_SATELLITES") + QString::number(SerialGPSManager::GetInstance()->GetSatellitesInView()));
 //    ui->numberOfSatellitesLabel->setFontSize(23);
+
+    QJsonObject object = ConfigManager("setting_daytime.json").GetConfig();
+    QList<QByteArray> ids = QTimeZone::availableTimeZoneIds();
+    m_tz = ids[object["timezone select"].toInt() - 1];
 
     startTimer(1000);
 }
@@ -56,7 +62,9 @@ void IndicatorGPSWidget::paintEvent(QPaintEvent *event)
 void IndicatorGPSWidget::timerEvent(QTimerEvent *event)
 {
     ui->sensitivityeLabel->setText(LoadString("IDS_SENSITIVITY") + SerialGPSManager::GetInstance()->GetSensitivity());
-    ui->timeLabel->setText(LoadString("IDS_TIME") + SerialGPSManager::GetInstance()->GetDateTimeString());
+    QDateTime datetime = SerialGPSManager::GetInstance()->GetDateTime();
+    QString strDateTime = QDateTime(datetime.date(), datetime.time(), QTimeZone(m_tz)).toString("yyyy-MM-dd hh:mm:ss");
+    ui->timeLabel->setText(LoadString("IDS_TIME") + strDateTime);
     ui->latitudeLabel->setText(LoadString("IDS_LATITUDE") + SerialGPSManager::GetInstance()->GetLatitude());
     ui->longitudeLabel->setText(LoadString("IDS_LONGITUDE") + SerialGPSManager::GetInstance()->GetLongitude());
     ui->numberOfSatellitesLabel->setText(LoadString("IDS_NUMBER_OF_SATELLITES") + QString::number(SerialGPSManager::GetInstance()->GetSatellitesInView()));

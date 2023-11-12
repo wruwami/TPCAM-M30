@@ -93,7 +93,7 @@ Camera::Camera(QWidget *parent) :
 //		qDebug() << "gst shared memory sink start failed.";
 //	}
     GstShmMgr::getInstance();
-    v4l2_thread::getInstance()->setUseFlash(true);
+    //v4l2_thread::getInstance()->setUseFlash(true);
     usleep(200000);
 
     /*m_v4l2Capturer.reset(new v4l2_thread());
@@ -540,7 +540,10 @@ void Camera::SaveImage(PrefixType prefix, stEnforcementInfo enforceInfo, SDPath 
 
     QString qstrDatetimeInfo = QString("%1 %2:%3:%4.%5").arg(GetDate(qstrCurTime.left(8)), qstrCurTime.mid(9, 2), qstrCurTime.mid(11, 2), qstrCurTime.mid(13, 2), qstrCurTime.right(3));
     QString qstrLocInfo;
-    qstrLocInfo.sprintf("%s (%.6f, %.6f)", qstrLocation.toStdString().c_str(), fLatitude, fLongitude);
+    if(fLatitude == 0.f || fLongitude == 0.f)
+        qstrLocInfo.sprintf("%s", qstrLocation.toStdString().c_str());
+    else
+        qstrLocInfo.sprintf("%s (N%.6f, E%.6f)", qstrLocation.toStdString().c_str(), fLatitude, fLongitude);
     QString qstrFullPath = GETSDPATH(sdPath) + "/" + GetFileName(prefix, enforceInfo);
     //m_v4l2Capturer->imageGrab(qstrFullPath, qstrDatetimeInfo, qstrDeviceID, qstrUsername, qstrLocInfo, enforceInfo.nSpeedLimit, enforceInfo.nDistance, enforceInfo.nCaptureSpeed, nTargetCrossX, nTargetCrossY);
     v4l2_thread::getInstance()->imageGrab(qstrFullPath, qstrDatetimeInfo, qstrDeviceID, qstrUsername, qstrLocInfo, enforceInfo.nSpeedLimit, enforceInfo.nDistance, enforceInfo.nCaptureSpeed, nTargetCrossX, nTargetCrossY);

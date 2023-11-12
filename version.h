@@ -4,7 +4,7 @@
 #endif // VERSION_H
 
 
-#define SW_VER          "v0.0.0.7 "
+#define SW_VER          "v0.0.0.8 "
 //#define	SW_BUILDDATE	__DATE__
 //#define	SW_BUILDTIME	__TIME__
 
@@ -19,6 +19,12 @@
 
 /*
 ========================================================================================================
+
+--------------------------------------------------------------------------------------------------------
+2023.11.13  01:00   v0.0.0.8 - LJH
+    1. modify EnfocementComponentWidget ui(capture speed, button font size)
+    2. flash bug fix(set the light to turn on only at night)
+    3. modify still shot image info(Not displayed if GPS is not connected)
 
 --------------------------------------------------------------------------------------------------------
 2023.11.11  17:00   v0.0.0.7 - KMS

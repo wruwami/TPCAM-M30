@@ -38,17 +38,17 @@ EnforcementComponentWidget::EnforcementComponentWidget(QWidget *parent) :
     m_object2 = m_config2.GetConfig();
 
     ui->hidePushButton->setText(LoadString("IDS_HIDE"));
-    ui->hidePushButton->setFontSize(15);
+    ui->hidePushButton->setFontSize(20);
     ui->readyPushButton->setText(LoadString("IDS_READY"));
-    ui->readyPushButton->setFontSize(15);
+    ui->readyPushButton->setFontSize(20);
 //    ui->zoomRangePushButton->setText("Z: 100~160 m");
     ui->dzPlusPushButton->setText(LoadString("IDS_DZ_PLUS"));
-    ui->dzPlusPushButton->setFontSize(15);
+    ui->dzPlusPushButton->setFontSize(20);
     ui->dzMinusPushButton->setText(LoadString("IDS_DZ_MINUS"));
-    ui->dzMinusPushButton->setFontSize(15);
+    ui->dzMinusPushButton->setFontSize(20);
 
     ui->saveImagePushButton->setText(LoadString("IDS_SAVE_IMAGE1") + '\n' + LoadString("IDS_SAVE_IMAGE2"));
-    ui->saveImagePushButton->setFontSize(15);
+    ui->saveImagePushButton->setFontSize(20);
     ui->truckPushButton->setImage("enforcement", "truck.jpg");
     ui->truckPushButton->setCheckable(true);
     ui->bikePushButton->setImage("enforcement", "bike.jpg");
@@ -58,10 +58,12 @@ EnforcementComponentWidget::EnforcementComponentWidget(QWidget *parent) :
 
     m_captureSpeed = m_object["capture speed"].toArray();
 
-    QString speedLimit = QString("CS: %0%4\nT: %2%4\nM: %3%4").arg(QString::number(m_captureSpeed[0].toInt())).arg(QString::number(m_captureSpeed[1].toInt())).arg(QString::number(m_captureSpeed[2].toInt())).arg(speedUnitValue());
+    /*QString speedLimit = QString("CS: %0%4\nT: %2%4\nM: %3%4").arg(QString::number(m_captureSpeed[0].toInt())).arg(QString::number(m_captureSpeed[1].toInt())).arg(QString::number(m_captureSpeed[2].toInt())).arg(speedUnitValue());
     ui->speedLimitLabel->setText(speedLimit);
     ui->speedLimitLabel->setFontSize(14);
-    ui->speedLimitLabel->setDisabled(true);
+    ui->speedLimitLabel->setDisabled(true);*/
+
+    DisplaySpeedLimit();
 
     ui->recIconLabel->setFontSize(30);
     ui->recLabel->setFontSize(30);
@@ -214,6 +216,16 @@ EnforcementComponentWidget::EnforcementComponentWidget(QWidget *parent) :
     }
 
     connect(v4l2_thread::getInstance(), SIGNAL(saveImage()), this, SLOT(on_saveImage()));
+
+//    int nSelDayNight = m_object2["day&night selection"].toInt();
+//    if( 0 < nSelDayNight && nSelDayNight < 4)
+//    {
+//        v4l2_thread::getInstance()->setUseFlash(false);
+//    }
+//    else
+//    {
+//        v4l2_thread::getInstance()->setUseFlash(true);
+//    }
 
 //    ConfigManager config = ConfigManager("parameter_setting6.json");
 //    QJsonObject jsonObject = config.GetConfig();
@@ -518,8 +530,6 @@ void EnforcementComponentWidget::camInit()
     m_pSerialViscaManager->set_AE_Mode("03");
 
     m_pSerialViscaManager->SetDayMode(m_object2["day&night selection"].toInt());
-
-
 
     m_pSerialViscaManager->set_manual_focus();
 //    m_pSerialViscaManager.set_AE_mode2e();
@@ -1090,6 +1100,7 @@ void EnforcementComponentWidget::setVehicleMode()
         m_nVehicleMode = MotoCycle;
         SetLogMsg(BUTTON_CLICKED, "CAPTURE TRUCK," + QString::number(m_captureSpeed[2].toDouble(), 'f' , 1));
     }
+    DisplaySpeedLimit();
     return;
     //        assert();
 }
@@ -1846,6 +1857,63 @@ void EnforcementComponentWidget::doVMode()
 
     connect(m_pSerialLaserManager->getLaser_packet(), SIGNAL(sig_showDistance(float,int)), this, SLOT(doVModeZFControl(float, int)) );
 
+}
+
+void EnforcementComponentWidget::DisplaySpeedLimit()
+{
+    QString speedLimitCS;// = QString("CS: %1%2").arg(QString::number(m_captureSpeed[0].toInt())).arg(speedUnitValue());
+    QString speedLimitT;// = QString("T: %1%2").arg(QString::number(m_captureSpeed[1].toInt())).arg(speedUnitValue());
+    QString speedLimitM;// = QString("M: %1%2").arg(QString::number(m_captureSpeed[2].toInt())).arg(speedUnitValue());
+    QString speedLimit;
+    switch (m_nVehicleMode)
+    {
+    case Normal:
+    {
+        speedLimitCS = QString("CS: %1%2").arg(QString::number(m_captureSpeed[0].toInt())).arg(speedUnitValue());
+        speedLimitT = QString(" T: %1%2").arg(QString::number(m_captureSpeed[1].toInt())).arg(speedUnitValue());
+        speedLimitM = QString(" M: %1%2").arg(QString::number(m_captureSpeed[2].toInt())).arg(speedUnitValue());
+        speedLimit = QString("<font color= \"%1\"><strong>%2</strong></font><br> <font color= \"%3\">%4</font><br><font color= \"%5\">%6</font>")
+            .arg("black")
+            .arg(speedLimitCS)
+            .arg("gray")
+            .arg(speedLimitT)
+            .arg("gray")
+            .arg(speedLimitM);
+    }
+        break;
+    case Truck:
+    {
+        speedLimitCS = QString(" CS: %1%2").arg(QString::number(m_captureSpeed[0].toInt())).arg(speedUnitValue());
+        speedLimitT = QString("T: %1%2").arg(QString::number(m_captureSpeed[1].toInt())).arg(speedUnitValue());
+        speedLimitM = QString(" M: %1%2").arg(QString::number(m_captureSpeed[2].toInt())).arg(speedUnitValue());
+        speedLimit = QString("<font color= \"%1\">%2</font><br> <font color= \"%3\"><strong>%4</strong></font><br><font color= \"%5\">%6</font>")
+            .arg("gray")
+            .arg(speedLimitCS)
+            .arg("black")
+            .arg(speedLimitT)
+            .arg("gray")
+            .arg(speedLimitM);
+    }
+        break;
+    case MotoCycle:
+    {
+        speedLimitCS = QString(" CS: %1%2").arg(QString::number(m_captureSpeed[0].toInt())).arg(speedUnitValue());
+        speedLimitT = QString(" T: %1%2").arg(QString::number(m_captureSpeed[1].toInt())).arg(speedUnitValue());
+        speedLimitM = QString("M: %1%2").arg(QString::number(m_captureSpeed[2].toInt())).arg(speedUnitValue());
+        speedLimit = QString("<font color= \"%1\">%2</font><br> <font color= \"%3\">%4</font><br><font color= \"%5\"><strong>%6</strong></font>")
+            .arg("gray")
+            .arg(speedLimitCS)
+            .arg("gray")
+            .arg(speedLimitT)
+            .arg("black")
+            .arg(speedLimitM);
+    }
+        break;
+    }
+
+    ui->speedLimitLabel->setText(speedLimit);
+    ui->speedLimitLabel->setFontSize(21);
+    ui->speedLimitLabel->setDisabled(true);
 }
 
 void EnforcementComponentWidget::doVModeZFControl(float fDistance, int notuse)

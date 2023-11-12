@@ -92,7 +92,8 @@ private:
 
     void displayDistance(float);
     void displayRedOutline(bool);
-    void displayThumbnail(float, float);
+    void displayThumbnailSpeedDistance(float, float);
+    void displayThumbnail();
 
     void displayHudSpeedDistance(bool, bool, bool, bool);
     void displayHudDistance(bool, bool);

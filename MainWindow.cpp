@@ -1,12 +1,17 @@
 #include "MainWindow.h"
 #include "ui_MainWindow.h"
 
+#include <fcntl.h>
+#include <sys/file.h>
+
 #include <QVBoxLayout>
 #include <QPainter>
 #include <QDialog>
 #include <QDesktopWidget>
+#include <QCheckBox>
 
 #include "CustomPushButton.h"
+#include "CustomCheckBox.h"
 #include "Color.h"
 #include "DateTimeWidget.h"
 #include "EnforcementWidget.h"
@@ -142,8 +147,14 @@ MainWindow::MainWindow(screensaver* screensaver, QWidget *parent) :
     ui->widget->setSizePolicy(sp_retain);
     ui->widget_2->setSizePolicy(sp_retain);
 
+    if (m_pDateTimeWidget->m_pGPSCheckBox->checkState() == Qt::Checked)
+    {
+        if (SerialGPSManager::GetInstance()->GetSatellitesInView() >= 3)
+            m_pDateTimeWidget->SetGPSUTCDateTime(SerialGPSManager::GetInstance()->GetDateTime());
+
+    }
+
     QObject::connect((QWidget*)m_pIndicatorWidget, SIGNAL(sig_screenShot()), this, SLOT(on_screenShot()));
-    QObject::connect((QWidget*)m_pDateTimeWidget->m_pGPSCheckBox, SIGNAL(stateChanged()), this, SLOT(on_datetimeChecked()));
     QObject::connect((QWidget*)m_pLoginWidget->m_loginPushButton, SIGNAL(clicked()), this, SLOT(on_loginWidgetClicked()));
     QObject::connect((QWidget*)m_pLoginWidget->m_dateTimePushButton, SIGNAL(clicked()), this, SLOT(on_dateTimeWidgetClicked()));
     QObject::connect((QWidget*)m_pLoginWidget->m_pUserNameComboBox, SIGNAL(currentIndexChanged(QString)), this, SLOT(on_userNameChanged(QString)));
@@ -1164,16 +1175,17 @@ void MainWindow::doStarAction()
 
 void MainWindow::doZeroAction()
 {
-    QPixmap pixmap = QPixmap::grabWindow(this->winId());
-    QString filename = GetSubPath("/manual_capture", SD) + "/" + GetFileName(SC);
-    pixmap.save(filename, 0, 100);
+    QString filename = GetSubPath("/screen", SD) + "/" + GetFileName(SC);
+    QString cmd("sudo scrot ");
+    cmd.append(filename);
+    system(cmd.toStdString().c_str());
 }
 
 void MainWindow::do9thAction()
 {
     char buff[256];
     memset(buff, 0, 256);
-    FILE* fp = popen("pidof ffmpeg", "r");
+    FILE* fp = popen("sudo pidof ffmpeg", "r");
     if (fp == NULL)
     {
         perror("erro : ");
@@ -1187,15 +1199,45 @@ void MainWindow::do9thAction()
 
     if (!strlen(buff))
     {
-        QString cmd;
+        QString strCommand;
         QString resolution = "800x480";
         QString file_name = GetSubPath("/screen", SD) + "/" + GetFileName(SR);
-        cmd = QString("ffmpeg -hwaccel opencl -y -f x11grab -framerate 10 -video_size %1 -i :0.0+0,0 -c:v mjpeg -pix_fmt yuv420p -qp 0 -preset ultrafast %2 &").arg(resolution).arg(file_name);
-        system(cmd.toStdString().c_str());
+        m_srFileFullName = file_name;
+
+        int fileDescriptor = ::open(file_name.toStdString().c_str(), O_CREAT | O_WRONLY, 0666);
+        if (flock(fileDescriptor, LOCK_EX) != 0) {
+//            return;
+        }
+
+        strCommand = QString("sudo ffmpeg -hwaccel opencl -y -f x11grab -framerate 10 -video_size %1 -i :0.0+0,0 -c:v libx264 -pix_fmt yuv420p -qp 0 -preset ultrafast %2 &").arg(resolution).arg(file_name);
+        std::thread thread_command(thread_CommandExcute2, strCommand);
+        thread_command.detach();
+        system(strCommand.toStdString().c_str());
+
+        m_pIndicatorWidget->m_pScreenRecordPushButton->setImage("indicator", "screen recording_off.jpg");
+
+        // Close the file descriptor
+        if (::close(fileDescriptor) == -1) {
+            perror("close");
+//            return 1;
+        }
     }
     else
     {
-        system("ps -ef | grep ffmpeg | awk '{print $2}' | xargs kill -9");
+        int fileDescriptor = ::open(m_srFileFullName.toStdString().c_str(), O_CREAT | O_WRONLY, 0666);
+
+        std::string cmd("sudo kill -9 ");
+        cmd.append(buff);
+        system(cmd.c_str());
+
+        flock(fileDescriptor, LOCK_UN);
+        // Close the file descriptor
+        if (::close(fileDescriptor) == -1) {
+//            return;
+        }
+
+//        system("ps -ef | grep ffmpeg | awk '{print $2}' | xargs kill -9");
+        m_pIndicatorWidget->m_pScreenRecordPushButton->setImage("indicator", "screen_recording.jpg");
     }
 
 }
@@ -1535,12 +1577,6 @@ void MainWindow::on_DeviceIdSaveClicked()
 void MainWindow::on_DeviceIdCancelClicked()
 {
     on_mainMenuHomeClicked();
-}
-
-void MainWindow::on_datetimeChecked()
-{
-    if (SerialGPSManager::GetInstance()->GetSatellitesInView() >= 3)
-        m_pDateTimeWidget->SetGPSUTCDateTime(SerialGPSManager::GetInstance()->GetDateTime());
 }
 
 void MainWindow::on_ShowRedOutLine(bool bOn)

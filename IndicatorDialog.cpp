@@ -30,14 +30,6 @@
 #include "Logger.h"
 #include "SerialGPSManager.h"
 
-void thread_CommandExcute2(QString strCommand)
-{
-    int result = std::system(strCommand.toStdString().c_str());
-
-    qDebug() << strCommand << " : " << result;
-}
-
-
 IndicatorDialog::IndicatorDialog(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::IndicatorDialog)
@@ -58,7 +50,7 @@ IndicatorDialog::IndicatorDialog(QWidget *parent) :
     m_pEnforcementPushButton = ui->enforcementPushButton;
     m_pWeatherPushButton = ui->weatherPushButton;
     m_pSpeedModePushButton = ui->speedPushButton;
-
+    m_pScreenRecordPushButton = ui->screenRecordingPushButton;
 
     ui->screenRecordingPushButton->setVisible(true);
 //    ui->onPushButton->setVisible(false);
@@ -654,7 +646,6 @@ void IndicatorDialog::on_screenCapturePushButton_clicked()
     system(cmd.toStdString().c_str());
 
 //    emit sig_screenShot();
-
 }
 
 void IndicatorDialog::doCheckNetwork()

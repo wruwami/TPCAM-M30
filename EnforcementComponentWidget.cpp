@@ -781,16 +781,17 @@ void EnforcementComponentWidget::displayRedOutline(bool nOn)
     }
 }
 
-void EnforcementComponentWidget::displayThumbnail(float fSpeed, float fDistance)
+void EnforcementComponentWidget::displayThumbnailSpeedDistance(float fSpeed, float fDistance)
 {
     ui->enforcementCountLabel->setText(QString::number(g_nCrackDownIndex++));
     ui->enforcementTimeLabel->setText(QTime::currentTime().toString("hh:mm:ss"));
     ui->enforcementDistanceSpeedLabel->setText(QString::number(getDistanceValue(fDistance)) + distanceValue() + ", " + QString::number(getSpeedValue(fSpeed)) + speedUnitValue());
+}
 
-//    QPixmap pixmap = m_pCamera->grab();
-
-////    pixmap.grabWidget(m_pCamera);
-//    ui->thumbnailLabel->setPixmap(pixmap.scaled(ui->thumbnailLabel->width(), ui->thumbnailLabel->height(), Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
+void EnforcementComponentWidget::displayThumbnail()
+{
+        QPixmap pixmap = m_pCamera->grab();
+        ui->thumbnailLabel->setPixmap(pixmap.scaled(ui->thumbnailLabel->width(), ui->thumbnailLabel->height(), Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
 }
 
 void EnforcementComponentWidget::displayHudSpeedDistance(bool nDisplay, bool nSpeed, bool nRec, bool nUnit)
@@ -1441,7 +1442,7 @@ void EnforcementComponentWidget::on_showCaptureSpeedDistance(float fSpeed, float
         //        이미지 또는 동영상을 설정대로 저장
             SaveImageVideo();
             //썸네일 표시 처리, 썸네일 위에 단속 정보 표시 처리 출력
-            displayThumbnail(fSpeed, fDistance);
+            displayThumbnailSpeedDistance(fSpeed, fDistance);
 
             m_hudManager.HUDEnforcementLimitOver(fSpeed, fDistance);
 
@@ -1937,10 +1938,7 @@ void EnforcementComponentWidget::doVModeZFControl(float fDistance, int notuse)
 
 void EnforcementComponentWidget::on_saveImage()
 {
-    QPixmap pixmap = m_pCamera->grab();
-
-//    pixmap.grabWidget(m_pCamera);
-    ui->thumbnailLabel->setPixmap(pixmap.scaled(ui->thumbnailLabel->width(), ui->thumbnailLabel->height(), Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
+    displayThumbnail();
 }
 
 void EnforcementComponentWidget::closeThread()

@@ -7,6 +7,14 @@
 #include "SerialLaserManager.h"
 #include "IndicatorCameraFocusWidget.h"
 
+void thread_CommandExcute2(QString strCommand)
+{
+    int result = std::system(strCommand.toStdString().c_str());
+
+    qDebug() << strCommand << " : " << result;
+}
+
+
 enum NetworkState {
     Active,
     InActive,
@@ -89,6 +97,8 @@ public:
     CustomPushButton* m_pSpeedModePushButton = nullptr;
     CustomPushButton* m_pSTPushButton = nullptr;
     CustomPushButton* m_pLTPushButton = nullptr;
+    CustomPushButton* m_pScreenRecordPushButton = nullptr;
+
 
     bool m_bFocusExposeDisabled = true;
     bool m_bEnforcement = false;

@@ -97,7 +97,6 @@ private slots:
     void on_userNameChanged(QString arg);
     void on_DeviceIdSaveClicked();
     void on_DeviceIdCancelClicked();
-    void on_datetimeChecked();
     void on_ShowRedOutLine(bool);
     void on_screenShot();
 private:
@@ -137,6 +136,8 @@ private:
     bool m_bRedLine = false;
     int m_nLogCount= 0;
     QSize m_MainMenuWidgetSize;
+    QString m_srFileFullName;
+
     // QObject interface
 protected:
     void timerEvent(QTimerEvent *event);

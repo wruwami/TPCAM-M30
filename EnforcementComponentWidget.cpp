@@ -213,6 +213,8 @@ EnforcementComponentWidget::EnforcementComponentWidget(QWidget *parent) :
         m_pFtpThread->start();
     }
 
+    connect(v4l2_thread::getInstance(), SIGNAL(saveImage()), this, SLOT(on_saveImage()));
+
 //    ConfigManager config = ConfigManager("parameter_setting6.json");
 //    QJsonObject jsonObject = config.GetConfig();
 
@@ -269,6 +271,7 @@ EnforcementComponentWidget::~EnforcementComponentWidget()
         m_pFtpThread->requestInterruption();
         sleep(1);
         m_pFtpThread->exit();
+        m_pFtpThread->wait();
     }
 
 //    m_pFtpThread->requestInterruption();
@@ -784,10 +787,10 @@ void EnforcementComponentWidget::displayThumbnail(float fSpeed, float fDistance)
     ui->enforcementTimeLabel->setText(QTime::currentTime().toString("hh:mm:ss"));
     ui->enforcementDistanceSpeedLabel->setText(QString::number(getDistanceValue(fDistance)) + distanceValue() + ", " + QString::number(getSpeedValue(fSpeed)) + speedUnitValue());
 
-    QPixmap pixmap = m_pCamera->grab();
+//    QPixmap pixmap = m_pCamera->grab();
 
-//    pixmap.grabWidget(m_pCamera);
-    ui->thumbnailLabel->setPixmap(pixmap.scaled(ui->thumbnailLabel->width(), ui->thumbnailLabel->height(), Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
+////    pixmap.grabWidget(m_pCamera);
+//    ui->thumbnailLabel->setPixmap(pixmap.scaled(ui->thumbnailLabel->width(), ui->thumbnailLabel->height(), Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
 }
 
 void EnforcementComponentWidget::displayHudSpeedDistance(bool nDisplay, bool nSpeed, bool nRec, bool nUnit)
@@ -1930,6 +1933,14 @@ void EnforcementComponentWidget::doVModeZFControl(float fDistance, int notuse)
 //    }
     nFormalZoomIndex = nZoomIndex;
     m_isZFWorking = false;
+}
+
+void EnforcementComponentWidget::on_saveImage()
+{
+    QPixmap pixmap = m_pCamera->grab();
+
+//    pixmap.grabWidget(m_pCamera);
+    ui->thumbnailLabel->setPixmap(pixmap.scaled(ui->thumbnailLabel->width(), ui->thumbnailLabel->height(), Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
 }
 
 void EnforcementComponentWidget::closeThread()

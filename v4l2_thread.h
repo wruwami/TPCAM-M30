@@ -106,6 +106,7 @@ typedef struct _ST_IMG_DATA_INFO
 
 class v4l2_thread : public QThread
 {
+    Q_OBJECT
 private:
     static v4l2_thread* m_pInstance;
 public:
@@ -173,6 +174,8 @@ public:
 
 protected:
     void run() override;
+signals:
+    void saveImage();
 };
 
 #endif // V4L2_THREAD_H

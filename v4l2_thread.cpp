@@ -564,6 +564,7 @@ int v4l2_thread::read_frame(int count)
         //qDebug() << "SaveImage start";
         std::thread thread0(thread_CopyImage, &(buffers[i]), bytesused, m_stEnforceInfo);
         thread0.detach();
+        emit saveImage();
 
         m_stEnforceInfo.bImageSave = false;
     }

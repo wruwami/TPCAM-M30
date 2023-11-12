@@ -19,6 +19,7 @@
 #include "HUDManager.h"
 #include "StorageManager.h"
 #include "base.h"
+#include "v4l2_thread.h"
 
 enum Mode{
     Ready,
@@ -217,7 +218,7 @@ private slots:
     void on_Hide();
 
     void doVModeZFControl(float fDistance, int notuse);
-
+    void on_saveImage();
 //    void on_ManualMode();
 signals:
     void ShowRedOutLine(bool);

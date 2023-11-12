@@ -16,6 +16,8 @@ FileTransThread::FileTransThread(QObject *parent)
 
 FileTransThread::~FileTransThread()
 {
+    if (isRunning())
+        requestInterruption();
     quit();
     wait();
 }

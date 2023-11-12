@@ -20,7 +20,10 @@ FtpTransThread::FtpTransThread(QObject *parent)
 
 FtpTransThread::~FtpTransThread()
 {
-//    m_ftp.Quit();
+    if (isRunning())
+    {
+        requestInterruption();
+    }
     quit();
     wait();
 }

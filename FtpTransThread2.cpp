@@ -15,6 +15,10 @@ FtpTransThread2::FtpTransThread2(QObject *parent)
 
 FtpTransThread2::~FtpTransThread2()
 {
+    if (isRunning())
+    {
+        requestInterruption();
+    }
     quit();
     wait();
 }
@@ -126,7 +130,7 @@ void FtpTransThread2::run()
 
     //        connect(reply, SIGNAL(uploadProgress(qint64 ,qint64)), SLOT(loadProgress(qint64 ,qint64)));
         }
-//        ftp.Quit();
+        ftp.Quit();
 //        emit sig_exit();
 }
 

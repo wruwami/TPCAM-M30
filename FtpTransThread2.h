@@ -12,7 +12,7 @@ public:
     explicit FtpTransThread2(QObject *parent = nullptr);
     virtual ~FtpTransThread2();
 private:
-    QSharedPointer<QMutex> m_mutex;
+//    QSharedPointer<QMutex> m_mutex;
     int m_count = 0;
 signals:
     void setMaximum(int);

@@ -7,13 +7,12 @@
 #include "SerialLaserManager.h"
 #include "IndicatorCameraFocusWidget.h"
 
-void thread_CommandExcute2(QString strCommand)
+static void thread_CommandExcute2(QString strCommand)
 {
     int result = std::system(strCommand.toStdString().c_str());
 
     qDebug() << strCommand << " : " << result;
 }
-
 
 enum NetworkState {
     Active,

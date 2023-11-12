@@ -156,8 +156,15 @@ DateTimeWidget::~DateTimeWidget()
 
 void DateTimeWidget::SetGPSUTCDateTime(QDateTime datetime)
 {
-    QByteArray tz = ui->timeZoneComboBox->currentText().toUtf8();
-    m_dateTime = QDateTime(datetime.date(), datetime.time(), QTimeZone(tz));
+    qint64 posixtime = datetime.currentSecsSinceEpoch();
+    QString dateTimeString = ("sudo date +%s -s @");
+    dateTimeString.append(QString::number(posixtime));
+
+    int systemDateTimeStatus= system(dateTimeString.toStdString().c_str());
+    if (systemDateTimeStatus == -1)
+    {
+        qDebug() << "Failed to change date time";
+    }
 }
 
 void DateTimeWidget::setDateTimeValue()
@@ -292,7 +299,7 @@ void DateTimeWidget::on_savePushButton_clicked()
         qDebug() << "Failed to change date time";
     }
 
-    QString TimeZoneString ("timedatectl set-timezone ");
+    QString TimeZoneString ("sudo timedatectl set-timezone ");
     TimeZoneString.append(ui->timeZoneComboBox->currentText());
     systemDateTimeStatus= system(TimeZoneString.toStdString().c_str());
     if (systemDateTimeStatus == -1)

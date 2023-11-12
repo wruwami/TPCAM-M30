@@ -30,6 +30,8 @@ SerialGPSManager::SerialGPSManager()
 
     serial_connect();
     connect(m_pSerial, SIGNAL(readyRead()), this, SLOT(serial_received()));
+
+    m_DateTime = QDateTime::currentDateTime();
 }
 
 void SerialGPSManager::serial_connect()

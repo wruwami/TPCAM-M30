@@ -2,6 +2,7 @@
 #define INDICATORCAMERADIALOG_H
 
 #include <QDialog>
+#include <QtDebug>
 
 #include "ConfigManager.h"
 #include "SerialLaserManager.h"

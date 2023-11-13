@@ -56,6 +56,7 @@ LoginWidget::LoginWidget(QWidget *parent) :
     pixmap.load(GeteMMCPath() + "/" + "images" + "/" + "Main_menu" + "/" + "comlaser_logo.bmp");
     ui->logoPushButton->setIcon(QIcon(pixmap));
     ui->logoPushButton->setIconSize(pixmap.rect()/*.adjusted(1, 1, -1, -1)*/.size());
+    ui->logoPushButton->setStyleSheet("QPushButton {border : none;} QPushButton:pressed {border: 2px solid red;}");
     ui->logoPushButton->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
     ui->deviceIDLineEdit->setDisabled(true);

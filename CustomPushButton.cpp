@@ -204,7 +204,8 @@ void CustomPushButton::paintEvent(QPaintEvent *event)
 //    qDebug() << "adjusted.rect()" << adjusted;
 
 //    QRect adjusted = rect();//.adjusted(0,0,0,-1);
-    QRect adjusted = contentsRect().adjusted(1,1,-2,-2);
+//    event->x
+    QRect adjusted = event->rect().adjusted(2,2,-2,-2);
 //    QRect adjusted = m_pixmap.rect().adjusted(1,1,-1,-1);
 //    painter.drawRect(adjusted);
 //    m_pixmap = m_pixmap.scaled(m_size);

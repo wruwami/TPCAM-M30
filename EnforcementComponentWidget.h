@@ -112,6 +112,8 @@ private:
     void SaveDZoomJson();
     void doVMode();
 
+    void DisplaySpeedLimit(void);
+
 public:
     SerialLaserManager* m_pSerialLaserManager = nullptr;
     SerialViscaManager* m_pSerialViscaManager = nullptr;

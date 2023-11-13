@@ -10,6 +10,7 @@
 
 #include "ConfigManager.h"
 #include "Logger.h"
+#include "v4l2_thread.h"
 
 SerialViscaManager::SerialViscaManager()
 {
@@ -2194,9 +2195,15 @@ void SerialViscaManager::SetDayMode(QJsonObject object, bool bDay, bool bFocus)
     object["HLC"].toBool() ? set_HLC_on() : set_HLC_off();
 
     if (bDay)
+    {
         set_infrared_mode_off();
+        v4l2_thread::getInstance()->setUseFlash(false);
+    }
     else
+    {
         set_infrared_mode_on();
+        v4l2_thread::getInstance()->setUseFlash(true);
+    }
 
     if (bFocus)
     {
@@ -2451,6 +2458,14 @@ void SerialViscaManager::SetDayMode(int index, bool bFocus)
 
         int zoom_index = object3["zoom index"].toInt() - 1;
         SetFocus(zoom_index);
+    }
+    if(bDay)
+    {
+        v4l2_thread::getInstance()->setUseFlash(false);
+    }
+    else
+    {
+        v4l2_thread::getInstance()->setUseFlash(true);
     }
 //    SetZoom
 }

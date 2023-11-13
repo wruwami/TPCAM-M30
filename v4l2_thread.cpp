@@ -1,6 +1,7 @@
 #include "v4l2_thread.h"
 
 #include "FileManager.h"
+#include "SerialGPSManager.h"
 
 #define DEV_NAME "/dev/video0"
 #define INFO_WIDTH 1920
@@ -73,6 +74,7 @@ cv::Mat getEnfoceInfoImage(stEnforceInfo& enforceInfo)
 
     strText = cv::format("Loc:%s", enforceInfo.qstrLocation.toStdString().c_str());
     cv::putText(matInfo, strText, cv::Point(15, INFO_HEIGHT - 20), cv::FONT_HERSHEY_COMPLEX, 1.2, COLOR_WHITE, 2);
+
 
     strText = cv::format("CD:%dm", enforceInfo.nCaptureDistance);
     cv::putText(matInfo, strText, cv::Point(800, INFO_HEIGHT - 20), cv::FONT_HERSHEY_COMPLEX, 1.2, COLOR_WHITE, 2);
@@ -312,7 +314,7 @@ void v4l2_thread::initV4l2(int w, int h)
     g_dqYuvImgInfo.clear();
     g_dqYuvImgDataInfo.clear();
 
-    m_bUseFlash = true;
+    m_bUseFlash = false;
 
     open_device();
     init_device();

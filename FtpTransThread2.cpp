@@ -2,6 +2,7 @@
 
 #include "qdir.h"
 #include <QDirIterator>
+#include <QDebug>
 
 #include "ftplib.h"
 #include "ConfigManager.h"

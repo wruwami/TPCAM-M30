@@ -2,6 +2,7 @@
 
 #include <QFile>
 #include <QFileInfo>
+#include <QDebug>
 
 #include "ConfigManager.h"
 #include "FileManager.h"

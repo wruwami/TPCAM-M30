@@ -15,22 +15,22 @@
 #define ETH_ADAPTER     "eth0"
 #define BUFF_SIZE 1024
 
+//NetworkManager::NetworkManager()
+//{
+//    ConfigManager wifi_config = ConfigManager("parameter_setting4.json");
+//    m_wifi_jsonObject = wifi_config.GetConfig();
+
+//    ConfigManager eth_config = ConfigManager("parameter_setting5.json");
+//    m_eth_jsonObject = eth_config.GetConfig();
+
+////    bool bEnableWifi = false;
+////    if (ConfigManager("parameter_setting5.json").GetConfig()["wifi select"].toInt() == 1)
+////        bEnableWifi = true;
+
+////    }
+//}
+
 NetworkManager::NetworkManager()
-{
-    ConfigManager wifi_config = ConfigManager("parameter_setting4.json");
-    m_wifi_jsonObject = wifi_config.GetConfig();
-
-    ConfigManager eth_config = ConfigManager("parameter_setting5.json");
-    m_eth_jsonObject = eth_config.GetConfig();
-
-//    bool bEnableWifi = false;
-//    if (ConfigManager("parameter_setting5.json").GetConfig()["wifi select"].toInt() == 1)
-//        bEnableWifi = true;
-
-//    }
-}
-
-NetworkManager::NetworkManager(QString ssid, QString pw)
 {
     ConfigManager wifi_config = ConfigManager("parameter_setting4.json");
     m_wifi_jsonObject = wifi_config.GetConfig();

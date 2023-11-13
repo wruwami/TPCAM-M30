@@ -287,7 +287,7 @@ void DateTimeWidget::on_savePushButton_clicked()
     }
     else
     {
-        dateTimeString = ("sudo date -s");
+        dateTimeString = ("sudo date -s \"");
         dateTimeString.append(string);
     }
     dateTimeString.append("\"");

@@ -790,8 +790,8 @@ void EnforcementComponentWidget::displayThumbnailSpeedDistance(float fSpeed, flo
 
 void EnforcementComponentWidget::displayThumbnail()
 {
-        QPixmap pixmap = m_pCamera->grab();
-        ui->thumbnailLabel->setPixmap(pixmap.scaled(ui->thumbnailLabel->width(), ui->thumbnailLabel->height(), Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
+    QPixmap pixmap = m_pCamera->grab();
+    ui->thumbnailLabel->setPixmap(pixmap.scaled(ui->thumbnailLabel->width(), ui->thumbnailLabel->height(), Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
 }
 
 void EnforcementComponentWidget::displayHudSpeedDistance(bool nDisplay, bool nSpeed, bool nRec, bool nUnit)

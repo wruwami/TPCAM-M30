@@ -44,7 +44,8 @@ NetworkManager::NetworkManager(QString ssid, QString pw)
 
     SetEtherNet();
 
-    SetWifiStaMode();
+    if (!getWlanAdapterName().isEmpty())
+        SetWifiStaMode();
 
 }
 

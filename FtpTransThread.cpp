@@ -46,20 +46,21 @@ int FtpTransThread::DoFtpTrans(QString file_name)
     }
 
     QString target_file_name = file_name;
-    QString dir = target_file_name.replace(GetSDPath() + "/", QString(targetDir));
-    QFileInfo fi(dir);
-    dir = fi.absolutePath();
-    dir.replace("\"", "");
+    QString dir = target_file_name.replace(GetSDPath() + "/", "");
+
+    int index = dir.lastIndexOf("/");
+    dir = dir.mid(0, index);
     std::string dir2 = dir.toStdString();
     dir2 = dir2.substr(0, dir2.rfind("/"));
+    qDebug() << dir2.c_str();
     if (!m_ftp.Mkdir(dir2.c_str()))
     {
-        return 0;
+        qDebug() << "mkdir failed";
     }
 
     if (!m_ftp.Mkdir(dir.toStdString().c_str()))
     {
-        return 0;
+        qDebug() << "mkdir failed";
     }
 
 
@@ -68,7 +69,7 @@ int FtpTransThread::DoFtpTrans(QString file_name)
 
     if (!m_ftp.Put(file_name.toStdString().c_str(), target_file_name.toStdString().c_str(), ftplib::image))
     {
-        return 0;
+        qDebug() << "put failed";
     }
     return ret;
 }

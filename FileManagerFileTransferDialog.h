@@ -35,8 +35,11 @@ private:
     int m_index = 0;
     int m_count = 0;
     QString m_file_name;
-    QSharedPointer<FileTransThread> m_FileTransThread;
-    QSharedPointer<FtpTransThread2> m_FtpTransThread;
+//    QSharedPointer<FileTransThread> m_FileTransThread;
+//    QSharedPointer<FtpTransThread2> m_FtpTransThread;
+    FileTransThread* m_FileTransThread = nullptr;
+    FtpTransThread2* m_FtpTransThread = nullptr;
+
     TransType m_type;
 signals:
     void finished();

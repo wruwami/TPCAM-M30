@@ -5,6 +5,7 @@
 #include <QSharedPointer>
 #include <QMutex>
 
+class ftplib;
 class FtpTransThread2 : public QThread
 {
     Q_OBJECT
@@ -14,6 +15,8 @@ public:
 private:
 //    QSharedPointer<QMutex> m_mutex;
     int m_count = 0;
+    ftplib* m_ftp;
+
 signals:
     void setMaximum(int);
     void setValue(int);

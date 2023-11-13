@@ -15,10 +15,15 @@ FtpTransThread2::FtpTransThread2(QObject *parent)
 
 FtpTransThread2::~FtpTransThread2()
 {
-    if (isRunning())
+    m_ftp->Quit();
+    while (isRunning())
     {
         requestInterruption();
+
     }
+    delete m_ftp;
+    m_ftp = nullptr;
+
     quit();
     wait();
 }
@@ -35,22 +40,22 @@ void FtpTransThread2::run()
         ConfigManager config = ConfigManager("parameter_setting6.json");
         QJsonObject jsonObject = config.GetConfig();
 
-        ftplib ftp;/* = new ftplib();*/
+        m_ftp = new ftplib();
     //    qDebug() << QString(jsonObject["ftp server( dns )"].toString() + ":" + ;
-        int ret = ftp.Connect(QString(jsonObject["ftp server( dns )"].toString() + ":" + std::to_string(jsonObject["ftp port"].toInt()).c_str()).toStdString().c_str());
+        int ret = m_ftp->Connect(QString(jsonObject["ftp server( dns )"].toString() + ":" + std::to_string(jsonObject["ftp port"].toInt()).c_str()).toStdString().c_str());
         if (ret == 0)
         {
             return;
         }
 
-        ret = ftp.Login(jsonObject["ftp user name"].toString().toStdString().c_str(), jsonObject["ftp password"].toString().toStdString().c_str());
+        ret = m_ftp->Login(jsonObject["ftp user name"].toString().toStdString().c_str(), jsonObject["ftp password"].toString().toStdString().c_str());
         if (ret == 0)
         {
             return;
         }
 
         char targetDir[1024];
-        ftp.Pwd(targetDir, 1024);
+        m_ftp->Pwd(targetDir, 1024);
         if (!strcmp(targetDir, ""))
         {
             return;
@@ -67,9 +72,12 @@ void FtpTransThread2::run()
         QDirIterator iterDir3(GetSDPath(), QDir::Dirs | QDir::NoDotAndDotDot | QDir::NoSymLinks, QDirIterator::Subdirectories);
         while (iterDir3.hasNext())
         {
-            QString dir = iterDir3.next().replace(GetSDPath() + "/", QString(targetDir));
+            QString dir = iterDir3.next().replace(GetSDPath() + "/", "");
             dir.replace("\"", "");
-            ftp.Mkdir(dir.toStdString().c_str());
+            if (!m_ftp->Mkdir(dir.toStdString().c_str()))
+            {
+                qDebug() << "ftp mkdir failed";
+            }
          }
 
 
@@ -84,17 +92,23 @@ void FtpTransThread2::run()
     //        i++;
             QString fileName = iterDir2.next();
             QString targetFileName = fileName;
-            targetFileName = targetFileName.replace(GetSDPath() + "/", QString(targetDir));
+            targetFileName = targetFileName.replace(GetSDPath() + "/", "");
             targetFileName.replace("\"", "");
             QString filePath;
-            ftp.Put(fileName.toStdString().c_str(), targetFileName.toStdString().c_str(), ftplib::image);
+            if (m_ftp == nullptr)
+                return;
+            if (!m_ftp->Put(fileName.toStdString().c_str(), targetFileName.toStdString().c_str(), ftplib::image))
+            {
+                qDebug() << "ftp put failed";
+            }
             emit setValue((++i) / m_count);
             emit setFileCountText(QString("%1 / %2").arg(i).arg(m_count));
             emit setFileNameText(fileName);
 
             if ( QThread::currentThread()->isInterruptionRequested() )
             {
-                ftp.Quit();
+                if (m_ftp)
+                    m_ftp->Quit();
                 return;
             }
 
@@ -130,7 +144,7 @@ void FtpTransThread2::run()
 
     //        connect(reply, SIGNAL(uploadProgress(qint64 ,qint64)), SLOT(loadProgress(qint64 ,qint64)));
         }
-        ftp.Quit();
+        m_ftp->Quit();
 //        emit sig_exit();
 }
 

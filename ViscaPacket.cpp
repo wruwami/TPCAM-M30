@@ -702,6 +702,7 @@ unsigned char	ViscaPacket::MsgDecoder()
 
         info.sprintf("NR mode (0p, p:0 to 5):%02X", g_NRMode);
         qDebug() << info;
+        emit sig_show_DNR(QStringLiteral("%1").arg(g_NRMode, 2, 16, QLatin1Char('0')));
         return 1;
     }
     else if(send_data == 0x39) //AE mode
@@ -720,8 +721,9 @@ unsigned char	ViscaPacket::MsgDecoder()
         info.sprintf("Shutter Position(%02X)_%02X; %02X", m_shutter, g_ShutterPos.p, g_ShutterPos.q);
         qDebug() << info;
         //feedback
-        m_qstrShutter_pq = QString::number(m_shutter, 16);
+        m_qstrShutter_pq = QStringLiteral("%1").arg(m_shutter, 2, 16, QLatin1Char('0'));
         emit sig_show_shutter();
+        emit sig_show_shutter(m_qstrShutter_pq);
         return 1;
     }
     else if(send_data == 0x4B) //iris pos
@@ -731,9 +733,10 @@ unsigned char	ViscaPacket::MsgDecoder()
         m_iris = (g_IrisPos.p << 4) | (g_IrisPos.q <<0);
         info.sprintf("Iris Position(%02X)_ %02X; %02X",  m_iris, g_IrisPos.p, g_IrisPos.q);
         //feedback
-        m_qstrIris_pq = QString::number(m_iris, 16);
+        m_qstrIris_pq = QStringLiteral("%1").arg(m_iris, 2, 16, QLatin1Char('0'));
         qDebug() << info;
         emit sig_show_iris();
+        emit sig_show_iris(m_qstrIris_pq);
         return 1;
     }
     else if(send_data == 0x4C) //Gain pos
@@ -743,7 +746,7 @@ unsigned char	ViscaPacket::MsgDecoder()
         m_gain = (g_GainPos.p << 4) | (g_GainPos.q <<0);
         info.sprintf("Gain Position(%02X)_%02X; %02X",  m_gain, g_GainPos.p, g_GainPos.q);
         qDebug() << info;
-
+        emit sig_show_gain(QStringLiteral("%1").arg(m_gain, 2, 16, QLatin1Char('0')));
         return 1;
     }
     else if(send_data == 0x4D) //Bright pos

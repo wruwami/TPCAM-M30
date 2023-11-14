@@ -1,10 +1,16 @@
 #include "IndicatorCameraExposeWidget.h"
 #include "ui_IndicatorCameraExposeWidget.h"
 
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
 #include "StringLoader.h"
 #include "WidgetSize.h"
 #include "ConfigManager.h"
 #include "iostream"
+#include "ViscaPacket.h"
+#include "Logger.h"
 
 extern SerialViscaManager* g_pSerialViscaManager;
 
@@ -68,6 +74,15 @@ IndicatorCameraExposeWidget::IndicatorCameraExposeWidget(QWidget *parent) :
         ui->gainComboBox->addItem(QString::fromStdString(key), number);
     }
 
+    //make full_gain vector
+    object = ConfigManager("gain_full.json").GetConfig();
+    object.remove("count");
+    foreach (auto item, object.keys())
+    {
+        bool ok;
+        m_gain_fullMap[item.toStdString()] = object.value(item).toString().toInt(&ok, 16);
+    }
+    sort(m_gain_fullMap, m_gain_fullVec);
 
     ConfigManager irisCon = ConfigManager("iris.json");
     object = irisCon.GetConfig();
@@ -92,6 +107,16 @@ IndicatorCameraExposeWidget::IndicatorCameraExposeWidget(QWidget *parent) :
 //    {
 //        ui->irisComboBox->addItem(item, object.value(item));
 //    }
+
+    //make full_iris vector
+    object = ConfigManager("iris_full.json").GetConfig();
+    object.remove("count");
+    foreach (auto item, object.keys())
+    {
+        bool ok;
+        m_iris_fullMap[item.toStdString()] = object.value(item).toString().toInt(&ok, 16);
+    }
+    sort(m_iris_fullMap, m_iris_fullVec);
 
     ConfigManager shutterSpeedCon = ConfigManager("shutter_speed.json");
     object = shutterSpeedCon.GetConfig();
@@ -138,6 +163,13 @@ IndicatorCameraExposeWidget::IndicatorCameraExposeWidget(QWidget *parent) :
     int dnn = ConfigManager("parameter_setting2.json").GetConfig()["day&night selection"].toInt();
     ui->daynNightComboBox->setCurrentIndex(dnn-1);
 
+    connect(m_serialViscaManager->getVisca_packet(), SIGNAL(sig_show_shutter(QString)), this, SLOT(changeShutterUI(QString)));
+    connect(m_serialViscaManager->getVisca_packet(), SIGNAL(sig_show_gain(QString)), this, SLOT(changeGainUI(QString)));
+    connect(m_serialViscaManager->getVisca_packet(), SIGNAL(sig_show_iris(QString)), this, SLOT(changeIrisUI(QString)));
+    connect(m_serialViscaManager->getVisca_packet(), SIGNAL(sig_show_DNR(QString)), this, SLOT(changeDNRUI(QString)));
+
+    startTimer(5000);
+    m_bIsConstructionFinished = true;
 }
 
 IndicatorCameraExposeWidget::~IndicatorCameraExposeWidget()
@@ -238,6 +270,33 @@ void IndicatorCameraExposeWidget::on_disOffPushButton_clicked()
 
 void IndicatorCameraExposeWidget::on_daynNightComboBox_currentIndexChanged(int index)
 {
+    if(m_bIsConstructionFinished == true)
+    {
+        QMutexLocker locker(&m_mutex);
+        //set combobox items normal
+        int irisIndex = ui->irisComboBox->currentIndex();
+        QVariant irisVariant = ui->irisComboBox->itemData(irisIndex);
+
+        // Find the first element with the specified second element
+        auto itIris = std::find_if(m_irisVec.begin(), m_irisVec.end(),
+            [&irisVariant](const std::pair<std::string, int>& element) {
+                QString a = irisVariant.toString();
+                return element.second == a.toInt(nullptr, 16);
+            }
+        );
+        ui->irisComboBox->setItemText(irisIndex, QString::fromStdString(itIris->first));
+
+        int gainIndex = ui->gainComboBox->currentIndex();
+        QVariant gainVariant = ui->gainComboBox->itemData(gainIndex);
+        auto itGain = std::find_if(m_gainVec.begin(), m_gainVec.end(),
+            [&gainVariant](const std::pair<std::string, int>& element) {
+                QString a = gainVariant.toString();
+                return element.second == a.toInt(nullptr, 16);
+            }
+        );
+        ui->gainComboBox->setItemText(gainIndex, QString::fromStdString(itGain->first));
+    }
+
     emit sig_dnnIndexChanged(index);
 
     ConfigManager config = ConfigManager("exposure.json");
@@ -283,7 +342,6 @@ void IndicatorCameraExposeWidget::on_daynNightComboBox_currentIndexChanged(int i
 
 
     int GainValue = ret["Gain"].toString().toInt(&ok, 16);
-
     foreach (auto item, m_gainVec)
     {
         if (item.second == GainValue)
@@ -384,6 +442,7 @@ void IndicatorCameraExposeWidget::on_daynNightComboBox_currentIndexChanged(int i
 
 void IndicatorCameraExposeWidget::on_gainComboBox_currentIndexChanged(int index)
 {
+    QMutexLocker locker(&m_mutex);
     m_serialViscaManager->set_gain_from_pq(ui->gainComboBox->itemData(index).toString());
 }
 
@@ -394,19 +453,76 @@ void IndicatorCameraExposeWidget::on_irisComboBox_currentIndexChanged(int index)
     int dnn = ConfigManager("parameter_setting2.json").GetConfig()["day&night selection"].toInt();
     if (dnn >= 0 && dnn < 4)
         isAutoIris = true;
-
-    m_serialViscaManager->set_iris_from_pq(ui->irisComboBox->itemData(index).toString(), isAutoIris);
+    QMutexLocker locker(&m_mutex);
+    m_serialViscaManager->set_iris_from_pq(ui->irisComboBox->itemData(index).toString(), true);//isAutoIris);
 }
 
 void IndicatorCameraExposeWidget::on_shutterSpeedComboBox_currentIndexChanged(int index)
 {
+    QMutexLocker locker(&m_mutex);
     m_serialViscaManager->set_shutter_speed_from_pq(ui->shutterSpeedComboBox->itemData(index).toString());
 }
 
 void IndicatorCameraExposeWidget::on_dnrComboBox_currentIndexChanged(int index)
 {
+    QMutexLocker locker(&m_mutex);
     m_serialViscaManager->set_noise_reduction_on(QString::number(index));
 }
 
+void IndicatorCameraExposeWidget::timerEvent(QTimerEvent *event)
+{
+    m_serialViscaManager->read_shutter_speed();
+    m_serialViscaManager->read_gain();
+    m_serialViscaManager->read_iris();
+    m_serialViscaManager->show_noiseReduction();
+}
 
+void IndicatorCameraExposeWidget::changeShutterUI(QString strPQ)
+{
+    if(ui->shutterSpeedComboBox->isEditable() == true)
+        return;
 
+    foreach (auto item, m_shutterSpeedVec)
+    {
+        if (item.second == strPQ.toInt(nullptr,16))
+        {
+            QMutexLocker locker(&m_mutex);
+            ui->shutterSpeedComboBox->setCurrentText(QString(item.first.c_str()));
+        }
+    }
+}
+
+void IndicatorCameraExposeWidget::changeIrisUI(QString strPQ)
+{
+    if(ui->irisComboBox->isEditable() == true)
+        return;
+
+    foreach (auto item, m_iris_fullVec)
+    {
+        if (item.second == strPQ.toInt(nullptr,16))
+        {
+            QMutexLocker locker(&m_mutex);
+            ui->irisComboBox->setItemText(ui->irisComboBox->currentIndex(), QString(item.first.c_str()));
+        }
+    }
+}
+
+void IndicatorCameraExposeWidget::changeGainUI(QString strPQ)
+{
+    if(ui->gainComboBox->isEditable() == true)
+        return;
+
+    foreach (auto item, m_gain_fullVec)
+    {
+        if (item.second == strPQ.toInt(nullptr,16))
+        {
+            QMutexLocker locker(&m_mutex);
+            ui->gainComboBox->setItemText(ui->gainComboBox->currentIndex(), QString(item.first.c_str()));
+        }
+    }
+}
+
+void IndicatorCameraExposeWidget::changeDNRUI(QString strP)
+{
+    ui->shutterSpeedComboBox->setCurrentText(QString("DNR %1").arg(strP.toInt(nullptr,16)));
+}

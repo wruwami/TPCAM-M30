@@ -19,6 +19,8 @@
 #include "NetworkManager.h"
 #include "LcdBrightManager.h"
 
+#include "WidgetSize.h"
+
 SettingWidget::SettingWidget(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::SettingWidget)
@@ -73,6 +75,17 @@ SettingWidget::SettingWidget(QWidget *parent) :
     ui->setting1PushButton->setStyleSheet("QPushButton{ color : black; background-color :white; border-style: solid; border-width: 2px; border-color : red;}");
 
     m_pSetting3SystemButton = m_pSetting3Widget->m_pSystemInfoButton;
+
+    //
+    WidgetSize* ws = WidgetSize::GetInstance();
+    ui->setting2PushButton->setFixedSize(ws->GetWidgetWidth(110), ws->GetWidgetHeight(110));
+    ui->setting3PushButton->setFixedSize(ws->GetWidgetWidth(110), ws->GetWidgetHeight(110));
+    ui->setting1PushButton->setFixedSize(ws->GetWidgetWidth(110), ws->GetWidgetHeight(110));
+    ui->setting4PushButton->setFixedSize(ws->GetWidgetWidth(110), ws->GetWidgetHeight(110));
+    ui->setting5PushButton->setFixedSize(ws->GetWidgetWidth(110), ws->GetWidgetHeight(110));
+    ui->setting6PushButton->setFixedSize(ws->GetWidgetWidth(110), ws->GetWidgetHeight(110));
+    ui->setting7PushButton->setFixedSize(ws->GetWidgetWidth(110), ws->GetWidgetHeight(110));
+
 }
 
 SettingWidget::~SettingWidget()

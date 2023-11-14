@@ -27,11 +27,12 @@ Setting4APWidget::Setting4APWidget(QWidget *parent) :
     ui->printerLabel->setText(LoadString("IDS_PRINTER"));
     ui->printerLabel->setFontSize(23);
 
-    ui->printerComboBox->addItem(LoadString("IDS_THERMAL_EAST"));
-    ui->printerComboBox->addItem(LoadString("IDS_THERMAL_WOOSIM"));
-    ui->printerComboBox->addItem(LoadString("IDS_BT_HP"));
-
-
+    foreach (QJsonValue json, m_jsonObject["printer items"].toArray())
+    {
+        ui->printerComboBox->addItem(LoadString(json.toString().toStdString()));
+    }
+    int index = m_jsonObject["printer selection"].toInt() - 1;
+    ui->printerComboBox->setCurrentIndex(index);
 
     ui->pwPushButton->setText(LoadString("IDS_PW"));
     ui->pwPushButton->setFontSize(23);

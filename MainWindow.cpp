@@ -625,6 +625,7 @@ void MainWindow::OpenEnforcement()
     QObject::connect((QWidget*)m_pIndicatorWidget, SIGNAL(sig_Hide()), (QWidget*)m_pEnforcementWidget->m_pEnforcementComponentWidget, SLOT(on_Hide()));
 
     connect(m_pIndicatorWidget, SIGNAL(sig_Night()), m_pEnforcementWidget->m_pEnforcementComponentWidget, SLOT(on_Night()));
+    connect(m_pIndicatorWidget, SIGNAL(sig_dayNightChanged(int)), m_pEnforcementWidget->m_pEnforcementComponentWidget, SLOT(on_setNightMode(int)));
     connect(m_pIndicatorWidget, SIGNAL(sig_STMode()), m_pEnforcementWidget->m_pEnforcementComponentWidget, SLOT(on_STMode()));
     connect(m_pIndicatorWidget, SIGNAL(sig_LTMode()), m_pEnforcementWidget->m_pEnforcementComponentWidget, SLOT(on_LTMode()));
     connect(m_pIndicatorWidget, SIGNAL(sig_EnforcementModeI()), m_pEnforcementWidget->m_pEnforcementComponentWidget, SLOT(on_EnforceModeI()));

@@ -572,12 +572,6 @@ void EnforcementComponentWidget::hudClear()
 
 void EnforcementComponentWidget::laserInit()
 {
-    if(m_nEnforcementMode == V)
-    {
-        ui->zoomRangePushButton->setText("Z: AUTO");
-        doVMode();
-        return;
-    }
 //     if (m_pSerialLaserManager == nullptr)
 //        m_pSerialLaserManager = new SerialLaserManager;
     ConfigManager config = ConfigManager("parameter_setting1.json");
@@ -602,11 +596,9 @@ void EnforcementComponentWidget::laserInit()
 
     if(m_nEnforcementMode == V)
     {
-        int dn = object["day&night selection"].toInt();
-        if (dn >= 0 && dn <=3)
-            m_pSerialLaserManager->set_night_mode(0);
-        else
-            m_pSerialLaserManager->set_night_mode(1);
+        int dn = object2["day&night selection"].toInt();
+        m_pSerialLaserManager->set_night_mode(0); //V mode not require night mode
+        m_bNight = false;
         m_pSerialLaserManager->set_speed_measure_mode(1);
 
         ui->zoomRangePushButton->setText("Z: AUTO");
@@ -621,11 +613,17 @@ void EnforcementComponentWidget::laserInit()
 
     SetLaserDetectionAreaDistance(zoom_index);
 
-    int dn = object["day&night selection"].toInt();
+    int dn = object2["day&night selection"].toInt();
     if (dn >= 0 && dn <=3)
+    {
         m_pSerialLaserManager->set_night_mode(0);
+        m_bNight = false;
+    }
     else
+    {
         m_pSerialLaserManager->set_night_mode(1);
+        m_bNight = true;
+    }
     m_pSerialLaserManager->set_speed_measure_mode(1);
 }
 
@@ -642,7 +640,7 @@ void EnforcementComponentWidget::setMainMenuSize(QSize size)
 
 void EnforcementComponentWidget::doATMode()
 {
-    emit sig_ATmodeOn();
+//    emit sig_ATmodeOn();
 //    emit ShowRedOutLine(true);
     m_pDistanceLabel->show();
     hudClear();
@@ -1410,14 +1408,15 @@ void EnforcementComponentWidget::on_dzMinusPushButton_clicked()
 
 void EnforcementComponentWidget::on_showCaptureSpeedDistance(float fSpeed, float fDistance, int VehicleId)
 {
-    if (m_bNight)
-    {
-        m_pSerialLaserManager->stop_laser();
-        m_pSerialLaserManager->start_laser();
-        m_pSerialLaserManager->request_distance(true);
-        m_bNight = false;
-        return;
-    }
+    //NightMode?
+//    if (m_bNight)
+//    {
+//        m_pSerialLaserManager->stop_laser();
+//        m_pSerialLaserManager->start_laser();
+//        m_pSerialLaserManager->request_distance(true);
+//        m_bNight = false;
+//        return;
+//    }
 
     m_fSpeed = fSpeed;
     m_fDistance = fDistance;
@@ -1484,6 +1483,15 @@ void EnforcementComponentWidget::on_showCaptureSpeedDistance(float fSpeed, float
         m_WhiteDistanceClearTimer.start(200);
 //        로그 저장
     }
+
+    //NightMode
+    if(m_bNight==true)
+    {
+        m_pSerialLaserManager->start_laser();
+        m_pSerialLaserManager->request_distance(true);
+        if (m_bVirtualMode)
+            m_pSerialLaserManager->start_virtualSpeed();
+    }
 }
 
 void EnforcementComponentWidget::on_showSpeedDistance(float fSpeed, float fDistance)
@@ -1547,6 +1555,21 @@ void EnforcementComponentWidget::on_EnforceModeI()
     m_nEnforcementMode = I;
     doVModeTimer(false);
     zoomRangeWithoutIncrement();
+
+    //setting night mode
+    ConfigManager config = ConfigManager("parameter_setting2.json");
+    QJsonObject object = config.GetConfig();
+    int dn = object["day&night selection"].toInt();
+    if (dn >= 0 && dn <=3)
+    {
+        m_pSerialLaserManager->set_night_mode(0);
+        m_bNight = false;
+    }
+    else
+    {
+        m_pSerialLaserManager->set_night_mode(1);
+        m_bNight = true;
+    }
 }
 
 void EnforcementComponentWidget::on_EnforceModeA()
@@ -1556,6 +1579,21 @@ void EnforcementComponentWidget::on_EnforceModeA()
     m_nEnforcementMode = A;
     doVModeTimer(false);
     zoomRangeWithoutIncrement();
+
+    //setting night mode
+    ConfigManager config = ConfigManager("parameter_setting2.json");
+    QJsonObject object = config.GetConfig();
+    int dn = object["day&night selection"].toInt();
+    if (dn >= 0 && dn <=3)
+    {
+        m_pSerialLaserManager->set_night_mode(0);
+        m_bNight = false;
+    }
+    else
+    {
+        m_pSerialLaserManager->set_night_mode(1);
+        m_bNight = true;
+    }
 }
 
 void EnforcementComponentWidget::on_EnforceModeV()
@@ -1567,6 +1605,8 @@ void EnforcementComponentWidget::on_EnforceModeV()
     //change zoombutton, disable indicator
     ui->zoomRangePushButton->setText("Z: AUTO");
     doVMode();
+    m_pSerialLaserManager->set_night_mode(0); //V mode not require nightMode
+    m_bNight = false;
 }
 
 void EnforcementComponentWidget::do_FileSystemWatcher(const QString &path)
@@ -1621,7 +1661,7 @@ void EnforcementComponentWidget::timerEvent(QTimerEvent *event)
     {
         float sdpercent = storageManager.GetSDAvailable() / storageManager.GetSDTotal() * 100;
         QString sdCardValue = LoadString("IDS_SD_CARD") + QString::number(sdpercent, 'f', 1) + "%";
-        BaseDialog baseDialog(SdCardMemoryLackType, Qt::AlignmentFlag::AlignCenter, sdCardValue, false, LoadString("IDS_WARNING MESSAGE"));
+        BaseDialog baseDialog(SdCardMemoryLackType, Qt::AlignmentFlag::AlignCenter, sdCardValue, false, LoadString("IDS_WARNING_MESSAGE"));
         if (baseDialog.exec() == QDialog::Accepted)
         {
             emit sig_exit();
@@ -2016,4 +2056,27 @@ void EnforcementComponentWidget::closeThread()
         m_pFtpThread->requestInterruption();
     }
     m_pFtpThread->exit();
+}
+
+
+void EnforcementComponentWidget::on_setNightMode(int dn)
+{
+    if(m_nEnforcementMode == V)
+    {
+        m_pSerialLaserManager->set_night_mode(0);
+        m_bNight = false;
+    }
+    else
+    {
+        if (dn >= 0 && dn <=3)
+        {
+            m_pSerialLaserManager->set_night_mode(0);
+            m_bNight = false;
+        }
+        else
+        {
+            m_pSerialLaserManager->set_night_mode(1);
+            m_bNight = true;
+        }
+    }
 }

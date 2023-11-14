@@ -11,7 +11,7 @@ QComboBox::drop-down
     border: none; /* This seems to replace the whole arrow of the combo box */
 }
 QComboBox::down-arrow {
-    image: url(images/Main_menu/combobox_drop_down_arrow.jpg);
+    image: url(images/Main_menu/combobox_drop_down_arrow.bmp);
     width: 30px;
     height: 30px;
 }
@@ -30,7 +30,7 @@ QScrollBar::add-line:vertical {
  height: 50px;
  subcontrol-position: bottom;
  subcontrol-origin: margin;
- image: url(images/Main_menu/combobox_drop_down_arrow.jpg);
+ image: url(images/Main_menu/combobox_drop_down_arrow.bmp);
 }
 QScrollBar::sub-line:vertical {
  border: 2px solid black;

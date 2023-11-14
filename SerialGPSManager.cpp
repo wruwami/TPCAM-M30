@@ -91,11 +91,17 @@ int SerialGPSManager::GetSatellitesInView()
 
 QString SerialGPSManager::GetLatitude()
 {
+    QString latitude = m_Latitude.mid(1,-1);
+    if(latitude == "000.000000")
+        return "";
     return m_Latitude;
 }
 
 QString SerialGPSManager::GetLongitude()
 {
+    QString longitude = m_Longitude.mid(1,-1);
+    if(longitude == "000.000000")
+        return "";
     return m_Longitude;
 }
 

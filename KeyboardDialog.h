@@ -25,6 +25,7 @@ public:
     const QString &str() const;
 private:
     char HangulCovertEnglish(QString str);
+    bool IsKoreanChar(const QString&);
 #ifdef Q_OS_LINUX
     QString getPreeditString();
     QString getCommitString();

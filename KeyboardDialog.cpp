@@ -1,6 +1,8 @@
 #include "KeyboardDialog.h"
 #include "ui_KeyboardDialog.h"
 
+#include "regex"
+
 #include <QFile>
 
 #include "StringLoader.h"
@@ -318,7 +320,7 @@ void KeyboardDialog::onKeyPressed(const QString &iKey, Key *mKey)
     else
     {
 #ifdef Q_OS_LINUX
-        if (m_k->nLangauge() == Korean)
+        if (m_k->nLangauge() == Korean && IsKoreanChar(iKey))
         {
             int ascii = HangulCovertEnglish(iKey[0]);
             int ret = hangul_ic_process(m_hic, ascii);
@@ -474,6 +476,19 @@ char KeyboardDialog::HangulCovertEnglish(QString str)
     else if (str == "ㅡ")
         return 'm';
 
+}
+
+bool KeyboardDialog::IsKoreanChar(const QString &str)
+{
+    QChar ch = str[0].unicode();
+
+    if (ch >= 0x1100 && ch <= 0x11FF)
+        return true;
+
+    if (ch >= 0x3130 && ch <= 0x318F)
+        return true;
+
+    return false;
 }
 
 void KeyboardDialog::on_okPushButton_clicked()

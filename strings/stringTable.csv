@@ -21,9 +21,9 @@ IDS_SAVE_SMALL,Save,저장,Salve,Ahorrar,Enreg.,حفظ
 IDS_CANCEL_SMALL,Cancel,취소,CANCELAR,CANCELAR,ANNULER,إلغاء
 IDS_LOCATION,Location,위치,Localização,Localización,Lieu,موقع
 IDS_SPEED_LIMIT,Speed Limit,규정 제한 속도,Limite de velocidade,Límite de velocidad,Limitation de vitesse,الحد الأقصى للسرعة
-IDS_CAPTURE_LIMIT,Capture Limit,실제 제한 속도,Limite de captura,Límite de captura,Limite de capture,حد الالتقاط
+IDS_CAPTURE_LIMIT,Capture Speed,실제 제한 속도,Velocidade de captura,Velocidad de captura,Vitesse de capture,سرعة الالتقاط
 IDS_ENFORCEMENT_MODE,Enforcement Mode,단속 모드,Modo de execução,Modo de cumplimiento,Mode d'application,وضع الإنفاذ
-IDS_SPEED_MODE,Speed Mode,속도 모드,Modo de velocidade,Modo de velocidad,Mode Vitesse,وضع السرعة
+IDS_SPEED_MODE,Speed Detecting Mode,속도 측정 모드,Modo de detecção de velocidade,Modo de detección de velocidad,Mode de détection de vitesse,وضع الكشف عن السرعة
 IDS_ALL_IMAGE_VIDEO,A(Image+Video),A(이미지+동영상),A(imagem+vídeo),A(Imagen+Video),A(Image+Vidéo),A(صورة + فيديو)
 IDS_AUTO_IMAGE,Auto(Image),자동(이미지),Auto(Imagem),Automático (Imagen),Auto(Image),تلقائي (صورة)
 IDS_VIDEO,V(Video),V(동영상),V(Vídeo),V(Video),V(Vidéo),V(فيديو)
@@ -77,7 +77,7 @@ IDS_Manual,Manual,수동,Manual,Manual,Manuel,كتيب
 IDS_LANUAGE,Language,언어,Língua,Idioma,Langue,لغة
 IDS_BLUETOOTH,Bluetooth,블루투스,Bluetooth,Bluetooth,Bluetooth,بلوتوث
 IDS_GPS,GPS,GPS,GPS,GPS,GPS,الجميع GPS
-IDS_FTP,FTP,FTP,FTP,FTP,FTP,عنوان FTP
+IDS_FTP,FTP CLIENT,FTP 클라이언트,CLIENTE FTP,CLIENTE FTP,CLIENT FTP,عميل FTP
 IDS_DISABLE,Disable,비활성화,Desativar,Deshabilitar,Désactiver,إبطال
 IDS_ENABLE_AUTO,Enable(Auto),활성화(자동),Ativar (Automático),Habilitar (automático),Activer (Auto),تمكين (تلقائي)
 IDS_ENABLE_MANUAL,Enable(Manual),활성화(수동),Ativar (Manual),Habilitar (Manual),Activer (Manuel),تمكين (يدوي)
@@ -131,7 +131,6 @@ IDS_DOWN,Down,아래,Baixa,Abajo,Vers le bas,أسفل
 IDS_ADMIN,Admin,관리자,Administrador,Administración,Administrateur,مسؤل
 IDS_CHANGE_SSID_AND_FTP,Change SSID & FTP ID to Device ID,SSID 및 FTP ID를 기기 ID로 변경,Altere SSID e ID de FTP para ID do dispositivo,Cambiar SSID e ID de FTP a ID de dispositivo,Changer le SSID et l'ID FTP en ID de périphérique,قم بتغيير SSID ومعرف FTP إلى معرف الجهاز
 IDS_STILL_IMAGE_AND_MOVIE_VIEWER,"""Still image and movie viewer If movie, the first frame shows""","""이미지 및 동영상 뷰어 동영상인 경우 첫 번째 프레임이 표시됩니다.""","Imagem estática e visualizador de filme Se for um filme, o primeiro quadro é exibido","Imagen fija y visor de películas Si es una película, se muestra el primer cuadro","Visionneuse d'images fixes et de films Si film, la première image s'affiche","عارض الصور الثابتة والأفلام في حالة وجود فيلم ، يظهر الإطار الأول"
-IDS_SNAPSHOT,Snapshot,스냅샷,Instantâneo,Instantánea,Instantané,لمحة
 IDS_BACK,Back,뒤로,De volta,atrás,Arrière,خلف
 IDS_WARNING_MESSAGE,Warning message,경고 메시지,Mensagem de aviso,Mensaje de advertencia,Message d'alerte,رسالة تحذير
 IDS_CONTINUE_QUESTION,Do you continue using it?,계속 사용하시겠습니까?,Você continua a usá-la?,¿Sigues usándola?,Continuez-vous à l'utiliser?,هل تريد الاستمرار في استخدامه؟
@@ -191,7 +190,6 @@ IDS_30_MINUTE,30 minutes,30 분,30 minutos,30 minutos,30 minutes,30 دقيقة
 IDS_ARE_U_SURE_FACTORY_DEFAILT,Are you sure to set the factory default?,공장 초기화를 실행하시겠습니까?,Tem certeza de definir o padrão de fábrica?,¿Estás seguro de establecer el valor predeterminado de fábrica?,Êtes-vous sûr de définir les paramètres d'usine par défaut ?,هل أنت متأكد من ضبط المصنع الافتراضي؟
 IDS_ARE_U_SURE_FACTORY_DEFAULT,Do you want to set a factory reset?,공장 초기화를 실행하시겠습니까?,Deseja realizar uma redef. de fábrica?,Quieres realizar un restable. de fábrica?,Voulez-vous effectuer une réinit. d'usine ?,هل أنت متأكد من ضبط المصنع الافتراضي؟
 IDS_PLEASE_INPUT_PW,"Please, input admin password.",관리자 비밀번호를 입력해주세요.,"Insira a senha do administrador.","Ingrese la contraseña de administrador.",Veuillez saisir le mot de passe admin.,"من فضلك ، أدخل كلمة مرور المسؤول."
-IDC_SNAPSHOT,Snapshot,스냅샷,Instantâneo,Instantánea,Instantané,لمحة
 IDS_STILL_IMAGE_VIEWER,Still Image Viewer,이미지 뷰어,Visualizador de imagens fixas,Visor de imágenes fijas,Visionneuse d'images fixes,عارض الصور الثابتة
 IDS_QUIT,Quit,종료,Desistir,Dejar,Quitter,استقال
 IDS_ORIGIN,Origin,원본,Origem,Origen,Origine,أصل
@@ -215,7 +213,7 @@ IDS_CONFIRM,Confirm,새 비밀번호 확인,confirme,Confirmar,Confirmer,يتأ�
 IDS_SHOW,Show,보임,Mostrar,Show,Montrer,تبين
 IDS_WIFI_SSID,WIFI SSID,WIFI SSID,WIFI SSID,WIFI SSID,WIFI SSID,شكراWIFI SSID
 IDS_WIFI_SEARCH,WIFI Search,WIFI 검색,Pesquisa WIFI,búsqueda WIFI,Recherche WIFI,يبحث WIFI
-IDS_FTP_ID_PW,FTP ID,FTP ID,FTP ID,FTP ID,FTP ID,حسابFTP ID
+IDS_FTP_ID_PW,FTP SERVER,FTP 서버,SERVIDOR FTP,SERVIDOR FTP,SERVEUR FTP,خادم FTP
 IDS_PASS,PASS,PASS,PASSAR,APROBAR,PASSER,يمر
 IDS_CALIBRATION_SERVICE_REQUIRED,Calibration service required,교정 서비스 필요합니다,Serviço de calibração necessário,Servicio de calibración requerido,Service d'étalonnage requis,خدمة المعايرة مطلوبة
 IDS_LOGIN_EXPIRED_DATE,Expired Date,교정 유효기간 만료,Data expirada,Fecha de vencimiento,Date d'expiration,منتهي الصلاحية
@@ -252,3 +250,12 @@ IDS_SPANISH,spanish,스페인어,espanhol,español,Espagnol,الأسبانية
 IDS_KOREAN,korean,한국어,coreano,coreano,coréen,الكورية
 IDS_APS,APS,APS,APS,APS,APS,APS
 IDS_WIFI_FINDING,Finding,검색중,Procurando,buscando,Recherche,يبحث
+IDS_CRACK_DOWN_MESSAGE,Cracking down stops automatically!!,단속은 자동으로 중지됩니다!!,A repressão para automaticamente!!,¡¡La represión se detiene automáticamente!!,La répression s'arrête automatiquement!!,الاختراق يتوقف تلقائيا!!
+IDS_CRACK_DOWN_MESSAGE2,please check below,아래를 확인해 주세요,por favor verifique abaixo,por favor verifique a continuación,veuillez vérifier ci-dessous,يرجى مراجعة أدناه
+IDS_SD_CARD,SD card:,SD 카드:,Cartão SD:,Tarjeta SD:,Carte SD:,بطاقة الذاكرة:
+IDC_SCREEN,Screen,Screen(스크린),Screen(tela),Screen(pantalla),Screen(écran),Screen(شاشة)
+IDC_MANUAL_CAPTURE,Manual Capture,Manual Capture(수동 캡쳐),Manual Capture(Captura manual),Manual Capture(Captura manual),Manual Capture(Capture manuelle),Manual Capture(الالتقاط اليدوي)
+IDC_VIDEO,Video,Video(비디오),Video(Vídeo),Video(Video),Video(Vidéo),Video(فيديو)
+IDC_AUTO,Auto,Auto(오토),Auto(Auto),Auto(Auto),Auto(Auto),Auto(آلي)
+IDC_SNAPSHOT,Snapshot,Snapshot(스냅샷),Snapshot(Instantâneo),Snapshot(Instantánea),Snapshot(Instantané),Snapshot(لمحة)
+IDS_SNAPSHOT,Snapshot,Snapshot(스냅샷),Snapshot(Instantâneo),Snapshot(Instantánea),Snapshot(Instantané),Snapshot(لمحة)

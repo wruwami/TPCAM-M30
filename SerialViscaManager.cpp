@@ -1097,7 +1097,7 @@ void SerialViscaManager::plus_focus()
     m_focus_pqrs = pqrs;
 
     //feedback
-//     m_pTimerInquiryFocus->start(500);
+     m_pTimerInquiryFocus->start(500);
 
     QByteArray data;
     if(visca_packet)
@@ -1158,6 +1158,9 @@ void SerialViscaManager::minus_focus()
     msg[6]=0x00 | s;
 
     m_focus_pqrs = pqrs;
+
+    //feedback
+     m_pTimerInquiryFocus->start(500);
 
     QByteArray data;
     if(visca_packet)
@@ -2504,4 +2507,9 @@ void SerialViscaManager::setZFcontrolThread(int index, int daynight)
     // Use QtConcurrent::run to execute the member function in a separate thread
     QFuture<void> future = QtConcurrent::run(this, &SerialViscaManager::SetZoomForVmode, index);
     QFuture<void> future2 = QtConcurrent::run(this, &SerialViscaManager::SetFocusForVmode, index, daynight);
+}
+
+QString SerialViscaManager::getFocus_pqrs()
+{
+    return m_focus_pqrs;
 }

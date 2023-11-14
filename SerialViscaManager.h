@@ -160,6 +160,7 @@ public:
     void setZFcontrolThread(int index, int daynight);
 
     ViscaPacket *getVisca_packet() const;
+    QString getFocus_pqrs();
 signals:
 //    void sig_pb_zoom_clicked();
 //    void sig_pb_focus_clicked(QString);

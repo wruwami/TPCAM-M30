@@ -152,6 +152,7 @@ signals:
     void sig_Hide();
     void sig_Show();
     void sig_screenShot();
+    void sig_dayNightChanged(int);
 protected:
     void timerEvent(QTimerEvent *event);
     void paintEvent(QPaintEvent *event);

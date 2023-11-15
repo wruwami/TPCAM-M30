@@ -81,7 +81,7 @@ FileManagerWidget::FileManagerWidget(QWidget *parent) :
 
 //    ui->firstPushButton->setStyleSheet(QString("image: url(images/file_manager/file_management_prev_big_seek_button.png); width: %0; height : %1;").arg(ui->firstPushButton->width(), ui->firstPushButton->height()));
     ui->percentPushButton->setDisabled(true);
-    ui->percentPushButton->setText("S:100%");
+    ui->percentPushButton->setText("S:0%");
     ui->percentPushButton->setFontSize(23);
     ui->connectPushButton->setText(LoadString("IDS_CONNECT"));
     ui->connectPushButton->setFontSize(23);
@@ -812,6 +812,9 @@ void FileManagerWidget::on_percentPushButton_clicked()
 
 void FileManagerWidget::on_ImageVideoComboBox_currentIndexChanged(int index)
 {
+    ui->tableWidget->clear();
+    ui->datePushButton->setText("");
+
     switch (index)
     {
     case 0: // I

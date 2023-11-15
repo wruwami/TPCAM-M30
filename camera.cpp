@@ -511,7 +511,7 @@ void Camera::SaveVideo(PrefixType prefix, stEnforcementInfo enforceInfo, SDPath 
     QString qstrPath = GETSDPATH(sdPath) + "/";
 
     //saveVideoUseShmsrc(qstrFilename, qstrPath, SHM_NAME, recording_time, 30, RAW_IMAGE_WIDTH, RAW_IMAGE_HEIGHT);
-    GstShmMgr::getInstance()->saveVideoUseShmsrc(qstrFilename, qstrPath, SHM_NAME, recording_time, 30, RAW_IMAGE_WIDTH, RAW_IMAGE_HEIGHT);
+    GstShmMgr::getInstance()->saveVideoUseShmsrc(qstrFilename, qstrPath, SHM_NAME, recording_time, 30, VIDEO_IMAGE_WIDTH, VIDEO_IMAGE_HEIGHT);
 }
 
 void Camera::SaveImage(PrefixType prefix, stEnforcementInfo enforceInfo, SDPath sdPath)

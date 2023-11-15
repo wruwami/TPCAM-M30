@@ -4,7 +4,7 @@
 #endif // VERSION_H
 
 
-#define SW_VER          "v0.0.0.10 "
+#define SW_VER          "v0.0.0.11 "
 //#define	SW_BUILDDATE	__DATE__
 //#define	SW_BUILDTIME	__TIME__
 
@@ -19,6 +19,13 @@
 
 /*
 ========================================================================================================
+--------------------------------------------------------------------------------------------------------
+2023.11.14  16:00   v0.0.0.11 - LJH
+    1. modify ui
+         - Clear table and filename when loading saved image from file manager
+    2. modify password widget focusing
+    3. modify video saving resolution from auto mode
+
 --------------------------------------------------------------------------------------------------------
 2023.11.13  14:00   v0.0.0.9 - KMS
     1. modify json

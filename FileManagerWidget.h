@@ -41,9 +41,10 @@ private:
     bool m_bA4Print = false;
 private:
     void setTableContent();
+    void setTableContent(QList<AVFileFormat> avFileFormatList);
     void convertValue();
     void initTable();
-    void printA4();
+//    void printA4();
     void SetPrintEnabled();
 
 protected:

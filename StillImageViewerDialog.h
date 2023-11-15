@@ -29,8 +29,11 @@ private slots:
 
     void on_originPushButton_clicked();
     
+    void on_printPushButton_clicked();
+
 private:
     Ui::StillImageViewerDialog*ui;
+    AVFileFormat m_avFileFormat;
     QString m_file_path;
     double m_factor = 1;
 };

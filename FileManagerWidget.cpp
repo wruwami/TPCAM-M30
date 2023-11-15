@@ -37,6 +37,7 @@
 #include "DateFormatManager.h"
 #include "QtAVPlayer/qavplayer.h"
 #include "QtAVPlayerHelper/videowidget.h"
+#include "Print.h"
 
 enum Mode
 {
@@ -105,8 +106,9 @@ FileManagerWidget::FileManagerWidget(QWidget *parent) :
     ui->datePushButton->setFontSize(23);
 
     ui->tableWidget->setSizePolicy(QSizePolicy::Ignored, QSizePolicy::Expanding);
-    ui->tableWidget->horizontalHeader()->setSectionResizeMode(0, QHeaderView::Fixed);
-    ui->tableWidget->horizontalHeader()->setSectionResizeMode(1, QHeaderView::Fixed);
+    ui->tableWidget->horizontalHeader()->setSectionResizeMode(QHeaderView::Fixed);
+    ui->tableWidget->setStyleSheet("QTableWidget::item {border : none;}");
+//    ui->tableWidget->horizontalHeader()->setSectionResizeMode(1, QHeaderView::Fixed);
 
 //    ui->tableWidget->setSectionResizeMode(0, QHeaderView.Stretch);
 
@@ -162,7 +164,7 @@ FileManagerWidget::FileManagerWidget(QWidget *parent) :
                     imageFormat);
 //        QImage image = videoFrame.image();
 //        pixmap.fromImage(videoFrame.image().scaled(ui->frameLabel->size(), Qt::IgnoreAspectRatio, Qt::FastTransformation));
-        ui->frameLabel->setPixmap(QPixmap::fromImage(image).scaled(ui->frameLabel->size(), Qt::IgnoreAspectRatio, Qt::FastTransformation));
+        ui->frameLabel->setImage(QPixmap::fromImage(image).scaled(ui->frameLabel->size(), Qt::IgnoreAspectRatio, Qt::FastTransformation));
 
         // QAVVideoFrame can be converted to various pixel formats
 //        auto convertedFrame = frame.convert(AV_PIX_FMT_YUV420P);
@@ -217,6 +219,49 @@ FileManagerWidget::~FileManagerWidget()
     delete m_player;
 //    delete m_videoWidget;
     delete ui;
+}
+
+void FileManagerWidget::setTableContent(QList<AVFileFormat> avFileFormatList)
+{
+    ui->tableWidget->clear();
+    int j = 0;
+
+    if (avFileFormatList.size() == 0)
+        return;
+
+    if (m_nMode != S_MODE)
+    {
+        for (int i = m_AVFileFormatIndex ; i < m_AVFileFormatIndex + 5 ; i++, j++)
+        {
+            if (i >= avFileFormatList.size())
+                break;
+            AVFileFormat avfileFormat = avFileFormatList[i];
+            QString index;
+            index.sprintf("%05d", i+1);
+            QTableWidgetItem* indexItem = new QTableWidgetItem(index);
+            float nCaptureSpeed = getSpeedValue(avfileFormat.captureSpeed.mid(1,4).toFloat());
+            QTableWidgetItem* item = new QTableWidgetItem(QString::number(nCaptureSpeed, 'f', 0) + speedUnitValue() +", " + QString("%0%1:%2%3:%4%5").arg(avfileFormat.time[0]).arg(avfileFormat.time[1]).arg(avfileFormat.time[2]).arg(avfileFormat.time[3]).arg(avfileFormat.time[4]).arg(avfileFormat.date[5]));
+            ui->tableWidget->setItem(j, 0, indexItem);
+            ui->tableWidget->setItem(j, 1, item);
+        }
+    }
+    else
+    {
+        for (int i = m_AVFileFormatIndex ; i < m_AVFileFormatIndex + 5 ; i++, j++)
+        {
+            if (i >= avFileFormatList.size())
+                break;
+            AVFileFormat avfileFormat = avFileFormatList[i];
+            QString index;
+            index.sprintf("%05d", i+1);
+            QTableWidgetItem* indexItem = new QTableWidgetItem(index);
+            QString date = QString(avfileFormat.date);
+            QTableWidgetItem* item = new QTableWidgetItem(date);
+            ui->tableWidget->setItem(j, 0, indexItem);
+            ui->tableWidget->setItem(j, 1, item);
+        }
+
+    }
 }
 
 void FileManagerWidget::setTableContent()
@@ -321,7 +366,7 @@ void FileManagerWidget::on_deletePushButton_clicked()
     BaseDialog baseDialog(Dialog::FileManagerQuestionMessageWidgetType, Qt::AlignmentFlag::AlignCenter, "");
     if (baseDialog.exec() == QDialog::Accepted)
     {
-        BaseDialog baseDialog2(Dialog::AdminPWWidgetType, Qt::AlignmentFlag::AlignCenter, "");
+        BaseDialog baseDialog2(Dialog::AdminPWWidgetType, Qt::AlignmentFlag::AlignCenter, LoadString("IDS_PLEASE_INPUT_PW"));
         if (baseDialog2.exec() == QDialog::Accepted)
         {
             QDir dir(GetSDPath());
@@ -442,132 +487,132 @@ void FileManagerWidget::initTable()
     //    ui->tableWidget->cellClicked()
 }
 
-void FileManagerWidget::printA4()
-{
-    QTextDocument doc;
-//    doc.setTextWidth()
-    QTextCursor cursor(&doc);
+//void FileManagerWidget::printA4()
+//{
+//    QTextDocument doc;
+////    doc.setTextWidth()
+//    QTextCursor cursor(&doc);
 
-    QPixmap pixmap;
-    pixmap.load(GeteMMCPath() + "/" + "images" + "/" + "booting" + "/" + "comlaser_logo.bmp");
-    QImage logoImage = pixmap.toImage();
+//    QPixmap pixmap;
+//    pixmap.load(GeteMMCPath() + "/" + "images" + "/" + "booting" + "/" + "comlaser_logo.bmp");
+//    QImage logoImage = pixmap.toImage();
 
-    cursor.insertImage(logoImage);
-    QTextCharFormat textFormat;
-    textFormat.setVerticalAlignment(QTextCharFormat::AlignMiddle);
-    QFont font = textFormat.font();
-    font.setPixelSize(15);
-    textFormat.setFont(font);
-
-
-    cursor.insertText(LoadString("IDS_POLICE_OVER_SPEEDING_TICKET"), textFormat);
-
-//    QTextFrameFormat frameFormat;
-//    frameFormat.setHeight(10);
-//    frameFormat.setWidth(612);
-//    QColor line = QColor(47, 104, 172);
-//    frameFormat.setBackground(line);
-//    cursor.insertFrame(frameFormat);
-//    cursor.insert
-    pixmap.load(GeteMMCPath() + "/" + "images" + "/" + "booting" + "/" + "blueLine.png");
-    pixmap = pixmap.scaledToWidth(612, Qt::SmoothTransformation);
-    logoImage = pixmap.toImage();
-    cursor.insertImage(logoImage);
-
-    font.setPixelSize(15);
-    textFormat.setFont(font);
-
-    cursor.insertBlock();
-    cursor.insertBlock();
-    cursor.insertText(LoadString("IDS_DID") + " : " + m_currentAVFileFormat.deviceId, textFormat);
-    cursor.insertBlock();
-    cursor.insertBlock();
-    cursor.insertText(LoadString("IDS_UN") + " : " + m_currentAVFileFormat.userId, textFormat);
-    cursor.insertBlock();
-    cursor.insertBlock();
-    cursor.insertText(LoadString("IDS_DATE") + " : " + GetDate(QString(m_currentAVFileFormat.date).mid(0, 8)), textFormat);
-    cursor.insertBlock();
-    cursor.insertBlock();
-    QString time = QString(m_currentAVFileFormat.time).mid(0, 2) + ":" + QString(m_currentAVFileFormat.time).mid(2, 2) + ":" + QString(m_currentAVFileFormat.time).mid(4, 2);
-    cursor.insertText(LoadString("IDS_TIME") + " : " + time, textFormat);
-    cursor.insertBlock();
-    cursor.insertBlock();
-    QString speedUnit;
-    QString distanceUnit;
-    if (QString(m_currentAVFileFormat.unit) == "S")
-    {
-        speedUnit = "Km/h";
-        distanceUnit = "meter";
-    }
-    else
-    {
-        speedUnit = "mph";
-        distanceUnit = "feet";
-    }
-
-    cursor.insertText(LoadString("IDS_SPEED_LIMIT") + " : " + QString::number(m_currentAVFileFormat.speedLimit.toInt()) + " " + speedUnit, textFormat);
-    cursor.insertBlock();
-    cursor.insertBlock();
-    int captureSpeed;
-    if (m_currentAVFileFormat.captureSpeed.mid(0,1) == "M")
-    {
-        captureSpeed = -(m_currentAVFileFormat.captureSpeed.mid(1,4).toInt());
-    }
-    else
-    {
-        captureSpeed = (m_currentAVFileFormat.captureSpeed.mid(1,4).toInt());
-    }
-    cursor.insertText(LoadString("IDS_VIOLATION_SPEED") + " : "+ QString::number(captureSpeed) + " " + speedUnit, textFormat);
-    cursor.insertBlock();
-    cursor.insertBlock();
-    cursor.insertText(LoadString("IDS_RANGE") + " : " + QString::number(m_currentAVFileFormat.distance.toInt()) + " " + distanceUnit, textFormat);
-    cursor.insertBlock();
-    cursor.insertBlock();
-    cursor.insertText(LoadString("IDS_LOCATION") + " : " + m_currentAVFileFormat.location + "(" + m_currentAVFileFormat.latitude + "," + m_currentAVFileFormat.longitude + ")", textFormat);
-    cursor.insertBlock();
-    cursor.insertBlock();
+//    cursor.insertImage(logoImage);
+//    QTextCharFormat textFormat;
+//    textFormat.setVerticalAlignment(QTextCharFormat::AlignMiddle);
+//    QFont font = textFormat.font();
+//    font.setPixelSize(15);
+//    textFormat.setFont(font);
 
 
-    QPixmap pixmap2;
-    pixmap2.load(m_currentAVFileFormat.file_path);
-    pixmap2 = pixmap2.scaled(612,344, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
+//    cursor.insertText(LoadString("IDS_POLICE_OVER_SPEEDING_TICKET"), textFormat);
 
-    QImage logoImage2 = pixmap2.toImage();
-    cursor.insertImage(logoImage2);
-    cursor.insertBlock();
-    cursor.insertBlock();
+////    QTextFrameFormat frameFormat;
+////    frameFormat.setHeight(10);
+////    frameFormat.setWidth(612);
+////    QColor line = QColor(47, 104, 172);
+////    frameFormat.setBackground(line);
+////    cursor.insertFrame(frameFormat);
+////    cursor.insert
+//    pixmap.load(GeteMMCPath() + "/" + "images" + "/" + "booting" + "/" + "blueLine.png");
+//    pixmap = pixmap.scaledToWidth(612, Qt::SmoothTransformation);
+//    logoImage = pixmap.toImage();
+//    cursor.insertImage(logoImage);
 
-    pixmap.load(GeteMMCPath() + "/" + "images" + "/" + "booting" + "/" + "blueLine.png");
-    pixmap = pixmap.scaledToWidth(612, Qt::SmoothTransformation);
-    logoImage = pixmap.toImage();
-    cursor.insertImage(logoImage);
+//    font.setPixelSize(15);
+//    textFormat.setFont(font);
 
-//    cursor.insertFrame(frameFormat);
+//    cursor.insertBlock();
+//    cursor.insertBlock();
+//    cursor.insertText(LoadString("IDS_DID") + " : " + m_currentAVFileFormat.deviceId, textFormat);
+//    cursor.insertBlock();
+//    cursor.insertBlock();
+//    cursor.insertText(LoadString("IDS_UN") + " : " + m_currentAVFileFormat.userId, textFormat);
+//    cursor.insertBlock();
+//    cursor.insertBlock();
+//    cursor.insertText(LoadString("IDS_DATE") + " : " + GetDate(QString(m_currentAVFileFormat.date).mid(0, 8)), textFormat);
+//    cursor.insertBlock();
+//    cursor.insertBlock();
+//    QString time = QString(m_currentAVFileFormat.time).mid(0, 2) + ":" + QString(m_currentAVFileFormat.time).mid(2, 2) + ":" + QString(m_currentAVFileFormat.time).mid(4, 2);
+//    cursor.insertText(LoadString("IDS_TIME") + " : " + time, textFormat);
+//    cursor.insertBlock();
+//    cursor.insertBlock();
+//    QString speedUnit;
+//    QString distanceUnit;
+//    if (QString(m_currentAVFileFormat.unit) == "S")
+//    {
+//        speedUnit = "Km/h";
+//        distanceUnit = "meter";
+//    }
+//    else
+//    {
+//        speedUnit = "mph";
+//        distanceUnit = "feet";
+//    }
 
-    cursor.insertBlock();
-    cursor.insertText(LoadString("IDS_PRINT_DATE") + " : " + GetDate(QDate::currentDate().toString("yyyyMMdd")), textFormat);
-    cursor.insertBlock();
-    cursor.insertBlock();
-    cursor.insertText(LoadString("IDS_OFFIEC_ID") + " : ", textFormat);
-    textFormat.setUnderlineStyle(QTextCharFormat::SingleUnderline);
-    cursor.insertText("                  ", textFormat);
+//    cursor.insertText(LoadString("IDS_SPEED_LIMIT") + " : " + QString::number(m_currentAVFileFormat.speedLimit.toInt()) + " " + speedUnit, textFormat);
+//    cursor.insertBlock();
+//    cursor.insertBlock();
+//    int captureSpeed;
+//    if (m_currentAVFileFormat.captureSpeed.mid(0,1) == "M")
+//    {
+//        captureSpeed = -(m_currentAVFileFormat.captureSpeed.mid(1,4).toInt());
+//    }
+//    else
+//    {
+//        captureSpeed = (m_currentAVFileFormat.captureSpeed.mid(1,4).toInt());
+//    }
+//    cursor.insertText(LoadString("IDS_VIOLATION_SPEED") + " : "+ QString::number(captureSpeed) + " " + speedUnit, textFormat);
+//    cursor.insertBlock();
+//    cursor.insertBlock();
+//    cursor.insertText(LoadString("IDS_RANGE") + " : " + QString::number(m_currentAVFileFormat.distance.toInt()) + " " + distanceUnit, textFormat);
+//    cursor.insertBlock();
+//    cursor.insertBlock();
+//    cursor.insertText(LoadString("IDS_LOCATION") + " : " + m_currentAVFileFormat.location + "(" + m_currentAVFileFormat.latitude + "," + m_currentAVFileFormat.longitude + ")", textFormat);
+//    cursor.insertBlock();
+//    cursor.insertBlock();
 
-    textFormat.setUnderlineStyle(QTextCharFormat::NoUnderline);
 
-    cursor.insertText("                  " + LoadString("IDS_SIGNATURE") + " : ", textFormat);
-    textFormat.setUnderlineStyle(QTextCharFormat::SingleUnderline);
-    cursor.insertText("                  ", textFormat);
+//    QPixmap pixmap2;
+//    pixmap2.load(m_currentAVFileFormat.file_path);
+//    pixmap2 = pixmap2.scaled(612,344, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
+
+//    QImage logoImage2 = pixmap2.toImage();
+//    cursor.insertImage(logoImage2);
+//    cursor.insertBlock();
+//    cursor.insertBlock();
+
+//    pixmap.load(GeteMMCPath() + "/" + "images" + "/" + "booting" + "/" + "blueLine.png");
+//    pixmap = pixmap.scaledToWidth(612, Qt::SmoothTransformation);
+//    logoImage = pixmap.toImage();
+//    cursor.insertImage(logoImage);
+
+////    cursor.insertFrame(frameFormat);
+
+//    cursor.insertBlock();
+//    cursor.insertText(LoadString("IDS_PRINT_DATE") + " : " + GetDate(QDate::currentDate().toString("yyyyMMdd")), textFormat);
+//    cursor.insertBlock();
+//    cursor.insertBlock();
+//    cursor.insertText(LoadString("IDS_OFFIEC_ID") + " : ", textFormat);
+//    textFormat.setUnderlineStyle(QTextCharFormat::SingleUnderline);
+//    cursor.insertText("                  ", textFormat);
+
+//    textFormat.setUnderlineStyle(QTextCharFormat::NoUnderline);
+
+//    cursor.insertText("                  " + LoadString("IDS_SIGNATURE") + " : ", textFormat);
+//    textFormat.setUnderlineStyle(QTextCharFormat::SingleUnderline);
+//    cursor.insertText("                  ", textFormat);
 
 
-//    doc.setHtml();
+////    doc.setHtml();
 
-    QPrinter printer;
-    QPrintDialog dialog(&printer);
-    if (dialog.exec() == QDialog::Accepted)
-    {
-        doc.print(&printer);
-    }
-}
+//    QPrinter printer;
+//    QPrintDialog dialog(&printer);
+//    if (dialog.exec() == QDialog::Accepted)
+//    {
+//        doc.print(&printer);
+//    }
+//}
 
 void FileManagerWidget::SetPrintEnabled()
 {
@@ -668,9 +713,8 @@ void FileManagerWidget::on_searchPushButton_clicked()
                 avFileFormatList.push_back(avFormat);
             }
         }
-        m_avFileFormatList = avFileFormatList;
         m_AVFileFormatIndex = 0;
-        setTableContent();
+        setTableContent(avFileFormatList);
     }
     else
     {
@@ -774,15 +818,16 @@ void FileManagerWidget::on_printPushButton_clicked()
 {
 //    QImage image(m_currentAVFileFormat.file_path);
 //    image.convertToFormat(QImage::Format::Format_RGB32);
-    ImageConverter imageConvert(ui->frameLabel->pixmap()->toImage());
-    imageConvert.Convert();
 
     if (m_bA4Print)
     {
-        printA4();
+        Print print(m_currentAVFileFormat);
     }
     else
     {
+        ImageConverter imageConvert(ui->frameLabel->pixmap()->toImage());
+        imageConvert.Convert();
+
         print_wifi_printer();
     }
 

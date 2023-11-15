@@ -20,6 +20,7 @@
 #include "StringLoader.h"
 #include "WidgetSize.h"
 #include "ftp.hh"
+#include "FileManager.h"
 
 FileManagerFileTransferDialog::FileManagerFileTransferDialog(TransType type, QWidget *parent) :
     QDialog(parent),
@@ -31,7 +32,7 @@ FileManagerFileTransferDialog::FileManagerFileTransferDialog(TransType type, QWi
 
     this->setWindowFlags(Qt::FramelessWindowHint);
 
-    ui->closePushButton->setStyleSheet("QPushButton {border-image : url(images/MessageBox/closeButton.png); border:none;}");
+    ui->closePushButton->setStyleSheet(QString("QPushButton {border-image : url(%0images/MessageBox/closeButton.png); border:none;}").arg(GeteMMCPath() + "/"));
 //    connect(ui->closePushButton, SIGNAL(clicked()), this, SLOT(closeThread()));
     connect(ui->closePushButton, &QAbstractButton::clicked, this, &QWidget::close);
 

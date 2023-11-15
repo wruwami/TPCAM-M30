@@ -4,10 +4,13 @@
 #include <QPen>
 #include <QPainter>
 #include <QTimeZone>
+#include <QDate>
+#include <QTime>
 
 #include "StringLoader.h"
 #include "SerialGPSManager.h"
 #include "ConfigManager.h"
+#include "DateFormatManager.h"
 
 IndicatorGPSWidget::IndicatorGPSWidget(QWidget *parent) :
     QWidget(parent),
@@ -62,8 +65,20 @@ void IndicatorGPSWidget::paintEvent(QPaintEvent *event)
 void IndicatorGPSWidget::timerEvent(QTimerEvent *event)
 {
     ui->sensitivityeLabel->setText(LoadString("IDS_SENSITIVITY") + SerialGPSManager::GetInstance()->GetSensitivity());
-    QDateTime datetime = SerialGPSManager::GetInstance()->GetDateTime();
-    QString strDateTime = QDateTime(datetime.date(), datetime.time(), QTimeZone(m_tz)).toString("yyyy-MM-dd hh:mm:ss");
+    QDateTime datetime;
+    QString strDateTime;
+
+    if (SerialGPSManager::GetInstance()->GetSatellitesInView() != 0)
+    {
+        datetime = SerialGPSManager::GetInstance()->GetDateTime();
+        strDateTime = GetDate(QDateTime(datetime.date(), datetime.time(), QTimeZone(m_tz)).toString("yyyyMMdd"));
+        strDateTime.append(" " + QDateTime(datetime.date(), datetime.time(), QTimeZone(m_tz)).toString("hh:mm:ss"));
+    }
+    else
+    {
+        strDateTime = GetDate(QDateTime::currentDateTime().toString("yyyyMMdd"));
+        strDateTime.append(" " + QDateTime::currentDateTime().toString("hh:mm:ss"));
+    }
     ui->timeLabel->setText(LoadString("IDS_TIME") + strDateTime);
     ui->latitudeLabel->setText(LoadString("IDS_LATITUDE") + SerialGPSManager::GetInstance()->GetLatitude());
     ui->longitudeLabel->setText(LoadString("IDS_LONGITUDE") + SerialGPSManager::GetInstance()->GetLongitude());

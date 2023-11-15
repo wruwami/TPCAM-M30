@@ -12,6 +12,7 @@
 #include <QDesktopWidget>
 #include <QCompleter>
 #include <QDebug>
+#include "FileManager.h"
 
 #include "FontSize.h"
 #include "WidgetSize.h"
@@ -188,7 +189,26 @@ void CustomComboBox::resizeEvent(QResizeEvent *event)
     QString styleSheet = QString::fromLatin1(file.readAll());
 
     setStyleSheet(QString(styleSheet + "QComboBox QListView {text-align:center;}\
-QListView::item {height: %0px;}").arg(event->size().height() * 3 / 4));
+                          QComboBox::down-arrow { \
+                              image: url(%/images/Main_menu/combobox_drop_down_arrow.jpg); \
+                              width: 30px; \
+                              height: 30px; \
+                          }\
+                          QScrollBar::add-line:vertical { \
+                           border: 2px solid black; \
+                           height: 50px; \
+                           subcontrol-position: bottom; \
+                           subcontrol-origin: margin; \
+                           image: url(%0/images/Main_menu/combobox_drop_down_arrow.jpg); \
+                          } \
+                          QScrollBar::sub-line:vertical { \
+                           border: 2px solid black; \
+                           height: 50px; \
+                           subcontrol-position: top; \
+                           subcontrol-origin: margin; \
+                           image: url(%0/images/Main_menu/combobox_drop_up_arrow.jpg); \
+                          } \
+QListView::item {height: %01x;}").arg(GeteMMCPath() + "/").arg(event->size().height() * 3 / 4));
 //    this->view()->verticalScrollBar()->setStyleSheet("QScrollBar:vertical { width: 30px; }\
 //                                           QScrollBar::handle:vertical{\
 //                                               min-height: 30px;\

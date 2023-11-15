@@ -32,6 +32,8 @@ PasswordChangingWidget::PasswordChangingWidget(bool bNetwork, QWidget *parent) :
     ui->okPushButton->setFontSize(23);
     ui->cancelPushButton->setText(LoadString("IDS_CANCEL"));
     ui->cancelPushButton->setFontSize(23);
+
+    QTimer::singleShot(0,ui->cancelPushButton,SLOT(setFocus()));
 }
 
 PasswordChangingWidget::~PasswordChangingWidget()

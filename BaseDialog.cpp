@@ -26,6 +26,7 @@
 #include "FileManagerFileTransferWidget.h"
 #include "SearchBoxWidget.h"
 #include "SdCardMemoryLack.h"
+#include "FileManager.h"
 
 #include "WidgetSize.h"
 
@@ -48,7 +49,7 @@ BaseDialog::BaseDialog(Dialog dialog, Qt::Alignment align, QString msg, bool isC
         ui->closePushButton->show();
 //        ui->closePushButton->resize(ui->closePushButton->width(), ui->closePushButton->width());
 //        ui->closePushButton->setImage("MessageBox", "closeButton.png", QSize(0,0));
-        ui->closePushButton->setStyleSheet("QPushButton { image : url(images/MessageBox/closeButton.png); border : 1px solid blue;} QPushButton:pressed {border : 1px solid red;}");
+        ui->closePushButton->setStyleSheet(QString("QPushButton { image : url(%0images/MessageBox/closeButton.png); border : 1px solid blue;} QPushButton:pressed {border : 1px solid red;}").arg(GeteMMCPath() + "/"));
         connect(ui->closePushButton, &QAbstractButton::clicked, this, &QWidget::close);
     }
     else

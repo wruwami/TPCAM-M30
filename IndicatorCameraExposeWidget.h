@@ -17,22 +17,30 @@ class IndicatorCameraExposeWidget : public QDialog
 public:
     explicit IndicatorCameraExposeWidget(QWidget *parent = 0);
     ~IndicatorCameraExposeWidget();
+    void timerEvent(QTimerEvent *event);
 
 private:
     Ui::IndicatorCameraExposeWidget *ui;
     bool m_bHide = false;
-    SerialViscaManager* m_serialViscaManager = nullptr;
+    SerialViscaManager* m_serialViscaManager;
     bool m_bDNR = false;
     bool m_bDIS = false;
     bool m_bDEFOG = false;
     bool m_bHLC = false;
     std::map<std::string, int> m_gainMap;
+    std::map<std::string, int> m_gain_fullMap;
     std::map<std::string, int> m_irisMap;
+    std::map<std::string, int> m_iris_fullMap;
     std::map<std::string, int> m_shutterSpeedMap;
 
     std::vector<std::pair<std::string, int>> m_gainVec;
+    std::vector<std::pair<std::string, int>> m_gain_fullVec;
     std::vector<std::pair<std::string, int>> m_irisVec;
+    std::vector<std::pair<std::string, int>> m_iris_fullVec;
     std::vector<std::pair<std::string, int>> m_shutterSpeedVec;
+
+    QMutex m_mutex;
+    bool m_bIsConstructionFinished = false;
 
 
     // QWidget interface
@@ -49,6 +57,11 @@ private slots:
     void on_irisComboBox_currentIndexChanged(int index);
     void on_shutterSpeedComboBox_currentIndexChanged(int index);
     void on_dnrComboBox_currentIndexChanged(int index);
+
+    void changeShutterUI(QString);
+    void changeIrisUI(QString);
+    void changeGainUI(QString);
+    void changeDNRUI(QString);
 
 signals:
     void sig_dnnIndexChanged(int);

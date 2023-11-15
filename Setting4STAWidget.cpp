@@ -70,7 +70,15 @@ Setting4STAWidget::Setting4STAWidget(QWidget *parent) :
     QList<QNetworkAddressEntry> entries = eth1Ip.addressEntries();
     if (!entries.isEmpty()) {
         QNetworkAddressEntry entry = entries.first();
-        ui->ipLineEdit->setText(entry.ip().toString());        
+
+        qDebug() << "getIP.length : " << entry.ip().toString().length();
+
+        if ( entry.ip().toString().length()< 16) {
+             ui->ipLineEdit->setText(entry.ip().toString());
+        } else {
+             ui->ipLineEdit->setText("");
+        }
+
 	    ui->subnetMaskLineEdit->setText(networkManager.GetSubNetMask( entry.ip().toString() ));
     }
 

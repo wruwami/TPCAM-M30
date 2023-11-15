@@ -195,6 +195,7 @@ protected slots:
     void on_EnforceModeV();
     void do_FileSystemWatcher(const QString&);
     void closeThread();
+    void on_setNightMode(int);
 
 protected:
     void timerEvent(QTimerEvent *event);

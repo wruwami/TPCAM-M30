@@ -117,6 +117,10 @@ signals:
     void sig_show_iris();
     void sig_show_version(int, int);
 //    void sig_show
+    void sig_show_gain(QString);
+    void sig_show_shutter(QString);
+    void sig_show_iris(QString);
+    void sig_show_DNR(QString);
 };
 
 

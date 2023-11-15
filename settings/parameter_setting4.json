@@ -6,7 +6,7 @@
         "IDS_A4"
     ],
     "printer selection": 2,
-    "sta ftp id & p/w": "TP30000",
+    "sta ftp id & p/w": "tpcam",
     "sta ssid": ["Comlaser"],
     "sta ssid selection" : 1,
     "subnet mask": "255.255.255.0",

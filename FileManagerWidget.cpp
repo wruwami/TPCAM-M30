@@ -105,8 +105,9 @@ FileManagerWidget::FileManagerWidget(QWidget *parent) :
     ui->datePushButton->setFontSize(23);
 
     ui->tableWidget->setSizePolicy(QSizePolicy::Ignored, QSizePolicy::Expanding);
-    ui->tableWidget->horizontalHeader()->setSectionResizeMode(0, QHeaderView::Fixed);
-    ui->tableWidget->horizontalHeader()->setSectionResizeMode(1, QHeaderView::Fixed);
+    ui->tableWidget->horizontalHeader()->setSectionResizeMode(QHeaderView::Fixed);
+    ui->tableWidget->setStyleSheet("QTableWidget::item {border : none;}");
+//    ui->tableWidget->horizontalHeader()->setSectionResizeMode(1, QHeaderView::Fixed);
 
 //    ui->tableWidget->setSectionResizeMode(0, QHeaderView.Stretch);
 
@@ -162,7 +163,7 @@ FileManagerWidget::FileManagerWidget(QWidget *parent) :
                     imageFormat);
 //        QImage image = videoFrame.image();
 //        pixmap.fromImage(videoFrame.image().scaled(ui->frameLabel->size(), Qt::IgnoreAspectRatio, Qt::FastTransformation));
-        ui->frameLabel->setPixmap(QPixmap::fromImage(image).scaled(ui->frameLabel->size(), Qt::IgnoreAspectRatio, Qt::FastTransformation));
+        ui->frameLabel->setImage(QPixmap::fromImage(image).scaled(ui->frameLabel->size(), Qt::IgnoreAspectRatio, Qt::FastTransformation));
 
         // QAVVideoFrame can be converted to various pixel formats
 //        auto convertedFrame = frame.convert(AV_PIX_FMT_YUV420P);
@@ -217,6 +218,49 @@ FileManagerWidget::~FileManagerWidget()
     delete m_player;
 //    delete m_videoWidget;
     delete ui;
+}
+
+void FileManagerWidget::setTableContent(QList<AVFileFormat> avFileFormatList)
+{
+    ui->tableWidget->clear();
+    int j = 0;
+
+    if (avFileFormatList.size() == 0)
+        return;
+
+    if (m_nMode != S_MODE)
+    {
+        for (int i = m_AVFileFormatIndex ; i < m_AVFileFormatIndex + 5 ; i++, j++)
+        {
+            if (i >= avFileFormatList.size())
+                break;
+            AVFileFormat avfileFormat = avFileFormatList[i];
+            QString index;
+            index.sprintf("%05d", i+1);
+            QTableWidgetItem* indexItem = new QTableWidgetItem(index);
+            float nCaptureSpeed = getSpeedValue(avfileFormat.captureSpeed.mid(1,4).toFloat());
+            QTableWidgetItem* item = new QTableWidgetItem(QString::number(nCaptureSpeed, 'f', 0) + speedUnitValue() +", " + QString("%0%1:%2%3:%4%5").arg(avfileFormat.time[0]).arg(avfileFormat.time[1]).arg(avfileFormat.time[2]).arg(avfileFormat.time[3]).arg(avfileFormat.time[4]).arg(avfileFormat.date[5]));
+            ui->tableWidget->setItem(j, 0, indexItem);
+            ui->tableWidget->setItem(j, 1, item);
+        }
+    }
+    else
+    {
+        for (int i = m_AVFileFormatIndex ; i < m_AVFileFormatIndex + 5 ; i++, j++)
+        {
+            if (i >= avFileFormatList.size())
+                break;
+            AVFileFormat avfileFormat = avFileFormatList[i];
+            QString index;
+            index.sprintf("%05d", i+1);
+            QTableWidgetItem* indexItem = new QTableWidgetItem(index);
+            QString date = QString(avfileFormat.date);
+            QTableWidgetItem* item = new QTableWidgetItem(date);
+            ui->tableWidget->setItem(j, 0, indexItem);
+            ui->tableWidget->setItem(j, 1, item);
+        }
+
+    }
 }
 
 void FileManagerWidget::setTableContent()
@@ -321,7 +365,7 @@ void FileManagerWidget::on_deletePushButton_clicked()
     BaseDialog baseDialog(Dialog::FileManagerQuestionMessageWidgetType, Qt::AlignmentFlag::AlignCenter, "");
     if (baseDialog.exec() == QDialog::Accepted)
     {
-        BaseDialog baseDialog2(Dialog::AdminPWWidgetType, Qt::AlignmentFlag::AlignCenter, "");
+        BaseDialog baseDialog2(Dialog::AdminPWWidgetType, Qt::AlignmentFlag::AlignCenter, LoadString("IDS_PLEASE_INPUT_PW"));
         if (baseDialog2.exec() == QDialog::Accepted)
         {
             QDir dir(GetSDPath());
@@ -668,9 +712,8 @@ void FileManagerWidget::on_searchPushButton_clicked()
                 avFileFormatList.push_back(avFormat);
             }
         }
-        m_avFileFormatList = avFileFormatList;
         m_AVFileFormatIndex = 0;
-        setTableContent();
+        setTableContent(avFileFormatList);
     }
     else
     {

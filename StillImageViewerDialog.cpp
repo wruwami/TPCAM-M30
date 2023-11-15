@@ -3,6 +3,10 @@
 
 #include "StringLoader.h"
 #include "WidgetSize.h"
+#include "Print.h"
+#include "ImageConverter.h"
+#include "thermal_printer.h"
+#include "ConfigManager.h"
 
 StillImageViewerDialog::StillImageViewerDialog(AVFileFormat avFileFormat, QWidget *parent) :
     QDialog(parent),
@@ -14,6 +18,7 @@ StillImageViewerDialog::StillImageViewerDialog(AVFileFormat avFileFormat, QWidge
     setGeometry(GetWidgetSizePos(QRect(0,0, 1600, 960)));
 
     m_file_path = avFileFormat.file_path;
+    m_avFileFormat = avFileFormat;
 //    ui->imageLabel->setText(LoadString("IDS_STILL_IMAGE_VIEWER"));
 
     ui->quitPushButton->setText(LoadString("IDS_QUIT"));
@@ -66,3 +71,21 @@ void StillImageViewerDialog::on_originPushButton_clicked()
     m_factor = 1;
     ui->imageLabel->setImage(m_file_path, ui->imageLabel->size());
 }
+
+void StillImageViewerDialog::on_printPushButton_clicked()
+{
+    QJsonObject object = ConfigManager("parameter_setting4.json").GetConfig();
+    if (object["printer selection"].toInt() == 2)
+    {
+        Print print(m_avFileFormat);
+    }
+    else
+    {
+        ImageConverter imageConvert(ui->imageLabel->pixmap()->toImage());
+        imageConvert.Convert();
+
+        print_wifi_printer();
+    }
+
+}
+

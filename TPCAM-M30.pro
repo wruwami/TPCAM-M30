@@ -37,6 +37,7 @@ SOURCES += main.cpp\
     MovieViewerDialogSub.cpp \
     NetworkAccessManager.cpp \
     NetworkManager.cpp \
+    Print.cpp \
     RemoteControlWorker.cpp \
     RemoteController.cpp \
     ScreenSaver.cpp \
@@ -146,6 +147,7 @@ HEADERS  += MainWindow.h \
     MovieViewerDialogSub.h \
     NetworkAccessManager.h \
     NetworkManager.h \
+    Print.h \
     RemoteControlWorker.h \
     RemoteController.h \
     ScreenSaver.h \

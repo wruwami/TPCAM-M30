@@ -44,7 +44,7 @@ private:
     void setTableContent(QList<AVFileFormat> avFileFormatList);
     void convertValue();
     void initTable();
-    void printA4();
+//    void printA4();
     void SetPrintEnabled();
 
 protected:

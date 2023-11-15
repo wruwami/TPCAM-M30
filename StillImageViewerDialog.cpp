@@ -46,6 +46,9 @@ void StillImageViewerDialog::on_quitPushButton_clicked()
 
 void StillImageViewerDialog::on_plusPushButton_clicked()
 {
+    if (m_factor == 32)
+        return;
+
     m_factor *= 2;
     ui->imageLabel->setZoom(m_factor, ui->imageLabel->rect());
 }

@@ -2311,9 +2311,9 @@ void SerialViscaManager::SetZoom(int index)
     }
     else
     {
-        if(index==5)
+        if(index >= 5)
         {
-            magnification = object["lt zoom"].toArray()[index-1].toString();
+            magnification = object["lt zoom"].toArray()[4].toString();
         }
         else
         {

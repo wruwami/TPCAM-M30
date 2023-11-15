@@ -164,7 +164,7 @@ FileManagerWidget::FileManagerWidget(QWidget *parent) :
                     imageFormat);
 //        QImage image = videoFrame.image();
 //        pixmap.fromImage(videoFrame.image().scaled(ui->frameLabel->size(), Qt::IgnoreAspectRatio, Qt::FastTransformation));
-        ui->frameLabel->setImage(QPixmap::fromImage(image).scaled(ui->frameLabel->size(), Qt::IgnoreAspectRatio, Qt::FastTransformation));
+        ui->frameLabel->setPixmap(QPixmap::fromImage(image).scaled(ui->frameLabel->size(), Qt::IgnoreAspectRatio, Qt::FastTransformation));
 
         // QAVVideoFrame can be converted to various pixel formats
 //        auto convertedFrame = frame.convert(AV_PIX_FMT_YUV420P);

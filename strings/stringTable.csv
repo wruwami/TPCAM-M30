@@ -259,3 +259,5 @@ IDC_VIDEO,Video,Video(비디오),Video(Vídeo),Video(Video),Video(Vidéo),Video(
 IDC_AUTO,Auto,Auto(오토),Auto(Auto),Auto(Auto),Auto(Auto),Auto(آلي)
 IDC_SNAPSHOT,Snapshot,Snapshot(스냅샷),Snapshot(Instantâneo),Snapshot(Instantánea),Snapshot(Instantané),Snapshot(لمحة)
 IDS_SNAPSHOT,Snapshot,Snapshot(스냅샷),Snapshot(Instantâneo),Snapshot(Instantánea),Snapshot(Instantané),Snapshot(لمحة)
+IDS_WIFI_SEARCH_BUTTON,Search,찾기,Procurar,Buscar,Recherche,يبحث
+IDS_WIFI_MODE,Wifi mode,Wifi 모드,Modo Wi-Fi,modo WiFi,Mode Wi-Fi,وضع واي فاي

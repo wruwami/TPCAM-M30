@@ -2,6 +2,7 @@
 #define WIFISEARCHWIDGET_H
 
 #include <QWidget>
+#include <QEventLoop>
 
 #include "NetworkAccessManager.h"
 
@@ -18,12 +19,17 @@ public:
     explicit WifiSearchWidget(QWidget *parent = 0);
     ~WifiSearchWidget();
 
+public slots:
+    void on_startWifySearch();
+
 private slots:
     void on_applyPushButton_clicked();
     void on_yesPushButton_clicked();
     void on_noPushButton_clicked();
 
     void on_listWidget_itemClicked(QListWidgetItem *item);
+
+    void on_wifiSearchPushButton_clicked();
 
 private:
     Ui::WifiSearchWidget *ui;

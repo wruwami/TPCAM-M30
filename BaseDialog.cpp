@@ -207,6 +207,7 @@ BaseDialog::BaseDialog(Dialog dialog, Qt::Alignment align, QString msg, bool isC
         setSize(1216, 684);
 
         connect(wifiSearchWidget, SIGNAL(sig_sendConnectingState(bool)), this, SLOT(changeConnectingState(bool)));
+        connect(this, SIGNAL(sig_searchingWIFIDone()), wifiSearchWidget, SLOT(on_startWifySearch()));
     }
         break;
 
@@ -405,7 +406,11 @@ void BaseDialog::on_closePushButton_clicked()
 void BaseDialog::changeConnectingState(bool isConnecting)
 {
     if(isConnecting)
+    {
         ui->connectingStateLabel->setText(LoadString("IDS_WIFI_FINDING"));
+        QCoreApplication::processEvents();
+        emit sig_searchingWIFIDone();
+    }
     else
         ui->connectingStateLabel->setText("");
 }

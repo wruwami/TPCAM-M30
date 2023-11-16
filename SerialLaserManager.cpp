@@ -95,6 +95,41 @@ void SerialLaserManager::start_laser()
 {
     SetLogMsg(LASER_SEND_DATA, "start_laser()");
 
+//    unsigned char header=0xDA;//테스트 모드 설정
+//    unsigned char msg[2];
+//    unsigned char msgSize=1;
+//    msg[0]=0;//msg[0] x 10 = 1000[ms]
+
+//    QByteArray data;
+//    if(laser_packet)
+//        data= laser_packet->MakePacket(header, msg, msgSize);
+
+//    if(m_pSerial)
+//        m_pSerial->write(data);
+
+    unsigned char header=0x99;//레이저 발사 요청
+    unsigned char msg[1];
+    unsigned char msgSize=0;
+    msg[0]=0;
+    QByteArray data;
+    if(laser_packet)
+        data= laser_packet->MakePacket(header, msg, msgSize);
+
+    QMutexLocker locker(&m_writeMutex);
+    if(m_pSerial)
+        m_pSerial->write(data);
+    try{
+        m_pSerial->waitForBytesWritten(1000);
+    }catch(...){
+        SetLogMsg(LASER_SEND_DATA, "start_laser() sending bytes error");
+    }
+
+}
+
+void SerialLaserManager::stop_virtualSpeed()
+{
+    SetLogMsg(LASER_SEND_DATA, "stop_virtualSpeed()");
+
     unsigned char header=0xDA;//테스트 모드 설정
     unsigned char msg[2];
     unsigned char msgSize=1;
@@ -104,21 +139,9 @@ void SerialLaserManager::start_laser()
     if(laser_packet)
         data= laser_packet->MakePacket(header, msg, msgSize);
 
+    QMutexLocker locker(&m_writeMutex);
     if(m_pSerial)
         m_pSerial->write(data);
-
-    header=0x99;//레이저 발사 요청
-    msg[1];
-    msgSize=0;
-    msg[0]=0;
-    data;
-    if(laser_packet)
-        data= laser_packet->MakePacket(header, msg, msgSize);
-
-
-    if(m_pSerial)
-        m_pSerial->write(data);
-
 }
 
 void SerialLaserManager::request_distance(bool bRequestOn)
@@ -142,7 +165,7 @@ void SerialLaserManager::request_distance(bool bRequestOn)
     if(laser_packet)
         data= laser_packet->MakePacket(header, msg, msgSize);
 
-
+    QMutexLocker locker(&m_writeMutex);
     if(m_pSerial)
         m_pSerial->write(data);
 }
@@ -162,6 +185,7 @@ void SerialLaserManager::set_speed_measure_mode(unsigned char mode)
 
     if(laser_packet)
         data= laser_packet->MakePacket(header, msg, msgSize);
+    QMutexLocker locker(&m_writeMutex);
     if(m_pSerial)
         m_pSerial->write(data);
 }
@@ -177,6 +201,7 @@ void SerialLaserManager::request_selftest()
 
     if(laser_packet)
         data= laser_packet->MakePacket(header, msg, msgSize);
+    QMutexLocker locker(&m_writeMutex);
     if(m_pSerial)
         m_pSerial->write(data);
 }
@@ -195,6 +220,7 @@ void SerialLaserManager::set_weather_mode(unsigned char mode)
 
     if(laser_packet)
         data= laser_packet->MakePacket(header, msg, msgSize);
+    QMutexLocker locker(&m_writeMutex);
     if(m_pSerial)
         m_pSerial->write(data);
 }
@@ -213,6 +239,7 @@ void SerialLaserManager::set_AJamming_mode(unsigned char mode)
 
     if(laser_packet)
         data= laser_packet->MakePacket(header, msg, msgSize);
+    QMutexLocker locker(&m_writeMutex);
     if(m_pSerial)
         m_pSerial->write(data);
 }
@@ -231,6 +258,7 @@ void SerialLaserManager::set_unit(unsigned char unit)
 
     if(laser_packet)
         data= laser_packet->MakePacket(header, msg, msgSize);
+    QMutexLocker locker(&m_writeMutex);
     if(m_pSerial)
         m_pSerial->write(data);
 }
@@ -248,6 +276,7 @@ void SerialLaserManager::set_buzzer_mode(unsigned char mode)
 
     if(laser_packet)
         data= laser_packet->MakePacket(header, msg, msgSize);
+    QMutexLocker locker(&m_writeMutex);
     if(m_pSerial)
         m_pSerial->write(data);
 }
@@ -268,6 +297,7 @@ void SerialLaserManager::set_detection_distance(double distance)
 
     if(laser_packet)
         data= laser_packet->MakePacket(header, msg, msgSize);
+    QMutexLocker locker(&m_writeMutex);
     if(m_pSerial)
         m_pSerial->write(data);
 }
@@ -287,6 +317,7 @@ void SerialLaserManager::set_detection_area(double area)
 
     if(laser_packet)
         data= laser_packet->MakePacket(header, msg, msgSize);
+    QMutexLocker locker(&m_writeMutex);
     if(m_pSerial)
         m_pSerial->write(data);
 }
@@ -304,6 +335,7 @@ void SerialLaserManager::set_night_mode(unsigned char mode)
 
     if(laser_packet)
         data= laser_packet->MakePacket(header, msg, msgSize);
+    QMutexLocker locker(&m_writeMutex);
     if(m_pSerial)
         m_pSerial->write(data);
 }
@@ -320,6 +352,7 @@ void SerialLaserManager::shutdown_laser()
 
     if(laser_packet)
         data= laser_packet->MakePacket(header, msg, msgSize);
+    QMutexLocker locker(&m_writeMutex);
     if(m_pSerial)
         m_pSerial->write(data);
 }
@@ -336,6 +369,7 @@ void SerialLaserManager::factoryreset_laser()
 
     if(laser_packet)
         data= laser_packet->MakePacket(header, msg, msgSize);
+    QMutexLocker locker(&m_writeMutex);
     if(m_pSerial)
         m_pSerial->write(data);
 }
@@ -356,6 +390,7 @@ void SerialLaserManager::start_virtualSpeed()
     if(laser_packet)
         data= laser_packet->MakePacket(header, msg, msgSize);
 
+    QMutexLocker locker(&m_writeMutex);
     if(m_pSerial)
         m_pSerial->write(data);
 }
@@ -372,7 +407,7 @@ void SerialLaserManager::show_laser_info()
     if(laser_packet)
         data= laser_packet->MakePacket(header, msg, msgSize);
 
-
+    QMutexLocker locker(&m_writeMutex);
     if(m_pSerial)
         m_pSerial->write(data);
 }
@@ -383,27 +418,27 @@ void SerialLaserManager::stop_laser()
 //    QString log_msg = __PRETTY_FUNCTION__;
     SetLogMsg(LASER_SEND_DATA, "stop_laser()");
 
-    unsigned char header=0x59;
-    unsigned char msg[2];
-    unsigned char msgSize=1;
-    msg[0]=0;//msg[0] x 10 = 1000[ms]
+//    unsigned char header=0x59;
+//    unsigned char msg[2];
+//    unsigned char msgSize=1;
+//    msg[0]=0;//msg[0] x 10 = 1000[ms]
 
+//    QByteArray data;
+//    if(laser_packet)
+//        data= laser_packet->MakePacket(header, msg, msgSize);
+
+//    if(m_pSerial)
+//        m_pSerial->write(data);
+
+    unsigned char header=0x9A;
+    unsigned char msg[1];
+    unsigned char msgSize=0;
+    msg[0]=0;
     QByteArray data;
     if(laser_packet)
         data= laser_packet->MakePacket(header, msg, msgSize);
 
-    if(m_pSerial)
-        m_pSerial->write(data);
-
-    header=0x9A;
-    msg[1];
-    msgSize=0;
-    msg[0]=0;
-    data;
-    if(laser_packet)
-        data= laser_packet->MakePacket(header, msg, msgSize);
-
-
+    QMutexLocker locker(&m_writeMutex);
     if(m_pSerial)
         m_pSerial->write(data);
 }

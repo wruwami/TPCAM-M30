@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QTimer>
+#include <QMutex>
 
 #include "HeadUpDisplay.h"
 
@@ -34,6 +35,7 @@ public:
 
 
     void start_virtualSpeed();
+    void stop_virtualSpeed();
     void show_laser_info();
     void stop_laser();
 
@@ -45,6 +47,7 @@ private:
     int laser_con;
     CHeadUpDisplay hud;
     QTimer* m_pTimerCaptureSpeed = new QTimer(this);
+    QMutex m_writeMutex;
 
 protected slots:
     void serial_received();

@@ -645,8 +645,8 @@ void EnforcementComponentWidget::doATMode()
     m_pDistanceLabel->show();
     hudClear();
 
-    m_pSerialLaserManager->stop_laser();
-    m_pSerialLaserManager->request_distance(false);
+//    m_pSerialLaserManager->stop_laser();
+//    m_pSerialLaserManager->request_distance(false);
 
     if (m_nEnforcementMode == V)
     {
@@ -694,6 +694,7 @@ void EnforcementComponentWidget::doReadyMode()
     SerialPacket* laser_packet = m_pSerialLaserManager->getLaser_packet();
 
     m_pSerialLaserManager->stop_laser();
+    m_pSerialLaserManager->stop_virtualSpeed();
     m_pSerialLaserManager->request_distance(false);
     m_hudManager.HUDClear();
 
@@ -1488,9 +1489,9 @@ void EnforcementComponentWidget::on_showCaptureSpeedDistance(float fSpeed, float
     if(m_bNight==true)
     {
         m_pSerialLaserManager->start_laser();
-        m_pSerialLaserManager->request_distance(true);
-        if (m_bVirtualMode)
-            m_pSerialLaserManager->start_virtualSpeed();
+//        m_pSerialLaserManager->request_distance(true);
+//        if (m_bVirtualMode)
+//            m_pSerialLaserManager->start_virtualSpeed();
     }
 }
 

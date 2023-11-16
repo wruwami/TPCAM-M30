@@ -157,7 +157,7 @@ v4l2_thread::v4l2_thread()
 
     if (g_matTargetCross.cols > 0 && g_matTargetCross.rows > 0)
     {
-        cv::resize(g_matTargetCross, g_matTargetCross, cv::Size(80, 80));
+        cv::resize(g_matTargetCross, g_matTargetCross, cv::Size(24, 24));
         cv::hconcat(cv::Mat(INFO_HEIGHT, INFO_WIDTH - INFO_SPEED_WIDTH, CV_8UC3, cv::Scalar(16, 16, 16)), cv::Mat(INFO_HEIGHT, INFO_SPEED_WIDTH, CV_8UC3, cv::Scalar(0, 0, 104)), g_matEnfoceInfo);
         //setUseTargetCross(true);
     }

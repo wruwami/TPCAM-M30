@@ -31,6 +31,7 @@
 #include "SerialGPSManager.h"
 #include "GstShmMgr.h"
 #include "DateFormatManager.h"
+#include "ConfigManager.h"
 
 #define FONT_SIZE 				12
 
@@ -530,8 +531,12 @@ void Camera::SaveImage(PrefixType prefix, stEnforcementInfo enforceInfo, SDPath 
         SerialNum.append("_" + object2["Postfix"].toString());
 
     QString qstrDeviceID = SerialNum;
-    int nTargetCrossX = 1000;
-    int nTargetCrossY = 500;
+
+    QJsonObject objectTargetCross = ConfigManager("setting_reticle.json").GetConfig();
+    QJsonArray arrTargetCross = objectTargetCross["Camera reticle pos"].toArray();
+
+    int nTargetCrossX = arrTargetCross[0].toInt();
+    int nTargetCrossY = arrTargetCross[1].toInt();
 
     QString qstrCurTime = getTime();
 

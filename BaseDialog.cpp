@@ -27,6 +27,7 @@
 #include "SearchBoxWidget.h"
 #include "SdCardMemoryLack.h"
 #include "FileManager.h"
+#include "CustomPushButton.h"
 
 #include "WidgetSize.h"
 
@@ -46,15 +47,21 @@ BaseDialog::BaseDialog(Dialog dialog, Qt::Alignment align, QString msg, bool isC
 
     if (isCloseButton)
     {
-        ui->closePushButton->show();
-//        ui->closePushButton->resize(ui->closePushButton->width(), ui->closePushButton->width());
-//        ui->closePushButton->setImage("MessageBox", "closeButton.png", QSize(0,0));
-        ui->closePushButton->setStyleSheet(QString("QPushButton { image : url(%0images/MessageBox/closeButton.png); border : 1px solid blue;} QPushButton:pressed {border : 1px solid red;}").arg(GeteMMCPath() + "/"));
-        connect(ui->closePushButton, &QAbstractButton::clicked, this, &QWidget::close);
+//        ui->closePushButton->show();
+////        ui->closePushButton->resize(ui->closePushButton->width(), ui->closePushButton->width());
+////        ui->closePushButton->setImage("MessageBox", "closeButton.png", QSize(0,0));
+//        ui->closePushButton->setStyleSheet(QString("QPushButton { image : url(%0images/MessageBox/closeButton.png); border : 1px solid blue;} QPushButton:pressed {border : 1px solid red;}").arg(GeteMMCPath() + "/"));
+//        connect(ui->closePushButton, &QAbstractButton::clicked, this, &QWidget::close);
+
+        m_pClosePushButton = new CustomPushButton(this);
+        m_pClosePushButton->setStyleSheet(QString("QPushButton { image : url(%0images/MessageBox/closeButton.png); border : 1px solid blue;} QPushButton:pressed {border : 1px solid red;}").arg(GeteMMCPath() + "/"));
+//        m_pClosePushButton->setGeometry(GetWidgetSizePos(QRect(QPoint(), QSize())));
+        connect(m_pClosePushButton, &QAbstractButton::clicked, this, &QWidget::close);
+
     }
     else
     {
-        ui->closePushButton->hide();
+//        ui->closePushButton->hide();
     }
 
     align |= Qt::AlignVCenter;
@@ -233,7 +240,7 @@ BaseDialog::BaseDialog(Dialog dialog, Status isCamera, Status isLaser, Status is
 //    this->setStyleSheet("{border-width: 5px; border-style: solid; border-color: black; background-color : #d9d9d9;}");
 //    this->setAttribute(Qt::WA_StyledBackground);
 
-    ui->closePushButton->hide();
+//    ui->closePushButton->hide();
 
     align |= Qt::AlignVCenter;
 
@@ -286,6 +293,12 @@ BaseDialog::BaseDialog(Dialog dialog, Status isCamera, Status isLaser, Status is
 
 BaseDialog::~BaseDialog()
 {
+    if (m_pClosePushButton)
+    {
+        delete m_pClosePushButton;
+        m_pClosePushButton = nullptr;
+    }
+
     delete ui->verticalLayout->widget();
     delete ui;
 }
@@ -365,15 +378,20 @@ void BaseDialog::resizeEvent(QResizeEvent *event)
     if (m_bIsCloseButton)
     {
 
-        QRect rect = ui->frame->geometry();
+        QRect rect = this->geometry();
 //        rect.setSize(QSize(rect.width(), 130));
 //        rect.setWidth(rect.width()-130);
-        int width = GetWidthWidth(130);
-        ui->horizontalLayout->setStretch(0, rect.width() - width);
-        ui->horizontalLayout->setStretch(1, width);
+//        rect.height();
+//        int height = 130 / rect.height();
+//        QRect height3 = ui->verticalLayout_3->itemAt(0)->geometry();
+//        int height = rect.height() * ui->verticalLayout->stretch(0) / (ui->verticalLayout->stretch(0) + ui->verticalLayout->stretch(1));
+        int height = 130;
+        m_pClosePushButton->setGeometry(GetWidgetSizePos(QRect(QPoint(rect.width() - height - height - 15, 7), QSize(height - 10, height - 10))));
+//        ui->horizontalLayout->setStretch(0, rect.width() - width);
+//        ui->horizontalLayout->setStretch(1, width);
 //        ui->horizontalLayout->setStretch(0, width);
 //        ui->horizontalLayout->setStretch(1, ui->horizontalLayout->geometry().size().width() - width);
-        ui->closePushButton->resize(width - 10, width - 10);
+//        ui->closePushButton->resize(width - 10, width - 10);
 //        int width = ui->horizontalLayout->geometry().adjusted(1,1,-1,-1).size().width();
 //        ui->closePushButton->setGeometry(QRect(geometry().width() - width - 1, 1, width, width));
     }

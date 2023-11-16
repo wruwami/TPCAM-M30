@@ -27,6 +27,7 @@ enum Dialog
     SdCardMemoryLackType,
 };
 
+class CustomPushButton;
 namespace Ui {
 class BaseDialog;
 }
@@ -56,6 +57,7 @@ private:
     bool m_isBattery;
     bool m_isStorage;
     QString m_strRet;
+    CustomPushButton* m_pClosePushButton = nullptr;
 //    QWidget* m_pWidget = nullptr;
 
     // QWidget interface

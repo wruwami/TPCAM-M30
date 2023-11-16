@@ -46,7 +46,7 @@
       <item>
        <layout class="QVBoxLayout" name="verticalLayout">
         <item>
-         <layout class="QHBoxLayout" name="horizontalLayout" stretch="0,0,0">
+         <layout class="QHBoxLayout" name="horizontalLayout" stretch="0,0">
           <item>
            <widget class="CustomLabel" name="titleLabel">
             <property name="text">
@@ -58,24 +58,6 @@
            <widget class="CustomLabel" name="connectingStateLabel">
             <property name="text">
              <string>TextLabel</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QPushButton" name="closePushButton">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-              <horstretch>1</horstretch>
-              <verstretch>1</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">QPushButton{
-	border:none;
-}</string>
-            </property>
-            <property name="text">
-             <string/>
             </property>
            </widget>
           </item>

@@ -5,6 +5,7 @@
 #include "ConfigManager.h"
 
 #include <QDialog>
+#include <QTimer>
 
 PasswordChangingWidget::PasswordChangingWidget(bool bNetwork, QWidget *parent) :
     QWidget(parent),

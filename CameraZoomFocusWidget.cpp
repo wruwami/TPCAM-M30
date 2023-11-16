@@ -257,14 +257,14 @@ void CameraZoomFocusWidget::on_optPushButton_clicked()
 void CameraZoomFocusWidget::on_focusPlusPushButton_clicked()
 {
     m_pSerialViscaManager->plus_focus();
-    m_pSerialViscaManager->show_focusPosition();
+//    ui->focusLabel->setText("F:"+m_pSerialViscaManager->getFocus_pqrs().toUpper()+"("+m_pSerialViscaManager->getFocus_pqrs().toUpper()+")");
 }
 
 
 void CameraZoomFocusWidget::on_FocusMinusPushButton_clicked()
 {
     m_pSerialViscaManager->minus_focus();
-    m_pSerialViscaManager->show_focusPosition();
+//    ui->focusLabel->setText("F:"+m_pSerialViscaManager->getFocus_pqrs().toUpper()+"("+m_pSerialViscaManager->getFocus_pqrs().toUpper()+")");
 }
 
 /*

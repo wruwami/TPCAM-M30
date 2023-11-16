@@ -4,7 +4,7 @@
 #endif // VERSION_H
 
 
-#define SW_VER          "v0.0.0.11 "
+#define SW_VER          "v0.0.0.12 "
 //#define	SW_BUILDDATE	__DATE__
 //#define	SW_BUILDTIME	__TIME__
 
@@ -19,6 +19,13 @@
 
 /*
 ========================================================================================================
+--------------------------------------------------------------------------------------------------------
+2023.11.14  21:00   v0.0.0.12 - KMS
+    1. modify styleSheet
+    2. modify label state(enable, disable) in setting
+    3. change way of searching wifi in wifiSearchWidget.cpp
+    4. change codec in ffmpeg command
+
 --------------------------------------------------------------------------------------------------------
 2023.11.14  16:00   v0.0.0.11 - LJH
     1. modify ui

@@ -221,49 +221,6 @@ FileManagerWidget::~FileManagerWidget()
     delete ui;
 }
 
-void FileManagerWidget::setTableContent(QList<AVFileFormat> avFileFormatList)
-{
-    ui->tableWidget->clear();
-    int j = 0;
-
-    if (avFileFormatList.size() == 0)
-        return;
-
-    if (m_nMode != S_MODE)
-    {
-        for (int i = m_AVFileFormatIndex ; i < m_AVFileFormatIndex + 5 ; i++, j++)
-        {
-            if (i >= avFileFormatList.size())
-                break;
-            AVFileFormat avfileFormat = avFileFormatList[i];
-            QString index;
-            index.sprintf("%05d", i+1);
-            QTableWidgetItem* indexItem = new QTableWidgetItem(index);
-            float nCaptureSpeed = getSpeedValue(avfileFormat.captureSpeed.mid(1,4).toFloat());
-            QTableWidgetItem* item = new QTableWidgetItem(QString::number(nCaptureSpeed, 'f', 0) + speedUnitValue() +", " + QString("%0%1:%2%3:%4%5").arg(avfileFormat.time[0]).arg(avfileFormat.time[1]).arg(avfileFormat.time[2]).arg(avfileFormat.time[3]).arg(avfileFormat.time[4]).arg(avfileFormat.date[5]));
-            ui->tableWidget->setItem(j, 0, indexItem);
-            ui->tableWidget->setItem(j, 1, item);
-        }
-    }
-    else
-    {
-        for (int i = m_AVFileFormatIndex ; i < m_AVFileFormatIndex + 5 ; i++, j++)
-        {
-            if (i >= avFileFormatList.size())
-                break;
-            AVFileFormat avfileFormat = avFileFormatList[i];
-            QString index;
-            index.sprintf("%05d", i+1);
-            QTableWidgetItem* indexItem = new QTableWidgetItem(index);
-            QString date = QString(avfileFormat.date);
-            QTableWidgetItem* item = new QTableWidgetItem(date);
-            ui->tableWidget->setItem(j, 0, indexItem);
-            ui->tableWidget->setItem(j, 1, item);
-        }
-
-    }
-}
-
 void FileManagerWidget::setTableContent()
 {
     ui->tableWidget->clear();
@@ -429,7 +386,7 @@ void FileManagerWidget::initTable()
 {
     QString path = "/snapshot";
     QDirIterator iterDir(GetSDPath() + path, QDir::Dirs | QDir::NoDotAndDotDot | QDir::NoSymLinks, QDirIterator::Subdirectories);
-    QString pre_dir = "0";
+    QString pre_dir = "";
     while (iterDir.hasNext())
     {
         QString dir = iterDir.next();
@@ -472,6 +429,7 @@ void FileManagerWidget::initTable()
 
         }
         std::sort(m_avFileFormatList.begin(), m_avFileFormatList.end(), TimeLessThan);
+        m_avPreviousFileFormatList = m_avFileFormatList;
 
         if ((m_avFileFormatList.size() % 5) != 0)
             m_AVFileFormatIndex = m_avFileFormatList.size() - (m_avFileFormatList.size() % 5);
@@ -705,6 +663,8 @@ void FileManagerWidget::on_searchPushButton_clicked()
         int secondValue = searchBoxDialog.getSecondValue();
         QList<AVFileFormat> avFileFormatList;
 
+        m_avFileFormatList = m_avPreviousFileFormatList;
+
         foreach (auto avFormat, m_avFileFormatList)
         {
             int minute = QString(avFormat.time).mid(2, 2).toInt();
@@ -713,8 +673,9 @@ void FileManagerWidget::on_searchPushButton_clicked()
                 avFileFormatList.push_back(avFormat);
             }
         }
+        m_avFileFormatList = avFileFormatList;
         m_AVFileFormatIndex = 0;
-        setTableContent(avFileFormatList);
+        setTableContent();
     }
     else
     {
@@ -975,6 +936,7 @@ void FileManagerWidget::on_datePushButton_clicked()
 //            }
         }
         std::sort(m_avFileFormatList.begin(), m_avFileFormatList.end(), TimeLessThan);
+        m_avPreviousFileFormatList = m_avFileFormatList;
 
         setTableContent();
 

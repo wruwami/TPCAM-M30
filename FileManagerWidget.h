@@ -31,6 +31,7 @@ private:
     // QWidget interface
     QString m_folder_path;
     QList<AVFileFormat> m_avFileFormatList;
+    QList<AVFileFormat> m_avPreviousFileFormatList;
     AVFileFormat m_currentAVFileFormat;
     int m_AVFileFormatIndex = 0;
 //    QVideoWidget *m_videoWidget;
@@ -41,7 +42,6 @@ private:
     bool m_bA4Print = false;
 private:
     void setTableContent();
-    void setTableContent(QList<AVFileFormat> avFileFormatList);
     void convertValue();
     void initTable();
 //    void printA4();

@@ -18,8 +18,14 @@
     <layout class="QHBoxLayout" name="horizontalLayout" stretch="9,12">
      <item>
       <layout class="QVBoxLayout" name="verticalLayout_2" stretch="290,52,58">
+       <property name="spacing">
+        <number>6</number>
+       </property>
        <item>
         <layout class="QGridLayout" name="gridLayout_2" rowstretch="1,4" columnstretch="105,56,174">
+         <property name="spacing">
+          <number>0</number>
+         </property>
          <item row="1" column="0" colspan="3">
           <widget class="QTableWidget" name="tableWidget">
            <property name="autoFillBackground">

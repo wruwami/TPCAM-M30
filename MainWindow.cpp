@@ -126,7 +126,6 @@ MainWindow::MainWindow(screensaver* screensaver, QWidget *parent) :
     m_widgetType = Login;
     m_pLoginWidget = new LoginWidget;
     m_userName = m_pLoginWidget->m_pUserNameComboBox->currentText();
-    FileManager::GetInstance()->setUserName(m_userName);
 //    m_pMainMenuContentWidget = new MainMenuContentWidget;
     ui->verticalLayout->removeItem(ui->verticalLayout->itemAt(1));
     ui->verticalLayout->addWidget(m_pLoginWidget, 835);
@@ -307,7 +306,6 @@ void MainWindow::initializeLoginWidget()
 //    delete m_pDateTimeWidget;
 //    m_pDateTimeWidget = nullptr;
     m_userName = m_pLoginWidget->m_pUserNameComboBox->currentText();
-    FileManager::GetInstance()->setUserName(m_userName);
 
 //    ui->verticalLayout->removeItem(ui->verticalLayout->takeAt(1));
     ui->verticalLayout->addWidget(m_pLoginWidget, 835);
@@ -426,6 +424,8 @@ void MainWindow::on_loginWidgetClicked()
     m_pIndicatorWidget->setFocusExposeDisabled(true);
     m_pIndicatorWidget->m_bFocusExposeDisabled = true;
     m_pIndicatorWidget->m_bEnforcement = false;
+
+    FileManager::GetInstance()->setUserName(m_userName);
     if (m_userName == "admin-align")
     {
         m_widgetType = Other;

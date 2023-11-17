@@ -45,6 +45,11 @@ Setting5Widget::Setting5Widget(QWidget *parent) :
         ui->subnetMaskLineEdit->setEnabled(false);
         ui->gatewayLineEdit->setEnabled(false);
         ui->dnsServerLineEdit->setEnabled(false);
+        ui->ipAddressLabel->setEnabled(false);
+        ui->IpLabel->setEnabled(false);
+        ui->subnetMaskLabel->setEnabled(false);
+        ui->gatewayLabel->setEnabled(false);
+        ui->dnsServerLabel->setEnabled(false);
     }
 
     startTimer(3000);
@@ -182,6 +187,12 @@ void Setting5Widget::timerEvent(QTimerEvent *event)
         ui->subnetMaskLineEdit->setEnabled(false);
         ui->gatewayLineEdit->setEnabled(false);
         ui->dnsServerLineEdit->setEnabled(false);
+
+        ui->ipAddressLabel->setEnabled(false);
+        ui->IpLabel->setEnabled(false);
+        ui->subnetMaskLabel->setEnabled(false);
+        ui->gatewayLabel->setEnabled(false);
+        ui->dnsServerLabel->setEnabled(false);
     }
     else
     {
@@ -190,5 +201,11 @@ void Setting5Widget::timerEvent(QTimerEvent *event)
         ui->subnetMaskLineEdit->setEnabled(true);
         ui->gatewayLineEdit->setEnabled(true);
         ui->dnsServerLineEdit->setEnabled(true);
+
+        ui->ipAddressLabel->setEnabled(true);
+        ui->IpLabel->setEnabled(true);
+        ui->subnetMaskLabel->setEnabled(true);
+        ui->gatewayLabel->setEnabled(true);
+        ui->dnsServerLabel->setEnabled(true);
     }
 }

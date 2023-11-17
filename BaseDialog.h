@@ -67,6 +67,9 @@ protected:
 private slots:
     void on_closePushButton_clicked();
     void changeConnectingState(bool);
+
+signals:
+    void sig_searchingWIFIDone();
 };
 
 #endif // BASEDIALOG_H

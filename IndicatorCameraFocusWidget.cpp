@@ -124,15 +124,14 @@ void IndicatorCameraFocusWidget::on_onePushTriggerPushButton_clicked()
 void IndicatorCameraFocusWidget::on_forcusDownPushButton_clicked()
 {
     m_pserialViscaManager->minus_focus();
-    m_pserialViscaManager->show_focusPosition();
-//    m_pserialViscaManager.set_focus()
+//    ui->focusLineEdit->setText("0x"+m_pserialViscaManager->getFocus_pqrs().toUpper());
 }
 
 
 void IndicatorCameraFocusWidget::on_forcusPlusPushButton_clicked()
 {
     m_pserialViscaManager->plus_focus();
-    m_pserialViscaManager->show_focusPosition();
+//    ui->focusLineEdit->setText("0x"+m_pserialViscaManager->getFocus_pqrs().toUpper());
 }
 
 void IndicatorCameraFocusWidget::on_show_focus(QString value)

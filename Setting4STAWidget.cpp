@@ -85,6 +85,9 @@ Setting4STAWidget::Setting4STAWidget(QWidget *parent) :
 //	ui->ipLineEdit->setText(m_jsonObject["ip"].toString());
 	ui->ipLineEdit->setDisabled(true);
 	ui->subnetMaskLineEdit->setDisabled(true);
+
+    ui->IpLabel->setDisabled(true);
+    ui->subnetMaskLabel->setDisabled(true);
 }
 
 Setting4STAWidget::~Setting4STAWidget()

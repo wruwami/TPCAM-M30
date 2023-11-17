@@ -47,7 +47,7 @@ Print::Print(AVFileFormat avFileFormat)
 
     cursor.insertBlock();
     cursor.insertBlock();
-    cursor.insertText(LoadString("IDS_DID") + " : " + avFileFormat.deviceId, textFormat);
+    cursor.insertText(LoadString("IDS_DEVICE_ID") + " : " + avFileFormat.deviceId, textFormat);
     cursor.insertBlock();
     cursor.insertBlock();
     cursor.insertText(LoadString("IDS_UN") + " : " + avFileFormat.userId, textFormat);

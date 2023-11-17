@@ -688,49 +688,36 @@ void FileManagerWidget::on_zoomPlayPushButton_clicked()
     if (m_avFileFormatList.size() == 0)
         return;
 
-    switch (m_nMode)
-    {
-    case Mode::I_MODE: // I
-    {
-        StillImageViewerDialog stillImageViewDialog(m_currentAVFileFormat);
-        stillImageViewDialog.exec();
-    }
-        break;
-    case Mode::A_MODE: // A
+    if (!strncmp(m_currentAVFileFormat.filePrefix, "VV", 2))
     {
         MovieViewerDialogSub movieViewerDialogSub(m_currentAVFileFormat);
         movieViewerDialogSub.exec();
     }
-        break;
-    case Mode::V_MODE: // V
+    else if (!strncmp(m_currentAVFileFormat.filePrefix, "AV", 2))
     {
         MovieViewerDialogSub movieViewerDialogSub(m_currentAVFileFormat);
         movieViewerDialogSub.exec();
     }
-        break;
-    case Mode::M_MODE: // Manual Capture
+    else if (!strncmp(m_currentAVFileFormat.filePrefix, "SR", 2))
+    {
+        MovieViewerDialogSub movieViewerDialogSub(m_currentAVFileFormat);
+        movieViewerDialogSub.exec();
+    }
+    else if (!strncmp(m_currentAVFileFormat.filePrefix, "MV", 2))
+    {
+        MovieViewerDialogSub movieViewerDialogSub(m_currentAVFileFormat);
+        movieViewerDialogSub.exec();
+    }
+    else if (!strncmp(m_currentAVFileFormat.filePrefix, "AI", 2))
     {
         StillImageViewerDialog stillImageViewDialog(m_currentAVFileFormat);
         stillImageViewDialog.exec();
     }
-        break;
-    case Mode::S_MODE: // Manual Capture
+    else if (!strncmp(m_currentAVFileFormat.filePrefix, "SC", 2))
     {
-        if (!strcmp(m_currentAVFileFormat.filePrefix, "SC"))
-        {
-            StillImageViewerDialog stillImageViewDialog(m_currentAVFileFormat);
-            stillImageViewDialog.exec();
-        }
-        else
-        {
-            MovieViewerDialogSub movieViewerDialogSub(m_currentAVFileFormat);
-            movieViewerDialogSub.exec();
-        }
+        StillImageViewerDialog stillImageViewDialog(m_currentAVFileFormat);
+        stillImageViewDialog.exec();
     }
-        break;
-
-    }
-
 }
 
 void FileManagerWidget::on_sharePushButton_clicked()
@@ -820,6 +807,8 @@ void FileManagerWidget::on_ImageVideoComboBox_currentIndexChanged(int index)
 {
     ui->tableWidget->clear();
     ui->datePushButton->setText("");
+    m_avFileFormatList.clear();
+    m_AVFileFormatIndex = 0;
 
     switch (index)
     {
@@ -1054,6 +1043,8 @@ void FileManagerWidget::on_tableWidget_cellClicked(int row, int column)
 //        m_videoWidget->show();
 //        ui->frameLabel->hide();
         m_player->setSource(m_avFileFormatList[row+ m_AVFileFormatIndex].file_path);
+        ui->zoomPlayPushButton->setImage("file_manager", "file_management_play.png");
+
         m_player->play();
         m_player->pause();
     }
@@ -1062,6 +1053,9 @@ void FileManagerWidget::on_tableWidget_cellClicked(int row, int column)
 //        m_videoWidget->show();
 //        ui->frameLabel->hide();
         m_player->setSource(m_avFileFormatList[row+ m_AVFileFormatIndex].file_path);
+        ui->zoomPlayPushButton->setImage("file_manager", "file_management_play.png");
+
+
         m_player->play();
         m_player->pause();
     }
@@ -1070,6 +1064,8 @@ void FileManagerWidget::on_tableWidget_cellClicked(int row, int column)
 //        m_videoWidget->show();
 //        ui->frameLabel->hide();
         m_player->setSource(m_avFileFormatList[row+ m_AVFileFormatIndex].file_path);
+        ui->zoomPlayPushButton->setImage("file_manager", "file_management_play.png");
+
         m_player->play();
         m_player->pause();
     }
@@ -1078,6 +1074,8 @@ void FileManagerWidget::on_tableWidget_cellClicked(int row, int column)
 //        m_videoWidget->show();
 //        ui->frameLabel->show();
         m_player->setSource(m_avFileFormatList[row+ m_AVFileFormatIndex].file_path);
+        ui->zoomPlayPushButton->setImage("file_manager", "file_management_play.png");
+
         m_player->play();
         m_player->pause();
     }
@@ -1086,12 +1084,14 @@ void FileManagerWidget::on_tableWidget_cellClicked(int row, int column)
 //        ui->frameLabel->show();
 //        m_videoWidget->hide();
         ui->frameLabel->setImage(m_avFileFormatList[row+ m_AVFileFormatIndex].file_path, ui->frameLabel->size());
+        ui->zoomPlayPushButton->setImage("file_manager", "file_management_zoom.png");
     }
     else if (!strncmp(m_currentAVFileFormat.filePrefix, "SC", 2))
     {
 //        ui->frameLabel->show();
 //        m_videoWidget->hide();
         ui->frameLabel->setImage(m_avFileFormatList[row+ m_AVFileFormatIndex].file_path, ui->frameLabel->size());
+        ui->zoomPlayPushButton->setImage("file_manager", "file_management_zoom.png");
     }
 }
 

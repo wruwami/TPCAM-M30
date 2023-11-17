@@ -29,7 +29,20 @@
    <item>
     <layout class="QVBoxLayout" name="verticalLayout" stretch="65,0,282">
      <item>
-      <layout class="QHBoxLayout" name="horizontalLayout" stretch="69,488">
+      <layout class="QHBoxLayout" name="horizontalLayout" stretch="10,69,488">
+       <item>
+        <spacer name="horizontalSpacer_2">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
        <item>
         <widget class="CustomLabel" name="snapShotIconLabel">
          <property name="text">
@@ -55,6 +68,12 @@
      </item>
      <item>
       <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="35,360">
+       <property name="rightMargin">
+        <number>9</number>
+       </property>
+       <property name="bottomMargin">
+        <number>9</number>
+       </property>
        <item>
         <spacer name="horizontalSpacer">
          <property name="orientation">

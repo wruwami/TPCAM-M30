@@ -137,10 +137,19 @@ void FileManagerSnapShotDialog::resizeEvent(QResizeEvent *event)
 
 }
 
-void FileManagerSnapShotDialog::paintEvnet(QPaintEvent *event)
+void FileManagerSnapShotDialog::paintEvent(QPaintEvent *event)
 {
     QPainter painter(this);
-    painter.drawRect(rect().x(), rect().y(), width() - 2, height() - 2);
+    QRect rect = this->rect();
+
+    QPen Pen(Qt::black);
+    Pen.setStyle(Qt::SolidLine);
+    Pen.setWidth(2);
+
+    painter.setPen(Pen);
+
+
+    painter.drawRect(rect);
 //    rect();
 
 }

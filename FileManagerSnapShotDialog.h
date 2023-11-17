@@ -35,7 +35,7 @@ private:
     // QWidget interface
 protected:
     void resizeEvent(QResizeEvent *event);
-    void paintEvnet(QPaintEvent *event);
+    void paintEvent(QPaintEvent *event);
 };
 
 #endif // FILEMANAGERSNAPSHOTDIALOG_H

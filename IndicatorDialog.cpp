@@ -235,6 +235,8 @@ void IndicatorDialog::on_speedSTPushButton_clicked()
     m_jsonObject1["speed selection"] = 1;
     m_pMainMenuWidget->setIndicatorImage(m_pMainMenuWidget->m_pSpeedPushbutton, "indicator", "indicator_enable_user_mode_on.jpg");
     m_nUserMode = true;
+    m_configManager1.SetConfig(m_jsonObject1);
+    m_configManager1.SaveFile();
 
     SetLogMsg(INDICATOR_CLICKED ,"SPEED MODE ST");
 
@@ -256,6 +258,8 @@ void IndicatorDialog::on_speedLTPushButton_clicked()
     m_jsonObject1["speed selection"] = 2;
     m_pMainMenuWidget->setIndicatorImage(m_pMainMenuWidget->m_pSpeedPushbutton, "indicator", "indicator_enable_user_mode_off.jpg");
     m_nUserMode = false;
+    m_configManager1.SetConfig(m_jsonObject1);
+    m_configManager1.SaveFile();
 
     SetLogMsg(INDICATOR_CLICKED ,"SPEED MODE LT");
 

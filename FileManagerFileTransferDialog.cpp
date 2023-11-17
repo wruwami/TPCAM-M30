@@ -517,7 +517,7 @@ void FileManagerFileTransferDialog::resizeEvent(QResizeEvent *event)
     int height = ui->horizontalLayout_3->geometry().height();
     int width = ui->horizontalLayout_3->geometry().width();
 
-    int gap = GetCalcGap(10);
+    int gap = GetWidthWidth(10);
     m_pClosePushButton->setGeometry((QRect(QPoint(width - height+ gap, gap), QSize(height - gap * 2, height - gap * 2))));
 
 }

@@ -132,7 +132,7 @@ void FileManagerSnapShotDialog::resizeEvent(QResizeEvent *event)
     int height = ui->horizontalLayout->geometry().height();
     int width = ui->horizontalLayout->geometry().width();
 
-    int gap = GetCalcGap(10);
+    int gap = GetWidthWidth(10);
     m_pBackPushButton->setGeometry((QRect(QPoint(width - height+ gap, gap), QSize(height - gap * 2, height - gap * 2))));
 
 }

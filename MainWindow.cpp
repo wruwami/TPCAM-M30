@@ -179,6 +179,8 @@ MainWindow::MainWindow(screensaver* screensaver, QWidget *parent) :
 
     m_date = m_date.currentDate();
 
+    HUDManager hud;
+    hud.HUDClear();
 //    EncryptionManager::GetInstance()->startEncrypt(GETSDPATH(AUTO));//바꿔야 함
 }
 

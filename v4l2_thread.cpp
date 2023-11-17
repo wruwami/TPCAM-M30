@@ -25,7 +25,7 @@ std::mutex g_mutexImgBuf;
 bool g_bSave = true;
 bool g_bTargetCross = true;
 
-#define DEBUG_MODE 1
+#define DEBUG_MODE 0
 
 static void thread_CopyImage(struct buffer* buff, int size, stEnforceInfo enforceInfo)
 {
@@ -49,8 +49,8 @@ static void thread_CopyImage(struct buffer* buff, int size, stEnforceInfo enforc
     catch (std::exception& e)
     {
         //DBG("exception : %s\n", e.what());
-        //if(DEBUG_MODE)
-        qDebug() << "exception : " << e.what();
+        if(DEBUG_MODE)
+            qDebug() << "exception : " << e.what();
     }
 }
 
@@ -157,14 +157,14 @@ v4l2_thread::v4l2_thread()
 
     if (g_matTargetCross.cols > 0 && g_matTargetCross.rows > 0)
     {
-        cv::resize(g_matTargetCross, g_matTargetCross, cv::Size(24, 24));
-        cv::hconcat(cv::Mat(INFO_HEIGHT, INFO_WIDTH - INFO_SPEED_WIDTH, CV_8UC3, cv::Scalar(16, 16, 16)), cv::Mat(INFO_HEIGHT, INFO_SPEED_WIDTH, CV_8UC3, cv::Scalar(0, 0, 104)), g_matEnfoceInfo);
+        cv::resize(g_matTargetCross, g_matTargetCross, cv::Size(20, 20));
         //setUseTargetCross(true);
     }
     else
     {
         setUseTargetCross(false);
     }
+    cv::hconcat(cv::Mat(INFO_HEIGHT, INFO_WIDTH - INFO_SPEED_WIDTH, CV_8UC3, cv::Scalar(16, 16, 16)), cv::Mat(INFO_HEIGHT, INFO_SPEED_WIDTH, CV_8UC3, cv::Scalar(0, 0, 104)), g_matEnfoceInfo);
     //cv::imwrite("InfoImg.jpg", g_matEnfoceInfo);
 
     std::thread _t1(thread_SaveImgFunc);
@@ -209,13 +209,10 @@ void v4l2_thread::run()
 
 //    while (running)
     forever{
-        //qDebug() << "m_bDeviceValid : " << m_bDeviceValid;
         if (m_bDeviceValid)
         {
             try
             {
-                /*if (DEBUG_MODE)
-                    qDebug() << "No." << count;*/
                 //DBG("No.%d\n", count);        //Display the current image frame number
 
                 if (m_stEnforceInfo.bImageSave)
@@ -260,7 +257,8 @@ void v4l2_thread::run()
 
         if ( QThread::currentThread()->isInterruptionRequested() )
         {
-            qDebug() << Q_FUNC_INFO << " terminated";
+            if(DEBUG_MODE)
+                qDebug() << Q_FUNC_INFO << " terminated";
             return;
         }
 
@@ -280,7 +278,10 @@ void v4l2_thread::imageGrab(QString qstrFullPath, QString qstrDatetime, QString 
         return;
     }
     else
-        qDebug() << "imag grab signal recv";
+    {
+        if(DEBUG_MODE)
+            qDebug() << "imag grab signal recv";
+    }
 
     m_stEnforceInfo.bImageSave = true;
     m_stEnforceInfo.qstrFullPath = qstrFullPath;
@@ -595,10 +596,10 @@ void v4l2_thread::uninit_device(void)
         if (-1 == munmap(buffers[i].start, buffers[i].length))
         {
             errno_exit("munmap");
-            qDebug() << "error(uninit_device)";
+            //qDebug() << "error(uninit_device)";
         }
     }
-    qDebug() << "uninit_device";
+    //qDebug() << "uninit_device";
     free(buffers);
 }
 
@@ -609,9 +610,9 @@ void v4l2_thread::stop_capturing(void)
     if (-1 == xioctl(fd, VIDIOC_STREAMOFF, &buf_type))
     {
         errno_exit("VIDIOC_STREAMOFF");
-        qDebug() << "error(stop_capturing)";
+        //qDebug() << "error(stop_capturing)";
     }
-    qDebug() << "stop_capturing";
+    //qDebug() << "stop_capturing";
 }
 
 void v4l2_thread::close_device(void)
@@ -619,8 +620,8 @@ void v4l2_thread::close_device(void)
     if (-1 == close(fd))
     {
         errno_exit("close");
-        qDebug() << "error(close_device)";
+        //qDebug() << "error(close_device)";
     }
     fd = -1;
-    qDebug() << "close_device";
+    //qDebug() << "close_device";
 }

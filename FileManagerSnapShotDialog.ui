@@ -27,9 +27,9 @@
     <number>0</number>
    </property>
    <item>
-    <layout class="QVBoxLayout" name="verticalLayout" stretch="65,282">
+    <layout class="QVBoxLayout" name="verticalLayout" stretch="65,0,282">
      <item>
-      <layout class="QHBoxLayout" name="horizontalLayout" stretch="69,488,95">
+      <layout class="QHBoxLayout" name="horizontalLayout" stretch="69,488">
        <item>
         <widget class="CustomLabel" name="snapShotIconLabel">
          <property name="text">
@@ -44,14 +44,14 @@
          </property>
         </widget>
        </item>
-       <item>
-        <widget class="CustomPushButton" name="backPushButton">
-         <property name="text">
-          <string/>
-         </property>
-        </widget>
-       </item>
       </layout>
+     </item>
+     <item>
+      <widget class="Line" name="line">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
      </item>
      <item>
       <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="35,360">
@@ -87,11 +87,6 @@
   </layout>
  </widget>
  <customwidgets>
-  <customwidget>
-   <class>CustomPushButton</class>
-   <extends>QPushButton</extends>
-   <header>CustomPushButton.h</header>
-  </customwidget>
   <customwidget>
    <class>CustomLabel</class>
    <extends>QLabel</extends>

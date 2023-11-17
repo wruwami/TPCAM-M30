@@ -3,6 +3,7 @@
 
 #include <QDialog>
 
+class CustomPushButton;
 class QListWidgetItem;
 namespace Ui {
 class FileManagerSnapShotDialog;
@@ -29,6 +30,7 @@ private slots:
 private:
     Ui::FileManagerSnapShotDialog *ui;
     QString m_strDate;
+    CustomPushButton* m_pBackPushButton = nullptr;
 
     // QWidget interface
 protected:

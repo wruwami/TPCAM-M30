@@ -1,10 +1,12 @@
 #include "CustomScrollbar.h"
 
+#include "FileManager.h"
+
 CustomScrollbar::CustomScrollbar(int width, QWidget *parent) : QScrollBar(parent)
 {
     if (width == 0)
     {
-        setStyleSheet("QScrollBar:vertical { \
+        setStyleSheet(QString("QScrollBar:vertical { \
                       border: none; \
                       background: rgba(255,255,255,0);\
                   }\
@@ -14,17 +16,17 @@ CustomScrollbar::CustomScrollbar(int width, QWidget *parent) : QScrollBar(parent
                   }\
                   QScrollBar::add-line:vertical {\
                       border: none;\
-                      image: url(images/file_manager/file_management_dirlist_seek_down.bmp)\
+                      image: url(%0images/file_manager/file_management_dirlist_seek_down.bmp)\
                   }\
                   QScrollBar::sub-line:vertical {\
                       border: none;\
                       background-color: rgba(255,255,255,0);\
-                      image: url(images/file_manager/file_management_dirlist_seek_up.bmp)\
+                      image: url(%0images/file_manager/file_management_dirlist_seek_up.bmp)\
                   }\
                   QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {\
                       background: none;\
                   }\
-                  ");
+                  ").arg(GeteMMCPath() + "/"));
     }
     else
     {
@@ -39,17 +41,17 @@ CustomScrollbar::CustomScrollbar(int width, QWidget *parent) : QScrollBar(parent
                             }\
                             QScrollBar::add-line:vertical {\
                                 border: none;\
-                                image: url(images/file_manager/file_management_dirlist_seek_down.bmp)\
+                                image: url(%1images/file_manager/file_management_dirlist_seek_down.bmp)\
                             }\
                             QScrollBar::sub-line:vertical {\
                                 border: none;\
                                 background-color: rgba(255,255,255,0);\
-                                image: url(images/file_manager/file_management_dirlist_seek_up.bmp)\
+                                image: url(%1images/file_manager/file_management_dirlist_seek_up.bmp)\
                             }\
                             QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {\
                                 background: none;\
                             }\
-                            ").arg(width));
+                            ").arg(width).arg(GeteMMCPath() + "/"));
 
     }
 }

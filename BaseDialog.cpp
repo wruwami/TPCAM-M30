@@ -329,10 +329,9 @@ void BaseDialog::setSize(QSize size)
 
     if (m_bIsCloseButton)
     {
-        int height = 130;
-        int w = size.width();
-        int h = size.height();
-        m_pClosePushButton->setGeometry(QRect(GetWidgetPos(QPoint(w - height - 5, 5)), GetWidgetSize(QSize(height - 10, height - 10))));
+        int height = (130);
+        int gap = GetCalcGap(5);
+        m_pClosePushButton->setGeometry(GetWidgetSizePos(QRect(QPoint(size.width() - 130 + gap, gap), QSize(height - gap * 2, height - gap * 2))));
     }
 //    ui->titleLabel->resize(GetWidgetSize(QSize(size.width(), 130)));
 }
@@ -357,7 +356,7 @@ void BaseDialog::setSize(int w, int h)
 //        QRect height3 = ui->verticalLayout_3->itemAt(0)->geometry();
 //        int height = rect.height() * ui->verticalLayout->stretch(0) / (ui->verticalLayout->stretch(0) + ui->verticalLayout->stretch(1));
         int height = (130);
-        int gap = GetWidthWidth(5);
+        int gap = GetCalcGap(5);
         m_pClosePushButton->setGeometry(GetWidgetSizePos(QRect(QPoint(w - 130 + gap, gap), QSize(height - gap * 2, height - gap * 2))));
     }
     //    ui->titleLabel->resize(GetWidgetSize(QSize(w, 130)));

@@ -97,6 +97,29 @@
         <layout class="QHBoxLayout" name="horizontalLayout_7" stretch="1,1,1,1">
          <item>
           <widget class="CustomPushButton" name="firstPushButton">
+           <property name="styleSheet">
+            <string notr="true">QPushButton {
+    color: black;
+    background-color: white;
+    border-width: 1px;
+    border-color: blue;
+    border-style: solid;
+    padding: 0px;
+}
+
+QPushButton:pressed {
+    border-color: red;
+    border-width: 1px;
+    padding: 0px;
+}
+
+QPushButton:disabled {
+    color:#7f7f7f;
+    border:1px solid #7030a0;
+    padding: 0px;
+}
+</string>
+           </property>
            <property name="text">
             <string/>
            </property>
@@ -104,6 +127,29 @@
          </item>
          <item>
           <widget class="CustomPushButton" name="previousPushButton">
+           <property name="styleSheet">
+            <string notr="true">QPushButton {
+    color: black;
+    background-color: white;
+    border-width: 1px;
+    border-color: blue;
+    border-style: solid;
+    padding: 0px;
+}
+
+QPushButton:pressed {
+    border-color: red;
+    border-width: 1px;
+    padding: 0px;
+}
+
+QPushButton:disabled {
+    color:#7f7f7f;
+    border:1px solid #7030a0;
+    padding: 0px;
+}
+</string>
+           </property>
            <property name="text">
             <string/>
            </property>
@@ -111,6 +157,29 @@
          </item>
          <item>
           <widget class="CustomPushButton" name="nextPushButton">
+           <property name="styleSheet">
+            <string notr="true">QPushButton {
+    color: black;
+    background-color: white;
+    border-width: 1px;
+    border-color: blue;
+    border-style: solid;
+    padding: 0px;
+}
+
+QPushButton:pressed {
+    border-color: red;
+    border-width: 1px;
+    padding: 0px;
+}
+
+QPushButton:disabled {
+    color:#7f7f7f;
+    border:1px solid #7030a0;
+    padding: 0px;
+}
+</string>
+           </property>
            <property name="text">
             <string/>
            </property>
@@ -118,6 +187,29 @@
          </item>
          <item>
           <widget class="CustomPushButton" name="lastPushButton">
+           <property name="styleSheet">
+            <string notr="true">QPushButton {
+    color: black;
+    background-color: white;
+    border-width: 1px;
+    border-color: blue;
+    border-style: solid;
+    padding: 0px;
+}
+
+QPushButton:pressed {
+    border-color: red;
+    border-width: 1px;
+    padding: 0px;
+}
+
+QPushButton:disabled {
+    color:#7f7f7f;
+    border:1px solid #7030a0;
+    padding: 0px;
+}
+</string>
+           </property>
            <property name="text">
             <string/>
            </property>
@@ -129,6 +221,29 @@
         <layout class="QHBoxLayout" name="horizontalLayout_5" stretch="1,1,1">
          <item>
           <widget class="CustomPushButton" name="percentPushButton">
+           <property name="styleSheet">
+            <string notr="true">QPushButton {
+    color: black;
+    background-color: white;
+    border-width: 1px;
+    border-color: blue;
+    border-style: solid;
+    padding: 0px;
+}
+
+QPushButton:pressed {
+    border-color: red;
+    border-width: 1px;
+    padding: 0px;
+}
+
+QPushButton:disabled {
+    color:#7f7f7f;
+    border:1px solid #7030a0;
+    padding: 0px;
+}
+</string>
+           </property>
            <property name="text">
             <string/>
            </property>
@@ -136,6 +251,29 @@
          </item>
          <item>
           <widget class="CustomPushButton" name="connectPushButton">
+           <property name="styleSheet">
+            <string notr="true">QPushButton {
+    color: black;
+    background-color: white;
+    border-width: 1px;
+    border-color: blue;
+    border-style: solid;
+    padding: 0px;
+}
+
+QPushButton:pressed {
+    border-color: red;
+    border-width: 1px;
+    padding: 0px;
+}
+
+QPushButton:disabled {
+    color:#7f7f7f;
+    border:1px solid #7030a0;
+    padding: 0px;
+}
+</string>
+           </property>
            <property name="text">
             <string/>
            </property>
@@ -143,6 +281,29 @@
          </item>
          <item>
           <widget class="CustomPushButton" name="printPushButton">
+           <property name="styleSheet">
+            <string notr="true">QPushButton {
+    color: black;
+    background-color: white;
+    border-width: 1px;
+    border-color: blue;
+    border-style: solid;
+    padding: 0px;
+}
+
+QPushButton:pressed {
+    border-color: red;
+    border-width: 1px;
+    padding: 0px;
+}
+
+QPushButton:disabled {
+    color:#7f7f7f;
+    border:1px solid #7030a0;
+    padding: 0px;
+}
+</string>
+           </property>
            <property name="text">
             <string/>
            </property>
@@ -165,6 +326,29 @@
         <layout class="QHBoxLayout" name="horizontalLayout_9" stretch="1,1,1,1,1,1">
          <item>
           <widget class="CustomPushButton" name="mainMenuPushButton">
+           <property name="styleSheet">
+            <string notr="true">QPushButton {
+    color: black;
+    background-color: white;
+    border-width: 1px;
+    border-color: blue;
+    border-style: solid;
+    padding: 0px;
+}
+
+QPushButton:pressed {
+    border-color: red;
+    border-width: 1px;
+    padding: 0px;
+}
+
+QPushButton:disabled {
+    color:#7f7f7f;
+    border:1px solid #7030a0;
+    padding: 0px;
+}
+</string>
+           </property>
            <property name="text">
             <string/>
            </property>
@@ -172,6 +356,29 @@
          </item>
          <item>
           <widget class="CustomPushButton" name="searchPushButton">
+           <property name="styleSheet">
+            <string notr="true">QPushButton {
+    color: black;
+    background-color: white;
+    border-width: 1px;
+    border-color: blue;
+    border-style: solid;
+    padding: 0px;
+}
+
+QPushButton:pressed {
+    border-color: red;
+    border-width: 1px;
+    padding: 0px;
+}
+
+QPushButton:disabled {
+    color:#7f7f7f;
+    border:1px solid #7030a0;
+    padding: 0px;
+}
+</string>
+           </property>
            <property name="text">
             <string/>
            </property>
@@ -179,6 +386,29 @@
          </item>
          <item>
           <widget class="CustomPushButton" name="zoomPlayPushButton">
+           <property name="styleSheet">
+            <string notr="true">QPushButton {
+    color: black;
+    background-color: white;
+    border-width: 1px;
+    border-color: blue;
+    border-style: solid;
+    padding: 0px;
+}
+
+QPushButton:pressed {
+    border-color: red;
+    border-width: 1px;
+    padding: 0px;
+}
+
+QPushButton:disabled {
+    color:#7f7f7f;
+    border:1px solid #7030a0;
+    padding: 0px;
+}
+</string>
+           </property>
            <property name="text">
             <string/>
            </property>
@@ -186,6 +416,29 @@
          </item>
          <item>
           <widget class="CustomPushButton" name="deletePushButton">
+           <property name="styleSheet">
+            <string notr="true">QPushButton {
+    color: black;
+    background-color: white;
+    border-width: 1px;
+    border-color: blue;
+    border-style: solid;
+    padding: 0px;
+}
+
+QPushButton:pressed {
+    border-color: red;
+    border-width: 1px;
+    padding: 0px;
+}
+
+QPushButton:disabled {
+    color:#7f7f7f;
+    border:1px solid #7030a0;
+    padding: 0px;
+}
+</string>
+           </property>
            <property name="text">
             <string/>
            </property>
@@ -193,6 +446,29 @@
          </item>
          <item>
           <widget class="CustomPushButton" name="sharePushButton">
+           <property name="styleSheet">
+            <string notr="true">QPushButton {
+    color: black;
+    background-color: white;
+    border-width: 1px;
+    border-color: blue;
+    border-style: solid;
+    padding: 0px;
+}
+
+QPushButton:pressed {
+    border-color: red;
+    border-width: 1px;
+    padding: 0px;
+}
+
+QPushButton:disabled {
+    color:#7f7f7f;
+    border:1px solid #7030a0;
+    padding: 0px;
+}
+</string>
+           </property>
            <property name="text">
             <string/>
            </property>
@@ -200,6 +476,29 @@
          </item>
          <item>
           <widget class="CustomPushButton" name="movePushButton">
+           <property name="styleSheet">
+            <string notr="true">QPushButton {
+    color: black;
+    background-color: white;
+    border-width: 1px;
+    border-color: blue;
+    border-style: solid;
+    padding: 0px;
+}
+
+QPushButton:pressed {
+    border-color: red;
+    border-width: 1px;
+    padding: 0px;
+}
+
+QPushButton:disabled {
+    color:#7f7f7f;
+    border:1px solid #7030a0;
+    padding: 0px;
+}
+</string>
+           </property>
            <property name="text">
             <string/>
            </property>

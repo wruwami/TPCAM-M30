@@ -66,10 +66,50 @@ CustomComboBox::CustomComboBox(QWidget *parent) : QComboBox(parent)
     setStyle(new AlignComboBoxProxy);
     setItemDelegate(new AlignDelegate(Qt::AlignLeft | Qt::AlignVCenter, this));
 //    setStyleSheet(QString("QComboBox::down-arrow { image: url(images/Main_menu/combobox_drop_down_arrow.jpg);}"));
-    QFile file(":/style/customComboBox.qss");
-    file.open(QFile::ReadOnly);
-    QString styleSheet = QString::fromLatin1(file.readAll());
-
+//    QFile file(":/style/customComboBox.qss");
+//    file.open(QFile::ReadOnly);
+    QString styleSheet = QString("QComboBox \
+    { \
+        combobox-popup: 0;\
+        border-width: 2px;\
+        border-style: solid;\
+    }\
+    \
+    QComboBox::drop-down\
+    {\
+        width : 35px;\
+        border: none;\
+    }\
+    QComboBox::down-arrow {\
+        image: url(%0images/Main_menu/combobox_drop_down_arrow.bmp);\
+        width: 30px;\
+        height: 30px;\
+    }\
+    \
+    QScrollBar:vertical {\
+     border: 2px solid black;\
+     width: 50px;\
+     margin : 52px 0 52px 0;\
+     background : white;\
+    }\
+    QScrollBar::handle:vertical{\
+     min-height: 20px;\
+    }\
+    QScrollBar::add-line:vertical {\
+     border: 2px solid black;\
+     height: 50px;\
+     subcontrol-position: bottom;\
+     subcontrol-origin: margin;\
+     image: url(%0images/Main_menu/combobox_drop_down_arrow.bmp);\
+    }\
+    QScrollBar::sub-line:vertical {\
+     border: 2px solid black;\
+     height: 50px;\
+     subcontrol-position: top;\
+     subcontrol-origin: margin;\
+     image: url(%0images/Main_menu/combobox_drop_up_arrow.jpg);\
+    } \
+").arg(GeteMMCPath() + "/");
 
     setStyleSheet(styleSheet);
     this->setMaxVisibleItems(6);

@@ -325,6 +325,14 @@ void BaseDialog::setSize(QSize size)
     this->setFixedSize(changedSize);
     ui->verticalLayout->setStretch(0, 130);
     ui->verticalLayout->setStretch(1, size.height() - 130);
+
+    if (m_bIsCloseButton)
+    {
+        int height = 130;
+        int w = size.width();
+        int h = size.height();
+        m_pClosePushButton->setGeometry(QRect(GetWidgetPos(QPoint(w - height - 5, 5)), GetWidgetSize(QSize(height - 10, height - 10))));
+    }
 //    ui->titleLabel->resize(GetWidgetSize(QSize(size.width(), 130)));
 }
 
@@ -336,6 +344,20 @@ void BaseDialog::setSize(int w, int h)
     this->setFixedSize(size);
     ui->verticalLayout->setStretch(0, 130);
     ui->verticalLayout->setStretch(1, h - 130);
+
+    if (m_bIsCloseButton)
+    {
+
+        QRect rect = this->geometry();
+//        rect.setSize(QSize(rect.width(), 130));
+//        rect.setWidth(rect.width()-130);
+//        rect.height();
+//        int height = 130 / rect.height();
+//        QRect height3 = ui->verticalLayout_3->itemAt(0)->geometry();
+//        int height = rect.height() * ui->verticalLayout->stretch(0) / (ui->verticalLayout->stretch(0) + ui->verticalLayout->stretch(1));
+        int height = 130;
+        m_pClosePushButton->setGeometry(QRect(GetWidgetPos(QPoint(w - height + 2, 7)), GetWidgetSize(QSize(height - 10, height - 10))));
+    }
     //    ui->titleLabel->resize(GetWidgetSize(QSize(w, 130)));
 }
 
@@ -385,8 +407,8 @@ void BaseDialog::resizeEvent(QResizeEvent *event)
 //        int height = 130 / rect.height();
 //        QRect height3 = ui->verticalLayout_3->itemAt(0)->geometry();
 //        int height = rect.height() * ui->verticalLayout->stretch(0) / (ui->verticalLayout->stretch(0) + ui->verticalLayout->stretch(1));
-        int height = 130;
-        m_pClosePushButton->setGeometry(GetWidgetSizePos(QRect(QPoint(rect.width() - height - height - 15, 7), QSize(height - 10, height - 10))));
+//        int height = GetWidthHeight(130);
+//        m_pClosePushButton->setGeometry(QRect(QPoint(rect.width() - height - 5, 5), QSize(height - 10, height - 10)));
 //        ui->horizontalLayout->setStretch(0, rect.width() - width);
 //        ui->horizontalLayout->setStretch(1, width);
 //        ui->horizontalLayout->setStretch(0, width);

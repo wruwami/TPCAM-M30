@@ -51,7 +51,7 @@ private:
     void drawBorder(QRect);
 private:
     Ui::BaseDialog *ui;
-    bool m_bIsCloseButton;
+    bool m_bIsCloseButton = false;
     bool m_isCamera;
     bool m_isLaser;
     bool m_isBattery;

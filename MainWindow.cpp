@@ -177,6 +177,8 @@ MainWindow::MainWindow(screensaver* screensaver, QWidget *parent) :
     connect(m_p500msTimer, SIGNAL(timeout()), this, SLOT(OnTimer500msFunc()));
     m_p500msTimer->start(500);
 
+    m_date = m_date.currentDate();
+
 //    EncryptionManager::GetInstance()->startEncrypt(GETSDPATH(AUTO));//바꿔야 함
 }
 
@@ -1253,10 +1255,6 @@ void MainWindow::OnTimer100msFunc()
 void MainWindow::OnTimer500msFunc()
 {
     CheckBatteryPercent();
-
-    QTime time = time.currentTime();
-    if (time.hour() == 0)
-        g_nCrackDownIndex = 1;
 }
 
 void MainWindow::afterWindowShown()
@@ -1627,6 +1625,18 @@ void MainWindow::timerEvent(QTimerEvent *event)
     {
 //        SelfTestFail(m_bFlick);
         m_bFlick = !m_bFlick;
+    }
+
+    QTime time = time.currentTime();
+    QDate previous_date = m_date;
+    m_date = m_date.currentDate();
+
+    if (previous_date != m_date)
+    {
+        if (time.hour() == 0)
+        {
+            g_nCrackDownIndex = 1;
+        }
     }
 
 //    QTime time;

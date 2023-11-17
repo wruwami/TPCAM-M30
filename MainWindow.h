@@ -137,6 +137,7 @@ private:
     int m_nLogCount= 0;
     QSize m_MainMenuWidgetSize;
     QString m_srFileFullName;
+    QDate m_date;
 
     // QObject interface
 protected:

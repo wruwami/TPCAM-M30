@@ -44,12 +44,6 @@
          <verstretch>0</verstretch>
         </sizepolicy>
        </property>
-       <property name="maximumSize">
-        <size>
-         <width>57</width>
-         <height>16777215</height>
-        </size>
-       </property>
        <property name="text">
         <string>TextLabel</string>
        </property>
@@ -108,14 +102,14 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>CustomPushButton</class>
-   <extends>QPushButton</extends>
-   <header>CustomPushButton.h</header>
-  </customwidget>
-  <customwidget>
    <class>CustomLabel</class>
    <extends>QLabel</extends>
    <header>CustomLabel.h</header>
+  </customwidget>
+  <customwidget>
+   <class>CustomPushButton</class>
+   <extends>QPushButton</extends>
+   <header>CustomPushButton.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

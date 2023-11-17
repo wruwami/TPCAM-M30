@@ -108,3 +108,8 @@ int WidgetSize::GetFontSize(int fontsize)
     int y = fontsize * m_rec.height() / Height * 2;
     return x;
 }
+
+int WidgetSize::CalcGap(int gap)
+{
+    int calc_gap = gap * Width / m_rec.width();
+}

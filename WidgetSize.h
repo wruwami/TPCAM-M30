@@ -61,6 +61,8 @@ public:
     int GetWidgetWidth(int width);
     QRect GetMainWindowRect();
     void SetMainWindowRect(QRect rect);
+    int CalcGap(int gap);
+
 private:
     QRect m_rec;
     QRect m_mainWindowRect;
@@ -118,5 +120,10 @@ static QRect GetMainWindowRect()
 static void SetMainWindowRect(QRect rect)
 {
     return WidgetSize::GetInstance()->SetMainWindowRect(rect);
+}
+
+static int GetCalcGap(int gap)
+{
+    return WidgetSize::GetInstance()->CalcGap(gap);
 }
 #endif // WIDGETSIZE_H

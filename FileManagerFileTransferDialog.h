@@ -13,6 +13,8 @@ enum TransType
     FileType,
     FTPType,
 };
+
+class CustomPushButton;
 class QNetworkReply;
 namespace Ui {
 class FileManagerFileTransferDialog;
@@ -39,7 +41,7 @@ private:
 //    QSharedPointer<FtpTransThread2> m_FtpTransThread;
     FileTransThread* m_FileTransThread = nullptr;
     FtpTransThread2* m_FtpTransThread = nullptr;
-
+    CustomPushButton* m_pClosePushButton = nullptr;
     TransType m_type;
 signals:
     void finished();
@@ -55,7 +57,7 @@ private slots:
 protected:
     void timerEvent(QTimerEvent *event);
     void paintEvent(QPaintEvent *event);
-
+    void resizeEvent(QResizeEvent *event);
 };
 
 #endif // FILEMANAGERFILETRANSFERDIALOG_H

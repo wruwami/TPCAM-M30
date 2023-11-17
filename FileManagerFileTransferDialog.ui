@@ -13,20 +13,25 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <layout class="QGridLayout" name="gridLayout_2" rowstretch="74,1,268,0">
+  <layout class="QGridLayout" name="gridLayout_2" rowstretch="74,1,268">
+   <property name="leftMargin">
+    <number>0</number>
+   </property>
+   <property name="topMargin">
+    <number>0</number>
+   </property>
+   <property name="rightMargin">
+    <number>0</number>
+   </property>
+   <property name="bottomMargin">
+    <number>0</number>
+   </property>
    <item row="0" column="0">
-    <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="9,1">
+    <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="9">
      <item alignment="Qt::AlignHCenter">
       <widget class="CustomLabel" name="titleLabel">
        <property name="text">
         <string>TextLabel</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="CustomPushButton" name="closePushButton">
-       <property name="text">
-        <string/>
        </property>
       </widget>
      </item>
@@ -133,11 +138,6 @@
   </layout>
  </widget>
  <customwidgets>
-  <customwidget>
-   <class>CustomPushButton</class>
-   <extends>QPushButton</extends>
-   <header>CustomPushButton.h</header>
-  </customwidget>
   <customwidget>
    <class>CustomLabel</class>
    <extends>QLabel</extends>

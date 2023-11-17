@@ -21,6 +21,7 @@
 #include "WidgetSize.h"
 #include "ftp.hh"
 #include "FileManager.h"
+#include "CustomPushButton.h"
 
 FileManagerFileTransferDialog::FileManagerFileTransferDialog(TransType type, QWidget *parent) :
     QDialog(parent),
@@ -31,10 +32,10 @@ FileManagerFileTransferDialog::FileManagerFileTransferDialog(TransType type, QWi
     this->setFixedSize(GetWidgetSize(QSize(800, 704)));
 
     this->setWindowFlags(Qt::FramelessWindowHint);
-
-    ui->closePushButton->setStyleSheet(QString("QPushButton {border-image : url(%0images/MessageBox/closeButton.png); border:none;}").arg(GeteMMCPath() + "/"));
+    m_pClosePushButton = new CustomPushButton(this);
+    m_pClosePushButton->setStyleSheet(QString("QPushButton {image : url(%0images/MessageBox/closeButton.png); border : 1px solid blue;}").arg(GeteMMCPath() + "/"));
 //    connect(ui->closePushButton, SIGNAL(clicked()), this, SLOT(closeThread()));
-    connect(ui->closePushButton, &QAbstractButton::clicked, this, &QWidget::close);
+    connect(m_pClosePushButton, &QAbstractButton::clicked, this, &QWidget::close);
 
     QSizePolicy sp_retain = ui->speedLabel->sizePolicy();
     sp_retain.setRetainSizeWhenHidden(true);
@@ -509,4 +510,14 @@ void FileManagerFileTransferDialog::paintEvent(QPaintEvent *event)
     QPainter painter(this);
     painter.setPen(QPen(QColor(127,127,127)));
     painter.drawLine(rect().bottomLeft(), rect().bottomRight());
+}
+
+void FileManagerFileTransferDialog::resizeEvent(QResizeEvent *event)
+{
+    int height = ui->horizontalLayout_3->geometry().height();
+    int width = ui->horizontalLayout_3->geometry().width();
+
+    int gap = GetCalcGap(10);
+    m_pClosePushButton->setGeometry((QRect(QPoint(width - height+ gap, gap), QSize(height - gap * 2, height - gap * 2))));
+
 }

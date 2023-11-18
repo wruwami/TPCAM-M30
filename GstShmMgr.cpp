@@ -69,8 +69,8 @@ void GstShmMgr::saveVideoUseShmsrc(QString qstrVideoFilename, QString qstrPath, 
         ).arg(QString::number(nNumBuffer), qstrShmName, QString::number(nVideoWidth), QString::number(nVideoHeight), QString::number(nFramerate), qstrTimestamp, qstrTextoverlay, qstrPath, qstrVideoFilename);
     */
 
-    QString strCommand = QString("gst-launch-1.0 shmsrc num-buffers=%1 do-timestamp=true socket-path=/tmp/foo name=%2 ! video/x-raw,format=NV12,width=%3,height=%4,framerate=%5/1 ! queue ! videoconvert ! jpegenc ! avimux ! filesink location=%6%7"
-        ).arg(QString::number(nNumBuffer), qstrShmName, QString::number(nVideoWidth), QString::number(nVideoHeight), QString::number(nFramerate), qstrPath, qstrVideoFilename);
+    QString strCommand = QString("gst-launch-1.0 shmsrc num-buffers=%1 do-timestamp=true socket-path=/tmp/foo name=%2 ! video/x-raw,format=NV12,width=1920,height=1080,framerate=%3/1 ! queue ! videoscale ! video/x-raw,format=NV12,width=%4,height=%5 ! videoconvert ! jpegenc ! avimux ! filesink location=%6%7"
+        ).arg(QString::number(nNumBuffer), qstrShmName, QString::number(nFramerate), QString::number(nVideoWidth), QString::number(nVideoHeight), qstrPath, qstrVideoFilename);
 
     int fileDescriptor = ::open((qstrPath+qstrShmName).toStdString().c_str(), O_CREAT | O_WRONLY, 0666);
     if (flock(fileDescriptor, LOCK_EX) != 0) {

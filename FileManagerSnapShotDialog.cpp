@@ -126,7 +126,7 @@ void FileManagerSnapShotDialog::on_backPushButton_clicked()
 
 void FileManagerSnapShotDialog::resizeEvent(QResizeEvent *event)
 {
-    ui->listWidget->setStyleSheet(QString("QListView{border:none; } QListView::item { height: %0px; }").arg(ui->snapShotIconLabel->height()/64* 45));
+    ui->listWidget->setStyleSheet(QString("QListView{border:none; } QListView::item { height: %0px; }").arg(ui->snapShotIconLabel->height()* 45/64));
     ui->listWidget->setVerticalScrollBar(new CustomScrollbar(ui->listWidget->width() * 78 / 650));
 
     int height = ui->horizontalLayout->geometry().height();

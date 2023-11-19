@@ -36,6 +36,9 @@ public:
     AVIOContext *ctx() const;
     void abort(bool aborted);
 
+    void msReadData(QAVIODevicePrivate*& ms);
+    void msSeek(QAVIODevicePrivate*& ms, int whence, int64_t& pos, int64_t& offset, bool& wake);
+
 protected:
     QScopedPointer<QAVIODevicePrivate> d_ptr;
 

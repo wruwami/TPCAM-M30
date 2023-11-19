@@ -74,6 +74,7 @@ public:
     void applyFilters(bool reset, const QAVFrame &frame);
 
     void terminate();
+    void msDispatch();
 
     void doWait();
     void wait(bool v);
@@ -343,6 +344,15 @@ void QAVPlayerPrivate::terminate()
     startDemuxing = false;
 }
 
+void QAVPlayerPrivate::msDispatch()
+{
+//    qCDebug(lcAVPlayer) << "[" << url << "]: Loaded, seekable:" << demuxer.seekable() << ", duration:" << demuxer.duration();
+    setSeekable(demuxer.seekable());
+    setDuration(demuxer.duration());
+    setVideoFrameRate(demuxer.videoFrameRate());
+    step(false);
+}
+
 void QAVPlayerPrivate::step(bool hasFrame)
 {
     QMutexLocker locker(&stateMutex);
@@ -514,13 +524,17 @@ void QAVPlayerPrivate::doLoad()
     }
 
     applyFilters(true, {});
-//    dispatch([this] {
+    msDispatch();
+//    QMetaObject::invokeMethod(q_ptr, QAVPlayerPrivate::msDispatch, nullptr);
+//    dispatch("msDispatch");
+//    auto lambdaFunction = [this] {
 //        qCDebug(lcAVPlayer) << "[" << url << "]: Loaded, seekable:" << demuxer.seekable() << ", duration:" << demuxer.duration();
 //        setSeekable(demuxer.seekable());
 //        setDuration(demuxer.duration());
 //        setVideoFrameRate(demuxer.videoFrameRate());
 //        step(false);
-//    });
+//    };
+//    dispatch(lambdaFunction);
 
 #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
     demuxerFuture = QtConcurrent::run(&threadPool, this, &QAVPlayerPrivate::doDemux);

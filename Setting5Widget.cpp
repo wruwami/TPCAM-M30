@@ -45,6 +45,7 @@ Setting5Widget::Setting5Widget(QWidget *parent) :
         ui->subnetMaskLineEdit->setEnabled(false);
         ui->gatewayLineEdit->setEnabled(false);
         ui->dnsServerLineEdit->setEnabled(false);
+
         ui->ipAddressLabel->setEnabled(false);
         ui->IpLabel->setEnabled(false);
         ui->subnetMaskLabel->setEnabled(false);
@@ -197,7 +198,7 @@ void Setting5Widget::timerEvent(QTimerEvent *event)
     else
     {
         ui->ipAddressComboBox->setEnabled(true);
-        ui->ipLineEdit->setEnabled(true);
+//        ui->ipLineEdit->setEnabled(true);
         ui->subnetMaskLineEdit->setEnabled(true);
         ui->gatewayLineEdit->setEnabled(true);
         ui->dnsServerLineEdit->setEnabled(true);

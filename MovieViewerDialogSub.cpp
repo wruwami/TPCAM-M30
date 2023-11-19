@@ -45,8 +45,8 @@ MovieViewerDialogSub::MovieViewerDialogSub(AVFileFormat avFileFormat, QWidget *p
     ui->quitPushButton->setFontSize(23);
     ui->playPushButton->setText(LoadString("IDS_PLAY"));
     ui->playPushButton->setFontSize(23);
-    ui->pausePushButton->setText(LoadString("IDS_PAUSE"));
-    ui->pausePushButton->setFontSize(23);
+//    ui->pausePushButton->setText(LoadString("IDS_PAUSE"));
+//    ui->pausePushButton->setFontSize(23);
     ui->printPushButton->setText(LoadString("IDS_PRINT"));
     ui->printPushButton->setFontSize(23);
 
@@ -98,6 +98,9 @@ MovieViewerDialogSub::MovieViewerDialogSub(AVFileFormat avFileFormat, QWidget *p
     //temp
     ui->previousPushButton->setEnabled(false);
     ui->nextPushButton->setEnabled(false);
+
+    //set checkable
+    ui->playPushButton->setCheckable(true);
 }
 
 MovieViewerDialogSub::~MovieViewerDialogSub()
@@ -124,8 +127,27 @@ void MovieViewerDialogSub::on_previousPushButton_clicked()
 void MovieViewerDialogSub::on_playPushButton_clicked()
 {
 //    m_player->play();
-    m_AVplayer.play();
+//    m_AVplayer.play();
 }
+
+void MovieViewerDialogSub::on_playPushButton_clicked(bool checked)
+{
+    if (checked)
+    {
+        m_AVplayer.play();
+        ui->playPushButton->setText(LoadString("IDS_PAUSE"));
+        ui->playPushButton->setFontSize(23);
+        ui->printPushButton->setEnabled(false);
+    }
+    else
+    {
+        m_AVplayer.pause();
+        ui->playPushButton->setText(LoadString("IDS_PLAY"));
+        ui->playPushButton->setFontSize(23);
+        ui->printPushButton->setEnabled(true);
+    }
+}
+
 
 void MovieViewerDialogSub::on_nextPushButton_clicked()
 {
@@ -134,6 +156,11 @@ void MovieViewerDialogSub::on_nextPushButton_clicked()
 }
 
 void MovieViewerDialogSub::on_printPushButton_clicked()
+{
+
+}
+
+void MovieViewerDialogSub::on_printPushButton_clicked(bool checked)
 {
 
 }

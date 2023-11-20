@@ -490,6 +490,7 @@ void EnforcementComponentWidget::hide(bool bAll)
     ui->enforcementDistanceSpeedLabel->hide();
     ui->enforcementTimeLabel->hide();
     ui->thumbnailLabel->hide();
+    m_pDistanceLabel->hide();
 }
 
 void EnforcementComponentWidget::show(bool bAll)
@@ -511,6 +512,7 @@ void EnforcementComponentWidget::show(bool bAll)
     ui->enforcementDistanceSpeedLabel->show();
     ui->enforcementTimeLabel->show();
     ui->thumbnailLabel->show();
+    m_pDistanceLabel->show();
 }
 
 void EnforcementComponentWidget::SetCamera()

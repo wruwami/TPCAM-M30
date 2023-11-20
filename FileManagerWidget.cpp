@@ -14,6 +14,7 @@
 #include <QtPrintSupport/QPrinter>
 #include <QtPrintSupport/QPrintDialog>
 #include <QTextDocument>
+#include <QAbstractVideoBuffer>
 
 #include "CustomPushButton.h"
 #include "StringLoader.h"
@@ -128,7 +129,6 @@ FileManagerWidget::FileManagerWidget(QWidget *parent) :
     ////    m_videoWidget->setGeometry(ui->frameLabel->geometry());
     //    m_videoWidget->hide();
 
-
     m_player = new QAVPlayer(this);
 //    m_player->setVideoOutput(m_pVideoWidget);
 
@@ -154,27 +154,33 @@ FileManagerWidget::FileManagerWidget(QWidget *parent) :
 
     QObject::connect(m_player, &QAVPlayer::videoFrame, [&](const QAVVideoFrame &frame) {
         // QAVVideoFrame is comppatible with QVideoFrame
-        QVideoFrame videoFrame = frame;
-        QPixmap pixmap;
-        QImage::Format imageFormat = QVideoFrame::imageFormatFromPixelFormat(videoFrame.pixelFormat());
-        QImage image( videoFrame.bits(),
-                    videoFrame.width(),
-                    videoFrame.height(),
-                    videoFrame.bytesPerLine(),
-                    imageFormat);
-//        QImage image = videoFrame.image();
-//        pixmap.fromImage(videoFrame.image().scaled(ui->frameLabel->size(), Qt::IgnoreAspectRatio, Qt::FastTransformation));
-        ui->frameLabel->setPixmap(QPixmap::fromImage(image).scaled(ui->frameLabel->size(), Qt::IgnoreAspectRatio, Qt::FastTransformation));
+        QAVVideoFrame::MapData mapData = frame.map();
+        {
+            QVideoFrame videoFrame = frame.convertTo(AV_PIX_FMT_RGB32);
+            if(videoFrame.map(QAbstractVideoBuffer::ReadOnly))
+            {
+                QPixmap pixmap;
+                QImage::Format imageFormat = QVideoFrame::imageFormatFromPixelFormat(videoFrame.pixelFormat());
+                QImage image( videoFrame.bits(),
+                            videoFrame.width(),
+                            videoFrame.height(),
+                            videoFrame.bytesPerLine(),
+                            imageFormat);
+        //        QImage image = videoFrame.image();
+        //        pixmap.fromImage(videoFrame.image().scaled(ui->frameLabel->size(), Qt::IgnoreAspectRatio, Qt::FastTransformation));
+                ui->frameLabel->setPixmap(QPixmap::fromImage(image).scaled(ui->frameLabel->size(), Qt::IgnoreAspectRatio, Qt::FastTransformation));
 
-        // QAVVideoFrame can be converted to various pixel formats
-//        auto convertedFrame = frame.convert(AV_PIX_FMT_YUV420P);
+                // QAVVideoFrame can be converted to various pixel formats
+        //        auto convertedFrame = frame.convert(AV_PIX_FMT_YUV420P);
 
-        // Easy getting data from video frame
-//        auto mapped = videoFrame.map(); // downloads data if it is in GPU
-//        qDebug() << mapped.format << mapped.size;
+                // Easy getting data from video frame
+        //        auto mapped = videoFrame.map(); // downloads data if it is in GPU
+        //        qDebug() << mapped.format << mapped.size;
 
-        // The frame might contain OpenGL or MTL textures, for copy-free rendering
-//        qDebug() << frame.handleType() << frame.handle();
+                // The frame might contain OpenGL or MTL textures, for copy-free rendering
+        //        qDebug() << frame.handleType() << frame.handle();
+            }
+        }
     });
 
 ////    int width = ui->tableWidget->width();//kui->gridLayout_2->itemAtPosition(1, 0)->geometry().width();
@@ -229,39 +235,39 @@ void FileManagerWidget::setTableContent()
     if (m_avFileFormatList.size() == 0)
         return;
 
-    if (m_nMode != S_MODE)
+//    if (m_nMode != S_MODE)
+//    {
+    for (int i = m_AVFileFormatIndex ; i < m_AVFileFormatIndex + 5 ; i++, j++)
     {
-        for (int i = m_AVFileFormatIndex ; i < m_AVFileFormatIndex + 5 ; i++, j++)
-        {
-            if (i >= m_avFileFormatList.size())
-                break;
-            AVFileFormat avfileFormat = m_avFileFormatList[i];
-            QString index;
-            index.sprintf("%05d", i+1);
-            QTableWidgetItem* indexItem = new QTableWidgetItem(index);
-            float nCaptureSpeed = getSpeedValue(avfileFormat.captureSpeed.mid(1,4).toFloat());
-            QTableWidgetItem* item = new QTableWidgetItem(QString::number(nCaptureSpeed, 'f', 0) + speedUnitValue() +", " + QString("%0%1:%2%3:%4%5").arg(avfileFormat.time[0]).arg(avfileFormat.time[1]).arg(avfileFormat.time[2]).arg(avfileFormat.time[3]).arg(avfileFormat.time[4]).arg(avfileFormat.time[5]));
-            ui->tableWidget->setItem(j, 0, indexItem);
-            ui->tableWidget->setItem(j, 1, item);
-        }
+        if (i >= m_avFileFormatList.size())
+            break;
+        AVFileFormat avfileFormat = m_avFileFormatList[i];
+        QString index;
+        index.sprintf("%05d", i+1);
+        QTableWidgetItem* indexItem = new QTableWidgetItem(index);
+        float nCaptureSpeed = getSpeedValue(avfileFormat.captureSpeed.mid(1,4).toFloat());
+        QTableWidgetItem* item = new QTableWidgetItem(QString::number(nCaptureSpeed, 'f', 0) + speedUnitValue() +", " + QString("%0%1:%2%3:%4%5").arg(avfileFormat.time[0]).arg(avfileFormat.time[1]).arg(avfileFormat.time[2]).arg(avfileFormat.time[3]).arg(avfileFormat.time[4]).arg(avfileFormat.time[5]));
+        ui->tableWidget->setItem(j, 0, indexItem);
+        ui->tableWidget->setItem(j, 1, item);
     }
-    else
-    {
-        for (int i = m_AVFileFormatIndex ; i < m_AVFileFormatIndex + 5 ; i++, j++)
-        {
-            if (i >= m_avFileFormatList.size())
-                break;
-            AVFileFormat avfileFormat = m_avFileFormatList[i];
-            QString index;
-            index.sprintf("%05d", i+1);
-            QTableWidgetItem* indexItem = new QTableWidgetItem(index);
-            QString date = QString(avfileFormat.date);
-            QTableWidgetItem* item = new QTableWidgetItem(date);
-            ui->tableWidget->setItem(j, 0, indexItem);
-            ui->tableWidget->setItem(j, 1, item);
-        }
+//    }
+//    else
+//    {
+//        for (int i = m_AVFileFormatIndex ; i < m_AVFileFormatIndex + 5 ; i++, j++)
+//        {
+//            if (i >= m_avFileFormatList.size())
+//                break;
+//            AVFileFormat avfileFormat = m_avFileFormatList[i];
+//            QString index;
+//            index.sprintf("%05d", i+1);
+//            QTableWidgetItem* indexItem = new QTableWidgetItem(index);
+//            QString date = QString(avfileFormat.date);
+//            QTableWidgetItem* item = new QTableWidgetItem(date);
+//            ui->tableWidget->setItem(j, 0, indexItem);
+//            ui->tableWidget->setItem(j, 1, item);
+//        }
 
-    }
+//    }
 }
 
 void FileManagerWidget::resizeEvent(QResizeEvent *event)
@@ -1027,12 +1033,17 @@ void FileManagerWidget::on_tableWidget_cellClicked(int row, int column)
 
     ui->tableWidget->item(row, 0)->setTextColor(Qt::red);
     ui->tableWidget->item(row, 1)->setTextColor(Qt::red);
+    ui->tableWidget->item(row, 0)->setSelected(true);
+    ui->tableWidget->item(row, 1)->setSelected(true);
+
     for (int i = 0 ; i < size ; i++)
     {
         if (row != i)
         {
             ui->tableWidget->item(i, 0)->setTextColor(Qt::black);
             ui->tableWidget->item(i, 1)->setTextColor(Qt::black);
+            ui->tableWidget->item(i, 0)->setSelected(false);
+            ui->tableWidget->item(i, 1)->setSelected(false);
         }
     }
 

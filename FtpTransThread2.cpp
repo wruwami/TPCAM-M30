@@ -102,7 +102,7 @@ void FtpTransThread2::run()
             {
                 qDebug() << "ftp put failed";
             }
-            emit setValue((++i) / m_count);
+            emit setValue(++i);
             emit setFileCountText(QString("%1 / %2").arg(i).arg(m_count));
             emit setFileNameText(fileName);
 

@@ -104,6 +104,8 @@ public:
 
     void setPosition(qint64 position);
 
+    void msDispatch();
+
 public Q_SLOTS:
     void play();
     void pause();

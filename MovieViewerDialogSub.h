@@ -62,6 +62,10 @@ private slots:
 
     void on_horizontalSlider_sliderMoved(int position);
 
+    void on_playPushButton_clicked(bool checked);
+
+    void on_printPushButton_clicked(bool checked);
+
 private:
     Ui::MovieViewerDialogSub*ui;
 //    QVideoWidget* m_videoWidget;

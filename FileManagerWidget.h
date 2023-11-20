@@ -7,6 +7,11 @@
 #include "FileFormat.h"
 #include "StorageManager.h"
 
+#include "QtAVPlayerHelper/mediaobject.h"
+#include "QtAVPlayerHelper/mediaservice.h"
+#include "QtAVPlayerHelper/videorenderer.h"
+#include "QtAVPlayerHelper/videowidget.h"
+
 namespace Ui {
 class FileManagerWidget;
 }

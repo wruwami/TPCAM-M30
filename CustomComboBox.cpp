@@ -228,27 +228,48 @@ void CustomComboBox::resizeEvent(QResizeEvent *event)
     file.open(QFile::ReadOnly);
     QString styleSheet = QString::fromLatin1(file.readAll());
 
-    setStyleSheet(QString(styleSheet + "QComboBox QListView {text-align:center;}\
-                          QComboBox::down-arrow { \
-                              image: url(%0images/Main_menu/combobox_drop_down_arrow.jpg); \
-                              width: 30px; \
-                              height: 30px; \
-                          }\
-                          QScrollBar::add-line:vertical { \
-                           border: 2px solid black; \
-                           height: 50px; \
-                           subcontrol-position: bottom; \
-                           subcontrol-origin: margin; \
-                           image: url(%0images/Main_menu/combobox_drop_down_arrow.jpg); \
-                          } \
-                          QScrollBar::sub-line:vertical { \
-                           border: 2px solid black; \
-                           height: 50px; \
-                           subcontrol-position: top; \
-                           subcontrol-origin: margin; \
-                           image: url(%0images/Main_menu/combobox_drop_up_arrow.jpg); \
-                          } \
-QListView::item {height: %01x;}").arg(GeteMMCPath() + "/").arg(event->size().height() * 3 / 4));
+    setStyleSheet(QString("QComboBox \
+                                                   { \
+                                                       combobox-popup: 0;\
+                                                       border-width: 2px;\
+                                                       border-style: solid;\
+                                                   }\
+                                                   \
+                                                   QComboBox::drop-down\
+                                                   {\
+                                                       width : 35px;\
+                                                       border: none;\
+                                                   }\
+                                                   QComboBox::down-arrow {\
+                                                       image: url(%0images/Main_menu/combobox_drop_down_arrow.bmp);\
+                                                       width: 30px;\
+                                                       height: 30px;\
+                                                   }\
+                                                   \
+                                                   QScrollBar:vertical {\
+                                                    border: 2px solid black;\
+                                                    width: 50px;\
+                                                    margin : 52px 0 52px 0;\
+                                                    background : white;\
+                                                   }\
+                                                   QScrollBar::handle:vertical{\
+                                                    min-height: 20px;\
+                                                   }\
+                                                   QScrollBar::add-line:vertical {\
+                                                    border: 2px solid black;\
+                                                    height: 50px;\
+                                                    subcontrol-position: bottom;\
+                                                    subcontrol-origin: margin;\
+                                                    image: url(%0images/Main_menu/combobox_drop_down_arrow.bmp);\
+                                                   }\
+                                                   QScrollBar::sub-line:vertical {\
+                                                    border: 2px solid black;\
+                                                    height: 50px;\
+                                                    subcontrol-position: top;\
+                                                    subcontrol-origin: margin;\
+                                                    image: url(%0images/Main_menu/combobox_drop_up_arrow.jpg);\
+                                                   } \
+                                               ").arg(GeteMMCPath() + "/").arg(event->size().height() * 3 / 4));
 //    this->view()->verticalScrollBar()->setStyleSheet("QScrollBar:vertical { width: 30px; }\
 //                                           QScrollBar::handle:vertical{\
 //                                               min-height: 30px;\

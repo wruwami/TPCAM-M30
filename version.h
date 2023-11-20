@@ -4,7 +4,7 @@
 #endif // VERSION_H
 
 
-#define SW_VER          "v0.0.0.15 "
+#define SW_VER          "v0.0.0.16 "
 //#define	SW_BUILDDATE	__DATE__
 //#define	SW_BUILDTIME	__TIME__
 

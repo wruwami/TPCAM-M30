@@ -484,36 +484,42 @@ void SerialPacket::ParsingPacket()
         case 0x57:		// 레이저 파라메타 수신
             {
                 cbRcvLaserParam((unsigned char*)(g_ReceiveData.Msg), 0);
+                SetLogMsg(LASER_RECEIVE_DATA, "received laser parameter");
             }
             break;
 
         case 0x8C:		// APD Drop Val Response
             {
                 cbRcvLaserParam((unsigned char*)(g_ReceiveData.Msg), 2);
+                SetLogMsg(LASER_RECEIVE_DATA, "received APD Drop Val Response");
             }
             break;
 
         case 0x76:		// APD Volt Response
             {
                 cbRcvLaserParam((unsigned char*)(g_ReceiveData.Msg), 1);
+                SetLogMsg(LASER_RECEIVE_DATA, "received APD Volt Response");
             }
             break;
 
         case 0x4B:		// AD Ref Volt Response
             {
                 cbRcvLaserParam((unsigned char*)(g_ReceiveData.Msg), 3);
+                SetLogMsg(LASER_RECEIVE_DATA, "received AD Ref Volt Response");
             }
             break;
 
         case 0x7A:		// Blanking Response
             {
                 cbRcvLaserParam((unsigned char*)(g_ReceiveData.Msg), 4);
+                SetLogMsg(LASER_RECEIVE_DATA, "received Blanking Response");
             }
             break;
 
         case 0x63:		// Threshold Response
             {
                 cbRcvLaserParam((unsigned char*)(g_ReceiveData.Msg), 5);
+                SetLogMsg(LASER_RECEIVE_DATA, "received Threshold Response");
             }
             break;
 
@@ -522,6 +528,7 @@ void SerialPacket::ParsingPacket()
                 QString str;
                 str.sprintf("Src.Info : SRC(%s), LEV(%d)"	, g_ReceiveData.Msg[0]==1? "BATT" : "EXT_DC", g_ReceiveData.Msg[1]);
                 qDebug() << str;
+                SetLogMsg(LASER_RECEIVE_DATA, QString("BATT info: %1").arg(str));
             }
             break;
 
@@ -562,6 +569,7 @@ void SerialPacket::ParsingPacket()
                   QString str;//, tstr;
                   str.sprintf("%s", g_ReceiveData.Msg);
                   qDebug() << str;
+                  SetLogMsg(LASER_RECEIVE_DATA, str);
 
 //                QString str, tstr;
 //                str = g_ReceiveData.Msg;

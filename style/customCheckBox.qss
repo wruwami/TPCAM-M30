@@ -1,9 +1,9 @@
 QCheckBox::indicator:checked
 {
-  image: url(images/Date_time/checked.bmp);
+  image: url(/userdata/TPCAM-M30/images/Date_time/checked.bmp);
 }
 
 QCheckBox::indicator:unchecked
 {
-  image: url(images/Date_time/unchecked.bmp);
+  image: url(/userdata/TPCAM-M30/images/Date_time/unchecked.bmp);
 }

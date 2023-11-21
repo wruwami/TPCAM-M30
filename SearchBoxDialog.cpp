@@ -24,7 +24,7 @@ SearchBoxDialog::SearchBoxDialog(QString title, QWidget *parent) :
 
     ui->searchButton->setImage("file_manager", "file_management_search_search_button.bmp");
 //    ui->closePushButton->setText(LoadString("IDS_BACK"));
-    ui->closePushButton->setStyleSheet(QString("QPushButton {image : url(%0images/MessageBox/closeButton.png); border : 1px solid blue;} QPushButton:pressed {border : 1px solid red;}").arg(GeteMMCPath() + "/"));
+    ui->closePushButton->setStyleSheet(QString("QPushButton {image : url(%0images/MessageBox/closeButton.png); border : 2px solid blue;} QPushButton:pressed {border : 2px solid red;}").arg(GeteMMCPath() + "/"));
     ui->closePushButton->setFontSize(23);
 
     resize(GetWidgetSize(QSize(1208, 702)));

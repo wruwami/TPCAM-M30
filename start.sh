@@ -12,3 +12,9 @@ xinput set-prop 'TSC2007 Touchscreen' 'libinput Calibration Matrix' 1.09 0 -0.05
 echo "touchscreen applied"
 cpufreq-set -c 0 1 2 3 -u 1.2Ghz -g performance
 cpufreq-set -c 4 5 -u 1.2Ghz -g performance
+
+cursor_text_content="[Seat:*]
+# Dump core
+xserver-command=X -core -nocursor
+"
+echo "$cursor_text_content" > "/usr/share/lightdm/lightdm.conf.d/50-xserver-command.conf"

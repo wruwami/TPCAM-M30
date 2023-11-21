@@ -207,10 +207,9 @@ EnforcementComponentWidget::EnforcementComponentWidget(QWidget *parent) :
     QJsonObject jsonObject = ConfigManager("parameter_setting6.json").GetConfig();
     if (jsonObject["ftp select"].toInt() == 3)
     {
-        m_bFtpMode = true;
-        m_pFtpThread.reset(new FtpTransThread);
-        connect(m_pFtpThread.data(), &FtpTransThread::finished, m_pFtpThread.data(), &QObject::deleteLater);
-        connect(m_pFtpThread.data(), SIGNAL(sig_exit()), this, SLOT(closeThread()));
+        m_pFtpThread = new FtpTransThread;
+        connect(m_pFtpThread, &FtpTransThread::finished, m_pFtpThread, &QObject::deleteLater);
+//        connect(m_pFtpThread, SIGNAL(sig_exit()), this, SLOT(closeThread()));
 
         m_pFtpThread->start();
     }
@@ -278,13 +277,18 @@ EnforcementComponentWidget::~EnforcementComponentWidget()
 
     doEnforceMode(false);
 
-    if (m_bFtpMode && m_pFtpThread->isRunning())
+    if (m_pFtpThread)
     {
-        m_pFtpThread->requestInterruption();
-        sleep(1);
-        m_pFtpThread->exit();
-        m_pFtpThread->wait();
+        delete m_pFtpThread;
+        m_pFtpThread = nullptr;
     }
+//    if (\\m_bFtpMode && m_pFtpThread->isRunning())
+//    {
+//        m_pFtpThread->requestInterruption();
+//        sleep(1);
+//        m_pFtpThread->exit();
+//        m_pFtpThread->wait();
+//    }
 
 //    m_pFtpThread->requestInterruption();
 //    emit ShowRedOutLine(false);
@@ -400,7 +404,7 @@ void EnforcementComponentWidget::SaveImageVideo()
     case I:
     {
         m_pCamera->SaveImage(AI, enforceInfo, SNAPSHOT);
-        if (m_bFtpMode && !m_pFtpThread.isNull())
+        if (m_pFtpThread)
             m_pFtpThread->PushFile(GETSDPATH(SNAPSHOT) + "/" + GetFileName(AI, enforceInfo));
 
     }
@@ -408,11 +412,11 @@ void EnforcementComponentWidget::SaveImageVideo()
     case A:
     {
         m_pCamera->SaveImage(AI, enforceInfo, SNAPSHOT);
-        if (m_bFtpMode && !m_pFtpThread.isNull())
+        if (m_pFtpThread)
             m_pFtpThread->PushFile(GETSDPATH(SNAPSHOT) + "/" + GetFileName(AI, enforceInfo));
 
         m_pCamera->SaveVideo(AV, enforceInfo, AUTO);
-        if (m_bFtpMode && !m_pFtpThread.isNull())
+        if (m_pFtpThread)
             m_pFtpThread->PushFile(GETSDPATH(AUTO) + "/" + GetFileName(AV, enforceInfo));
 
     }
@@ -420,7 +424,7 @@ void EnforcementComponentWidget::SaveImageVideo()
     case V:
     {
         m_pCamera->SaveVideo(VV, enforceInfo, VIDEO);
-        if (m_bFtpMode && !m_pFtpThread.isNull())
+        if (m_pFtpThread)
             m_pFtpThread->PushFile(GETSDPATH(VIDEO) + "/" + GetFileName(VV, enforceInfo));
     }
         break;
@@ -2051,18 +2055,6 @@ void EnforcementComponentWidget::on_saveImage()
 {
     displayThumbnail();
 }
-
-void EnforcementComponentWidget::closeThread()
-{
-    if (m_pFtpThread->isRunning())
-    {
-        m_pFtpThread->requestInterruption();
-    }
-    m_pFtpThread->quit();
-    m_pFtpThread->wait();
-    m_pFtpThread.reset(nullptr);
-}
-
 
 void EnforcementComponentWidget::on_setNightMode(int dn)
 {

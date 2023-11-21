@@ -167,8 +167,8 @@ private:
     QFileSystemWatcher m_fileSystemWatcher;
     TriggerStatus m_triggerStatus = SKIP;
     QSize m_MainMenuWidgetSize;
-    QSharedPointer<FtpTransThread> m_pFtpThread;
-    bool m_bFtpMode = false;
+    FtpTransThread* m_pFtpThread = nullptr;
+//    bool m_bFtpMode = false;
 //    bool m_bTest = false;
 
     QMutex m_mutex;
@@ -194,7 +194,7 @@ protected slots:
     void on_EnforceModeA();
     void on_EnforceModeV();
     void do_FileSystemWatcher(const QString&);
-    void closeThread();
+//    void closeThread();
     void on_setNightMode(int);
 
 protected:

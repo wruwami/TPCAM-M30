@@ -209,7 +209,7 @@ EnforcementComponentWidget::EnforcementComponentWidget(QWidget *parent) :
     {
         m_pFtpThread = new FtpTransThread;
         connect(m_pFtpThread, &FtpTransThread::finished, m_pFtpThread, &QObject::deleteLater);
-        connect(m_pFtpThread, SIGNAL(sig_exit()), this, SLOT(closeThread()));
+        connect(m_pFtpThread, SIGNAL(finished()), this, SLOT(closeThread()));
 
         m_pFtpThread->start();
     }

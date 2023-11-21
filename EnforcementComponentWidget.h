@@ -167,7 +167,7 @@ private:
     QFileSystemWatcher m_fileSystemWatcher;
     TriggerStatus m_triggerStatus = SKIP;
     QSize m_MainMenuWidgetSize;
-    QScopedPointer<FtpTransThread> m_pFtpThread;
+    QSharedPointer<FtpTransThread> m_pFtpThread;
     bool m_bFtpMode = false;
 //    bool m_bTest = false;
 

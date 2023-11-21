@@ -400,7 +400,7 @@ void EnforcementComponentWidget::SaveImageVideo()
     case I:
     {
         m_pCamera->SaveImage(AI, enforceInfo, SNAPSHOT);
-        if (m_bFtpMode)
+        if (m_bFtpMode && !m_pFtpThread.isNull())
             m_pFtpThread->PushFile(GETSDPATH(SNAPSHOT) + "/" + GetFileName(AI, enforceInfo));
 
     }
@@ -408,11 +408,11 @@ void EnforcementComponentWidget::SaveImageVideo()
     case A:
     {
         m_pCamera->SaveImage(AI, enforceInfo, SNAPSHOT);
-        if (m_bFtpMode)
+        if (m_bFtpMode && !m_pFtpThread.isNull())
             m_pFtpThread->PushFile(GETSDPATH(SNAPSHOT) + "/" + GetFileName(AI, enforceInfo));
 
         m_pCamera->SaveVideo(AV, enforceInfo, AUTO);
-        if (m_bFtpMode)
+        if (m_bFtpMode && !m_pFtpThread.isNull())
             m_pFtpThread->PushFile(GETSDPATH(AUTO) + "/" + GetFileName(AV, enforceInfo));
 
     }
@@ -420,7 +420,7 @@ void EnforcementComponentWidget::SaveImageVideo()
     case V:
     {
         m_pCamera->SaveVideo(VV, enforceInfo, VIDEO);
-        if (m_bFtpMode)
+        if (m_bFtpMode && !m_pFtpThread.isNull())
             m_pFtpThread->PushFile(GETSDPATH(VIDEO) + "/" + GetFileName(VV, enforceInfo));
     }
         break;
@@ -2058,7 +2058,9 @@ void EnforcementComponentWidget::closeThread()
     {
         m_pFtpThread->requestInterruption();
     }
-    m_pFtpThread->exit();
+    m_pFtpThread->quit();
+    m_pFtpThread->wait();
+    m_pFtpThread.reset(nullptr);
 }
 
 

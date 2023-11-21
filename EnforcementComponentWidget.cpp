@@ -209,7 +209,7 @@ EnforcementComponentWidget::EnforcementComponentWidget(QWidget *parent) :
     {
         m_pFtpThread = new FtpTransThread;
         connect(m_pFtpThread, &FtpTransThread::finished, m_pFtpThread, &QObject::deleteLater);
-//        connect(m_pFtpThread, SIGNAL(sig_exit()), this, SLOT(closeThread()));
+        connect(m_pFtpThread, SIGNAL(sig_exit()), this, SLOT(closeThread()));
 
         m_pFtpThread->start();
     }
@@ -2055,6 +2055,18 @@ void EnforcementComponentWidget::on_saveImage()
 {
     displayThumbnail();
 }
+
+void EnforcementComponentWidget::closeThread()
+{
+    if (m_pFtpThread->isRunning())
+    {
+        m_pFtpThread->requestInterruption();
+    }
+    m_pFtpThread->quit();
+    m_pFtpThread->wait();
+    m_pFtpThread = nullptr;
+}
+
 
 void EnforcementComponentWidget::on_setNightMode(int dn)
 {

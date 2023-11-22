@@ -947,7 +947,7 @@ void CreateWiFiReadThreadAndInitPrinter(void)
         free(g_wifi_printer.serv_addr);
     }
     g_wifi_printer.serv_addr = (struct sockaddr_in*)malloc(sizeof(struct sockaddr_in));
-    s_pid_wifi_printer = pthread_create(&s_tid_wifi_printer, NULL, t_wifi_read_packet, NULL);
+//    s_pid_wifi_printer = pthread_create(&s_tid_wifi_printer, NULL, t_wifi_read_packet, NULL);
     if (s_pid_wifi_printer == 0)
     {
         //fprintf(stdout, "=========================================\n");
@@ -1155,6 +1155,35 @@ void SetPrinterFirmwareVer()
     }
 }
 
+int SendAll(int client_socket, const void *data, int data_size)
+{
+    const char *data_ptr = (const char*) data;
+    int bytes_sent;
+
+    while (data_size > 0)
+    {
+        bytes_sent = send(client_socket, data_ptr, data_size, 0);
+        if (bytes_sent == -1)
+            return -1;
+
+        data_ptr += bytes_sent;
+        data_size -= bytes_sent;
+    }
+
+    return 1;
+}
+
+int SendAll(int client_socket, const string &data)
+{
+    ulong data_size = htonl(data.size());
+
+    int result = SendAll(client_socket, &data_size, sizeof(data_size));
+    if (result == 1)
+        result = SendAll(client_socket, data.c_str(), data.size());
+
+    return result;
+}
+
 int receiveData()
 {
     int nResult = 0;
@@ -1211,7 +1240,7 @@ static void *t_wifi_read_packet(void *arg)
     {
         if (g_wifi_printer.isConnected)
         {
-            nResult = recv(g_wifi_printer.socket, recvBuff, WIFI_PRINTER_MAX_BUFFER, 0);
+            nResult = read(g_wifi_printer.socket, recvBuff, WIFI_PRINTER_MAX_BUFFER);
             if (nResult > 0)
             {
                 ////fprintf(stdout, "\n[DEBUG] === received Bytes : %d(mode : %d) ===\n", nResult, g_nInQuiry);
@@ -1279,7 +1308,8 @@ void InquiryPrinterModelInfo()
     }
 
     ClearWiFiRecvBuff(INQUIRY_MODEL_NAME);
-    send(g_wifi_printer.socket, cModel_Inq, 3, 0);
+    SendAll(g_wifi_printer.socket, cModel_Inq, 3);
+//    send(g_wifi_printer.socket, cModel_Inq, 3, 0);
 
     receiveData();
 
@@ -1315,7 +1345,8 @@ void InquiryPrinterFirmwareInfo()
     {
         cFW_Inq[0] = (char)0x1b; cFW_Inq[1] = (char)0x00; cFW_Inq[2] = (char)0x02; cFW_Inq[3] = (char)0x02;
         ClearWiFiRecvBuff(INQUIRY_FIRMWARE_VER);
-        send(g_wifi_printer.socket, cFW_Inq, 4, 0);
+        SendAll(g_wifi_printer.socket, cFW_Inq, 4);
+//        send(g_wifi_printer.socket, cFW_Inq, 4, 0);
     }
     break;
     case PRINTER_EASTROYCE:

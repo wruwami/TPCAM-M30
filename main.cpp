@@ -101,7 +101,7 @@ int main(int argc, char *argv[])
     int lang = json["language select"].toInt();
     StringLoader::GetInstance()->Initialize("strings", "stringTable.csv", ja[lang - 1].toString().toStdString());
 
-//    CreateWiFiReadThreadAndInitPrinter();
+    CreateWiFiReadThreadAndInitPrinter();
 
 //    system("sudo timedatectl set-ntp 0");
 //    system("sudo /home/firefly/start.sh");

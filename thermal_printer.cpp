@@ -1155,6 +1155,50 @@ void SetPrinterFirmwareVer()
     }
 }
 
+int receiveData()
+{
+    int nResult = 0;
+    g_nrecvCount = 0;
+    char recvBuff[WIFI_PRINTER_MAX_BUFFER];
+
+    nResult = recv(g_wifi_printer.socket, recvBuff, WIFI_PRINTER_MAX_BUFFER, 0);
+    if (nResult > 0)
+    {
+        ////fprintf(stdout, "\n[DEBUG] === received Bytes : %d(mode : %d) ===\n", nResult, g_nInQuiry);
+        for (int i = 0; i < nResult; i++)
+        {
+            ////fprintf(stdout, "(%04d) : 0x%02x\n", i, recvBuff[i]);
+            g_recvBuff[g_nrecvCount + i] = recvBuff[i];
+        }
+        g_nrecvCount += nResult;
+
+        switch (g_nInQuiry)
+        {
+        case INQUIRY_MODEL_NAME:
+        {
+            SetPrinterModelAndSize();
+        }
+        break;
+        case INQUIRY_FIRMWARE_VER:
+        {
+            SetPrinterFirmwareVer();
+        }
+        break;
+        }
+    }
+    else if (nResult == -1)
+    {
+        close_wifi_printer_socket();
+        //disp_filemanagement_main_run(FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE);
+        //fprintf(stdout, "[DEBUG] Socket Receive Error : %s\n", strerror(errno));
+    }
+    else if (nResult == 0)
+    {
+        //fprintf(stdout, "\n[DEBUG] === received Bytes : ZERO!!!! ===\n");
+    }
+    return nResult;
+}
+
 static void *t_wifi_read_packet(void *arg)
 {
     int i = 0;
@@ -1237,6 +1281,8 @@ void InquiryPrinterModelInfo()
     ClearWiFiRecvBuff(INQUIRY_MODEL_NAME);
     send(g_wifi_printer.socket, cModel_Inq, 3, 0);
 
+    receiveData();
+
     int nCount = 0;
     while (TRUE)
     {
@@ -1279,6 +1325,8 @@ void InquiryPrinterFirmwareInfo()
     }
     break;
     }
+
+    receiveData();
 
     int nCount = 0;
     while (TRUE)

@@ -17,7 +17,7 @@ C0001 -
 #include <arpa/inet.h>
 #include <string>
 
-#define WIFI_PRINTER_MAX_BUFFER					4096
+#define WIFI_PRINTER_MAX_BUFFER					4098
 #define DEVICE_ID_MAX_LENGTH							7
 #define USER_NAME_MAX_LENGTH							13
 #define LOCATION_MAX_LENGTH								25

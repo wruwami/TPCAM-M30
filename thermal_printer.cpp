@@ -1189,6 +1189,7 @@ int receiveData()
     int nResult = 0;
     g_nrecvCount = 0;
     char recvBuff[WIFI_PRINTER_MAX_BUFFER];
+    memset(recvBuff, 0, WIFI_PRINTER_MAX_BUFFER);
 
     nResult = recv(g_wifi_printer.socket, recvBuff, WIFI_PRINTER_MAX_BUFFER, 0);
     if (nResult > 0)
@@ -1218,6 +1219,7 @@ int receiveData()
     else if (nResult == -1)
     {
         close_wifi_printer_socket();
+        qDebug() << errno;
         //disp_filemanagement_main_run(FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE);
         //fprintf(stdout, "[DEBUG] Socket Receive Error : %s\n", strerror(errno));
     }
@@ -1310,12 +1312,11 @@ void InquiryPrinterModelInfo()
     ClearWiFiRecvBuff(INQUIRY_MODEL_NAME);
     SendAll(g_wifi_printer.socket, cModel_Inq, 3);
 //    send(g_wifi_printer.socket, cModel_Inq, 3, 0);
-
-    receiveData();
-
     int nCount = 0;
     while (TRUE)
     {
+        receiveData();
+
         if (g_nInQuiry == INQUIRY_NONE)
         {
             //fprintf(stdout, "\n[DEBUG] === Out of InquiryPrinterModelInfo on INQUIRY_NONE ===\n");
@@ -1330,6 +1331,11 @@ void InquiryPrinterModelInfo()
         }
         usleep(1000);
     }
+
+
+
+
+
 }
 
 void InquiryPrinterFirmwareInfo()
@@ -1346,6 +1352,8 @@ void InquiryPrinterFirmwareInfo()
         cFW_Inq[0] = (char)0x1b; cFW_Inq[1] = (char)0x00; cFW_Inq[2] = (char)0x02; cFW_Inq[3] = (char)0x02;
         ClearWiFiRecvBuff(INQUIRY_FIRMWARE_VER);
         SendAll(g_wifi_printer.socket, cFW_Inq, 4);
+        receiveData();
+
 //        send(g_wifi_printer.socket, cFW_Inq, 4, 0);
     }
     break;
@@ -1357,11 +1365,10 @@ void InquiryPrinterFirmwareInfo()
     break;
     }
 
-    receiveData();
-
     int nCount = 0;
     while (TRUE)
     {
+
         if (g_nInQuiry == INQUIRY_NONE)
         {
             //fprintf(stdout, "\n[DEBUG] === Out of Inquiry Printer Firmware Info on INQUIRY_NONE ===\n");
@@ -1376,6 +1383,9 @@ void InquiryPrinterFirmwareInfo()
         }
         usleep(1000);
     }
+
+
+
 }
 
 int connect_wifi_printer()
@@ -1395,7 +1405,7 @@ int connect_wifi_printer()
     char strIP[128] = { 0, };
     int ip1 = 192;//json_data_manager_get_ip_address_1();
     int ip2 = 168;//json_data_manager_get_ip_address_2();
-    int ip3 = 10;//json_data_manager_get_ip_address_3();
+    int ip3 = 1;//json_data_manager_get_ip_address_3();
     sprintf(strIP, "%d.%d.%d.19", ip1, ip2, ip3);
     //fprintf(stdout, "\n=== IP : %s\n\n", strIP);
 

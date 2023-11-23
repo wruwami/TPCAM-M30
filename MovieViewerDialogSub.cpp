@@ -9,12 +9,19 @@
 #include "WidgetSize.h"
 #include "DateFormatManager.h"
 #include "SpeedUnitManager.h"
+#include "ConfigManager.h"
+#include "Print.h"
+#include "ImageConverter.h"
+#include "thermal_printer.h"
+
 
 MovieViewerDialogSub::MovieViewerDialogSub(AVFileFormat avFileFormat, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::MovieViewerDialogSub)
 {
     ui->setupUi(this);
+
+    m_avFileFormat = avFileFormat;
 
     m_pVideoWidget = new VideoWidget;
     m_MediaObject = new MediaObject(&m_VRenderer);
@@ -85,13 +92,14 @@ MovieViewerDialogSub::MovieViewerDialogSub(AVFileFormat avFileFormat, QWidget *p
         if (m_VRenderer.m_surface == nullptr)
             return;
 
-        QVideoFrame videoFrame = frame.convertTo(AV_PIX_FMT_RGB32);
-        if (!m_VRenderer.m_surface->isActive() || m_VRenderer.m_surface->surfaceFormat().frameSize() != videoFrame.size()) {
-            QVideoSurfaceFormat f(videoFrame.size(), videoFrame.pixelFormat(), videoFrame.handleType());
+        m_videoFrame = frame.convertTo(AV_PIX_FMT_RGB32);
+
+        if (!m_VRenderer.m_surface->isActive() || m_VRenderer.m_surface->surfaceFormat().frameSize() != m_videoFrame.size()) {
+            QVideoSurfaceFormat f(m_videoFrame.size(), m_videoFrame.pixelFormat(), m_videoFrame.handleType());
             m_VRenderer.m_surface->start(f);
         }
         if (m_VRenderer.m_surface->isActive())
-            m_VRenderer.m_surface->present(videoFrame);
+            m_VRenderer.m_surface->present(m_videoFrame);
     });
 
 
@@ -157,12 +165,27 @@ void MovieViewerDialogSub::on_nextPushButton_clicked()
 
 void MovieViewerDialogSub::on_printPushButton_clicked()
 {
+    QJsonObject object = ConfigManager("parameter_setting4.json").GetConfig();
+    if (object["printer selection"].toInt() == 2)
+    {
+        Print print(m_avFileFormat);
+    }
+    else
+    {
+        QImage::Format imageFormat = QVideoFrame::imageFormatFromPixelFormat(m_videoFrame.pixelFormat());
+        QImage image( m_videoFrame.bits(),
+                    m_videoFrame.width(),
+                    m_videoFrame.height(),
+                    m_videoFrame.bytesPerLine(),
+                    imageFormat);
+//        QImage image = videoFrame.image();
+//        pixmap.fromImage(videoFrame.image().scaled(ui->frameLabel->size(), Qt::IgnoreAspectRatio, Qt::FastTransformation));
 
-}
+        ImageConverter imageConvert(image);
+        imageConvert.Convert();
 
-void MovieViewerDialogSub::on_printPushButton_clicked(bool checked)
-{
-
+        print_wifi_printer();
+    }
 }
 
 void MovieViewerDialogSub::on_pausePushButton_clicked()

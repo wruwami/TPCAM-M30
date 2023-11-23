@@ -64,8 +64,6 @@ private slots:
 
     void on_playPushButton_clicked(bool checked);
 
-    void on_printPushButton_clicked(bool checked);
-
 private:
     Ui::MovieViewerDialogSub*ui;
 //    QVideoWidget* m_videoWidget;
@@ -79,6 +77,8 @@ private:
     MediaObject* m_MediaObject;
 //    MediaObject m_MediaObject(&m_VRenderer);
     QAVAudioOutput m_audioOutput;
+    AVFileFormat m_avFileFormat;
+    QVideoFrame m_videoFrame;
 };
 
 #endif // MovieViewerDialogSub_H

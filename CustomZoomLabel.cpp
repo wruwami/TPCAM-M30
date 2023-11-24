@@ -49,6 +49,14 @@ void CustomZoomLabel::resizeImage(QSize size)
 //    this->setScaledContents(true);
 }
 
+void CustomZoomLabel::setImage(QPixmap pixmap)
+{
+    m_pixmap = pixmap;
+    m_fitpixmap = m_pixmap.scaled(width(), height(), Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
+    this->setPixmap(m_fitpixmap);
+//    this->setScaledContents(true);
+}
+
 void CustomZoomLabel::setImage(QString path_name, QString file_name)
 {
     QDir qdir;

@@ -12,6 +12,7 @@ public:
     void setImageFromAvi(QString file_path, QSize size);
     void setImage(QString file_path, QSize size);
     void resizeImage(QSize size);
+    void setImage(QPixmap pixmap);
     void setImage(QString path_name, QString file_name);
     void setImage(QString path_name, QString file_name, QSize size);
     void removeImage();

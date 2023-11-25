@@ -168,7 +168,7 @@ FileManagerWidget::FileManagerWidget(QWidget *parent) :
                             imageFormat);
         //        QImage image = videoFrame.image();
         //        pixmap.fromImage(videoFrame.image().scaled(ui->frameLabel->size(), Qt::IgnoreAspectRatio, Qt::FastTransformation));
-                ui->frameLabel->setPixmap(QPixmap::fromImage(image).scaled(ui->frameLabel->size(), Qt::IgnoreAspectRatio, Qt::FastTransformation));
+                ui->frameLabel->setImage(QPixmap::fromImage(image).scaled(ui->frameLabel->size(), Qt::IgnoreAspectRatio, Qt::FastTransformation));
 
                 // QAVVideoFrame can be converted to various pixel formats
         //        auto convertedFrame = frame.convert(AV_PIX_FMT_YUV420P);
@@ -234,7 +234,6 @@ void FileManagerWidget::setTableContent()
 
     if (m_avFileFormatList.size() == 0)
         return;
-
 //    if (m_nMode != S_MODE)
 //    {
     for (int i = m_AVFileFormatIndex ; i < m_AVFileFormatIndex + 5 ; i++, j++)
@@ -272,7 +271,7 @@ void FileManagerWidget::setTableContent()
 
 void FileManagerWidget::resizeEvent(QResizeEvent *event)
 {
-    int width = ui->tableWidget->size().width();
+    int width = (event->size().width() - 6 - 9 - 9) * 9 / 21;
     ui->tableWidget->setColumnWidth(0, width * 105 / (230 + 105));
     ui->tableWidget->setColumnWidth(1, width * 230 / (230 + 105));
 

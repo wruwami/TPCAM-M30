@@ -161,14 +161,14 @@ FileManagerWidget::FileManagerWidget(QWidget *parent) :
             {
                 QPixmap pixmap;
                 QImage::Format imageFormat = QVideoFrame::imageFormatFromPixelFormat(videoFrame.pixelFormat());
-                QImage image( videoFrame.bits(),
+                m_image = QImage( videoFrame.bits(),
                             videoFrame.width(),
                             videoFrame.height(),
                             videoFrame.bytesPerLine(),
                             imageFormat);
         //        QImage image = videoFrame.image();
         //        pixmap.fromImage(videoFrame.image().scaled(ui->frameLabel->size(), Qt::IgnoreAspectRatio, Qt::FastTransformation));
-                ui->frameLabel->setImage(QPixmap::fromImage(image).scaled(ui->frameLabel->size(), Qt::IgnoreAspectRatio, Qt::FastTransformation));
+                ui->frameLabel->setImage(QPixmap::fromImage(m_image).scaled(ui->frameLabel->size(), Qt::IgnoreAspectRatio, Qt::FastTransformation));
 
                 // QAVVideoFrame can be converted to various pixel formats
         //        auto convertedFrame = frame.convert(AV_PIX_FMT_YUV420P);
@@ -774,7 +774,7 @@ void FileManagerWidget::on_printPushButton_clicked()
 
     if (m_bA4Print)
     {
-        Print print(m_currentAVFileFormat);
+        Print print(m_currentAVFileFormat, m_image);
     }
     else
     {
@@ -1095,6 +1095,10 @@ void FileManagerWidget::on_tableWidget_cellClicked(int row, int column)
 //        m_videoWidget->hide();
         ui->frameLabel->setImage(m_avFileFormatList[row+ m_AVFileFormatIndex].file_path, ui->frameLabel->size());
         ui->zoomPlayPushButton->setImage("file_manager", "file_management_zoom.png");
+
+        QPixmap pixmap;
+        pixmap.load(m_avFileFormatList[row+ m_AVFileFormatIndex].file_path);
+        m_image = pixmap.toImage();
     }
     else if (!strncmp(m_currentAVFileFormat.filePrefix, "SC", 2))
     {
@@ -1102,6 +1106,10 @@ void FileManagerWidget::on_tableWidget_cellClicked(int row, int column)
 //        m_videoWidget->hide();
         ui->frameLabel->setImage(m_avFileFormatList[row+ m_AVFileFormatIndex].file_path, ui->frameLabel->size());
         ui->zoomPlayPushButton->setImage("file_manager", "file_management_zoom.png");
+        QPixmap pixmap;
+        pixmap.load(m_avFileFormatList[row+ m_AVFileFormatIndex].file_path);
+        m_image = pixmap.toImage();
+
     }
 }
 

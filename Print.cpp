@@ -10,7 +10,7 @@
 #include "FileManager.h"
 #include "DateFormatManager.h"
 
-Print::Print(AVFileFormat avFileFormat)
+Print::Print(AVFileFormat avFileFormat, QImage image)
 {
     QTextDocument doc;
 //    doc.setTextWidth()
@@ -96,12 +96,13 @@ Print::Print(AVFileFormat avFileFormat)
     cursor.insertBlock();
 
 
-    QPixmap pixmap2;
-    pixmap2.load(avFileFormat.file_path);
-    pixmap2 = pixmap2.scaled(612,344, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
+//    QPixmap pixmap2;
+//    pixmap2.fromImage();
+//    pixmap2 = pixmap2.scaled(612,344, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
+    image = image.scaled(612,344, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
 
-    QImage logoImage2 = pixmap2.toImage();
-    cursor.insertImage(logoImage2);
+//    QImage logoImage2 = pixmap2.toImage();
+    cursor.insertImage(image);
     cursor.insertBlock();
     cursor.insertBlock();
 

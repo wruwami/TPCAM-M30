@@ -17,7 +17,7 @@ FtpTransThread2::FtpTransThread2(QObject *parent)
 FtpTransThread2::~FtpTransThread2()
 {
     m_ftp->Quit();
-    while (isRunning())
+    if (isRunning())
     {
         requestInterruption();
 

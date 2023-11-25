@@ -165,22 +165,22 @@ void MovieViewerDialogSub::on_nextPushButton_clicked()
 
 void MovieViewerDialogSub::on_printPushButton_clicked()
 {
+    QPixmap pixmap(m_pVideoWidget->size());
+    m_pVideoWidget->render(&pixmap);
+    QImage image = pixmap.toImage();
+//    QImage::Format imageFormat = QVideoFrame::imageFormatFromPixelFormat(m_videoFrame.pixelFormat());
+//    QImage image = QImage( m_videoFrame.bits(),
+//                  m_videoFrame.width(),
+//                  m_videoFrame.height(),
+//                  m_videoFrame.bytesPerLine(),
+//                  imageFormat);
     QJsonObject object = ConfigManager("parameter_setting4.json").GetConfig();
     if (object["printer selection"].toInt() == 2)
     {
-        Print print(m_avFileFormat);
+        Print print(m_avFileFormat, image);
     }
     else
     {
-        QImage::Format imageFormat = QVideoFrame::imageFormatFromPixelFormat(m_videoFrame.pixelFormat());
-        QImage image( m_videoFrame.bits(),
-                    m_videoFrame.width(),
-                    m_videoFrame.height(),
-                    m_videoFrame.bytesPerLine(),
-                    imageFormat);
-//        QImage image = videoFrame.image();
-//        pixmap.fromImage(videoFrame.image().scaled(ui->frameLabel->size(), Qt::IgnoreAspectRatio, Qt::FastTransformation));
-
         ImageConverter imageConvert(image);
         imageConvert.Convert();
 

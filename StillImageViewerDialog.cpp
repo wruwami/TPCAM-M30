@@ -77,7 +77,9 @@ void StillImageViewerDialog::on_printPushButton_clicked()
     QJsonObject object = ConfigManager("parameter_setting4.json").GetConfig();
     if (object["printer selection"].toInt() == 2)
     {
-        Print print(m_avFileFormat);
+        QPixmap pixmap;
+        pixmap.load(m_avFileFormat.file_path);
+        Print print(m_avFileFormat, pixmap.toImage());
     }
     else
     {

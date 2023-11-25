@@ -45,6 +45,7 @@ private:
     QString m_dateTime;
     StorageManager m_sdcardManager;
     bool m_bA4Print = false;
+    QImage m_image;
 private:
     void setTableContent();
     void convertValue();

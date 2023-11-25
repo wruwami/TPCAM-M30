@@ -10,6 +10,7 @@ public:
     explicit CustomLabel(QWidget *parent = 0);
 //    void setIconImage(QString path_name, QString file_name);
     void setImageFromAvi(QString file_path, QSize size);
+    void setImage(QImage image);
     void setImage(QString file_path, QSize size);
     void setImage(QString path_name, QString file_name);
     void setImage(QString path_name, QString file_name, QSize size);

@@ -6,7 +6,7 @@
 class Print
 {
 public:
-    Print(AVFileFormat avFileFormat);
+    Print(AVFileFormat avFileFormat, QImage image);
 };
 
 #endif // PRINT_H

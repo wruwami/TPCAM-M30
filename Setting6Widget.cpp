@@ -131,7 +131,11 @@ void Setting6Widget::on_ftpComboBox_currentIndexChanged(int index)
 void Setting6Widget::on_ftpAddressLineEdit_textChanged(const QString &arg1)
 {
     QUrl url(arg1);
-    m_newJsonObject["ftp server( dns )"] = url.host();
+    if (url.isValid())
+    {
+        qDebug() << url.host();
+        m_newJsonObject["ftp server( dns )"] = url.host();
+    }
 }
 
 void Setting6Widget::on_ftpPortLineEdit_textChanged(const QString &arg1)

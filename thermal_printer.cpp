@@ -13,6 +13,8 @@
 #include <unistd.h>
 #include <stdlib.h>
 
+#include <QDebug>
+
 #include "ConfigManager.h"
 
 #define TRUE    1
@@ -1405,7 +1407,7 @@ int connect_wifi_printer()
     char strIP[128] = { 0, };
     int ip1 = 192;//json_data_manager_get_ip_address_1();
     int ip2 = 168;//json_data_manager_get_ip_address_2();
-    int ip3 = 10;//json_data_manager_get_ip_address_3();
+    int ip3 = 1;//json_data_manager_get_ip_address_3();
     sprintf(strIP, "%d.%d.%d.19", ip1, ip2, ip3);
     //fprintf(stdout, "\n=== IP : %s\n\n", strIP);
 

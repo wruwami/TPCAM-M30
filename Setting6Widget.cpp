@@ -71,6 +71,8 @@ Setting6Widget::Setting6Widget(QWidget *parent) : QWidget(parent),
     ui->bluetoothComboBox->setEnabled(false);
     ui->searchPushButton->setEnabled(false);
     ui->bludtoothLabel->setEnabled(false);
+
+    connect(ui->ftpAddressLineEdit, SIGNAL(sig_text(QString)), this, SLOT(on_text(QString)));
 }
 
 Setting6Widget::~Setting6Widget()
@@ -128,16 +130,6 @@ void Setting6Widget::on_ftpComboBox_currentIndexChanged(int index)
     }
 }
 
-void Setting6Widget::on_ftpAddressLineEdit_textChanged(const QString &arg1)
-{
-    QUrl url(arg1);
-    if (url.isValid())
-    {
-        qDebug() << url.host();
-        m_newJsonObject["ftp server( dns )"] = url.host();
-    }
-}
-
 void Setting6Widget::on_ftpPortLineEdit_textChanged(const QString &arg1)
 {
     m_newJsonObject["ftp port"] = arg1.toInt();
@@ -157,3 +149,24 @@ void Setting6Widget::initializeStringTable()
 {
     ResourceLoader::StringLoader::GetInstance()->Initialize("strings", "stringTable.csv", m_jsonObject["start language items"].toArray()[ui->languageComboBox->currentIndex()].toString().toStdString());
 }
+
+void Setting6Widget::on_text(QString arg1)
+{
+    QUrl url(arg1);
+    QUrl nUrl = url.adjusted(QUrl::RemovePassword | QUrl::RemoveUserInfo |
+                   QUrl::RemovePort | QUrl::StripTrailingSlash
+                   );
+
+    if (nUrl.isValid())
+    {
+        qDebug() << nUrl.host();
+        ui->ftpAddressLineEdit->setText(nUrl.host());
+        m_newJsonObject["ftp server( dns )"] = nUrl.host();
+    }
+    else
+    {
+        ui->ftpAddressLineEdit->clear();
+    }
+
+}
+

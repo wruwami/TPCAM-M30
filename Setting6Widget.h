@@ -29,8 +29,6 @@ private slots:
 
     void on_ftpComboBox_currentIndexChanged(int index);
 
-    void on_ftpAddressLineEdit_textChanged(const QString &arg1);
-
     void on_ftpPortLineEdit_textChanged(const QString &arg1);
 
     void on_userNameLineEdit_textChanged(const QString &arg1);
@@ -44,6 +42,9 @@ private:
 
 private:
     Ui::Setting6Widget *ui;
+
+protected slots:
+    void on_text(QString);
 };
 
 #endif // SETTING6WIDGET_H

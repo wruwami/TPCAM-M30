@@ -1214,7 +1214,7 @@ void MainWindow::do9thAction()
 //            return;
         }
 
-        strCommand = QString("sudo ffmpeg -hwaccel opencl -y -f x11grab -framerate 10 -video_size %1 -i :0.0+0,0 -c:v mjpeg -pix_fmt yuv420p -qp 0 -preset ultrafast %2 &").arg(resolution).arg(file_name);
+        strCommand = QString("sudo ffmpeg -hwaccel opencl -y -f x11grab -framerate 10 -video_size %1 -i :0.0+0,0 -c:v mjpeg -pix_fmt yuv420p -qp 0 -preset ultrafast %2").arg(resolution).arg(file_name);
         std::thread thread_command(thread_CommandExcute2, strCommand);
         thread_command.detach();
         system(strCommand.toStdString().c_str());
@@ -1231,7 +1231,7 @@ void MainWindow::do9thAction()
     {
         int fileDescriptor = ::open(m_srFileFullName.toStdString().c_str(), O_CREAT | O_WRONLY, 0666);
 
-        std::string cmd("sudo kill -9 ");
+        std::string cmd("sudo kill -2 ");
         cmd.append(buff);
         system(cmd.c_str());
 

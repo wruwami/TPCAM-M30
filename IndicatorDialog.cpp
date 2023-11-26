@@ -609,7 +609,7 @@ void IndicatorDialog::on_screenRecordingPushButton_clicked()
 //            return;
         }
 
-        strCommand = QString("sudo ffmpeg -hwaccel opencl -y -f x11grab -framerate 10 -video_size %1 -i :0.0+0,0 -c:v mjpeg -pix_fmt yuv420p -qp 0 -preset ultrafast %2").arg(resolution).arg(file_name);
+        strCommand = QString("sudo ffmpeg -f x11grab -y -r 10 -s %0 -i :0.0 -vcodec huffyuv %1").arg(resolution).arg(file_name);
         std::thread thread_command(thread_CommandExcute2, strCommand);
         thread_command.detach();
         ui->screenRecordingPushButton->setImage("indicator", "screen recording_off.jpg");

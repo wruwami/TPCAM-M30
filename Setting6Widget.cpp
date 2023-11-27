@@ -1,6 +1,8 @@
 #include "Setting6Widget.h"
 #include "ui_Setting6Widget.h"
 
+#include "regex"
+
 #include <QJsonArray>
 
 #include "StringLoader.h"
@@ -152,21 +154,18 @@ void Setting6Widget::initializeStringTable()
 
 void Setting6Widget::on_text(QString arg1)
 {
-    QUrl url(arg1);
-    QUrl nUrl = url.adjusted(QUrl::RemovePassword | QUrl::RemoveUserInfo |
-                   QUrl::RemovePort | QUrl::StripTrailingSlash
-                   );
-
-    if (nUrl.isValid())
+//    std::regex re("^((http[s]?|ftp):\\/)?\\/?([^:\\/\\s]+)((\\/\\w+)*\\/)([\\w\\-\\.]+[^#?\\s]+)(.*)?(#[\\w\\-]+)?$");
+    std::regex re("[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}");
+    std::smatch match;
+    std::string str = arg1.toStdString();
+    if (std::regex_search(str, match, re))
     {
-        qDebug() << nUrl.host();
-        ui->ftpAddressLineEdit->setText(nUrl.host());
-        m_newJsonObject["ftp server( dns )"] = nUrl.host();
+        ui->ftpAddressLineEdit->setText(QString(match.str().c_str())); m_newJsonObject["ftp server( dns )"] = QString(match.str().c_str());
     }
     else
     {
         ui->ftpAddressLineEdit->clear();
-    }
 
+    }
 }
 

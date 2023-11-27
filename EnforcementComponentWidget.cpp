@@ -278,11 +278,11 @@ EnforcementComponentWidget::~EnforcementComponentWidget()
 
     doEnforceMode(false);
 
-    if (m_pFtpThread)
-    {
-        delete m_pFtpThread;
-        m_pFtpThread = nullptr;
-    }
+//    if (m_pFtpThread)
+//    {
+//        delete m_pFtpThread;
+//        m_pFtpThread = nullptr;
+//    }
 //    if (\\m_bFtpMode && m_pFtpThread->isRunning())
 //    {
 //        m_pFtpThread->requestInterruption();

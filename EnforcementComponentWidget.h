@@ -174,6 +174,8 @@ private:
     QMutex m_mutex;
     bool m_isZFWorking = false;
     CustomLabel* m_pDistanceLabel;
+
+    QTimer m_ManualTimer;
 protected slots:
     void on_hidePushButton_clicked();
 //    void doShartAction();
@@ -196,6 +198,7 @@ protected slots:
     void do_FileSystemWatcher(const QString&);
     void closeThread();
     void on_setNightMode(int);
+    void do_FileSystemWatcherTimer();
 
 protected:
     void timerEvent(QTimerEvent *event);

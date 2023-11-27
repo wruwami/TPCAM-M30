@@ -21,7 +21,7 @@
 using namespace TPCAM_M30;
 
 extern int g_nCrackDownIndex;
-#define TRIGGER_FILE "/sys/class/gpio/gpio152/value"
+#define TRIGGER_FILE "/sys/class/gpio/gpio110/value"
 //#define TRIGGER_FILE "a.txt"
 
 #define DEBUG_MODE 0
@@ -216,6 +216,7 @@ EnforcementComponentWidget::EnforcementComponentWidget(QWidget *parent) :
 
     connect(v4l2_thread::getInstance(), SIGNAL(saveImage()), this, SLOT(on_saveImage()));
 
+    connect(&m_ManualTimer, SIGNAL(timeout()), this, SLOT(do_FileSystemWatcherTimer()));
 //    int nSelDayNight = m_object2["day&night selection"].toInt();
 //    if( 0 < nSelDayNight && nSelDayNight < 4)
 //    {
@@ -557,15 +558,16 @@ void EnforcementComponentWidget::camInit()
 
 void EnforcementComponentWidget::hudInit()
 {
-    ConfigManager config2 = ConfigManager("parameter_reticle.json");
-    QJsonObject object2 = config2.GetConfig();
-    QJsonArray array = object2["HUD reticle pos"].toArray();
-    m_hudManager.SetPointX(array[0].toInt());
-    m_hudManager.SetPointY(array[1].toInt());
+    m_hudManager.HUDEnforcementInit();
+//    ConfigManager config2 = ConfigManager("parameter_reticle.json");
+//    QJsonObject object2 = config2.GetConfig();
+//    QJsonArray array = object2["HUD reticle pos"].toArray();
+//    m_hudManager.SetPointX(array[0].toInt());
+//    m_hudManager.SetPointY(array[1].toInt());
 
-    m_hudManager.ShowDistanceUnit(true);
+//    m_hudManager.ShowDistanceUnit(true);
 
-    m_hudManager.hud().changeToSpeedCheckMode();
+//    m_hudManager.hud().changeToSpeedCheckMode();
 
 
     //hudManager.SetReticleShape()
@@ -1384,7 +1386,9 @@ void EnforcementComponentWidget::on_readyPushButton_clicked()
         m_nMode = Manual;
         doPreManualMode();
         m_fileSystemWatcher.addPath(TRIGGER_FILE);
-        connect(&m_fileSystemWatcher,SIGNAL(fileChanged(QString)),this,SLOT(do_FileSystemWatcher(QString)));
+        //동작 안해서 임시로
+//        connect(&m_fileSystemWatcher,SIGNAL(fileChanged(QString)),this,SLOT(do_FileSystemWatcher(QString)));
+        m_ManualTimer.start(500);
         SetLogMsg(BUTTON_CLICKED, "MANUAL_MODE");
 //        doManualMode();
     }
@@ -1394,7 +1398,8 @@ void EnforcementComponentWidget::on_readyPushButton_clicked()
 //        m_ManualModeTimer.stop();
         ui->readyPushButton->setText(LoadString("IDS_Ready"));
         m_nMode = Ready;
-        disconnect(&m_fileSystemWatcher,SIGNAL(fileChanged(QString)),this,SLOT(do_FileSystemWatcher(QString)));
+//        disconnect(&m_fileSystemWatcher,SIGNAL(fileChanged(QString)),this,SLOT(do_FileSystemWatcher(QString)));
+        m_ManualTimer.stop();
         doReadyMode();
     }
         break;
@@ -1649,6 +1654,37 @@ void EnforcementComponentWidget::do_FileSystemWatcher(const QString &path)
         m_fileSystemWatcher.addPath(path);
 
     File.close();
+}
+
+void EnforcementComponentWidget::do_FileSystemWatcherTimer()
+{
+    QFile File(TRIGGER_FILE);
+    QByteArray ba;
+    if(File.open(QFile::ReadOnly | QFile::Text))
+    {
+          ba = File.readAll();
+    }
+    else
+    {
+          qDebug()<<"ERROR:"<<File.errorString();
+    }
+    File.close();
+
+    char value = ba[0];
+    if (value == '0' && m_triggerStatus != PRESS)
+    {
+        m_triggerStatus = PRESS;
+        doATMode();
+    }
+    else if (value == '1' && m_triggerStatus != RELEASE)
+    {
+        m_triggerStatus = RELEASE;
+        doReadyMode();
+    }
+    else
+    {
+        m_triggerStatus = SKIP;
+    }
 }
 
 void EnforcementComponentWidget::timerEvent(QTimerEvent *event)

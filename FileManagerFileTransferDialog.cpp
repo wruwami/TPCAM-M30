@@ -448,8 +448,8 @@ void FileManagerFileTransferDialog::closeThread()
         }
         m_FtpTransThread->quit();
         m_FtpTransThread->wait();
-        delete m_FtpTransThread;
-        m_FtpTransThread = nullptr;
+//        delete m_FtpTransThread;
+//        m_FtpTransThread = nullptr;
 
     }
         break;
@@ -462,8 +462,8 @@ void FileManagerFileTransferDialog::closeThread()
         }
         m_FileTransThread->quit();
         m_FileTransThread->wait();
-        delete m_FileTransThread;
-        m_FileTransThread = nullptr;
+//        delete m_FileTransThread;
+//        m_FileTransThread = nullptr;
     }
         break;
     }

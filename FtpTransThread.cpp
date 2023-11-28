@@ -3,6 +3,7 @@
 #include <QFile>
 #include <QFileInfo>
 #include <QDebug>
+#include <QLockFile>
 
 #include "ConfigManager.h"
 #include "FileManager.h"
@@ -97,7 +98,11 @@ void FtpTransThread::run()
 
         QFile file(file_name);
         if (file.exists())
-            DoFtpTrans(file_name);
+        {
+            QLockFile lockFile(file_name);
+            if (!lockFile.isLocked())
+                DoFtpTrans(file_name);
+        }
         else if (!file_name.isEmpty())
         {
             m_mutex->lock();

@@ -949,7 +949,7 @@ void CreateWiFiReadThreadAndInitPrinter(void)
         free(g_wifi_printer.serv_addr);
     }
     g_wifi_printer.serv_addr = (struct sockaddr_in*)malloc(sizeof(struct sockaddr_in));
-//    s_pid_wifi_printer = pthread_create(&s_tid_wifi_printer, NULL, t_wifi_read_packet, NULL);
+    s_pid_wifi_printer = pthread_create(&s_tid_wifi_printer, NULL, t_wifi_read_packet, NULL);
     if (s_pid_wifi_printer == 0)
     {
         //fprintf(stdout, "=========================================\n");
@@ -1317,7 +1317,7 @@ void InquiryPrinterModelInfo()
     int nCount = 0;
     while (TRUE)
     {
-        receiveData();
+//        receiveData();
 
         if (g_nInQuiry == INQUIRY_NONE)
         {
@@ -1354,7 +1354,7 @@ void InquiryPrinterFirmwareInfo()
         cFW_Inq[0] = (char)0x1b; cFW_Inq[1] = (char)0x00; cFW_Inq[2] = (char)0x02; cFW_Inq[3] = (char)0x02;
         ClearWiFiRecvBuff(INQUIRY_FIRMWARE_VER);
         SendAll(g_wifi_printer.socket, cFW_Inq, 4);
-        receiveData();
+//        receiveData();
 
 //        send(g_wifi_printer.socket, cFW_Inq, 4, 0);
     }
@@ -1407,7 +1407,7 @@ int connect_wifi_printer()
     char strIP[128] = { 0, };
     int ip1 = 192;//json_data_manager_get_ip_address_1();
     int ip2 = 168;//json_data_manager_get_ip_address_2();
-    int ip3 = 1;//json_data_manager_get_ip_address_3();
+    int ip3 = 0;//json_data_manager_get_ip_address_3();
     sprintf(strIP, "%d.%d.%d.19", ip1, ip2, ip3);
     //fprintf(stdout, "\n=== IP : %s\n\n", strIP);
 

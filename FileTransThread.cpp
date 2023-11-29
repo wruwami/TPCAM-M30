@@ -43,7 +43,8 @@ void FileTransThread::run()
         QDirIterator iterDir3(GetSDPath(), QDir::Dirs | QDir::NoDotAndDotDot | QDir::NoSymLinks, QDirIterator::Subdirectories);
         while (iterDir3.hasNext())
         {
-            QString dir2 = iterDir3.next().replace(GetSDPath(), QString(dir));
+            QString iterDir3str = iterDir3.next();
+            QString dir2 = iterDir3str.replace(GetSDPath(), QString(dir));
             dir2.replace("\"", "");
     //        QDir qdir2(dir2);
             qdir.mkdir(dir2);
@@ -80,7 +81,15 @@ void FileTransThread::run()
     //        qDebug() << iterDir2.next();
     //        qDebug() << fileName;
 
-            file.copy(targetFileName);
+            int systemStatus = system(QString("sudo cp %0 %1").arg(file_name).arg(targetFileName).toStdString().c_str());
+            if (systemStatus == -1)
+            {
+                qDebug() << "Failed to copy failed : " << errno ;
+            }
+
+
+//            if (!file.copy(targetFileName))
+//                qDebug() << file.error();
 
             if ( QThread::currentThread()->isInterruptionRequested() )
                 return;

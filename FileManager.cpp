@@ -202,7 +202,7 @@ QString FileManager::GetFileName(PrefixType prefix, stEnforcementInfo enforceInf
 //    int nCaptureSpeedLimit;
 //    int nDistance;
 //    QString strMode;
-    QDateTime datetime = QDateTime::currentDateTime();
+//    QDateTime datetime = QDateTime::currentDateTime();
     ConfigManager con = ConfigManager("parameter_login.json");
     QJsonObject object = con.GetConfig();
 
@@ -293,8 +293,9 @@ QString FileManager::GetFileName(PrefixType prefix, stEnforcementInfo enforceInf
     ret.sprintf("%s_%05d_%s_%s_%s%04d_%04d_%04d_%04d_%s_%s_%s_%s_%s_%s_S.%s"
                             ,strPrefix.toStdString().c_str()
                             ,index
-                            ,datetime.toString("yyyyMMdd").toStdString().c_str()
-                            ,QString(datetime.toString("hhmmss") + QString::number(datetime.time().msec())[0]).toStdString().c_str()
+                            ,enforceInfo.date.toStdString().c_str()
+//                            ,QString(datetime.toString("hhmmss") + QString::number(datetime.time().msec())[0]).toStdString().c_str()
+                            ,enforceInfo.time.toStdString().c_str()
                             ,captureSpeed.toStdString().c_str()
                             ,enforceInfo.nCaptureSpeed
                             ,enforceInfo.nSpeedLimit
@@ -338,6 +339,7 @@ QString FileManager::GetUSBPath()
 //    return dir.absolutePath();
     StorageManager storageManager;
     return storageManager.GetUSBPath();
+//    return "/home/wruwami/usb";
 }
 
 QString FileManager::MakeSDPath(QString path)

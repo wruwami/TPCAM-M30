@@ -101,8 +101,8 @@ void FtpTransThread::run()
         QFile file(file_name);
         if (file.exists())
         {
-            QLockFile file(file_name);
-            if (!file.isLocked())
+            QFile lockFile(file_name + ".lock");
+            if (!lockFile.exists())
             {
                 DoFtpTrans(file_name);
             }

@@ -43,6 +43,8 @@ typedef struct _ST_ENFORCEMENT_INFO
     int enforceMode; //0 : I, 1 : A, 2: V
     int vehicle; //0 : normal , 1 : truck, 2: motocycle
     int zoom_index;
+    QString date;
+    QString time;
 //    QString strMode;
 //    QString strLatitude;
 //    QString strLongitude;
@@ -61,6 +63,8 @@ typedef struct _ST_ENFORCEMENT_INFO
         this->enforceMode = enforceInfo.enforceMode; //0 : I, 1 : A, 2: V
         this->vehicle = enforceInfo.vehicle; //0 : normal , 1 : truck, 2: motocycle
         this->zoom_index = enforceInfo.zoom_index;
+        this->date = enforceInfo.date;
+        this->time = enforceInfo.time;
     }
 }stEnforcementInfo;
 

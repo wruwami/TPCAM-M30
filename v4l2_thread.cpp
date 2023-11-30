@@ -131,10 +131,12 @@ static void thread_SaveImgFunc()
                     cv::Mat matImgROI(rgbmat, rcROI);
                     cv::addWeighted(matImgROI, 1.0, g_matTargetCross, 0.50, 0.0, matImgROI);
                 }
-                QLockFile file(imgInfo.enforceInfo.qstrFullPath);
-                file.lock();
+                QFile lockFile(imgInfo.enforceInfo.qstrFullPath + ".lock");
+                lockFile.open(QIODevice::WriteOnly);
+                lockFile.write("");
+                lockFile.close();
                 cv::imwrite(imgInfo.enforceInfo.qstrFullPath.toStdString().c_str(), rgbmat);
-                file.unlock();
+                lockFile.remove();
                 //qDebug() << "saved image";
             }
         }

@@ -395,6 +395,9 @@ void EnforcementComponentWidget::SaveImageVideo()
     enforceInfo.enforceMode = m_nEnforcementMode;
     enforceInfo.vehicle = m_nVehicleMode;
     enforceInfo.zoom_index = m_nZoomIndex;
+    QDateTime datetime = QDateTime::currentDateTime();
+    enforceInfo.date = datetime.toString("yyyyMMdd");
+    enforceInfo.time = QString(datetime.toString("hhmmss") + QString::number(datetime.time().msec())[0]);
 
 //    QString qstrFilename = ;
 //    QString qstrPath = ;

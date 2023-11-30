@@ -543,7 +543,7 @@ void Camera::SaveImage(PrefixType prefix, stEnforcementInfo enforceInfo, SDPath 
     float fLatitude = SerialGPSManager::GetInstance()->GetLatitudeValue();
     float fLongitude = SerialGPSManager::GetInstance()->GetLongitudeValue();
 
-    QString qstrDatetimeInfo = QString("%1 %2:%3:%4.%5").arg(GetDate(qstrCurTime.left(8)), qstrCurTime.mid(9, 2), qstrCurTime.mid(11, 2), qstrCurTime.mid(13, 2), qstrCurTime.right(3));
+    QString qstrDatetimeInfo = QString("%1 %2:%3:%4.%5").arg(GetDate(enforceInfo.date), enforceInfo.time.mid(0, 2), enforceInfo.time.mid(2, 2), enforceInfo.time.mid(4, 2), enforceInfo.time.mid(6,1));
     QString qstrLocInfo;
     if(fLatitude == 0.f || fLongitude == 0.f)
         qstrLocInfo.sprintf("%s", qstrLocation.toStdString().c_str());

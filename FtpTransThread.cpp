@@ -1,5 +1,7 @@
 #include "FtpTransThread.h"
 
+#include <fstream>
+
 #include <QFile>
 #include <QFileInfo>
 #include <QDebug>
@@ -99,9 +101,12 @@ void FtpTransThread::run()
         QFile file(file_name);
         if (file.exists())
         {
-            QLockFile lockFile(file_name);
-            if (!lockFile.isLocked())
+            std::ifstream ifs;
+            ifs.open(file_name.toStdString());
+            if (ifs.good())
+            {
                 DoFtpTrans(file_name);
+            }
         }
         else if (!file_name.isEmpty())
         {

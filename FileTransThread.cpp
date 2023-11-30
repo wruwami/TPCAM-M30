@@ -81,11 +81,27 @@ void FileTransThread::run()
     //        qDebug() << iterDir2.next();
     //        qDebug() << fileName;
 
-            int systemStatus = system(QString("sudo cp %0 %1").arg(file_name).arg(targetFileName).toStdString().c_str());
-            if (systemStatus == -1)
+            QFile target(targetFileName);
+            if (target.exists())
+                target.remove();
+            if (target.error() != QFile::NoError)
             {
-                qDebug() << "Failed to copy failed : " << errno ;
+                qDebug() << "qfile errno : " << file.error();
+                qDebug() << "errno : " << errno;
             }
+            file.copy(targetFileName);
+            if (file.error() != QFile::NoError)
+            {
+                qDebug() << "qfile errno : " << file.error();
+                qDebug() << "errno : " << errno;
+            }
+                // copy error
+
+//            int systemStatus = system(QString("sudo cp %0 %1").arg(file_name).arg(targetFileName).toStdString().c_str());
+//            if (systemStatus == -1)
+//            {
+//                qDebug() << "Failed to copy failed : " << errno ;
+//            }
 
 
 //            if (!file.copy(targetFileName))

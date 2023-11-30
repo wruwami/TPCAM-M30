@@ -78,6 +78,13 @@ int FtpTransThread::DoFtpTrans(QString file_name)
     return ret;
 }
 
+void FtpTransThread::on_push_file(QString file_name)
+{
+    m_mutex->lock();
+    m_FileQueue.enqueue(file_name);
+    m_mutex->unlock();
+}
+
 void FtpTransThread::run()
 {
     QJsonObject jsonObject = m_config.GetConfig();
@@ -95,6 +102,8 @@ void FtpTransThread::run()
         QString file_name;
         if (m_FileQueue.size() > 0)
             file_name = m_FileQueue.dequeue();
+        else
+            continue;
 //        m_FileQueue.pop_front();
         m_mutex->unlock();
 

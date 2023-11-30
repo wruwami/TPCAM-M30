@@ -232,6 +232,7 @@ signals:
     void sig_exit();
     void sig_ATmodeOn();
     void sig_ATmodeOff();
+    void push_file(QString);
 private:
     Ui::EnforcementComponentWidget *ui;
 };

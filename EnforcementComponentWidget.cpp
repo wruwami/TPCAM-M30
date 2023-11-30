@@ -207,9 +207,10 @@ EnforcementComponentWidget::EnforcementComponentWidget(QWidget *parent) :
     QJsonObject jsonObject = ConfigManager("parameter_setting6.json").GetConfig();
     if (jsonObject["ftp select"].toInt() == 3)
     {
-        m_pFtpThread = new FtpTransThread;
+        m_pFtpThread = new FtpTransThread();
         connect(m_pFtpThread, &FtpTransThread::finished, m_pFtpThread, &QObject::deleteLater);
         connect(m_pFtpThread, SIGNAL(finished()), this, SLOT(closeThread()));
+        connect(this, SIGNAL(push_file(QString)), m_pFtpThread, SLOT(on_push_file(QString)));
 
         m_pFtpThread->start();
     }
@@ -409,7 +410,8 @@ void EnforcementComponentWidget::SaveImageVideo()
     {
         m_pCamera->SaveImage(AI, enforceInfo, SNAPSHOT);
         if (m_pFtpThread)
-            m_pFtpThread->PushFile(GETSDPATH(SNAPSHOT) + "/" + GetFileName(AI, enforceInfo));
+            emit push_file(GETSDPATH(SNAPSHOT) + "/" + GetFileName(AI, enforceInfo));
+//            m_pFtpThread->PushFile(GETSDPATH(SNAPSHOT) + "/" + GetFileName(AI, enforceInfo));
 
     }
         break;
@@ -417,11 +419,13 @@ void EnforcementComponentWidget::SaveImageVideo()
     {
         m_pCamera->SaveImage(AI, enforceInfo, SNAPSHOT);
         if (m_pFtpThread)
-            m_pFtpThread->PushFile(GETSDPATH(SNAPSHOT) + "/" + GetFileName(AI, enforceInfo));
+            emit push_file(GETSDPATH(SNAPSHOT) + "/" + GetFileName(AI, enforceInfo));
+//            m_pFtpThread->PushFile(GETSDPATH(SNAPSHOT) + "/" + GetFileName(AI, enforceInfo));
 
         m_pCamera->SaveVideo(AV, enforceInfo, AUTO);
         if (m_pFtpThread)
-            m_pFtpThread->PushFile(GETSDPATH(AUTO) + "/" + GetFileName(AV, enforceInfo));
+            emit push_file(GETSDPATH(AUTO) + "/" + GetFileName(AV, enforceInfo));
+//            m_pFtpThread->PushFile(GETSDPATH(AUTO) + "/" + GetFileName(AV, enforceInfo));
 
     }
         break;
@@ -429,7 +433,8 @@ void EnforcementComponentWidget::SaveImageVideo()
     {
         m_pCamera->SaveVideo(VV, enforceInfo, VIDEO);
         if (m_pFtpThread)
-            m_pFtpThread->PushFile(GETSDPATH(VIDEO) + "/" + GetFileName(VV, enforceInfo));
+            emit push_file(GETSDPATH(VIDEO) + "/" + GetFileName(VV, enforceInfo));
+//            m_pFtpThread->PushFile(GETSDPATH(VIDEO) + "/" + GetFileName(VV, enforceInfo));
     }
         break;
     }

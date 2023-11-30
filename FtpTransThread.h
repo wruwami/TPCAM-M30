@@ -25,7 +25,10 @@ private:
      ConfigManager m_config = ConfigManager("parameter_setting6.json");
      ftplib m_ftp;/* = new ftplib();*/
 signals:
+     void push_file(QString);
 //     void sig_exit();
+protected slots:
+     void on_push_file(QString);
 protected:
     void run() override;
 };

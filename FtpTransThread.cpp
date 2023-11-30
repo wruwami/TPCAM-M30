@@ -101,9 +101,8 @@ void FtpTransThread::run()
         QFile file(file_name);
         if (file.exists())
         {
-            std::ifstream ifs;
-            ifs.open(file_name.toStdString());
-            if (ifs.good())
+            QLockFile file(file_name);
+            if (!file.isLocked())
             {
                 DoFtpTrans(file_name);
             }

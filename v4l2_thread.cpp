@@ -1,5 +1,7 @@
 #include "v4l2_thread.h"
 
+#include <QLockFile>
+
 #include "FileManager.h"
 #include "SerialGPSManager.h"
 
@@ -129,8 +131,10 @@ static void thread_SaveImgFunc()
                     cv::Mat matImgROI(rgbmat, rcROI);
                     cv::addWeighted(matImgROI, 1.0, g_matTargetCross, 0.50, 0.0, matImgROI);
                 }
+                QLockFile file(imgInfo.enforceInfo.qstrFullPath);
+                file.lock();
                 cv::imwrite(imgInfo.enforceInfo.qstrFullPath.toStdString().c_str(), rgbmat);
-
+                file.unlock();
                 //qDebug() << "saved image";
             }
         }

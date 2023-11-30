@@ -113,6 +113,7 @@ private:
     void doVMode();
 
     void DisplaySpeedLimit(void);
+    void PushFile(QString);
 
 public:
     SerialLaserManager* m_pSerialLaserManager = nullptr;
@@ -171,11 +172,12 @@ private:
 //    bool m_bFtpMode = false;
 //    bool m_bTest = false;
 
-    QMutex m_mutex;
     bool m_isZFWorking = false;
     CustomLabel* m_pDistanceLabel;
 
     QTimer m_ManualTimer;
+    QSharedPointer<QMutex> m_mutex;
+    QSharedPointer<QQueue<QString>> m_FileQueue;
 protected slots:
     void on_hidePushButton_clicked();
 //    void doShartAction();

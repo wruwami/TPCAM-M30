@@ -14,13 +14,13 @@ class FtpTransThread : public QThread
 {
     Q_OBJECT
 public:
-    explicit FtpTransThread(QObject *parent = nullptr);
+    explicit FtpTransThread(QSharedPointer<QQueue<QString>>, QSharedPointer<QMutex>, QObject *parent = nullptr);
     virtual ~FtpTransThread();
     void PushFile(QString);
 private:
     int DoFtpTrans(QString);
 private:
-     QQueue<QString> m_FileQueue;
+     QSharedPointer<QQueue<QString>> m_FileQueue;
      QSharedPointer<QMutex> m_mutex;
      ConfigManager m_config = ConfigManager("parameter_setting6.json");
      ftplib m_ftp;/* = new ftplib();*/

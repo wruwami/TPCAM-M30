@@ -68,7 +68,7 @@ void IndicatorGPSWidget::timerEvent(QTimerEvent *event)
     QDateTime datetime;
     QString strDateTime;
 
-    if (SerialGPSManager::GetInstance()->GetSatellitesInView() != 0)
+    if (SerialGPSManager::GetInstance()->GetSatellitesInView() >= 3)
     {
         datetime = SerialGPSManager::GetInstance()->GetDateTime();
         strDateTime = GetDate(QDateTime(datetime.date(), datetime.time(), QTimeZone(m_tz)).toString("yyyyMMdd"));

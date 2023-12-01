@@ -14,7 +14,7 @@ class FtpTransThread : public QThread
 {
     Q_OBJECT
 public:
-    explicit FtpTransThread(QSharedPointer<QQueue<QString>>, QSharedPointer<QMutex>, QObject *parent = nullptr);
+    explicit FtpTransThread(QObject *parent = nullptr);
     virtual ~FtpTransThread();
     void PushFile(QString);
 private:

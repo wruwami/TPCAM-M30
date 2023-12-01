@@ -207,9 +207,9 @@ EnforcementComponentWidget::EnforcementComponentWidget(QWidget *parent) :
     QJsonObject jsonObject = ConfigManager("parameter_setting6.json").GetConfig();
     if (jsonObject["ftp select"].toInt() == 3)
     {
-        m_mutex.reset(new QMutex);
-        m_FileQueue.reset(new QQueue<QString>);
-        m_pFtpThread = new FtpTransThread(m_FileQueue, m_mutex);
+//        m_mutex.reset(new QMutex);
+//        m_FileQueue.reset(new QQueue<QString>);
+        m_pFtpThread = new FtpTransThread;
         connect(m_pFtpThread, &FtpTransThread::finished, m_pFtpThread, &QObject::deleteLater);
         connect(m_pFtpThread, SIGNAL(finished()), this, SLOT(closeThread()));
         connect(this, SIGNAL(push_file(QString)), m_pFtpThread, SLOT(on_push_file(QString)));
@@ -414,9 +414,9 @@ void EnforcementComponentWidget::SaveImageVideo()
         m_pCamera->SaveImage(AI, enforceInfo, SNAPSHOT);
         if (m_pFtpThread)
         {
-            PushFile(GETSDPATH(SNAPSHOT) + "/" + GetFileName(AI, enforceInfo));
+//            PushFile(GETSDPATH(SNAPSHOT) + "/" + GetFileName(AI, enforceInfo));
             //            emit push_file(GETSDPATH(SNAPSHOT) + "/" + GetFileName(AI, enforceInfo));
-            //            m_pFtpThread->PushFile(GETSDPATH(SNAPSHOT) + "/" + GetFileName(AI, enforceInfo));
+                        m_pFtpThread->PushFile(GETSDPATH(SNAPSHOT) + "/" + GetFileName(AI, enforceInfo));
 
         }
 
@@ -427,16 +427,16 @@ void EnforcementComponentWidget::SaveImageVideo()
         m_pCamera->SaveImage(AI, enforceInfo, SNAPSHOT);
         if (m_pFtpThread)
         {
-            PushFile(GETSDPATH(SNAPSHOT) + "/" + GetFileName(AI, enforceInfo));
+//            PushFile(GETSDPATH(SNAPSHOT) + "/" + GetFileName(AI, enforceInfo));
 //            emit push_file(GETSDPATH(SNAPSHOT) + "/" + GetFileName(AI, enforceInfo));
-//            m_pFtpThread->PushFile(GETSDPATH(SNAPSHOT) + "/" + GetFileName(AI, enforceInfo));
+            m_pFtpThread->PushFile(GETSDPATH(SNAPSHOT) + "/" + GetFileName(AI, enforceInfo));
         }
         m_pCamera->SaveVideo(AV, enforceInfo, AUTO);
         if (m_pFtpThread)
         {
-            PushFile(GETSDPATH(AUTO) + "/" + GetFileName(AV, enforceInfo));
+//            PushFile(GETSDPATH(AUTO) + "/" + GetFileName(AV, enforceInfo));
             emit push_file(GETSDPATH(AUTO) + "/" + GetFileName(AV, enforceInfo));
-//            m_pFtpThread->PushFile(GETSDPATH(AUTO) + "/" + GetFileName(AV, enforceInfo));
+            m_pFtpThread->PushFile(GETSDPATH(AUTO) + "/" + GetFileName(AV, enforceInfo));
         }
 
     }
@@ -446,9 +446,9 @@ void EnforcementComponentWidget::SaveImageVideo()
         m_pCamera->SaveVideo(VV, enforceInfo, VIDEO);
         if (m_pFtpThread)
         {
-            PushFile(GETSDPATH(VIDEO) + "/" + GetFileName(VV, enforceInfo));
+//            PushFile(GETSDPATH(VIDEO) + "/" + GetFileName(VV, enforceInfo));
 //            emit push_file(GETSDPATH(VIDEO) + "/" + GetFileName(VV, enforceInfo));
-//            m_pFtpThread->PushFile(GETSDPATH(VIDEO) + "/" + GetFileName(VV, enforceInfo));
+            m_pFtpThread->PushFile(GETSDPATH(VIDEO) + "/" + GetFileName(VV, enforceInfo));
         }
     }
         break;
@@ -2022,12 +2022,12 @@ void EnforcementComponentWidget::DisplaySpeedLimit()
     ui->speedLimitLabel->setDisabled(true);
 }
 
-void EnforcementComponentWidget::PushFile(QString file_name)
-{
-    m_mutex->lock();
-    m_FileQueue->enqueue(file_name);
-    m_mutex->unlock();
-}
+//void EnforcementComponentWidget::PushFile(QString file_name)
+//{
+//    m_mutex->lock();
+//    m_FileQueue->enqueue(file_name);
+//    m_mutex->unlock();
+//}
 
 void EnforcementComponentWidget::doVModeZFControl(float fDistance, int notuse)
 {

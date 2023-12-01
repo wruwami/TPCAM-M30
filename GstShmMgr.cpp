@@ -21,6 +21,9 @@ void thread_CommandExcute(QString strCommand, QString strFileFullName)
 //            return;
     }
 
+    QFile lockFile(strFileFullName + ".lock");
+    lockFile.remove();
+
     qDebug() << strCommand << " : " << result;
 }
 
@@ -69,6 +72,7 @@ void GstShmMgr::saveVideoUseShmsrc(QString qstrVideoFilename, QString qstrPath, 
         ).arg(QString::number(nNumBuffer), qstrShmName, QString::number(nVideoWidth), QString::number(nVideoHeight), QString::number(nFramerate), qstrTimestamp, qstrTextoverlay, qstrPath, qstrVideoFilename);
     */
 
+
     QString strCommand = QString("gst-launch-1.0 shmsrc num-buffers=%1 do-timestamp=true socket-path=/tmp/foo name=%2 ! video/x-raw,format=NV12,width=1920,height=1080,framerate=%3/1 ! queue ! videoscale ! video/x-raw,format=NV12,width=%4,height=%5 ! videoconvert ! jpegenc ! avimux ! filesink location=%6%7"
         ).arg(QString::number(nNumBuffer), qstrShmName, QString::number(nFramerate), QString::number(nVideoWidth), QString::number(nVideoHeight), qstrPath, qstrVideoFilename);
 
@@ -76,6 +80,11 @@ void GstShmMgr::saveVideoUseShmsrc(QString qstrVideoFilename, QString qstrPath, 
     if (flock(fileDescriptor, LOCK_EX) != 0) {
 //            return;
     }
+
+    QFile lockFile(qstrPath+qstrShmName + ".lock");
+    lockFile.open(QIODevice::WriteOnly);
+    lockFile.write("");
+    lockFile.close();
 
     std::thread thread_command(thread_CommandExcute, strCommand, qstrPath+qstrShmName);
     thread_command.detach();

@@ -11,7 +11,7 @@
 #include "FileManager.h"
 
 
-FtpTransThread::FtpTransThread(QSharedPointer<QQueue<QString>> fileQueue, QSharedPointer<QMutex> mutex, QObject *parent)
+FtpTransThread::FtpTransThread(QObject *parent)
     : QThread{parent}
 {
 
@@ -19,8 +19,8 @@ FtpTransThread::FtpTransThread(QSharedPointer<QQueue<QString>> fileQueue, QShare
 //    if (jsonObject["ftp select"].toInt() != 3)
 //        this->exit();
 
-    m_FileQueue = fileQueue;
-    m_mutex = mutex;
+    m_FileQueue.reset(new QQueue<QString>);
+    m_mutex.reset(new QMutex);
 }
 
 FtpTransThread::~FtpTransThread()
@@ -104,7 +104,10 @@ void FtpTransThread::run()
         if (m_FileQueue->size() > 0)
             file_name = m_FileQueue->dequeue();
         else
+        {
+            m_mutex->unlock();
             continue;
+        }
 //        m_FileQueue.pop_front();
         m_mutex->unlock();
 
@@ -115,6 +118,12 @@ void FtpTransThread::run()
             if (!lockFile.exists())
             {
                 DoFtpTrans(file_name);
+            }
+            else
+            {
+                m_mutex->lock();
+                m_FileQueue->enqueue(file_name);
+                m_mutex->unlock();
             }
         }
         else if (!file_name.isEmpty())

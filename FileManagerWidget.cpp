@@ -377,6 +377,9 @@ void FileManagerWidget::convertValue()
     g_file_elem_for_printer.user_name = m_currentAVFileFormat.userId.toStdString();
     g_file_elem_for_printer.device_id = m_currentAVFileFormat.deviceId.toStdString();
 //    memcpy(g_file_elem_for_printer.location, m_currentAVFileFormat.location.toStdString().c_str(), m_currentAVFileFormat.location.size());
+//    memcpy(g_file_elem_for_printer.user_name, m_currentAVFileFormat.userId.toStdString().c_str(), m_currentAVFileFormat.userId.size());
+//    memcpy(g_file_elem_for_printer.device_id, m_currentAVFileFormat.deviceId.toStdString().c_str(), m_currentAVFileFormat.deviceId.size());
+
 //    char location[LOCATION_MAX_LENGTH];
 //    memset(location, 0, LOCATION_MAX_LENGTH);
 //    memcpy(location, m_currentAVFileFormat.userId.toStdString().c_str(), m_currentAVFileFormat.userId.size());
@@ -430,7 +433,15 @@ void FileManagerWidget::initTable()
             //addListItem(file);
 
             AVFileFormat avfileFormat = GetFileFormat(file);
-            m_avFileFormatList.append(avfileFormat);
+            if (!avfileFormat.file_path.contains(".lock"))
+            {
+                m_avFileFormatList.append(avfileFormat);
+            }
+            else
+            {
+                QFile file(avfileFormat.file_path);
+                file.remove();
+            }
 
         }
         std::sort(m_avFileFormatList.begin(), m_avFileFormatList.end(), TimeLessThan);
@@ -781,6 +792,23 @@ void FileManagerWidget::on_printPushButton_clicked()
         ImageConverter imageConvert(ui->frameLabel->pixmap()->toImage());
         imageConvert.Convert();
 
+        while(!connect_wifi_printer())
+        {
+            printf("connect_wifi_printer failed");
+            usleep(100);
+        }
+
+        printf("connect_wifi_printer Done");
+
+        sleep(1);
+
+        // int number;
+        // printf("\n");
+        // scanf("%d", &number);
+
+        // wait(number);
+
+//        print_wifi_printer(NULL);
         print_wifi_printer();
     }
 
@@ -917,8 +945,19 @@ void FileManagerWidget::on_datePushButton_clicked()
 //                continue;
             //addListItem(file);
 
+
             AVFileFormat avfileFormat = GetFileFormat(file);
-            m_avFileFormatList.append(avfileFormat);
+            if (!avfileFormat.file_path.contains(".lock"))
+            {
+                m_avFileFormatList.append(avfileFormat);
+            }
+            else
+            {
+                QFile file(avfileFormat.file_path);
+                file.remove();
+            }
+
+//            m_avFileFormatList.append(avfileFormat);
 
 //            QTableWidgetItem* indexItem = new QTableWidgetItem(QString::number(i + 1));
 

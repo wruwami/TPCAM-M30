@@ -9,7 +9,7 @@
 #include <unistd.h>
 
 
-void thread_CommandExcute(QString strCommand, QString strFileFullName)
+void thread_CommandExcute(QString strCommand, QString strFileFullName, QString strFileFullName2)
 {
     int fileDescriptor = ::open(strFileFullName.toStdString().c_str(), O_CREAT | O_WRONLY, 0666);
 
@@ -21,7 +21,7 @@ void thread_CommandExcute(QString strCommand, QString strFileFullName)
 //            return;
     }
 
-    QFile lockFile(strFileFullName + ".lock");
+    QFile lockFile(strFileFullName2 + ".lock");
     lockFile.remove();
 
     qDebug() << strCommand << " : " << result;
@@ -81,12 +81,12 @@ void GstShmMgr::saveVideoUseShmsrc(QString qstrVideoFilename, QString qstrPath, 
 //            return;
     }
 
-    QFile lockFile(qstrPath+qstrShmName + ".lock");
+    QFile lockFile(qstrPath+qstrVideoFilename + ".lock");
     lockFile.open(QIODevice::WriteOnly);
     lockFile.write("");
     lockFile.close();
 
-    std::thread thread_command(thread_CommandExcute, strCommand, qstrPath+qstrShmName);
+    std::thread thread_command(thread_CommandExcute, strCommand, qstrPath+qstrShmName, qstrPath+qstrVideoFilename);
     thread_command.detach();
 
     // Close the file descriptor

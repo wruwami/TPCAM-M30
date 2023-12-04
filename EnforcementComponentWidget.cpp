@@ -129,11 +129,11 @@ EnforcementComponentWidget::EnforcementComponentWidget(QWidget *parent) :
     ui->speedLimitLabel->setSizePolicy(sp_retain_label);
 
     ui->enforcementCountLabel->setSizePolicy(sp_retain_label);
-    ui->enforcementDistanceSpeedLabel->setSizePolicy(sp_retain_label);
+    ui->enforcementDistanceSpeedLabel->setSizePolicy(sp_retain);
     ui->enforcementTimeLabel->setSizePolicy(sp_retain_label);
     ui->recIconLabel->setSizePolicy(sp_retain_label);
     ui->recLabel->setSizePolicy(sp_retain_label);
-    ui->speedLabel->setSizePolicy(sp_retain_label);
+    ui->speedLabel->setSizePolicy(sp_retain);
     ui->thumbnailLabel->setSizePolicy(sp_retain_label);
 
 //    camInit();
@@ -987,6 +987,69 @@ void EnforcementComponentWidget::SetLaserDetectionAreaDistance(int zoom_index)
 
     }
         break;
+    case 10:
+    {
+        if (m_UserModeOn)
+        {
+            distance = 200;
+            area = 3;
+        }
+        else
+        {
+            distance = 1580;
+            area = 1420;
+        }
+
+    }
+        break;
+
+    case 11:
+    {
+        if (m_UserModeOn)
+        {
+            distance = 220;
+            area = 3;
+        }
+        else
+        {
+            distance = 1580;
+            area = 1420;
+        }
+
+    }
+        break;
+
+    case 12:
+    {
+        if (m_UserModeOn)
+        {
+            distance = 240;
+            area = 3;
+        }
+        else
+        {
+            distance = 1580;
+            area = 1420;
+        }
+
+    }
+        break;
+
+    case 13:
+    {
+        if (m_UserModeOn)
+        {
+            distance = 260;
+            area = 3;
+        }
+        else
+        {
+            distance = 1580;
+            area = 1420;
+        }
+
+    }
+        break;
     }
 
     m_pSerialLaserManager->set_detection_distance(distance);
@@ -1461,7 +1524,7 @@ void EnforcementComponentWidget::on_showCaptureSpeedDistance(float fSpeed, float
         return; //v mode 일 시 단속 x
     }
 
-    if (fSpeed >= GetCaptureSpeedLimit())
+    if (getSpeedValue(fSpeed) >= GetCaptureSpeedLimit())
     {
         if (VehicleLastId != VehicleId)
         {
@@ -1501,7 +1564,7 @@ void EnforcementComponentWidget::on_showCaptureSpeedDistance(float fSpeed, float
 
         }
     }
-    else if (fSpeed < GetCaptureSpeedLimit())
+    else if (getSpeedValue(fSpeed) < GetCaptureSpeedLimit())
     {
 //        화면에 속도 및 거리 출력
         displaySpeedDistance(fSpeed, fDistance, Qt::white, false);
@@ -1535,9 +1598,9 @@ void EnforcementComponentWidget::on_showSpeedDistance(float fSpeed, float fDista
     m_fDistance = fDistance;
 
 //    화면에 속도 및 거리 출력
-    displaySpeedDistance(fSpeed, fDistance, Qt::white, false);
+    displaySpeedDistance(getSpeedValue(fSpeed), getDistanceValue(fDistance), Qt::white, false);
 //        HUD에 속도 및 거리 출력
-    m_hudManager.HUDEnforcement(false, fSpeed, fDistance);
+    m_hudManager.HUDEnforcement(false, getSpeedValue(fSpeed), getDistanceValue(fDistance));
 
     if(m_nEnforcementMode == V)
         doEnforceMode(true);
@@ -1554,10 +1617,10 @@ void EnforcementComponentWidget::on_showDistance(float fDistance, int nSensitivi
     m_fDistance = fDistance;
 
 //    화면에 거리 출력
-    displayDistance(fDistance);
+    displayDistance(getDistanceValue(fDistance));
 //	HUD에 거리 출력
 //    m_hudManager.HUDEnforcement(false, 0, fDistance);
-    m_hudManager.HUDEnforcementDistance(false, 0, fDistance);
+    m_hudManager.HUDEnforcementDistance(false, 0, getDistanceValue(fDistance));
 
     //    displayRedOutline(false);
 //    로그 저장

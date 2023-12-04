@@ -587,6 +587,70 @@ void SerialLaserManager::SetLaserDetectionAreaDistance(int zoom_index, bool User
 
     }
         break;
+    case 10:
+    {
+        if (UserModeOn)
+        {
+            distance = 200;
+            area = 3;
+        }
+        else
+        {
+            distance = 1580;
+            area = 1420;
+        }
+
+    }
+        break;
+
+    case 11:
+    {
+        if (UserModeOn)
+        {
+            distance = 220;
+            area = 3;
+        }
+        else
+        {
+            distance = 1580;
+            area = 1420;
+        }
+
+    }
+        break;
+
+    case 12:
+    {
+        if (UserModeOn)
+        {
+            distance = 240;
+            area = 3;
+        }
+        else
+        {
+            distance = 1580;
+            area = 1420;
+        }
+
+    }
+        break;
+
+    case 13:
+    {
+        if (UserModeOn)
+        {
+            distance = 260;
+            area = 3;
+        }
+        else
+        {
+            distance = 1580;
+            area = 1420;
+        }
+
+    }
+        break;
+
     }
 
     this->set_detection_distance(distance);

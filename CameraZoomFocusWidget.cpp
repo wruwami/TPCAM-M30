@@ -503,6 +503,69 @@ void CameraZoomFocusWidget::SetLaserDetectionAreaDistance(int zoom_index)
 
     }
         break;
+    case 10:
+    {
+        if (m_UserModeOn)
+        {
+            distance = 200;
+            area = 3;
+        }
+        else
+        {
+            distance = 1580;
+            area = 1420;
+        }
+
+    }
+        break;
+
+    case 11:
+    {
+        if (m_UserModeOn)
+        {
+            distance = 220;
+            area = 3;
+        }
+        else
+        {
+            distance = 1580;
+            area = 1420;
+        }
+
+    }
+        break;
+
+    case 12:
+    {
+        if (m_UserModeOn)
+        {
+            distance = 240;
+            area = 3;
+        }
+        else
+        {
+            distance = 1580;
+            area = 1420;
+        }
+
+    }
+        break;
+
+    case 13:
+    {
+        if (m_UserModeOn)
+        {
+            distance = 260;
+            area = 3;
+        }
+        else
+        {
+            distance = 1580;
+            area = 1420;
+        }
+
+    }
+        break;
     }
 
     m_pSerialLaserManager->set_detection_distance(distance);

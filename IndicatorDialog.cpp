@@ -409,6 +409,14 @@ void IndicatorDialog::hideEvent(QHideEvent *event)
 
 }
 
+void IndicatorDialog::showEvent(QShowEvent *event)
+{
+    m_jsonObject1 = m_configManager1.GetConfig();
+    m_jsonObject2 = m_configManager2.GetConfig();
+    m_jsonObject3 = m_configManager3.GetConfig();
+    m_jsonObject4 = m_configManager4.GetConfig();
+}
+
 void IndicatorDialog::clearSecondRow()
 {
 //    m_pTimer.stop();

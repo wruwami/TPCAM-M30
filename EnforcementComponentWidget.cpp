@@ -799,7 +799,7 @@ void EnforcementComponentWidget::displaySpeedDistance(float fSpeed, float fDista
 void EnforcementComponentWidget::displayDistance(float fDistance)
 {
     m_pDistanceLabel->setColor(Qt::white);
-    if(fDistance == 9999.0)
+    if(fDistance >= 9999.0)
         m_pDistanceLabel->setText("----.-" + distanceValue());
     else
         m_pDistanceLabel->setText(QString::number(getDistanceValue(fDistance), 'f', 1) + distanceValue());
@@ -1598,9 +1598,9 @@ void EnforcementComponentWidget::on_showSpeedDistance(float fSpeed, float fDista
     m_fDistance = fDistance;
 
 //    화면에 속도 및 거리 출력
-    displaySpeedDistance(getSpeedValue(fSpeed), getDistanceValue(fDistance), Qt::white, false);
+    displaySpeedDistance(fSpeed, fDistance, Qt::white, false);
 //        HUD에 속도 및 거리 출력
-    m_hudManager.HUDEnforcement(false, getSpeedValue(fSpeed), getDistanceValue(fDistance));
+    m_hudManager.HUDEnforcement(false, fSpeed, fDistance);
 
     if(m_nEnforcementMode == V)
         doEnforceMode(true);
@@ -1617,10 +1617,10 @@ void EnforcementComponentWidget::on_showDistance(float fDistance, int nSensitivi
     m_fDistance = fDistance;
 
 //    화면에 거리 출력
-    displayDistance(getDistanceValue(fDistance));
+    displayDistance(fDistance);
 //	HUD에 거리 출력
 //    m_hudManager.HUDEnforcement(false, 0, fDistance);
-    m_hudManager.HUDEnforcementDistance(false, 0, getDistanceValue(fDistance));
+    m_hudManager.HUDEnforcementDistance(false, 0, fDistance);
 
     //    displayRedOutline(false);
 //    로그 저장

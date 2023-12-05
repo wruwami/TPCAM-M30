@@ -16,6 +16,7 @@
 #include <QDebug>
 
 #include "ConfigManager.h"
+#include "DateFormatManager.h"
 
 #define TRUE    1
 #define FALSE   0
@@ -754,7 +755,28 @@ void print_wifi_body(int socket)
         WiFi_Printf(socket, "Ticket No. : \n");
     }
 
-    WiFi_Printf(socket, "Date : %s-%s, %s\n", g_file_elem_for_printer.month, g_file_elem_for_printer.day, g_file_elem_for_printer.year);
+    switch (GetDateFormat())
+    {
+    case YYYYMMDD:
+    {
+        WiFi_Printf(socket, "Date : %s/%s/%s\n", g_file_elem_for_printer.year, g_file_elem_for_printer.month, g_file_elem_for_printer.day);
+
+    }
+        break;
+    case MMDDYYYY:
+    {
+        WiFi_Printf(socket, "Date : %s/%s/%s\n", g_file_elem_for_printer.month, g_file_elem_for_printer.day, g_file_elem_for_printer.year);
+
+    }
+        break;
+    case DDMMYYYY:
+    {
+        WiFi_Printf(socket, "Date : %s/%s/%s\n", g_file_elem_for_printer.day, g_file_elem_for_printer.month, g_file_elem_for_printer.year);
+
+    }
+        break;
+    }
+
     WiFi_Printf(socket, "Time : %s:%s:%s\n\n", g_file_elem_for_printer.hour, g_file_elem_for_printer.minute, g_file_elem_for_printer.second);
 
     //fprintf(stdout, "capture speed : %s\n", g_file_elem_for_printer.laser_capture_speed);

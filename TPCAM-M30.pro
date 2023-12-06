@@ -42,7 +42,6 @@ SOURCES += main.cpp\
     RemoteController.cpp \
     ScreenSaver.cpp \
     SdCardMemoryLack.cpp \
-    SelfTestDialog.cpp \
     SelfTestWidget.cpp \
     SerialGPSManager.cpp \
     SerialLaserManager.cpp \
@@ -81,12 +80,10 @@ SOURCES += main.cpp\
     camera.cpp \
     capture_thread.cpp \
     filter.cpp \
-    ftp.cc \
     keyboard/key.cpp \
     keyboard/keyboard.cpp \
     keyboard/keylayout.cpp \
     LoginExpiredDateWidget.cpp \
-    FileManagerFileTransferWidget.cpp \
     SelfTestWarningMessageWidget.cpp \
     IndicatorGPSWidget.cpp \
     LocationWidget.cpp \
@@ -116,7 +113,6 @@ SOURCES += main.cpp\
     FileManagerFileTransferDialog.cpp \
     SearchBoxDialog.cpp \
     ltc2943.cpp \
-    socket.cc \
     thermal_printer.cpp \
     v4l2_thread.cpp \
     wifi_scan.c \
@@ -152,7 +148,6 @@ HEADERS  += MainWindow.h \
     RemoteController.h \
     ScreenSaver.h \
     SdCardMemoryLack.h \
-    SelfTestDialog.h \
     SelfTestWidget.h \
     SerialGPSManager.h \
     SerialLaserManager.h \
@@ -194,12 +189,10 @@ HEADERS  += MainWindow.h \
     camera.h \
     capture_thread.h \
     filter.h \
-    ftp.hh \
     keyboard/key.h \
     keyboard/keyboard.h \
     keyboard/keylayout.h \
     LoginExpiredDateWidget.h \
-    FileManagerFileTransferWidget.h \
     SelfTestWarningMessageWidget.h \
     IndicatorGPSWidget.h \
     LocationWidget.h \
@@ -231,7 +224,6 @@ HEADERS  += MainWindow.h \
     CustomZoomLabel.h \
     FileManagerFileTransferDialog.h \
     SearchBoxDialog.h \
-    socket.hh \
     thermal_printer.h \
     v4l2_thread.h \
     wifi_scan.h \
@@ -255,7 +247,6 @@ FORMS    += MainWindow.ui \
     MovieViewerDialog.ui \
     MovieViewerDialogSub.ui \
     SdCardMemoryLack.ui \
-    SelfTestDialog.ui \
     SelfTestWidget.ui \
     Setting4APWidget.ui \
     SettingWidget.ui \
@@ -275,7 +266,6 @@ FORMS    += MainWindow.ui \
     CameraZoomFocusWidget.ui \
     FileManagerSnapShotDialog.ui \
     LoginExpiredDateWidget.ui \
-    FileManagerFileTransferWidget.ui \
     SelfTestWarningMessageWidget.ui \
     IndicatorGPSWidget.ui \
     LocationWidget.ui \

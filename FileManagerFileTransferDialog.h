@@ -29,7 +29,6 @@ public:
     ~FileManagerFileTransferDialog();
 private:
     void TransferFTP();
-    void TransferFTP2();
     void TransferFile();
 private:
     Ui::FileManagerFileTransferDialog *ui;

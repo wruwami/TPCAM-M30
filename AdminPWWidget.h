@@ -1,3 +1,14 @@
+/**
+ * @file AdminPWWidget.h
+ * @author wruwami (wruwami@naver.com)
+ * @brief Admin 비밀번호 확인 위젯  BaseDialog에 삽입된다.
+ * @version 0.1
+ * @date 2023-12-06
+ * 
+ * @copyright Copyright (c) 2023
+ * 
+ */
+
 #ifndef ADMINPWWIDGET_H
 #define ADMINPWWIDGET_H
 
@@ -7,6 +18,10 @@ namespace Ui {
 class AdminPWWidget;
 }
 
+/**
+ * @brief 
+ * 
+ */
 class AdminPWWidget : public QWidget
 {
     Q_OBJECT

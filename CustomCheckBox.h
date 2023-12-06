@@ -1,3 +1,14 @@
+/**
+ * @file CustomCheckBox.h
+ * @author wruwami (wruwami@naver.com)
+ * @brief QCheckBox 상속하여 공통으로 사용하는 CheckBox 위젯
+ * @version 0.1
+ * @date 2023-12-06
+ * 
+ * @copyright Copyright (c) 2023
+ * 
+ */
+
 #ifndef CUSTOMCHECKBOX_H
 #define CUSTOMCHECKBOX_H
 

@@ -1,3 +1,14 @@
+/**
+ * @file CustomPushButton.h
+ * @author wruwami (wruwami@naver.com)
+ * @brief QPushButton 상속하여 공통으로 사용하는 PushButton 위젯
+ * @version 0.1
+ * @date 2023-12-06
+ * 
+ * @copyright Copyright (c) 2023
+ * 
+ */
+
 #ifndef CUSTOMPUSHBUTTON_H
 #define CUSTOMPUSHBUTTON_H
 

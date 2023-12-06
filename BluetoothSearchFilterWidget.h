@@ -1,3 +1,14 @@
+/**
+ * @file BluetoothSearchFilterWidget.h
+ * @author wruwami (wruwami@naver.com)
+ * @brief 블루투스 검색 위젯(현재 사용되지 않음)
+ * @version 0.1
+ * @date 2023-12-06
+ * 
+ * @copyright Copyright (c) 2023
+ * 
+ */
+
 #ifndef BLUETOOTHSEARCHFILTERWIDGET_H
 #define BLUETOOTHSEARCHFILTERWIDGET_H
 

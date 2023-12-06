@@ -1,3 +1,4 @@
+
 #ifndef SETTINGWIDGET_H
 #define SETTINGWIDGET_H
 

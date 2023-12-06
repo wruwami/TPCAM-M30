@@ -1,3 +1,14 @@
+/**
+ * @file Color.h
+ * @author wruwami (wruwami@naver.com)
+ * @brief 위젯 백그라운드 컬러 설정 기능
+ * @version 0.1
+ * @date 2023-12-06
+ * 
+ * @copyright Copyright (c) 2023
+ * 
+ */
+
 #ifndef COLOR_H
 #define COLOR_H
 

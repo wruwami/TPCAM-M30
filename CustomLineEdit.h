@@ -1,3 +1,14 @@
+/**
+ * @file CustomLineEdit.h
+ * @author wruwami (wruwami@naver.com)
+ * @brief QLineEdit 상속하여 공통으로 사용하는 LineEdit 위젯
+ * @version 0.1
+ * @date 2023-12-06
+ * 
+ * @copyright Copyright (c) 2023
+ * 
+ */
+
 #ifndef CUSTOMLINEEDIT_H
 #define CUSTOMLINEEDIT_H
 

@@ -19,7 +19,6 @@
 #include "FileManager.h"
 #include "StringLoader.h"
 #include "WidgetSize.h"
-#include "ftp.hh"
 #include "FileManager.h"
 #include "CustomPushButton.h"
 
@@ -138,92 +137,6 @@ FileManagerFileTransferDialog::~FileManagerFileTransferDialog()
 }
 
 void FileManagerFileTransferDialog::TransferFTP()
-{
-//    ui->oneProgressBar->setValue(0);
-    ui->allProgressBar->setValue(0);
-//    buttonsEnabled(true);
-
-//    QNetworkAccessManager *accessManager=new QNetworkAccessManager(this);
-//    accessManager->setNetworkAccessible(QNetworkAccessManager::Accessible);
-
-    ConfigManager config = ConfigManager("parameter_setting6.json");
-    QJsonObject jsonObject = config.GetConfig();
-
-
-    m_index = 0;
-
-    ftp_t ftp(jsonObject["ftp server( dns )"].toString().toStdString().c_str(), 21);
-    ftp.login(jsonObject["ftp user name"].toString().toStdString().c_str(), jsonObject["ftp password"].toString().toStdString().c_str());
-    std::string targetDir = ftp.get_file_path();
-
-    QDir qdir(GetSDPath());
-    QDirIterator iterDir(GetSDPath(), QDir::Files | QDir::NoSymLinks, QDirIterator::Subdirectories);
-    while (iterDir.hasNext())
-    {
-        iterDir.next();
-        m_count++;
-    }
-
-    QDirIterator iterDir3(GetSDPath(), QDir::Dirs | QDir::NoDotAndDotDot | QDir::NoSymLinks, QDirIterator::Subdirectories);
-    while (iterDir3.hasNext())
-    {
-        QString dir = iterDir3.next().replace(GetSDPath(), QString(targetDir.c_str()));
-        dir.replace("\"", "");
-        ftp.create_path(dir.toStdString().c_str());
-     }
-
-
-    QDirIterator iterDir2(GetSDPath(), QDir::Files | QDir::NoSymLinks, QDirIterator::Subdirectories);
-
-    ui->allProgressBar->setMaximum(m_count);
-    ui->allProgressBar->setValue(0);
-    while (iterDir2.hasNext())
-    {
-        QString fileName = iterDir2.next().replace(GetSDPath(), QString(targetDir.c_str()));
-        fileName.replace("\"", "");
-        ftp.put_file(fileName.toStdString().c_str());
-
-
-//        qDebug() << iterDir2.fileInfo().;
-        qDebug() << iterDir2.fileName();
-        qDebug() << iterDir2.filePath();
-//        QString iterDir2.next();
-
-//        QUrl url;
-//        url.setScheme("ftp");
-//        url.setHost(jsonObject["ftp server( dns )"].toString());
-
-//        url.setPort(jsonObject["ftp port"].toInt());
-//        url.setUserName(jsonObject["ftp user name"].toString());
-//        url.setPassword(jsonObject["ftp password"].toString());
-//        url.setPath(QString(ret.c_str()) + iterDir2.filePath());
-////        url.setPath(QString("d:") + iterDir2.filePath().replace("/", "\\"));
-////        qDebug() << QString("d:") + iterDir2.filePath().replace("/", "\\");
-////        QString file_path(iterDir2.fileName());
-////        int index = file_path.lastIndexOf('/');
-////        QString file_name = file_path.mid(index + 1, file_path.size() - index - 1);
-////        url.setPath(QString(ret.c_str()) + "/" + file_name);
-
-//        ui->fileNameLabel->setText(iterDir2.fileName());
-
-//        QByteArray byte_file;
-//        QNetworkRequest request(url);
-//        QNetworkReply* reply;
-
-//        QFile file(QString(iterDir2.filePath()));
-//        file.open(QIODevice::ReadOnly);
-//        byte_file=file.readAll();
-//        reply = accessManager->put(request, byte_file);
-
-//        connect(reply, SIGNAL(uploadProgress(qint64 ,qint64)), SLOT(loadProgress(qint64 ,qint64)));
-    }
-    ftp.logout();
-    accept();
-//    connect(accessManager, SIGNAL(finished(QNetworkReply*)), SLOT(replyFinished(QNetworkReply*)));
-//    connect(reply, SIGNAL(error(QNetworkReply::NetworkError)),SLOT(loadError(QNetworkReply::NetworkError)));
-}
-
-void FileManagerFileTransferDialog::TransferFTP2()
 {
 //    ui->oneProgressBar->setValue(0);
     ui->allProgressBar->setValue(0);

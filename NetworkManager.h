@@ -1,3 +1,14 @@
+/**
+ * @file NetworkManager.h
+ * @author wruwami (wruwami@naver.com)
+ * @brief 네트워크를 상태 체크 및 활성화 여부를 관리하는 클래스
+ * @version 0.1
+ * @date 2023-12-06
+ * 
+ * @copyright Copyright (c) 2023
+ * 
+ */
+
 #ifndef NETWORKMANAGER_H
 #define NETWORKMANAGER_H
 

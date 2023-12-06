@@ -1,3 +1,14 @@
+/**
+ * @file MainMenuWidget.h
+ * @author wruwami (wruwami@naver.com)
+ * @brief 화면 상단 메인메뉴를 구성하는 위젯
+ * @version 0.1
+ * @date 2023-12-06
+ * 
+ * @copyright Copyright (c) 2023
+ * 
+ */
+
 #ifndef MAINMENUWIDGET_H
 #define MAINMENUWIDGET_H
 

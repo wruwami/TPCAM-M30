@@ -1,3 +1,14 @@
+/**
+ * @file PasswordChangingWidget.h
+ * @author wruwami (wruwami@naver.com)
+ * @brief 패스워드 변경 위젯 BaseDialog에 삽입된다.
+ * @version 0.1
+ * @date 2023-12-06
+ * 
+ * @copyright Copyright (c) 2023
+ * 
+ */
+
 #ifndef PASSWORDCHANGINGWIDGET_H
 #define PASSWORDCHANGINGWIDGET_H
 

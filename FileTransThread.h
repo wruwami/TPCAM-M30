@@ -1,3 +1,14 @@
+/**
+ * @file FileTransThread.h
+ * @author wruwami (wruwami@naver.com)
+ * @brief USB파일 전송시 사용되는 Thread
+ * @version 0.1
+ * @date 2023-12-06
+ * 
+ * @copyright Copyright (c) 2023
+ * 
+ */
+
 #ifndef FILETRANSTHREAD_H
 #define FILETRANSTHREAD_H
 

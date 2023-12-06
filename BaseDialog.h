@@ -1,3 +1,14 @@
+/**
+ * @file BaseDialog.h
+ * @author wruwami (wruwami@naver.com)
+ * @brief 다양한 위젯을 넣어서 사용할 수 있는 기본 다이얼로그
+ * @version 0.1
+ * @date 2023-12-06
+ * 
+ * @copyright Copyright (c) 2023
+ * 
+ */
+
 #ifndef BASEDIALOG_H
 #define BASEDIALOG_H
 

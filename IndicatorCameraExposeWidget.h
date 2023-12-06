@@ -1,3 +1,14 @@
+/**
+ * @file IndicatorCameraExposeWidget.h
+ * @author wruwami (wruwami@naver.com)
+ * @brief 인디케이터 카메라에서 노출에 해당하는 위젯
+ * @version 0.1
+ * @date 2023-12-06
+ * 
+ * @copyright Copyright (c) 2023
+ * 
+ */
+
 #ifndef INDICATORCAMERAEXPOSEWIDGET_H
 #define INDICATORCAMERAEXPOSEWIDGET_H
 

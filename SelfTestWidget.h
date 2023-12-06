@@ -1,3 +1,14 @@
+/**
+ * @file SelfTestWidget.h
+ * @author wruwami (wruwami@naver.com)
+ * @brief 셀프테스트 표시 위젯
+ * @version 0.1
+ * @date 2023-12-06
+ * 
+ * @copyright Copyright (c) 2023
+ * 
+ */
+
 #ifndef SELFTESTWIDGET_H
 #define SELFTESTWIDGET_H
 

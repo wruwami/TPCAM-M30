@@ -1,3 +1,14 @@
+/**
+ * @file RemoteControlWorker.h
+ * @author wruwami (wruwami@naver.com)
+ * @brief RemoteController 기능이 구현되어 있는 클래스
+ * @version 0.1
+ * @date 2023-12-06
+ * 
+ * @copyright Copyright (c) 2023
+ * 
+ */
+
 #ifndef REMOTECONTROLWORKER_H
 #define REMOTECONTROLWORKER_H
 

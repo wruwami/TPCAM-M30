@@ -1,3 +1,16 @@
+/**
+ * @file WidgetSize.h
+ * @author wruwami (wruwami@naver.com)
+ * @brief 위젯 사이즈 관리 클래스
+ * @details 해상도에 따른 위젯 크기를 알려주는 역할을 수행한다.
+ * @version 0.1
+ * @date 2023-12-06
+ * 
+ * @copyright Copyright (c) 2023
+ * 
+ */
+
+
 #ifndef WIDGETSIZE_H
 #define WIDGETSIZE_H
 

@@ -1,3 +1,14 @@
+/**
+ * @file FileManagerWidget.h
+ * @author wruwami (wruwami@naver.com)
+ * @brief 파일매니저 위젯
+ * @version 0.1
+ * @date 2023-12-06
+ * 
+ * @copyright Copyright (c) 2023
+ * 
+ */
+
 #ifndef FILEMANAGERWIDGET_H
 #define FILEMANAGERWIDGET_H
 

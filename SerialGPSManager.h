@@ -1,3 +1,14 @@
+/**
+ * @file SerialGPSManager.h
+ * @author wruwami (wruwami@naver.com)
+ * @brief GPS 시리얼 통신 관리 클래스
+ * @version 0.1
+ * @date 2023-12-06
+ * 
+ * @copyright Copyright (c) 2023
+ * 
+ */
+
 #ifndef SERIALGPSMANAGER_H
 #define SERIALGPSMANAGER_H
 

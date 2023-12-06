@@ -1,3 +1,14 @@
+/**
+ * @file FtpTransThread.h
+ * @author wruwami (wruwami@naver.com)
+ * @brief 단속화면 FTP 전송을 수행하는 Thread
+ * @version 0.1
+ * @date 2023-12-06
+ * 
+ * @copyright Copyright (c) 2023
+ * 
+ */
+
 #ifndef FTPTRANSTHREAD_H
 #define FTPTRANSTHREAD_H
 

@@ -1,3 +1,15 @@
+/**
+ * @file ScreenSaver.h
+ * @author wruwami (wruwami@naver.com)
+ * @brief Power Saving 기능이 구현되어 있는 클래스
+ * @version 0.1
+ * @date 2023-12-06
+ * 
+ * @copyright Copyright (c) 2023
+ * 
+ */
+
+
 #ifndef SCREENSAVER_H
 #define SCREENSAVER_H
 

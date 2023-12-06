@@ -1,3 +1,14 @@
+/**
+ * @file HUDManager.h
+ * @author wruwami (wruwami@naver.com)
+ * @brief CHeadUpDisplay를 wrapping 해서 HUD를 쓰기 편하게 만든 클래스
+ * @version 0.1
+ * @date 2023-12-06
+ * 
+ * @copyright Copyright (c) 2023
+ * 
+ */
+
 #ifndef HUDMANAGER_H
 #define HUDMANAGER_H
 

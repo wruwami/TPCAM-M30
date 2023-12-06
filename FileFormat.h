@@ -1,3 +1,14 @@
+/**
+ * @file FileFormat.h
+ * @author wruwami (wruwami@naver.com)
+ * @brief 단속시나리오에서 사용되는 구조체 및 파일명 파싱하는 기능
+ * @version 0.1
+ * @date 2023-12-06
+ * 
+ * @copyright Copyright (c) 2023
+ * 
+ */
+
 #ifndef FILEFORMAT_H
 #define FILEFORMAT_H
 

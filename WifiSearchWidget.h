@@ -1,3 +1,14 @@
+/**
+ * @file WifiSearchWidget.h
+ * @author wruwami (wruwami@naver.com)
+ * @brief Wifi 검색 화면 위젯
+ * @version 0.1
+ * @date 2023-12-06
+ * 
+ * @copyright Copyright (c) 2023
+ * 
+ */
+
 #ifndef WIFISEARCHWIDGET_H
 #define WIFISEARCHWIDGET_H
 

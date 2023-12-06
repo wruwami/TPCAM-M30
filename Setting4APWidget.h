@@ -1,3 +1,14 @@
+/**
+ * @file Setting4APWidget.h
+ * @author wruwami (wruwami@naver.com)
+ * @brief 세팅4 AP모드 화면 위젯
+ * @version 0.1
+ * @date 2023-12-06
+ * 
+ * @copyright Copyright (c) 2023
+ * 
+ */
+
 #ifndef SETTING4APWIDGET_H
 #define SETTING4APWIDGET_H
 

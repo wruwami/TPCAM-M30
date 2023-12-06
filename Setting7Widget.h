@@ -1,3 +1,14 @@
+/**
+ * @file Setting7Widget.h
+ * @author wruwami (wruwami@naver.com)
+ * @brief 세팅7 화면 위젯
+ * @version 0.1
+ * @date 2023-12-06
+ * 
+ * @copyright Copyright (c) 2023
+ * 
+ */
+
 #ifndef SETTING7WIDGET_H
 #define SETTING7WIDGET_H
 

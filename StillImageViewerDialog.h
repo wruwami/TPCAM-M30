@@ -1,3 +1,14 @@
+/**
+ * @file StillImageViewerDialog.h
+ * @author wruwami (wruwami@naver.com)
+ * @brief 파일 매니저 스틸 이미지 다이얼로그
+ * @version 0.1
+ * @date 2023-12-06
+ * 
+ * @copyright Copyright (c) 2023
+ * 
+ */
+
 #ifndef STILLIMAGEVIEWERDIALOG_H
 #define STILLIMAGEVIEWERDIALOG_H
 

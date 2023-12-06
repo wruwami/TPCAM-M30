@@ -1,3 +1,14 @@
+/**
+ * @file SearchBoxDialog.h
+ * @author wruwami (wruwami@naver.com)
+ * @brief 파일매니저 검색 다이얼로그
+ * @version 0.1
+ * @date 2023-12-06
+ * 
+ * @copyright Copyright (c) 2023
+ * 
+ */
+
 #ifndef SEARCHBOXDIALOG_H
 #define SEARCHBOXDIALOG_H
 

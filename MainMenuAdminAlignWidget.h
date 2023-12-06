@@ -1,3 +1,14 @@
+/**
+ * @file MainMenuAdminAlignWidget.h
+ * @author wruwami (wruwami@naver.com)
+ * @brief admin-align유저로 로그인하면 나오는 화면 위젯
+ * @version 0.1
+ * @date 2023-12-06
+ * 
+ * @copyright Copyright (c) 2023
+ * 
+ */
+
 #ifndef MAINMENUADMINALIGNWIDGET_H
 #define MAINMENUADMINALIGNWIDGET_H
 

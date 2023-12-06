@@ -1,3 +1,15 @@
+/**
+ * @file DateTimeWidget.h
+ * @author wruwami (wruwami@naver.com)
+ * @brief DateTime 설정하는 위젯
+ * @details 설정방법은 수동 설정, GPS를 통한 설정 2가지가 있다.
+ * @version 0.1
+ * @date 2023-12-06
+ * 
+ * @copyright Copyright (c) 2023
+ * 
+ */
+
 #ifndef DATETIMEWIDGET_H
 #define DATETIMEWIDGET_H
 

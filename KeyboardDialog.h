@@ -1,3 +1,14 @@
+/**
+ * @file KeyboardDialog.h
+ * @author wruwami (wruwami@naver.com)
+ * @brief Keyboard를 이용하여 키보드를 구현한 다이얼로그
+ * @version 0.1
+ * @date 2023-12-06
+ * 
+ * @copyright Copyright (c) 2023
+ * 
+ */
+
 #ifndef KEYBOARDDIALOG_H
 #define KEYBOARDDIALOG_H
 

@@ -1,3 +1,14 @@
+/**
+ * @file base.h
+ * @author wruwami (wruwami@naver.com)
+ * @brief 공통 사용되는 기본 파라미터
+ * @version 0.1
+ * @date 2023-12-06
+ * 
+ * @copyright Copyright (c) 2023
+ * 
+ */
+
 #ifndef BASE_H
 #define BASE_H
 

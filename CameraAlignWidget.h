@@ -1,3 +1,14 @@
+/**
+ * @file CameraAlignWidget.h
+ * @author wruwami (wruwami@naver.com)
+ * @brief admin-align유저가 laser, hud align 기능을 수행할 수 있는 위젯
+ * @version 0.1
+ * @date 2023-12-06
+ * 
+ * @copyright Copyright (c) 2023
+ * 
+ */
+
 #ifndef CAMERAALIGNWIDGET_H
 #define CAMERAALIGNWIDGET_H
 

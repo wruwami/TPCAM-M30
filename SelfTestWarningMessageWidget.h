@@ -1,3 +1,14 @@
+/**
+ * @file SelfTestWarningMessageWidget.h
+ * @author wruwami (wruwami@naver.com)
+ * @brief 셀프테스트 실패 표시 위젯 BaseDialog에 삽입된다.
+ * @version 0.1
+ * @date 2023-12-06
+ * 
+ * @copyright Copyright (c) 2023
+ * 
+ */
+
 #ifndef SELFTESTWARNINGMESSAGEWIDGET_H
 #define SELFTESTWARNINGMESSAGEWIDGET_H
 

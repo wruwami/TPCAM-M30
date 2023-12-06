@@ -1,3 +1,14 @@
+/**
+ * @file KeypadDialog.h
+ * @author wruwami (wruwami@naver.com)
+ * @brief Keyboard 라이브러리를 이용하여 키패드를 구현한 다이얼로그
+ * @version 0.1
+ * @date 2023-12-06
+ * 
+ * @copyright Copyright (c) 2023
+ * 
+ */
+
 #ifndef KEYPADDIALOG_H
 #define KEYPADDIALOG_H
 

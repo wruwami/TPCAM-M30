@@ -1,3 +1,15 @@
+/**
+ * @file EnforcementComponentWidget.h
+ * @author wruwami (wruwami@naver.com)
+ * @brief 단속화면을 구성하는 ui
+ * @details 단속시나리오 로직도 구현되어 있다.
+ * @version 0.1
+ * @date 2023-12-06
+ * 
+ * @copyright Copyright (c) 2023
+ * 
+ */
+
 #ifndef ENFORCEMENTCOMPONENTWIDGET_H
 #define ENFORCEMENTCOMPONENTWIDGET_H
 

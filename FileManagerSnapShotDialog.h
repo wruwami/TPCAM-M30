@@ -1,3 +1,14 @@
+/**
+ * @file FileManagerSnapShotDialog.h
+ * @author wruwami (wruwami@naver.com)
+ * @brief 파일매니저에서 현재 모드(I,A,V,S,M)에 따라 폴더를 보여주는 다이얼로그
+ * @version 0.1
+ * @date 2023-12-06
+ * 
+ * @copyright Copyright (c) 2023
+ * 
+ */
+
 #ifndef FILEMANAGERSNAPSHOTDIALOG_H
 #define FILEMANAGERSNAPSHOTDIALOG_H
 

@@ -17,7 +17,6 @@ include(QtAVPlayer/QtAVPlayer.pri)
 
 SOURCES += main.cpp\
     Application.cpp \
-    CustomTogglePushButton.cpp \
     FileManager.cpp \
     FileTransThread.cpp \
     FtpTransThread.cpp \
@@ -74,7 +73,6 @@ SOURCES += main.cpp\
     DeviceIDWidget.cpp \
     CameraAlignWidget.cpp \
     CameraZoomFocusWidget.cpp \
-    CustomImageWidget.cpp \
     FileManagerSnapShotDialog.cpp \
     ViscaPacket.cpp \
     camera.cpp \
@@ -91,7 +89,6 @@ SOURCES += main.cpp\
     FactoryDefaultWidget.cpp \
     AdminPWWidget.cpp \
     PasswordChangingWidget.cpp \
-    NetworkPWWidget.cpp \
     WifiSearchWidget.cpp \
     BluetoothSearchFilterWidget.cpp \
     EnforcementWarningMessageWidget.cpp \
@@ -116,14 +113,11 @@ SOURCES += main.cpp\
     thermal_printer.cpp \
     v4l2_thread.cpp \
     wifi_scan.c \
-    keyboardwidget.cpp \
-    keypadwidget.cpp \
     GstShmMgr.cpp
 
 
 HEADERS  += MainWindow.h \
     Application.h \
-    CustomTogglePushButton.h \
     FileManager.h \
     FileTransThread.h \
     FontSize.h \
@@ -181,8 +175,6 @@ HEADERS  += MainWindow.h \
     DeviceIDWidget.h \
     CameraAlignWidget.h \
     CameraZoomFocusWidget.h \
-    CustomImageWidget.h \
-    ImageSize.h \
     FileManagerSnapShotDialog.h \
     ViscaPacket.h \
     base.h \
@@ -200,7 +192,6 @@ HEADERS  += MainWindow.h \
     FactoryDefaultWidget.h \
     AdminPWWidget.h \
     PasswordChangingWidget.h \
-    NetworkPWWidget.h \
     WifiSearchWidget.h \
     BluetoothSearchFilterWidget.h \
     EnforcementWarningMessageWidget.h \
@@ -229,8 +220,6 @@ HEADERS  += MainWindow.h \
     wifi_scan.h \
     version.h \
     QtAVPlayer/qavandroidsurfacetexture_p.h \
-    keyboardwidget.h \
-    keypadwidget.h \
     QtAVPlayerHelper/videorenderer.h \
     QtAVPlayerHelper/mediaservice.h \
     QtAVPlayerHelper/mediaobject.h \
@@ -274,7 +263,6 @@ FORMS    += MainWindow.ui \
     FactoryDefaultWidget.ui \
     AdminPWWidget.ui \
     PasswordChangingWidget.ui \
-    NetworkPWWidget.ui \
     WifiSearchWidget.ui \
     BluetoothSearchFilterWidget.ui \
     EnforcementWarningMessageWidget.ui \

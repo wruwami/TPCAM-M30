@@ -1,3 +1,13 @@
+/**
+ * @file Setting1Widget.h
+ * @author wruwami (wruwami@naver.com)
+ * @brief 세팅1 화면 위젯
+ * @version 0.1
+ * @date 2023-12-06
+ * 
+ * @copyright Copyright (c) 2023
+ * 
+ */
 #ifndef SETTING1WIDGET_H
 #define SETTING1WIDGET_H
 

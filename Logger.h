@@ -1,3 +1,14 @@
+/**
+ * @file Logger.h
+ * @author wruwami (wruwami@naver.com)
+ * @brief Log를 관리하는 클래스
+ * @version 0.1
+ * @date 2023-12-06
+ * 
+ * @copyright Copyright (c) 2023
+ * 
+ */
+
 #ifndef LOGGER_H
 #define LOGGER_H
 

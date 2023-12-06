@@ -1,3 +1,14 @@
+/**
+ * @file EnforcementWidget.h
+ * @author wruwami (wruwami@naver.com)
+ * @brief Mainwindow와 EnforcementComponentWidget을 잇는 위젯
+ * @version 0.1
+ * @date 2023-12-06
+ * 
+ * @copyright Copyright (c) 2023
+ * 
+ */
+
 #ifndef ENFORCEMENTWIDGET_H
 #define ENFORCEMENTWIDGET_H
 

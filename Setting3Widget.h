@@ -1,3 +1,14 @@
+/**
+ * @file Setting3Widget.h
+ * @author wruwami (wruwami@naver.com)
+ * @brief 세팅3 화면 위젯
+ * @version 0.1
+ * @date 2023-12-06
+ * 
+ * @copyright Copyright (c) 2023
+ * 
+ */
+
 #ifndef SETTING3WIDGET_H
 #define SETTING3WIDGET_H
 

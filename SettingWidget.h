@@ -1,3 +1,15 @@
+/**
+ * @file SettingWidget.h
+ * @author wruwami (wruwami@naver.com)
+ * @brief 세팅 화면 위젯
+ * @details 세팅 1~7까지의 위젯들을 StackWidget을 통해 표시
+ * @version 0.1
+ * @date 2023-12-06
+ * 
+ * @copyright Copyright (c) 2023
+ * 
+ */
+
 
 #ifndef SETTINGWIDGET_H
 #define SETTINGWIDGET_H

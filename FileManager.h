@@ -1,3 +1,14 @@
+/**
+ * @file FileManager.h
+ * @author wruwami (wruwami@naver.com)
+ * @brief 어플리케이션에서 사용하는 File정보(예: FilePath)를 관리하는 클래스
+ * @version 0.1
+ * @date 2023-12-06
+ * 
+ * @copyright Copyright (c) 2023
+ * 
+ */
+
 #ifndef FILEMANAGER_H
 #define FILEMANAGER_H
 

@@ -1,3 +1,14 @@
+/**
+ * @file StorageManager.h
+ * @author wruwami (wruwami@naver.com)
+ * @brief 스토리지 관리 매니저
+ * @version 0.1
+ * @date 2023-12-06
+ * 
+ * @copyright Copyright (c) 2023
+ * 
+ */
+
 #ifndef STORAGEMANAGER_H
 #define STORAGEMANAGER_H
 

@@ -1,3 +1,14 @@
+/**
+ * @file MovieViewerDialogSub.h
+ * @author wruwami (wruwami@naver.com)
+ * @brief QtAVPlayer를 통해 구현한 동영상 플레이어 다이얼로그
+ * @version 0.1
+ * @date 2023-12-06
+ * 
+ * @copyright Copyright (c) 2023
+ * 
+ */
+
 #ifndef MovieViewerDialogSub_H
 #define MovieViewerDialogSub_H
 

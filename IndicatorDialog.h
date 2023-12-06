@@ -1,3 +1,14 @@
+/**
+ * @file IndicatorDialog.h
+ * @author wruwami (wruwami@naver.com)
+ * @brief 메인메뉴의 인디케이터를 클릭할 때 나오는 다이얼로그
+ * @version 0.1
+ * @date 2023-12-06
+ * 
+ * @copyright Copyright (c) 2023
+ * 
+ */
+
 #ifndef INDICATORCAMERADIALOG_H
 #define INDICATORCAMERADIALOG_H
 

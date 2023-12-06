@@ -1,3 +1,14 @@
+/**
+ * @file LoginWidget.h
+ * @author wruwami (wruwami@naver.com)
+ * @brief Login화면을 구성하는 위젯
+ * @version 0.1
+ * @date 2023-12-06
+ * 
+ * @copyright Copyright (c) 2023
+ * 
+ */
+
 #ifndef LOGINWIDGET_H
 #define LOGINWIDGET_H
 

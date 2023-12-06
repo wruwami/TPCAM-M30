@@ -1,3 +1,14 @@
+/**
+ * @file RemoteController.h
+ * @author wruwami (wruwami@naver.com)
+ * @brief 
+ * @version 0.1
+ * @date 2023-12-06
+ * 
+ * @copyright Copyright (c) 2023
+ * 
+ */
+
 #ifndef REMOTECONTROLLER_H
 #define REMOTECONTROLLER_H
 

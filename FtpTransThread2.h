@@ -1,3 +1,14 @@
+/**
+ * @file FtpTransThread2.h
+ * @author wruwami (wruwami@naver.com)
+ * @brief 파일매니저 FTP 전송시 사용되는 쓰레드
+ * @version 0.1
+ * @date 2023-12-06
+ * 
+ * @copyright Copyright (c) 2023
+ * 
+ */
+
 #ifndef FTPTRANSTHREAD2_H
 #define FTPTRANSTHREAD2_H
 

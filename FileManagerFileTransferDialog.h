@@ -1,3 +1,14 @@
+/**
+ * @file FileManagerFileTransferDialog.h
+ * @author wruwami (wruwami@naver.com)
+ * @brief 파일매니저에서 사용되는 FTP, USB 전송을 표시하는 다이얼로그
+ * @version 0.1
+ * @date 2023-12-06
+ * 
+ * @copyright Copyright (c) 2023
+ * 
+ */
+
 #ifndef FILEMANAGERFILETRANSFERDIALOG_H
 #define FILEMANAGERFILETRANSFERDIALOG_H
 

@@ -1,3 +1,14 @@
+/**
+ * @file StringLoader.h
+ * @author wruwami (wruwami@naver.com)
+ * @brief 다국어 스트링 표시 및 관리 클래스
+ * @version 0.1
+ * @date 2023-12-06
+ * 
+ * @copyright Copyright (c) 2023
+ * 
+ */
+
 #ifndef STRINGLOADER_H
 #define STRINGLOADER_H
 

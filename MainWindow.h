@@ -1,3 +1,14 @@
+/**
+ * @file MainWindow.h
+ * @author wruwami (wruwami@naver.com)
+ * @brief 어플리케이션 바탕 위젯
+ * @version 0.1
+ * @date 2023-12-06
+ * 
+ * @copyright Copyright (c) 2023
+ * 
+ */
+
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 

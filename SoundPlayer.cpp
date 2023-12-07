@@ -11,7 +11,7 @@
 
 SoundPlayer::SoundPlayer(QString file_name)
 {
-    QString full_file_name = GeteMMCPath() + "/" + DEFAULT_PATH + "/" +  + "/" + file_name;
+    QString full_file_name = GeteMMCPath() + "/" + DEFAULT_PATH + "/" + file_name;
     m_AVplayer.setSource(full_file_name);
 }
 

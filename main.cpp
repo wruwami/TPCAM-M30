@@ -19,6 +19,7 @@
 #include "version.h"
 #include "GstShmMgr.h"
 #include "WidgetSize.h"
+#include "SoundPlayer.h"
 
 QString g_AppVersion = QString(SW_VER);
 
@@ -63,6 +64,9 @@ int main(int argc, char *argv[])
     Application::setFont(font);
 
     SetLogMsg(POWER_ON);
+
+    SoundPlayer soundPlayer("reboot_system.mp3");
+    soundPlayer.play();
 
     QFile file(":/style/default.qss");
     file.open(QFile::ReadOnly);

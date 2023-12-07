@@ -47,6 +47,7 @@ SOURCES += main.cpp\
     SerialPacket.cpp \
     SerialViscaManager.cpp \
     Setting4APWidget.cpp \
+    SoundPlayer.cpp \
     SpeedUnitManager.cpp \
     StillImageViewerDialog.cpp \
     StorageManager.cpp \
@@ -148,6 +149,7 @@ HEADERS  += MainWindow.h \
     SerialPacket.h \
     SerialViscaManager.h \
     Setting4APWidget.h \
+    SoundPlayer.h \
     SpeedUnitManager.h \
     StillImageViewerDialog.h \
     StorageManager.h \

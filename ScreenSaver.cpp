@@ -3,6 +3,7 @@
 #include <QDesktopWidget>
 
 #include "Logger.h"
+#include "SoundPlayer.h"
 screensaver::screensaver(QWidget *parent)
     : QWidget(parent)
 {
@@ -51,6 +52,9 @@ void screensaver::PowerOffTimerStop()
 
 void screensaver::PowerOff()
 {
+    SoundPlayer soundPlayer("byebye.mp3");
+    soundPlayer.play();
+
     SetLogMsg(POWER_OFF);
     system("sudo systemctl poweroff -i");
 }

@@ -1,5 +1,7 @@
 #include "Application.h"
 #include "ScreenSaver.h"
+#include "SoundPlayer.h"
+
 Application::Application(int &argc, char **argv):
     QApplication(argc,argv)
 {
@@ -9,6 +11,9 @@ bool Application::notify(QObject *obj, QEvent *e)
 {
     if(e->type() ==QEvent::MouseButtonPress )
     {
+        SoundPlayer soundPlayer("button.mp3");
+        soundPlayer.play();
+
         if (_screensaver->Getstart())
         {
             if(_screensaver->timeisactive())

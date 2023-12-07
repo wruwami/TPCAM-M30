@@ -40,6 +40,8 @@
 #include "SerialLaserManager.h"
 #include "EnforcementComponentWidget.h"
 #include "Logger.h"
+#include "SoundPlayer.h"
+
 //#include "EncryptionManager.h"
 
 template <typename T>
@@ -107,10 +109,12 @@ MainWindow::MainWindow(screensaver* screensaver, QWidget *parent) :
 
         if (!(selfTestWidget.m_nCamera == Pass && selfTestWidget.m_nLaser == Pass && selfTestWidget.m_nStorage == Pass && selfTestWidget.m_nBattery == Pass))
         {
+            SoundPlayer soundPlayer("no_memory_card.mp3");
+            soundPlayer.play();
+
             BaseDialog baseDialog(SelfTestWarningMessageWidgetType, selfTestWidget.m_nCamera, selfTestWidget.m_nLaser, selfTestWidget.m_nBattery, selfTestWidget.m_nStorage, Qt::AlignmentFlag::AlignCenter);
             if (baseDialog.exec() == QDialog::Rejected)
             {
-                SetLogMsg(POWER_OFF);
                 PowerOff();
             }
             m_bSelfTestFailed = true;
@@ -731,6 +735,11 @@ void MainWindow::CheckBatteryPercent()
     if(ltc.m_filteredVolt <dPowerOffVoltage)
     {
 //        OS 자동 종료
+//        PowerOff();
+
+        SoundPlayer soundPlayer("byebye.mp3");
+        soundPlayer.play();
+
         QProcess::startDetached("sudo shutdown -h now");
         SetLogMsg(POWER_OFF, "Battery low");
     }
@@ -818,6 +827,9 @@ void MainWindow::SelfTestFail(bool show)
 
 void MainWindow::PowerOff()
 {
+    SoundPlayer soundPlayer("byebye.mp3");
+    soundPlayer.play();
+
     SetLogMsg(POWER_OFF);
     system("sudo systemctl poweroff -i");
 }

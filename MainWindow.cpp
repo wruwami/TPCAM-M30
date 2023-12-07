@@ -29,7 +29,6 @@
 #include "StringLoader.h"
 #include "IndicatorCameraExposeWidget.h"
 #include "IndicatorCameraFocusWidget.h"
-#include "SelfTestDialog.h"
 #include "SerialGPSManager.h"
 #include "RemoteController.h"
 #include "FileManager.h"

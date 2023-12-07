@@ -23,7 +23,6 @@
 #include "EnforcementWarningMessageWidget.h"
 #include "FileManagerErrorMessageWidget.h"
 #include "FileManagerQuestionMessageWidget.h"
-#include "FileManagerFileTransferWidget.h"
 #include "SearchBoxWidget.h"
 #include "SdCardMemoryLack.h"
 #include "FileManager.h"
@@ -130,14 +129,6 @@ BaseDialog::BaseDialog(Dialog dialog, Qt::Alignment align, QString msg, bool isC
     {
         ui->verticalLayout->addWidget(new PasswordChangingWidget(false, this));
         ui->titleLabel->setText(LoadString("IDS_PASSWORD_CHANGING"));
-        ui->titleLabel->setAlignment(align);
-        setSize(1216, 684);
-    }
-        break;
-    case Dialog::NetworkPWWidgetType:
-    {
-        ui->verticalLayout->addWidget(new NetworkPWWidget(this));
-        ui->titleLabel->setText(LoadString("IDS_NETWORK_PW"));
         ui->titleLabel->setAlignment(align);
         setSize(1216, 684);
     }

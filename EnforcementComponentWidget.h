@@ -32,6 +32,7 @@
 #include "StorageManager.h"
 #include "base.h"
 #include "v4l2_thread.h"
+#include "SoundPlayer.h"
 
 enum Mode{
     Ready,
@@ -188,6 +189,7 @@ private:
     CustomLabel* m_pDistanceLabel;
 
     QTimer m_ManualTimer;
+    SoundPlayer snapshotSound = SoundPlayer("snapshot.mp3");
 //    QSharedPointer<QMutex> m_mutex;
 //    QSharedPointer<QQueue<QString>> m_FileQueue;
 protected slots:

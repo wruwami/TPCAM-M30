@@ -14,6 +14,7 @@
 
 #include <QMainWindow>
 #include "ltc2943.h"
+#include "SoundPlayer.h"
 
 
 enum WidgetType
@@ -149,6 +150,8 @@ private:
     QSize m_MainMenuWidgetSize;
     QString m_srFileFullName;
     QDate m_date;
+    SoundPlayer selfTestFailSound = SoundPlayer("no_memory_card.mp3");
+    SoundPlayer powerOffSound = SoundPlayer("byebye.mp3");
 
     // QObject interface
 protected:

@@ -17,6 +17,8 @@
 #include <QQueue>
 
 #include "ConfigManager.h"
+#include "SoundPlayer.h"
+
 
 class CustomPushButton;
 class CustomComboBox;
@@ -61,6 +63,8 @@ private:
     LightManager* m_pLightMager = nullptr;
     QString m_StrKeyboard;
     int m_nIndex = 0;
+    SoundPlayer powerOffSound = SoundPlayer("byebye.mp3");
+
 //    QQueue<QString> m_queue;
 private:
     Ui::LoginWidget *ui;

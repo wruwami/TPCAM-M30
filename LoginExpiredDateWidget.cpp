@@ -3,7 +3,6 @@
 #include "Logger.h"
 
 #include "StringLoader.h"
-#include "SoundPlayer.h"
 
 LoginExpiredDateWidget::LoginExpiredDateWidget(QDialog *parent) :
     QWidget(parent),
@@ -25,8 +24,7 @@ LoginExpiredDateWidget::~LoginExpiredDateWidget()
 
 void LoginExpiredDateWidget::on_pushButton_clicked()
 {
-    SoundPlayer soundPlayer("byebye.mp3");
-    soundPlayer.play();
+    powerOffSound.play();
 
     m_pParent->accept();
     SetLogMsg(POWER_OFF);

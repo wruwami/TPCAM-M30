@@ -15,6 +15,8 @@
 #include <QWidget>
 #include <QDialog>
 
+#include "SoundPlayer.h"
+
 namespace Ui {
 class LoginExpiredDateWidget;
 }
@@ -33,6 +35,8 @@ private slots:
 private:
     Ui::LoginExpiredDateWidget *ui;
     QDialog* m_pParent;
+    SoundPlayer powerOffSound = SoundPlayer("byebye.mp3");
+
 };
 
 #endif // LOGINEXPIREDDATEWIDGET_H

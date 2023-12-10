@@ -16,7 +16,6 @@
 #include "FileManager.h"
 #include "LightManager.h"
 #include "Logger.h"
-#include "SoundPlayer.h"
 
 extern QString g_AppVersion;
 
@@ -280,8 +279,7 @@ void LoginWidget::on_logoPushButton_clicked()
     if(nclick >= 3)
     {
         //        OS 자동 종료
-        SoundPlayer soundPlayer("byebye.mp3");
-        soundPlayer.play();
+        powerOffSound.play();
 
         QProcess::startDetached("sudo shutdown -h now");
         SetLogMsg(POWER_OFF, "logo in loginWidget clicked 3 times");

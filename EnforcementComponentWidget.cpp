@@ -17,7 +17,6 @@
 #include "BaseDialog.h"
 #include "Logger.h"
 #include "FtpTransThread.h"
-#include "SoundPlayer.h"
 
 using namespace TPCAM_M30;
 
@@ -1560,8 +1559,7 @@ void EnforcementComponentWidget::on_showCaptureSpeedDistance(float fSpeed, float
 //            disconnect(laser_packet, SIGNAL(sig_showDistance(float,int)), &m_hudManager.hud(), SLOT(showDistanceSensitivity(float, int)));
             QTimer::singleShot(500, this, SLOT(RestartSignal()));
 
-            SoundPlayer soundPlayer("snapshot.mp3");
-            soundPlayer.play();
+            snapshotSound.play();
 //            m_RedTimer.start(500);
 
 //            sleep(1);

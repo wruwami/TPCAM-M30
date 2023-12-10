@@ -16,6 +16,8 @@
 #include <QApplication>
 #include <QDebug>
 #include "ScreenSaver.h"
+#include "SoundPlayer.h"
+
 class Application : public QApplication
 {
 public:
@@ -24,6 +26,7 @@ public:
     screensaver* send();
 private:
     screensaver *_screensaver;
+    SoundPlayer soundPlayer = SoundPlayer("button.mp3");
 };
 
 #endif // APPLICATION_H

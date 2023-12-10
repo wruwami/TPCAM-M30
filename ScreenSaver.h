@@ -16,6 +16,9 @@
 #include <QtGui>
 #include <QLabel>
 #include <QWidget>
+
+#include "SoundPlayer.h"
+
 class screensaver:public QWidget
 {
     Q_OBJECT
@@ -40,6 +43,8 @@ private:
     qint64  time;
     bool m_bStart = false;
     bool m_bPowerSavingMode = false;
+    SoundPlayer powerOffSound = SoundPlayer("byebye.mp3");
+
 public slots:
     void PowerOff();
     void screensaverstart();

@@ -109,7 +109,7 @@ MainWindow::MainWindow(screensaver* screensaver, QWidget *parent) :
 
         if (!(selfTestWidget.m_nCamera == Pass && selfTestWidget.m_nLaser == Pass && selfTestWidget.m_nStorage == Pass && selfTestWidget.m_nBattery == Pass))
         {
-            selfTestFailSound.play();
+            selfTestFailSound->play();
 
             BaseDialog baseDialog(SelfTestWarningMessageWidgetType, selfTestWidget.m_nCamera, selfTestWidget.m_nLaser, selfTestWidget.m_nBattery, selfTestWidget.m_nStorage, Qt::AlignmentFlag::AlignCenter);
             if (baseDialog.exec() == QDialog::Rejected)
@@ -183,6 +183,10 @@ MainWindow::MainWindow(screensaver* screensaver, QWidget *parent) :
 
     HUDManager hud;
     hud.HUDClear();
+
+    selfTestFailSound = new SoundPlayer("no_memory_card.mp3");
+    powerOffSound = new SoundPlayer("byebye.mp3");
+
 //    EncryptionManager::GetInstance()->startEncrypt(GETSDPATH(AUTO));//바꿔야 함
 }
 
@@ -201,6 +205,8 @@ MainWindow::~MainWindow()
     }
 
 
+    delete selfTestFailSound;
+    delete powerOffSound;
     delete m_screensaver;
 
     delete m_pIndicatorWidget;
@@ -736,7 +742,7 @@ void MainWindow::CheckBatteryPercent()
 //        OS 자동 종료
 //        PowerOff();
 
-        powerOffSound.play();
+        powerOffSound->play();
 
         QProcess::startDetached("sudo shutdown -h now");
         SetLogMsg(POWER_OFF, "Battery low");
@@ -825,7 +831,7 @@ void MainWindow::SelfTestFail(bool show)
 
 void MainWindow::PowerOff()
 {
-    powerOffSound.play();
+    powerOffSound->play();
 
     SetLogMsg(POWER_OFF);
     system("sudo systemctl poweroff -i");

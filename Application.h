@@ -22,11 +22,12 @@ class Application : public QApplication
 {
 public:
     Application(int & argc, char ** argv);
+    virtual ~Application();
     bool notify(QObject *, QEvent *);
     screensaver* send();
 private:
     screensaver *_screensaver;
-    SoundPlayer soundPlayer = SoundPlayer("button.mp3");
+    SoundPlayer *soundPlayer;
 };
 
 #endif // APPLICATION_H

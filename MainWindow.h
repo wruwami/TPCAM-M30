@@ -150,8 +150,8 @@ private:
     QSize m_MainMenuWidgetSize;
     QString m_srFileFullName;
     QDate m_date;
-    SoundPlayer selfTestFailSound = SoundPlayer("no_memory_card.mp3");
-    SoundPlayer powerOffSound = SoundPlayer("byebye.mp3");
+    SoundPlayer* selfTestFailSound;
+    SoundPlayer* powerOffSound;
 
     // QObject interface
 protected:

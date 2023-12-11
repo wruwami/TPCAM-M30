@@ -2,18 +2,24 @@
 #include "ScreenSaver.h"
 
 #include "FileManager.h"
-#include <QSound>
 
 Application::Application(int &argc, char **argv):
     QApplication(argc,argv)
 {
    _screensaver=new screensaver;
+   soundPlayer = new SoundPlayer("button.mp3");
+}
+
+Application::~Application()
+{
+    delete _screensaver;
+    delete soundPlayer;
 }
 bool Application::notify(QObject *obj, QEvent *e)
 {
     if(e->type() ==QEvent::MouseButtonPress )
     {
-        soundPlayer.play();
+        soundPlayer->play();
 
         if (_screensaver->Getstart())
         {

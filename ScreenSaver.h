@@ -43,7 +43,7 @@ private:
     qint64  time;
     bool m_bStart = false;
     bool m_bPowerSavingMode = false;
-    SoundPlayer powerOffSound = SoundPlayer("byebye.mp3");
+    SoundPlayer *powerOffSound;
 
 public slots:
     void PowerOff();

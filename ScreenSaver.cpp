@@ -11,9 +11,11 @@ screensaver::screensaver(QWidget *parent)
     connect(backtimer,SIGNAL(timeout()),this,SLOT(screensaverstart()));
     powerofftimer = new QTimer(this);
     connect(powerofftimer,SIGNAL(timeout()),this,SLOT(PowerOff()));
+    powerOffSound = new SoundPlayer("byebye.mp3");
 }
 screensaver::~screensaver()
 {
+    delete powerOffSound;
     delete backtimer;
     delete powerofftimer;
 }
@@ -52,7 +54,7 @@ void screensaver::PowerOffTimerStop()
 
 void screensaver::PowerOff()
 {
-    powerOffSound.play();
+    powerOffSound->play();
 
     SetLogMsg(POWER_OFF);
     system("sudo systemctl poweroff -i");

@@ -35,7 +35,7 @@ private slots:
 private:
     Ui::LoginExpiredDateWidget *ui;
     QDialog* m_pParent;
-    SoundPlayer powerOffSound = SoundPlayer("byebye.mp3");
+    SoundPlayer *powerOffSound;
 
 };
 

@@ -33,15 +33,15 @@ SoundPlayer::SoundPlayer(QString file_name, QObject* parent) : QObject(parent)
 //    QSound::play(full_file_name);
 
 //    QFile sourceFile;   // class member.
-//    foreach (auto item, QAudioDeviceInfo::availableDevices(QAudio::AudioOutput))
-//    {
-//        if (item.deviceName() == "PDPSink")
-//        {
-//            m_device = item;
-//            break;
-//        }
-//    }
-    m_device = QAudioDeviceInfo::defaultOutputDevice();
+    foreach (auto item, QAudioDeviceInfo::availableDevices(QAudio::AudioOutput))
+    {
+        if (item.deviceName() == "default:CARD=rockchiprt5640c")
+        {
+            m_device = item;
+            break;
+        }
+    }
+//    m_device = QAudioDeviceInfo::defaultOutputDevice();
     audio = new QAudioOutput(m_device); // class member.
     {
         sourceFile.setFileName(full_file_name);

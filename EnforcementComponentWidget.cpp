@@ -222,7 +222,7 @@ EnforcementComponentWidget::EnforcementComponentWidget(QWidget *parent) :
 
     connect(&m_ManualTimer, SIGNAL(timeout()), this, SLOT(do_FileSystemWatcherTimer()));
 
-    snapshotSound = new SoundPlayer("snapshot.mp3");
+    snapshotSound = new SoundPlayer("snapshot.raw");
 //    int nSelDayNight = m_object2["day&night selection"].toInt();
 //    if( 0 < nSelDayNight && nSelDayNight < 4)
 //    {

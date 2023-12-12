@@ -65,6 +65,9 @@ MainWindow::MainWindow(screensaver* screensaver, QWidget *parent) :
 //    SelfTestDialog selfTestDialog;
 //    if (selfTestDialog.exec() == QDialog::Rejected)
 //        m_bLoginFail = true;
+    selfTestFailSound = new SoundPlayer("no_memory_card.raw");
+    powerOffSound = new SoundPlayer("byebye.raw");
+
     {
         QEventLoop loop;
         SelfTestWidget selfTestWidget;
@@ -183,9 +186,6 @@ MainWindow::MainWindow(screensaver* screensaver, QWidget *parent) :
 
     HUDManager hud;
     hud.HUDClear();
-
-    selfTestFailSound = new SoundPlayer("no_memory_card.mp3");
-    powerOffSound = new SoundPlayer("byebye.mp3");
 
 //    EncryptionManager::GetInstance()->startEncrypt(GETSDPATH(AUTO));//바꿔야 함
 }

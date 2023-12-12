@@ -89,7 +89,7 @@ LoginWidget::LoginWidget(QWidget *parent) :
     ui->userNameComboBox->setCurrentIndex(index);
     ui->userNameComboBox->setFontSize(23);
     m_pLightMager = new LightManager;
-    powerOffSound = new SoundPlayer("byebye.mp3");
+    powerOffSound = new SoundPlayer("byebye.raw");
 //    m_userName = ui->userNameComboBox->it;
 }
 

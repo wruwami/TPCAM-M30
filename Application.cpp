@@ -7,7 +7,7 @@ Application::Application(int &argc, char **argv):
     QApplication(argc,argv)
 {
    _screensaver=new screensaver;
-   soundPlayer = new SoundPlayer("button.mp3");
+   soundPlayer = new SoundPlayer("button.raw");
 }
 
 Application::~Application()

@@ -316,11 +316,11 @@ QString FileManager::GetFileName(PrefixType prefix, stEnforcementInfo enforceInf
 
 QString FileManager::GeteMMCPath()
 {
-//    QDir dir;
-//    return dir.absolutePath()/* + DEFAULT_FILE_PATH*/;
+    QDir dir;
+    return dir.absolutePath()/* + DEFAULT_FILE_PATH*/;
 //    StorageManager storageManager;
 //    return storageManager.GetEMMCPath();
-    return "/userdata/TPCAM-M30";
+//    return "/userdata/TPCAM-M30";
 }
 
 QString FileManager::GetSDPath()

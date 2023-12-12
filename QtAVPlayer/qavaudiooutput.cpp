@@ -149,7 +149,16 @@ public:
     void init(const QAudioFormat &fmt)
     {
 #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
-        auto audioDevice = QAudioDeviceInfo::defaultOutputDevice();
+        QAudioDeviceInfo audioDevice;
+        foreach (auto item, QAudioDeviceInfo::availableDevices(QAudio::AudioOutput))
+        {
+            if (item.deviceName() == "default")
+            {
+                audioDevice = item;
+                break;
+            }
+        }
+//        auto audioDevice = QAudioDeviceInfo::defaultOutputDevice();
 #else
         auto audioDevice = QMediaDevices::defaultAudioOutput();
 #endif

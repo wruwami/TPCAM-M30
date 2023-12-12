@@ -15,7 +15,7 @@ LoginExpiredDateWidget::LoginExpiredDateWidget(QDialog *parent) :
     ui->pushButton->setText(LoadString("IDS_POWER_OFF"));
     ui->pushButton->setFontSize(23);
     m_pParent = parent;
-    powerOffSound = new SoundPlayer("byebye.mp3");
+    powerOffSound = new SoundPlayer("byebye.raw");
 }
 
 LoginExpiredDateWidget::~LoginExpiredDateWidget()

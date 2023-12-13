@@ -30,6 +30,8 @@ private:
     QDataStream* s = nullptr;
 protected slots:
     void handleStateChanged(QAudio::State);
+signals:
+    void audioStop();
 };
 
 #endif // SOUNDPLAYER_H

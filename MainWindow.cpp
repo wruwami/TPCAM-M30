@@ -742,7 +742,10 @@ void MainWindow::CheckBatteryPercent()
 //        OS 자동 종료
 //        PowerOff();
 
+        QEventLoop loop;
         powerOffSound->play();
+        connect(powerOffSound, SIGNAL(audioStop()), &loop, SLOT(quit()));
+        loop.exec();
 
         QProcess::startDetached("sudo shutdown -h now");
         SetLogMsg(POWER_OFF, "Battery low");
@@ -831,7 +834,10 @@ void MainWindow::SelfTestFail(bool show)
 
 void MainWindow::PowerOff()
 {
+    QEventLoop loop;
     powerOffSound->play();
+    connect(powerOffSound, SIGNAL(audioStop()), &loop, SLOT(quit()));
+    loop.exec();
 
     SetLogMsg(POWER_OFF);
     system("sudo systemctl poweroff -i");

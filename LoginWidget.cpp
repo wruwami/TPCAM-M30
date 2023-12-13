@@ -89,7 +89,7 @@ LoginWidget::LoginWidget(QWidget *parent) :
     ui->userNameComboBox->setCurrentIndex(index);
     ui->userNameComboBox->setFontSize(23);
     m_pLightMager = new LightManager;
-    powerOffSound = new SoundPlayer("byebye.raw");
+//    powerOffSound = new SoundPlayer("byebye.raw");
 //    m_userName = ui->userNameComboBox->it;
 }
 
@@ -280,7 +280,10 @@ void LoginWidget::on_logoPushButton_clicked()
     if(nclick >= 3)
     {
         //        OS 자동 종료
+        QEventLoop loop;
         powerOffSound->play();
+        connect(powerOffSound, SIGNAL(audioStop()), &loop, SLOT(quit()));
+        loop.exec();
 
         QProcess::startDetached("sudo shutdown -h now");
         SetLogMsg(POWER_OFF, "logo in loginWidget clicked 3 times");

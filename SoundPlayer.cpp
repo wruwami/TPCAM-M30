@@ -3,6 +3,7 @@
 #include "unistd.h"
 
 #include <QString>
+#include <QEventLoop>
 
 #include <QAudioOutput>
 #include <QFile>
@@ -94,44 +95,10 @@ SoundPlayer::SoundPlayer(QString file_name, QObject* parent) : QObject(parent)
 
 void SoundPlayer::play()
 {
-//    m_buffer->close();
-//    m_buffer->open(QIODevice::ReadOnly | QIODevice::Unbuffered);
-//    QDataStream s(m_buffer);
-//    if (m_buffer->device()->isReadable())
-//    m_buffer->open(QIODevice::ReadWrite | QIODevice::Unbuffered);
-//    if (s)
-//    {
-//        delete s;
-//        s = nullptr;
-//    }
-//    s = new QDataStream(ba);
-//    qDebug() << s->device().;
-//    s->device()->seek(0);
-//    qDebug() << s->device()->pos();
-//    audio->start(s->device());
-//    QDataStream st = QDataStream(ba);
-
-//    if(sourceFile.isOpen()==false)
-//    {
-//        audio->stop();
-//        sourceFile.close();
-//        qDebug() << sourceFile.open(QIODevice::ReadOnly);
-//        audio->start(&sourceFile);
-//    }
     qDebug() << audio->bufferSize();
     s->device()->seek(0);
     audio->start(s->device());
 
-//    if (!m_buffer->isOpen())
-//        m_buffer->open(QIODevice::ReadOnly);
-//    m_buffer->seek(0);
-//    qDebug() << m_buffer->buffer();
-//    audio->start(m_buffer);
-
-    //    sleep(10);
-//    m_buffer->close();
-//    m_buffer->close();
-//    sourceFile.close();
         //    m_AVplayer.play();
 }
 
@@ -141,6 +108,7 @@ void SoundPlayer::handleStateChanged(QAudio::State state)
         case QAudio::IdleState:
             // Finished playing (no more data)
             audio->stop();
+            emit audioStop();
 //            sourceFile.close();
 //            delete audio;
             break;

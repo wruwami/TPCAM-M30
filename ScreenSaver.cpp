@@ -54,7 +54,10 @@ void screensaver::PowerOffTimerStop()
 
 void screensaver::PowerOff()
 {
+    QEventLoop loop;
     powerOffSound->play();
+    connect(powerOffSound, SIGNAL(audioStop()), &loop, SLOT(quit()));
+    loop.exec();
 
     SetLogMsg(POWER_OFF);
     system("sudo systemctl poweroff -i");

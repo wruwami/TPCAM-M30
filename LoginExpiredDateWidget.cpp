@@ -2,6 +2,8 @@
 #include "ui_LoginExpiredDateWidget.h"
 #include "Logger.h"
 
+#include "unistd.h"
+
 #include "StringLoader.h"
 
 LoginExpiredDateWidget::LoginExpiredDateWidget(QDialog *parent) :
@@ -26,7 +28,10 @@ LoginExpiredDateWidget::~LoginExpiredDateWidget()
 
 void LoginExpiredDateWidget::on_pushButton_clicked()
 {
+    QEventLoop loop;
     powerOffSound->play();
+    connect(powerOffSound, SIGNAL(audioStop()), &loop, SLOT(quit()));
+    loop.exec();
 
     m_pParent->accept();
     SetLogMsg(POWER_OFF);

@@ -21,11 +21,9 @@ private:
 //    QAVPlayer m_AVplayer;
 //    QAVAudioOutput m_output = QAVAudioOutput(this);
     QFile sourceFile;   // class member.
-    QAudioOutput* audio; // class member.
+    QAudioOutput* audio = nullptr; // class member.
     QAudioDeviceInfo m_device;
     QAudioFormat format;
-    QString m_full_file_name;
-    QBuffer *m_buffer;
     QByteArray ba;
     QDataStream* s = nullptr;
 protected slots:

@@ -29,13 +29,13 @@ SoundPlayer::SoundPlayer(QString file_name, QObject* parent) : QObject(parent)
     s = new QDataStream(ba);
     sourceFile.close();
 //    sourceFile.close();
-    m_buffer = new QBuffer;
-    m_buffer->open(QIODevice::ReadWrite);
-    m_buffer->seek(0);
-    m_buffer->setData(ba);
-    qDebug() << m_buffer->buffer();
-    m_buffer->close();
-    qDebug() << m_buffer->buffer();
+//    m_buffer = new QBuffer;
+//    m_buffer->open(QIODevice::ReadWrite);
+//    m_buffer->seek(0);
+//    m_buffer->setData(ba);
+//    qDebug() << m_buffer->buffer();
+//    m_buffer->close();
+//    qDebug() << m_buffer->buffer();
 //    m_buffer->close();
     //    m_buffer.setData(sourceFile.readAll());
 //    m_buffer.close();
@@ -55,7 +55,6 @@ SoundPlayer::SoundPlayer(QString file_name, QObject* parent) : QObject(parent)
 
 //    QSound::play(full_file_name);
 
-//    QFile sourceFile;   // class member.
     foreach (auto item, QAudioDeviceInfo::availableDevices(QAudio::AudioOutput))
     {
         if (item.deviceName() == "default:CARD=rockchiprt5640c")
@@ -95,11 +94,10 @@ SoundPlayer::SoundPlayer(QString file_name, QObject* parent) : QObject(parent)
 
 void SoundPlayer::play()
 {
-    qDebug() << audio->bufferSize();
+    if (!audio)
+        return;
     s->device()->seek(0);
     audio->start(s->device());
-
-        //    m_AVplayer.play();
 }
 
 void SoundPlayer::handleStateChanged(QAudio::State state)

@@ -207,7 +207,7 @@ MainWindow::~MainWindow()
 
     delete selfTestFailSound;
     delete powerOffSound;
-    delete m_screensaver;
+//    delete m_screensaver;
 
     delete m_pIndicatorWidget;
 //    if (m_pLoginWidget != nullptr)

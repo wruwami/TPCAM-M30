@@ -16,6 +16,7 @@ class SoundPlayer : public QObject
     Q_OBJECT
 public:
     explicit SoundPlayer(QString, QObject *parent = 0);
+    virtual ~SoundPlayer();
     void play();
 private:
 //    QAVPlayer m_AVplayer;

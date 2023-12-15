@@ -82,14 +82,19 @@ SoundPlayer::SoundPlayer(QString file_name, QObject* parent) : QObject(parent)
         }
 
         audio = new QAudioOutput(m_device, format);
-//        audio->setBufferSize(32768);
-//        if (audio->error() != QAudio::NoError) {
-//            qDebug() << "Problem playing sound";
-//        }
+        if (audio->error() != QAudio::NoError) {
+            qDebug() << "Problem playing sound";
+        }
 //        audio->setNotifyInterval(1);
         connect(audio, SIGNAL(stateChanged(QAudio::State)), this, SLOT(handleStateChanged(QAudio::State)));
 
     }
+}
+
+SoundPlayer::~SoundPlayer()
+{
+    delete audio;
+    delete s;
 }
 
 void SoundPlayer::play()

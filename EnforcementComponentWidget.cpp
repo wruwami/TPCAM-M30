@@ -1931,6 +1931,10 @@ void EnforcementComponentWidget::on_saveImagePushButton_clicked()
     enforceInfo.vehicle = m_nVehicleMode;
     enforceInfo.zoom_index = m_nZoomIndex;
 //    m_pCamera->SaveImage(enforceInfo, MANUAL_CAPTURE);
+    QDateTime datetime = QDateTime::currentDateTime();
+    enforceInfo.date = datetime.toString("yyyyMMdd");
+    enforceInfo.time = QString(datetime.toString("hhmmss") + QString::number(datetime.time().msec())[0]);
+
     QPixmap pixmap = m_pCamera->grab();
     pixmap.save(GETSDPATH(MANUAL_CAPTURE) + "/" +GetFileName(MC, enforceInfo));
 }
@@ -1978,6 +1982,9 @@ void EnforcementComponentWidget::VModeVideoSave()
     enforceInfo.enforceMode = m_nEnforcementMode;
     enforceInfo.vehicle = m_nVehicleMode;
     enforceInfo.zoom_index = m_nZoomIndex + 1;
+    QDateTime datetime = QDateTime::currentDateTime();
+    enforceInfo.date = datetime.toString("yyyyMMdd");
+    enforceInfo.time = QString(datetime.toString("hhmmss") + QString::number(datetime.time().msec())[0]);
 
     m_pCamera->SaveVideo(VV, enforceInfo, VIDEO);
 }

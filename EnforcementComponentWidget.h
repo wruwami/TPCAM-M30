@@ -86,6 +86,8 @@ public:
     void camInit();
     void SetCamera(Camera* camera);
     void setMainMenuSize(QSize);
+    void zoomRange();
+
 private:
     void hide(bool);
     void show(bool);
@@ -111,7 +113,6 @@ private:
     void displayHudSpeedDistance(bool, bool, bool, bool);
     void displayHudDistance(bool, bool);
     void SetLaserDetectionAreaDistance(int);
-    void zoomRange();
     void zoomRangeWithoutIncrement();
     void initRec();
     void setVehicleMode();

@@ -1114,6 +1114,60 @@ void EnforcementComponentWidget::zoomRange()
     SetLaserDetectionAreaDistance(m_nZoomIndex + 1);
 }
 
+void EnforcementComponentWidget::zoomRangeMinus()
+{
+    if(m_nEnforcementMode == V)
+        return;
+    disconnect(m_pSerialLaserManager->getLaser_packet(), SIGNAL(sig_showDistance(float,int)), this, SLOT(doVModeZFControl(float, int)) );
+    //    int zoom_index = 0;
+    if (m_UserModeOn)
+    {
+        m_nZoomIndex--;
+        if (m_nZoomIndex <= 0)
+            m_nZoomIndex = m_stmetervector.size() - 1;
+
+        //        zoom_index = m_nZoomIndex;
+        if (distance() == meter)
+        {
+            ui->zoomRangePushButton->setText(m_stmetervector[m_nZoomIndex]+distanceValue());
+        }
+        else
+        {
+            ui->zoomRangePushButton->setText(m_stfeetvector[m_nZoomIndex]+distanceValue());
+        }
+    }
+    else
+    {
+        m_nZoomIndex--;
+        if (m_nZoomIndex <= 0)
+            m_nZoomIndex = m_ltmetervector.size() - 1;
+
+        //        zoom_index = m_nZoomIndex;
+        if (distance() == meter)
+        {
+            ui->zoomRangePushButton->setText(m_ltmetervector[m_nZoomIndex]+distanceValue());
+        }
+        else
+        {
+            ui->zoomRangePushButton->setText(m_ltfeetvector[m_nZoomIndex]+distanceValue());
+        }
+    }
+
+    qDebug() << "zoom_index" << m_nZoomIndex;
+    m_pSerialViscaManager->SetZoom(m_nZoomIndex);
+    m_pSerialViscaManager->SetFocus(m_nZoomIndex);
+    m_pSerialViscaManager->SetDZoom(m_nZoomIndex);
+
+    SetLogMsg(BUTTON_CLICKED, "ZOOM_INDEX, " + ui->zoomRangePushButton->text());
+    ConfigManager con = ConfigManager("parameter_enforcement.json");
+    QJsonObject object = con.GetConfig();
+    object["zoom index"] = (int)m_nZoomIndex + 1;
+    con.SetConfig(object);
+    con.SaveFile();
+
+    SetLaserDetectionAreaDistance(m_nZoomIndex + 1);
+}
+
 void EnforcementComponentWidget::zoomRangeWithoutIncrement()
 {
     if(m_nEnforcementMode == V)

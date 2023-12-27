@@ -693,6 +693,8 @@ void MainWindow::OpenMainMenu()
         m_pMainMenuContentWidget = nullptr;
     }
 
+    m_pMainMenuWidget->setTransparentBackGround(false);
+
 //    if (m_pCameraAlignWidget)
 //    {
 //        delete m_pCameraAlignWidget;
@@ -1178,7 +1180,6 @@ void MainWindow::doForthAction()
     object["enforcement selection"] = enforcement;
     config.SetConfig(object);
     config.SaveFile();
-
 }
 
 void MainWindow::do5thAction()
@@ -1238,7 +1239,6 @@ void MainWindow::do9thAction()
         strCommand = QString("sudo ffmpeg -f x11grab -y -r 10 -s %0 -i :0.0 -vcodec huffyuv %1").arg(resolution).arg(file_name);
         std::thread thread_command(thread_CommandExcute2, strCommand);
         thread_command.detach();
-        system(strCommand.toStdString().c_str());
 
         m_pIndicatorWidget->m_pScreenRecordPushButton->setImage("indicator", "screen recording_off.jpg");
 
@@ -1706,7 +1706,7 @@ void MainWindow::doFirstAction()
     if (m_widgetType != Enforcement)
         return;
 
-    m_pEnforcementWidget->m_pEnforcementComponentWidget->dzPlus();
+    m_pEnforcementWidget->m_pEnforcementComponentWidget->zoomRange();
 
 }
 
@@ -1715,7 +1715,7 @@ void MainWindow::doSecondAction()
     if (m_widgetType != Enforcement)
         return;
 
-    m_pEnforcementWidget->m_pEnforcementComponentWidget->dzMinus();
+    m_pEnforcementWidget->m_pEnforcementComponentWidget->zoomRangeMinus();
 }
 
 void MainWindow::mousePressEvent(QMouseEvent *event)

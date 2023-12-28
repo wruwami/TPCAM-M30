@@ -1320,6 +1320,13 @@ void MainWindow::OpenFileManagement()
             m_pEnforcementWidget = nullptr;
         }
     }
+
+    if (m_pCamera)
+    {
+        delete m_pCamera;
+        m_pCamera = nullptr;
+    }
+
     if (m_widgetType != Enforcement && m_widgetType != Setting)
         return;
 

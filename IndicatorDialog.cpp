@@ -411,6 +411,10 @@ void IndicatorDialog::hideEvent(QHideEvent *event)
 
 void IndicatorDialog::showEvent(QShowEvent *event)
 {
+    ConfigManager m_configManager1 = ConfigManager("parameter_setting1.json");
+    ConfigManager m_configManager2 = ConfigManager("parameter_setting2.json");
+    ConfigManager m_configManager3 = ConfigManager("exposure.json");
+    ConfigManager m_configManager4 = ConfigManager("focus.json");
     m_jsonObject1 = m_configManager1.GetConfig();
     m_jsonObject2 = m_configManager2.GetConfig();
     m_jsonObject3 = m_configManager3.GetConfig();

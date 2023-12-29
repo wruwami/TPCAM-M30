@@ -303,40 +303,17 @@ void IndicatorDialog::on_enforcementPushButton_clicked()
 
 void IndicatorDialog::on_enforcementIPushButton_clicked()
 {
-    ui->enforcementPushButton->setImage("indicator", "indicator_mode_i.jpg");
-    m_jsonObject1["enforcement selection"] = 1;
-    m_pMainMenuWidget->setIndicatorImage(m_pMainMenuWidget->m_pEnforcementPushbutton, "indicator", "indicator_mode_i.jpg");
-
-    SetLogMsg(INDICATOR_CLICKED, "ENFORCEMENT MODE I");
-
-    if (m_bEnforcement)
-        emit sig_EnforcementModeI();
-
-
+    enforcementIMode();
 }
 
 void IndicatorDialog::on_enforcementAPushButton_clicked()
 {
-    ui->enforcementPushButton->setImage("indicator", "indicator_mode_a.jpg");
-    m_jsonObject1["enforcement selection"] = 2;
-    m_pMainMenuWidget->setIndicatorImage(m_pMainMenuWidget->m_pEnforcementPushbutton, "indicator", "indicator_mode_a.jpg");
-
-    SetLogMsg(INDICATOR_CLICKED, "ENFORCEMENT MODE A");
-
-    if (m_bEnforcement)
-        emit sig_EnforcementModeA();
+    enforcementAMode();
 }
 
 void IndicatorDialog::on_enforcementVPushButton_clicked()
 {
-    ui->enforcementPushButton->setImage("indicator", "indicator_mode_v.jpg");
-    m_jsonObject1["enforcement selection"] = 3;
-    m_pMainMenuWidget->setIndicatorImage(m_pMainMenuWidget->m_pEnforcementPushbutton, "indicator", "indicator_mode_v.jpg");
-
-    SetLogMsg(INDICATOR_CLICKED, "ENFORCEMENT MODE V");
-
-    if (m_bEnforcement)
-        emit sig_EnforcementModeV();
+    enforcementVMode();
 }
 
 void IndicatorDialog::on_weatherPushButton_clicked()
@@ -1135,6 +1112,45 @@ void IndicatorDialog::on_clicked_rainy()
 void IndicatorDialog::setIndicatorImage(CustomPushButton* pCustomButton, QString path_name, QString file_name)
 {
     pCustomButton->setImage(path_name, file_name);
+}
+
+void IndicatorDialog::enforcementIMode()
+{
+    ui->enforcementPushButton->setImage("indicator", "indicator_mode_i.jpg");
+    m_jsonObject1["enforcement selection"] = 1;
+    m_pMainMenuWidget->setIndicatorImage(m_pMainMenuWidget->m_pEnforcementPushbutton, "indicator", "indicator_mode_i.jpg");
+
+    SetLogMsg(INDICATOR_CLICKED, "ENFORCEMENT MODE I");
+
+    if (m_bEnforcement)
+        emit sig_EnforcementModeI();
+
+}
+
+void IndicatorDialog::enforcementAMode()
+{
+    ui->enforcementPushButton->setImage("indicator", "indicator_mode_a.jpg");
+    m_jsonObject1["enforcement selection"] = 2;
+    m_pMainMenuWidget->setIndicatorImage(m_pMainMenuWidget->m_pEnforcementPushbutton, "indicator", "indicator_mode_a.jpg");
+
+    SetLogMsg(INDICATOR_CLICKED, "ENFORCEMENT MODE A");
+
+    if (m_bEnforcement)
+        emit sig_EnforcementModeA();
+
+}
+
+void IndicatorDialog::enforcementVMode()
+{
+    ui->enforcementPushButton->setImage("indicator", "indicator_mode_v.jpg");
+    m_jsonObject1["enforcement selection"] = 3;
+    m_pMainMenuWidget->setIndicatorImage(m_pMainMenuWidget->m_pEnforcementPushbutton, "indicator", "indicator_mode_v.jpg");
+
+    SetLogMsg(INDICATOR_CLICKED, "ENFORCEMENT MODE V");
+
+    if (m_bEnforcement)
+        emit sig_EnforcementModeV();
+
 }
 
 void IndicatorDialog::timerEvent(QTimerEvent *event)

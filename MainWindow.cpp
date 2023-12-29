@@ -1180,6 +1180,28 @@ void MainWindow::doForthAction()
     object["enforcement selection"] = enforcement;
     config.SetConfig(object);
     config.SaveFile();
+
+    if (m_widgetType != Enforcement)
+        return;
+
+    switch (enforcement)
+    {
+    case 1:
+    {
+        m_pIndicatorWidget->enforcementIMode();
+    }
+        break;
+    case 2:
+    {
+        m_pIndicatorWidget->enforcementAMode();
+    }
+        break;
+    case 3:
+    {
+        m_pIndicatorWidget->enforcementVMode();
+    }
+        break;
+    }
 }
 
 void MainWindow::do5thAction()

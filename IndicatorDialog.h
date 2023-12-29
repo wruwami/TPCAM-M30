@@ -52,6 +52,9 @@ public:
     bool GetWifiStatus();
     void SetMainMenu(MainMenuWidget*);
     void setIndicatorImage(CustomPushButton* pCustomButton, QString path_name, QString file_name);
+    void enforcementIMode();
+    void enforcementAMode();
+    void enforcementVMode();
 public slots:
     void dnnComboboxIndexChangedFromExpose(int);
 private:

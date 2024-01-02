@@ -1349,7 +1349,7 @@ void MainWindow::OpenFileManagement()
         m_pCamera = nullptr;
     }
 
-    if (m_widgetType != Enforcement && m_widgetType != Setting)
+    if (m_widgetType != Enforcement && m_widgetType != Setting && m_widgetType != MainMenu)
         return;
 
     m_widgetType = FileManager;
@@ -1370,6 +1370,8 @@ void MainWindow::OpenFileManagement()
     ui->verticalLayout->addWidget(new FileManagerWidget, 835);
 
     m_pMainMenuWidget->setMainMenuImage("Main_menu", "home_big_n.bmp");
+    m_pMainMenuWidget->setTransparentBackGround(false);
+
 
 }
 

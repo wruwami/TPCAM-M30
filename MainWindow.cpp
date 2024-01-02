@@ -1181,8 +1181,8 @@ void MainWindow::doForthAction()
     config.SetConfig(object);
     config.SaveFile();
 
-    if (m_widgetType != Enforcement)
-        return;
+//    if (m_widgetType != Enforcement)
+//        return;
 
     switch (enforcement)
     {

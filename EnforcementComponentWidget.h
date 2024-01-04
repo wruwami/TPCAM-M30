@@ -91,7 +91,7 @@ public:
     void SetCamera(Camera* camera);
     void setMainMenuSize(QSize);
     void zoomRange();
-
+    void zoomRangeMinus();
 private:
     void hide(bool);
     void show(bool);

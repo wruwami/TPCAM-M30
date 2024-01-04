@@ -384,12 +384,6 @@ void MainWindow::showIndicator(bool isShow)
     m_pMainMenuWidget->showIndicator(isShow);
 }
 
-void MainWindow::setWarningMode()
-{
-    m_nFailTimerId = startTimer(1000);
-
-}
-
 void MainWindow::SetWindowWarningMode()
 {
 //    setBackGroundColor(ui->centralWidget, Qt::red);
@@ -1180,6 +1174,28 @@ void MainWindow::doForthAction()
     object["enforcement selection"] = enforcement;
     config.SetConfig(object);
     config.SaveFile();
+
+//    if (m_widgetType != Enforcement)
+//        return;
+
+    switch (enforcement)
+    {
+    case 1:
+    {
+        m_pIndicatorWidget->enforcementIMode();
+    }
+        break;
+    case 2:
+    {
+        m_pIndicatorWidget->enforcementAMode();
+    }
+        break;
+    case 3:
+    {
+        m_pIndicatorWidget->enforcementVMode();
+    }
+        break;
+    }
 }
 
 void MainWindow::do5thAction()
@@ -1320,7 +1336,14 @@ void MainWindow::OpenFileManagement()
             m_pEnforcementWidget = nullptr;
         }
     }
-    if (m_widgetType != Enforcement && m_widgetType != Setting)
+
+    if (m_pCamera)
+    {
+        delete m_pCamera;
+        m_pCamera = nullptr;
+    }
+
+    if (m_widgetType != Enforcement && m_widgetType != Setting && m_widgetType != MainMenu)
         return;
 
     m_widgetType = FileManager;
@@ -1341,6 +1364,8 @@ void MainWindow::OpenFileManagement()
     ui->verticalLayout->addWidget(new FileManagerWidget, 835);
 
     m_pMainMenuWidget->setMainMenuImage("Main_menu", "home_big_n.bmp");
+    m_pMainMenuWidget->setTransparentBackGround(false);
+
 
 }
 

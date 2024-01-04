@@ -22,6 +22,10 @@ namespace Ui {
 class IndicatorCameraFocusWidget;
 }
 
+/**
+ * @brief 인디케이터 카메라에서 포커스에 해당하는 위젯 클래스
+ * 
+ */
 class IndicatorCameraFocusWidget : public QDialog
 {
     Q_OBJECT

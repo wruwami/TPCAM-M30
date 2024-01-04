@@ -31,6 +31,10 @@ namespace Ui {
 class FileManagerFileTransferDialog;
 }
 
+/**
+ * @brief 열전사 프린터 연결 실패 시 메시지 보여주는 다이얼로그 클래스
+ * 
+ */
 class FileManagerFileTransferDialog : public QDialog
 {
     Q_OBJECT

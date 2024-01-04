@@ -20,6 +20,10 @@ namespace Ui {
 class MainMenuContentWidget;
 }
 
+/**
+ * @brief 일반 유저로 로그인하면 나오는 화면 위젯 클래스
+ * 
+ */
 class MainMenuContentWidget : public QWidget
 {
     Q_OBJECT

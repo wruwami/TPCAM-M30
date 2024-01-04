@@ -19,6 +19,10 @@ namespace Ui {
 class HomeButtonWidget;
 }
 
+/**
+ * @brief 메인메뉴 홈버튼 위젯 클래스
+ * 
+ */
 class HomeButtonWidget : public QWidget
 {
     Q_OBJECT

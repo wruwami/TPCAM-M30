@@ -49,6 +49,10 @@ enum SystemLogType
 
 };
 
+/**
+ * @brief Log를 관리하는 클래스
+ * 
+ */
 class Logger
 {
 private:

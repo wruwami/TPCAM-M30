@@ -28,6 +28,10 @@ namespace Ui {
 class DateTimeWidget;
 }
 
+/**
+ * @brief DateTime 설정하는 위젯 클래스
+ * 
+ */
 class DateTimeWidget : public QWidget
 {
     Q_OBJECT

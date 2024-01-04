@@ -27,6 +27,10 @@ namespace Ui {
 class LoginWidget;
 }
 
+/**
+ * @brief Login화면을 구성하는 위젯 클래스
+ * 
+ */
 class LoginWidget : public QWidget
 {
     Q_OBJECT

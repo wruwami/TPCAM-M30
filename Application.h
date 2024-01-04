@@ -18,6 +18,10 @@
 #include "ScreenSaver.h"
 #include "SoundPlayer.h"
 
+/**
+ * @brief QApplication 상속받아 파워 세이버 기능 추가한 클래스
+ * 
+ */
 class Application : public QApplication
 {
 public:

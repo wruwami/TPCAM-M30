@@ -33,6 +33,10 @@ namespace Ui {
 class CameraAlignWidget;
 }
 
+/**
+ * @brief admin-align유저가 laser, hud align 기능을 수행할 수 있는 위젯 클래스
+ * 
+ */
 class CameraAlignWidget : public QWidget
 {
     Q_OBJECT

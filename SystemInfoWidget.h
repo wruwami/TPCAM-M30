@@ -19,6 +19,10 @@ namespace Ui {
 class SystemInfoWidget;
 }
 
+/**
+ * @brief 시스템 정보 화면 위젯 클래스
+ * 
+ */
 class SystemInfoWidget : public QWidget
 {
     Q_OBJECT

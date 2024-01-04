@@ -19,6 +19,10 @@ namespace Ui {
 class FileManagerQuestionMessageWidget;
 }
 
+/**
+ * @brief 파일매니저에서 SDCard 삭제 시 표시되는 위젯 클래스
+ * 
+ */
 class FileManagerQuestionMessageWidget : public QWidget
 {
     Q_OBJECT

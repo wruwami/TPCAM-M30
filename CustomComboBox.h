@@ -14,6 +14,10 @@
 
 #include <QComboBox>
 
+/**
+ * @brief QComboBox 상속하여 공통으로 사용하는 ComboBox 위젯
+ * 
+ */
 class CustomComboBox : public QComboBox
 {
     Q_OBJECT

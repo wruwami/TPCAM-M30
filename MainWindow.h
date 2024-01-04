@@ -50,6 +50,10 @@ namespace Ui {
 class MainWindow;
 }
 
+/**
+ * @brief 어플리케이션 바탕 위젯 클래스
+ * 
+ */
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
@@ -60,12 +64,28 @@ public:
     friend class RemoteController;
     void get(screensaver *f);
 private:
+/**
+ * @brief 메인메뉴 초기화 함수
+ * 
+ */
     void initializeMainMenuWidget();
+/**
+ * @brief 로그인 위젯 초기화 함수
+ * 
+ */
     void initializeLoginWidget();
     void finalize();
+/**
+ * @brief 인디케이터 창 보여주는 함수
+ * 
+ */
     void open_indicator_widget();
     void removeseconditem();
     void removeseconditem(QWidget*&);
+/**
+ * @brief 인디케이터 창 보여주는 함수(파라미터를 통해 선택)
+ *
+ */
     void showIndicator(bool);
     void setWarningMode();
     void SetWindowWarningMode();

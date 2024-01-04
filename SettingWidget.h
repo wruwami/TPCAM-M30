@@ -30,6 +30,10 @@ class Setting4STAWidget;
 class Setting5Widget;
 class Setting6Widget;
 class Setting7Widget;
+/**
+ * @brief 세팅 화면 위젯 클래스
+ * 
+ */
 class SettingWidget : public QWidget
 {
     Q_OBJECT

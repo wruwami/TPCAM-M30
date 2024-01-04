@@ -24,6 +24,10 @@ enum Shape
 
 };
 
+/**
+ * @brief CHeadUpDisplay를 wrapping 해서 HUD를 쓰기 편하게 만든 클래스
+ * 
+ */
 class HUDManager
 {
 public:

@@ -1,7 +1,7 @@
 /**
  * @file RemoteController.h
  * @author wruwami (wruwami@naver.com)
- * @brief 
+ * @brief RemoteControllerWorker를 구동시키는 클래스
  * @version 0.1
  * @date 2023-12-06
  * 
@@ -18,6 +18,10 @@
 
 class QThread;
 class MainWindow;
+/**
+ * @brief RemoteControllerWorker를 구동시키는 클래스
+ * 
+ */
 class RemoteController
 {
 public:

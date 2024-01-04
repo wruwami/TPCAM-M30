@@ -21,6 +21,10 @@ namespace Ui {
 class IndicatorCameraExposeWidget;
 }
 
+/**
+ * @brief 인디케이터 카메라에서 노출에 해당하는 위젯 클래스
+ * 
+ */
 class IndicatorCameraExposeWidget : public QDialog
 {
     Q_OBJECT

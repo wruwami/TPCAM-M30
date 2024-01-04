@@ -43,6 +43,10 @@ namespace Ui {
 class BaseDialog;
 }
 
+/**
+ * @brief 다양한 위젯을 넣어서 사용할 수 있는 기본 다이얼로그 클래스
+ * 
+ */
 class BaseDialog : public QDialog
 {
     Q_OBJECT

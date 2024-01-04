@@ -19,6 +19,10 @@ enum Mode{
     KeypadType,
 };
 
+/**
+ * @brief QLineEdit 상속하여 공통으로 사용하는 LineEdit 위젯 클래스
+ * 
+ */
 class CustomLineEdit : public QLineEdit
 {
     Q_OBJECT

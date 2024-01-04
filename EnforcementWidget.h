@@ -19,6 +19,10 @@ namespace Ui {
 class EnforcementWidget;
 }
 
+/**
+ * @brief Mainwindow와 EnforcementComponentWidget을 잇는 위젯 클래스
+ * 
+ */
 class EnforcementWidget : public QWidget
 {
     Q_OBJECT

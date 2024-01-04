@@ -22,6 +22,10 @@
 
 class QSerialPort;
 class ViscaPacket;
+/**
+ * @brief Visca 시리얼 통신 관리 클래스
+ * 
+ */
 class SerialViscaManager : public QObject
 {
     Q_OBJECT

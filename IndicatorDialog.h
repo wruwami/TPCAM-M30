@@ -40,6 +40,10 @@ namespace Ui {
 class IndicatorDialog;
 }
 
+/**
+ * @brief 메인메뉴의 인디케이터를 클릭할 때 나오는 다이얼로그 클래스
+ * 
+ */
 class IndicatorDialog : public QDialog
 {
     Q_OBJECT

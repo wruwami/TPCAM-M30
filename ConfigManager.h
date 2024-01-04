@@ -21,6 +21,10 @@
 
 using namespace std;
 
+/**
+ * @brief json 설정파일을 읽고 쓰는 기능 클래스
+ * 
+ */
 class ConfigManager
 {
 public:

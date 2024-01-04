@@ -19,6 +19,10 @@
 
 #include "SoundPlayer.h"
 
+/**
+ * @brief Power Saving 기능이 구현되어 있는 클래스
+ * 
+ */
 class screensaver:public QWidget
 {
     Q_OBJECT

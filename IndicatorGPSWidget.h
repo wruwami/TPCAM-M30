@@ -18,6 +18,10 @@ namespace Ui {
 class IndicatorGPSWidget;
 }
 
+/**
+ * @brief 인디케이터에서 GPS 정보를 보여주는 위젯 클래스
+ * 
+ */
 class IndicatorGPSWidget : public QWidget
 {
     Q_OBJECT

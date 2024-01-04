@@ -10,7 +10,10 @@
 #include <QFile>
 #include <QAudioOutput>
 
-
+/**
+ * @brief 사운드 플레이 기능 클래스
+ * 
+ */
 class SoundPlayer : public QObject
 {
     Q_OBJECT

@@ -21,6 +21,10 @@ namespace Ui {
 class LoginExpiredDateWidget;
 }
 
+/**
+ * @brief expired_date에 따라 동작하는 경고 메세지 위젯 클래스
+ * 
+ */
 class LoginExpiredDateWidget : public QWidget
 {
     Q_OBJECT

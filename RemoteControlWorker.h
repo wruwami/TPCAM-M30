@@ -16,6 +16,10 @@
 #include "MainWindow.h"
 
 class MainWindow;
+/**
+ * @brief RemoteController 기능이 구현되어 있는 클래스
+ * 
+ */
 class RemoteControlWorker : public QObject
 {
     Q_OBJECT

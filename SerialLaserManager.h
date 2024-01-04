@@ -20,6 +20,10 @@
 
 class QSerialPort;
 class SerialPacket;
+/**
+ * @brief 레이저 시리얼 통신 관리 클래스
+ * 
+ */
 class SerialLaserManager : public QObject
 {
     Q_OBJECT

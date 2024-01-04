@@ -21,6 +21,10 @@
 
 #include "ConfigManager.h"
 
+/**
+ * @brief 단속화면 FTP 전송을 수행하는 Thread 클래스
+ * 
+ */
 class FtpTransThread : public QThread
 {
     Q_OBJECT

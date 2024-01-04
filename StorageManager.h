@@ -14,6 +14,10 @@
 
 #include <QStorageInfo>
 
+/**
+ * @brief 스토리지 관리 매니저 클래스
+ * 
+ */
 class StorageManager
 {
 public:

@@ -46,6 +46,10 @@ enum Size
     ShortCutHeight = 95,
 };
 
+/**
+ * @brief 위젯 사이즈 관리 클래스
+ * 
+ */
 class WidgetSize
 {
 private:

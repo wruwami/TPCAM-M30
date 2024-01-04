@@ -17,6 +17,10 @@
 #include <QMutex>
 
 class ftplib;
+/**
+ * @brief 파일매니저 FTP 전송시 사용되는 쓰레드 클래스
+ * 
+ */
 class FtpTransThread2 : public QThread
 {
     Q_OBJECT

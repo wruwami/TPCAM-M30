@@ -20,6 +20,10 @@ namespace Ui {
 class FileManagerSnapShotDialog;
 }
 
+/**
+ * @brief 파일매니저에서 현재 모드(I,A,V,S,M)에 따라 폴더를 보여주는 다이얼로그 클래스
+ * 
+ */
 class FileManagerSnapShotDialog : public QDialog
 {
     Q_OBJECT

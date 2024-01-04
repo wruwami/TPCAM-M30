@@ -15,6 +15,10 @@
 #include <QPushButton>
 #include <QToolButton>
 
+/**
+ * @brief QPushButton 상속하여 공통으로 사용하는 PushButton 위젯 클래스
+ * 
+ */
 class CustomPushButton : public QPushButton
 {
     Q_OBJECT

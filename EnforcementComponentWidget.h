@@ -68,6 +68,10 @@ namespace Ui {
 class EnforcementComponentWidget;
 }
 
+/**
+ * @brief 단속화면을 구성하는 위젯 클래스
+ * 
+ */
 class EnforcementComponentWidget : public QWidget
 {
     Q_OBJECT

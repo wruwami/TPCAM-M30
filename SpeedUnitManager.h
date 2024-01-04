@@ -24,6 +24,10 @@ enum SpeedUnit{
     mile,
 };
 
+/**
+ * @brief 속도 거리 단위 설정 관리 클래스
+ * 
+ */
 class SpeedUnitManager
 {
     SpeedUnitManager();

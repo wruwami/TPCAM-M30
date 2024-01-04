@@ -384,12 +384,6 @@ void MainWindow::showIndicator(bool isShow)
     m_pMainMenuWidget->showIndicator(isShow);
 }
 
-void MainWindow::setWarningMode()
-{
-    m_nFailTimerId = startTimer(1000);
-
-}
-
 void MainWindow::SetWindowWarningMode()
 {
 //    setBackGroundColor(ui->centralWidget, Qt::red);

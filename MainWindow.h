@@ -67,7 +67,6 @@ private:
     void removeseconditem();
     void removeseconditem(QWidget*&);
     void showIndicator(bool);
-    void setWarningMode();
     void SetWindowWarningMode();
     void OpenEnforcement();
     void OpenFileManagement();
@@ -128,17 +127,12 @@ private:
     LTC2943 ltc = LTC2943(15);
     WidgetType m_widgetType = Other;
     QString m_userName;
-    int m_nFailTimerId;
     bool m_bLoginFail = false;
     QWidget* m_redAlertWidget = nullptr;
     QTimer* m_p100msTimer;
     QTimer* m_p500msTimer;
     bool m_bFlick = false;
     int m_nPowerSavingMinute = 0;
-    int m_nCheckSecond = 0;
-    bool m_bPowerSavingMode = false;
-    int m_nPowerOffSecond = 0;
-    int sec = 0;
     screensaver *m_screensaver;
     bool m_bSelfTestFailed = false;
     SerialLaserManager* m_pSerialLaserManager = nullptr;

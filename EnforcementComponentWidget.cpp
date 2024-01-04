@@ -477,6 +477,9 @@ void EnforcementComponentWidget::SaveImage()
     enforceInfo.enforceMode = m_nEnforcementMode;
     enforceInfo.vehicle = m_nVehicleMode;
     enforceInfo.zoom_index = m_nZoomIndex;
+    QDateTime datetime = QDateTime::currentDateTime();
+    enforceInfo.date = datetime.toString("yyyyMMdd");
+    enforceInfo.time = QString(datetime.toString("hhmmss") + QString::number(datetime.time().msec())[0]);
 //    QPixmap pixmap = m_pCamera->grab();
 //    pixmap.save(GETSDPATH(MANUAL_CAPTURE) + "/" +GetFileName(MC, enforceInfo));
     m_pCamera->SaveImage(MC, enforceInfo, MANUAL_CAPTURE);

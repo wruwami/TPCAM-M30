@@ -65,9 +65,6 @@ int main(int argc, char *argv[])
 
     SetLogMsg(POWER_ON);
 
-    SoundPlayer soundPlayer("reboot_system.mp3");
-    soundPlayer.play();
-
     QFile file(":/style/default.qss");
     file.open(QFile::ReadOnly);
     QString styleSheet = QString::fromLatin1(file.readAll());
@@ -118,6 +115,8 @@ int main(int argc, char *argv[])
     cmd = "sudo "+GeteMMCPath()+"/"+"start.sh";
     system(cmd.toStdString().c_str());
 
+    SoundPlayer soundPlayer("reboot_system.raw");
+    soundPlayer.play();
 
 //    //generate key
 //    QFile fileAES256Key(GETSDPATH(KEY) + "/comlaser-AES256-key.txt");
@@ -150,6 +149,7 @@ int main(int argc, char *argv[])
 //    }
 
     MainWindow w(a.send());
+
 //    w.get(a.send());
 //    w.show();
     w.setWindowFlags(Qt::Window);

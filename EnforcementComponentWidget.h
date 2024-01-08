@@ -190,7 +190,6 @@ private:
     CustomLabel* m_pDistanceLabel;
 
     QTimer m_ManualTimer;
-    SoundPlayer* snapshotSound;
 //    QSharedPointer<QMutex> m_mutex;
 //    QSharedPointer<QQueue<QString>> m_FileQueue;
 protected slots:

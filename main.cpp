@@ -115,8 +115,7 @@ int main(int argc, char *argv[])
     cmd = "sudo "+GeteMMCPath()+"/"+"start.sh";
     system(cmd.toStdString().c_str());
 
-    SoundPlayer soundPlayer("reboot_system.raw");
-    soundPlayer.play();
+    SoundPlayer::GetInstance()->play(Booting);
 
 //    //generate key
 //    QFile fileAES256Key(GETSDPATH(KEY) + "/comlaser-AES256-key.txt");

@@ -4,29 +4,45 @@
 #include <QObject>
 #include <QBuffer>
 #include <QDataStream>
+#include <QMap>
 
 #include <QtAVPlayer/qavplayer.h>
 #include <QtAVPlayer/qavaudiooutput.h>
 #include <QFile>
 #include <QAudioOutput>
 
+enum PlayType {
+    Click,
+    Booting,
+    ReBooting,
+    Snapshot,
+    SelfTestFailed,
+};
+
 
 class SoundPlayer : public QObject
 {
     Q_OBJECT
-public:
-    explicit SoundPlayer(QString, QObject *parent = 0);
+private:
+    explicit SoundPlayer(QObject *parent = 0);
+    SoundPlayer(const SoundPlayer& other);
     virtual ~SoundPlayer();
-    void play();
+    static SoundPlayer* instance;
+public:
+    static SoundPlayer* GetInstance()
+    {
+        if(instance == nullptr) instance = new SoundPlayer();
+        return instance;
+    }
+    void play(PlayType);
 private:
 //    QAVPlayer m_AVplayer;
 //    QAVAudioOutput m_output = QAVAudioOutput(this);
-    QFile sourceFile;   // class member.
     QAudioOutput* audio = nullptr; // class member.
     QAudioDeviceInfo m_device;
     QAudioFormat format;
     QByteArray ba;
-    QDataStream* s = nullptr;
+    QMap<PlayType, QDataStream*> sMap;
 protected slots:
     void handleStateChanged(QAudio::State);
 signals:

@@ -89,7 +89,7 @@ LoginWidget::LoginWidget(QWidget *parent) :
     ui->userNameComboBox->setCurrentIndex(index);
     ui->userNameComboBox->setFontSize(23);
     m_pLightMager = new LightManager;
-    powerOffSound = new SoundPlayer("byebye.raw");
+
 //    m_userName = ui->userNameComboBox->it;
 }
 
@@ -101,7 +101,6 @@ LoginWidget::~LoginWidget()
         delete m_pLightMager;
         m_pLightMager = nullptr;
     }
-    delete powerOffSound;
     delete m_loginPushButton;
     delete m_dateTimePushButton;
     delete ui;
@@ -281,8 +280,8 @@ void LoginWidget::on_logoPushButton_clicked()
     {
         //        OS 자동 종료
         QEventLoop loop;
-        powerOffSound->play();
-        connect(powerOffSound, SIGNAL(audioStop()), &loop, SLOT(quit()));
+        SoundPlayer::GetInstance()->play(ReBooting);
+        connect(SoundPlayer::GetInstance(), SIGNAL(audioStop()), &loop, SLOT(quit()));
         loop.exec();
 
         QProcess::startDetached("sudo shutdown -h now");

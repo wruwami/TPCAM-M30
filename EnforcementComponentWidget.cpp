@@ -222,7 +222,6 @@ EnforcementComponentWidget::EnforcementComponentWidget(QWidget *parent) :
 
     connect(&m_ManualTimer, SIGNAL(timeout()), this, SLOT(do_FileSystemWatcherTimer()));
 
-    snapshotSound = new SoundPlayer("snapshot.raw");
 //    int nSelDayNight = m_object2["day&night selection"].toInt();
 //    if( 0 < nSelDayNight && nSelDayNight < 4)
 //    {
@@ -278,8 +277,6 @@ EnforcementComponentWidget::EnforcementComponentWidget(QWidget *parent) :
 
 EnforcementComponentWidget::~EnforcementComponentWidget()
 {
-    delete snapshotSound;
-
     doReadyMode();
 
     doVModeTimer(false);
@@ -1620,7 +1617,7 @@ void EnforcementComponentWidget::on_showCaptureSpeedDistance(float fSpeed, float
 //            disconnect(laser_packet, SIGNAL(sig_showDistance(float,int)), &m_hudManager.hud(), SLOT(showDistanceSensitivity(float, int)));
             QTimer::singleShot(500, this, SLOT(RestartSignal()));
 
-            snapshotSound->play();
+            SoundPlayer::GetInstance()->play(Snapshot);
 //            m_RedTimer.start(500);
 
 //            sleep(1);

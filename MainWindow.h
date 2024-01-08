@@ -144,8 +144,6 @@ private:
     QSize m_MainMenuWidgetSize;
     QString m_srFileFullName;
     QDate m_date;
-    SoundPlayer* selfTestFailSound;
-    SoundPlayer* powerOffSound;
 
     // QObject interface
 protected:

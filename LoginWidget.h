@@ -67,8 +67,6 @@ private:
     LightManager* m_pLightMager = nullptr;
     QString m_StrKeyboard;
     int m_nIndex = 0;
-    SoundPlayer *powerOffSound;
-
 //    QQueue<QString> m_queue;
 private:
     Ui::LoginWidget *ui;

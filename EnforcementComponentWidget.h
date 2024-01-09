@@ -157,7 +157,7 @@ private:
     std::vector<QString> m_stfeetvector;// = {"60", "80", "100", "120", "140", "160", "180", "200", "220", "240", "260"};
     std::vector<QString> m_ltfeetvector;// = {"10~36", "30~60", "60~100", "100~160", "160~260", "260+"};
 
-    size_t m_nZoomIndex = 0;
+    int m_nZoomIndex = 0;
     Camera* m_pCamera = nullptr;
     Mode m_nMode = Ready;
     int VehicleCount = 0;
@@ -194,7 +194,6 @@ private:
     CustomLabel* m_pDistanceLabel;
 
     QTimer m_ManualTimer;
-    SoundPlayer* snapshotSound;
 //    QSharedPointer<QMutex> m_mutex;
 //    QSharedPointer<QQueue<QString>> m_FileQueue;
 protected slots:

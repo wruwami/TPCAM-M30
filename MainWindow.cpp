@@ -65,9 +65,6 @@ MainWindow::MainWindow(screensaver* screensaver, QWidget *parent) :
 //    SelfTestDialog selfTestDialog;
 //    if (selfTestDialog.exec() == QDialog::Rejected)
 //        m_bLoginFail = true;
-    selfTestFailSound = new SoundPlayer("no_memory_card.raw");
-    powerOffSound = new SoundPlayer("byebye.raw");
-
     {
         QEventLoop loop;
         SelfTestWidget selfTestWidget;
@@ -112,7 +109,7 @@ MainWindow::MainWindow(screensaver* screensaver, QWidget *parent) :
 
         if (!(selfTestWidget.m_nCamera == Pass && selfTestWidget.m_nLaser == Pass && selfTestWidget.m_nStorage == Pass && selfTestWidget.m_nBattery == Pass))
         {
-            selfTestFailSound->play();
+            SoundPlayer::GetInstance()->play(SelfTestFailed);
 
             BaseDialog baseDialog(SelfTestWarningMessageWidgetType, selfTestWidget.m_nCamera, selfTestWidget.m_nLaser, selfTestWidget.m_nBattery, selfTestWidget.m_nStorage, Qt::AlignmentFlag::AlignCenter);
             if (baseDialog.exec() == QDialog::Rejected)
@@ -205,8 +202,6 @@ MainWindow::~MainWindow()
     }
 
 
-    delete selfTestFailSound;
-    delete powerOffSound;
 //    delete m_screensaver;
 
     delete m_pIndicatorWidget;
@@ -739,8 +734,8 @@ void MainWindow::CheckBatteryPercent()
 //        PowerOff();
 
         QEventLoop loop;
-        powerOffSound->play();
-        connect(powerOffSound, SIGNAL(audioStop()), &loop, SLOT(quit()));
+        SoundPlayer::GetInstance()->play(ReBooting);
+        connect(SoundPlayer::GetInstance(), SIGNAL(audioStop()), &loop, SLOT(quit()));
         loop.exec();
 
         QProcess::startDetached("sudo shutdown -h now");
@@ -831,8 +826,8 @@ void MainWindow::SelfTestFail(bool show)
 void MainWindow::PowerOff()
 {
     QEventLoop loop;
-    powerOffSound->play();
-    connect(powerOffSound, SIGNAL(audioStop()), &loop, SLOT(quit()));
+    SoundPlayer::GetInstance()->play(ReBooting);
+    connect(SoundPlayer::GetInstance(), SIGNAL(audioStop()), &loop, SLOT(quit()));
     loop.exec();
 
     SetLogMsg(POWER_OFF);
@@ -1166,7 +1161,7 @@ void MainWindow::doForthAction()
     ConfigManager config = ConfigManager("parameter_setting1.json");
     QJsonObject object = config.GetConfig();
     int enforcement = object["enforcement selection"].toInt();
-    if (enforcement < 4 )
+    if (enforcement < 3 )
         enforcement++;
     else
         enforcement = 1;

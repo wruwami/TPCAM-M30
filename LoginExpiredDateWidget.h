@@ -39,8 +39,6 @@ private slots:
 private:
     Ui::LoginExpiredDateWidget *ui;
     QDialog* m_pParent;
-    SoundPlayer *powerOffSound;
-
 };
 
 #endif // LOGINEXPIREDDATEWIDGET_H

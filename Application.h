@@ -30,8 +30,7 @@ public:
     bool notify(QObject *, QEvent *);
     screensaver* send();
 private:
-    screensaver *_screensaver;
-    SoundPlayer *soundPlayer;
+    screensaver *_screensaver = nullptr;
 };
 
 #endif // APPLICATION_H

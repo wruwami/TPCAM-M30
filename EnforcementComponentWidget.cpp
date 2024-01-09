@@ -222,7 +222,6 @@ EnforcementComponentWidget::EnforcementComponentWidget(QWidget *parent) :
 
     connect(&m_ManualTimer, SIGNAL(timeout()), this, SLOT(do_FileSystemWatcherTimer()));
 
-    snapshotSound = new SoundPlayer("snapshot.raw");
 //    int nSelDayNight = m_object2["day&night selection"].toInt();
 //    if( 0 < nSelDayNight && nSelDayNight < 4)
 //    {
@@ -278,8 +277,6 @@ EnforcementComponentWidget::EnforcementComponentWidget(QWidget *parent) :
 
 EnforcementComponentWidget::~EnforcementComponentWidget()
 {
-    delete snapshotSound;
-
     doReadyMode();
 
     doVModeTimer(false);
@@ -477,6 +474,9 @@ void EnforcementComponentWidget::SaveImage()
     enforceInfo.enforceMode = m_nEnforcementMode;
     enforceInfo.vehicle = m_nVehicleMode;
     enforceInfo.zoom_index = m_nZoomIndex;
+    QDateTime datetime = QDateTime::currentDateTime();
+    enforceInfo.date = datetime.toString("yyyyMMdd");
+    enforceInfo.time = QString(datetime.toString("hhmmss") + QString::number(datetime.time().msec())[0]);
 //    QPixmap pixmap = m_pCamera->grab();
 //    pixmap.save(GETSDPATH(MANUAL_CAPTURE) + "/" +GetFileName(MC, enforceInfo));
     m_pCamera->SaveImage(MC, enforceInfo, MANUAL_CAPTURE);
@@ -1123,7 +1123,7 @@ void EnforcementComponentWidget::zoomRangeMinus()
     if (m_UserModeOn)
     {
         m_nZoomIndex--;
-        if (m_nZoomIndex <= 0)
+        if (m_nZoomIndex < 0)
             m_nZoomIndex = m_stmetervector.size() - 1;
 
         //        zoom_index = m_nZoomIndex;
@@ -1139,7 +1139,7 @@ void EnforcementComponentWidget::zoomRangeMinus()
     else
     {
         m_nZoomIndex--;
-        if (m_nZoomIndex <= 0)
+        if (m_nZoomIndex < 0)
             m_nZoomIndex = m_ltmetervector.size() - 1;
 
         //        zoom_index = m_nZoomIndex;
@@ -1617,7 +1617,7 @@ void EnforcementComponentWidget::on_showCaptureSpeedDistance(float fSpeed, float
 //            disconnect(laser_packet, SIGNAL(sig_showDistance(float,int)), &m_hudManager.hud(), SLOT(showDistanceSensitivity(float, int)));
             QTimer::singleShot(500, this, SLOT(RestartSignal()));
 
-            snapshotSound->play();
+            SoundPlayer::GetInstance()->play(Snapshot);
 //            m_RedTimer.start(500);
 
 //            sleep(1);
@@ -1984,13 +1984,13 @@ void EnforcementComponentWidget::on_saveImagePushButton_clicked()
     enforceInfo.enforceMode = m_nEnforcementMode;
     enforceInfo.vehicle = m_nVehicleMode;
     enforceInfo.zoom_index = m_nZoomIndex;
-//    m_pCamera->SaveImage(enforceInfo, MANUAL_CAPTURE);
     QDateTime datetime = QDateTime::currentDateTime();
     enforceInfo.date = datetime.toString("yyyyMMdd");
     enforceInfo.time = QString(datetime.toString("hhmmss") + QString::number(datetime.time().msec())[0]);
 
-    QPixmap pixmap = m_pCamera->grab();
-    pixmap.save(GETSDPATH(MANUAL_CAPTURE) + "/" +GetFileName(MC, enforceInfo));
+    m_pCamera->SaveImage(MC, enforceInfo, MANUAL_CAPTURE);
+//    QPixmap pixmap = m_pCamera->grab();
+//    pixmap.save(GETSDPATH(MANUAL_CAPTURE) + "/" +GetFileName(MC, enforceInfo));
 }
 
 void EnforcementComponentWidget::StopHUDRec()

@@ -7,19 +7,17 @@ Application::Application(int &argc, char **argv):
     QApplication(argc,argv)
 {
    _screensaver=new screensaver;
-   soundPlayer = new SoundPlayer("button.raw");
 }
 
 Application::~Application()
 {
     delete _screensaver;
-    delete soundPlayer;
 }
 bool Application::notify(QObject *obj, QEvent *e)
 {
     if(e->type() ==QEvent::MouseButtonPress )
     {
-        soundPlayer->play();
+        SoundPlayer::GetInstance()->play(Click);
 
         if (_screensaver->Getstart())
         {

@@ -11,11 +11,9 @@ screensaver::screensaver(QWidget *parent)
     connect(backtimer,SIGNAL(timeout()),this,SLOT(screensaverstart()));
     powerofftimer = new QTimer(this);
     connect(powerofftimer,SIGNAL(timeout()),this,SLOT(PowerOff()));
-    powerOffSound = new SoundPlayer("byebye.raw");
 }
 screensaver::~screensaver()
 {
-    delete powerOffSound;
     delete backtimer;
     delete powerofftimer;
 }
@@ -55,8 +53,8 @@ void screensaver::PowerOffTimerStop()
 void screensaver::PowerOff()
 {
     QEventLoop loop;
-    powerOffSound->play();
-    connect(powerOffSound, SIGNAL(audioStop()), &loop, SLOT(quit()));
+    SoundPlayer::GetInstance()->play(ReBooting);
+    connect(SoundPlayer::GetInstance(), SIGNAL(audioStop()), &loop, SLOT(quit()));
     loop.exec();
 
     SetLogMsg(POWER_OFF);

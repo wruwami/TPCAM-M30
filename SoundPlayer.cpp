@@ -45,7 +45,7 @@ SoundPlayer::SoundPlayer(QObject* parent) : QObject(parent)
         QFile sourceFile;
         sourceFile.setFileName(full_file_name);
         sourceFile.open(QIODevice::ReadOnly);
-        ba = sourceFile.readAll();
+        QByteArray ba = sourceFile.readAll();
         QDataStream* s = new QDataStream(ba);
         sMap[item.key()] = s;
         sourceFile.close();

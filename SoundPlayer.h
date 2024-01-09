@@ -42,7 +42,7 @@ private:
     QAudioOutput* audio = nullptr; // class member.
     QAudioDeviceInfo m_device;
     QAudioFormat format;
-    QByteArray ba;
+
     QMap<PlayType, QDataStream*> sMap;
 protected slots:
     void handleStateChanged(QAudio::State);

@@ -88,11 +88,35 @@ private:
  */
     void showIndicator(bool);
     void SetWindowWarningMode();
+/**
+ * @brief 
+ * 
+ */
     void OpenEnforcement();
+/**
+ * @brief 
+ * 
+ */
     void OpenFileManagement();
+/**
+ * @brief 
+ * 
+ */
     void OpenMainMenu();
+/**
+ * @brief 
+ * 
+ */
     void CheckBatteryPercent();
+/**
+ * @brief 
+ * 
+ */
     void CheckBatteryCharge();
+/**
+ * @brief 
+ * 
+ */
     void SelfTestFail(bool = false);
     void PowerOff();
     void CheckLoginExpired();

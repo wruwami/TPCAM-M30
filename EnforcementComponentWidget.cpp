@@ -1123,7 +1123,7 @@ void EnforcementComponentWidget::zoomRangeMinus()
     if (m_UserModeOn)
     {
         m_nZoomIndex--;
-        if (m_nZoomIndex <= 0)
+        if (m_nZoomIndex < 0)
             m_nZoomIndex = m_stmetervector.size() - 1;
 
         //        zoom_index = m_nZoomIndex;
@@ -1139,7 +1139,7 @@ void EnforcementComponentWidget::zoomRangeMinus()
     else
     {
         m_nZoomIndex--;
-        if (m_nZoomIndex <= 0)
+        if (m_nZoomIndex < 0)
             m_nZoomIndex = m_ltmetervector.size() - 1;
 
         //        zoom_index = m_nZoomIndex;

@@ -1161,7 +1161,7 @@ void MainWindow::doForthAction()
     ConfigManager config = ConfigManager("parameter_setting1.json");
     QJsonObject object = config.GetConfig();
     int enforcement = object["enforcement selection"].toInt();
-    if (enforcement < 4 )
+    if (enforcement < 3 )
         enforcement++;
     else
         enforcement = 1;

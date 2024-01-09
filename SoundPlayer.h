@@ -37,7 +37,8 @@ public:
     void play(PlayType);
 private:
 //    QAVPlayer m_AVplayer;
-//    QAVAudioOutput m_output = QAVAudioOutput(this);
+//    QAVAudioOutput* audio = nullptr;
+//    QAVPlayer player;
     QAudioOutput* audio = nullptr; // class member.
     QAudioDeviceInfo m_device;
     QAudioFormat format;

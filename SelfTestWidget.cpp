@@ -293,9 +293,9 @@ bool SelfTestWidget::BatteryTest()
 bool SelfTestWidget::StorageTest()
 {
     StorageManager sdcardManager;
-    if (!sdcardManager.GetEMMCExitSelfTest() && !sdcardManager.GetSDExitSelfTest())
-        return true;
-    return false;
+    if (sdcardManager.GetEMMCExitSelfTest() || sdcardManager.GetSDExitSelfTest())
+        return false;
+    return true;
 }
 
 Status SelfTestWidget::GetCamera()

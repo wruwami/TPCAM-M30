@@ -567,6 +567,12 @@ void MainWindow::OpenEnforcement()
     if (m_widgetType != FileManager && m_widgetType != Setting && m_widgetType != MainMenu)
         return;
 
+    if (m_pMainMenuContentWidget)
+    {
+        delete m_pMainMenuContentWidget;
+        m_pMainMenuContentWidget = nullptr;
+    }
+
     m_widgetType = Enforcement;
     m_pIndicatorWidget->setFocusExposeDisabled(false);
     m_pIndicatorWidget->m_bFocusExposeDisabled = false;
@@ -1336,6 +1342,12 @@ void MainWindow::OpenFileManagement()
     {
         delete m_pCamera;
         m_pCamera = nullptr;
+    }
+
+    if (m_pMainMenuContentWidget)
+    {
+        delete m_pMainMenuContentWidget;
+        m_pMainMenuContentWidget = nullptr;
     }
 
     if (m_widgetType != Enforcement && m_widgetType != Setting && m_widgetType != MainMenu)

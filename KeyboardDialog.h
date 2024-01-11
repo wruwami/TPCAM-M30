@@ -24,6 +24,10 @@ namespace Ui {
 class KeyboardDialog;
 }
 
+/**
+ * @brief Keyboard라이브러리를 이용하여 키보드를 구현한 다이얼로그 클래스
+ * 
+ */
 class KeyboardDialog : public QDialog
 {
     Q_OBJECT

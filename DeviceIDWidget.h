@@ -19,6 +19,10 @@ namespace Ui {
 class DeviceIDWidget;
 }
 
+/**
+ * @brief admin-align유저가 device ID를 수정할 수 있는 위젯 클래스
+ * 
+ */
 class DeviceIDWidget : public QWidget
 {
     Q_OBJECT

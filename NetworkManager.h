@@ -15,6 +15,10 @@
 #include <QJsonObject>
 #include <QNetworkInterface>
 
+/**
+ * @brief 네트워크를 상태 체크 및 활성화 여부를 관리하는 클래스
+ * 
+ */
 class NetworkManager
 {
 public:

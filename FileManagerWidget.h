@@ -32,6 +32,10 @@ class QAVPlayer;
 class VideoWidget;
 //class QMediaPlayer;
 class QVideoWidget;
+/**
+ * @brief 파일매니저 위젯 클래스
+ * 
+ */
 class FileManagerWidget : public QWidget
 {
     Q_OBJECT

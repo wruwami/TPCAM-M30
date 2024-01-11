@@ -21,6 +21,10 @@ namespace Ui {
 class Setting4STAWidget;
 }
 
+/**
+ * @brief 세팅4 STA 화면 위젯 클래스
+ * 
+ */
 class Setting4STAWidget : public QWidget
 {
     Q_OBJECT

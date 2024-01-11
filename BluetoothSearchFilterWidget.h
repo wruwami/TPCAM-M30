@@ -18,6 +18,10 @@ namespace Ui {
 class BluetoothSearchFilterWidget;
 }
 
+/**
+ * @brief 블루투스 검색 위젯 클래스
+ * 
+ */
 class BluetoothSearchFilterWidget : public QWidget
 {
     Q_OBJECT

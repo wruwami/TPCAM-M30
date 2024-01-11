@@ -18,6 +18,10 @@ namespace Ui {
 class PasswordChangingWidget;
 }
 
+/**
+ * @brief 패스워드 변경 위젯 클래스
+ * 
+ */
 class PasswordChangingWidget : public QWidget
 {
     Q_OBJECT

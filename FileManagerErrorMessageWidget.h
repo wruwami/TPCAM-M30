@@ -18,6 +18,10 @@ namespace Ui {
 class FileManagerErrorMessageWidget;
 }
 
+/**
+ * @brief 열전사 프린터 연결 실패 시 메시지 보여주는 위젯 클래스
+ * 
+ */
 class FileManagerErrorMessageWidget : public QWidget
 {
     Q_OBJECT

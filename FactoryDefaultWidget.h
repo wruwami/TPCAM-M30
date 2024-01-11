@@ -18,6 +18,10 @@ namespace Ui {
 class FactoryDefaultWidget;
 }
 
+/**
+ * @brief 공장초기화 표시 위젯 클래스
+ * 
+ */
 class FactoryDefaultWidget : public QWidget
 {
     Q_OBJECT

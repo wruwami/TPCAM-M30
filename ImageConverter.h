@@ -14,6 +14,10 @@
 
 #include <QImage>
 
+/**
+ * @brief 열전사 프린터에서 이미지를 변환하는 클래스
+ * 
+ */
 class ImageConverter
 {
 public:

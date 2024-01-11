@@ -14,6 +14,10 @@
 
 #include "FileFormat.h"
 
+/**
+ * @brief 일반프린터 출력 기능 클래스
+ * 
+ */
 class Print
 {
 public:

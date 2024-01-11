@@ -15,6 +15,10 @@
 #include <QObject>
 #include <QNetworkConfiguration>
 
+/**
+ * @brief wifi 서치를 수행하는 클래스
+ * 
+ */
 class NetworkAccessManager : public QObject
 {
     Q_OBJECT

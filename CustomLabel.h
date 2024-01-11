@@ -14,6 +14,10 @@
 
 #include <QLabel>
 
+/**
+ * @brief QLabel 상속하여 공통으로 사용하는 Label 위젯 클래스
+ * 
+ */
 class CustomLabel : public QLabel
 {
     Q_OBJECT

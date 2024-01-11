@@ -17,6 +17,10 @@
 #include <QDateTime>
 
 class QSerialPort;
+/**
+ * @brief GPS 시리얼 통신 관리 클래스
+ * 
+ */
 class SerialGPSManager : public QObject
 {
     Q_OBJECT

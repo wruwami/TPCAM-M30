@@ -20,6 +20,10 @@
 #include <string>
 
 namespace ResourceLoader{
+/**
+ * @brief 다국어 스트링 표시 및 관리 클래스
+ * 
+ */
 class StringLoader
 {
 private:

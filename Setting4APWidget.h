@@ -21,6 +21,10 @@ namespace Ui {
 class Setting4APWidget;
 }
 
+/**
+ * @brief 세팅4 AP모드 화면 위젯 클래스
+ * 
+ */
 class Setting4APWidget : public QWidget
 {
     Q_OBJECT

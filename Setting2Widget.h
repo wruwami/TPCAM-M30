@@ -21,6 +21,10 @@ namespace Ui {
 class Setting2Widget;
 }
 
+/**
+ * @brief 세팅2 화면 위젯 클래스
+ * 
+ */
 class Setting2Widget : public QWidget
 {
     Q_OBJECT

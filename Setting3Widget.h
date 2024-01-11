@@ -22,6 +22,10 @@ namespace Ui {
 class Setting3Widget;
 }
 
+/**
+ * @brief 세팅3 화면 위젯 클래스
+ * 
+ */
 class Setting3Widget : public QWidget
 {
     Q_OBJECT

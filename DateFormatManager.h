@@ -22,6 +22,10 @@ enum DateFormat
 };
 
 namespace ResourceLoader{
+/**
+ * @brief 날짜 포맷을 관리하는 클래스
+ * 
+ */
 class DateFormatManager
 {
 private:

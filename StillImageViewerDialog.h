@@ -20,6 +20,10 @@ namespace Ui {
 class StillImageViewerDialog;
 }
 
+/**
+ * @brief 파일 매니저 스틸 이미지 다이얼로그 클래스
+ * 
+ */
 class StillImageViewerDialog : public QDialog
 {
     Q_OBJECT

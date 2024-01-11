@@ -18,6 +18,10 @@ namespace Ui {
 class HomeTitleWidget;
 }
 
+/**
+ * @brief 메인메뉴 타이틀 위젯 클래스
+ * 
+ */
 class HomeTitleWidget : public QWidget
 {
     Q_OBJECT

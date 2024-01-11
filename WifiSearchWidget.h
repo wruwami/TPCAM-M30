@@ -22,6 +22,10 @@ namespace Ui {
 class WifiSearchWidget;
 }
 class QListWidgetItem;
+/**
+ * @brief Wifi 검색 화면 위젯 클래스
+ * 
+ */
 class WifiSearchWidget : public QWidget
 {
     Q_OBJECT

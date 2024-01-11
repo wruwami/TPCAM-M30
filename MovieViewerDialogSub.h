@@ -39,6 +39,10 @@ namespace Ui {
 class MovieViewerDialogSub;
 }
 
+/**
+ * @brief  QtAVPlayer를 통해 구현한 동영상 플레이어 다이얼로그 클래스
+ * 
+ */
 class QVideoWidget;
 class QMediaPlayer;
 class MovieViewerDialogSub : public QDialog

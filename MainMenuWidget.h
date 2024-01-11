@@ -23,6 +23,10 @@ namespace Ui {
 class MainMenuWidget;
 }
 
+/**
+ * @brief 화면 상단 메인메뉴를 구성하는 위젯 클래스
+ * 
+ */
 class MainMenuWidget : public QWidget
 {
     Q_OBJECT

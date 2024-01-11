@@ -14,6 +14,10 @@
 
 #include <QCheckBox>
 
+/**
+ * @brief QCheckBox 상속하여 공통으로 사용하는 CheckBox 위젯 클래스
+ * 
+ */
 class CustomCheckBox : public QCheckBox
 {
     Q_OBJECT

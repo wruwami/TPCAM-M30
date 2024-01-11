@@ -18,6 +18,10 @@ namespace Ui {
 class MainMenuAdminAlignWidget;
 }
 
+/**
+ * @brief admin-align유저로 로그인하면 나오는 화면 위젯 클래스
+ * 
+ */
 class MainMenuAdminAlignWidget : public QWidget
 {
     Q_OBJECT

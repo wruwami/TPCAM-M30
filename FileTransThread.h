@@ -16,6 +16,10 @@
 #include <QMutex>
 #include <QSharedPointer>
 
+/**
+ * @brief USB파일 전송시 사용되는 Thread 클래스
+ * 
+ */
 class FileTransThread : public QThread
 {
     Q_OBJECT

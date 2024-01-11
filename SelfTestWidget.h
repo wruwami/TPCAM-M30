@@ -27,6 +27,10 @@ namespace Ui {
 class SelfTestWidget;
 }
 
+/**
+ * @brief 셀프테스트 표시 위젯 클래스
+ * 
+ */
 class SelfTestWidget : public QWidget
 {
     Q_OBJECT

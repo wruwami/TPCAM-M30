@@ -12,7 +12,10 @@
 #ifndef LIGHTMANAGER_H
 #define LIGHTMANAGER_H
 
-
+/**
+ * @brief Light를 기능시키는 클래스
+ * 
+ */
 class LightManager
 {
 public:

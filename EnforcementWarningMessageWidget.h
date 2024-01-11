@@ -18,6 +18,10 @@ namespace Ui {
 class EnforcementWarningMessageWidget;
 }
 
+/**
+ * @brief SD카드 용량 에러 표시 위젯 클래스
+ * 
+ */
 class EnforcementWarningMessageWidget : public QWidget
 {
     Q_OBJECT

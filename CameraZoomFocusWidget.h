@@ -28,6 +28,10 @@ namespace Ui {
 class CameraZoomFocusWidget;
 }
 
+/**
+ * @brief admin-align유저가 laser, zoom focus 기능을 수행할 수 있는 위젯 클래스
+ * 
+ */
 class CameraZoomFocusWidget : public QWidget
 {
     Q_OBJECT

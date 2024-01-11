@@ -135,8 +135,8 @@ void SoundPlayer::play(PlayType type)
 {
     if (!audio)
         return;
-    if (audio->state() != QAudio::ActiveState)
-        return;
+//    if (audio->state() != QAudio::ActiveState)
+//        return;
 
     audio->reset();
     sMap[type]->device()->seek(0);

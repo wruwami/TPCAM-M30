@@ -19,7 +19,7 @@ class AdminPWWidget;
 }
 
 /**
- * @brief 
+ * @brief Admin 비밀번호 확인 위젯 클래스
  * 
  */
 class AdminPWWidget : public QWidget
@@ -31,6 +31,10 @@ public:
     ~AdminPWWidget();
 
 private slots:
+/**
+ * @brief 
+ * 
+ */
     void on_okPushButton_clicked();
 
     void on_cancelPushButton_clicked();

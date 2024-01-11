@@ -79,7 +79,10 @@ typedef struct _ST_ENFORCEMENT_INFO
     }
 }stEnforcementInfo;
 
-
+/**
+ * @brief 어플리케이션에서 사용하는 File정보(예: FilePath)를 관리하는 클래스
+ * 
+ */
 class FileManager
 {
 private:

@@ -18,6 +18,10 @@ namespace Ui {
 class SearchBoxDialog;
 }
 
+/**
+ * @brief 파일매니저 검색 다이얼로그 클래스
+ * 
+ */
 class SearchBoxDialog : public QDialog
 {
     Q_OBJECT

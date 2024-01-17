@@ -741,6 +741,11 @@ void FileManagerWidget::on_zoomPlayPushButton_clicked()
         StillImageViewerDialog stillImageViewDialog(m_currentAVFileFormat);
         stillImageViewDialog.exec();
     }
+    else if (!strncmp(m_currentAVFileFormat.filePrefix, "MC", 2))
+    {
+        StillImageViewerDialog stillImageViewDialog(m_currentAVFileFormat);
+        stillImageViewDialog.exec();
+    }
 }
 
 void FileManagerWidget::on_sharePushButton_clicked()

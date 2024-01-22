@@ -741,6 +741,11 @@ void FileManagerWidget::on_zoomPlayPushButton_clicked()
         StillImageViewerDialog stillImageViewDialog(m_currentAVFileFormat);
         stillImageViewDialog.exec();
     }
+    else if (!strncmp(m_currentAVFileFormat.filePrefix, "MC", 2))
+    {
+        StillImageViewerDialog stillImageViewDialog(m_currentAVFileFormat);
+        stillImageViewDialog.exec();
+    }
 }
 
 void FileManagerWidget::on_sharePushButton_clicked()
@@ -1147,6 +1152,17 @@ void FileManagerWidget::on_tableWidget_cellClicked(int row, int column)
         m_image = pixmap.toImage();
     }
     else if (!strncmp(m_currentAVFileFormat.filePrefix, "SC", 2))
+    {
+//        ui->frameLabel->show();
+//        m_videoWidget->hide();
+        ui->frameLabel->setImage(m_avFileFormatList[row+ m_AVFileFormatIndex].file_path, ui->frameLabel->size());
+        ui->zoomPlayPushButton->setImage("file_manager", "file_management_zoom.png");
+        QPixmap pixmap;
+        pixmap.load(m_avFileFormatList[row+ m_AVFileFormatIndex].file_path);
+        m_image = pixmap.toImage();
+
+    }
+    else if (!strncmp(m_currentAVFileFormat.filePrefix, "MC", 2))
     {
 //        ui->frameLabel->show();
 //        m_videoWidget->hide();

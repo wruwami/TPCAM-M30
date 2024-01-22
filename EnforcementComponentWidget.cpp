@@ -1848,6 +1848,7 @@ void EnforcementComponentWidget::timerEvent(QTimerEvent *event)
     StorageManager storageManager;
     if (storageManager.GetSDExitEnforcement())
     {
+        doReadyMode();
         float sdpercent = storageManager.GetSDAvailable() / storageManager.GetSDTotal() * 100;
         QString sdCardValue = LoadString("IDS_SD_CARD") + QString::number(sdpercent, 'f', 1) + "%";
         BaseDialog baseDialog(SdCardMemoryLackType, Qt::AlignmentFlag::AlignCenter, sdCardValue, false, LoadString("IDS_WARNING_MESSAGE"));

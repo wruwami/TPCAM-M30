@@ -1251,65 +1251,65 @@ void EnforcementComponentWidget::setVehicleMode()
     //        assert();
 }
 
-QString EnforcementComponentWidget::GetMode()
-{
-    QString mode;
-    if (m_UserModeOn)
-        mode.append("U");
-    else
-        mode.append("N");
+//QString EnforcementComponentWidget::GetMode()
+//{
+//    QString mode;
+//    if (m_UserModeOn)
+//        mode.append("U");
+//    else
+//        mode.append("N");
 
-    ConfigManager config = ConfigManager("parameter_setting1.json");
-    QJsonObject object = config.GetConfig();
-    switch(object["enforcement selection"].toInt())
-    {
-    case 1:
-    {
-        mode.append("I");
-    }
-        break;
-    case 2:
-    {
-        mode.append("A");
-    }
-        break;
-    case 3:
-    {
-        mode.append("V");
-    }
-        break;
-    }
+//    ConfigManager config = ConfigManager("parameter_setting1.json");
+//    QJsonObject object = config.GetConfig();
+//    switch(object["enforcement selection"].toInt())
+//    {
+//    case 1:
+//    {
+//        mode.append("I");
+//    }
+//        break;
+//    case 2:
+//    {
+//        mode.append("A");
+//    }
+//        break;
+//    case 3:
+//    {
+//        mode.append("V");
+//    }
+//        break;
+//    }
 
-    switch(m_nVehicleMode)
-    {
-    case Normal:
-    {
-        mode.append("N");
-    }
-        break;
-    case Truck:
-    {
-        mode.append("T");
-    }
-        break;
-    case MotoCycle:
-    {
-        mode.append("M");
-    }
-        break;
-    }
+//    switch(m_nVehicleMode)
+//    {
+//    case Normal:
+//    {
+//        mode.append("N");
+//    }
+//        break;
+//    case Truck:
+//    {
+//        mode.append("T");
+//    }
+//        break;
+//    case MotoCycle:
+//    {
+//        mode.append("M");
+//    }
+//        break;
+//    }
 
-    if (m_UserModeOn)
-    {
-        mode.append(QString("%1").arg(QString::number(m_nZoomIndex + 1), 2));
-    }
-    else
-    {
-        mode.append(QString("%1").arg(QString::number(m_nZoomIndex + 1), 2));
-    }
+//    if (m_UserModeOn)
+//    {
+//        mode.append(QString("%1").arg(QString::number(m_nZoomIndex + 1), 2));
+//    }
+//    else
+//    {
+//        mode.append(QString("%1").arg(QString::number(m_nZoomIndex + 1), 2));
+//    }
 
-    return mode;
-}
+//    return mode;
+//}
 
 void EnforcementComponentWidget::doVModeTimer(bool bVModeTimerWorking)
 {

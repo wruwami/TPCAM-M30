@@ -170,7 +170,7 @@ private:
  * 
  */
     void setVehicleMode();
-    QString GetMode();
+//    QString GetMode();
 /**
  * @brief V모드 타이머를 구동한다.
  * 

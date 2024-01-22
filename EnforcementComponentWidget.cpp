@@ -765,11 +765,6 @@ float EnforcementComponentWidget::GetCaptureSpeedLimit()
     }
 }
 
-void EnforcementComponentWidget::initStyle()
-{
-
-}
-
 void EnforcementComponentWidget::displaySpeedDistance(float fSpeed, float fDistance, QColor color, bool nRec)
 {
     m_pDistanceLabel->setColor(color);

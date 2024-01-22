@@ -44,28 +44,87 @@ public:
     explicit FileManagerWidget(QWidget *parent = 0);
     ~FileManagerWidget();
 public:
+/**
+ * @brief 파일 매니저 홈 버튼
+ * 
+ */
     QPushButton* m_pHomePushButton;
 private:
     Ui::FileManagerWidget *ui;
+    /**
+     * @brief 모드 변수(I,V,A,M,S)
+     * 
+     */
     int m_nMode;
     // QWidget interface
-    QString m_folder_path;
+    /**
+     * @brief 현재 가지고 있는 파일 포맷 리스트
+     * 
+     */
     QList<AVFileFormat> m_avFileFormatList;
+    /**
+     * @brief 전에 가지고 있던 파일 포맷 리스트
+     * 
+     */
     QList<AVFileFormat> m_avPreviousFileFormatList;
+    /**
+     * @brief 현재 선택된 파일의 파일 포맷
+     * 
+     */
     AVFileFormat m_currentAVFileFormat;
+    /**
+     * @brief 테이블 파일 선택 인덱스
+     * 
+     */
     int m_AVFileFormatIndex = 0;
 //    QVideoWidget *m_videoWidget;
+/**
+ * @brief 비디오 위젯
+ * 
+ */
     VideoWidget* m_pVideoWidget;
+    /**
+     * @brief 비디오 플레이 클래스 변수
+     * 
+     */
     QAVPlayer* m_player;
+    /**
+     * @brief 현재 선택된 날짜,시간 변수
+     * 
+     */
     QString m_dateTime;
     StorageManager m_sdcardManager;
+    /**
+     * @brief 일반 프린터, 열전사 프린터 선택 변수
+     * 
+     */
     bool m_bA4Print = false;
+    /**
+     * @brief 이미지 변수
+     * 
+     */
     QImage m_image;
 private:
+/**
+ * @brief 현재 선택된 날짜의 파일 리스트를 초기화한다.
+ * 
+ */
     void setTableContent();
+    /**
+     * @brief 현재 파일 포맷값을 열전사 포맷으로 전환한다.
+     * 
+     */
     void convertValue();
+    /**
+     * @brief 파일 리스트를 초기화한다.
+     * 
+     */
     void initTable();
 //    void printA4();
+/**
+ * @brief 프린트 기능을 활성화 한다.
+ * 
+ */
     void SetPrintEnabled();
 
 protected:

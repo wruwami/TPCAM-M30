@@ -88,43 +88,51 @@ private:
  */
     void showIndicator(bool);
     void SetWindowWarningMode();
-/**
- * @brief 
- * 
- */
     void OpenEnforcement();
-/**
- * @brief 
- * 
- */
     void OpenFileManagement();
-/**
- * @brief 
- * 
- */
     void OpenMainMenu();
 /**
- * @brief 
+ * @brief 배터리 퍼센트 체크 함수
  * 
  */
     void CheckBatteryPercent();
 /**
- * @brief 
+ * @brief 베터리 차징 여부 체크 함수
  * 
  */
     void CheckBatteryCharge();
-/**
- * @brief 
- * 
- */
     void SelfTestFail(bool = false);
+    /**
+     * @brief 파워 오프 함수
+     * 
+     */
     void PowerOff();
+    /**
+     * @brief expired_date.txt 체크하여 로그인 만료를 체크하는 함수
+     * 
+     */
     void CheckLoginExpired();
+    /**
+     * @brief 파워 세이빙 타임을 체크하는 함수
+     * 
+     */
     void CheckPowerSavingTime();
     void SetPowerSavingMode(bool);
+    /**
+     * @brief 배터리 초기화 함수
+     * 
+     */
     void BatteryInit();
     void ChechMainMenuImage();
+    /**
+     * @brief 카메라 영상 위젯을 세팅하는 함수
+     * 
+     */
     void SetCamera();
+    /**
+     * @brief 단속화면에서 적발 시 빨간색을 그리는 함수
+     * 
+     */
     void SetRedLine();
 private slots:
     void on_cameraPushButton_clicked();
@@ -170,23 +178,49 @@ private:
     Camera* m_pCamera = nullptr;
     LTC2943 ltc = LTC2943(15);
     WidgetType m_widgetType = Other;
+    /**
+     * @brief 현재 사용하는 유저 네임 변수
+     * 
+     */
     QString m_userName;
-    bool m_bLoginFail = false;
     QWidget* m_redAlertWidget = nullptr;
+    /**
+     * @brief 100 ms 타이머
+     * 
+     */
     QTimer* m_p100msTimer;
+        /**
+     * @brief 500 ms 타이머
+     * 
+     */
     QTimer* m_p500msTimer;
     bool m_bFlick = false;
+    /**
+     * @brief 파워 세이빙 타임(분)
+     * 
+     */
     int m_nPowerSavingMinute = 0;
     screensaver *m_screensaver;
+    /**
+     * @brief 셀프 테스트 실패 여부 변수
+     * 
+     */
     bool m_bSelfTestFailed = false;
     SerialLaserManager* m_pSerialLaserManager = nullptr;
     SerialViscaManager* m_pSerialViscaManager = nullptr;
-    int m_nCrackDownCount;
     //    Language m_mLanguage = Language::English;
     bool m_bRedLine = false;
     int m_nLogCount= 0;
     QSize m_MainMenuWidgetSize;
+    /**
+     * @brief 스크린 레코딩 파일 네임 변수
+     * 
+     */
     QString m_srFileFullName;
+    /**
+     * @brief 현재 날짜 변수
+     * 
+     */
     QDate m_date;
 
     // QObject interface
@@ -196,14 +230,51 @@ protected:
     void mousePressEvent(QMouseEvent *event);
     void showEvent(QShowEvent* event);
 protected slots:
+/**
+ * @brief 리모트 1번 기능
+ * 
+ */
     void doFirstAction();
+    /**
+ * @brief 리모트 2번 기능
+ * 
+ */
     void doSecondAction();
+    /**
+ * @brief 리모트 3번 기능
+ * 
+ */
     void doThirdAction();
+    /**
+ * @brief 리모트 4번 기능
+ * 
+ */
     void doForthAction();
+    /**
+ * @brief 리모트 5번 기능
+ * 
+ */
     void do5thAction();
+    /**
+ * @brief 리모트 #번 기능
+ * 
+ */
     void doSharpAction();
+    /**
+ * @brief 리모트 *번 기능
+ * 
+ */
     void doStarAction();
+
+    /**
+ * @brief 리모트 0 기능
+ * 
+ */
     void doZeroAction();
+    /**
+ * @brief 리모트 9번 기능
+ * 
+ */
     void do9thAction();
     void OnTimer100msFunc();
     void OnTimer500msFunc();

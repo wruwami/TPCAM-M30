@@ -80,8 +80,17 @@ public:
     explicit EnforcementComponentWidget(QWidget *parent = 0);
     virtual ~EnforcementComponentWidget();
     friend class RemoteController;
+    /**
+     * @brief 디지털 플러스
+     * 
+     */
     void dzPlus();
+    /**
+     * @brief 디지털 마이너스
+     * 
+     */
     void dzMinus();
+
     void SaveImageVideo();
 //    void SaveImageVideo(EnforcementSaveType);
     void SaveImage();
@@ -104,32 +113,100 @@ private:
     void doATMode();
 //    void doManualMode();
     void doReadyMode();
+    /**
+     * @brief 캡쳐 스피드 제한값을 리턴하는 함수
+     * 
+     * @return float 
+     */
     float GetCaptureSpeedLimit();
-    void initStyle();
 
+    /**
+     * @brief 화면상에 스피드, 거리를 출력한다.
+     * @param speed, distance, color, rec출력여부
+     * 
+     */
     void displaySpeedDistance(float, float, QColor = Qt::white, bool = false);
 
+    /**
+     * @brief 화면상에 거리를 출력한다.
+     * 
+     */
     void displayDistance(float);
+    /**
+     * @brief 화면상에 빨간색 테두리를 출력한다.
+     * 
+     */
     void displayRedOutline(bool);
+    /**
+     * @brief 썸네일 위의 스피드, 거리를 출력한다.
+     * 
+     */
     void displayThumbnailSpeedDistance(float, float);
+    /**
+     * @brief 썸네일을 출력한다.
+     * 
+     */
     void displayThumbnail();
 
+/**
+ * @brief hud에 스피드 거리를 출력한다.
+ * 
+ */
     void displayHudSpeedDistance(bool, bool, bool, bool);
+    /**
+     * @brief hud에 거리를 출력한다.
+     * 
+     */
     void displayHudDistance(bool, bool);
+    /**
+     * @brief 레이저 탐지 영역 설정한다.
+     * 
+     */
     void SetLaserDetectionAreaDistance(int);
     void zoomRangeWithoutIncrement();
     void initRec();
+    /**
+     * @brief Vehicle 모드에 따라 버튼 텍스트 및 테두리를 변경한다.
+     * 
+     */
     void setVehicleMode();
-    QString GetMode();
+    /**
+     * @brief V모드 타이머를 구동한다.
+     * 
+     */
     void doVModeTimer(bool);
+    /**
+     * @brief 단속모드 실행한다.
+     * 
+     */
     void doEnforceMode(bool);
+    /**
+     * @brief 메뉴얼 모드의 초기 동작을 수행한다.
+     * 
+     */
     void doPreManualMode();
+    /**
+     * @brief 거리 라벨을 클리어한다.
+     * 
+     */
     void clearDistance();
+    /**
+     * @brief 스피드 라벨을 클리어한다.
+     * 
+     */
     void clearSpeed();
 
     void SaveDZoomJson();
+    /**
+     * @brief V모드 동작시킨다.
+     * 
+     */
     void doVMode();
 
+/**
+ * @brief 스피드 제한을 표시한다.
+ * 
+ */
     void DisplaySpeedLimit(void);
 //    void PushFile(QString);
 
@@ -150,7 +227,6 @@ private:
     ConfigManager m_config2 = ConfigManager("parameter_setting2.json");
     QJsonObject m_object;
     QJsonObject m_object2;
-    QJsonObject m_object3;
     bool m_UserModeOn;
     std::vector<QString> m_stmetervector;// = {"60", "80", "100", "120", "140", "160", "180", "200", "220", "240", "260"};
     std::vector<QString> m_ltmetervector;// = {"10~36", "30~60", "60~100", "100~160", "160~260", "260+"};
@@ -159,11 +235,26 @@ private:
 
     int m_nZoomIndex = 0;
     Camera* m_pCamera = nullptr;
+    /**
+     * @brief 모드를 저장하는 변수
+     * 
+     */
     Mode m_nMode = Ready;
-    int VehicleCount = 0;
+    /**
+     * @brief 캡쳐 스피드 행렬
+     * 
+     */
     QJsonArray m_captureSpeed;
+    /**
+     * @brief 스피드 행렬
+     * 
+     */
     QJsonArray m_SpeedLimit;
 
+/**
+ * @brief 비히클 모드
+ * 
+ */
     VehicleMode m_nVehicleMode = Normal;
     bool m_bTruckChecked = false;
     bool m_bBikeChecked = false;

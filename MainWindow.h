@@ -102,37 +102,37 @@ private:
  */
     void CheckBatteryCharge();
     void SelfTestFail(bool = false);
-    /**
-     * @brief 파워 오프 함수
-     * 
-     */
+/**
+ * @brief 파워 오프 함수
+ * 
+ */
     void PowerOff();
-    /**
-     * @brief expired_date.txt 체크하여 로그인 만료를 체크하는 함수
-     * 
-     */
+/**
+ * @brief expired_date.txt 체크하여 로그인 만료를 체크하는 함수
+ * 
+ */
     void CheckLoginExpired();
-    /**
-     * @brief 파워 세이빙 타임을 체크하는 함수
-     * 
-     */
+/**
+ * @brief 파워 세이빙 타임을 체크하는 함수
+ * 
+ */
     void CheckPowerSavingTime();
     void SetPowerSavingMode(bool);
-    /**
-     * @brief 배터리 초기화 함수
-     * 
-     */
+/**
+ * @brief 배터리 초기화 함수
+ * 
+ */
     void BatteryInit();
     void ChechMainMenuImage();
-    /**
-     * @brief 카메라 영상 위젯을 세팅하는 함수
-     * 
-     */
+/**
+ * @brief 카메라 영상 위젯을 세팅하는 함수
+ * 
+ */
     void SetCamera();
-    /**
-     * @brief 단속화면에서 적발 시 빨간색을 그리는 함수
-     * 
-     */
+/**
+ * @brief 단속화면에서 적발 시 빨간색을 그리는 함수
+ * 
+ */
     void SetRedLine();
 private slots:
     void on_cameraPushButton_clicked();
@@ -178,33 +178,33 @@ private:
     Camera* m_pCamera = nullptr;
     LTC2943 ltc = LTC2943(15);
     WidgetType m_widgetType = Other;
-    /**
-     * @brief 현재 사용하는 유저 네임 변수
-     * 
-     */
+   /**
+    * @brief 현재 사용하는 유저 네임 변수
+    * 
+    */
     QString m_userName;
     QWidget* m_redAlertWidget = nullptr;
-    /**
-     * @brief 100 ms 타이머
-     * 
-     */
+   /**
+    * @brief 100 ms 타이머
+    * 
+    */
     QTimer* m_p100msTimer;
-        /**
-     * @brief 500 ms 타이머
-     * 
-     */
+/**
+ * @brief 500 ms 타이머
+ * 
+ */
     QTimer* m_p500msTimer;
     bool m_bFlick = false;
-    /**
-     * @brief 파워 세이빙 타임(분)
-     * 
-     */
+/**
+ * @brief 파워 세이빙 타임(분)
+ * 
+ */
     int m_nPowerSavingMinute = 0;
     screensaver *m_screensaver;
-    /**
-     * @brief 셀프 테스트 실패 여부 변수
-     * 
-     */
+/**
+ * @brief 셀프 테스트 실패 여부 변수
+ * 
+ */
     bool m_bSelfTestFailed = false;
     SerialLaserManager* m_pSerialLaserManager = nullptr;
     SerialViscaManager* m_pSerialViscaManager = nullptr;
@@ -212,15 +212,15 @@ private:
     bool m_bRedLine = false;
     int m_nLogCount= 0;
     QSize m_MainMenuWidgetSize;
-    /**
-     * @brief 스크린 레코딩 파일 네임 변수
-     * 
-     */
+/**
+ * @brief 스크린 레코딩 파일 네임 변수
+ * 
+ */
     QString m_srFileFullName;
-    /**
-     * @brief 현재 날짜 변수
-     * 
-     */
+/**
+ * @brief 현재 날짜 변수
+ * 
+ */
     QDate m_date;
 
     // QObject interface

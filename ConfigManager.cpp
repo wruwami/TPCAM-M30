@@ -16,7 +16,12 @@ ConfigManager::ConfigManager(QString file_name)
     m_file_full_path = GeteMMCPath() + "/" + DEFAULT_PATH + "/" + file_name;
 
     QFile file(m_file_full_path);
-    file.open(QFile::ReadWrite);
+    if (!file.open(QFile::ReadWrite))
+    {
+        qDebug() << "no file has been opened";
+        file.close();
+        return;
+    }
 
     if (!file.isOpen())
     {
